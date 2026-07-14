@@ -1,78 +1,52 @@
 # Stock app
 
-The stock app renders **two** kinds of dark, iOS-Stocks-style FULL-SCREEN card.
-Pick the one that matches the request:
+**One** dark, iOS-Stocks-style splash app that holds BOTH a top-gainers **list**
+and a per-ticker **detail** view, with **client-side navigation** between them (no
+LLM round-trip). Use it for any stock/market request ("top 10 stocks", "movers",
+"best performers", "AAPL", "Tesla stock", "英伟达股价").
 
-1. **MOVERS LIST** — a top-10 "day gainers" list. (NOTE: the client renders this
-   from a fixed TEMPLATE directly for movers/top/gainers intents — you normally
-   won't be asked to generate it; `exemplars/stock-movers.splash` is the source of
-   truth.) Its rows are tappable and open the detail below.
-2. **DETAIL QUOTE** — the single-ticker quote page. Use when the request names ONE
-   specific ticker or company (e.g. "AAPL", "Tesla stock", "英伟达股价"), OR when a
-   movers-list row is tapped (the app hands you the tapped ticker). Reproduce
-   `exemplars/stock-canonical.splash`.
+The client renders this app directly from a fixed TEMPLATE
+(`exemplars/stock-movers.splash`) — you are **not** asked to generate it. The
+template is the source of truth; this doc explains how it works.
 
-## LIVE DATA — MANDATORY (never hardcode a number)
+## One card, two views, client-side navigation
 
-- MOVERS LIST: every field is `sys.movers(i, "field")` — `i` = 0..9, 0 = the biggest
-  % gainer today. Fields: `symbol`, `name`, `price`, `change` (signed), `changepct`
-  (signed %), `high`, `low`, `marketcap`, `vol`, `52wh`, `52wl`, `currency`,
-  `exchange`. ONE fetch serves all rows.
-- DETAIL QUOTE: every number is `sys.stock("<TICKER>", "key")` and the chart is
-  `sys.stockbar("<TICKER>", i, count, maxh)`. Keys: `symbol`, `name`, `exchange`,
-  `currency`, `price`, `prev`, `high`, `low`, `52wh`, `52wl`, `vol`, `change`,
-  `changepct`. **Do NOT use `open`** (Yahoo often omits it → `$—`).
+The card is a **full-script** Splash body driven by one state key, `selected`:
 
-Values show `—` briefly, then auto-refresh. You only choose labels and colors.
+```
+let sel = "{{state.selected}}"
+if sel == "0" || sel == "" { <LIST view> } else { <DETAIL view for `sel`> }
+```
 
-## MOVERS LIST structure (top to bottom) — `exemplars/stock-movers.splash`
+- `{{state.selected}}` is the app-side card state (default `"0"` when unset →
+  the LIST shows first).
+- **Tap a list row** → `agent.notify("set", {key: "selected", value:
+  sys.movers(i, "symbol")})`. The app writes the state and re-renders → the `if`
+  flips to the DETAIL branch for that ticker. **No LLM call.**
+- **Detail back button** (`"‹ Movers"`) → `agent.notify("set", {key: "selected",
+  value: ""})` → re-render → back to the LIST.
 
-Root = a `flow: Overlay` SolidView `height: 858` + `GradientYView` fill, then a
-`flow: Down` column, padding `Inset{left: 22 top: 54 right: 22 bottom: 96}`:
+Because the detail branch uses the VM variable `sel` as the ticker, every detail
+field is `sys.stock(sel, "…")` / `sys.stockbar(sel, i, 68, 114)` — the SAME view
+serves every stock. The `else` branch is only evaluated once a row is tapped, so a
+stock's data isn't fetched until you open it.
 
-1. **Masthead** — a small `"TODAY · TOP GAINERS"` kicker (font 11, accent #30d158)
-   over `"Movers"` (font 30). A thin divider under it.
-2. **10 TAPPABLE rows**, one per `i = 0..9`, each a **fixed-height** (60)
-   `flow: Overlay` holding TWO children:
-   - the **visual** row (`flow: Right align: Align{y: 0.5}`): a rank `Label{width:26}`
-     (dim), a `flow: Down width: Fill` column with `sys.movers(i,"symbol")` (font 18)
-     over `sys.movers(i,"name")` (font 12, dim), then a right `flow: Down` column with
-     `"$"+sys.movers(i,"price")` (font 17) over a small green pill (RoundedView,
-     `#30d15826`) showing `sys.movers(i,"changepct")`.
-   - a **transparent tap target** LAST (so it sits on top): `Button{ width: Fill
-     height: Fill draw_bg.color: #00000000 text: "" on_click: || agent.notify("open",
-     {ticker: sys.movers(i, "symbol")}) }`. This is what makes the whole row tappable
-     and opens that ticker's detail card — **do NOT omit it, and keep the `ticker`
-     payload keyed to the SAME `i`**. A hairline `SolidView` divider sits between rows.
+## LIVE DATA — MANDATORY (all fetched by splash code)
 
-Gainers are all positive → the pill is green. Fixed row height (not `Fit`) is
-required so the `Fill` tap-Button resolves inside the `Overlay`.
+- LIST rows: `sys.movers(i, "field")` — Yahoo day_gainers, ONE fetch for all 10
+  rows. Fields: `symbol`, `name`, `price`, `change`, `changepct`, `high`, `low`,
+  `marketcap`, `vol`, `52wh`, `52wl`, `currency`, `exchange`.
+- DETAIL: `sys.stock(sel, "key")` (`symbol`, `name`, `exchange`, `currency`,
+  `price`, `prev`, `high`, `low`, `52wh`, `52wl`, `vol`, `change`, `changepct`)
+  and the chart `sys.stockbar(sel, i, 68, 114)`. **Do NOT use `open`** (Yahoo
+  omits it → `$—`). Nothing is hardcoded; the LLM never writes a number.
 
-## DETAIL QUOTE structure (top to bottom) — `exemplars/stock-canonical.splash`
+## Notes
 
-Root = `flow: Overlay` SolidView `height: 858` + `GradientYView`, then `flow: Down`,
-padding `Inset{left: 22 top: 42 right: 22 bottom: 118}`:
-
-0. **Back button** (FIRST, required) — a text-only `Button{ width: Fit height: Fit
-   text: "‹  Movers" draw_bg.color: #00000000 draw_bg.border_size: 0.0
-   draw_text.color: #30d158 draw_text.text_style.font_size: 15 on_click: ||
-   agent.notify("back", {}) }`. Tapping it returns to the movers list. Always
-   include it.
-1. **Header** — `symbol` (font 32); below it `name + "  ·  " + exchange + "  ·  " +
-   currency` (font 13, dim).
-2. **Hero price** — `"$" + price` (font 42); **change row** `change + "  (" +
-   changepct + ")"` (accent green up / red down) + a dim `"Today"`.
-3. **INTRADAY CHART** — `View{ height: 116 flow: Right }`: a LEFT y-axis
-   (`width: 58` `flow: Down`: `"$"+high` top, `"$"+low` bottom) + a plot
-   (`flow: Overlay`) with three faint full-width gridlines BEHIND and, in FRONT, the
-   area = `flow: Right align: Align{y: 1.0}` of ~68 `SolidView{ height:
-   sys.stockbar("<TICKER>", i, 68, 108) draw_bg.color: #34c759d9 }` (translucent so
-   gridlines show through). A time axis `09:30 … 12:45 … 16:00` and a range-selector
-   row of pill chips `1D 1W 1M 6M 1Y` (first active, spread with `Filler`s).
-4. **STAT GRID** — one frosted inset RoundedView (`#ffffff0a`, radius 22) with THREE
-   `height: Fill` rows of two `flow: Down` cells (caption font 11 dim over value font
-   20) split by hairline dividers: PREV CLOSE, VOLUME, DAY HIGH, DAY LOW, 52W HIGH,
-   52W LOW. All money values already come 2-decimal from `sys.stock`.
-
-Muted gradient (`#0a0e14 → #0e1826`). Widgets: GradientYView, SolidView, RoundedView,
-View, Label, Filler, Button.
+- Full-script mode requires the body (after the stripped `// name:` line) to start
+  with `let` — keep NO other leading comments.
+- The default `{{state.selected}}` is `"0"`, so the LIST condition tests
+  `sel == "0" || sel == ""`.
+- Tappable rows: a transparent `Button` overlaid on each fixed-height row; the
+  detail chart is a gridlined translucent-green area with a left Y-axis, a range
+  selector, and a frosted stat grid (see the exemplar).
