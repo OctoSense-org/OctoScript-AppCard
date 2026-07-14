@@ -18,9 +18,10 @@ octos-one/
   app/          The Android client (Makepad + Rust). The AMA, the multi-agent
                 routing (decision → activation), the Splash card renderer.
   a2app/        The "app-card memory": the framework rules, widget docs, and one
-                spec + exemplar per app (weather / stock / news). Assembled into
-                the MEMORY.md that octos injects into each app agent's context.
-  scripts/      build_memory.py — assemble a2app/ → MEMORY.md (reproducible).
+                spec + exemplar per app (weather / stock / news). octos assembles
+                this tree itself at inject time (deployed as `app-cards/` under the
+                profile memory dir) — no build step, no generated artifact.
+  tools/        llm-qr/ — Rust dev tool: encode an LLM config as a QR to scan.
   docs/
     ARCHITECTURE.md        How it all fits together (read this first).
     ADDING-AN-APP-CARD.md  Add a new app type end-to-end (e.g. crypto, sports).

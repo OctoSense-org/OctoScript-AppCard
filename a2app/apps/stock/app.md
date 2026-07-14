@@ -5,9 +5,10 @@ and a per-ticker **detail** view, with **client-side navigation** between them (
 LLM round-trip). Use it for any stock/market request ("top 10 stocks", "movers",
 "best performers", "AAPL", "Tesla stock", "英伟达股价").
 
-The client renders this app directly from a fixed TEMPLATE
-(`exemplars/stock-movers.splash`) — you are **not** asked to generate it. The
-template is the source of truth; this doc explains how it works.
+**YOU generate this card** — nothing is baked into the client. Emit the ONE
+combined list+detail card, following `exemplars/stock-movers.splash` closely
+(reproduce its structure exactly; only bind the live data via the `sys.*` helpers
+below). That exemplar is your source of truth; this doc explains how it works.
 
 ## One card, two views, client-side navigation
 

@@ -20,9 +20,9 @@ written into the on-device octos profile config and read by the embedded kernel.
 
 1. **Encode** the config into a QR on a trusted machine:
    ```bash
-   python3 scripts/llm_qr.py --family zai --model glm-5.2 --key sk-XXXX
-   # prints the JSON payload + an ASCII QR (pip install 'qrcode[pil]' for PNG/ASCII);
-   # --out llm.png writes an image. Optional --base-url/--profile/--token add server auth.
+   cargo run --manifest-path tools/llm-qr/Cargo.toml -- --family zai --model glm-5.2 --key sk-XXXX
+   # prints the JSON payload + a Unicode QR you scan straight off the terminal.
+   # Optional --base-url/--profile/--token add server auth.
    ```
    The QR payload is a single self-contained JSON object (no URL) — **all the
    info is in the QR**:

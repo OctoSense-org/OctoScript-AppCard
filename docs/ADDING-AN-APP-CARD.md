@@ -98,15 +98,16 @@ Four edits so the AMA knows the domain and an agent exists for it:
 
 ---
 
-## Step 4 — rebuild memory + deploy
+## Step 4 — deploy
 
-1. `python3 scripts/build_memory.py --check` — confirm the token estimate is under
-   `_main.json`'s `max_inject_tokens` (raise the cap if not — see the ⚠️ in
-   ARCHITECTURE §3). Add your app's two lines to `FILES` in `build_memory.py`.
-2. `python3 scripts/build_memory.py` — writes `MEMORY.md`.
-3. Deploy `MEMORY.md` + the `a2app/` tree to the device and rebuild the APK — see
-   [BUILDING-ANDROID.md](BUILDING-ANDROID.md#deploy-the-app-card-memory).
-4. Test: send a crypto intent; confirm the log shows
+1. **No build step.** octos discovers `apps/<id>/app.md` + exemplars automatically
+   when it assembles the `app-cards/` tree at inject time — just create the files
+   under `a2app/` (there is no `FILES` list to edit). Confirm the tree's total size
+   stays under `_main.json`'s `max_inject_tokens` (`wc -c a2app -r` / 4; raise the
+   cap if not — see the ⚠️ in ARCHITECTURE §3), or octos truncates the tail app.
+2. Deploy the `a2app/` tree to the device (as `app-cards/`) and rebuild the APK —
+   see [BUILDING-ANDROID.md](BUILDING-ANDROID.md#deploy-the-app-card-memory).
+3. Test: send a crypto intent; confirm the log shows
    `AMA → activate 'crypto' app agent`, the card renders, and
    `grep -c 'sys.crypto' <saved card>` shows the values are DSL-bound (not
    hardcoded), matching the live API.
@@ -120,5 +121,5 @@ Four edits so the AMA knows the domain and an agent exists for it:
 - [ ] Keys documented in `a2app/widgets/sys-helpers.md`
 - [ ] `apps/<domain>/app.md` + `exemplars/<domain>-canonical.splash`
 - [ ] `clear_chat` agent, `AMA_SYSTEM_PROMPT`, `APP_SPLASH_ROUTER`, `framework.md`
-- [ ] `build_memory.py` FILES updated; `--check` fits the token cap
+- [ ] `a2app/` tree size fits `max_inject_tokens` (octos auto-discovers the new app — no FILES list)
 - [ ] Rebuilt, deployed, verified live on device (values match the API)

@@ -109,22 +109,26 @@ rules, the widget vocabulary, and each app's spec + a known-good exemplar — is
     apps/<domain>/app.md             the app spec (mandatory sections)
     apps/<domain>/exemplars/<domain>-canonical.splash   a full known-good card
   ```
-- **`scripts/build_memory.py`** concatenates these (in a fixed order, with
-  `===== <relpath> =====` delimiters) into a single **`MEMORY.md`**.
-- On the device, `MEMORY.md` is placed at
-  `…/octos-home/.octos/profiles/_main/data/memory/MEMORY.md`. The octos kernel's
-  memory provider reads it and prepends it to the model prompt on every turn, up
-  to `config.memory.max_inject_tokens` (in `_main.json`).
+- **octos assembles the tree itself.** The kernel's memory store looks for an
+  `app-cards/` directory under the profile memory dir and, when present,
+  concatenates the tree (in a fixed order — framework → widget helpers → each
+  app's `app.md` + exemplars — with `===== <relpath> =====` delimiters) into the
+  injected long-term memory *at inject time*. There is no build step and no
+  generated `MEMORY.md` artifact; the `a2app/` tree is the on-disk source of
+  truth. See `octos/crates/octos-memory/src/memory_store.rs` → `assemble_app_cards`.
+- On the device, the tree is deployed to
+  `…/octos-home/.octos/profiles/_main/data/memory/app-cards/`. The memory provider
+  assembles + prepends it to the model prompt, up to
+  `config.memory.max_inject_tokens` (in `_main.json`).
 
 **Why injection and not file-reading?** An earlier design had the agent `read_file`
 the specs (via `OCTOS_SKILLS_PATH`), and a sub-agent relay that copied the result
 — the copy truncated long cards. Direct injection + direct generation (the app
 agent emits the card itself) removed both failure modes.
 
-> ⚠️ **Token budget.** `MEMORY.md` grows with each app. If it exceeds
+> ⚠️ **Token budget.** The assembled tree grows with each app. If it exceeds
 > `max_inject_tokens`, octos truncates the *tail* — silently dropping the last
-> app. `build_memory.py --check` prints the size; keep the cap above it (we run
-> 16000).
+> app. Keep the cap above the tree's token estimate (we run 16000).
 
 ---
 
@@ -207,9 +211,9 @@ into the APK as `liboctos.so` and run **in-process over stdio**:
   `UiNotification`s) via `crates/octos-app-transport` (stdio transport).
 - Each app agent / the AMA is a `session/open` on this one kernel; concurrency is
   the kernel's (per-session turn actors).
-- `MEMORY.md`, the per-profile config (`_main.json`, incl. the LLM provider +
-  key), and the skill read-zone all live under `octos-home/` in the app's data
-  dir.
+- The `app-cards/` memory tree, the per-profile config (`_main.json`, incl. the
+  LLM provider + key), and the skill read-zone all live under `octos-home/` in the
+  app's data dir.
 
 Desktop builds instead talk to a normal `octos serve` over WebSocket (same
 protocol); Android is stdio.
@@ -227,7 +231,7 @@ protocol); Android is stdio.
 | Transport (stdio/ws, ui-protocol) | `app/crates/octos-app-transport`, `app/src/backend/octos_ui.rs` |
 | Splash renderer + `sys.*` helpers | **framework fork** `widgets/src/splash.rs` |
 | Async data-fetch engine | **framework fork** `platform/src/script/res.rs` (`script_data_fetch`, `DataFetch`, `DATA_FETCH_EPOCH`), `std.rs` (response routing) |
-| App-card definitions (memory) | `a2app/` (+ `scripts/build_memory.py`) |
+| App-card definitions (memory) | `a2app/` → deployed as `app-cards/`; octos assembles it in `octos-memory/src/memory_store.rs` (`assemble_app_cards`) |
 | Agent runtime | `liboctos.so` from [`octos-org/octos`](https://github.com/octos-org/octos) |
 
 Next: **[ADDING-AN-APP-CARD.md](ADDING-AN-APP-CARD.md)** to add a new app type, or
