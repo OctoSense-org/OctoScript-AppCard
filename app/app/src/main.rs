@@ -38,7 +38,12 @@ const OCTOS_PLACEHOLDER_SYSTEM_PROMPT: &str = "";
 /// `app_generation_session_system_prompt`, but delivered per-message because
 /// octos serves system prompts server-side and the protocol carries no
 /// client system-prompt field.
-const SPLASH_MANUAL: &str = include_str!("../../splash.md");
+// The Splash DSL manual lives in the framework fork, which the documented
+// clone layout mandates at `octos-one/aichat` beside `app/` (see
+// docs/BUILDING-ANDROID.md § 1). Reference it there directly — a fresh
+// clone has no `app/splash.md` copy, so the old relative path failed the
+// very first build.
+const SPLASH_MANUAL: &str = include_str!("../../../aichat/splash.md");
 
 /// The movers / top-gainers card is a fixed data-list TEMPLATE (10 rows × a
 /// 14-bar sparkline). It is rendered DIRECTLY rather than LLM-generated — an LLM
