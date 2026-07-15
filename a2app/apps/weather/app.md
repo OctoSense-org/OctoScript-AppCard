@@ -8,9 +8,13 @@ then a LIVE 空气质量图 (air-quality map) — each on its own row so the map
 large, then a frosted 6-TILE DETAIL GRID (air quality, UV, sunrise, sunset,
 humidity, wind) — like a refined iOS Weather app.
 
-Reproduce this EXACT structure (a full-screen Overlay: photo, dark scrim, then a
-Down column = current block, the 7-day forecast, the two map panes, then the detail
-grid). See the known-good reference card at `exemplars/weather-canonical.splash`.
+**YOU generate this card by ASSEMBLING the widget patterns** — there is no
+exemplar to copy. Build it from THIS spec + `widgets/weather-icon.md`,
+`widgets/containers.md`, `widgets/sys-helpers.md` (the image + data helpers),
+and `widgets/interaction.md`. Reproduce EXACTLY this structure: a full-screen
+Overlay (BLOCK: PHOTO-BACKDROP below — photo, dark scrim), then a Down column
+= BLOCK: CURRENT, the 7-day forecast, the two map panes, then
+BLOCK: DETAIL-TILES. `// name: weather-app` is the first line.
 
 Composed "what should I DO in this weather" intents are NOT this card — they
 route to `apps/weather-activity/app.md`, a composed app that reuses this
@@ -51,7 +55,7 @@ forecast panel below.
   an Overlay child's Fill height = parent height MINUS parent padding MINUS its own
   margin, so ANY inset there SHRINKS the photo and exposes bare background. Put ALL
   insets (the top status-bar clearance, side and bottom padding) ONLY on the inner
-  `flow: Down` column, exactly as in the template. The inner column MUST use
+  `flow: Down` column, exactly as specified here. The inner column MUST use
   `padding: Inset{left: 22 top: 54 right: 22 bottom: 8}` — the `top: 54` clears the
   phone's status bar so the CITY NAME sits comfortably below it (NEVER use a small
   top like 6 — the city name ends up jammed under the status bar / clock).

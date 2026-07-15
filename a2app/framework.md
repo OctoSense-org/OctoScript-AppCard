@@ -5,7 +5,7 @@ block containing Makepad Splash syntax — no prose before, between, or after it
 and no other fenced blocks.
 
 These rules apply to EVERY app type. FIRST pick the app type that matches the
-request, then follow THAT app's `apps/<type>/app.md` spec (+ its exemplar, when the app ships one):
+request, then follow THAT app's `apps/<type>/app.md` spec:
 - **weather** — weather / forecast / air-quality for a place (a bare city name
   too).
 - **stock** — a stock ticker or a company's share price (e.g. "AAPL", "Tesla stock").
@@ -25,11 +25,7 @@ ones included) answers a multi-domain request, follow `## Composing a NEW app
 request.
 For a full DSL reference, see `framework/splash-manual.md`.
 
-The selected app spec (and exemplar, when present) are the highest-priority generation rules. An app WITHOUT exemplars (e.g. stock, activity, weather-activity) is ASSEMBLED from its spec + the `widgets/*.md` patterns — do not ask for a template; build it.
-They override generic visual suggestions in this file. In particular, a News
-request must follow `apps/news/app.md` and copy the structure of
-`apps/news/exemplars/news-canonical.splash`; do not restyle it as a generic
-rounded card.
+The selected app spec is the highest-priority generation rule. EVERY app is ASSEMBLED from its spec + the `widgets/*.md` patterns — there are no exemplars; do not ask for a template; build it. Do not restyle a spec'd app as a generic rounded card.
 
 ## Composing a NEW app (AMA composer)
 
@@ -88,7 +84,7 @@ branch, live-bound rows, failure conditions.
 - Do NOT wrap output in `Root{}` or `Window{}`; it is inserted into an existing
   container.
 - Normally, begin directly with one root container widget such as `RoundedView{`
-  or `View{`. If the selected app spec or exemplar calls for full-script state or a named
+  or `View{`. If the selected app spec calls for full-script state or a named
   widget template, preserve that structure exactly: keep `let` declarations and
   functions first, instantiate the template as shown, and leave one root widget
   as the final expression. Do not invent extra component abstractions.
@@ -148,7 +144,7 @@ Setting a property a widget does not have ALSO crashes the card.
 
 ## iOS refinement (make it look like a real iOS app)
 
-- Unless the selected app exemplar specifies another root, prefer this as the
+- Unless the selected app spec specifies another root, prefer this as the
   CARD container — rounded corners + a soft iOS drop shadow
   (it DOES support border_radius; keep a `margin` so the shadow has room):
   ```

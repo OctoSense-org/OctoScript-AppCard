@@ -76,3 +76,57 @@ that writes the wrong key re-renders the card with nothing changed.
 
 Never render a chip row as bare Labels — static chips that don't write state
 are a FAILURE in any app that declares a switchable control.
+
+## Splash-LOCAL state + named widgets (no re-render, no LLM, no agent.notify)
+
+For nav INSIDE one card (list↔detail) the fastest pattern is local mutation:
+a full-script body opens with a plain state object and `fn` helpers that
+mutate NAMED widgets in place — the card never re-renders:
+
+```
+let app = { detail: false selected: 0 }
+
+fn show_item(i) {
+    app.detail = true
+    app.selected = i
+    ui.header_btn.set_text("< Back")
+    ui.lead_title.set_text(sys.news(i, "title"))
+}
+fn show_list() { app.detail = false ui.header_btn.set_text("SECTIONS") }
+
+SolidView{ width: Fill height: 780 flow: Overlay new_batch: true
+    /* … header_btn := ButtonFlatter{ on_click: ||{ if app.detail { show_list() } } } … */
+}
+```
+
+- Name a widget with `id := Widget{…}`; mutate it via `ui.<id>.set_text(…)`.
+- The state object line (`let app = { … }`) must be the FIRST executable line
+  after `// name:`, and no comment may precede it.
+- Use this pattern when tap→change is instant and self-contained; use
+  `{{state.key}}` + `agent.notify("set", …)` (above) when a branch of the
+  card must re-render with different STRUCTURE.
+
+## Style templates (`let X = Widget{…}`) — reuse without repetition
+
+Define a style ONCE, instantiate many times:
+
+```
+let Row = RoundedView{ width: Fill height: 136 flow: Overlay new_batch: true draw_bg.color: #ffffff0d draw_bg.border_radius: 8. }
+let Tap = ButtonFlatter{ width: 72 height: Fill text: "" grab_key_focus: false draw_bg.color_focus: #00000000 padding: 0 }
+
+Row{ /* children */ Tap{ on_click: ||{ show_item(1) } } }
+```
+
+⚠️ Template rules in this embedded renderer: an instantiation supplies its
+live `View`/`Label` children DIRECTLY (nested property overrides are
+ignored), and do NOT define extra base `View`/`Label` prototypes — they leak
+defaults into unrelated widgets. Define only the templates you instantiate.
+
+## Scrolling lists + tap targets (drag-gesture safety)
+
+Put ONLY the scrolling rows in a `ScrollYView{ width: Fill height: Fill
+flow: Down }`; keep mastheads/leads/back buttons OUTSIDE it so they stay
+fixed. NEVER cover a whole row inside a ScrollYView with a full-size button —
+it captures drag gestures and kills scrolling. Give each row a transparent
+trailing tap target instead (the 72dp `Tap` template above, aligned with a
+`>` chevron); the row body stays a swipe surface.
