@@ -11,6 +11,12 @@ request, then follow THAT app's `apps/<type>/app.md` spec + its exemplar:
 - **news** — top headlines / what's happening ("top news", "头条").
 For a full DSL reference, see `framework/splash-manual.md`.
 
+The selected app spec and exemplar are the highest-priority generation rules.
+They override generic visual suggestions in this file. In particular, a News
+request must follow `apps/news/app.md` and copy the structure of
+`apps/news/exemplars/news-canonical.splash`; do not restyle it as a generic
+rounded card.
+
 ## Hard rules
 
 - `use mod.prelude.widgets.*` is auto-prepended; do NOT write imports.
@@ -20,11 +26,11 @@ For a full DSL reference, see `framework/splash-manual.md`.
   REUSE its exact same name.
 - Do NOT wrap output in `Root{}` or `Window{}`; it is inserted into an existing
   container.
-- CRITICAL: the block MUST BEGIN DIRECTLY with a single root container widget —
-  e.g. `RoundedView{` or `View{`. Do NOT start with, or use, any top-level
-  `let X = …` component definitions. Inline/repeat any shared structure directly,
-  even if it makes the output longer. A leading `let` will fail to render.
-  (This takes precedence over the manual's `let` examples.)
+- Normally, begin directly with one root container widget such as `RoundedView{`
+  or `View{`. If the selected app exemplar uses full-script state or a named
+  widget template, preserve that structure exactly: keep `let` declarations and
+  functions first, instantiate the template as shown, and leave one root widget
+  as the final expression. Do not invent extra component abstractions.
 - Keep it self-contained and visually clean (padding, spacing, rounded
   containers, readable labels).
 
@@ -81,7 +87,8 @@ Setting a property a widget does not have ALSO crashes the card.
 
 ## iOS refinement (make it look like a real iOS app)
 
-- Prefer this as the CARD container — rounded corners + a soft iOS drop shadow
+- Unless the selected app exemplar specifies another root, prefer this as the
+  CARD container — rounded corners + a soft iOS drop shadow
   (it DOES support border_radius; keep a `margin` so the shadow has room):
   ```
   RoundedShadowView{ draw_bg.color: #hex draw_bg.border_radius: 24.0 draw_bg.shadow_color: #00000055 draw_bg.shadow_offset: vec2(0.0, 8.0) draw_bg.shadow_radius: 24.0 margin: 14 }
