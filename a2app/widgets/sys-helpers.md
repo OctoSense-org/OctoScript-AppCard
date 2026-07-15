@@ -184,9 +184,42 @@ rate-limits offenders (whole card shows "—" rows). A card may bind AT MOST
 TWO distinct categories; draw multiple rows from the SAME category by index
 (`i` = 0,1,2…) instead of adding categories.
 
-## sys.stockbar("<TICKER>", index, count, maxh, "<RANGE>") — chart bar height
+## StockPlot{ symbol range } — the price chart widget (PREFERRED)
 
-Returns a **number** (a dp height, ~8–158) for one bar of the price path over
+A real line/area price chart WIDGET — for any stock chart, use this instead of
+composing `sys.stockbar` bars. It fetches the SAME live close series as
+`sys.stockbar`/`sys.stockrange` (one shared fetch per symbol×range), so pairing
+it with `sys.stockrange` scalars on the same card costs nothing extra.
+
+```
+StockPlot{ width: Fill height: 160 symbol: "AAPL" range: rng }
+```
+
+- `symbol`: the UPPERCASE ticker. `range`: the same tokens as `sys.stockbar`
+  (`"1d"` — also the meaning of `""`/unset — `"1w"`, `"1m"`, `"6m"`, `"1y"`);
+  pass the range state variable so the chips switch the chart client-side.
+- The widget draws the COMPLETE chart itself: translucent area fill under a
+  2dp close-price line, auto-colored green when the range is up / red when
+  down (the same convention as `sys.stockrange(sym, rng, "up")`), a dashed
+  baseline at the range's first close, hairline gridlines, price labels in
+  the right margin, and time labels under the plot (HH:MM exchange-local on
+  intraday ranges, M/D on longer ones). Do NOT add manual Y-axis high/low
+  labels, gridline stacks, or time-label rows around it — only the textual
+  change line (via `sys.stockrange`) remains the card's job.
+- Shows a dim `—` until the fetch lands, then fills in (standard live-data
+  semantics; no extra bindings needed).
+- Optional style properties (defaults are tuned for the dark card gradient —
+  transparent background; override only with design-system tokens):
+  `up_color` (#30d158), `down_color` (#ff453a), `baseline_color`,
+  `grid_color`, `text_color` (labels), `fill_alpha` (0.16), `line_width`
+  (2.0), `show_baseline`/`show_grid`/`show_ticks` (all true),
+  `tick_font_size` (9), `plot_margin` (Inset{left: 6, top: 8, right: 46,
+  bottom: 18} — the right margin hosts the price labels).
+
+## sys.stockbar("<TICKER>", index, count, maxh, "<RANGE>") — chart bar height (FALLBACK)
+
+The bar-row fallback when `StockPlot` cannot be used. Returns a **number** (a
+dp height, ~8–158) for one bar of the price path over
 the selected range. Bind it to a bar's `height:` — NOT to text. Draw the whole
 chart as a bottom-aligned `flow: Right` row of `count` thin `SolidView`s, bar
 `i` = `sys.stockbar("<TICKER>", i, count, maxh, rng)`. Bars sit flat at 6 while
@@ -212,10 +245,12 @@ bars green (#30d158) when the range is up, red (#ff453a) when down
 
 ## sys.stockrange("<TICKER>", "<RANGE>", "field") — range-aware chart scalars
 
-Companion to the chart: scalars computed from the SAME close series the bars
-draw (same fetch — free). `sys.stock`'s `high`/`low`/`change`/`changepct` are
-DAY-only; when the chart's range is switchable, the Y-axis labels and the
-change line MUST use this instead, with the same `rng` the bars use. Fields
+Companion to the chart: scalars computed from the SAME close series the chart
+draws — `StockPlot` and the fallback bars share this fetch (free). `sys.stock`'s
+`high`/`low`/`change`/`changepct` are
+DAY-only; when the chart's range is switchable, the change line (and, on the
+fallback bars, the Y-axis labels) MUST use this instead, with the same `rng`
+the chart uses. Fields
 (case-insensitive): `high`, `low` (range extremes, 2dp), `change`, `changepct`
 (signed, first→last close of the range), `up` (`"1"`/`"0"`, for color). Shows
 `—` while loading.

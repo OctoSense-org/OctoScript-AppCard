@@ -60,13 +60,21 @@ root/screen frame is the design system's standard 858-tall gradient screen.
    `sys.stockrange(sel, rng, "up") == "1"` else red; beside it a dim caption
    per range: `""`/`1d` → "Today", `1w` → "Past week", `1m` → "Past month",
    `6m` → "Past 6 months", `1y` → "Past year".
-5. Chart (~116 tall): LEFT Y-axis labels `"$" + sys.stockrange(sel, rng,
-   "high")` (top) and `…"low"` (bottom), dim 10; the plot is 68 bottom-aligned
-   bars `SolidView{ height: sys.stockbar(sel, i, 68, 114, rng) }` (i = 0..67,
+5. Chart — PREFERRED: `StockPlot{ width: Fill height: 160 symbol: sel
+   range: rng }` (see `widgets/sys-helpers.md`). It draws the full chart
+   itself — line + area auto-colored by the range direction, dashed baseline,
+   gridlines, price labels in the right margin, and time labels under the
+   plot — so add NOTHING around it: no manual Y-axis labels, no gridline
+   stack, no time-label row.
+   FALLBACK (only if `StockPlot` is unavailable, ~116 tall): LEFT Y-axis
+   labels `"$" + sys.stockrange(sel, rng, "high")` (top) and `…"low"`
+   (bottom), dim 10; the plot is 68 bottom-aligned bars
+   `SolidView{ height: sys.stockbar(sel, i, 68, 114, rng) }` (i = 0..67,
    Overlay above 3 hairline gridlines); bars green when
    `sys.stockrange(sel, rng, "up") == "1"`, red otherwise.
-6. Time labels UNDER the plot ONLY when `rng` is `""` or `"1d"`:
-   `09:30 · 12:45 · 16:00`. Other ranges show NO time labels.
+6. Time labels (FALLBACK bars only — `StockPlot` draws its own): UNDER the
+   plot ONLY when `rng` is `""` or `"1d"`: `09:30 · 12:45 · 16:00`. Other
+   ranges show NO time labels.
 7. Range chips — ALL FIVE (`1D 1W 1M 6M 1Y`) ALWAYS visible in one row, per
    the interaction.md chip pattern (label + underline + overlay Button); every
    chip writes `{key: "range", value: …}` with values `"1d" "1w" "1m" "6m"
@@ -84,15 +92,19 @@ root/screen frame is the design system's standard 858-tall gradient screen.
 - DETAIL header/price/stat grid: `sys.stock(sel, "key")` (`symbol`, `name`,
   `exchange`, `currency`, `price`, `prev`, `high`, `low`, `52wh`, `52wl`,
   `vol`). **Do NOT use `open`** (Yahoo omits it → `$—`).
-- DETAIL chart + change line: `sys.stockbar(sel, i, 68, 114, rng)` and
+- DETAIL chart: `StockPlot{ symbol: sel range: rng }` (preferred; live by
+  itself) or, on the fallback path, `sys.stockbar(sel, i, 68, 114, rng)`.
+- DETAIL change line (and fallback Y-axis labels):
   `sys.stockrange(sel, rng, "high"/"low"/"change"/"changepct"/"up")`.
 
 ## Failure conditions
 
-A missing `// name: stock-app` first line, a missing Y-axis label (BOTH
-high and low are required), a missing branch, fewer than 10
+A missing `// name: stock-app` first line, a missing branch, fewer than 10
 list rows, a missing detail section, static (non-Button) range chips, chips
-writing any state key other than `range`, time labels on a non-1d range, any
-hardcoded market number, a change line whose color contradicts
-`sys.stockrange(sel, rng, "up")`, or any dropped field = FAILURE. Length is expected (~25–35 KB); do not
-abbreviate or "simplify".
+writing any state key other than `range`, any hardcoded market number, a
+change line whose color contradicts `sys.stockrange(sel, rng, "up")`, or any
+dropped field = FAILURE. A `StockPlot` chart wrapped in manual Y-axis labels
+or a manual time-label row = FAILURE (the widget draws its own). On the
+FALLBACK bar chart only: a missing Y-axis label (BOTH high and low are
+required) or time labels on a non-1d range = FAILURE. Length is expected
+(~25–35 KB); do not abbreviate or "simplify".
