@@ -114,24 +114,46 @@ Label{ width: Fill text: sys.news(0, "title") }
 Label{ text: sys.news(0, "points") + " points · " + sys.news(0, "author") }
 ```
 
-## sys.stockbar("<TICKER>", index, count) — intraday chart bar height
+## sys.stockbar("<TICKER>", index, count, maxh, "<RANGE>") — chart bar height
 
-Returns a **number** (a dp height, ~8–158) for one bar of the day's intraday
-price path (Yahoo 5-minute series). Bind it to a bar's `height:` — NOT to text.
-Draw the whole chart as a bottom-aligned `flow: Right` row of `count` thin
-`SolidView`s, bar `i` = `sys.stockbar("<TICKER>", i, count)`. Bars sit flat at 6
-while the fetch loads, then rise into the real shape:
+Returns a **number** (a dp height, ~8–158) for one bar of the price path over
+the selected range. Bind it to a bar's `height:` — NOT to text. Draw the whole
+chart as a bottom-aligned `flow: Right` row of `count` thin `SolidView`s, bar
+`i` = `sys.stockbar("<TICKER>", i, count, maxh, rng)`. Bars sit flat at 6 while
+the fetch loads, then rise into the real shape:
 
 ```
 View{ width: Fill height: 188 flow: Right align: Align{y: 1.0} spacing: 2
-    SolidView{ width: Fill height: sys.stockbar("AAPL", 0, 40) draw_bg.color: #30d158cc draw_bg.border_radius: 1.5 }
-    SolidView{ width: Fill height: sys.stockbar("AAPL", 1, 40) draw_bg.color: #30d158cc draw_bg.border_radius: 1.5 }
-    // … repeat i = 0 .. count-1 (count ≈ 40). All bars share ONE fetch.
+    SolidView{ width: Fill height: sys.stockbar("AAPL", 0, 40, 186, rng) draw_bg.color: #30d158cc draw_bg.border_radius: 1.5 }
+    SolidView{ width: Fill height: sys.stockbar("AAPL", 1, 40, 186, rng) draw_bg.color: #30d158cc draw_bg.border_radius: 1.5 }
+    // … repeat i = 0 .. count-1 (count ≈ 40). All bars of one range share ONE fetch.
 }
 ```
 
+- `maxh` (4th arg): the chart's pixel height so the area fills it exactly.
+- `"<RANGE>"` (5th arg): `"1d"` (intraday 5-minute, the default — `""`/unset
+  also means 1d), `"1w"`, `"1m"`, `"6m"`, `"1y"`. The series is resampled to
+  `count` bars, so the SAME bar row serves every range — pass a state variable
+  (e.g. `rng`) to make range chips switch the chart client-side.
+
 Use the SAME `count` in every bar and `index` from `0` to `count-1`. Color the
-bars green (#30d158) when the day is up, red (#ff453a) when down.
+bars green (#30d158) when the range is up, red (#ff453a) when down
+(`sys.stockrange(sym, rng, "up") == "1"`).
+
+## sys.stockrange("<TICKER>", "<RANGE>", "field") — range-aware chart scalars
+
+Companion to the chart: scalars computed from the SAME close series the bars
+draw (same fetch — free). `sys.stock`'s `high`/`low`/`change`/`changepct` are
+DAY-only; when the chart's range is switchable, the Y-axis labels and the
+change line MUST use this instead, with the same `rng` the bars use. Fields
+(case-insensitive): `high`, `low` (range extremes, 2dp), `change`, `changepct`
+(signed, first→last close of the range), `up` (`"1"`/`"0"`, for color). Shows
+`—` while loading.
+
+```
+Label{ text: "$" + sys.stockrange("AAPL", rng, "high") }
+Label{ text: sys.stockrange("AAPL", rng, "change") + " (" + sys.stockrange("AAPL", rng, "changepct") + ")" }
+```
 
 ## sys.movers(index, "field") — LIVE top gainers (Yahoo day_gainers, no auth)
 

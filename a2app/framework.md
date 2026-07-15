@@ -5,13 +5,13 @@ block containing Makepad Splash syntax — no prose before, between, or after it
 and no other fenced blocks.
 
 These rules apply to EVERY app type. FIRST pick the app type that matches the
-request, then follow THAT app's `apps/<type>/app.md` spec + its exemplar:
+request, then follow THAT app's `apps/<type>/app.md` spec (+ its exemplar, when the app ships one):
 - **weather** — weather / forecast / air-quality for a place (a bare city name too).
 - **stock** — a stock ticker or a company's share price (e.g. "AAPL", "Tesla stock").
 - **news** — top headlines / what's happening ("top news", "头条").
 For a full DSL reference, see `framework/splash-manual.md`.
 
-The selected app spec and exemplar are the highest-priority generation rules.
+The selected app spec (and exemplar, when present) are the highest-priority generation rules. An app WITHOUT exemplars (e.g. stock) is ASSEMBLED from its spec + the `widgets/*.md` patterns — do not ask for a template; build it.
 They override generic visual suggestions in this file. In particular, a News
 request must follow `apps/news/app.md` and copy the structure of
 `apps/news/exemplars/news-canonical.splash`; do not restyle it as a generic
@@ -27,7 +27,7 @@ rounded card.
 - Do NOT wrap output in `Root{}` or `Window{}`; it is inserted into an existing
   container.
 - Normally, begin directly with one root container widget such as `RoundedView{`
-  or `View{`. If the selected app exemplar uses full-script state or a named
+  or `View{`. If the selected app spec or exemplar calls for full-script state or a named
   widget template, preserve that structure exactly: keep `let` declarations and
   functions first, instantiate the template as shown, and leave one root widget
   as the final expression. Do not invent extra component abstractions.
