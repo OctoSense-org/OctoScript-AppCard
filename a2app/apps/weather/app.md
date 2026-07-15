@@ -28,6 +28,19 @@ A value shows "—" for a moment while it loads, then the card auto-refreshes wi
 the real reading. The ONLY things you choose yourself are labels, the photo query,
 the `WeatherIcon`/emoji condition, and the color categories.
 
+## BLOCK: PHOTO-BACKDROP (the weather app's visual identity — reusable)
+
+The immersive frame every weather-family card sits in: a full-screen Overlay
+whose FIRST child is a REAL city photo matching the current conditions
+(`Image{ src: http_resource(sys.photo("<city> <scene/weather>")) fit:
+ImageFit.CropToFill width: Fill height: Fill }`), a dark scrim
+(`SolidView{ width: Fill height: Fill draw_bg.color: #00000066 }`) over it for
+legibility, then the inner `flow: Down` content column. Composed apps that
+reuse BLOCK: CURRENT MUST reproduce THIS backdrop too — the plain gradient
+screen is NOT the weather look. Content sections over the photo sit on
+translucent panels (`RoundedView` `#00000055`, border_radius 20) like the
+forecast panel below.
+
 ## Background-Image rules
 
 - The background Image MUST use `fit: ImageFit.CropToFill` (fills the whole box,

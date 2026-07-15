@@ -19,8 +19,7 @@ widget patterns** — there is no exemplar. Build it from
 MANDATORY.
 
 The VERY FIRST line of the block is `// name: weather-activity` — the name
-line is a hard rule. Root/screen: the design system's standard 858-tall
-gradient screen (NOT the weather photo background). Resolve LAT, LON to the
+line is a hard rule. Root/screen: weather's `BLOCK: PHOTO-BACKDROP` — the full-screen city photo matching current conditions + dark scrim (the weather app's visual identity; NOT the plain gradient). The verdict line and each activity-row group sit on translucent panels (`RoundedView` `#00000055`, border_radius 20, padded 14-16) so text stays legible over the photo. Card height 1100+ (a scrolling page like the parent). Resolve LAT, LON to the
 request's place (a bare "should I go out" = the user's current city from the
 conversation context) — REAL decimal coordinates, the SAME LAT, LON in EVERY
 `sys.*` call. No state keys or tap overlays are required.

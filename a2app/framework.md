@@ -33,6 +33,23 @@ rounded card.
 
 ## Composing a NEW app (AMA composer)
 
+Single-domain apps do NOT "cover" a combined request: the system renders ONE
+card from ONE app per request — "route each separately" / "two cards" are not
+actions that exist. COMPOSE whenever the request spans MORE THAN ONE domain and no app in the
+routing list (composed ones included) covers that combination — this includes
+BOTH decision requests ("what should I do given X") AND plain combined/
+side-by-side requests ("one card with X and Y together"). There is NO other
+gate. NEVER ask the user to choose between alternatives, never offer options,
+never reply with a question: your entire output is composing writes (if any)
+followed by ONE decision line (`<app-id> — reason`, `compose <id> — reason`,
+or `none — reason`); `none` ONLY when no domain's data bears on the request.
+
+A composed app INHERITS the VISUAL IDENTITY of its PRIMARY parent (the domain
+named first): reproduce that parent's backdrop/frame blocks — e.g. any
+weather-X app sits in weather's `BLOCK: PHOTO-BACKDROP` (city photo + scrim),
+never the generic gradient — and put the secondary domain's content on the
+parent's translucent panel treatment so it reads as ONE designed app.
+
 For the ROUTING agent (AMA) only — card generation never does this. When a
 request spans TWO domains and NO existing app (the composed ones above
 included) answers it, do not answer `none` outright — COMPOSE a new app:

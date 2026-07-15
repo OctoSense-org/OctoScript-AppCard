@@ -60,7 +60,7 @@ const SPLASH_MANUAL: &str = include_str!("../../../aichat/splash.md");
 /// takes the screen; the AMA's job is to prove the routing brain runs
 /// concurrently (and, later, to prune non-relevant app agents once intent is
 /// clear). The AMA renders NOTHING — its output is routing metadata.
-const AMA_SYSTEM_PROMPT: &str = "You are the AMA (Activity Management Agent) of an agent OS — a ROUTER and, when needed, an APP COMPOSER. You never generate UI: do NOT emit `runsplash` or any card. Your context includes the APP AGENT MEMORY manual — you do NOT follow its card-generation rules (those are for app agents), but its `framework.md` routing list and its `## Composing a NEW app (AMA composer)` section ARE yours.\n\nROUTING (the default): read the user message, pick the app whose domain it belongs to, and reply EXACTLY ONE short line: `<app-id> — <brief reason>`. The app ids and domains are the routing list in framework.md (weather, stock, news, activity, weather-activity, plus any `apps/<id>/app.md` present in memory). A BARE place name → `weather`; a BARE ticker/company → `stock`; top/best/gainers/movers about the market → `stock`; headlines → `news`; nearby places / things to do → `activity`; what-should-I-DO-given-the-weather → `weather-activity`. Never call a clear single-domain request ambiguous. No tools are needed to route.\n\nCOMPOSING (only when NO app in the routing list — composed ones included — answers a MULTI-domain request): follow the composer section in framework.md. Your working directory IS the app-cards memory root, so use your file tools with RELATIVE paths: write_file `apps/<a>-<b>/app.md` (a requirements spec that MERGES the parent apps' named BLOCKS and binds data ONLY via existing sys.* helpers) and `apps/<a>-<b>/lint.json`, then reply `compose <a>-<b> — <brief reason>`. This authoring write is sanctioned — it is the ONE exception to the manual's never-edit-memory rule; write ONLY under `apps/`. If your file tools fail, reply `none` and say why.\n\nReply `none` ONLY if no domain's data bears on the message. Be terse; output only the one decision line (after any composing writes).";
+const AMA_SYSTEM_PROMPT: &str = "You are the AMA (Activity Management Agent) of an agent OS — a ROUTER and, when needed, an APP COMPOSER. You never generate UI: do NOT emit `runsplash` or any card. Your context includes the APP AGENT MEMORY manual — you do NOT follow its card-generation rules (those are for app agents), but its `framework.md` routing list and its `## Composing a NEW app (AMA composer)` section ARE yours.\n\nROUTING (the default): read the user message, pick the app whose domain it belongs to, and reply EXACTLY ONE short line: `<app-id> — <brief reason>`. The app ids and domains are the routing list in framework.md (weather, stock, news, activity, weather-activity, plus any `apps/<id>/app.md` present in memory). A BARE place name → `weather`; a BARE ticker/company → `stock`; top/best/gainers/movers about the market → `stock`; headlines → `news`; nearby places / things to do → `activity`; what-should-I-DO-given-the-weather → `weather-activity`. Never call a clear single-domain request ambiguous. No tools are needed to route.\n\nMECHANICS: you output ONE decision for ONE app, and the system renders ONE card from that ONE app. There is NO 'route each separately' and NO 'two cards' — those actions do not exist. Therefore a request that asks for two domains TOGETHER (combined card, dashboard, X and Y in one view) can ONLY be served by a COMPOSED app: route to the existing composed app that covers the pair, else COMPOSE it now.\n\nCOMPOSING (when NO app in the routing list — composed ones included — covers a MULTI-domain request): follow the composer section in framework.md. Your working directory IS the app-cards memory root, so use your file tools with RELATIVE paths: write_file `apps/<a>-<b>/app.md` (a requirements spec that MERGES the parent apps' named BLOCKS and binds data ONLY via existing sys.* helpers) and `apps/<a>-<b>/lint.json`, then reply `compose <a>-<b> — <brief reason>`. This authoring write is sanctioned — it is the ONE exception to the manual's never-edit-memory rule; write ONLY under `apps/`. If your file tools fail, reply `none` and say why.\n\nReply `none` ONLY if no domain's data bears on the message. Be terse; output only the one decision line (after any composing writes).";
 
 const APP_SPLASH_ROUTER: &str = "You ARE the app agent and you OWN the entire card generation. Your COMPLETE memory (the app framework procedure, the widget helpers, the app specs, and a known-good exemplar per app) is ALREADY IN YOUR CONTEXT — it was injected as your memory. USE it. Do NOT read or fetch any files. Do NOT use the spawn tool. Do NOT delegate. Do NOT summarize.\n\nFIRST decide which app type the request is and follow THAT app's spec + exemplar: weather (weather/forecast/air-quality for a place), stock (a ticker/company quote), or news (top headlines). Bind LIVE data with the sys.* helpers the spec names (sys.weather / sys.stock / sys.news) — NEVER hardcode or invent numbers/headlines.\n\nWrite the card YOURSELF and stream it as your answer: emit EXACTLY ONE ```runsplash fenced block as your ENTIRE final answer — the COMPLETE card DSL, with ALL mandatory sections the chosen app's spec lists (e.g. for weather: current block, 7-day forecast, BOTH map panes each as its own full-width row — satellite 卫星云图 then air-quality 空气质量图, NEVER side by side — and the detail grid). No prose before or after the block. NEVER truncate — emit the whole card in one block.";
 
@@ -6258,11 +6258,26 @@ impl AppMain for App {
                         // routing decision (proves the routing brain ran
                         // concurrently with the app agent), render nothing.
                         if Some(prompt_id) == self.ama_prompt {
-                            let decision = self.ama_text.trim().to_string();
-                            // The AMA answers `<appid> — <reason>` (or `none`).
-                            // Take the leading app id: split on whitespace/em-dash
-                            // ONLY — app ids are kebab-case ("weather-activity"),
-                            // so splitting on '-' would truncate a composed id to
+                            // The DECISION is the AMA's FINAL non-empty line: a
+                            // composing turn legitimately narrates its file
+                            // writes first, and glm sometimes thinks aloud —
+                            // parsing the first token of the whole text once
+                            // spawned an agent literally named "this". The
+                            // prompt contract says the decision line comes
+                            // last; hold it to that.
+                            let decision = self
+                                .ama_text
+                                .lines()
+                                .rev()
+                                .map(str::trim)
+                                .find(|l| !l.is_empty())
+                                .unwrap_or("")
+                                .to_string();
+                            // The decision line is `<appid> — <reason>` (or
+                            // `none`, or `compose <id> — <reason>`). Take the
+                            // leading app id: split on whitespace/em-dash ONLY —
+                            // app ids are kebab-case ("weather-activity"), so
+                            // splitting on '-' would truncate a composed id to
                             // its first parent and route to the wrong agent. Then
                             // trim stray trailing hyphens ("stock-" from a
                             // hyphen-as-separator answer still parses as "stock").
