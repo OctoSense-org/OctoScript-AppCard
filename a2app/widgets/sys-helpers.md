@@ -4,8 +4,11 @@ There are TWO kinds of `sys.*` helper:
 
 1. **Image helpers** (`sys.photo`, `sys.satellite`, `sys.basemap`, `sys.airmap`)
    return a URL — always use as `http_resource(sys.xxx(...))` inside an `Image`.
-2. **Data helpers** (`sys.weather`, `sys.airquality`) return a LIVE VALUE STRING —
-   use directly as `Label` text. See the DATA section at the bottom.
+2. **Data helpers** (`sys.weather`, `sys.airquality`, `sys.stock`, `sys.news`,
+   `sys.movers`, `sys.places`) return a LIVE VALUE STRING — use directly as
+   `Label` text. Their numeric twins (`sys.weathernum`, `sys.aqinum`,
+   `sys.placesnum`) return NUMBERS for `if` conditions. See the DATA section
+   at the bottom.
 
 ## sys.photo("<city> <scene/weather>")
 
@@ -130,6 +133,56 @@ if sys.weathernum(37.34, -121.89, "current.temperature_2m") >= 18 {
     Label{ text: "Better indoors right now" }
 }
 ```
+
+## sys.places(lat, lon, "category", index, "field") — REAL nearby places (OpenStreetMap)
+
+Returns live details of REAL venues near lat/lon, fetched from OpenStreetMap.
+**You do NOT know what is near the user — every displayed venue name/distance
+MUST be one of these bindings; NEVER type a venue name yourself.** `index` 0 =
+the nearest venue, 1 = next, and so on. ONE fetch serves every index/field of
+a (lat, lon, category) — extra bindings on the same category are free. Shows
+"—" while loading, then the card auto-refreshes with the real venue.
+
+Categories: `park`, `garden`, `museum`, `cafe`, `cinema`, `gym`, `library`,
+`pool`, `viewpoint`, `playground`, `trail` (nature reserve).
+
+Fields (case-insensitive):
+
+- `name` — the venue's real name
+- `distance` — formatted distance, e.g. `0.8 km`
+- `lat` / `lon` — the venue's coordinates
+- `count` — how many venues were found (a string; branch on `sys.placesnum` instead)
+
+```
+Label{ text: sys.places(35.68, 139.65, "park", 0, "name") }
+Label{ text: sys.places(35.68, 139.65, "park", 0, "distance") + " away · quiet green space" }
+```
+
+## sys.placesnum(lat, lon, "category") — venue count for script conditions
+
+The venue count as a NUMBER, so `if` conditions can gate on it (loading
+guards, empty states) — the places twin of `sys.weathernum`. Returns `-9999`
+while the fetch loads (same sentinel convention); guard with `>= -9998`, and
+`0` means the area really has none. The card re-evaluates when data lands:
+
+```
+if sys.placesnum(35.68, 139.65, "park") >= -9998 {
+    if sys.placesnum(35.68, 139.65, "park") == 0 {
+        Label{ text: "No parks nearby" }
+    } else {
+        Label{ text: sys.places(35.68, 139.65, "park", 0, "name") }
+    }
+} else {
+    Label{ text: "Finding places nearby…" }
+}
+```
+
+### Concurrency limit — MANDATORY
+
+The places data source allows only 2 concurrent requests per device and
+rate-limits offenders (whole card shows "—" rows). A card may bind AT MOST
+TWO distinct categories; draw multiple rows from the SAME category by index
+(`i` = 0,1,2…) instead of adding categories.
 
 ## sys.stockbar("<TICKER>", index, count, maxh, "<RANGE>") — chart bar height
 

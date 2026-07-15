@@ -60,13 +60,16 @@ const SPLASH_MANUAL: &str = include_str!("../../../aichat/splash.md");
 /// takes the screen; the AMA's job is to prove the routing brain runs
 /// concurrently (and, later, to prune non-relevant app agents once intent is
 /// clear). The AMA renders NOTHING — its output is routing metadata.
-const AMA_SYSTEM_PROMPT: &str = "You are the AMA (Activity Management Agent) of an agent OS — a ROUTER, not an app. IGNORE any 'APP AGENT MEMORY' / card-generation manual in your context: it is for the app agents, NOT for you. Do NOT generate any UI, `runsplash`, or card. Do NOT fetch weather or call any tool. Your ONLY job: read the user message and decide which active app agent's domain it belongs to. Active app agents and their domains: [weather = weather/forecast/climate/air-quality for a place; stock = a stock ticker or a company's share price/quote, OR the stock MARKET as a whole: top / best / most-performant / gainers / movers / most-active stocks (a ranked list); news = current-events headlines / journalism / what's happening in the world]. A BARE place name (e.g. `Shanghai`, `上海`, `Paris weather`) → `weather`. A BARE ticker or company (e.g. `AAPL`, `Tesla stock`, `英伟达`) → `stock`. `top stocks`, `top 10 stocks`, `best performing stocks`, `biggest gainers`, `market movers`, `涨幅榜` → `stock`. `top news`, `top headlines`, `头条`, `what's happening` → `news`. IMPORTANT tie-breaker: the words 'top' / 'best' / 'most' do NOT by themselves mean news — if the message mentions stocks, shares, tickers, gainers, movers, or the market, choose `stock`; only route to `news` when it is about headlines / current events. Never call a clear single-domain request ambiguous. Reply with EXACTLY ONE short line: the chosen app id, then a brief reason — e.g. `stock — user asked for the top gainers`. Reply `none` ONLY if the message clearly matches no listed domain. Be terse; output nothing else.";
+const AMA_SYSTEM_PROMPT: &str = "You are the AMA (Activity Management Agent) of an agent OS — a ROUTER and, when needed, an APP COMPOSER. You never generate UI: do NOT emit `runsplash` or any card. Your context includes the APP AGENT MEMORY manual — you do NOT follow its card-generation rules (those are for app agents), but its `framework.md` routing list and its `## Composing a NEW app (AMA composer)` section ARE yours.\n\nROUTING (the default): read the user message, pick the app whose domain it belongs to, and reply EXACTLY ONE short line: `<app-id> — <brief reason>`. The app ids and domains are the routing list in framework.md (weather, stock, news, activity, weather-activity, plus any `apps/<id>/app.md` present in memory). A BARE place name → `weather`; a BARE ticker/company → `stock`; top/best/gainers/movers about the market → `stock`; headlines → `news`; nearby places / things to do → `activity`; what-should-I-DO-given-the-weather → `weather-activity`. Never call a clear single-domain request ambiguous. No tools are needed to route.\n\nCOMPOSING (only when NO app in the routing list — composed ones included — answers a MULTI-domain request): follow the composer section in framework.md. Your working directory IS the app-cards memory root, so use your file tools with RELATIVE paths: write_file `apps/<a>-<b>/app.md` (a requirements spec that MERGES the parent apps' named BLOCKS and binds data ONLY via existing sys.* helpers) and `apps/<a>-<b>/lint.json`, then reply `compose <a>-<b> — <brief reason>`. This authoring write is sanctioned — it is the ONE exception to the manual's never-edit-memory rule; write ONLY under `apps/`. If your file tools fail, reply `none` and say why.\n\nReply `none` ONLY if no domain's data bears on the message. Be terse; output only the one decision line (after any composing writes).";
 
 const APP_SPLASH_ROUTER: &str = "You ARE the app agent and you OWN the entire card generation. Your COMPLETE memory (the app framework procedure, the widget helpers, the app specs, and a known-good exemplar per app) is ALREADY IN YOUR CONTEXT — it was injected as your memory. USE it. Do NOT read or fetch any files. Do NOT use the spawn tool. Do NOT delegate. Do NOT summarize.\n\nFIRST decide which app type the request is and follow THAT app's spec + exemplar: weather (weather/forecast/air-quality for a place), stock (a ticker/company quote), or news (top headlines). Bind LIVE data with the sys.* helpers the spec names (sys.weather / sys.stock / sys.news) — NEVER hardcode or invent numbers/headlines.\n\nWrite the card YOURSELF and stream it as your answer: emit EXACTLY ONE ```runsplash fenced block as your ENTIRE final answer — the COMPLETE card DSL, with ALL mandatory sections the chosen app's spec lists (e.g. for weather: current block, 7-day forecast, BOTH map panes each as its own full-width row — satellite 卫星云图 then air-quality 空气质量图, NEVER side by side — and the detail grid). No prose before or after the block. NEVER truncate — emit the whole card in one block.";
 
 /// The domain-specialised app-agent prompt. The AMA routed `intent` to `domain`,
 /// so tell THAT agent to generate a card of exactly that app type (following the
 /// matching `apps/<domain>/app.md` spec + exemplar in its injected memory).
+/// Deliberately generic over ANY id — dynamically composed apps (`compose_app`)
+/// reuse it unchanged: the fresh session's injected memory carries the
+/// AMA-authored `apps/<domain>/app.md`, which this prompt points the agent at.
 fn app_splash_router_for(domain: &str, intent: &str) -> String {
     format!(
         "{APP_SPLASH_ROUTER}\n\nThe AMA routed this request to the {domain} app — \
@@ -3533,6 +3536,56 @@ impl App {
         self.ui.redraw(cx);
     }
 
+    /// AMA "compose → activation" (the dynamic-composition path): the AMA found
+    /// NO existing app for the held intent, authored a brand-new app spec into
+    /// the injected memory tree (`apps/<app_id>/app.md`), and answered
+    /// `compose <app_id> — <reason>`. The client's part is only plumbing:
+    /// create a NEW peer app-agent session for that id — a FRESH session gets
+    /// the memory tree (now containing the new spec) injected on open, so the
+    /// new agent generates the new app with clean, dedicated context — then
+    /// route the still-held intent to it exactly like a boot-time domain agent.
+    fn compose_app(&mut self, cx: &mut Cx, app_id: &str, decision: &str) {
+        // Idempotent: if a peer agent for this domain already exists (the AMA
+        // re-composed an app from earlier in this run), just activate it.
+        if self.apps.iter().any(|a| a.domain.as_deref() == Some(app_id)) {
+            self.route_to_app(cx, app_id, decision);
+            return;
+        }
+        let Some(agent) = self.agent.as_mut() else {
+            return;
+        };
+        log::info!("AMA → compose '{app_id}' (new peer agent) | {decision}");
+        // Mirror the boot path (`clear_chat`) exactly: same SessionConfig, same
+        // client-side `create_session` — it allocates the SessionId and fires
+        // `session/open`; the generation prompt queues behind it on the stdio
+        // pipe, so routing immediately after is safe.
+        let config = SessionConfig {
+            system_prompt: Some(OCTOS_PLACEHOLDER_SYSTEM_PROMPT.to_string()),
+            ..Default::default()
+        };
+        let sid = agent.create_session(cx, config);
+        // Boot titling convention, derived from the id:
+        // "weather-activity" → "Weather Activity".
+        let title = app_id
+            .split('-')
+            .filter(|s| !s.is_empty())
+            .map(|s| {
+                let mut chars = s.chars();
+                match chars.next() {
+                    Some(f) => f.to_ascii_uppercase().to_string() + chars.as_str(),
+                    None => String::new(),
+                }
+            })
+            .collect::<Vec<_>>()
+            .join(" ");
+        self.apps.push(AppRecord::with_domain(sid, title, app_id));
+        self.sync_app_tabs(cx);
+        // `route_to_app` finds the record just pushed, foregrounds it, and
+        // consumes `pending_intent` — the intent was deliberately left pending
+        // until this point so the new agent receives it.
+        self.route_to_app(cx, app_id, decision);
+    }
+
     /// Construct an `OctosUiAgent` from the current process environment.
     /// W08 will plumb the bearer + profile through `octos-app-store::auth`
     /// and the keychain; for now we read placeholders so the binary boots
@@ -3829,22 +3882,48 @@ impl App {
             },
             Err(_) => serde_json::json!({}),
         };
-        let memory = root
-            .as_object_mut()
-            .unwrap()
-            .entry("memory")
-            .or_insert_with(|| serde_json::json!({}));
-        let Some(memory) = memory.as_object_mut() else {
-            log::warn!("stdio: kernel config `memory` is not an object; leaving it alone");
-            return;
-        };
-        if memory.contains_key("max_inject_tokens") {
+        let mut changed = false;
+        {
+            let memory = root
+                .as_object_mut()
+                .unwrap()
+                .entry("memory")
+                .or_insert_with(|| serde_json::json!({}));
+            match memory.as_object_mut() {
+                Some(memory) if !memory.contains_key("max_inject_tokens") => {
+                    memory.insert(
+                        "max_inject_tokens".into(),
+                        serde_json::json!(INJECT_BUDGET_TOKENS),
+                    );
+                    changed = true;
+                }
+                Some(_) => {}
+                None => log::warn!(
+                    "stdio: kernel config `memory` is not an object; leaving it alone"
+                ),
+            }
+        }
+        // The AMA composer session is cwd-hinted into the app-cards memory
+        // tree; without this knob the kernel relocates that session's
+        // transcripts into the card tree (`appui.sessions_in_cwd` defaults
+        // true). Same merge contract as the memory budget: absent-only, an
+        // explicit operator value wins.
+        {
+            let appui = root
+                .as_object_mut()
+                .unwrap()
+                .entry("appui")
+                .or_insert_with(|| serde_json::json!({}));
+            if let Some(appui) = appui.as_object_mut() {
+                if !appui.contains_key("sessions_in_cwd") {
+                    appui.insert("sessions_in_cwd".into(), serde_json::json!(false));
+                    changed = true;
+                }
+            }
+        }
+        if !changed {
             return;
         }
-        memory.insert(
-            "max_inject_tokens".into(),
-            serde_json::json!(INJECT_BUDGET_TOKENS),
-        );
         if let Some(dir) = path.parent() {
             let _ = std::fs::create_dir_all(dir);
         }
@@ -3885,6 +3964,24 @@ impl App {
             }
         }
         None
+    }
+
+    /// The profile's app-cards memory dir — the AMA composer session's
+    /// workspace (see the `session/open` cwd hint at the AMA's creation).
+    /// Android-only; on desktop the memory tree lives server-side.
+    fn app_cards_memory_dir() -> Option<String> {
+        #[cfg(target_os = "android")]
+        {
+            let p = "/data/user/0/dev.makepad.octos_app/files/octos-home/.octos/profiles/_main/data/memory/app-cards";
+            // The dir must EXIST for the kernel's cwd validation to accept the
+            // hint (validate_session_workspace_allowed canonicalizes it).
+            let _ = std::fs::create_dir_all(p);
+            Some(p.to_string())
+        }
+        #[cfg(not(target_os = "android"))]
+        {
+            None
+        }
     }
 
     fn current_workspace_cwd() -> Option<String> {
@@ -3961,8 +4058,17 @@ impl App {
             ];
             self.foreground = 0;
             self.pending_intent = None;
-            // The AMA (routing brain) is its OWN concurrent session.
+            // The AMA (routing brain) is its OWN concurrent session. Its
+            // workspace is cwd-hinted INTO the app-cards memory tree
+            // (`session.workspace_cwd.v1`, default-on for stdio) so the
+            // composer path can author `apps/<id>/app.md` + `lint.json` with
+            // plain relative write_file calls — new app specs land where every
+            // NEWLY OPENED app-agent session injects them from. Keep
+            // `appui.sessions_in_cwd: false` in the kernel config
+            // (ensure_kernel_config_knobs) or transcripts relocate into the
+            // card tree.
             let ama_config = SessionConfig {
+                cwd: Self::app_cards_memory_dir(),
                 system_prompt: Some(AMA_SYSTEM_PROMPT.to_string()),
                 ..Default::default()
             };
@@ -6154,16 +6260,71 @@ impl AppMain for App {
                         if Some(prompt_id) == self.ama_prompt {
                             let decision = self.ama_text.trim().to_string();
                             // The AMA answers `<appid> — <reason>` (or `none`).
-                            // Take the leading app id (up to the first dash/space).
+                            // Take the leading app id: split on whitespace/em-dash
+                            // ONLY — app ids are kebab-case ("weather-activity"),
+                            // so splitting on '-' would truncate a composed id to
+                            // its first parent and route to the wrong agent. Then
+                            // trim stray trailing hyphens ("stock-" from a
+                            // hyphen-as-separator answer still parses as "stock").
                             let app_id = decision
-                                .split(|c: char| c == '—' || c == '-' || c.is_whitespace())
+                                .split(|c: char| c == '—' || c.is_whitespace())
                                 .next()
                                 .unwrap_or("")
+                                .trim_matches('-')
                                 .to_ascii_lowercase();
                             self.ama_prompt = None;
+                            // Dynamic composition: `compose <new-app-id> — <reason>`
+                            // means the AMA matched NO existing app and has just
+                            // authored the new app's spec into the memory tree —
+                            // spin up a NEW peer agent session for that id (a
+                            // fresh session gets the updated memory injected on
+                            // open) and route the still-held intent to it.
+                            if app_id == "compose" {
+                                // Second token = the new app id. Kebab-case slugs
+                                // contain '-', so re-parse on whitespace/em-dash
+                                // only — the first-token split above eats '-' and
+                                // would truncate "weather-activity" to "weather".
+                                let new_id: String = decision
+                                    .split(|c: char| c.is_whitespace() || c == '—')
+                                    .filter(|t| !t.is_empty())
+                                    .nth(1)
+                                    .unwrap_or("")
+                                    .to_ascii_lowercase()
+                                    .chars()
+                                    .filter(|c| c.is_ascii_alphanumeric() || *c == '-')
+                                    .take(40)
+                                    .collect();
+                                if new_id.is_empty() {
+                                    // Malformed compose line — fall through to the
+                                    // normal no-match arm ("compose" names no
+                                    // domain), which releases the held intent and
+                                    // resets the streaming state.
+                                    self.route_to_app(cx, &app_id, &decision);
+                                } else {
+                                    self.compose_app(cx, &new_id, &decision);
+                                }
+                                continue;
+                            }
                             // decision → activation: hand the held intent to the app
                             // agent whose domain matches, foreground it, and let it
-                            // generate its card.
+                            // generate its card. Domains WITHOUT a boot-time agent
+                            // (tree-declared apps like "activity"/"weather-activity",
+                            // or a previously composed app after a restart) go through
+                            // compose_app, which creates the peer session on demand
+                            // and then routes — same fresh-injection guarantee as an
+                            // explicit `compose` decision.
+                            let known = self
+                                .apps
+                                .iter()
+                                .any(|a| a.domain.as_deref() == Some(app_id.as_str()));
+                            if !known
+                                && app_id != "none"
+                                && !app_id.is_empty()
+                                && app_id.chars().all(|c| c.is_ascii_alphanumeric() || c == '-')
+                            {
+                                self.compose_app(cx, &app_id, &decision);
+                                continue;
+                            }
                             self.route_to_app(cx, &app_id, &decision);
                             continue;
                         }

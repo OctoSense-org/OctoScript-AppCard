@@ -7,22 +7,59 @@ and no other fenced blocks.
 These rules apply to EVERY app type. FIRST pick the app type that matches the
 request, then follow THAT app's `apps/<type>/app.md` spec (+ its exemplar, when the app ships one):
 - **weather** — weather / forecast / air-quality for a place (a bare city name
-  too); ALSO any what-should-I-DO / activities / plans / "should I go out"
-  request where weather or air quality decides the answer — that is the
-  weather app's COMPOSED activities card (see `apps/weather/app.md`), not a
-  reason to answer `none`.
+  too).
 - **stock** — a stock ticker or a company's share price (e.g. "AAPL", "Tesla stock").
 - **news** — top headlines / what's happening ("top news", "头条").
-A request that COMPOSES a domain with a decision/recommendation ("what should
-I do given X") still routes to that domain's app — the app's spec defines the
-composed card. Route `none` only when NO domain's data bears on the request.
+- **activity** — nearby places / things to do ("what's nearby", "things to do
+  around me", "places to visit", "附近有什么好玩的").
+- **weather-activity** — the COMPOSED what-to-do-in-this-weather app: any
+  what-should-I-DO / activities / plans / "should I go out" /
+  "这个天气适合做什么" request where weather or air quality decides the
+  answer. Route composed weather+activity intents HERE (not to weather or
+  activity alone), never to `none`.
+A request that COMPOSES domains with a decision/recommendation ("what should
+I do given X") routes to the EXISTING composed app that covers it —
+**weather-activity** is the existing composed app. When NO app (the composed
+ones included) answers a multi-domain request, follow `## Composing a NEW app
+(AMA composer)` below. Route `none` only when NO domain's data bears on the
+request.
 For a full DSL reference, see `framework/splash-manual.md`.
 
-The selected app spec (and exemplar, when present) are the highest-priority generation rules. An app WITHOUT exemplars (e.g. stock) is ASSEMBLED from its spec + the `widgets/*.md` patterns — do not ask for a template; build it.
+The selected app spec (and exemplar, when present) are the highest-priority generation rules. An app WITHOUT exemplars (e.g. stock, activity, weather-activity) is ASSEMBLED from its spec + the `widgets/*.md` patterns — do not ask for a template; build it.
 They override generic visual suggestions in this file. In particular, a News
 request must follow `apps/news/app.md` and copy the structure of
 `apps/news/exemplars/news-canonical.splash`; do not restyle it as a generic
 rounded card.
+
+## Composing a NEW app (AMA composer)
+
+For the ROUTING agent (AMA) only — card generation never does this. When a
+request spans TWO domains and NO existing app (the composed ones above
+included) answers it, do not answer `none` outright — COMPOSE a new app:
+
+1. Pick the two parent apps whose data covers the request: `<parent-a>`,
+   `<parent-b>` (kebab ids from the list above).
+2. Author `apps/<parent-a>-<parent-b>/app.md` — a requirements-only spec (NO
+   full-card examples) that MERGES the parents' NAMED BLOCKS: reference each
+   reused block by its heading (e.g. weather's `BLOCK: CURRENT`) and restate
+   its mandatory live bindings briefly; NEVER redesign a parent's established
+   block or invent new widget patterns. ALL displayed data must come from the
+   existing `sys.*` helpers in `widgets/sys-helpers.md` — no new data sources,
+   no model-authored values. Choose composed content by branching on the
+   numeric helpers (`sys.weathernum`, `sys.aqinum`, `sys.placesnum`) with
+   their `-9999` loading sentinel, and end with a `## Failure conditions`
+   section.
+3. Author a matching `apps/<parent-a>-<parent-b>/lint.json` — plain substring
+   patterns + min counts (the shape of `apps/stock/lint.json`) enforcing the
+   name line and every mandatory `sys.*` binding.
+4. WRITE both files into the app-cards tree with the file write tools, then
+   answer `compose <parent-a>-<parent-b> — <reason>`.
+
+If the file write tools are unavailable, answer `none` and say that composing
+`<parent-a>-<parent-b>` requires them. The canonical example of a composed
+spec is `apps/weather-activity/app.md` (+ its `lint.json`) — imitate its
+shape: parents and reused blocks stated up front, a mandatory live-number
+branch, live-bound rows, failure conditions.
 
 ## Hard rules
 

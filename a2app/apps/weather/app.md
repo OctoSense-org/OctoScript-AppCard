@@ -12,6 +12,10 @@ Reproduce this EXACT structure (a full-screen Overlay: photo, dark scrim, then a
 Down column = current block, the 7-day forecast, the two map panes, then the detail
 grid). See the known-good reference card at `exemplars/weather-canonical.splash`.
 
+Composed "what should I DO in this weather" intents are NOT this card — they
+route to `apps/weather-activity/app.md`, a composed app that reuses this
+spec's `BLOCK: CURRENT`.
+
 ## LIVE DATA — MANDATORY (never hardcode weather numbers)
 
 Every weather/air number in this card MUST come from a live data helper — you do
@@ -42,7 +46,13 @@ the `WeatherIcon`/emoji condition, and the color categories.
 
 ## Structure, top to bottom
 
-**(1) CURRENT block**
+The two `### BLOCK:` headings below are NAMED REUSABLE BLOCKS: other app specs
+(composed apps like `apps/weather-activity`) may reference these blocks by name
+and must reproduce them per THIS spec — same content, same live bindings.
+
+### BLOCK: CURRENT
+
+(1) The current-conditions block, at the top:
 - City (font 30).
 - The hero temperature ALONE on its line (font 60, `margin: Inset{top: 6 bottom: 0}`
   so its tall glyphs are not clipped) — its text is LIVE:
@@ -87,7 +97,9 @@ is its own row so the maps read large), each a `width: Fill` RoundedView
   take the SAME lat/lon) — + a `空气质量图` caption (font 11, #ffffffcc). (See
   `widgets/sys-helpers.md`.)
 
-**(4) DETAIL GRID** — below the map panes. A `flow: Down` View of THREE `flow: Right`
+### BLOCK: DETAIL-TILES
+
+(4) The detail grid — below the map panes. A `flow: Down` View of THREE `flow: Right`
 rows, each holding TWO equal frosted tiles (`width: Fill`). Every tile is a
 RoundedView (draw_bg.color #ffffff1f, border_radius 18) stacking an UPPERCASE
 caption (font 11, #ffffff99), a big value (font 20), and a sub-line (font 12,
@@ -108,47 +120,6 @@ The WHOLE inner column is a TALL, VERTICALLY-SCROLLING page (~1500dp) — it doe
 need to fit one screen; the user DRAGS to scroll down and reveal the forecast, the
 maps row and the detail grid, so use comfortable, breathable spacing rather than
 cramming everything in.
-
-## Composed intent — ACTIVITIES ("what should I do in this weather?")
-
-When the user's intent is what to DO — activities, plans, "should I go out",
-"这个天气适合做什么" — with weather as the deciding context, do NOT emit the
-default weather card. COMPOSE the ACTIVITIES card instead: the same live
-weather/air data, plus an activity list whose CONTENT IS CHOSEN AT RENDER TIME
-by branching on the live numbers. There is NO exemplar for this card —
-assemble it from `widgets/*.md` (interaction, containers, design-system) like
-any requirements-only app.
-
-- `// name: weather-activities`. Standard design-system gradient screen (NOT
-  the photo background).
-- Header: the city (title size), then one compact live row: a small
-  `WeatherIcon` (cond by conditions), `sys.weather(LAT, LON,
-  "current.temperature_2m") + "°"` (heading size), the condition word, and
-  `"AQI " + sys.airquality(LAT, LON, "current.us_aqi")` (caption, colored by
-  category).
-- **THE COMPOSITION RULE (MANDATORY):** the activity list MUST branch on live
-  NUMERIC values via `sys.weathernum` / `sys.aqinum` (see
-  `widgets/sys-helpers.md`):
-  `if sys.weathernum(LAT, LON, "current.temperature_2m") >= 18 { …outdoor
-  rows… } else { …indoor rows… }`, with outdoor suggestions additionally gated
-  on air (`sys.aqinum(LAT, LON, "current.us_aqi") < 100`) and rain
-  (`sys.weathernum(LAT, LON, "daily.precipitation_probability_max.0") < 40`).
-  Values are `-9999` until the fetch lands — wrap the whole list in
-  `if sys.weathernum(LAT, LON, "current.temperature_2m") >= -9998 { … } else {
-  Label{ text: "Loading conditions…" } }`.
-- Each branch STARTS with one plain verdict `Label` directly in the column
-  (body size, `text/secondary`) that states the call and CITES live values,
-  e.g. `"Clear and " + sys.weather(LAT, LON, "current.temperature_2m") + "° —
-  a great day to be outside"`.
-- Then 4–6 activity rows per branch. Each row is a PLAIN `flow: Right` View
-  (NO background fill — translucent filled containers do not render reliably;
-  use the design system's list-row pattern): an emoji `Label` (width ~36), the
-  activity name (heading size, `text/primary`), and under it a one-line reason
-  that CITES a live value, e.g. `"Air quality " + sys.airquality(LAT, LON,
-  "current.us_aqi") + " — good for a run"` (caption, `text/dim`). Hairline
-  separators between rows, design-system spacing.
-- You choose ONLY the activity names, emoji, thresholds, and captions — every
-  displayed number is a live binding. No hardcoded weather.
 
 ## Data shape it needs
 
