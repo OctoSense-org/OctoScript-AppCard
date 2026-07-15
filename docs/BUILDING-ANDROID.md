@@ -113,8 +113,9 @@ MEMDIR=$APPHOME/.octos/profiles/_main/data/memory
 $ADB push a2app /data/local/tmp/app-cards
 $ADB shell "su -c 'rm -rf $MEMDIR/app-cards; cp -r /data/local/tmp/app-cards $MEMDIR/app-cards; chown -R 10210:10210 $MEMDIR/app-cards'"
 
-# set the token cap high enough for the assembled tree (~23k tokens)
-$ADB shell "su -c 'sed -i s/\"max_inject_tokens\": 12000/\"max_inject_tokens\": 16000/ $APPHOME/.octos/profiles/_main.json'"
+# set the token cap high enough for the assembled tree (~23k tokens as of the
+# 3-app tree — 16000 silently dropped the whole weather section)
+$ADB shell "su -c 'sed -i \"s/\\\"max_inject_tokens\\\": [0-9]*/\\\"max_inject_tokens\\\": 40000/\" $APPHOME/.octos/profiles/_main.json'"
 ```
 
 ⚠️ Keep `max_inject_tokens` above the assembled-tree token estimate, or octos

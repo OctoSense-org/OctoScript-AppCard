@@ -10,6 +10,17 @@ combined list+detail card, following `exemplars/stock-movers.splash` closely
 (reproduce its structure exactly; only bind the live data via the `sys.*` helpers
 below). That exemplar is your source of truth; this doc explains how it works.
 
+**MANDATORY STRUCTURE — ALL of these, or the card is a FAILURE:**
+1. The body's FIRST line (after `// name:`) is `let sel = "{{state.selected}}"`,
+   then `if sel == "0" || sel == "" { … } else { … }` — BOTH branches present.
+   A list without the detail branch (or a detail without the list) = FAILURE.
+2. The LIST branch has ALL 10 rows, and EVERY row shows rank, symbol, name,
+   `"$" + sys.movers(i, "price")`, and green changepct — no row may drop a field.
+3. The DETAIL branch has the back button, price header, the `sys.stockbar` chart
+   with Y-axis labels, range chips, and the 6-cell stat grid.
+Do NOT shorten, merge, or "simplify" any of these sections even if the output is
+long — length is expected (~30 KB).
+
 ## One card, two views, client-side navigation
 
 The card is a **full-script** Splash body driven by one state key, `selected`:
