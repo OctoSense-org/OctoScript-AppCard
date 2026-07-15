@@ -114,6 +114,23 @@ Label{ width: Fill text: sys.news(0, "title") }
 Label{ text: sys.news(0, "points") + " points · " + sys.news(0, "author") }
 ```
 
+## sys.weathernum / sys.aqinum — LIVE numbers for script conditions
+
+The same values as `sys.weather` / `sys.airquality` but returned as NUMBERS,
+so `if` conditions can branch on live data — the primitive for COMPOSED cards
+(activity choice by temperature, outdoor gating by AQI/rain, day/night
+switches on `is_day`). While the fetch loads (or the path is absent) they
+return `-9999`; guard with `>= -9998` and the card re-evaluates when data
+lands:
+
+```
+if sys.weathernum(37.34, -121.89, "current.temperature_2m") >= 18 {
+    Label{ text: "Great time for a walk — " + sys.weather(37.34, -121.89, "current.temperature_2m") + "°" }
+} else {
+    Label{ text: "Better indoors right now" }
+}
+```
+
 ## sys.stockbar("<TICKER>", index, count, maxh, "<RANGE>") — chart bar height
 
 Returns a **number** (a dp height, ~8–158) for one bar of the price path over

@@ -6,9 +6,16 @@ and no other fenced blocks.
 
 These rules apply to EVERY app type. FIRST pick the app type that matches the
 request, then follow THAT app's `apps/<type>/app.md` spec (+ its exemplar, when the app ships one):
-- **weather** — weather / forecast / air-quality for a place (a bare city name too).
+- **weather** — weather / forecast / air-quality for a place (a bare city name
+  too); ALSO any what-should-I-DO / activities / plans / "should I go out"
+  request where weather or air quality decides the answer — that is the
+  weather app's COMPOSED activities card (see `apps/weather/app.md`), not a
+  reason to answer `none`.
 - **stock** — a stock ticker or a company's share price (e.g. "AAPL", "Tesla stock").
 - **news** — top headlines / what's happening ("top news", "头条").
+A request that COMPOSES a domain with a decision/recommendation ("what should
+I do given X") still routes to that domain's app — the app's spec defines the
+composed card. Route `none` only when NO domain's data bears on the request.
 For a full DSL reference, see `framework/splash-manual.md`.
 
 The selected app spec (and exemplar, when present) are the highest-priority generation rules. An app WITHOUT exemplars (e.g. stock) is ASSEMBLED from its spec + the `widgets/*.md` patterns — do not ask for a template; build it.
