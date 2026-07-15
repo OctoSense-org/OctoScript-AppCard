@@ -3753,6 +3753,7 @@ impl App {
         if let Err(e) = std::fs::create_dir_all(&home) {
             log::warn!("stdio: could not create HOME {}: {e}", home.display());
         }
+        Self::ensure_kernel_memory_budget(&home);
         log::info!("stdio: octos={} HOME={}", program.display(), home.display());
         // OCTOS_SKILLS_PATH adds the a2app memory dir as a skill READ-ZONE
         // (config.rs plugin_dirs_from_project → skill_read_zones), so the
@@ -3787,6 +3788,73 @@ impl App {
             env,
             cwd: Some(home),
         })
+    }
+
+    /// Ensure the KERNEL config (`octos-home/.config/octos/config.json`)
+    /// carries a `memory.max_inject_tokens` big enough for the a2app card
+    /// memory. octos's built-in default is 2500 tokens; the assembled
+    /// `app-cards/` tree is ~23k and grows with every drop-in app, and an
+    /// over-budget tree is truncated SILENTLY at inject time — the app agent
+    /// then never sees the framework manual/exemplars, improvises binding
+    /// syntax, and cards render with empty values. The knob moved out of the
+    /// profile JSON (the old BUILDING-ANDROID.md sed targeted a `_main.json`
+    /// key the current profile schema no longer has), so the app maintains it
+    /// in the one place the current kernel reads it from: the kernel config
+    /// file. Config file rather than spawn env on purpose — env propagation
+    /// on Android is not reliable across process restarts/re-exec.
+    /// Merge-only: every other key is preserved, an EXPLICIT existing value
+    /// wins (operators can tune it), and an unparseable file is left alone
+    /// (the kernel surfaces the parse error itself).
+    #[cfg(target_os = "android")]
+    fn ensure_kernel_memory_budget(home: &std::path::Path) {
+        const INJECT_BUDGET_TOKENS: u64 = 40_000;
+        let path = home.join(".config/octos/config.json");
+        let mut root = match std::fs::read(&path) {
+            Ok(bytes) => match serde_json::from_slice::<serde_json::Value>(&bytes) {
+                Ok(v) if v.is_object() => v,
+                _ => {
+                    log::warn!(
+                        "stdio: {} is not a JSON object; memory budget NOT ensured",
+                        path.display()
+                    );
+                    return;
+                }
+            },
+            Err(_) => serde_json::json!({}),
+        };
+        let memory = root
+            .as_object_mut()
+            .unwrap()
+            .entry("memory")
+            .or_insert_with(|| serde_json::json!({}));
+        let Some(memory) = memory.as_object_mut() else {
+            log::warn!("stdio: kernel config `memory` is not an object; leaving it alone");
+            return;
+        };
+        if memory.contains_key("max_inject_tokens") {
+            return;
+        }
+        memory.insert(
+            "max_inject_tokens".into(),
+            serde_json::json!(INJECT_BUDGET_TOKENS),
+        );
+        if let Some(dir) = path.parent() {
+            let _ = std::fs::create_dir_all(dir);
+        }
+        let bytes = match serde_json::to_vec_pretty(&root) {
+            Ok(bytes) => bytes,
+            Err(e) => {
+                log::warn!("stdio: serialize kernel config: {e}");
+                return;
+            }
+        };
+        match std::fs::write(&path, bytes) {
+            Ok(()) => log::info!(
+                "stdio: set memory.max_inject_tokens={INJECT_BUDGET_TOKENS} in {}",
+                path.display()
+            ),
+            Err(e) => log::warn!("stdio: write {}: {e}", path.display()),
+        }
     }
 
     #[cfg(not(target_os = "android"))]
