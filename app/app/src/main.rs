@@ -3058,6 +3058,10 @@ pub struct AppRecord {
     /// for an app that has never been foregrounded with content.
     pub saved_messages: Vec<ChatMessage>,
     pub saved_a2app: std::collections::BTreeMap<usize, CardState>,
+    /// One automatic lint-repair turn has been spent for the CURRENT routed
+    /// intent (reset on the next `route_to_app`). Caps the validate→repair
+    /// loop at a single retry so a stubborn model can't ping-pong forever.
+    pub repair_attempted: bool,
 }
 
 impl AppRecord {
@@ -3070,6 +3074,7 @@ impl AppRecord {
             has_updates: false,
             saved_messages: Vec::new(),
             saved_a2app: std::collections::BTreeMap::new(),
+            repair_attempted: false,
         }
     }
     /// A domain-specialised app agent (weather/stock/news), for AMA routing.
@@ -3522,6 +3527,8 @@ impl App {
         let prompt = app_splash_router_for(app_id, &intent);
         let pid = self.agent.as_mut().unwrap().send_prompt(cx, sid, &prompt);
         self.apps[idx].current_prompt = Some(pid);
+        // Fresh intent → fresh one-shot repair budget (see card_lint).
+        self.apps[idx].repair_attempted = false;
         self.sync_app_tabs(cx);
         self.ui.redraw(cx);
     }
@@ -6172,6 +6179,10 @@ impl AppMain for App {
                                 continue;
                             }
                         }
+                        // Set when the completed card fails its app's shipped
+                        // lint rules; fired as ONE repair turn after the message
+                        // is stored (the corrected card streams in over it).
+                        let mut card_repair: Option<String> = None;
                         let mut data = CHAT_DATA.write().unwrap();
                         let text = std::mem::take(&mut data.streaming_text);
                         log!(
@@ -6196,6 +6207,34 @@ impl AppMain for App {
                                             "a2app: runsplash card has no `// name:` line — not saved"
                                         ),
                                     }
+                                    // Machine-check the card against the app's
+                                    // shipped rules (a2app lint.json); at most
+                                    // ONE repair per routed intent, and repair
+                                    // output is not re-linted — no loops.
+                                    if !self.apps[self.foreground].repair_attempted {
+                                        if let Some(domain) =
+                                            self.apps[self.foreground].domain.clone()
+                                        {
+                                            if let Some(rules) =
+                                                crate::app::card_lint::load_rules(&domain)
+                                            {
+                                                let violations =
+                                                    crate::app::card_lint::lint(body, &rules);
+                                                if !violations.is_empty() {
+                                                    log::warn!(
+                                                        "card lint ({domain}): {} violation(s): {}",
+                                                        violations.len(),
+                                                        violations.join(" | ")
+                                                    );
+                                                    card_repair = Some(
+                                                        crate::app::card_lint::repair_prompt(
+                                                            &violations,
+                                                        ),
+                                                    );
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                                 data.messages.push(ChatMessage {
                                     role: ChatRole::Assistant,
@@ -6214,6 +6253,23 @@ impl AppMain for App {
 
                         self.set_fg_prompt(None);
                         self.ui.view(cx, ids!(cancel_button)).set_visible(cx, false);
+                        // One-shot repair pass: the completed card violated its
+                        // app's machine-checkable rules. Send the violation list
+                        // back to the SAME app agent session; the corrected card
+                        // streams in over the visible (imperfect) one.
+                        if let Some(repair) = card_repair.take() {
+                            let i = self.foreground;
+                            let sid = self.apps[i].session_id;
+                            let pid = self.agent.as_mut().unwrap().send_prompt(cx, sid, &repair);
+                            self.apps[i].current_prompt = Some(pid);
+                            self.apps[i].repair_attempted = true;
+                            self.set_fg_prompt(Some(pid));
+                            CHAT_DATA.write().unwrap().is_streaming = true;
+                            self.ui.label(cx, ids!(status_label)).set_text(
+                                cx,
+                                "Card failed validation — auto-repairing…",
+                            );
+                        }
                         self.update_empty_state_visibility(cx);
                         // A card just rendered — collapse the floating composer to
                         // the reveal pill so the card gets the full screen.
