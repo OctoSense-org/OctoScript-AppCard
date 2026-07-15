@@ -310,8 +310,7 @@ pub fn save_server_config(cfg: &ServerConfig) -> std::io::Result<PathBuf> {
 
 /// Non-UI provisioning entry: parse `base_url|profile_id|token` (token
 /// optional) and persist the server config + bearer in one shot. Today this
-/// is fed by the `makepad.APP_CONFIG` launch-intent extra on Android; a QR
-/// onboarding screen can decode a scanned payload into the same call.
+/// is fed only by the `makepad.APP_CONFIG` launch-intent extra on Android.
 pub fn apply_provision_string(prov: &str) -> Result<(), String> {
     let mut parts = prov.trim().splitn(3, '|');
     let url_str = parts.next().unwrap_or("");
@@ -337,30 +336,46 @@ pub fn apply_provision_string(prov: &str) -> Result<(), String> {
     Ok(())
 }
 
-/// Apply a QR / intent provisioning payload — a self-contained JSON object:
-/// `{"llm_family":..,"llm_model":..,"llm_key":..[,"base_url":..,"profile":..,"token":..]}`.
+#[derive(Debug, serde::Deserialize)]
+#[serde(deny_unknown_fields)]
+struct LlmProvisionConfig {
+    llm_family: String,
+    llm_model: Option<String>,
+    llm_key: String,
+}
+
+/// Apply an LLM-only QR / intent payload — a self-contained JSON object:
+/// `{"llm_family":..,"llm_model":..,"llm_key":..}`.
 /// Writes the LLM provider/model/key into the octos profile config
-/// (`_main.json` → config.llm + config.env_vars.<PROVIDER>_API_KEY) and any
-/// server auth via the existing path. Returns a short human summary of what changed.
+/// (`_main.json` → config.llm + config.env_vars.<PROVIDER>_API_KEY). Server
+/// connection/auth settings are deliberately handled only by `makepad.APP_CONFIG`.
 pub fn apply_provision_config_json(payload: &str) -> Result<String, String> {
-    let v: serde_json::Value =
-        serde_json::from_str(payload.trim()).map_err(|e| format!("provision: invalid JSON: {e}"))?;
-    let get = |k: &str| v.get(k).and_then(|x| x.as_str()).map(|s| s.to_string());
-    let mut summary = Vec::new();
-    if let Some(base) = get("base_url") {
-        let profile = get("profile").unwrap_or_default();
-        let token = get("token").unwrap_or_default();
-        apply_provision_string(&format!("{base}|{profile}|{token}"))?;
-        summary.push("server".to_string());
+    let config = parse_llm_provision_config(payload)?;
+    apply_llm_config(
+        &config.llm_family,
+        config.llm_model.as_deref(),
+        Some(&config.llm_key),
+    )?;
+    Ok(format!("llm={}", config.llm_family))
+}
+
+fn parse_llm_provision_config(payload: &str) -> Result<LlmProvisionConfig, String> {
+    let config: LlmProvisionConfig = serde_json::from_str(payload.trim())
+        .map_err(|e| format!("provision: invalid LLM config: {e}"))?;
+    if config.llm_family.trim().is_empty() {
+        return Err("provision: llm_family must not be empty".into());
     }
-    if let Some(family) = get("llm_family") {
-        apply_llm_config(&family, get("llm_model").as_deref(), get("llm_key").as_deref())?;
-        summary.push(format!("llm={family}"));
+    if config.llm_key.trim().is_empty() {
+        return Err("provision: llm_key must not be empty".into());
     }
-    if summary.is_empty() {
-        return Err("provision: no recognised fields (want llm_family/llm_key or base_url)".into());
+    if config
+        .llm_model
+        .as_deref()
+        .is_some_and(|model| model.trim().is_empty())
+    {
+        return Err("provision: llm_model must not be empty".into());
     }
-    Ok(summary.join(" · "))
+    Ok(config)
 }
 
 /// The octos provider `family_id` → the env var octos reads its key from.
@@ -517,5 +532,24 @@ mod tests {
         let back: ServerConfig = serde_json::from_slice(&bytes).unwrap();
         assert_eq!(back.server_url, cfg.server_url);
         assert_eq!(back.profile_id, cfg.profile_id);
+    }
+
+    #[test]
+    fn llm_qr_payload_rejects_server_configuration() {
+        let result = parse_llm_provision_config(
+            r#"{"llm_family":"zai","llm_key":"sk-test","base_url":"https://example.com"}"#,
+        );
+        assert!(result.unwrap_err().contains("unknown field `base_url`"));
+    }
+
+    #[test]
+    fn llm_qr_payload_accepts_only_llm_configuration() {
+        let config = parse_llm_provision_config(
+            r#"{"llm_family":"zai","llm_model":"glm-5.2","llm_key":"sk-test"}"#,
+        )
+        .unwrap();
+        assert_eq!(config.llm_family, "zai");
+        assert_eq!(config.llm_model.as_deref(), Some("glm-5.2"));
+        assert_eq!(config.llm_key, "sk-test");
     }
 }

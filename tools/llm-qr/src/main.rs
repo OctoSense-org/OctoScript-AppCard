@@ -1,18 +1,17 @@
-//! Encode an octos LLM config (and optional server auth) into a QR code that the
+//! Encode an octos LLM config into a QR code that the
 //! app's composer scans to provision itself — so a user brings their own key
 //! without it ever touching the repo, a keyboard, or the network.
 //!
 //! The QR payload is a single compact JSON object carrying ALL the info (no URL):
 //!
 //! ```text
-//! {"llm_family":"zai","llm_model":"glm-5.2","llm_key":"sk-XXXX"
-//!  [,"base_url":"...","profile":"...","token":"..."]}
+//! {"llm_family":"zai","llm_model":"glm-5.2","llm_key":"sk-XXXX"}
 //! ```
 //!
 //! The app parses it and writes `llm_family`/`llm_model` into the octos profile
 //! config (`_main.json` → config.llm) and `llm_key` into
-//! config.env_vars.<PROVIDER>_API_KEY; the optional server fields go through the
-//! existing auth-provisioning path.
+//! config.env_vars.<PROVIDER>_API_KEY. Server connection/auth configuration is
+//! deliberately not part of this QR format.
 //!
 //! Usage:
 //! ```text
@@ -32,16 +31,18 @@ use std::process::exit;
 /// octos provider registry grows (crates/octos-llm/src/registry/*). Used only for
 /// the "unknown family" hint; the app does the real mapping.
 const KNOWN_FAMILIES: &[&str] = &[
-    "zai", "deepseek", "openai", "anthropic", "gemini", "openrouter",
+    "zai",
+    "deepseek",
+    "openai",
+    "anthropic",
+    "gemini",
+    "openrouter",
 ];
 
 struct Args {
     family: Option<String>,
     model: Option<String>,
     key: Option<String>,
-    base_url: Option<String>,
-    profile: Option<String>,
-    token: Option<String>,
     json: Option<String>,
 }
 
@@ -55,9 +56,6 @@ fn parse_args() -> Args {
         family: None,
         model: None,
         key: None,
-        base_url: None,
-        profile: None,
-        token: None,
         json: None,
     };
     let mut it = std::env::args().skip(1);
@@ -72,9 +70,6 @@ fn parse_args() -> Args {
             "--family" => a.family = val(),
             "--model" => a.model = val(),
             "--key" => a.key = val(),
-            "--base-url" => a.base_url = val(),
-            "--profile" => a.profile = val(),
-            "--token" => a.token = val(),
             "--json" => a.json = val(),
             "-h" | "--help" => {
                 print_help();
@@ -93,24 +88,21 @@ fn print_help() {
          --family <id>     provider family_id (zai, deepseek, openai, anthropic, …)\n  \
          --model  <id>     model_id (e.g. glm-5.2, deepseek-v4-pro)\n  \
          --key    <key>    the provider API key (stays on-device once scanned)\n  \
-         --base-url <url>  optional octos server URL\n  \
-         --profile  <id>   optional octos profile id\n  \
-         --token    <tok>  optional server bearer token\n  \
-         --json   <json>   encode a ready-made JSON payload instead\n  \
+         --json   <json>   encode an LLM-only JSON payload instead\n  \
          -h, --help        show this help"
     );
 }
 
 /// Build the compact JSON payload (no spaces — QR capacity is limited).
-fn build_payload(a: &Args) -> String {
+fn build_payload(a: &Args) -> Result<String, String> {
     if let Some(json) = &a.json {
-        // Validate it parses; re-serialize compact so spacing never bloats the QR.
-        let v: Value = serde_json::from_str(json)
-            .unwrap_or_else(|e| die(&format!("error: --json is not valid JSON: {e}")));
-        return serde_json::to_string(&v).expect("re-serialize");
+        let v: Value =
+            serde_json::from_str(json).map_err(|e| format!("--json is not valid JSON: {e}"))?;
+        validate_llm_payload(&v)?;
+        return serde_json::to_string(&v).map_err(|e| format!("serialize payload: {e}"));
     }
     let (Some(family), Some(key)) = (&a.family, &a.key) else {
-        die("error: --family and --key are required (or pass --json)");
+        return Err("--family and --key are required (or pass --json)".into());
     };
     let mut m = Map::new();
     m.insert("llm_family".into(), Value::String(family.clone()));
@@ -118,22 +110,44 @@ fn build_payload(a: &Args) -> String {
     if let Some(model) = &a.model {
         m.insert("llm_model".into(), Value::String(model.clone()));
     }
-    for (k, v) in [
-        ("base_url", &a.base_url),
-        ("profile", &a.profile),
-        ("token", &a.token),
-    ] {
-        if let Some(v) = v {
-            m.insert(k.into(), Value::String(v.clone()));
+    let payload = Value::Object(m);
+    validate_llm_payload(&payload)?;
+    serde_json::to_string(&payload).map_err(|e| format!("serialize payload: {e}"))
+}
+
+fn validate_llm_payload(value: &Value) -> Result<(), String> {
+    let object = value
+        .as_object()
+        .ok_or_else(|| "LLM payload must be a JSON object".to_string())?;
+    for field in object.keys() {
+        if !matches!(field.as_str(), "llm_family" | "llm_model" | "llm_key") {
+            return Err(format!(
+                "field '{field}' is not allowed in an LLM QR; server configuration uses makepad.APP_CONFIG"
+            ));
         }
     }
-    serde_json::to_string(&Value::Object(m)).expect("serialize payload")
+    for required in ["llm_family", "llm_key"] {
+        match object.get(required).and_then(Value::as_str) {
+            Some(value) if !value.trim().is_empty() => {}
+            _ => return Err(format!("field '{required}' must be a non-empty string")),
+        }
+    }
+    if let Some(model) = object.get("llm_model") {
+        if model.as_str().is_none_or(|value| value.trim().is_empty()) {
+            return Err("field 'llm_model' must be a non-empty string".into());
+        }
+    }
+    Ok(())
 }
 
 /// Render a Unicode QR (half-block chars) that scans straight off a dark terminal.
 fn render_qr(payload: &str) {
-    let code = QrCode::with_error_correction_level(payload.as_bytes(), EcLevel::M)
-        .unwrap_or_else(|e| die(&format!("error: could not encode QR (payload too long?): {e}")));
+    let code =
+        QrCode::with_error_correction_level(payload.as_bytes(), EcLevel::M).unwrap_or_else(|e| {
+            die(&format!(
+                "error: could not encode QR (payload too long?): {e}"
+            ))
+        });
     // Dense1x2 packs two module rows per line; swapping the colors inverts it so
     // the dark background of a typical terminal becomes the QR's light field.
     let art = code
@@ -147,7 +161,7 @@ fn render_qr(payload: &str) {
 
 fn main() {
     let a = parse_args();
-    let payload = build_payload(&a);
+    let payload = build_payload(&a).unwrap_or_else(|e| die(&format!("error: {e}")));
     if let Some(family) = &a.family {
         if !KNOWN_FAMILIES.contains(&family.as_str()) {
             eprintln!(
@@ -159,4 +173,40 @@ fn main() {
     }
     println!("QR payload (treat as a secret):\n  {payload}\n");
     render_qr(&payload);
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn generated_payload_contains_only_llm_data() {
+        let payload = build_payload(&Args {
+            family: Some("zai".into()),
+            model: Some("glm-5.2".into()),
+            key: Some("sk-test".into()),
+            json: None,
+        })
+        .unwrap();
+        let value: Value = serde_json::from_str(&payload).unwrap();
+        let object = value.as_object().unwrap();
+        assert_eq!(object.len(), 3);
+        assert!(object.contains_key("llm_family"));
+        assert!(object.contains_key("llm_model"));
+        assert!(object.contains_key("llm_key"));
+    }
+
+    #[test]
+    fn json_payload_rejects_server_url() {
+        let result = build_payload(&Args {
+            family: None,
+            model: None,
+            key: None,
+            json: Some(
+                r#"{"llm_family":"zai","llm_key":"sk-test","base_url":"https://example.com"}"#
+                    .into(),
+            ),
+        });
+        assert!(result.unwrap_err().contains("not allowed"));
+    }
 }
