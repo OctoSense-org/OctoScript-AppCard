@@ -21,6 +21,13 @@ Requirements below are MANDATORY. Keep the whole block under 8,000 bytes.
   → `TOP STORIES`, page title → `Hacker News`, lead back to story 0, kicker
   `1 · TOP STORY`, url cleared). Never `agent.notify`, never native handlers.
 
+## Closure form — MANDATORY
+
+Every `on_click` is an EXPRESSION closure calling exactly ONE fn:
+`on_click: || show_story(0)` — NEVER the block form `on_click: ||{ ... }`.
+Put ALL branching inside the fn bodies (e.g. `fn header_click() { if
+news_app.detail { show_list() } }`, masthead `on_click: || header_click()`).
+
 ## Layout — MANDATORY, top to bottom
 
 Root: `SolidView{ width: Fill height: 780 flow: Overlay new_batch: true }`,
@@ -29,14 +36,14 @@ padded `flow: Down` column (`Inset{left: 18 top: 48 right: 18 bottom: 24}`).
 Orange accent `#ff9f0a`, white primary text, muted `#ffffff77-88` metadata,
 8px card radius, cards never nest.
 
-1. **Masthead** — `header_btn := ButtonFlatter{ width: Fill height: 44 }`,
+1. **Masthead** — `header_btn := Button{ width: Fill height: 44 }`,
    orange 11pt text `TOP STORIES`; `on_click` calls `show_list()` when in
    detail (the big Back target). Under it `page_title := Label` 26pt white.
 2. **Lead card** — fixed `RoundedView` height 240 (`#ffffff12`) for story 0 /
    the selected story: `lead_kicker :=` (orange 11), `lead_title :=` (20pt,
    `width: Fill`, live `sys.news(0, "title")`), `lead_meta :=` (12pt, live
    points · comments · by author), `lead_url :=` (10pt `#ffb340`, empty in
-   list mode). A full-size transparent ButtonFlatter overlay opens
+   list mode). A full-size transparent Button overlay opens
    `show_story(0)` from list mode (allowed here — the lead is OUTSIDE the
    scroll view).
 3. **Section label** — `section_label :=` orange 10pt, `LATEST` (list) /
@@ -44,8 +51,8 @@ Orange accent `#ff9f0a`, white primary text, muted `#ffffff77-88` metadata,
 4. **Dense feed** — `ScrollYView{ width: Fill height: Fill }` holding SEVEN
    story rows for indexes 1..7, built from TWO style templates you define
    (interaction.md § style templates): a 136dp `StoryRow` RoundedView
-   (`#ffffff0d`) and a transparent 72dp trailing `RowTap` ButtonFlatter whose
-   `on_click` calls `show_story(i)`. Each row: rank number (orange 17),
+   (`#ffffff0d`) and a transparent 72dp trailing `RowTap` Button (plain `Button`, fully transparent draw_bg colors) whose
+   `on_click: || show_story(i)` (expression form). Each row: rank number (orange 17),
    wrapping live title (12pt, `width: Fill`), live meta line (9pt), `>`
    chevron (orange 16). The row BODY stays a swipe surface — no full-row
    buttons inside the scroll (gesture capture).

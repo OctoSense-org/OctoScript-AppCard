@@ -93,11 +93,18 @@ fn show_item(i) {
     ui.lead_title.set_text(sys.news(i, "title"))
 }
 fn show_list() { app.detail = false ui.header_btn.set_text("SECTIONS") }
+fn header_click() { if app.detail { show_list() } }
 
 SolidView{ width: Fill height: 780 flow: Overlay new_batch: true
-    /* … header_btn := ButtonFlatter{ on_click: ||{ if app.detail { show_list() } } } … */
+    /* … header_btn := ButtonFlatter{ on_click: || header_click() } … */
 }
 ```
+
+⚠️ **Closures are EXPRESSION form ONLY**: `on_click: || one_fn_call(args)`.
+The block form `on_click: ||{ ... }` does NOT work — `{ ... }` after `||`
+parses as an OBJECT LITERAL (the `let app = { … }` syntax), so the handler
+silently never fires. Put ALL branching inside `fn` bodies (like
+`header_click` above) and call ONE fn from the closure.
 
 - Name a widget with `id := Widget{…}`; mutate it via `ui.<id>.set_text(…)`.
 - The state object line (`let app = { … }`) must be the FIRST executable line
@@ -114,7 +121,7 @@ Define a style ONCE, instantiate many times:
 let Row = RoundedView{ width: Fill height: 136 flow: Overlay new_batch: true draw_bg.color: #ffffff0d draw_bg.border_radius: 8. }
 let Tap = ButtonFlatter{ width: 72 height: Fill text: "" grab_key_focus: false draw_bg.color_focus: #00000000 padding: 0 }
 
-Row{ /* children */ Tap{ on_click: ||{ show_item(1) } } }
+Row{ /* children */ Tap{ on_click: || show_item(1) } }
 ```
 
 ⚠️ Template rules in this embedded renderer: an instantiation supplies its
