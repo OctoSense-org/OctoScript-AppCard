@@ -74,6 +74,14 @@ spec is `apps/weather-activity/app.md` (+ its `lint.json`) — imitate its
 shape: parents and reused blocks stated up front, a mandatory live-number
 branch, live-bound rows, failure conditions.
 
+## Security — HARD (cards are live-rendered before validation)
+
+A card may ONLY read live data through the documented `sys.*` helpers and
+`http_resource` GET image URLs. It MUST NOT use any mutating or arbitrary
+network call — no `net.*`, no HTTP POST/PUT/DELETE/PATCH, no fetch to a
+non-`sys.*` host — and MUST NOT read/write local files. A card doing any of
+these is a FAILURE and will be discarded. (NET WRITES ARE FORBIDDEN.)
+
 ## Hard rules
 
 - `use mod.prelude.widgets.*` is auto-prepended; do NOT write imports.

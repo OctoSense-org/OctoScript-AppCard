@@ -34,27 +34,33 @@ pub fn load_rules(domain: &str) -> Option<Vec<LintRule>> {
             .join("lint.json"),
         base.join("a2app/apps").join(domain).join("lint.json"),
     ];
-    let bytes = candidates.iter().find_map(|p| std::fs::read(p).ok())?;
-    let root: serde_json::Value = match serde_json::from_slice(&bytes) {
-        Ok(v) => v,
-        Err(e) => {
-            log::warn!("card lint: unparseable lint.json for '{domain}': {e}");
-            return None;
-        }
-    };
-    let rules: Vec<LintRule> = root
-        .get("rules")?
-        .as_array()?
-        .iter()
-        .filter_map(|r| {
-            Some(LintRule {
-                desc: r.get("desc")?.as_str()?.to_string(),
-                pattern: r.get("pattern")?.as_str()?.to_string(),
-                min: r.get("min").and_then(|m| m.as_u64()).unwrap_or(1) as usize,
+    // Try EACH candidate and return the first that parses into a non-empty
+    // rule set. A malformed preferred file (e.g. a half-written AMA-authored
+    // lint) must not disable a valid shipped fallback — parse-then-fall-through
+    // rather than picking the first readable file and giving up on it.
+    candidates.iter().find_map(|p| {
+        let bytes = std::fs::read(p).ok()?;
+        let root: serde_json::Value = match serde_json::from_slice(&bytes) {
+            Ok(v) => v,
+            Err(e) => {
+                log::warn!("card lint: unparseable {}: {e}", p.display());
+                return None;
+            }
+        };
+        let rules: Vec<LintRule> = root
+            .get("rules")?
+            .as_array()?
+            .iter()
+            .filter_map(|r| {
+                Some(LintRule {
+                    desc: r.get("desc")?.as_str()?.to_string(),
+                    pattern: r.get("pattern")?.as_str()?.to_string(),
+                    min: r.get("min").and_then(|m| m.as_u64()).unwrap_or(1) as usize,
+                })
             })
-        })
-        .collect();
-    if rules.is_empty() { None } else { Some(rules) }
+            .collect();
+        if rules.is_empty() { None } else { Some(rules) }
+    })
 }
 
 /// Count each rule's pattern in the card body; return the violated rules as

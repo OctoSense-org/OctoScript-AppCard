@@ -27,8 +27,7 @@ conversation context) — REAL decimal coordinates, the SAME LAT, LON in EVERY
 ## Structure, top to bottom
 
 **(1) CURRENT — weather's `BLOCK: CURRENT`**, reproduced per
-`apps/weather/app.md` (same content, same live bindings; only the background
-differs — gradient, not photo). Its mandatory bindings, briefly:
+`apps/weather/app.md` (same content, same live bindings, over the PHOTO-BACKDROP set above — NOT a gradient). Its mandatory bindings, briefly:
 - City (font 30).
 - Hero temp ALONE on its line (font 60, `margin: Inset{top: 6 bottom: 0}`):
   `sys.weather(LAT, LON, "current.temperature_2m") + "°"`.

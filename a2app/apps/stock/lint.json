@@ -44,6 +44,11 @@
       "desc": "tap handlers: 10 rows + 5 chips + back button",
       "pattern": "on_click",
       "min": 15
+    },
+    {
+      "desc": "the DETAIL view must bind the live quote via sys.stock",
+      "pattern": "sys.stock(",
+      "min": 6
     }
   ]
 }

@@ -62,7 +62,7 @@ const SPLASH_MANUAL: &str = include_str!("../../../aichat/splash.md");
 /// clear). The AMA renders NOTHING — its output is routing metadata.
 const AMA_SYSTEM_PROMPT: &str = "You are the AMA (Activity Management Agent) of an agent OS — a ROUTER and, when needed, an APP COMPOSER. You never generate UI: do NOT emit `runsplash` or any card. Your context includes the APP AGENT MEMORY manual — you do NOT follow its card-generation rules (those are for app agents), but its `framework.md` routing list and its `## Composing a NEW app (AMA composer)` section ARE yours.\n\nROUTING (the default): read the user message, pick the app whose domain it belongs to, and reply EXACTLY ONE short line: `<app-id> — <brief reason>`. The app ids and domains are the routing list in framework.md (weather, stock, news, activity, weather-activity, plus any `apps/<id>/app.md` present in memory). A BARE place name → `weather`; a BARE ticker/company → `stock`; top/best/gainers/movers about the market → `stock`; headlines → `news`; nearby places / things to do → `activity`; what-should-I-DO-given-the-weather → `weather-activity`. Never call a clear single-domain request ambiguous. No tools are needed to route.\n\nMECHANICS: you output ONE decision for ONE app, and the system renders ONE card from that ONE app. There is NO 'route each separately' and NO 'two cards' — those actions do not exist. Therefore a request that asks for two domains TOGETHER (combined card, dashboard, X and Y in one view) can ONLY be served by a COMPOSED app: route to the existing composed app that covers the pair, else COMPOSE it now.\n\nCOMPOSING (when NO app in the routing list — composed ones included — covers a MULTI-domain request): follow the composer section in framework.md. Your working directory IS the app-cards memory root, so use your file tools with RELATIVE paths: write_file `apps/<a>-<b>/app.md` (a requirements spec that MERGES the parent apps' named BLOCKS and binds data ONLY via existing sys.* helpers) and `apps/<a>-<b>/lint.json`, then reply `compose <a>-<b> — <brief reason>`. This authoring write is sanctioned — it is the ONE exception to the manual's never-edit-memory rule; write ONLY under `apps/`. If your file tools fail, reply `none` and say why.\n\nReply `none` ONLY if no domain's data bears on the message. Be terse; output only the one decision line (after any composing writes).";
 
-const APP_SPLASH_ROUTER: &str = "You ARE the app agent and you OWN the entire card generation. Your COMPLETE memory (the app framework procedure, the widget helpers, and the app specs) is ALREADY IN YOUR CONTEXT — it was injected as your memory. USE it. Do NOT read or fetch any files. Do NOT use the spawn tool. Do NOT delegate. Do NOT summarize.\n\nFIRST decide which app type the request is and follow THAT app's spec (assemble it from the widget patterns — there are no exemplars): weather (weather/forecast/air-quality for a place), stock (a ticker/company quote), or news (top headlines). Bind LIVE data with the sys.* helpers the spec names (sys.weather / sys.stock / sys.news) — NEVER hardcode or invent numbers/headlines.\n\nWrite the card YOURSELF and stream it as your answer: emit EXACTLY ONE ```runsplash fenced block as your ENTIRE final answer — the COMPLETE card DSL, with ALL mandatory sections the chosen app's spec lists (e.g. for weather: current block, 7-day forecast, BOTH map panes each as its own full-width row — satellite 卫星云图 then air-quality 空气质量图, NEVER side by side — and the detail grid). No prose before or after the block. NEVER truncate — emit the whole card in one block.";
+const APP_SPLASH_ROUTER: &str = "You ARE the app agent and you OWN the entire card generation. Your COMPLETE memory (the app framework procedure, the widget helpers, and the app specs) is ALREADY IN YOUR CONTEXT — it was injected as your memory. USE it. Do NOT read or fetch any files. Do NOT use the spawn tool. Do NOT delegate. Do NOT summarize.\n\nYou have ALREADY been told which app to build (see the routing line below) — follow THAT app's `apps/<id>/app.md` spec, assembling it from the injected widget patterns (there are no exemplars). It may be weather, stock, news, activity, a composed app (e.g. weather-activity), or any other app whose spec is in your memory — build whichever one you were routed to, using ONLY the sys.* helpers ITS spec names. Bind LIVE data via those helpers — NEVER hardcode or invent numbers/headlines/venues.\n\nWrite the card YOURSELF and stream it as your answer: emit EXACTLY ONE ```runsplash fenced block as your ENTIRE final answer — the COMPLETE card DSL, with ALL mandatory sections the chosen app's spec lists (e.g. for weather: current block, 7-day forecast, BOTH map panes each as its own full-width row — satellite 卫星云图 then air-quality 空气质量图, NEVER side by side — and the detail grid). No prose before or after the block. NEVER truncate — emit the whole card in one block.";
 
 /// The domain-specialised app-agent prompt. The AMA routed `intent` to `domain`,
 /// so tell THAT agent to generate a card of exactly that app type (following the
@@ -3553,6 +3553,22 @@ impl App {
             self.route_to_app(cx, app_id, decision);
             return;
         }
+        // Guard against a HALLUCINATED app id: the AMA may name (or "compose")
+        // a domain whose spec doesn't exist on disk — the fresh peer would then
+        // be told to follow a nonexistent `apps/<id>/app.md` and produce
+        // nothing useful, silently with no lint (no rules to load). Require the
+        // spec to be present before spinning one up; otherwise fall back to the
+        // held intent's default so the user still gets a card.
+        if Self::app_spec_exists(app_id) {
+            // fall through and create the peer
+        } else {
+            log::warn!(
+                "AMA named unknown app '{app_id}' (no apps/{app_id}/app.md) | {decision} — \
+                 falling back to weather"
+            );
+            self.route_to_app(cx, "weather", "unknown app fallback");
+            return;
+        }
         let Some(agent) = self.agent.as_mut() else {
             return;
         };
@@ -3892,7 +3908,19 @@ impl App {
                 .entry("memory")
                 .or_insert_with(|| serde_json::json!({}));
             match memory.as_object_mut() {
-                Some(memory) if !memory.contains_key("max_inject_tokens") => {
+                // Upgrade an ABSENT or too-LOW budget. A device provisioned
+                // under the old flow can carry an explicit `2500` (octos's
+                // pre-app-cards default) — that silently truncates the ~23k
+                // tree, so treat any numeric value below our floor the same as
+                // absent. A value >= the floor (an operator's deliberate tune)
+                // is respected; a non-numeric value is left alone.
+                Some(memory)
+                    if memory
+                        .get("max_inject_tokens")
+                        .and_then(|v| v.as_u64())
+                        .map(|n| n < INJECT_BUDGET_TOKENS)
+                        .unwrap_or(!memory.contains_key("max_inject_tokens")) =>
+                {
                     memory.insert(
                         "max_inject_tokens".into(),
                         serde_json::json!(INJECT_BUDGET_TOKENS),
@@ -3966,6 +3994,30 @@ impl App {
             }
         }
         None
+    }
+
+    /// Does a routed/composed app id have a spec on disk yet? Checks the same
+    /// two locations `card_lint::load_rules` reads. Used to reject hallucinated
+    /// app ids before spawning a peer for them.
+    #[cfg(target_os = "android")]
+    fn app_spec_exists(app_id: &str) -> bool {
+        let Ok(home) = std::env::var("HOME") else {
+            return false;
+        };
+        let base = std::path::Path::new(&home).join("octos-home");
+        [
+            base.join(".octos/profiles/_main/data/memory/app-cards/apps")
+                .join(app_id)
+                .join("app.md"),
+            base.join("a2app/apps").join(app_id).join("app.md"),
+        ]
+        .iter()
+        .any(|p| p.exists())
+    }
+    #[cfg(not(target_os = "android"))]
+    fn app_spec_exists(_app_id: &str) -> bool {
+        // Desktop has no on-device tree; don't block composition there.
+        true
     }
 
     /// The profile's app-cards memory dir — the AMA composer session's

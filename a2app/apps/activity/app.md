@@ -38,7 +38,7 @@ gradient screen.
 - **Empty state**: inside the guard, branch on `sys.placesnum(LAT, LON,
   "<lead-cat>") == 0` → one friendly line ("Nothing close by — try another
   spot", body, `text/secondary`) instead of the rows.
-- **5–8 place rows**. Pick 2–3 categories that fit the intent from the
+- **5–8 place rows**. Pick exactly 2 categories that fit the intent from the
   `sys.places` list (`park garden museum cafe cinema gym library pool
   viewpoint playground trail`; default trio `park`, `cafe`, `museum`) and take
   indexes 0, 1, 2… within each (one fetch serves all rows of a category).

@@ -119,7 +119,7 @@ rules, the widget vocabulary, and each app's spec + a known-good exemplar — is
 - On the device, the tree is deployed to
   `…/octos-home/.octos/profiles/_main/data/memory/app-cards/`. The memory provider
   assembles + prepends it to the model prompt, up to
-  `config.memory.max_inject_tokens` (in `_main.json`).
+  `config.memory.max_inject_tokens` (in `the kernel config.json (the app ensures it at boot)`).
 
 **Why injection and not file-reading?** An earlier design had the agent `read_file`
 the specs (via `OCTOS_SKILLS_PATH`), and a sub-agent relay that copied the result
