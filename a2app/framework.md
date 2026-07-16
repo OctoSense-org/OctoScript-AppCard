@@ -52,7 +52,7 @@ included) answers it, do not answer `none` outright — COMPOSE a new app:
 
 1. Pick the two parent apps whose data covers the request: `<parent-a>`,
    `<parent-b>` (kebab ids from the list above).
-2. Author `apps/<parent-a>-<parent-b>/app.md` — a requirements-only spec (NO
+2. Author `<parent-a>-<parent-b>/app.md` — a requirements-only spec (NO
    full-card examples) that MERGES the parents' NAMED BLOCKS: reference each
    reused block by its heading (e.g. weather's `BLOCK: CURRENT`) and restate
    its mandatory live bindings briefly; NEVER redesign a parent's established
@@ -62,11 +62,13 @@ included) answers it, do not answer `none` outright — COMPOSE a new app:
    numeric helpers (`sys.weathernum`, `sys.aqinum`, `sys.placesnum`) with
    their `-9999` loading sentinel, and end with a `## Failure conditions`
    section.
-3. Author a matching `apps/<parent-a>-<parent-b>/lint.json` — plain substring
+3. Author a matching `<parent-a>-<parent-b>/lint.json` — plain substring
    patterns + min counts (the shape of `apps/stock/lint.json`) enforcing the
    name line and every mandatory `sys.*` binding.
-4. WRITE both files into the app-cards tree with the file write tools, then
-   answer `compose <parent-a>-<parent-b> — <reason>`.
+4. WRITE both files with the file write tools (your working directory IS the
+   app-cards `apps/` dir, so the paths above are relative to it — create a NEW
+   `<parent-a>-<parent-b>/` directory; NEVER modify an existing app's files),
+   then answer `compose <parent-a>-<parent-b> — <reason>`.
 
 If the file write tools are unavailable, answer `none` and say that composing
 `<parent-a>-<parent-b>` requires them. The canonical example of a composed

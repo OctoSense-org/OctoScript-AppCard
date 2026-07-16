@@ -60,7 +60,7 @@ const SPLASH_MANUAL: &str = include_str!("../../../aichat/splash.md");
 /// takes the screen; the AMA's job is to prove the routing brain runs
 /// concurrently (and, later, to prune non-relevant app agents once intent is
 /// clear). The AMA renders NOTHING — its output is routing metadata.
-const AMA_SYSTEM_PROMPT: &str = "You are the AMA (Activity Management Agent) of an agent OS — a ROUTER and, when needed, an APP COMPOSER. You never generate UI: do NOT emit `runsplash` or any card. Your context includes the APP AGENT MEMORY manual — you do NOT follow its card-generation rules (those are for app agents), but its `framework.md` routing list and its `## Composing a NEW app (AMA composer)` section ARE yours.\n\nROUTING (the default): read the user message, pick the app whose domain it belongs to, and reply EXACTLY ONE short line: `<app-id> — <brief reason>`. The app ids and domains are the routing list in framework.md (weather, stock, news, activity, weather-activity, plus any `apps/<id>/app.md` present in memory). A BARE place name → `weather`; a BARE ticker/company → `stock`; top/best/gainers/movers about the market → `stock`; headlines → `news`; nearby places / things to do → `activity`; what-should-I-DO-given-the-weather → `weather-activity`. Never call a clear single-domain request ambiguous. No tools are needed to route.\n\nMECHANICS: you output ONE decision for ONE app, and the system renders ONE card from that ONE app. There is NO 'route each separately' and NO 'two cards' — those actions do not exist. Therefore a request that asks for two domains TOGETHER (combined card, dashboard, X and Y in one view) can ONLY be served by a COMPOSED app: route to the existing composed app that covers the pair, else COMPOSE it now.\n\nCOMPOSING (when NO app in the routing list — composed ones included — covers a MULTI-domain request): follow the composer section in framework.md. Your working directory IS the app-cards memory root, so use your file tools with RELATIVE paths: write_file `apps/<a>-<b>/app.md` (a requirements spec that MERGES the parent apps' named BLOCKS and binds data ONLY via existing sys.* helpers) and `apps/<a>-<b>/lint.json`, then reply `compose <a>-<b> — <brief reason>`. This authoring write is sanctioned — it is the ONE exception to the manual's never-edit-memory rule; write ONLY under `apps/`. If your file tools fail, reply `none` and say why.\n\nReply `none` ONLY if no domain's data bears on the message. Be terse; output only the one decision line (after any composing writes).";
+const AMA_SYSTEM_PROMPT: &str = "You are the AMA (Activity Management Agent) of an agent OS — a ROUTER and, when needed, an APP COMPOSER. You never generate UI: do NOT emit `runsplash` or any card. Your context includes the APP AGENT MEMORY manual — you do NOT follow its card-generation rules (those are for app agents), but its `framework.md` routing list and its `## Composing a NEW app (AMA composer)` section ARE yours.\n\nROUTING (the default): read the user message, pick the app whose domain it belongs to, and reply EXACTLY ONE short line: `<app-id> — <brief reason>`. The app ids and domains are the routing list in framework.md (weather, stock, news, activity, weather-activity, plus any `apps/<id>/app.md` present in memory). A BARE place name → `weather`; a BARE ticker/company → `stock`; top/best/gainers/movers about the market → `stock`; headlines → `news`; nearby places / things to do → `activity`; what-should-I-DO-given-the-weather → `weather-activity`. Never call a clear single-domain request ambiguous. No tools are needed to route.\n\nMECHANICS: you output ONE decision for ONE app, and the system renders ONE card from that ONE app. There is NO 'route each separately' and NO 'two cards' — those actions do not exist. Therefore a request that asks for two domains TOGETHER (combined card, dashboard, X and Y in one view) can ONLY be served by a COMPOSED app: route to the existing composed app that covers the pair, else COMPOSE it now.\n\nCOMPOSING (when NO app in the routing list — composed ones included — covers a MULTI-domain request): follow the composer section in framework.md. Your working directory IS the app-cards `apps/` directory, so use your file tools with RELATIVE paths: write_file `<a>-<b>/app.md` (a requirements spec that MERGES the parent apps' named BLOCKS and binds data ONLY via existing sys.* helpers) and `<a>-<b>/lint.json`, then reply `compose <a>-<b> — <brief reason>`. This authoring write is sanctioned — it is the ONE exception to the manual's never-edit-memory rule. Create a NEW `<id>/` for the composed app; never modify an EXISTING app's files. If your file tools fail, reply `none` and say why.\n\nReply `none` ONLY if no domain's data bears on the message. Be terse; output only the one decision line (after any composing writes).";
 
 const APP_SPLASH_ROUTER: &str = "You ARE the app agent and you OWN the entire card generation. Your COMPLETE memory (the app framework procedure, the widget helpers, and the app specs) is ALREADY IN YOUR CONTEXT — it was injected as your memory. USE it. Do NOT read or fetch any files. Do NOT use the spawn tool. Do NOT delegate. Do NOT summarize.\n\nYou have ALREADY been told which app to build (see the routing line below) — follow THAT app's `apps/<id>/app.md` spec, assembling it from the injected widget patterns (there are no exemplars). It may be weather, stock, news, activity, a composed app (e.g. weather-activity), or any other app whose spec is in your memory — build whichever one you were routed to, using ONLY the sys.* helpers ITS spec names. Bind LIVE data via those helpers — NEVER hardcode or invent numbers/headlines/venues.\n\nWrite the card YOURSELF and stream it as your answer: emit EXACTLY ONE ```runsplash fenced block as your ENTIRE final answer — the COMPLETE card DSL, with ALL mandatory sections the chosen app's spec lists (e.g. for weather: current block, 7-day forecast, BOTH map panes each as its own full-width row — satellite 卫星云图 then air-quality 空气质量图, NEVER side by side — and the detail grid). No prose before or after the block. NEVER truncate — emit the whole card in one block.";
 
@@ -667,6 +667,38 @@ fn defer_unclosed_runsplash(text: &str) -> std::borrow::Cow<'_, str> {
     } else {
         Cow::Owned(format!("{}\u{1F6E0} Building app UI\u{2026}", &text[..start]))
     }
+}
+
+/// Security gate: a generated card may bind live data ONLY through the
+/// `sys.*` helpers and `http_resource` (GET-only image URLs). The raw
+/// `net.http_request` API can POST/PUT/DELETE to arbitrary hosts — an exfil /
+/// SSRF vector if a hallucinated or prompt-injected card reaches the live
+/// renderer. These are DSL tokens (not English words), so a substring match
+/// is precise. Returns a reason when the body must NOT be rendered/stored.
+fn runsplash_body_forbidden(body: &str) -> Option<&'static str> {
+    if body.contains("net.http_request") || body.contains("net.HttpMethod") {
+        return Some("card uses raw net.http_request (only sys.* + http_resource are allowed)");
+    }
+    None
+}
+
+/// Display transform: neutralize a CLOSED but forbidden ```runsplash block so
+/// the live renderer never evaluates it (cards render mid-turn, before the
+/// completion-time lint runs). Cuts the offending block and shows a notice.
+fn scrub_forbidden_runsplash(text: &str) -> std::borrow::Cow<'_, str> {
+    use std::borrow::Cow;
+    let Some(body) = extract_runsplash_body(text) else {
+        return Cow::Borrowed(text);
+    };
+    let Some(reason) = runsplash_body_forbidden(body) else {
+        return Cow::Borrowed(text);
+    };
+    let start = text.find("```runsplash").unwrap_or(0);
+    log::warn!("blocked unsafe card from render: {reason}");
+    Cow::Owned(format!(
+        "{}\u{26A0} This card was blocked: {reason}.",
+        &text[..start]
+    ))
 }
 
 /// Pull the body of the first ```runsplash fenced block out of a message so
@@ -3197,9 +3229,13 @@ impl Widget for ChatList {
                             // widget doesn't re-layout a half-closed block
                             // on every token. An open `runsplash` fence is
                             // deferred first — see `defer_unclosed_runsplash`.
+                            // Gate order: hold back an unclosed block, THEN
+                            // neutralize a closed-but-forbidden one before it
+                            // reaches the Splash renderer (net-write exfil).
                             let deferred = defer_unclosed_runsplash(&data.streaming_text);
+                            let safe = scrub_forbidden_runsplash(&deferred);
                             streaming_body = streaming_display_with_latex_autowrap_remend(
-                                &deferred,
+                                &safe,
                                 opts,
                             );
                             &streaming_body
@@ -3546,6 +3582,55 @@ impl App {
     /// the memory tree (now containing the new spec) injected on open, so the
     /// new agent generates the new app with clean, dedicated context — then
     /// route the still-held intent to it exactly like a boot-time domain agent.
+    /// Extract `(is_compose, app_id)` from the AMA's raw reply. Contract:
+    /// `<appid> — <reason>` / `compose <id> — <reason>` / `none`. Robust to the
+    /// model narrating first and running the decision onto the same line with
+    /// no newline (a line/first-token heuristic then grabs a narration word).
+    /// Anchor on the em-dash separator: the id is the last token BEFORE the
+    /// last `—`, and it's a compose if the token before that is "compose".
+    /// Falls back to the last non-empty line's first token (covers a bare
+    /// `none` / `weather` with no em-dash).
+    fn parse_ama_decision(text: &str) -> (bool, String) {
+        let clean = |tok: &str| -> String {
+            tok.trim_matches(|c: char| !(c.is_ascii_alphanumeric() || c == '-'))
+                .to_ascii_lowercase()
+                .chars()
+                .take(40)
+                .collect()
+        };
+        if let Some(dash) = text.rfind('\u{2014}') {
+            let before = text[..dash].trim_end();
+            let mut toks = before.rsplit(|c: char| c.is_whitespace());
+            let id = toks.next().map(clean).unwrap_or_default();
+            let prev = toks.next().map(clean).unwrap_or_default();
+            if !id.is_empty() {
+                if prev == "compose" {
+                    return (true, id);
+                }
+                // "compose weather-news" with no space-split prev (e.g. glued
+                // "...below.compose weather-news") — the id token may itself be
+                // the compose target while "compose" is fused to prior prose.
+                if before.to_ascii_lowercase().contains("compose ") {
+                    return (true, id);
+                }
+                return (false, id);
+            }
+        }
+        // No em-dash: bare decision. Last non-empty line, first alnum token.
+        let line = text
+            .lines()
+            .rev()
+            .map(str::trim)
+            .find(|l| !l.is_empty())
+            .unwrap_or("");
+        let mut toks = line.split(|c: char| c.is_whitespace());
+        let first = toks.next().map(clean).unwrap_or_default();
+        if first == "compose" {
+            return (true, toks.next().map(clean).unwrap_or_default());
+        }
+        (false, first)
+    }
+
     fn compose_app(&mut self, cx: &mut Cx, app_id: &str, decision: &str) {
         // Idempotent: if a peer agent for this domain already exists (the AMA
         // re-composed an app from earlier in this run), just activate it.
@@ -4020,13 +4105,19 @@ impl App {
         true
     }
 
-    /// The profile's app-cards memory dir — the AMA composer session's
-    /// workspace (see the `session/open` cwd hint at the AMA's creation).
-    /// Android-only; on desktop the memory tree lives server-side.
+    /// The AMA composer session's workspace: the app-cards **`apps/`** subdir,
+    /// not the tree root. The kernel fences file writes to the session
+    /// workspace, so pointing it one level down means the composer can only
+    /// create/modify files under `apps/<id>/` — it CANNOT touch `framework.md`,
+    /// `widgets/`, or `MEMORY.md` (poisoning those would corrupt EVERY app's
+    /// injected context, not one app's). Blast-radius reduction, not full
+    /// isolation: overwriting a sibling `apps/weather/app.md` still needs
+    /// kernel-side create-only enforcement (tracked). Android-only; on desktop
+    /// the tree lives server-side.
     fn app_cards_memory_dir() -> Option<String> {
         #[cfg(target_os = "android")]
         {
-            let p = "/data/user/0/dev.makepad.octos_app/files/octos-home/.octos/profiles/_main/data/memory/app-cards";
+            let p = "/data/user/0/dev.makepad.octos_app/files/octos-home/.octos/profiles/_main/data/memory/app-cards/apps";
             // The dir must EXIST for the kernel's cwd validation to accept the
             // hint (validate_session_workspace_allowed canonicalizes it).
             let _ = std::fs::create_dir_all(p);
@@ -4342,6 +4433,16 @@ impl App {
             return;
         }
 
+        // AMA routing state is a SINGLETON (`ama_prompt`/`ama_text`/
+        // `pending_intent`). A second submit while a routing turn is in flight
+        // would overwrite it — the first turn's decision then arrives
+        // unrecognized and leaks in as foreground card text. Ignore new submits
+        // until the pending route resolves (the user can Cancel to abort it).
+        if self.ama_prompt.is_some() {
+            log::info!("submit ignored: an AMA routing turn is still in flight");
+            return;
+        }
+
         let items_len = {
             let mut data = CHAT_DATA.write().unwrap();
             data.messages.push(ChatMessage {
@@ -4417,6 +4518,26 @@ impl App {
     }
 
     fn cancel_request(&mut self, cx: &mut Cx) {
+        // Cancel an in-flight AMA ROUTING turn too: during routing the
+        // foreground prompt is still `None`, so cancelling only the fg prompt
+        // did nothing and generation proceeded. Abort the route and release the
+        // held intent so the singleton state is clean for the next submit.
+        if let Some(ama_pid) = self.ama_prompt.take() {
+            if let Some(agent) = &mut self.agent {
+                agent.cancel_prompt(cx, ama_pid);
+            }
+            self.ama_text.clear();
+            self.pending_intent = None;
+            let mut data = CHAT_DATA.write().unwrap();
+            data.streaming_text.clear();
+            data.thinking_text.clear();
+            data.is_streaming = false;
+            drop(data);
+            self.ui.view(cx, ids!(cancel_button)).set_visible(cx, false);
+            self.update_empty_state_visibility(cx);
+            self.ui.redraw(cx);
+            return;
+        }
         let taken = self.fg_prompt_take();
         if let (Some(agent), Some(prompt_id)) = (&mut self.agent, taken) {
             agent.cancel_prompt(cx, prompt_id);
@@ -6319,58 +6440,30 @@ impl AppMain for App {
                             // spawned an agent literally named "this". The
                             // prompt contract says the decision line comes
                             // last; hold it to that.
-                            let decision = self
-                                .ama_text
-                                .lines()
-                                .rev()
-                                .map(str::trim)
-                                .find(|l| !l.is_empty())
-                                .unwrap_or("")
-                                .to_string();
-                            // The decision line is `<appid> — <reason>` (or
-                            // `none`, or `compose <id> — <reason>`). Take the
-                            // leading app id: split on whitespace/em-dash ONLY —
-                            // app ids are kebab-case ("weather-activity"), so
-                            // splitting on '-' would truncate a composed id to
-                            // its first parent and route to the wrong agent. Then
-                            // trim stray trailing hyphens ("stock-" from a
-                            // hyphen-as-separator answer still parses as "stock").
-                            let app_id = decision
-                                .split(|c: char| c == '—' || c.is_whitespace())
-                                .next()
-                                .unwrap_or("")
-                                .trim_matches('-')
-                                .to_ascii_lowercase();
+                            // Parse the decision robustly. The contract is a
+                            // final `<appid> — <reason>` (or `none`, or
+                            // `compose <id> — <reason>`), but the model often
+                            // narrates first and runs the decision onto the SAME
+                            // line without a newline, so a line-based heuristic
+                            // grabs a narration word ("let"). Anchor on the
+                            // em-dash separator instead: the app id is the last
+                            // token before the LAST `—`, and it's a compose if
+                            // the token before THAT is "compose".
+                            let decision = self.ama_text.trim().to_string();
+                            let (is_compose, app_id) = Self::parse_ama_decision(&decision);
                             self.ama_prompt = None;
-                            // Dynamic composition: `compose <new-app-id> — <reason>`
-                            // means the AMA matched NO existing app and has just
-                            // authored the new app's spec into the memory tree —
-                            // spin up a NEW peer agent session for that id (a
-                            // fresh session gets the updated memory injected on
-                            // open) and route the still-held intent to it.
-                            if app_id == "compose" {
-                                // Second token = the new app id. Kebab-case slugs
-                                // contain '-', so re-parse on whitespace/em-dash
-                                // only — the first-token split above eats '-' and
-                                // would truncate "weather-activity" to "weather".
-                                let new_id: String = decision
-                                    .split(|c: char| c.is_whitespace() || c == '—')
-                                    .filter(|t| !t.is_empty())
-                                    .nth(1)
-                                    .unwrap_or("")
-                                    .to_ascii_lowercase()
-                                    .chars()
-                                    .filter(|c| c.is_ascii_alphanumeric() || *c == '-')
-                                    .take(40)
-                                    .collect();
-                                if new_id.is_empty() {
-                                    // Malformed compose line — fall through to the
-                                    // normal no-match arm ("compose" names no
-                                    // domain), which releases the held intent and
-                                    // resets the streaming state.
-                                    self.route_to_app(cx, &app_id, &decision);
+                            // Dynamic composition: the AMA matched NO existing app
+                            // and has just authored the new app's spec into the
+                            // memory tree — spin up a NEW peer agent session for
+                            // that id (a fresh session gets the updated memory
+                            // injected on open) and route the still-held intent.
+                            if is_compose {
+                                if app_id.is_empty() {
+                                    // Malformed compose line — release the intent
+                                    // via the no-match path.
+                                    self.route_to_app(cx, "none", &decision);
                                 } else {
-                                    self.compose_app(cx, &new_id, &decision);
+                                    self.compose_app(cx, &app_id, &decision);
                                 }
                                 continue;
                             }
@@ -6427,6 +6520,20 @@ impl AppMain for App {
                                 // retrieved by name and refined over time.
                                 if let Some(body) = extract_runsplash_body(&text) {
                                     rendered_card = true;
+                                    // Never PERSIST a forbidden card (it would be
+                                    // reused by name later); repair it instead.
+                                    if let Some(reason) = runsplash_body_forbidden(body) {
+                                        log::warn!("a2app: refusing to save unsafe card: {reason}");
+                                        if !self.apps[self.foreground].repair_attempted {
+                                            card_repair = Some(format!(
+                                                "SECURITY: your card was rejected — {reason}. \
+                                                 Re-emit the card using ONLY sys.* helpers and \
+                                                 http_resource for images; remove all \
+                                                 net.http_request usage."
+                                            ));
+                                        }
+                                        // fall past save/lint for this body
+                                    } else {
                                     // DEBUG: dump the generated DSL in chunks.
                                     for (i, chunk) in body.as_bytes().chunks(600).enumerate() {
                                         log::info!("CARDDSL[{i}]{}", String::from_utf8_lossy(chunk));
@@ -6465,6 +6572,7 @@ impl AppMain for App {
                                             }
                                         }
                                     }
+                                    } // end else (safe card path)
                                 }
                                 data.messages.push(ChatMessage {
                                     role: ChatRole::Assistant,
