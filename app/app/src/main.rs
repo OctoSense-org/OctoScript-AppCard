@@ -669,36 +669,143 @@ fn defer_unclosed_runsplash(text: &str) -> std::borrow::Cow<'_, str> {
     }
 }
 
-/// Security gate: a generated card may bind live data ONLY through the
-/// `sys.*` helpers and `http_resource` (GET-only image URLs). The raw
-/// `net.http_request` API can POST/PUT/DELETE to arbitrary hosts — an exfil /
-/// SSRF vector if a hallucinated or prompt-injected card reaches the live
-/// renderer. These are DSL tokens (not English words), so a substring match
-/// is precise. Returns a reason when the body must NOT be rendered/stored.
+/// Strip Splash `//` line and `/* */` block comments and ALL whitespace,
+/// producing a scan-only form. Used by the security gate so `net . http_request`,
+/// `net./*x*/http_request`, and an aliased `n . http_request` all collapse to a
+/// contiguous token a substring check can catch. Byte-wise (the patterns we
+/// scan for are ASCII; multibyte string content only needs to not FORM one).
+fn normalize_splash_for_scan(s: &str) -> String {
+    let b = s.as_bytes();
+    let mut out = String::with_capacity(b.len());
+    let mut i = 0;
+    while i < b.len() {
+        if b[i] == b'/' && i + 1 < b.len() && b[i + 1] == b'/' {
+            while i < b.len() && b[i] != b'\n' {
+                i += 1;
+            }
+            continue;
+        }
+        if b[i] == b'/' && i + 1 < b.len() && b[i + 1] == b'*' {
+            i += 2;
+            while i + 1 < b.len() && !(b[i] == b'*' && b[i + 1] == b'/') {
+                i += 1;
+            }
+            i += 2;
+            continue;
+        }
+        let c = b[i] as char;
+        if !c.is_ascii_whitespace() {
+            out.push(c);
+        }
+        i += 1;
+    }
+    out
+}
+
+/// Security gate: a generated card may bind live data ONLY through the `sys.*`
+/// helpers and `http_resource` (GET-only image URLs). The low-level `net.*`
+/// API (`net.http_request` + sockets) can POST/PUT/DELETE to arbitrary hosts —
+/// an exfil / SSRF vector if a hallucinated or prompt-injected card reaches the
+/// live renderer. Cards never legitimately call it, so forbid the METHOD names
+/// (`.http_request`, `.socket`) on ANY receiver — that catches module aliasing
+/// (`let n = net; n.http_request(...)`) too — plus the `net.HttpMethod` enum.
+/// Scans the comment/whitespace-normalized body (see normalize_splash_for_scan).
+/// NOT a hard boundary: a determined model could still build the call by exotic
+/// means the Splash VM might support; the real fix is VM-level capability
+/// gating. This stops the naive/observed cases.
 fn runsplash_body_forbidden(body: &str) -> Option<&'static str> {
-    if body.contains("net.http_request") || body.contains("net.HttpMethod") {
-        return Some("card uses raw net.http_request (only sys.* + http_resource are allowed)");
+    let n = normalize_splash_for_scan(body).to_ascii_lowercase();
+    if n.contains(".http_request")
+        || n.contains(".httprequest")
+        || n.contains("net.httpmethod")
+        || n.contains(".socket_")
+        || n.contains(".socketconnect")
+    {
+        return Some("card uses the low-level net API (only sys.* + http_resource are allowed)");
     }
     None
 }
 
-/// Display transform: neutralize a CLOSED but forbidden ```runsplash block so
-/// the live renderer never evaluates it (cards render mid-turn, before the
-/// completion-time lint runs). Cuts the offending block and shows a notice.
-fn scrub_forbidden_runsplash(text: &str) -> std::borrow::Cow<'_, str> {
+/// Neutralize EVERY forbidden ```runsplash block in a message (not just the
+/// first — the display/store paths render all of them). Each unsafe block is
+/// replaced by a plain notice; safe blocks and surrounding prose are kept
+/// verbatim. Returns `Owned` iff something was blocked (the caller can use that
+/// as the "message contained an unsafe card" signal). Applied on BOTH the
+/// live-render path AND at store time, so a completed/hydrated message can
+/// never re-surface a live forbidden fence.
+fn neutralize_forbidden_cards(text: &str) -> std::borrow::Cow<'_, str> {
     use std::borrow::Cow;
-    let Some(body) = extract_runsplash_body(text) else {
+    if !text.contains("```runsplash") {
         return Cow::Borrowed(text);
-    };
-    let Some(reason) = runsplash_body_forbidden(body) else {
-        return Cow::Borrowed(text);
-    };
-    let start = text.find("```runsplash").unwrap_or(0);
-    log::warn!("blocked unsafe card from render: {reason}");
-    Cow::Owned(format!(
-        "{}\u{26A0} This card was blocked: {reason}.",
-        &text[..start]
-    ))
+    }
+    let mut out = String::with_capacity(text.len());
+    let mut rest = text;
+    let mut changed = false;
+    while let Some(open) = rest.find("```runsplash") {
+        let after_marker = open + "```runsplash".len();
+        let line_end = match rest[after_marker..].find('\n') {
+            Some(nl) => after_marker + nl + 1,
+            None => rest.len(),
+        };
+        let body_and_rest = &rest[line_end..];
+        match body_and_rest.find("```") {
+            Some(close) => {
+                let body = &body_and_rest[..close];
+                if let Some(reason) = runsplash_body_forbidden(body) {
+                    log::warn!("blocked unsafe card: {reason}");
+                    out.push_str(&rest[..open]);
+                    out.push_str(&format!("\u{26A0} A card was blocked: {reason}.\n"));
+                    changed = true;
+                    // skip past the closing fence
+                    let close_abs = line_end + close;
+                    let after_close = &rest[close_abs..];
+                    let fence_end = after_close
+                        .find('\n')
+                        .map(|nl| close_abs + nl + 1)
+                        .unwrap_or(rest.len());
+                    rest = &rest[fence_end..];
+                } else {
+                    // keep this block verbatim; advance past its closing fence
+                    let close_abs = line_end + close + "```".len();
+                    out.push_str(&rest[..close_abs]);
+                    rest = &rest[close_abs..];
+                }
+            }
+            None => {
+                // Unclosed trailing block — keep as-is (defer logic handles it).
+                break;
+            }
+        }
+    }
+    out.push_str(rest);
+    if changed {
+        Cow::Owned(out)
+    } else {
+        Cow::Borrowed(text)
+    }
+}
+
+/// Bodies of ALL ```runsplash blocks in a message (the security gate must scan
+/// every one, not just the first — a safe first + unsafe second block would
+/// otherwise slip through).
+fn extract_all_runsplash_bodies(text: &str) -> Vec<&str> {
+    let mut out = Vec::new();
+    let mut rest = text;
+    while let Some(open) = rest.find("```runsplash") {
+        let after = &rest[open + "```runsplash".len()..];
+        let Some(body_start) = after.find('\n').map(|nl| nl + 1) else {
+            break;
+        };
+        let body = &after[body_start..];
+        match body.find("```") {
+            Some(end) => {
+                out.push(body[..end].trim_end());
+                rest = &body[end + 3..];
+            }
+            None => break,
+        }
+    }
+    out
 }
 
 /// Pull the body of the first ```runsplash fenced block out of a message so
@@ -3230,10 +3337,10 @@ impl Widget for ChatList {
                             // on every token. An open `runsplash` fence is
                             // deferred first — see `defer_unclosed_runsplash`.
                             // Gate order: hold back an unclosed block, THEN
-                            // neutralize a closed-but-forbidden one before it
+                            // neutralize EVERY closed-but-forbidden one before it
                             // reaches the Splash renderer (net-write exfil).
                             let deferred = defer_unclosed_runsplash(&data.streaming_text);
-                            let safe = scrub_forbidden_runsplash(&deferred);
+                            let safe = neutralize_forbidden_cards(&deferred);
                             streaming_body = streaming_display_with_latex_autowrap_remend(
                                 &safe,
                                 opts,
@@ -3429,6 +3536,14 @@ pub struct App {
     /// AMA log, never to the visible CHAT_DATA).
     #[rust]
     ama_prompt: Option<PromptId>,
+    /// A cancelled AMA routing prompt whose late deltas must be DROPPED, not
+    /// streamed into the foreground card. Cancel clears `ama_prompt`
+    /// synchronously, but the server interrupt is async — a delta already in
+    /// flight would otherwise no longer match `ama_prompt`, fall through the
+    /// foreground guard, and leak as card text. Cleared when its TurnComplete
+    /// finally arrives.
+    #[rust]
+    cancelled_ama: Option<PromptId>,
     /// Accumulates the AMA's streamed routing decision for logging.
     #[rust]
     ama_text: String,
@@ -3591,32 +3706,45 @@ impl App {
     /// Falls back to the last non-empty line's first token (covers a bare
     /// `none` / `weather` with no em-dash).
     fn parse_ama_decision(text: &str) -> (bool, String) {
+        // Normalize an id token: keep [a-z0-9-], strip leading/trailing hyphens
+        // ("weather-news-" -> "weather-news"), lowercase, cap length.
         let clean = |tok: &str| -> String {
-            tok.trim_matches(|c: char| !(c.is_ascii_alphanumeric() || c == '-'))
-                .to_ascii_lowercase()
+            let kept: String = tok
                 .chars()
-                .take(40)
-                .collect()
+                .filter(|c| c.is_ascii_alphanumeric() || *c == '-')
+                .collect();
+            kept.trim_matches('-').to_ascii_lowercase().chars().take(40).collect()
         };
-        if let Some(dash) = text.rfind('\u{2014}') {
+        // 1. Compose keyword: "compose <id>". A composed id is ALWAYS multi-part
+        //    (`<a>-<b>`), so require a '-' in the token — that rejects a reason
+        //    that merely mentions "compose a plan" ("a" has no dash).
+        let lower = text.to_ascii_lowercase();
+        if let Some(pos) = lower.rfind("compose ") {
+            let after = &text[pos + "compose ".len()..];
+            let tok = after
+                .split(|c: char| c.is_whitespace() || c == '\u{2014}')
+                .next()
+                .unwrap_or("");
+            let id = clean(tok);
+            if id.contains('-') {
+                return (true, id);
+            }
+        }
+        // 2. `<id> — <reason>`: the FIRST em-dash is the separator (a reason may
+        //    itself contain em-dashes, which defeats rfind). Take the token
+        //    right before it.
+        if let Some(dash) = text.find('\u{2014}') {
             let before = text[..dash].trim_end();
-            let mut toks = before.rsplit(|c: char| c.is_whitespace());
-            let id = toks.next().map(clean).unwrap_or_default();
-            let prev = toks.next().map(clean).unwrap_or_default();
+            let id = before
+                .rsplit(|c: char| c.is_whitespace())
+                .next()
+                .map(clean)
+                .unwrap_or_default();
             if !id.is_empty() {
-                if prev == "compose" {
-                    return (true, id);
-                }
-                // "compose weather-news" with no space-split prev (e.g. glued
-                // "...below.compose weather-news") — the id token may itself be
-                // the compose target while "compose" is fused to prior prose.
-                if before.to_ascii_lowercase().contains("compose ") {
-                    return (true, id);
-                }
                 return (false, id);
             }
         }
-        // No em-dash: bare decision. Last non-empty line, first alnum token.
+        // 3. Bare decision, no em-dash: last non-empty line, first token.
         let line = text
             .lines()
             .rev()
@@ -4002,8 +4130,11 @@ impl App {
                 Some(memory)
                     if memory
                         .get("max_inject_tokens")
-                        .and_then(|v| v.as_u64())
-                        .map(|n| n < INJECT_BUDGET_TOKENS)
+                        // as_f64 accepts both ints and JSON floats (2500.0) — a
+                        // previously-provisioned float default was otherwise
+                        // read as "unparseable, present" and left un-upgraded.
+                        .and_then(|v| v.as_f64())
+                        .map(|n| n < INJECT_BUDGET_TOKENS as f64)
                         .unwrap_or(!memory.contains_key("max_inject_tokens")) =>
                 {
                     memory.insert(
@@ -4433,13 +4564,16 @@ impl App {
             return;
         }
 
-        // AMA routing state is a SINGLETON (`ama_prompt`/`ama_text`/
-        // `pending_intent`). A second submit while a routing turn is in flight
-        // would overwrite it — the first turn's decision then arrives
-        // unrecognized and leaks in as foreground card text. Ignore new submits
-        // until the pending route resolves (the user can Cancel to abort it).
-        if self.ama_prompt.is_some() {
-            log::info!("submit ignored: an AMA routing turn is still in flight");
+        // Reject a new submit while ANY turn is in flight — the AMA routing
+        // turn (singleton `ama_prompt`/`ama_text`/`pending_intent`) OR the
+        // routed app's generation turn. Both share the singleton streaming
+        // surface; a second submit mid-turn overwrites it and the first turn's
+        // late deltas leak in as foreground text. `is_streaming` is set for the
+        // whole window (submit → TurnComplete), so it covers both phases. The
+        // user can Cancel to abort and recover (also unwedges a transport-drop
+        // where no terminal event arrives).
+        if self.ama_prompt.is_some() || CHAT_DATA.read().unwrap().is_streaming {
+            log::info!("submit ignored: a turn is still in flight (Cancel to abort)");
             return;
         }
 
@@ -4526,6 +4660,10 @@ impl App {
             if let Some(agent) = &mut self.agent {
                 agent.cancel_prompt(cx, ama_pid);
             }
+            // Remember it: the interrupt is async, so a delta/TurnComplete
+            // already in flight for this pid must be DROPPED (not streamed as
+            // foreground text) — see the TextDelta/TurnComplete handlers.
+            self.cancelled_ama = Some(ama_pid);
             self.ama_text.clear();
             self.pending_intent = None;
             let mut data = CHAT_DATA.write().unwrap();
@@ -6365,6 +6503,12 @@ impl AppMain for App {
                             .set_text(cx, &format!("Error: {}", error));
                     }
                     AgentEvent::TextDelta { prompt_id, text } => {
+                        // A cancelled AMA turn's late deltas are stale routing
+                        // metadata — drop them (they would otherwise fall past
+                        // the AMA/foreground guards and stream as card text).
+                        if Some(prompt_id) == self.cancelled_ama {
+                            continue;
+                        }
                         // AMA MVP: the AMA's stream is routing metadata — collect
                         // it for the log, never render it to the screen.
                         if Some(prompt_id) == self.ama_prompt {
@@ -6429,6 +6573,13 @@ impl AppMain for App {
                         }
                     }
                     AgentEvent::TurnComplete { prompt_id, .. } => {
+                        // A cancelled AMA turn finally completed — swallow it
+                        // (its decision is void; the intent was already released
+                        // by Cancel). Clear the marker so its slot is reusable.
+                        if Some(prompt_id) == self.cancelled_ama {
+                            self.cancelled_ama = None;
+                            continue;
+                        }
                         // AMA MVP: the AMA's turn finished — parse + apply its
                         // routing decision (proves the routing brain ran
                         // concurrently with the app agent), render nothing.
@@ -6522,7 +6673,12 @@ impl AppMain for App {
                                     rendered_card = true;
                                     // Never PERSIST a forbidden card (it would be
                                     // reused by name later); repair it instead.
-                                    if let Some(reason) = runsplash_body_forbidden(body) {
+                                    // Scan ALL blocks, not just `body` (first):
+                                    // a safe first + unsafe second must also trip.
+                                    let forbidden = extract_all_runsplash_bodies(&text)
+                                        .into_iter()
+                                        .find_map(runsplash_body_forbidden);
+                                    if let Some(reason) = forbidden {
                                         log::warn!("a2app: refusing to save unsafe card: {reason}");
                                         if !self.apps[self.foreground].repair_attempted {
                                             card_repair = Some(format!(
@@ -6574,9 +6730,14 @@ impl AppMain for App {
                                     }
                                     } // end else (safe card path)
                                 }
+                                // Store the NEUTRALIZED text: a forbidden fence
+                                // must not survive in history to be re-rendered
+                                // by the completed-message path or a session
+                                // hydrate (which don't run the streaming gate).
+                                let stored = neutralize_forbidden_cards(&text).into_owned();
                                 data.messages.push(ChatMessage {
                                     role: ChatRole::Assistant,
-                                    text,
+                                    text: stored,
                                 });
                             } else {
                                 self.ui.label(cx, ids!(status_label)).set_text(

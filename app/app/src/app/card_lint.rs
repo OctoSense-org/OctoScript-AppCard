@@ -47,18 +47,24 @@ pub fn load_rules(domain: &str) -> Option<Vec<LintRule>> {
                 return None;
             }
         };
-        let rules: Vec<LintRule> = root
-            .get("rules")?
-            .as_array()?
-            .iter()
-            .filter_map(|r| {
-                Some(LintRule {
-                    desc: r.get("desc")?.as_str()?.to_string(),
-                    pattern: r.get("pattern")?.as_str()?.to_string(),
-                    min: r.get("min").and_then(|m| m.as_u64()).unwrap_or(1) as usize,
-                })
-            })
-            .collect();
+        // Parse ALL rules strictly: if ANY rule is malformed (missing/wrong
+        // desc/pattern), reject the WHOLE file and fall through to the next
+        // candidate — a half-written rule must not silently reduce enforcement
+        // while the file still yields a non-empty set. `min` accepts ints and
+        // JSON floats (`22.0`); a missing/invalid min defaults to 1.
+        let arr = root.get("rules")?.as_array()?;
+        let mut rules = Vec::with_capacity(arr.len());
+        for r in arr {
+            let desc = r.get("desc")?.as_str()?.to_string();
+            let pattern = r.get("pattern")?.as_str()?.to_string();
+            let min = r
+                .get("min")
+                .and_then(|m| m.as_f64())
+                .filter(|n| n.is_finite() && *n >= 0.0)
+                .map(|n| n as usize)
+                .unwrap_or(1);
+            rules.push(LintRule { desc, pattern, min });
+        }
         if rules.is_empty() { None } else { Some(rules) }
     })
 }
