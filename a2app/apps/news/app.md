@@ -1,80 +1,77 @@
-# News app
+# News app — requirements spec (assemble from widgets; no exemplar)
 
-A polished, dark, **iOS-News-style top-stories app** for Hacker News. Use it for
-headlines / what's happening / top news ("top news", "头条", "what's
-happening"). Its canonical card is `exemplars/news-canonical.splash`.
+A polished, dark, **iOS-News-style top-stories app** for Hacker News, with a
+list↔detail flow that is entirely Splash-local. Use it for headlines / what's
+happening / top news ("top news", "头条", "what's happening").
 
-## OUTPUT CONTRACT - FOLLOW EXACTLY
+**YOU generate this card by ASSEMBLING the widget patterns** — there is no
+exemplar to copy. Build it from `widgets/interaction.md` (Splash-local state +
+named widgets, style templates, ScrollYView tap-target rules),
+`widgets/containers.md`, and `widgets/sys-helpers.md` (`sys.news`).
+Requirements below are MANDATORY. Keep the whole block under 8,000 bytes.
 
-Your entire answer MUST be exactly one `runsplash` fenced code block. Its opening
-line must be three backticks immediately followed by `runsplash`, with no leading
-whitespace; its closing line must be exactly three backticks. Never emit a
-`splash`, `rust`, `text`, or unlabeled fence, and never emit raw DSL, because
-those render as source code instead of an interactive app. Do not write prose
-before or after the fence.
+## State model (full-script body, Splash-local)
 
-For a News request, copy the complete interactive structure of
-`exemplars/news-canonical.splash`. It is a known-good, template-based Splash app,
-not merely visual inspiration. Preserve its state, `StoryRow` template,
-list/detail helpers, eight live bindings, fixed shell, and interactions.
+- `// name: news-app` is the first line; the FIRST executable line after it is
+  `let news_app = { detail: false selected: 0 }` — no comment before it.
+- Two `fn` helpers drive ALL navigation by mutating named widgets
+  (interaction.md § Splash-local): `fn show_story(i)` (detail = true, masthead
+  → `< Top Stories`, page title → `Story`, lead becomes story `i`: kicker
+  `SELECTED STORY`, live title/meta, live `url`) and `fn show_list()` (masthead
+  → `TOP STORIES`, page title → `Hacker News`, lead back to story 0, kicker
+  `1 · TOP STORY`, url cleared). Never `agent.notify`, never native handlers.
 
-- The first executable line after `// name:` MUST be
-  `let news_app = { detail: false selected: 0 }`; no comment may precede it.
-- Define only the exemplar's `StoryRow` and `RowTap` style templates, then
-  instantiate them for seven rows. Each `StoryRow` supplies its live `View` and
-  `Label` children directly: nested overrides are ignored, while extra base
-  `View`/`Label` prototypes leak defaults into unrelated widgets in this embedded
-  renderer. Do not replace rows with a metrics table.
-- Finish with one `SolidView` root using `width: Fill`, `height: 780`, and
-  `flow: Overlay`. Keep the masthead, page title, 240dp lead card, and section
-  label fixed; put only the seven story rows in a `ScrollYView` whose height is
-  `Fill`. This preserves the old-template browsing density while keeping detail
-  and Back visible at every feed offset.
-- Use only `sys.news(NUMERIC_INDEX, "KEY")`. Never use path-style calls or keys
-  such as `source`/`published`.
-- Every story card has a transparent 72dp-wide, full-height `ButtonFlatter`
-  aligned with its trailing chevron. This gives a generous action target while
-  leaving the headline body available for vertical feed swipes. Never use a
-  full-card button inside `ScrollYView`, because it captures drag gestures.
-- Navigation is entirely Splash-local: `show_story(index)` opens detail and
-  `show_list()` returns. Never use `agent.notify` or native host handlers.
-- Detail keeps the selected story in the lead card and shows its live title,
-  URL, author, points, and comment count. The dense story rows remain below under
-  `TOP STORIES` and continue to open their corresponding details.
-- Before emitting, verify the output contains `let StoryRow`, `let RowTap`,
-  `height: 780`, `ScrollYView`, `fn show_story(i)`, `fn show_list()`,
-  `sys.news(0, "title")`, and
-  `sys.news(7, "title")`.
+## Closure form — MANDATORY
 
-## LIVE DATA - MANDATORY
+Every `on_click` is an EXPRESSION closure calling exactly ONE fn:
+`on_click: || show_story(0)` — NEVER the block form `on_click: ||{ ... }`.
+Put ALL branching inside the fn bodies (e.g. `fn header_click() { if
+news_app.detail { show_list() } }`, masthead `on_click: || header_click()`).
 
-Every title, author, score, comment count, and URL comes from
-`sys.news(index, "key")`; index 0 is the top story. Never invent story data.
-Values may show `—` briefly before the live feed refreshes.
+## Layout — MANDATORY, top to bottom
 
-Keys: `title`, `author`, `points`, `url`, `comments`.
+Root: `SolidView{ width: Fill height: 780 flow: Overlay new_batch: true }`,
+charcoal `#0b0b0d`, with a warm `GradientYView` (`#21170d → #0b0b0d`) under a
+padded `flow: Down` column (`Inset{left: 18 top: 48 right: 18 bottom: 24}`).
+Orange accent `#ff9f0a`, white primary text, muted `#ffffff77-88` metadata,
+8px card radius, cards never nest.
 
-## UX STRUCTURE
+1. **Masthead** — `header_btn := Button{ width: Fill height: 44 }`,
+   orange 11pt text `TOP STORIES`; `on_click` calls `show_list()` when in
+   detail (the big Back target). Under it `page_title := Label` 26pt white.
+2. **Lead card** — fixed `RoundedView` height 240 (`#ffffff12`) for story 0 /
+   the selected story: `lead_kicker :=` (orange 11), `lead_title :=` (20pt,
+   `width: Fill`, live `sys.news(0, "title")`), `lead_meta :=` (12pt, live
+   points · comments · by author), `lead_url :=` (10pt `#ffb340`, empty in
+   list mode). A full-size transparent Button overlay opens
+   `show_story(0)` from list mode (allowed here — the lead is OUTSIDE the
+   scroll view).
+3. **Section label** — `section_label :=` orange 10pt, `LATEST` (list) /
+   `TOP STORIES` (detail).
+4. **Dense feed** — `ScrollYView{ width: Fill height: Fill }` holding SEVEN
+   story rows for indexes 1..7, built from TWO style templates you define
+   (interaction.md § style templates): a 136dp `StoryRow` RoundedView
+   (`#ffffff0d`) and a transparent 72dp trailing `RowTap` Button (plain `Button`, fully transparent draw_bg colors) whose
+   `on_click: || show_story(i)` (expression form). Each row: rank number (orange 17),
+   wrapping live title (12pt, `width: Fill`), live meta line (9pt), `>`
+   chevron (orange 16). The row BODY stays a swipe surface — no full-row
+   buttons inside the scroll (gesture capture).
+5. Masthead, page title, lead, and section label stay FIXED (outside the
+   scroll); only the seven rows scroll. Detail changes ONLY the named widgets
+   (masthead text, page title, lead content, section label) — the feed stays
+   below so users keep browsing.
 
-Keep the complete generated block below 8,000 bytes so streaming remains
-reliable.
+## LIVE DATA — MANDATORY
 
-1. **Masthead** - a full-width 44dp `ButtonFlatter` reading `TOP STORIES` over
-   the restrained page title `Hacker News`. In detail it becomes
-   `< Top Stories`, providing a large Back target.
-2. **Lead card** - a prominent rounded card for index 0 with a 20pt wrapping
-   title and live points/comments/author metadata. In detail it becomes the
-   selected story and adds the live URL.
-3. **Dense feed** - a `ScrollYView` holds seven `StoryRow` instances for indexes
-   1..7. Each 136dp card has rank, 12pt wrapping title, 9pt metadata, chevron,
-   and a transparent 72dp-wide, full-height trailing button. The headline body
-   is the swipe surface. Never scroll the masthead or lead card with the feed.
-4. **Detail continuity** - change only masthead, page title, lead content, and
-   section heading. Keep the same feed below so users can continue browsing and
-   switch stories without returning first.
+Every title, author, points, comments, url is `sys.news(NUMERIC_INDEX,
+"key")`, index 0 = top story; keys exactly `title`, `author`, `points`,
+`url`, `comments` (never path-style calls, never `source`/`published`).
+Values may show `—` briefly while the feed loads. Never invent story data.
 
-Use a charcoal/black surface, restrained warm tint, orange accent, white primary
-text, and muted gray metadata. Cards use an 8px radius and must not nest.
+## Failure conditions
 
-Widgets: GradientYView, SolidView, RoundedView, ScrollYView, View, Label,
-ButtonFlatter.
+A missing `// name: news-app` first line, a missing `let news_app` opening
+state line, missing `fn show_story(` or `fn show_list()`, fewer than 7
+`StoryRow{` instantiations, `sys.news` bound with fewer than 8 distinct
+indexes, a full-row button inside the ScrollYView, any `agent.notify`, any
+invented story text, or a block over 8,000 bytes = FAILURE.

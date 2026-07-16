@@ -112,16 +112,23 @@ APPHOME=/data/data/dev.makepad.octos_app/files/octos-home
 MEMDIR=$APPHOME/.octos/profiles/_main/data/memory
 $ADB push a2app /data/local/tmp/app-cards
 $ADB shell "su -c 'rm -rf $MEMDIR/app-cards; cp -r /data/local/tmp/app-cards $MEMDIR/app-cards; chown -R 10210:10210 $MEMDIR/app-cards'"
-
-# set the token cap high enough for the assembled tree (~23k tokens as of the
-# 3-app tree — 16000 silently dropped the whole weather section)
-$ADB shell "su -c 'sed -i \"s/\\\"max_inject_tokens\\\": [0-9]*/\\\"max_inject_tokens\\\": 40000/\" $APPHOME/.octos/profiles/_main.json'"
 ```
 
-⚠️ Keep `max_inject_tokens` above the assembled-tree token estimate, or octos
-truncates the tail (the last app) on injection. Estimate the size with a quick
-`wc -c a2app -r` / 4, or watch the injection omission marker. Adding an app is a
-drop-in: create `a2app/apps/<id>/app.md` (+ exemplars) and re-push — no code edit.
+**The injection token budget is handled by the app.** octos's built-in
+`memory.max_inject_tokens` default is 2500 — far below the ~23k-token 3-app
+tree — and an over-budget tree is truncated **silently** at inject time (the
+agent then never sees the exemplars and cards come out with empty values). The
+budget knob lives in the KERNEL config, `$APPHOME/.config/octos/config.json`
+(NOT in `_main.json` — the current octos profile schema has no
+`max_inject_tokens` key, so the old sed recipe silently no-ops). On every boot
+the app writes `"memory": {"max_inject_tokens": 40000}` into that file when
+the key is absent (`ensure_kernel_memory_budget` in `app/src/main.rs`); an
+explicit value you set there yourself is respected.
+
+⚠️ If you tune the value manually, keep it above the assembled-tree token
+estimate (`wc -c` over `a2app/` ÷ 4, ~23k tokens for the 3-app tree), or octos
+truncates the tail (the last app) on injection. Adding an app is a drop-in:
+create `a2app/apps/<id>/app.md` (+ exemplars) and re-push — no code edit.
 
 The per-profile LLM provider + key live in `_main.json` (`config.llm` +
 `config.env_vars`) — provision that on the device; **never commit keys**.
