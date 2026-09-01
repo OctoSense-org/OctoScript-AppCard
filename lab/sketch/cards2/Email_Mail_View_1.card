@@ -1,0 +1,117 @@
+# level: L0
+# model: atro-app
+theme atro_light
+
+state c1 { shape: text, initial: "3" }
+state c3 { shape: text, initial: "23" }
+
+view people Col(width: .fill) {
+  Grid(cols: 5) {
+    Col(align: .center, width: .fill) {
+      Avatar(text: "TC")
+      TextRow(text: "Tom Castle")
+      TextCaption(text: "Vonbury", value: c1)
+    }
+    Col(align: .center, width: .fill) {
+      Avatar(text: "OS")
+      TextRow(text: "Olga Simon")
+      TextCaption(text: "Thaddeus")
+    }
+    Col(align: .center, width: .fill) {
+      Avatar(text: "MB")
+      TextRow(text: "Mary Briggs")
+      TextCaption(text: "Yundtfurt", value: c3)
+    }
+    Col(align: .center, width: .fill) {
+      Avatar(text: "HS")
+      TextRow(text: "Hulda Schwartz")
+      TextCaption(text: "Nikoshire")
+    }
+    Col(align: .center, width: .fill) {
+      Avatar(text: "JE")
+      TextRow(text: "Jane Erickson")
+      TextCaption(text: "Port Golda")
+    }
+  }
+}
+
+view mail Panel {
+  Col(width: .fill) {
+    Row(width: .fill) {
+      TextRow(text: "Mollie Stevenson", width: .fill)
+      TextCaption(text: "10:27AM")
+    }
+    TextBody(text: "Interface design", width: .fill)
+    TextCaption(text: "Since the advent of personal computers, many graphic designe", width: .fill)
+  }
+  Rule()
+  Col(width: .fill) {
+    Row(width: .fill) {
+      TextRow(text: "Bernard Poole", width: .fill)
+      TextCaption(text: "09:32AM")
+    }
+    TextBody(text: "Rapid application development", width: .fill)
+    TextCaption(text: "Rapid application development (RAD) is a methodology in whic", width: .fill)
+  }
+  Rule()
+  Col(width: .fill) {
+    Row(width: .fill) {
+      TextRow(text: "Mattie Keller", width: .fill)
+      TextCaption(text: "06:07AM")
+    }
+    TextBody(text: "Architectural design", width: .fill)
+    TextCaption(text: "The architectural design of a system emphasizes the design o", width: .fill)
+  }
+  Rule()
+  Col(width: .fill) {
+    Row(width: .fill) {
+      TextRow(text: "Ernest Griffith", width: .fill)
+      TextCaption(text: "11:32PM")
+    }
+    TextBody(text: "Digital technology", width: .fill)
+    TextCaption(text: "MIDI and digital audio technology have contributed to the ev", width: .fill)
+  }
+  Rule()
+  Col(width: .fill) {
+    Row(width: .fill) {
+      TextRow(text: "Madge Hunt", width: .fill)
+      TextCaption(text: "07:36PM")
+    }
+    TextBody(text: "Information architecture", width: .fill)
+    TextCaption(text: "Information architecture (IA) is the structural design of sh", width: .fill)
+  }
+  Rule()
+  Col(width: .fill) {
+    Row(width: .fill) {
+      TextRow(text: "Nelle Norris", width: .fill)
+      TextCaption(text: "03:31AM")
+    }
+    TextBody(text: "Yes You Can", width: .fill)
+    TextCaption(text: "As we grow, we do so in fits and starts, lurching forward th", width: .fill)
+  }
+  Rule()
+  Col(width: .fill) {
+    Row(width: .fill) {
+      TextRow(text: "Louise French", width: .fill)
+      TextCaption(text: "08:02PM")
+    }
+    TextBody(text: "Why Re Invent The Light Bulb", width: .fill)
+    TextCaption(text: "“It is not because things are difficult that we do not dare;", width: .fill)
+  }
+}
+
+view compose Panel {
+  TextRow(text: "photo", width: .fill)
+  TextRow(text: "Record", width: .fill)
+  TextRow(text: "files", width: .fill)
+  Chip(text: "new email", tone: .primary, width: .fill)
+}
+
+view root Surface(pad: .page) {
+  Row(width: .fill, align: .center) {
+    TextTitle(text: "Inbox")
+  }
+  people
+  mail
+  compose
+}

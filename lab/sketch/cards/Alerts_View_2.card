@@ -1,0 +1,23 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Alerts] View #2
+
+theme dark
+
+view root Surface(pad: .page) {
+    Row(gap: 8, align: .center) {
+      TextBody(text: "Inbox")
+      TextCaption(text: "subtitle")
+    }
+  TextBody(text: "Your device is not connect to internet, please make sure your connection is working.", width: .fill)
+  TextTitle(text: "Start writing something new", width: .fill)
+  Panel {
+    TextBody(text: "New message")
+  }
+  Panel {
+    Row(gap: 8, align: .center) {
+      TextCaption(text: "Connection error.")
+      TextCaption(text: "retry")
+    }
+  }
+}

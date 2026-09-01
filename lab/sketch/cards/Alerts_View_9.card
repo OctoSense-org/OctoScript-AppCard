@@ -1,0 +1,16 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Alerts] View #9
+
+theme dark
+
+view root Surface(pad: .page) {
+  Panel {
+    TextTitle(text: "The email server is not responding", width: .fill)
+    TextBody(text: "Unfortunately at the moment our servers are not responding. Will be back soon", width: .fill)
+    Panel {
+      TextBody(text: "Try again...")
+    }
+    TextBody(text: "Remind me later")
+  }
+}

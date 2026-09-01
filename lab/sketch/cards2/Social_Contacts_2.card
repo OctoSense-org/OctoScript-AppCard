@@ -1,0 +1,60 @@
+# level: L0
+# model: atro-app
+theme atro_light
+
+state tab { shape: enum[requests, suggested], initial: .suggested }
+
+view tabs Row(width: .fill, gap: .md) {
+  Chip(text: "Requests", active: tab == .requests, width: .fill)
+  Chip(text: "Suggested", active: tab == .suggested, width: .fill)
+}
+
+view people Grid(cols: 2) {
+  Col(align: .center, gap: .sm, width: .fill) {
+    Avatar(text: "IB")
+    TextRow(text: "Isabelle Barker", width: .fill)
+    TextCaption(text: "Kuala Lumpur", width: .fill)
+    Chip(text: "follow", tone: .primary, width: .fill)
+  }
+  Col(align: .center, gap: .sm, width: .fill) {
+    Avatar(text: "EB")
+    TextRow(text: "Esther Boone", width: .fill)
+    TextCaption(text: "Charlotte", width: .fill)
+    Chip(text: "follow", tone: .primary, width: .fill)
+  }
+  Col(align: .center, gap: .sm, width: .fill) {
+    Avatar(text: "CR")
+    TextRow(text: "Carrie Russell", width: .fill)
+    TextCaption(text: "Haifa", width: .fill)
+    Chip(text: "follow", tone: .primary, width: .fill)
+  }
+  Col(align: .center, gap: .sm, width: .fill) {
+    Avatar(text: "HH")
+    TextRow(text: "Hu Hyon-Suk", width: .fill)
+    TextCaption(text: "Edmonton", width: .fill)
+    Chip(text: "follow", tone: .primary, width: .fill)
+  }
+  Col(align: .center, gap: .sm, width: .fill) {
+    Avatar(text: "WM")
+    TextRow(text: "Winnie McKenzie", width: .fill)
+    TextCaption(text: "San Antonio", width: .fill)
+    Chip(text: "follow", tone: .primary, width: .fill)
+  }
+  Col(align: .center, gap: .sm, width: .fill) {
+    Avatar(text: "BH")
+    TextRow(text: "Birdie Hoffman", width: .fill)
+    TextCaption(text: "Budapest", width: .fill)
+    Chip(text: "follow", tone: .primary, width: .fill)
+  }
+}
+
+view root Surface(pad: .page) {
+  Col(width: .fill, gap: .lg) {
+    Col(align: .center, width: .fill) {
+      TextTitle(text: "Contacts", width: .fill)
+    }
+    tabs
+    Rule()
+    people
+  }
+}

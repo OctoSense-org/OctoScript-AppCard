@@ -1,0 +1,41 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Stats] Data visualization #6
+
+theme dark
+
+view root Surface(pad: .page) {
+    Row(gap: 8, align: .center) {
+      TextBody(text: "Family budget")
+      TextCaption(text: "subtitle")
+    }
+      TextCaption(text: "year")
+      TextCaption(text: "month")
+      TextCaption(text: "week")
+      TextCaption(text: "day")
+      TextCaption(text: "$501")
+        TextCaption(text: "$601")
+      TextCaption(text: "$427")
+      TextCaption(text: "$501")
+      TextCaption(text: "$820")
+    TextCaption(text: "Showing:")
+      TextCaption(text: "income")
+      TextCaption(text: "spendings")
+      TextCaption(text: "savings")
+    Row(gap: 8, align: .center) {
+      Panel {
+        Row(gap: 8, align: .center) {
+          TextTitle(text: "$681.91")
+          TextCaption(text: "Budget")
+            TextTitle(text: "$620")
+          TextEyebrow(text: "06:24PM")
+        }
+        TextBody(text: "Ryan")
+        TextCaption(text: "Traveling")
+      }
+      TextTitle(text: "$618")
+      TextEyebrow(text: "09:28AM")
+      TextTitle(text: "$331")
+      TextEyebrow(text: "07:33PM")
+    }
+}

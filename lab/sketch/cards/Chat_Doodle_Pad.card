@@ -1,0 +1,22 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Chat] Doodle Pad
+
+theme dark
+
+view root Surface(pad: .page) {
+  TextBody(text: "Isabelle Barker")
+  TextCaption(text: "subtitle")
+  Panel {
+    TextCaption(text: "Wannabe internet trailblazer. Devoted coffee scholar. Lifelong web evangelist. Zombie guru. Introvert. Certified music fanatic.", width: .fill)
+      TextCaption(text: "10:55")
+  }
+    Chip(text: "If you could have a superpower, what would you choose?")
+  Chip(text: "Do you like roller coasters?")
+    TextCaption(text: "If you could have any kind of pet, what would you choose?")
+    TextCaption(text: "Wannabe internet trailblazer. Devoted coffee scholar. Lifelong web evangelist. Zombie guru. Introvert. Certified music fanatic.", width: .fill)
+    TextCaption(text: "10:59")
+  Panel {
+          TextCaption(text: "Send")
+  }
+}

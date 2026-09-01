@@ -1,0 +1,37 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Email] Mail View #2
+
+theme dark
+
+view root Surface(pad: .page) {
+  TextBody(text: "Inbox (12)")
+  TextCaption(text: "subtitle")
+    Row(gap: 8, align: .center) {
+      TextCaption(text: "Louise French")
+      TextCaption(text: "louise.french@email.com")
+        TextCaption(text: "New York")
+    }
+    Row(gap: 8, align: .center) {
+      Panel {
+        TextBody(text: "Write a new message")
+      }
+    }
+  TextBody(text: "Tillie Welch")
+  TextCaption(text: "Are you free tonight?", width: .fill)
+  TextCaption(text: "Climate March Draws Thousands of Protesters Alarmed by Trump’s Environmental Agenda", width: .fill)
+  TextEyebrow(text: "07:33AM")
+  TextBody(text: "Vernon Cruz")
+  TextCaption(text: "Replace the news you were...", width: .fill)
+  TextEyebrow(text: "04:37AM")
+  TextBody(text: "Rena Tyler")
+  TextCaption(text: "Change Your Mind Change Your Luck", width: .fill)
+  TextEyebrow(text: "12:44PM")
+  TextBody(text: "Eugenia Phelps")
+  TextCaption(text: "29 Motivational Quotes For Business and...", width: .fill)
+  TextEyebrow(text: "07:31PM")
+  TextBody(text: "Christine Bates")
+  TextCaption(text: "Success Steps For Your Personal...", width: .fill)
+  TextEyebrow(text: "05:22PM")
+    TextCaption(text: "Hey, Louise! Did you know you can snap a quick photo just with a tap?")
+}

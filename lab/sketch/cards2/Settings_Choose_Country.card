@@ -1,0 +1,32 @@
+# level: L0
+# model: atro-app
+theme atro_light
+
+state query { shape: text, initial: "Find country" }
+
+view header Col(align: .center, width: .fill) {
+  TextEyebrow(text: "Atro UI")
+  TextTitle(text: "Select country", width: .fill)
+}
+
+view countries Col(width: .fill) {
+  Row(width: .fill) { TextRow(text: "Somalia", width: .fill) }
+  Row(width: .fill) { TextRow(text: "Greenland", width: .fill) }
+  Row(width: .fill) { TextRow(text: "Russian Federation", width: .fill) }
+  Row(width: .fill) { TextRow(text: "Croatia", width: .fill) }
+  Row(width: .fill) { TextRow(text: "Christmas Island", width: .fill) }
+  Row(width: .fill) { TextRow(text: "Belgium", width: .fill) }
+  Row(width: .fill) { TextRow(text: "Martinique", width: .fill) }
+  Row(width: .fill) { TextRow(text: "San Marino", width: .fill) }
+  Row(width: .fill) { TextRow(text: "Gibraltar", width: .fill) }
+  Row(width: .fill) { TextRow(text: "Marshall Islands", width: .fill) }
+  Row(width: .fill) { TextRow(text: "Martinique", width: .fill) }
+}
+
+view root Surface(pad: .page) {
+  Col(width: .fill) {
+    header
+    Field(placeholder: query)
+    countries
+  }
+}

@@ -1,0 +1,29 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Settings] User Preferences
+
+theme dark
+
+view root Surface(pad: .page) {
+    Row(gap: 8, align: .center) {
+      TextBody(text: "Settings")
+      TextBody(text: "Save")
+    }
+    TextCaption(text: "My Cards")
+      TextBody(text: "•••• 1577")
+      TextBody(text: "Add a new card")
+    TextBody(text: "Log out")
+    TextCaption(text: "Credentials")
+    Row(gap: 8, align: .center) {
+      TextCaption(text: "Email")
+      TextBody(text: "alan@gmail.com", width: .fill)
+    }
+    Row(gap: 8, align: .center) {
+      TextCaption(text: "Password")
+      TextBody(text: "•••••••", width: .fill)
+    }
+    TextCaption(text: "social connect")
+      TextBody(text: "Facebook Connect")
+    TextBody(text: "Reset Password")
+    TextBody(text: "My addresses")
+}

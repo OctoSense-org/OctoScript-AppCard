@@ -1,0 +1,59 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Settings] Interests
+
+theme dark
+
+view root Surface(pad: .page) {
+    TextBody(text: "Clear all")
+  TextTitle(text: "Pick your interests")
+  TextCaption(text: "12 interests selected")
+      TextCaption(text: "Travel")
+      TextCaption(text: "Traveling")
+      TextCaption(text: "Camping")
+      TextCaption(text: "RVing")
+      TextCaption(text: "Basketball")
+      TextCaption(text: "Tennis")
+    Row(gap: 8, align: .center) {
+      Panel {
+        TextCaption(text: "Horseback riding")
+      }
+        TextCaption(text: "Swimming")
+    }
+    Row(gap: 8, align: .center) {
+        TextCaption(text: "Football")
+      Panel {
+        TextCaption(text: "Mountain climbing")
+      }
+    }
+    Row(gap: 8, align: .center) {
+      Panel {
+        TextCaption(text: "Running marathons")
+      }
+        TextCaption(text: "Walking")
+    }
+    Row(gap: 8, align: .center) {
+      Panel {
+        TextCaption(text: "Doing triathlons")
+      }
+        TextCaption(text: "Noodling")
+    }
+      TextCaption(text: "Hiking")
+      TextCaption(text: "Geo-caching")
+      TextCaption(text: "Soccer")
+    Row(gap: 8, align: .center) {
+      Panel {
+        TextCaption(text: "Scuba diving and snorkeling")
+      }
+        TextCaption(text: "Camping")
+    }
+    Row(gap: 8, align: .center) {
+        TextCaption(text: "Dancing")
+      Panel {
+        TextCaption(text: "Surfing and windsurfing")
+      }
+    }
+  Panel {
+    TextBody(text: "Continue", width: .fill)
+  }
+}

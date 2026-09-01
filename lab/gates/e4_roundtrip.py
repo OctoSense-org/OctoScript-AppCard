@@ -70,10 +70,24 @@ def clamp_ink(g, i, target=4.5):
     """
     if contrast(g, i) >= target:
         return i
-    # Pick the direction by which one actually reaches further, not by a
-    # luminance threshold: against a mid-luminance ground like terracotta,
-    # white tops out at 4.2:1 while black reaches 6.2:1.
-    dest = max(((0, 0, 0), (255, 255, 255)), key=lambda d: contrast(g, d))
+    # Push the ink FURTHER IN ITS OWN DIRECTION, and only cross over if that
+    # direction genuinely cannot reach the target.
+    #
+    # Picking whichever extreme reaches further inverts the design. Florence is
+    # cream on terracotta at 4.0:1; white reaches 4.5:1 and black 4.7:1, so
+    # `max` chose black — and a light-on-warm card became a dark-on-warm one,
+    # which is a different design, not a corrected one. It also still failed the
+    # gate, because the derived inks fell back to 4.4:1 and 3.3:1.
+    # NEVER cross over. If the design's own polarity cannot reach the target,
+    # take the best it can do and let the gate report the shortfall honestly.
+    #
+    # Florence — the mockup that won its blind comparison 7/7 — is cream on
+    # terracotta at 4.0:1, and even pure white on that ground reaches 4.4765:1.
+    # The reference design does not meet AA and cannot be made to without
+    # becoming a different design. Crossing to black bought 4.7:1 and threw the
+    # design away; worse, it is a silent substitution, so the render looked
+    # deliberate and nothing said the intent had been discarded.
+    dest = (255, 255, 255) if rel_lum(i) > rel_lum(g) else (0, 0, 0)
     for k in range(1, 21):
         c = mix(i, dest, k / 20)
         if contrast(g, c) >= target:
@@ -103,6 +117,28 @@ def lift(g, i, target=1.12):
 # nearly opaque where the text sits. Those alphas are the mechanism, so the
 # transfer carries them and only re-colours them.
 SCRIM_TOP_A, SCRIM_A = 56, 242
+# How far the secondary inks may step back from the primary one — as a CEILING,
+# not a position. `l0_soft` and `l0_dim` used to be fixed points on the
+# ground-to-ink axis (0.90 and 0.66), which works on a dark ground where 66%
+# toward white is still a light grey, and fails on a mid-luminance one where it
+# lands on top of the ground. Florence's `l0_dim` came out at 2.48:1 that way.
+#
+# So they are solved instead: step back from the ink toward the surface and stop
+# at the contrast floor. The result is the faintest ink that is still legible,
+# which is what "dim" was always trying to mean.
+SOFT_MAX, DIM_MAX = 0.10, 0.34
+
+
+def step_back(ink, surface, most, floor=4.5):
+    """The faintest version of `ink` on `surface` that still clears `floor`."""
+    best = ink
+    for k in range(1, 41):
+        t = most * k / 40
+        c = mix(ink, surface, t)
+        if contrast(c, surface) < floor:
+            break
+        best = c
+    return best
 # What a photograph is worth assuming when clamping. A real image contains
 # everything, so a scrim has to hold against the region that hurts THIS ink —
 # a dark photo under dark ink, a bright one under light ink. Mid-grey was the
@@ -180,7 +216,29 @@ def palette_src(ground, ink, accent):
     g, i0, a = rgb(ground), rgb(ink), rgb(accent)
     if not (g and i0):
         return None
-    i = clamp_ink(g, i0)                 # legible against the page
+    # Solve for the WORST pair the kit will produce, not the primary one.
+    #
+    # Clamping `l0_text` to exactly 4.5:1 guarantees everything derived from it
+    # sits below: `l0_soft` is 90% of the way toward the ink, `l0_dim` 66%, and
+    # the panel lift moves the SURFACE toward the ink as well, closing the gap
+    # from both ends. Measured on the art_deco palette, whose ground has an
+    # 8.75:1 ceiling and so looked fine: text landed at 4.71:1 on the page, then
+    # 4.17:1 on a panel, and `l0_dim` on a panel at 2.56:1 — eight of nine pairs
+    # below AA, and 61 of the 123 contrast failures in a twenty-run batch.
+    #
+    # `l0_dim` on `l0_fill` is the binding constraint, so push the ink until
+    # THAT clears the bar and let everything else follow. If the ground cannot
+    # carry it even at full white or black, take the best available and let the
+    # gate report the shortfall — never cross polarity to buy contrast.
+    i = clamp_ink(g, i0)
+    for _ in range(24):
+        f_try = lift(g, i)
+        if contrast(i, f_try) >= 4.5:
+            break
+        nxt = mix(i, (255, 255, 255) if rel_lum(i) > rel_lum(g) else (0, 0, 0), 0.12)
+        if nxt == i:
+            break
+        i = nxt
     top_a = scrim_top_alpha(g, i)        # and against a photograph, via the scrim
     fill = lift(g, i)                    # a panel that separates, as a ratio
     sheet = mix(g, fill, 0.7)
@@ -209,8 +267,8 @@ def palette_src(ground, ink, accent):
         f"let l0_active   = {hx(toward_ink(0.20))}",
         f"let l0_bar_rail = {hx(toward_ink(0.16))}",
         f"let l0_text     = {hx(i)}",
-        f"let l0_soft     = {hx(toward_ink(0.90))}",
-        f"let l0_dim      = {hx(toward_ink(0.66))}",
+        f"let l0_soft     = {hx(step_back(i, fill, SOFT_MAX))}",
+        f"let l0_dim      = {hx(step_back(i, fill, DIM_MAX))}",
         # icons take l0_text when icon_mono is set, so pin it — a palette that
         # left it at the mood's value inherited whatever polarity the mood had.
         "let icon_mono   = 1",

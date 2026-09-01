@@ -1,0 +1,60 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Stats] Data visualization #3
+
+theme dark
+
+view root Surface(pad: .page) {
+    TextBody(text: "Transaction history")
+      TextCaption(text: "today")
+      TextCaption(text: "Month")
+      TextCaption(text: "week")
+      TextCaption(text: "day")
+  Panel {
+    Row(gap: 8, align: .center) {
+      TextCaption(text: "Jan")
+      TextCaption(text: "Feb")
+      TextCaption(text: "Mar")
+      TextCaption(text: "Apr")
+      TextCaption(text: "May")
+      TextCaption(text: "Jun")
+    }
+    Row(gap: 8, align: .center) {
+      TextHero(text: "$4153.93")
+      TextCaption(text: "15th May - 15th June")
+    }
+        TextCaption(text: "Chart")
+        TextCaption(text: "table")
+  }
+  Panel {
+      TextCaption(text: "Transactions")
+    TextBody(text: "Ryan Ellis")
+    TextEyebrow(text: "06:34AM")
+    TextCaption(text: "Payment")
+    TextTitle(text: "+ $85")
+    TextBody(text: "Max Carson")
+    TextEyebrow(text: "08:54PM")
+    TextCaption(text: "Debit")
+    TextTitle(text: "- $23")
+    TextBody(text: "Paul Mills")
+    TextEyebrow(text: "02:25PM")
+    TextCaption(text: "Refund")
+    TextTitle(text: "+ $31")
+    TextBody(text: "Travis Lloyd")
+    TextEyebrow(text: "09:13PM")
+    TextCaption(text: "Payment")
+    TextTitle(text: "- $5")
+    TextBody(text: "Ryan Ellis")
+    TextEyebrow(text: "06:34AM")
+    TextCaption(text: "Payment")
+    TextTitle(text: "+ $9")
+    TextBody(text: "Max Carson")
+    TextEyebrow(text: "08:54PM")
+    TextCaption(text: "Debit")
+    TextBody(text: "Paul Mills")
+    TextEyebrow(text: "02:25PM")
+    TextCaption(text: "Refund")
+    TextTitle(text: "$24")
+  }
+    TextCaption(text: "$139")
+}

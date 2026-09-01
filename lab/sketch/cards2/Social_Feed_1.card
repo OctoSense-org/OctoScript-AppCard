@@ -1,0 +1,96 @@
+# level: L0
+# model: atro-app
+
+theme atro_light
+
+state p1 { shape: text, initial: "http://127.0.0.1:8787/_ph.png" }
+state p2 { shape: text, initial: "http://127.0.0.1:8787/_ph.png" }
+state p3 { shape: text, initial: "http://127.0.0.1:8787/_ph.png" }
+state p4 { shape: text, initial: "http://127.0.0.1:8787/_ph.png" }
+state p5 { shape: text, initial: "http://127.0.0.1:8787/_ph.png" }
+state p6 { shape: text, initial: "http://127.0.0.1:8787/_ph.png" }
+
+view root Surface(pad: .page) {
+  Col(align: .center, width: .fill) {
+    TextTitle(text: "Following")
+  }
+  Row(width: .fill) {
+    leftcolumn
+    rightcolumn
+  }
+  Col(align: .center, width: .fill) {
+    Chip(text: "New post available", tone: .primary)
+  }
+}
+
+view leftcolumn Col(width: .fill) {
+  Panel {
+    Thumb(src: p1)
+    Row(width: .fill) {
+      Avatar(text: "JP")
+      Col(width: .fill) {
+        TextRow(text: "Jeremías del Pozo", width: .fill)
+        TextCaption(text: "Incheon")
+      }
+    }
+    TextBody(text: "You miss 100% of the shots you don’t take.", width: .fill)
+  }
+  Panel {
+    Thumb(src: p2)
+    Row(width: .fill) {
+      Avatar(text: "DT")
+      Col(width: .fill) {
+        TextRow(text: "Donat Twerski", width: .fill)
+        TextCaption(text: "Montevideo")
+      }
+    }
+    TextBody(text: "You miss 100% of the shots you don’t take.", width: .fill)
+  }
+  Panel {
+    Thumb(src: p3)
+    Row(width: .fill) {
+      Avatar(text: "AP")
+      Col(width: .fill) {
+        TextRow(text: "Alexandre Paiva", width: .fill)
+        TextCaption(text: "Brazzaville")
+      }
+    }
+    TextBody(text: "You miss 100% of the shots you don’t take.", width: .fill)
+  }
+}
+
+view rightcolumn Col(width: .fill) {
+  Panel {
+    Thumb(src: p4)
+    Row(width: .fill) {
+      Avatar(text: "KW")
+      Col(width: .fill) {
+        TextRow(text: "Kendasha Wood", width: .fill)
+        TextCaption(text: "Doha")
+      }
+    }
+    TextBody(text: "You miss 100% of the shots you don’t take.", width: .fill)
+  }
+  Panel {
+    Thumb(src: p5)
+    Row(width: .fill) {
+      Avatar(text: "SW")
+      Col(width: .fill) {
+        TextRow(text: "Sebastian Westergren", width: .fill)
+        TextCaption(text: "Washington D.C.")
+      }
+    }
+    TextBody(text: "You miss 100% of the shots you don’t take.", width: .fill)
+  }
+  Panel {
+    Thumb(src: p6)
+    Row(width: .fill) {
+      Avatar(text: "AL")
+      Col(width: .fill) {
+        TextRow(text: "Angela Longoria", width: .fill)
+        TextCaption(text: "Brussels")
+      }
+    }
+    TextBody(text: "You miss 100% of the shots you don’t take.", width: .fill)
+  }
+}

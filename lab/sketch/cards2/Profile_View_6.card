@@ -1,0 +1,43 @@
+# level: L0
+# model: atro-app
+
+theme atro_light
+
+state followers { shape: text, initial: "35k" }
+state stories   { shape: text, initial: "315" }
+state following { shape: text, initial: "1931" }
+
+view profile Col(align: .center, gap: .md, width: .fill) {
+  Avatar(text: "MB")
+  Chip(text: "LIVE", tone: .primary)
+  TextTitle(text: "Maria José Botín")
+  TextCaption(text: "Berlin, Germany")
+  TextBody(text: "Typical thinker. Incurable tv geek. Explorer. Friend of animals everywhere. Entrepreneur.", width: .fill)
+  Chip(text: "message", tone: .primary, width: .fill)
+}
+
+view stats Grid(cols: 3) {
+  Tile(label: "Followers", value: followers)
+  Tile(label: "Stories", value: stories)
+  Tile(label: "Following", value: following)
+}
+
+view places Col(gap: .sm, width: .fill) {
+  TextTitle(text: "Favourite places", width: .fill)
+  Grid(cols: 3) {
+    Card { }
+    Card { }
+    Card { }
+  }
+}
+
+view root Surface(pad: .page) {
+  Panel {
+    Col(gap: .lg, width: .fill) {
+      profile
+      stats
+      Rule()
+      places
+    }
+  }
+}

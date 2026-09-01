@@ -1,0 +1,20 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Account] Email Validation
+
+theme dark
+
+view root Surface(pad: .page) {
+  Panel {
+    TextTitle(text: "Is your email correct?", width: .fill)
+    TextBody(text: "Please confirm that the email address you’ve used for your account creation is correct.", width: .fill)
+    Row(gap: 8, align: .center) {
+      Panel {
+        TextBody(text: "alan@gmail.com")
+      }
+    }
+    Panel {
+        TextBody(text: "the email is correct")
+    }
+  }
+}

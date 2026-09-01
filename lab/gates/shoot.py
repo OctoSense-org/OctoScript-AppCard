@@ -22,13 +22,28 @@ SIZE = os.environ.get("GATE_WINDOW", "360x780")
 SETTLE = float(os.environ.get("SHOOT_SETTLE", "11"))
 
 
-def window_id():
+def window_id(pid=None):
+    """The window belonging to THIS render, matched by PID.
+
+    Matching on the owner NAME returns the first `octos` window on screen, which
+    is only correct while exactly one render is running. Two concurrent runs —
+    a batch judging in the background and a proof in the foreground — then
+    photograph each other: measured 2026-08-30, when a `type: .tracked` weather
+    card came back as a screenshot of a NEWS card from the other run, and two
+    more shots came back on the other run's mood. Every number from a concurrent
+    pair was silently wrong, and nothing failed.
+
+    The PID makes it impossible: a process can only be photographed as itself.
+    """
     import Quartz
     wl = Quartz.CGWindowListCopyWindowInfo(
         Quartz.kCGWindowListOptionOnScreenOnly | Quartz.kCGWindowListExcludeDesktopElements,
         Quartz.kCGNullWindowID)
     for w in wl:
-        if "octos" in w.get("kCGWindowOwnerName", "").lower():
+        if pid is not None:
+            if w.get("kCGWindowOwnerPID") == pid:
+                return w["kCGWindowNumber"]
+        elif "octos" in w.get("kCGWindowOwnerName", "").lower():
             return w["kCGWindowNumber"]
     return None
 
@@ -58,7 +73,7 @@ def shoot(dsl, out, palette=None, crop_bottom=90, data=None):
                          stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     try:
         time.sleep(SETTLE)
-        wid = window_id()
+        wid = window_id(p.pid)
         if wid is None:
             return False
         r = subprocess.run(["screencapture", "-o", "-x", f"-l{wid}", str(out)],

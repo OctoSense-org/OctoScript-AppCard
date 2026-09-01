@@ -1,0 +1,32 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Photo] Album Actions#3
+
+theme dark
+
+view root Surface(pad: .page) {
+    Row(gap: 8, align: .center) {
+      TextBody(text: "Gallery")
+      TextBody(text: "Send")
+    }
+      Row(gap: 8, align: .center) {
+        TextBody(text: "Gallery")
+        TextCaption(text: "(12)")
+      }
+      Row(gap: 8, align: .center) {
+        TextBody(text: "Videos")
+        TextCaption(text: "(23)")
+      }
+      Row(gap: 8, align: .center) {
+        TextBody(text: "Panoramas")
+        TextCaption(text: "(42)")
+      }
+      Row(gap: 8, align: .center) {
+        TextBody(text: "Screenshots")
+        TextCaption(text: "(12)")
+      }
+      Row(gap: 8, align: .center) {
+        TextBody(text: "Deleted")
+        TextCaption(text: "(231)")
+      }
+}

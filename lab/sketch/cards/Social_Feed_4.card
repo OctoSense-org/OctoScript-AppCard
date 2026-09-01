@@ -1,0 +1,34 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Social] Feed #4
+
+theme dark
+
+view root Surface(pad: .page) {
+    TextBody(text: "Trending")
+  Panel {
+      Row(gap: 8, align: .center) {
+        TextCaption(text: "Billy Tucker")
+        TextEyebrow(text: "01:13AM")
+          TextCaption(text: "Phoenix")
+      }
+    TextCaption(text: "It’s hard to say when in our lives each of us become aware of this thing called “astronomy”.", width: .fill)
+      TextCaption(text: "Like")
+      TextCaption(text: "Comment")
+      TextCaption(text: "Share")
+  }
+  Panel {
+      Row(gap: 8, align: .center) {
+        TextCaption(text: "Dale Hogan")
+        TextEyebrow(text: "06:02PM")
+          TextCaption(text: "Phoenix")
+      }
+    TextCaption(text: "It’s hard to say when in our lives each of us become aware of this thing called “astronomy”.", width: .fill)
+      TextCaption(text: "Like")
+      TextCaption(text: "Comment")
+      TextCaption(text: "Share")
+  }
+  Panel {
+    TextCaption(text: "New post available")
+  }
+}

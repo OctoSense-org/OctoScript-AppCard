@@ -1,0 +1,36 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Social] Feed #6
+
+theme dark
+
+view root Surface(pad: .page) {
+  TextCaption(text: "Tom Castle")
+  TextCaption(text: "Vonbury")
+  TextCaption(text: "Olga Simon")
+  TextCaption(text: "Thaddeus")
+    TextEyebrow(text: "LIVE")
+  TextCaption(text: "Mary Briggs")
+  TextCaption(text: "Yundtfurt")
+  TextCaption(text: "Hulda Schwartz")
+  TextCaption(text: "Nikoshire")
+  TextCaption(text: "Jane Erickson")
+  TextCaption(text: "Port Golda")
+    Row(gap: 8, align: .center) {
+      TextCaption(text: "Louise French")
+      TextCaption(text: "Wednesday")
+        TextCaption(text: "New York")
+    }
+        TextCaption(text: "432 Likes")
+        TextCaption(text: "72 Comments")
+  Panel {
+    TextCaption(text: "Find something...")
+  }
+    Row(gap: 8, align: .center) {
+      TextCaption(text: "Sadie Hamilton")
+      TextCaption(text: "Monday")
+        TextCaption(text: "New York")
+    }
+        TextCaption(text: "432 Likes")
+        TextCaption(text: "72 Comments")
+}

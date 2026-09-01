@@ -1,0 +1,15 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Account] TOS Agreement
+
+theme dark
+
+view root Surface(pad: .page) {
+  Panel {
+    TextTitle(text: "Terms and conditions")
+    Panel {
+        TextBody(text: "Accept terms")
+    }
+    TextBody(text: "Read later")
+  }
+}

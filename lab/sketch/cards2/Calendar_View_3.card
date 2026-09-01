@@ -1,0 +1,40 @@
+# level: L0
+# model: atro-app
+theme atro_light
+
+view invited Col(align: .center, gap: .md, width: .fill) {
+  TextEyebrow(text: "Invited")
+  Avatar(text: "+")
+}
+
+view details Col(gap: .lg, width: .fill) {
+  TextRow(text: "9:00 - 11:00 AM", width: .fill)
+  TextRow(text: "Wendsday, November 2019", width: .fill)
+  TextRow(text: "Meeting Room", width: .fill)
+  Col(gap: .xs, width: .fill) {
+    TextRow(text: "Description", width: .fill)
+    TextBody(text: "Insanity is doing the same thing, over and over again, but expecting different results.", width: .fill)
+  }
+  Col(gap: .xs, width: .fill) {
+    TextRow(text: "Prototype link", width: .fill)
+    TextBody(text: "https://ui8.net/products/atro-mobile-ui-kit", width: .fill)
+  }
+  Col(gap: .xs, width: .fill) {
+    TextRow(text: "Video sharing", width: .fill)
+    TextBody(text: "zoom.us/meeting-#21345", width: .fill)
+  }
+  Col(gap: .xs, width: .fill) {
+    TextRow(text: "Preparation", width: .fill)
+    TextBody(text: "You will be notified 15 minute before the meeting", width: .fill)
+  }
+}
+
+view root Surface(pad: .page) {
+  Col(gap: .lg, width: .fill) {
+    TextTitle(text: "Mobile App nav patterns explorations", width: .fill)
+    invited
+    Rule()
+    details
+    Chip(text: "add to calendar", tone: .primary, width: .fill)
+  }
+}

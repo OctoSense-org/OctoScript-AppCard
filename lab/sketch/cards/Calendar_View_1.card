@@ -1,0 +1,98 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Calendar] View #1
+
+theme dark
+
+view root Surface(pad: .page) {
+  Panel {
+    Row(gap: 8, align: .center) {
+      Panel {
+        Row(gap: 8, align: .center) {
+            TextCaption(text: "weather")
+          TextEyebrow(text: "+26° C")
+            TextCaption(text: "wind speed")
+          TextCaption(text: "10 m/s")
+            TextCaption(text: "uv index")
+          TextCaption(text: "756.9 mm")
+            TextCaption(text: "humidity")
+          TextCaption(text: "46%")
+        }
+      }
+      TextHero(text: "May")
+      TextCaption(text: "Interaction Design Team")
+    }
+    TextCaption(text: "Mon")
+    TextCaption(text: "tue")
+    TextCaption(text: "wed")
+    TextCaption(text: "thu")
+    TextCaption(text: "fri")
+    TextCaption(text: "sat")
+    TextCaption(text: "sun")
+      TextCaption(text: "25")
+      TextCaption(text: "26")
+      TextCaption(text: "27")
+      TextCaption(text: "28")
+      TextCaption(text: "29")
+      TextCaption(text: "30")
+      TextCaption(text: "1")
+      TextCaption(text: "2")
+      TextCaption(text: "3")
+      TextCaption(text: "4")
+      TextCaption(text: "5")
+      TextCaption(text: "6")
+      TextCaption(text: "7")
+      TextCaption(text: "8")
+      TextCaption(text: "9")
+      TextCaption(text: "10")
+      TextCaption(text: "11")
+      TextCaption(text: "12")
+      TextCaption(text: "13")
+      TextCaption(text: "14")
+      TextCaption(text: "15")
+      TextCaption(text: "16")
+      TextCaption(text: "17")
+      TextCaption(text: "18")
+      TextCaption(text: "19")
+      TextCaption(text: "20")
+      TextCaption(text: "21")
+      TextCaption(text: "22")
+      TextCaption(text: "23")
+      TextCaption(text: "24")
+      TextCaption(text: "25")
+      TextCaption(text: "26")
+      TextCaption(text: "27")
+      TextCaption(text: "28")
+      TextCaption(text: "29")
+      TextCaption(text: "30")
+      TextCaption(text: "31")
+      TextCaption(text: "1")
+      TextCaption(text: "2")
+      TextCaption(text: "3")
+      TextCaption(text: "4")
+      TextCaption(text: "5")
+        TextCaption(text: "10")
+        TextCaption(text: "14")
+    TextCaption(text: "Events • 10-14 December")
+    Panel {
+      Row(gap: 8, align: .center) {
+          Row(gap: 8, align: .center) {
+            TextEyebrow(text: "DEC")
+            TextTitle(text: "10")
+          }
+        TextBody(text: "Design Hackathon")
+        TextCaption(text: "Until recently, the prevailing view assum…", width: .fill)
+      }
+    }
+    Panel {
+      Row(gap: 8, align: .center) {
+          Row(gap: 8, align: .center) {
+            TextEyebrow(text: "DEC")
+            TextTitle(text: "10")
+          }
+        TextBody(text: "Annual Design Workshop")
+        TextCaption(text: "On the other hand, we denounce with…", width: .fill)
+      }
+    }
+  }
+}

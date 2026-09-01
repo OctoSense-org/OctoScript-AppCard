@@ -1,0 +1,28 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Account] Login
+
+theme dark
+
+view root Surface(pad: .page) {
+    Row(gap: 8, align: .center) {
+      Panel {
+        TextBody(text: "alan@gmail.com")
+      }
+    }
+  Panel {
+    TextBody(text: "Your password")
+  }
+    TextCaption(text: "UI")
+  Panel {
+    TextBody(text: "Sign In")
+  }
+    TextCaption(text: "OR")
+  Panel {
+      TextBody(text: "Continue with Facebook")
+  }
+    Row(gap: 8, align: .center) {
+      TextEyebrow(text: "FORGOT DETAILS?")
+      TextEyebrow(text: "CREATE ACCOUNT")
+    }
+}

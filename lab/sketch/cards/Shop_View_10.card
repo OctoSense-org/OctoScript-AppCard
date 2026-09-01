@@ -1,0 +1,58 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Shop] View #10
+
+theme dark
+
+view root Surface(pad: .page) {
+    Row(gap: 8, align: .center) {
+      TextTitle(text: "Bose Noise Cancelling", width: .fill)
+      TextBody(text: "$299.99")
+    }
+    TextCaption(text: "(181)")
+      TextEyebrow(text: "FREE SHIPPING")
+      TextCaption(text: "Overview")
+      TextCaption(text: "Reviews (14)")
+      TextCaption(text: "Stats")
+  TextCaption(text: "price history")
+    Row(gap: 8, align: .center) {
+      TextCaption(text: "$200")
+      TextCaption(text: "$100")
+      TextCaption(text: "$0")
+        TextCaption(text: "$141.29")
+    }
+  TextCaption(text: "Jan")
+  TextCaption(text: "Feb")
+  TextCaption(text: "Mar")
+  TextCaption(text: "Apr")
+  TextCaption(text: "mar")
+  TextCaption(text: "Jun")
+  Panel {
+    Row(gap: 8, align: .center) {
+      TextBody(text: "$139.99")
+      TextCaption(text: "Lowest price")
+    }
+    TextCaption(text: "14 Feb, 2020")
+  }
+  Panel {
+    Row(gap: 8, align: .center) {
+      TextBody(text: "$150.00")
+      TextCaption(text: "Average price")
+    }
+    TextCaption(text: "last 6 months")
+  }
+  Panel {
+    Row(gap: 8, align: .center) {
+      TextBody(text: "$189.99")
+      TextCaption(text: "Hightest price")
+    }
+    TextCaption(text: "23 Dec, 2019")
+  }
+  Panel {
+    Row(gap: 8, align: .center) {
+      TextBody(text: "$141.29")
+      TextCaption(text: "Today’s price")
+    }
+    TextCaption(text: "15 feb, 2020")
+  }
+}

@@ -1,0 +1,47 @@
+# ledger stock@1.0.0
+# level: L0
+
+theme vibrant accent: .amber texture: .paper emphasis: .poster
+
+state ticker { shape: text, initial: "NVDA" }
+
+source quote sys.quote(ticker: state.ticker, fields: [ticker, name, last, change, pct, open, high, low, volume])
+
+# The two status lines were stacked inside the hero panel's own column, so the
+# panel — and with it the whole card box — grew by a line whenever the quote was
+# pending or failed, and stopped settling on the edge the row beneath the card is
+# laid out against. A status line is a band of the page, not a fifth line of the
+# hero stack: hoisted here it leaves the panel a fixed four rows in every state.
+view root Surface(pad: .page) {
+  when quote.$state == .pending { TextBody(text: "Fetching") }
+  when quote.$state == .failed  { TextBody(text: "Quote unavailable") }
+
+  Col(gap: 28) {
+
+    # `align: .center` on the delta row. Baselining two runs of different ink
+    # height gives the row a box taller than anything painted in it, and that
+    # slack is what pushed the stack past its own edge. A `Col` starts its
+    # children, so the columns need no alignment argument at all.
+    Panel {
+      Col(gap: 4) {
+        TextEyebrow(text: quote.ticker)
+        TextHero(value: quote.last, format: .money)
+        Row(width: .fit, align: .center, gap: 10) {
+          TextValue(value: quote.change, format: .signed_money, tint: quote.change)
+          TextValue(value: quote.pct, format: .signed_pct, tint: quote.pct)
+        }
+        TextCaption(text: quote.name)
+      }
+    }
+
+    Panel {
+      Grid(cols: 2) {
+        Tile(label: "Open", value: quote.open, format: .money)
+        Tile(label: "High", value: quote.high, format: .money)
+        Tile(label: "Low", value: quote.low, format: .money)
+        Tile(label: "Volume", value: quote.volume, format: .compact)
+      }
+    }
+
+  }
+}

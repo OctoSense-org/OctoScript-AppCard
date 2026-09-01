@@ -1,0 +1,74 @@
+# ledger transit@1.0.0
+# level: L0
+# profile: ui/l0
+
+theme vibrant
+
+# `sys.transit` is not a helper the catalog grants, and nothing in it answers
+# when the next service leaves — no line, no headsign, no platform, no count of
+# minutes. A departure written here would be a figure this card invented, which
+# is exactly what the no-facts rule refuses, and naming a source that was never
+# granted is refused at parse.
+#
+# So the subject stays transit and the composition stays exactly as it was —
+# four panels, eyebrow over title, one figure dominating everything around it,
+# hero left, the page carrying the colour — and the question moves to the
+# nearest one the catalog can answer honestly: the stops around you, and how
+# long it takes to reach the closest one.
+#
+# `sys.places` takes no `offset`, so the nearest stop is both the hero's subject
+# and the first row of the list; there is no second query that skips it.
+
+copy board    { class: vocabulary, en: "Nearest stop" }
+copy waiting  { class: vocabulary, en: "Finding stops near you" }
+copy offline  { class: vocabulary, en: "No stops could be reached" }
+copy old      { class: vocabulary, en: "Last known stops" }
+copy onfoot   { class: vocabulary, en: "On foot" }
+copy fromhere { class: vocabulary, en: "from where you are now" }
+copy nearby   { class: vocabulary, en: "Stops nearby" }
+copy away     { class: vocabulary, en: "Walking distance" }
+
+source here  sys.gps()
+source stops sys.places(lat: here.lat, lon: here.lon, category: "transit", count: 4, fields: [id, name, distance, lat, lon])
+source walk  sys.route(from_lat: here.lat, from_lon: here.lon, to_lat: stops.0.lat, to_lon: stops.0.lon, mode: "walk", fields: [duration, distance])
+
+view root Surface(pad: .page) {
+
+  Panel {
+    Col(align: .start, gap: 4) {
+      TextEyebrow(text: copy.board)
+      TextTitle(text: stops.0.name)
+    }
+  }
+
+  Panel {
+    Col(align: .start, gap: 6) {
+      TextEyebrow(text: copy.onfoot)
+      when here.$state  == .failed  { TextRow(text: copy.offline) }
+      when stops.$state == .pending { TextRow(text: copy.waiting) }
+      when stops.$state == .failed  { TextRow(text: copy.offline) }
+      TextHero(text: walk.duration)
+      TextCaption(text: copy.fromhere)
+      when walk.$state == .stale { TextCaption(text: copy.old) }
+    }
+  }
+
+  Panel {
+    Col(align: .start, gap: 10) {
+      TextEyebrow(text: copy.nearby)
+      for s in stops key s.id {
+        Row(width: .fill, align: .baseline, gap: 12) {
+          TextBody(text: s.name, width: .fill)
+          TextValue(value: s.distance)
+        }
+      }
+    }
+  }
+
+  Panel {
+    Row(align: .center, gap: 8) {
+      TextCaption(text: copy.away)
+      TextCaption(text: walk.distance)
+    }
+  }
+}

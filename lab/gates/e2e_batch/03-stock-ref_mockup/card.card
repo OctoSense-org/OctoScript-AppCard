@@ -1,0 +1,41 @@
+# ledger quote @ 0.1.0
+# level: L0
+# profile: ui/l0
+
+theme vibrant
+
+source quote sys.quote(ticker: "NVDA", fields: [ticker, name, last, change, pct, open, high, low, prev, volume, mktcap])
+
+view root Surface(pad: .page) {
+  Col(gap: 32, align: .start) {
+
+    Panel {
+      Col(gap: 6, align: .start) {
+        TextEyebrow(text: quote.ticker)
+
+        when quote.$state == .pending { TextRow(text: "Fetching") }
+        when quote.$state == .failed  { TextRow(text: "No connection") }
+
+        TextHero(value: quote.last, format: .money)
+
+        Row(width: .fit, align: .baseline, gap: 12) {
+          TextValue(value: quote.change, format: .signed_money, tint: quote.change)
+          TextValue(value: quote.pct, format: .signed_pct, tint: quote.change)
+        }
+
+        TextCaption(text: quote.name)
+      }
+    }
+
+    Panel {
+      Grid(cols: 2) {
+        Tile(label: "Open", value: quote.open, format: .money)
+        Tile(label: "Prev close", value: quote.prev, format: .money)
+        Tile(label: "Day high", value: quote.high, format: .money)
+        Tile(label: "Day low", value: quote.low, format: .money)
+        Tile(label: "Volume", value: quote.volume, format: .compact)
+        Tile(label: "Market cap", value: quote.mktcap, format: .compact)
+      }
+    }
+  }
+}

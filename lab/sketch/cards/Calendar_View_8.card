@@ -1,0 +1,74 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Calendar] View #8
+
+theme dark
+
+view root Surface(pad: .page) {
+  Panel {
+    TextTitle(text: "January 2020")
+    TextCaption(text: "Mon")
+    TextCaption(text: "tue")
+    TextCaption(text: "wed")
+    TextCaption(text: "thu")
+    TextCaption(text: "fri")
+    TextCaption(text: "sat")
+    TextCaption(text: "sun")
+      TextCaption(text: "25")
+      TextCaption(text: "26")
+      TextCaption(text: "27")
+      TextCaption(text: "28")
+      TextCaption(text: "29")
+      TextCaption(text: "30")
+      TextCaption(text: "1")
+      TextCaption(text: "2")
+      TextCaption(text: "3")
+      TextCaption(text: "4")
+      TextCaption(text: "5")
+      TextCaption(text: "6")
+      TextCaption(text: "7")
+      TextCaption(text: "8")
+      TextCaption(text: "9")
+      TextCaption(text: "10")
+      TextCaption(text: "11")
+      TextCaption(text: "12")
+      TextCaption(text: "13")
+      TextCaption(text: "14")
+      TextCaption(text: "15")
+      TextCaption(text: "16")
+      TextCaption(text: "17")
+      TextCaption(text: "18")
+      TextCaption(text: "19")
+      TextCaption(text: "20")
+      TextCaption(text: "21")
+      TextCaption(text: "22")
+      TextCaption(text: "23")
+      TextCaption(text: "24")
+      TextCaption(text: "25")
+      TextCaption(text: "26")
+      TextCaption(text: "27")
+      TextCaption(text: "28")
+      TextCaption(text: "29")
+      TextCaption(text: "30")
+      TextCaption(text: "31")
+      TextCaption(text: "1")
+      TextCaption(text: "2")
+      TextCaption(text: "3")
+      TextCaption(text: "4")
+      TextCaption(text: "5")
+    Panel {
+        Row(gap: 8, align: .center) {
+          TextCaption(text: "Date")
+          TextBody(text: "11 Jan, 2020", width: .fill)
+        }
+        TextCaption(text: "Participants")
+        Row(gap: 8, align: .center) {
+          TextCaption(text: "Location")
+          TextBody(text: "Hall of Justice", width: .fill)
+        }
+      Panel {
+          TextBody(text: "create event", width: .fill)
+      }
+    }
+  }
+}
