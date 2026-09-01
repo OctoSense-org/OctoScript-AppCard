@@ -1,0 +1,87 @@
+# level: L0
+# model: atro-app
+theme atro_light
+
+state p1 { shape: text, initial: "http://127.0.0.1:8787/_ph.png" }
+state total { shape: text, initial: "$1312.00" }
+state price1 { shape: text, initial: "$295" }
+state price2 { shape: text, initial: "$295" }
+state price3 { shape: text, initial: "$399" }
+state price4 { shape: text, initial: "$399" }
+
+view steps Row(width: .fill, gap: .md) {
+  TextCaption(text: "Delivery", width: .fill)
+  TextCaption(text: "Confirmation", width: .fill)
+  TextCaption(text: "Payment", width: .fill)
+}
+
+view shipping Col(width: .fill, gap: .xs) {
+  TextEyebrow(text: "Shipping")
+  TextBody(text: "Delivery is scheduled for today between 14:00 - 18:00 on 913 Bear Hill Street Flushing, NY 11354.", width: .fill)
+}
+
+view summary Col(width: .fill, gap: .md) {
+  Row(width: .fill, align: .center, gap: .md) {
+    TextEyebrow(text: "Order summary")
+    TextCaption(text: "Total", width: .fill)
+    TextValue(value: total)
+  }
+  Row(width: .fill, align: .center, gap: .md) {
+    Thumb(src: p1)
+    Col(width: .fill, gap: .xs) {
+      TextRow(text: "Grado Prestige SR325e", width: .fill)
+      TextCaption(text: "Marshall puts out more than iconic...", width: .fill)
+    }
+    Col(align: .end, gap: .xs) {
+      TextCaption(text: "x1")
+      TextValue(value: price1)
+    }
+  }
+  Row(width: .fill, align: .center, gap: .md) {
+    Thumb(src: p1)
+    Col(width: .fill, gap: .xs) {
+      TextRow(text: "Grado Prestige SR325e", width: .fill)
+      TextCaption(text: "Marshall puts out more than iconic...", width: .fill)
+    }
+    Col(align: .end, gap: .xs) {
+      TextCaption(text: "x1")
+      TextValue(value: price2)
+    }
+  }
+  Row(width: .fill, align: .center, gap: .md) {
+    Thumb(src: p1)
+    Col(width: .fill, gap: .xs) {
+      TextRow(text: "Bose Noise Cancelling 700", width: .fill)
+      TextCaption(text: "Marshall puts out more than iconic...", width: .fill)
+    }
+    Col(align: .end, gap: .xs) {
+      TextCaption(text: "x1")
+      TextValue(value: price3)
+    }
+  }
+  Row(width: .fill, align: .center, gap: .md) {
+    Thumb(src: p1)
+    Col(width: .fill, gap: .xs) {
+      TextRow(text: "Bose Noise Cancelling 700", width: .fill)
+      TextCaption(text: "Marshall puts out more than iconic...", width: .fill)
+    }
+    Col(align: .end, gap: .xs) {
+      TextCaption(text: "x1")
+      TextValue(value: price4)
+    }
+  }
+}
+
+view root Surface(pad: .page) {
+  Col(width: .fill, gap: .lg) {
+    Row(width: .fill, align: .center) {
+      TextTitle(text: "Checkout", width: .fill)
+      TextCaption(glyph: "⋮")
+    }
+    steps
+    Rule()
+    shipping
+    summary
+    Chip(text: "Continue with payment", tone: .primary, width: .fill)
+  }
+}

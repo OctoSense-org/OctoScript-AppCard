@@ -1,0 +1,37 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Profile] View #9
+
+theme dark
+
+view root Surface(pad: .page) {
+    Row(gap: 8, align: .center) {
+      TextTitle(text: "Ored Sjögren")
+      TextCaption(text: "Event Photographer")
+        TextCaption(text: "Follow")
+    }
+  TextCaption(text: "Travel Stories")
+      TextBody(text: "Milano, Italy")
+      TextBody(text: "Berlin, Germany")
+      TextBody(text: "Beijing, China")
+      TextBody(text: "Athens, Grece")
+  TextTitle(text: "Next events")
+      TextCaption(text: "All events")
+      TextCaption(text: "Parties")
+      TextCaption(text: "Concerts")
+    Row(gap: 8, align: .center) {
+      Panel {
+        TextTitle(text: "Fyre Festival")
+        TextCaption(text: "Zurich, Switzerland")
+            TextCaption(text: "+3")
+      }
+      Panel {
+        TextTitle(text: "Music Festival")
+        TextCaption(text: "Berlin")
+      }
+      Panel {
+        TextTitle(text: "Rock Concert")
+        TextCaption(text: "Stockholm")
+      }
+    }
+}

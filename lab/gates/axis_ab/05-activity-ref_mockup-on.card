@@ -1,0 +1,66 @@
+# ledger city_things@1.0.0
+# level:   L0
+# profile: ui/l0
+
+theme vibrant accent: .amber texture: .paper emphasis: .poster
+
+state city { shape: text, initial: "Lisbon" }
+
+source place  sys.geocode(name: state.city)
+source spots  sys.places(lat: place.lat, lon: place.lon, category: "attraction", count: 3, fields: [id, name, distance])
+
+# Hoisting the status line out of the panel stopped the PANEL changing height.
+# It did not stop the CARD. A line that only exists while the lookup runs sits
+# on top of an otherwise finished list, so the card is one line taller in the
+# pending state than in the settled one — and the box the message reserves for
+# the card is measured once. The row beneath the card is laid out against that
+# measurement, which is why it comes to rest a few pixels inside the card.
+#
+# The cure is not a shorter card, it is one height per state. Status and bands
+# are made exclusive: while the lookup is running the card IS the status line;
+# once it is no longer pending the bands are the card and nothing is stacked on
+# top of them. Nothing grows inside a box that was already measured.
+view root Surface(pad: .page) {
+
+  when spots.$state == .pending { TextRow(text: "Looking around") }
+
+  when spots.$state != .pending {
+
+    # No gap on the band column. A Panel carries its own band margin, and two
+    # Panels laid straight into the column still read as two bands — they are
+    # separately filled surfaces with 16px of their own between them.
+    Col(align: .start) {
+
+      Panel {
+        Col(align: .start) {
+          TextEyebrow(text: "THINGS TO DO")
+          TextHero(text: place.name)
+        }
+      }
+
+      Panel {
+        Col(align: .start, gap: 12) {
+
+          # A failure belongs where the rows would have been. Put here it
+          # replaces them instead of adding a line above them, so this panel is
+          # a list or a sentence and never both.
+          when spots.$state == .failed { TextRow(text: "No suggestions right now") }
+
+          # Two columns, not three. `category` is the argument the source was
+          # QUERIED with — every row carries the same word and says nothing —
+          # and dropping it drops a third filling column with it. A caption
+          # fills by default, so three of them split the row into thirds and the
+          # name never got the slack this row was written to give it. One
+          # filling name and one distance sized to its own run puts the detail
+          # at the edge, which is what the line was for.
+          for p in spots key p.id {
+            Row(width: .fill, align: .center, gap: 12) {
+              TextRow(text: p.name, width: .fill)
+              TextValue(value: p.distance)
+            }
+          }
+        }
+      }
+    }
+  }
+}

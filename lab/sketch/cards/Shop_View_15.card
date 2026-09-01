@@ -1,0 +1,40 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Shop] View #15
+
+theme dark
+
+view root Surface(pad: .page) {
+    Row(gap: 8, align: .center) {
+      TextBody(text: "Cart")
+      TextCaption(text: "subtitle")
+    }
+    TextCaption(text: "Your cart was updated", width: .fill)
+    TextCaption(text: "Marshal Bluetooth headphone")
+      Row(gap: 8, align: .center) {
+        TextCaption(text: "$239")
+        TextCaption(text: "x1")
+      }
+      TextCaption(text: "1")
+    TextCaption(text: "Grado Prestige SR325e")
+      Row(gap: 8, align: .center) {
+        TextCaption(text: "$295")
+        TextCaption(text: "x1")
+      }
+      TextCaption(text: "1")
+    TextCaption(text: "Bose Noise Cancelling 700")
+      Row(gap: 8, align: .center) {
+        TextCaption(text: "$399")
+        TextCaption(text: "x1")
+      }
+      TextCaption(text: "1")
+    TextCaption(text: "Bose Noise Cancelling 700")
+      Row(gap: 8, align: .center) {
+        TextCaption(text: "$399")
+        TextCaption(text: "x1")
+      }
+      TextCaption(text: "1")
+  Panel {
+      TextBody(text: "checkout", width: .fill)
+  }
+}

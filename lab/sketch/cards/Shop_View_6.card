@@ -1,0 +1,24 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Shop] View #6
+
+theme dark
+
+view root Surface(pad: .page) {
+    TextBody(text: "headphones")
+  Panel {
+    Chip(text: "$399.00")
+      TextCaption(text: "-15%")
+    TextCaption(text: "Bose Noise Cancelling 700", width: .fill)
+    TextCaption(text: "The Bose 700 has a much slimmer profile when you fold it up for storage or transport.", width: .fill)
+  }
+  Panel {
+    Chip(text: "$239.96")
+      TextCaption(text: "-15%")
+    TextCaption(text: "Marshal Bluetooth headphone", width: .fill)
+    TextCaption(text: "They sound great, but what really sets them apart is the price.", width: .fill)
+  }
+  Panel {
+    TextCaption(text: "Filters products")
+  }
+}

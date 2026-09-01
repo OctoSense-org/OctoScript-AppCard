@@ -1,0 +1,38 @@
+# ledger city_todo @ 1.0.0
+# level: L0
+# profile: ui/l0
+
+theme vibrant
+
+state city { shape: text, initial: "Lisbon" }
+
+source place sys.geocode(name: state.city)
+source spots sys.places(lat: place.lat, lon: place.lon, category: "attraction", count: 3, fields: [id, name, distance, category])
+
+view root Surface(pad: .page) {
+  Col(align: .start, gap: 32) {
+
+    Col(align: .start, gap: 4) {
+      TextEyebrow(text: "Things to do")
+      TextHero(text: place.name)
+    }
+
+    TextBody(text: "Three ways to spend an afternoon.")
+
+    Col(align: .start, gap: 22) {
+      when spots.$state == .pending { TextBody(text: "Looking around.") }
+      when spots.$state == .failed { TextBody(text: "No suggestions right now.") }
+      for s in spots key s.id {
+        Col(align: .start, gap: 4) {
+          TextRow(text: s.name)
+          Row(width: .fit, align: .baseline, gap: 10) {
+            TextCaption(text: s.category)
+            TextCaption(value: s.distance, unit: .distance)
+          }
+        }
+      }
+    }
+
+    TextCaption(text: "Distances measured from the city centre.")
+  }
+}

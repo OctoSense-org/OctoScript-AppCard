@@ -1,0 +1,51 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Stats] Cards
+
+theme dark
+
+view root Surface(pad: .page) {
+    Row(gap: 8, align: .center) {
+      TextBody(text: "My virtual cards")
+      TextCaption(text: "subtitle")
+    }
+  Panel {
+    TextCaption(text: "card balance")
+    TextHero(text: "$235.00")
+    TextTitle(text: "3713 5878 2833 34195", width: .fill)
+    Row(gap: 8, align: .center) {
+      TextCaption(text: "Expire")
+      TextEyebrow(text: "CVV")
+    }
+    Row(gap: 8, align: .center) {
+      TextTitle(text: "12/24")
+      TextTitle(text: "235")
+    }
+  }
+  Panel {
+    TextCaption(text: "card balance")
+    TextHero(text: "$12,929.05")
+    TextTitle(text: "5326 5149 4497 1577")
+    Row(gap: 8, align: .center) {
+      TextCaption(text: "Expire")
+      TextEyebrow(text: "CVV")
+    }
+    Row(gap: 8, align: .center) {
+      TextTitle(text: "12/24")
+      TextTitle(text: "235")
+    }
+  }
+  Panel {
+    TextCaption(text: "card balance")
+    TextHero(text: "$3,841.84")
+    TextTitle(text: "4485 0961 4849 8888", width: .fill)
+    Row(gap: 8, align: .center) {
+      TextCaption(text: "Expire")
+      TextEyebrow(text: "CVV")
+    }
+    Row(gap: 8, align: .center) {
+      TextTitle(text: "12/24")
+      TextTitle(text: "235")
+    }
+  }
+}

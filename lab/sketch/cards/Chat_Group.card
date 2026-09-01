@@ -1,0 +1,20 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Chat] Group
+
+theme dark
+
+view root Surface(pad: .page) {
+  TextBody(text: "Summer vacation")
+  TextCaption(text: "subtitle")
+    Chip(text: "What is your favorite comedy?")
+    Chip(text: "If you could have any kind of pet, what would you choose?")
+  Panel {
+    TextCaption(text: "Strive not to be a success, but rather to be of value.")
+      TextCaption(text: "10:59")
+  }
+  Panel {
+    TextCaption(text: "Type a message…")
+  }
+      TextCaption(text: "Send")
+}

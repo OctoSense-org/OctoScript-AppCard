@@ -1,0 +1,31 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Stats] Data visualization #7
+
+theme dark
+
+view root Surface(pad: .page) {
+    Row(gap: 8, align: .center) {
+      TextBody(text: "total income")
+      TextCaption(text: "subtitle")
+    }
+    Row(gap: 8, align: .center) {
+      TextTitle(text: "$952")
+      TextCaption(text: "Leonardo")
+      TextTitle(text: "$835")
+      TextCaption(text: "Uche")
+      TextTitle(text: "$197")
+      TextCaption(text: "Thitiwat")
+      TextTitle(text: "$643")
+      TextCaption(text: "Virendra")
+    }
+    TextBody(text: "16%")
+  TextBody(text: "42%")
+  TextHero(text: "$6385")
+  TextCaption(text: "total income")
+  TextBody(text: "34%")
+    TextBody(text: "8%")
+    TextCaption(text: "spending")
+    TextCaption(text: "income")
+    TextCaption(text: "savings")
+}

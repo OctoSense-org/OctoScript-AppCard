@@ -1,0 +1,23 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Onboarding] View #8
+
+theme dark
+
+view root Surface(pad: .page) {
+  Panel {
+      TextBody(text: "Login with Apple")
+  }
+    TextCaption(text: "UI")
+  Panel {
+      TextBody(text: "Login with Facebook")
+  }
+  Panel {
+      TextBody(text: "Login with Twitter")
+  }
+    TextCaption(text: "OR")
+  Panel {
+    TextBody(text: "Sign Up")
+  }
+  TextBody(text: "Already have an account? Sign In", width: .fill)
+}

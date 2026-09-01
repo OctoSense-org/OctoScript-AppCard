@@ -1,0 +1,66 @@
+# level: L0
+# model: atro-app
+
+theme atro_light
+
+state p1 { shape: text, initial: "http://127.0.0.1:8787/_ph.png" }
+
+view header Row(width: .fill, align: .center, gap: .sm) {
+  TextTitle(text: "Isabelle Barker", width: .fill)
+  TextCaption(glyph: "•••")
+}
+
+view thread Col(width: .fill, gap: .md) {
+  Row(width: .fill, align: .end) {
+    Panel {
+      TextBody(text: "Wannabe internet trailblazer. Devoted coffee scholar. Lifelong web evangelist. Zombie guru. Introvert. Certified music fanatic.", width: .fill)
+    }
+  }
+  Row(width: .fill, align: .end) {
+    TextCaption(text: "10:55")
+  }
+  Row(width: .fill, align: .center, gap: .sm) {
+    Avatar(text: "IB")
+    Panel {
+      TextBody(text: "If you could have a superpower, what would you choose?", width: .fill)
+    }
+  }
+  Row(width: .fill) {
+    Panel {
+      TextBody(text: "Do you like roller coasters?", width: .fill)
+    }
+  }
+  Row(width: .fill, align: .end) {
+    Panel {
+      TextBody(text: "If you could have any kind of pet, what would you choose?", width: .fill)
+    }
+  }
+  Row(width: .fill, align: .end) {
+    Panel {
+      TextBody(text: "Wannabe internet trailblazer. Devoted coffee scholar. Lifelong web evangelist. Zombie guru. Introvert. Certified music fanatic.", width: .fill)
+    }
+  }
+  Row(width: .fill, align: .end) {
+    TextCaption(text: "10:59")
+  }
+  Row(width: .fill, align: .center, gap: .sm) {
+    Avatar(text: "IB")
+    Panel {
+      TextCaption(glyph: "•••")
+    }
+  }
+}
+
+view composer Row(width: .fill, align: .center, gap: .sm) {
+  TextCaption(glyph: "▮▮▮▮▮▮", width: .fill)
+  Chip(text: "Send", tone: .primary)
+}
+
+view root Surface(pad: .page) {
+  Col(width: .fill, gap: .lg) {
+    header
+    thread
+    Thumb(src: p1)
+    composer
+  }
+}

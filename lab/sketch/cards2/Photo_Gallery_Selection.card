@@ -1,0 +1,57 @@
+# level: L0
+# model: atro-app
+
+theme atro_light
+
+state p1 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
+state p2 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
+state p3 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
+state p4 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
+state p5 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
+state p6 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
+state p7 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
+state p8 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
+state p9 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
+state p10 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
+state p11 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
+state p12 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
+
+view header Col(width: .fill, align: .center) {
+  TextEyebrow(text: "Atro UI")
+  TextTitle(text: "Gallery")
+}
+
+view mosaic Col(width: .fill) {
+  Grid(cols: 3) {
+    Thumb(src: p1)
+    Thumb(src: p2)
+    Thumb(src: p3)
+    Thumb(src: p4)
+    Thumb(src: p5)
+    Thumb(src: p6)
+  }
+  Row(width: .fill) {
+    Thumb(src: p7)
+    Col {
+      Thumb(src: p8)
+      Thumb(src: p9)
+    }
+  }
+  Grid(cols: 3) {
+    Thumb(src: p10)
+    Thumb(src: p11)
+    Thumb(src: p12)
+  }
+}
+
+view action Col(width: .fill, align: .center) {
+  Chip(text: "15 images selected", tone: .primary)
+}
+
+view root Surface(pad: .page) {
+  Col(width: .fill) {
+    header
+    mosaic
+    action
+  }
+}

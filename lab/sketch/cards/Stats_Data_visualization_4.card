@@ -1,0 +1,55 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Stats] Data visualization #4
+
+theme dark
+
+view root Surface(pad: .page) {
+    Row(gap: 8, align: .center) {
+      TextBody(text: "Transaction history")
+      TextCaption(text: "subtitle")
+    }
+  Panel {
+    TextTitle(text: "Transactions")
+        TextCaption(text: "6 months")
+    TextCaption(text: "July 2018 - Feb 2019")
+    Row(gap: 8, align: .center) {
+      TextCaption(text: "500")
+      TextCaption(text: "400")
+      TextCaption(text: "300")
+      TextCaption(text: "200")
+      TextCaption(text: "100")
+      TextCaption(text: "0")
+    }
+      Row(gap: 8, align: .center) {
+        TextCaption(text: "Jun")
+        TextCaption(text: "Jul")
+        TextEyebrow(text: "AUG")
+        TextEyebrow(text: "SEP")
+        TextEyebrow(text: "OCT")
+        TextEyebrow(text: "NOV")
+        TextEyebrow(text: "DEC")
+        TextEyebrow(text: "JAN")
+      }
+        TextCaption(text: "Income")
+        TextCaption(text: "Spendings")
+        TextCaption(text: "Savings")
+        TextCaption(text: "Investments")
+  }
+  Panel {
+    Row(gap: 8, align: .center) {
+        TextTitle(text: "83%")
+      TextCaption(text: "Hattie Bishop")
+      TextCaption(text: "Soccer")
+        TextTitle(text: "66%")
+      TextCaption(text: "Gregory Greer")
+      TextCaption(text: "Volleyball")
+        TextTitle(text: "23%")
+      TextCaption(text: "Bessie Dunn")
+      TextCaption(text: "Hiking")
+    }
+  }
+  Panel {
+      TextBody(text: "generate report", width: .fill)
+  }
+}

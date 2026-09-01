@@ -1,0 +1,14 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Alerts] View #6
+
+theme dark
+
+view root Surface(pad: .page) {
+    TextBody(text: "Feed")
+  TextBody(text: "Unfortunately at the moment our servers are not responding. Will be back soon", width: .fill)
+  TextTitle(text: "Servers are not responding", width: .fill)
+  Panel {
+    TextBody(text: "try again...")
+  }
+}

@@ -1,0 +1,48 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Shop] View #2
+
+theme dark
+
+view root Surface(pad: .page) {
+    TextBody(text: "Headphones")
+        TextCaption(text: "size")
+        TextCaption(text: "brand(3)")
+        TextCaption(text: "price")
+      TextCaption(text: "3")
+    Row(gap: 8, align: .center) {
+      TextBody(text: "Marshal Bluetooth headphone", width: .fill)
+      TextCaption(text: "Marshall puts out more than iconic...", width: .fill)
+    }
+    TextCaption(text: "$239.96")
+    Row(gap: 8, align: .center) {
+      TextBody(text: "Grado Prestige SR325e", width: .fill)
+      TextCaption(text: "If you won't settle for anything but the...", width: .fill)
+    }
+    TextCaption(text: "$295.00")
+    Row(gap: 8, align: .center) {
+      TextBody(text: "Bose Noise Cancelling 700", width: .fill)
+      TextCaption(text: "The Bose 700 has a much slimmer...", width: .fill)
+    }
+    TextCaption(text: "$399.00")
+    Row(gap: 8, align: .center) {
+      TextBody(text: "Sony WF-1000XM3", width: .fill)
+      TextCaption(text: "If you won't settle for anything but...", width: .fill)
+    }
+    TextCaption(text: "$228.00")
+    Row(gap: 8, align: .center) {
+      TextBody(text: "Samsung Galaxy Buds", width: .fill)
+      TextCaption(text: "The Galaxy Buds produce exemplary...", width: .fill)
+    }
+    TextCaption(text: "$105.00")
+    Row(gap: 8, align: .center) {
+      TextBody(text: "Samsung Galaxy Buds", width: .fill)
+      TextCaption(text: "The Galaxy Buds produce exemplary...", width: .fill)
+    }
+    TextCaption(text: "$105.00")
+      TextBody(text: "Audio-Technica")
+      TextBody(text: "Bang & Olufsen")
+      TextBody(text: "Bose Corporation")
+    TextBody(text: "Harman Kardon")
+    TextBody(text: "Sennheiser")
+}

@@ -1,0 +1,57 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Social] Feed #2
+
+theme dark
+
+view root Surface(pad: .page) {
+    Row(gap: 8, align: .center) {
+      TextBody(text: "Following")
+      TextCaption(text: "subtitle")
+    }
+  TextCaption(text: "Tom Castle")
+  TextCaption(text: "Vonbury")
+  TextCaption(text: "Olga Simon")
+  TextCaption(text: "Thaddeus")
+    TextEyebrow(text: "LIVE")
+  TextCaption(text: "Mary Briggs")
+  TextCaption(text: "Yundtfurt")
+    TextCaption(text: "3")
+  TextCaption(text: "Kong Yijun")
+  TextCaption(text: "Nikoshire")
+  TextCaption(text: "Jane Erickson")
+  TextCaption(text: "Port Golda")
+  Panel {
+    Row(gap: 8, align: .center) {
+      TextTitle(text: "The Glossary Of Telescopes")
+      TextCaption(text: "Have you ever finally just gave in to the temptation and read your horoscope in the newspaper on Sunday morning?")
+      TextCaption(text: "More")
+    }
+      Row(gap: 8, align: .center) {
+        TextCaption(text: "Johnny Rowe")
+        TextCaption(text: "10min story")
+      }
+  }
+  Panel {
+    Row(gap: 8, align: .center) {
+      TextTitle(text: "A Look Inside Airbus’s Epic Assembly Line")
+      TextCaption(text: "When you enter into any new area of science, you almost always find yourself with a ..")
+      TextCaption(text: "More")
+    }
+      Row(gap: 8, align: .center) {
+        TextCaption(text: "Raymond Luc")
+        TextCaption(text: "15 min story")
+      }
+  }
+  Panel {
+    Row(gap: 8, align: .center) {
+      TextTitle(text: "Universe Through A Child S Eyes")
+      TextCaption(text: "When you enter into any new area of science, you almost ...")
+      TextCaption(text: "More")
+    }
+      Row(gap: 8, align: .center) {
+        TextCaption(text: "Randall Hines")
+        TextCaption(text: "15 min story")
+      }
+  }
+}

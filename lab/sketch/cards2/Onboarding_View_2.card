@@ -1,0 +1,18 @@
+# level: L0
+# model: atro-app
+theme atro
+
+state p1 { shape: text, initial: "http://127.0.0.1:8787/07ba47471dcfb1cf35c1f1c38d42614b382d9987.png" }
+
+view root Surface(pad: .page) {
+  Col(align: .center, gap: .lg, width: .fill) {
+    TextEyebrow(text: "Atro UI")
+    Thumb(src: p1)
+    Col(align: .center, gap: .sm, width: .fill) {
+      TextTitle(text: "Rule of thirds", width: .fill)
+      TextBody(text: "The rule of thirds states that an image is most pleasing when its subjects or regions are ...", width: .fill)
+    }
+    Chip(text: "→", tone: .primary)
+    TextCaption(text: "Already have an account? Sign In", width: .fill)
+  }
+}

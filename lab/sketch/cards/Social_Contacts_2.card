@@ -1,0 +1,35 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Social] Contacts #2
+
+theme dark
+
+view root Surface(pad: .page) {
+    TextBody(text: "Contacts")
+        TextCaption(text: "Requests")
+        TextCaption(text: "Suggested")
+    Row(gap: 8, align: .center) {
+      TextCaption(text: "Isabelle Barker")
+      TextCaption(text: "Kuala Lumpur")
+        TextCaption(text: "follow")
+      TextCaption(text: "Esther Boone")
+      TextCaption(text: "Charlotte")
+        TextCaption(text: "follow")
+    }
+    Row(gap: 8, align: .center) {
+      TextCaption(text: "Carrie Russell")
+      TextCaption(text: "Haifa")
+        TextCaption(text: "follow")
+        TextCaption(text: "Hu Hyon-Suk")
+      TextCaption(text: "Edmonton")
+        TextCaption(text: "follow")
+    }
+    Row(gap: 8, align: .center) {
+      TextCaption(text: "Winnie McKenzie")
+      TextCaption(text: "San Antonio")
+        TextCaption(text: "follow")
+      TextCaption(text: "Birdie Hoffman")
+      TextCaption(text: "Budapest")
+        TextCaption(text: "follow")
+    }
+}

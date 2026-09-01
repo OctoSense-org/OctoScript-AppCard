@@ -1,0 +1,61 @@
+# ledger stock @ 1.0.0
+# level: L0
+# profile: ui/l0
+
+theme vibrant accent: .amber type: .display emphasis: .poster
+
+source env.locale  sys.locale()
+source quote       sys.quote(ticker: "NVDA", fields: [ticker, name, last, change, pct, high, low, prev, volume, mktcap, pe, currency, exchange])
+
+copy loading { class: vocabulary, en: "Fetching the quote", zh: "正在获取行情" }
+copy offline { class: vocabulary, en: "No connection", zh: "网络不可用" }
+copy stale   { class: vocabulary, en: "Delayed", zh: "延迟报价" }
+
+view masthead Col(align: .center) {
+  TextEyebrow(text: quote.ticker)
+  TextTitle(text: quote.name)
+}
+
+view waiting Col(align: .center) {
+  TextBody(text: copy.loading)
+}
+
+view price Col(align: .center) {
+  TextHero(value: quote.last, format: .money)
+}
+
+view today Row(width: .fit, align: .baseline) {
+  TextValue(value: quote.change, format: .signed_money, tint: quote.change)
+  TextValue(value: quote.pct, format: .signed_pct, tint: quote.change)
+}
+
+view figures Grid(cols: 2) {
+  Tile(label: "Day high",   value: quote.high,   format: .money)
+  Tile(label: "Day low",    value: quote.low,    format: .money)
+  Tile(label: "Prev close", value: quote.prev,   format: .money)
+  Tile(label: "Volume",     value: quote.volume, format: .compact)
+  Tile(label: "Market cap", value: quote.mktcap, format: .compact)
+  Tile(label: "P/E",        value: quote.pe,     format: .ratio)
+}
+
+view listing Col(align: .center) {
+  Row(width: .fit, align: .baseline) {
+    TextCaption(text: quote.exchange)
+    TextCaption(text: quote.currency)
+  }
+  when quote.$state == .stale  { TextCaption(text: copy.stale) }
+  when quote.$state == .failed { TextCaption(text: copy.offline) }
+}
+
+view root Surface(pad: .page) {
+  Col(align: .center) {
+    masthead
+    when quote.$state == .pending { waiting }
+    when quote.$state != .pending {
+      price
+      today
+      figures
+      listing
+    }
+  }
+}

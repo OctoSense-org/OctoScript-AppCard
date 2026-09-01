@@ -52,6 +52,12 @@ const PALETTE_BASE: &str =
 /// would leave a delta's `radius_factor` with nothing left to change).
 const PALETTE_DERIVE: &str =
     include_str!("../../../../splash-makepad/components/l0/_derive.splash");
+/// Colour derived from seeds, the way sizes always were — rebinds the surface
+/// tokens only when a fragment set `seed_on`, so the shipped moods are
+/// byte-identical. Spliced after the axes (whose ground fragments supply the
+/// seeds) and before the env override (which must still win for measurement).
+const PALETTE_DERIVE_COLOR: &str =
+    include_str!("../../../../splash-makepad/components/l0/_derive_color.splash");
 
 /// Each mood the L0 catalog admits, and the DELTA that answers it. `dark` is the
 /// base, so its delta is empty. The names are `splash_ui_l0::catalog::THEMES`;
@@ -64,6 +70,112 @@ const PALETTES: &[(&str, &str)] = &[
     ("photo", include_str!("../../../../splash-makepad/components/l0/_palette_photo.splash")),
     ("vibrant", include_str!("../../../../splash-makepad/components/l0/_palette_vibrant.splash")),
     ("minimal", include_str!("../../../../splash-makepad/components/l0/_palette_minimal.splash")),
+    // Theme packs — kits imported whole (palette + scale + family + depth).
+    ("atro", include_str!("../../../../splash-makepad/components/l0/_palette_atro.splash")),
+    ("atro_light", include_str!("../../../../splash-makepad/components/l0/_palette_atro_light.splash")),
+];
+
+/// One `accent: .<hue>` delta, for one mood.
+macro_rules! accent {
+    ($hue:literal, $mood:literal) => {
+        ($hue, $mood, include_str!(concat!(
+            "../../../../splash-makepad/components/l0/_axis_accent_",
+            $hue, "_", $mood, ".splash")))
+    };
+}
+
+/// One `<axis>: .<value>` delta that does NOT depend on the mood.
+macro_rules! axis {
+    ($axis:literal, $value:literal) => {
+        ($axis, $value, include_str!(concat!(
+            "../../../../splash-makepad/components/l0/_axis_",
+            $axis, "_", $value, ".splash")))
+    };
+}
+
+/// The four axes that move a SCALAR rather than a colour.
+///
+/// No cross product here, and the asymmetry with `ACCENTS` is the whole reason
+/// the accent one needed generating: `radius_factor = 0` means the same thing on
+/// every ground, where a hue does not — an amber that reads on near-black is
+/// invisible on near-white. A knob is mood-independent; a colour is not.
+///
+/// These fragments have been on disk, correct, and unreachable since the axes
+/// grammar landed. Wiring them is fifteen lines because they were already right.
+const SCALAR_AXES: &[(&str, &str, &str)] = &[
+    axis!("radius", "none"), axis!("radius", "small"),
+    axis!("radius", "large"), axis!("radius", "full"),
+    axis!("density", "compact"), axis!("density", "regular"),
+    axis!("density", "airy"),
+    axis!("emphasis", "quiet"), axis!("emphasis", "clear"),
+    axis!("emphasis", "poster"),
+    axis!("icons", "filled"), axis!("icons", "mono"),
+    axis!("texture", "paper"), axis!("texture", "linen"),
+    axis!("texture", "concrete"), axis!("texture", "noise"),
+    axis!("texture", "deco"), axis!("texture", "halftone"),
+    axis!("depth", "flat"), axis!("depth", "hard"), axis!("depth", "glow"),
+    axis!("type", "serif"), axis!("type", "display"),
+    axis!("ground", "teal"), axis!("ground", "violet"), axis!("ground", "navy"),
+    axis!("ground", "ivory"), axis!("ground", "sand"), axis!("ground", "terracotta"),
+    axis!("ground", "wine"), axis!("ground", "forest"), axis!("ground", "slate"),
+    axis!("ground", "paper"), axis!("ground", "cream"), axis!("ground", "midnight"),
+    axis!("ground", "blush"), axis!("ground", "olive"),
+];
+
+/// The order axes are spliced in, which is NOT the order the card writes them.
+///
+/// `let` resolves at its own line, so a fragment that reads another axis's token
+/// has to come after it. `depth: .glow` binds its shadow ink to `l0_accent` —
+/// that is what lets one file glow in whichever hue the card asked for, instead
+/// of nine — and splicing it first would bind the mood's accent rather than the
+/// card's. Source order would decide the colour, so `depth: .glow accent: .cyan`
+/// and `accent: .cyan depth: .glow` would render differently for no reason a
+/// card author could see.
+///
+/// Anything absent here sorts last; the relative order of independent axes does
+/// not matter, only that dependents follow what they read.
+const AXIS_ORDER: &[&str] = &["ground", "accent", "radius", "density", "emphasis",
+                              "icons", "texture", "depth", "type"];
+
+/// The `accent` axis, as a MOOD x HUE cross product.
+///
+/// It has to be a cross product because the kit language has no colour maths —
+/// every value is an `argb(...)` literal — so a delta cannot tint whatever ground
+/// the mood happens to set. `lab/gates/gen_accent_axes.py` writes these, solving
+/// each pair's contrast against the composited panel, and prints the tint
+/// strength each ground could carry.
+///
+/// The hue reaches `l0_text` and the two inks derived from it, which is what
+/// makes it a palette knob. The version this replaces set `l0_accent` — which
+/// nothing reads — plus a bar, a chip and a button, so a card with no
+/// temperature bar showed no accent at all, and three separate "do palettes
+/// help?" measurements were really asking "does tinting three widgets help?".
+const ACCENTS: &[(&str, &str, &str)] = &[
+    accent!("amber", "dark"), accent!("amber", "light"), accent!("amber", "glass"),
+    accent!("amber", "photo"), accent!("amber", "vibrant"), accent!("amber", "minimal"),
+    accent!("blue", "dark"), accent!("blue", "light"), accent!("blue", "glass"),
+    accent!("blue", "photo"), accent!("blue", "vibrant"), accent!("blue", "minimal"),
+    accent!("cyan", "dark"), accent!("cyan", "light"), accent!("cyan", "glass"),
+    accent!("cyan", "photo"), accent!("cyan", "vibrant"), accent!("cyan", "minimal"),
+    accent!("green", "dark"), accent!("green", "light"), accent!("green", "glass"),
+    accent!("green", "photo"), accent!("green", "vibrant"), accent!("green", "minimal"),
+    accent!("indigo", "dark"), accent!("indigo", "light"), accent!("indigo", "glass"),
+    accent!("indigo", "photo"), accent!("indigo", "vibrant"), accent!("indigo", "minimal"),
+    accent!("magenta", "dark"), accent!("magenta", "light"), accent!("magenta", "glass"),
+    accent!("magenta", "photo"), accent!("magenta", "vibrant"), accent!("magenta", "minimal"),
+    accent!("red", "dark"), accent!("red", "light"), accent!("red", "glass"),
+    accent!("red", "photo"), accent!("red", "vibrant"), accent!("red", "minimal"),
+    accent!("violet", "dark"), accent!("violet", "light"), accent!("violet", "glass"),
+    accent!("violet", "photo"), accent!("violet", "vibrant"), accent!("violet", "minimal"),
+    // theme packs answer every hue too
+    accent!("amber", "atro"), accent!("amber", "atro_light"),
+    accent!("blue", "atro"), accent!("blue", "atro_light"),
+    accent!("cyan", "atro"), accent!("cyan", "atro_light"),
+    accent!("green", "atro"), accent!("green", "atro_light"),
+    accent!("indigo", "atro"), accent!("indigo", "atro_light"),
+    accent!("magenta", "atro"), accent!("magenta", "atro_light"),
+    accent!("red", "atro"), accent!("red", "atro_light"),
+    accent!("violet", "atro"), accent!("violet", "atro_light"),
 ];
 
 /// The kit as this host assembles it for `source`: base, the card's declared
@@ -84,13 +196,16 @@ fn kit_for(source: &str) -> String {
         declared.as_deref(),
         splash_ui_l0::card_root_role(source).as_deref(),
     ) {
-        (Some("light"), Some("Photo")) => {
-            makepad_widgets::log!("[l0] theme light over a Photo page -> photo (legibility)");
+        // Every DARK-INK mood takes the same substitution — dark ink over an
+        // arbitrary photograph is unreadable whatever the mood is called.
+        // `atro_light` is the Atro pack's light mode (#131315 ink).
+        (Some("light" | "atro_light"), Some("Photo")) => {
+            makepad_widgets::log!("[l0] dark-ink theme over a Photo page -> photo (legibility)");
             Some("photo".to_owned())
         }
         _ => declared,
     };
-    let delta = theme
+    let (mood, delta) = theme
         .as_deref()
         .and_then(|t| PALETTES.iter().find(|(n, _)| *n == t))
         // A declared theme the parser admitted but this kit has no delta for.
@@ -102,8 +217,48 @@ fn kit_for(source: &str) -> String {
             }
             PALETTES.first()
         })
-        .map(|(_, src)| *src)
-        .unwrap_or("");
+        .copied()
+        .unwrap_or(("dark", ""));
+    // The card's other theme coordinates. `card_theme_axes` has existed and been
+    // parsed since the axes grammar landed, and had NO consumer — a card could
+    // say `accent: .amber` and the parser would accept it, the catalog would
+    // validate it, and nothing would ever read it. This is that consumer.
+    //
+    // `.neutral` resolves to nothing on purpose: it is the identity, so a card
+    // naming it and a card naming no accent have to render identically.
+    let mut axes = String::new();
+    let mut declared = splash_ui_l0::card_theme_axes(source);
+    declared.sort_by_key(|(name, _)| {
+        AXIS_ORDER.iter().position(|a| a == name).unwrap_or(usize::MAX)
+    });
+    for (name, value) in declared {
+        let found = if name == "accent" {
+            // Mood-keyed: the same hue is a different ink on a different ground.
+            ACCENTS
+                .iter()
+                .find(|(h, m, _)| *h == value && *m == mood)
+                .map(|(_, _, src)| *src)
+        } else {
+            SCALAR_AXES
+                .iter()
+                .find(|(a, v, _)| *a == name && *v == value)
+                .map(|(_, _, src)| *src)
+        };
+        match found {
+            Some(src) => {
+                axes.push_str(src);
+                axes.push('\n');
+            }
+            // `.neutral` and every other identity resolve to no file on purpose:
+            // a card naming the identity and a card naming nothing have to render
+            // the same. Anything else is catalogued-but-ungenerated drift — the
+            // same class the mood fallback reports, and silent otherwise.
+            None if matches!(value.as_str(), "neutral" | "regular" | "none" | "soft" | "sans") => {}
+            None => makepad_widgets::log!(
+                "[l0] no delta for {name:?}: .{value:?} over {mood:?}"
+            ),
+        }
+    }
     // `MAKEPAD_L0_PALETTE_OVERRIDE=<file>` splices extra colour bindings in
     // AFTER the mood delta and BEFORE the derivation — the slot a theme axis
     // would occupy, and the only place it can go: `let` resolves at its own
@@ -117,7 +272,9 @@ fn kit_for(source: &str) -> String {
         .ok()
         .and_then(|p| std::fs::read_to_string(p).ok())
         .unwrap_or_default();
-    format!("{PALETTE_BASE}\n{delta}\n{axis}\n{PALETTE_DERIVE}\n{KIT_BODY}")
+    // Axes BEFORE the env override, so a measurement run still wins over what
+    // the card asked for — that hook exists to substitute a whole palette.
+    format!("{PALETTE_BASE}\n{delta}\n{axes}\n{PALETTE_DERIVE_COLOR}\n{axis}\n{PALETTE_DERIVE}\n{KIT_BODY}")
 }
 
 /// The kit source, for tests that need to reproduce the DEVICE's exact chain.
@@ -969,19 +1126,32 @@ mod tests {
     /// still passes.
     #[test]
     fn light_is_the_only_mood_that_inverts_the_ink() {
+        // The rule, stated precisely: a mood whose PRIMARY INK IS DARK must be
+        // in `kit_for`'s photo substitution. Theme packs override l0_text as a
+        // matter of course (a pack carries a whole system), so the check reads
+        // the actual ink rather than banning the override.
+        let dark_ink_moods_with_substitution = ["light", "atro_light"];
         for (name, delta) in super::PALETTES {
-            if *name == "light" {
-                assert!(
-                    delta.contains("let l0_text"),
-                    "light must override the ink; the photo substitution needs it"
-                );
+            let Some(line) = delta
+                .lines()
+                .filter(|l| l.trim_start().starts_with("let l0_text") && l.contains("argb("))
+                .last()
+            else {
                 continue;
+            };
+            let nums: Vec<u32> = line
+                .split(&['(', ')', ','][..])
+                .filter_map(|s| s.trim().parse().ok())
+                .collect();
+            let [_, r, g, b] = nums[..4] else { panic!("unparsable ink in {name}") };
+            let dark = (r + g + b) < 380;
+            if dark {
+                assert!(
+                    dark_ink_moods_with_substitution.contains(name),
+                    "mood {name:?} has DARK ink and is missing from `kit_for`'s \
+                     Photo substitution — dark ink over a photograph is unreadable"
+                );
             }
-            assert!(
-                !delta.contains("let l0_text"),
-                "mood {name:?} overrides l0_text — if that ink is DARK it also needs \
-                 the light+Photo substitution in `kit_for`"
-            );
         }
     }
 
@@ -1019,6 +1189,132 @@ mod tests {
                 "the kit assembled for {name:?} has no derived sizes"
             );
         }
+    }
+
+    /// Every axis the catalog admits has a delta, and every delta is admitted.
+    ///
+    /// The sibling of `l0_themes_are_all_answered`, and needed for the same
+    /// reason with more force: the axis fragments sat on disk, correct and
+    /// unreachable, from the day the grammar landed until this consumer existed.
+    /// A card could say `accent: .amber`, the parser would accept it, the
+    /// catalog would validate it, and the render would be identical — the §1.1
+    /// failure again, this time reached by writing a file nobody loads.
+    #[test]
+    fn l0_theme_axes_are_all_answered() {
+        for (axis, values) in splash_ui_l0::catalog::AXES {
+            for value in *values {
+                // The identities resolve to no fragment on purpose. `none` is
+                // one only for `texture` — `radius: .none` is a real value
+                // (`radius_factor = 0`) with a real fragment, so it is asserted
+                // like any other.
+                if matches!(*value, "neutral" | "regular")
+                    || (*axis == "texture" && *value == "none")
+                    || (*axis == "depth" && *value == "soft")
+                    || (*axis == "type" && *value == "sans")
+                {
+                    continue;
+                }
+                let answered = if *axis == "accent" {
+                    // Mood-keyed, so every MOOD must answer every hue — a hue
+                    // that exists for `dark` and not for `glass` is a card that
+                    // silently loses its accent on one mood.
+                    super::PALETTES.iter().all(|(mood, _)| {
+                        super::ACCENTS
+                            .iter()
+                            .any(|(h, m, _)| h == value && m == mood)
+                    })
+                } else {
+                    super::SCALAR_AXES
+                        .iter()
+                        .any(|(a, v, _)| a == axis && v == value)
+                };
+                assert!(
+                    answered,
+                    "the catalog admits {axis}: .{value} and this kit has no delta for it"
+                );
+            }
+        }
+        for (axis, value, _) in super::SCALAR_AXES {
+            assert!(
+                splash_ui_l0::catalog::axis(axis).is_some_and(|vs| vs.contains(value)),
+                "this kit ships {axis}: .{value}, which the catalog does not admit"
+            );
+        }
+    }
+
+    /// A declared axis reaches the assembled kit — the claim `axis_proof.py`
+    /// could not settle for `radius`, because a corner radius is a draw uniform
+    /// and never appears in the geometry dump the proof reads.
+    #[test]
+    fn a_declared_axis_reaches_the_kit() {
+        let card = |line: &str| format!("{line}\nview root Rule()\n");
+
+        let none = super::kit_for(&card("theme dark radius: .none"));
+        assert!(
+            none.contains("let radius_factor = 0"),
+            "`radius: .none` must reach the kit's radius knob"
+        );
+        let airy = super::kit_for(&card("theme dark density: .airy"));
+        assert!(
+            airy.contains("let space_factor = 1.45"),
+            "`density: .airy` must reach the kit's spacing knob"
+        );
+
+        // The accent is the one that has to be solved PER MOOD, so assert the
+        // two grounds disagree. Identical output here would mean the cross
+        // product collapsed and the hue is being applied blind.
+        let dark = super::kit_for(&card("theme dark accent: .amber"));
+        let glass = super::kit_for(&card("theme glass accent: .amber"));
+        // The last LITERAL binding: `_derive_color.splash` now appends a
+        // seed-guarded rebind of every colour token, so "the last l0_text
+        // line" is that rebind on every assembly and compares equal for any
+        // two moods. The accent's solved value is the last line that still
+        // carries an argb literal.
+        let ink = |s: &str| {
+            s.lines()
+                .filter(|l| {
+                    l.trim_start().starts_with("let l0_text") && l.contains("argb(")
+                })
+                .last()
+                .unwrap_or_default()
+                .to_owned()
+        };
+        assert_ne!(
+            ink(&dark),
+            ink(&glass),
+            "one hue over two grounds must solve to two inks"
+        );
+        assert!(
+            ink(&dark).contains("245") && ink(&dark).contains("166"),
+            "`accent: .amber` over dark reaches full amber ink, got {:?}",
+            ink(&dark)
+        );
+
+        // A seeded ground reaches the kit as seeds, and the derivation that
+        // consumes them ships in the same assembly. String-level checks on the
+        // SOURCE — evaluation is the device's job; what this pins is that the
+        // fragment and the derive layer are both actually in the chain.
+        let teal = super::kit_for(&card("theme dark ground: .teal"));
+        assert!(
+            teal.contains("let seed_ground_r = 13"),
+            "`ground: .teal` must reach the kit as seed scalars"
+        );
+        assert!(
+            teal.contains("dc_toward_ink"),
+            "the colour derivation must be assembled after the seeds"
+        );
+        let plain = super::kit_for(&card("theme dark"));
+        assert!(
+            plain.contains("let seed_on       = 0"),
+            "an unseeded card must carry the seed switch OFF"
+        );
+
+        // And the identity really is the identity.
+        assert_eq!(
+            ink(&super::kit_for(&card("theme dark accent: .neutral"))),
+            ink(&super::kit_for(&card("theme dark"))),
+            "`accent: .neutral` must render identically to no accent at all"
+        );
     }
 
     /// A declared theme reaches the assembled kit; an absent one takes dark.
@@ -1315,6 +1611,15 @@ fn render_capturing(
     item: usize,
 ) -> Result<String, String> {
     let dsl = render_through_kit(cx, source, data, store)?;
+    // `MAKEPAD_DUMP_DSL=<path>` writes the widget dialect this card lowered to.
+    //
+    // Measurement only, and worth its four lines: a texture that failed to draw
+    // was chased through six layers on the evidence of a screenshot, which can
+    // only ever say "not there" and never says which layer dropped it. Every
+    // other layer already has a probe; this was the gap.
+    if let Ok(path) = std::env::var("MAKEPAD_DUMP_DSL") {
+        let _ = std::fs::write(&path, &dsl);
+    }
     let captured = LAST_CAPTURED
         .with(|c| c.borrow_mut().take())
         .unwrap_or_default();

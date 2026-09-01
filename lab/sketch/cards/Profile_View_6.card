@@ -1,0 +1,26 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Profile] View #6
+
+theme dark
+
+view root Surface(pad: .page) {
+    Row(gap: 8, align: .center) {
+      TextTitle(text: "Maria José Botín")
+      TextBody(text: "Berlin, Germany")
+      TextBody(text: "Typical thinker. Incurable tv geek. Explorer. Friend of animals everywhere. Entrepreneur.", width: .fill)
+      Panel {
+          TextBody(text: "message")
+      }
+        Row(gap: 8, align: .center) {
+          TextTitle(text: "35k")
+          TextCaption(text: "Followers")
+          TextTitle(text: "315")
+          TextCaption(text: "Stories")
+          TextTitle(text: "1931")
+          TextCaption(text: "Following")
+        }
+      TextCaption(text: "Favourite places")
+        TextEyebrow(text: "LIVE")
+    }
+}

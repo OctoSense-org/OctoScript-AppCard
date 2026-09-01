@@ -1,0 +1,18 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Account] Register Completed
+
+theme dark
+
+view root Surface(pad: .page) {
+    Row(gap: 8, align: .center) {
+      Panel {
+        TextTitle(text: "Horayy! Your account has been created", width: .fill)
+        TextBody(text: "Just one more step! To complete the registration you need to validate your email address.", width: .fill)
+        Panel {
+          TextBody(text: "Login to your account")
+        }
+        TextBody(text: "Open Gmail")
+      }
+    }
+}

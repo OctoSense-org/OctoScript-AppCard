@@ -1,0 +1,263 @@
+[
+ {
+  "subject": "a weather card for Florence, Italy \u2014 the current temperature prominently, the condition, and a short forecast list.",
+  "mockup": "ref_mockup",
+  "outcome": "converged",
+  "rounds": 2,
+  "nodes": 61,
+  "upstream": 13,
+  "trail": [
+   "r1 invalid: ~/home/octos-one/lab/gates/e2e_batch/01-weather-ref_mocku",
+   "r2 clean (61 nodes, 13 upstream)"
+  ],
+  "name": "weather"
+ },
+ {
+  "subject": "a news card \u2014 one lead story with a headline and standfirst, then four more headlines beneath it.",
+  "mockup": "ref_mockup",
+  "outcome": "converged",
+  "rounds": 2,
+  "nodes": 26,
+  "upstream": 1,
+  "trail": [
+   "r1 invalid: ~/home/octos-one/lab/gates/e2e_batch/02-news-ref_mockup/c",
+   "r2 clean (26 nodes, 1 upstream)"
+  ],
+  "name": "news"
+ },
+ {
+  "subject": "a stock card for one ticker \u2014 the price as the hero, the day's change, and a few key figures as a small grid.",
+  "mockup": "ref_mockup",
+  "outcome": "converged",
+  "rounds": 2,
+  "nodes": 54,
+  "upstream": 13,
+  "trail": [
+   "r1 1 failing: overlap",
+   "r2 clean (54 nodes, 13 upstream)"
+  ],
+  "name": "stock"
+ },
+ {
+  "subject": "a transit card \u2014 the next departure as the hero, then the following three departures as rows.",
+  "mockup": "ref_mockup",
+  "outcome": "converged",
+  "rounds": 1,
+  "nodes": 26,
+  "upstream": 1,
+  "trail": [
+   "r1 clean (26 nodes, 1 upstream)"
+  ],
+  "name": "transit"
+ },
+ {
+  "subject": "a things-to-do card for a city \u2014 three suggestions, each with a name and a short line of detail.",
+  "mockup": "ref_mockup",
+  "outcome": "converged",
+  "rounds": 4,
+  "nodes": 25,
+  "upstream": 1,
+  "trail": [
+   "r1 invalid: ~/home/octos-one/lab/gates/e2e_batch/05-activity-ref_mock",
+   "r2 1 failing: overlap",
+   "r3 1 failing: overlap",
+   "r4 clean (25 nodes, 1 upstream)"
+  ],
+  "name": "activity"
+ },
+ {
+  "subject": "a weather card for Florence, Italy \u2014 the current temperature prominently, the condition, and a short forecast list.",
+  "mockup": "r012-weather-art_deco",
+  "outcome": "converged",
+  "rounds": 1,
+  "nodes": 82,
+  "upstream": 26,
+  "trail": [
+   "r1 clean (82 nodes, 26 upstream)"
+  ],
+  "name": "weather"
+ },
+ {
+  "subject": "a news card \u2014 one lead story with a headline and standfirst, then four more headlines beneath it.",
+  "mockup": "r012-weather-art_deco",
+  "outcome": "converged",
+  "rounds": 2,
+  "nodes": 25,
+  "upstream": 1,
+  "trail": [
+   "r1 invalid: ~/home/octos-one/lab/gates/e2e_batch/07-news-r012-weather",
+   "r2 clean (25 nodes, 1 upstream)"
+  ],
+  "name": "news"
+ },
+ {
+  "subject": "a stock card for one ticker \u2014 the price as the hero, the day's change, and a few key figures as a small grid.",
+  "mockup": "r012-weather-art_deco",
+  "outcome": "converged",
+  "rounds": 2,
+  "nodes": 30,
+  "upstream": 1,
+  "trail": [
+   "r1 invalid: ~/home/octos-one/lab/gates/e2e_batch/08-stock-r012-weathe",
+   "r2 clean (30 nodes, 1 upstream)"
+  ],
+  "name": "stock"
+ },
+ {
+  "subject": "a transit card \u2014 the next departure as the hero, then the following three departures as rows.",
+  "mockup": "r012-weather-art_deco",
+  "outcome": "converged",
+  "rounds": 1,
+  "nodes": 61,
+  "upstream": 14,
+  "trail": [
+   "r1 clean (61 nodes, 14 upstream)"
+  ],
+  "name": "transit"
+ },
+ {
+  "subject": "a things-to-do card for a city \u2014 three suggestions, each with a name and a short line of detail.",
+  "mockup": "r012-weather-art_deco",
+  "outcome": "converged",
+  "rounds": 2,
+  "nodes": 60,
+  "upstream": 19,
+  "trail": [
+   "r1 invalid: ~/home/octos-one/lab/gates/e2e_batch/10-activity-r012-wea",
+   "r2 clean (60 nodes, 19 upstream)"
+  ],
+  "name": "activity"
+ },
+ {
+  "subject": "a weather card for Florence, Italy \u2014 the current temperature prominently, the condition, and a short forecast list.",
+  "mockup": "r004-weather-punk_zine",
+  "outcome": "converged",
+  "rounds": 3,
+  "nodes": 81,
+  "upstream": 0,
+  "trail": [
+   "r1 invalid: ~/home/octos-one/lab/gates/e2e_batch/11-weather-r004-weat",
+   "r2 invalid: ~/home/octos-one/lab/gates/e2e_batch/11-weather-r004-weat",
+   "r3 clean (81 nodes, 0 upstream)"
+  ],
+  "name": "weather"
+ },
+ {
+  "subject": "a news card \u2014 one lead story with a headline and standfirst, then four more headlines beneath it.",
+  "mockup": "r004-weather-punk_zine",
+  "outcome": "converged",
+  "rounds": 3,
+  "nodes": 25,
+  "upstream": 0,
+  "trail": [
+   "r1 invalid: ~/home/octos-one/lab/gates/e2e_batch/12-news-r004-weather",
+   "r2 invalid: ~/home/octos-one/lab/gates/e2e_batch/12-news-r004-weather",
+   "r3 clean (25 nodes, 0 upstream)"
+  ],
+  "name": "news"
+ },
+ {
+  "subject": "a stock card for one ticker \u2014 the price as the hero, the day's change, and a few key figures as a small grid.",
+  "mockup": "r004-weather-punk_zine",
+  "outcome": "converged",
+  "rounds": 2,
+  "nodes": 62,
+  "upstream": 0,
+  "trail": [
+   "r1 invalid: ~/home/octos-one/lab/gates/e2e_batch/13-stock-r004-weathe",
+   "r2 clean (62 nodes, 0 upstream)"
+  ],
+  "name": "stock"
+ },
+ {
+  "subject": "a transit card \u2014 the next departure as the hero, then the following three departures as rows.",
+  "mockup": "r004-weather-punk_zine",
+  "outcome": "converged",
+  "rounds": 3,
+  "nodes": 57,
+  "upstream": 0,
+  "trail": [
+   "r1 invalid: ~/home/octos-one/lab/gates/e2e_batch/14-transit-r004-weat",
+   "r2 invalid: ~/home/octos-one/lab/gates/e2e_batch/14-transit-r004-weat",
+   "r3 clean (57 nodes, 0 upstream)"
+  ],
+  "name": "transit"
+ },
+ {
+  "subject": "a things-to-do card for a city \u2014 three suggestions, each with a name and a short line of detail.",
+  "mockup": "r004-weather-punk_zine",
+  "outcome": "converged",
+  "rounds": 2,
+  "nodes": 30,
+  "upstream": 0,
+  "trail": [
+   "r1 invalid: ~/home/octos-one/lab/gates/e2e_batch/15-activity-r004-wea",
+   "r2 clean (30 nodes, 0 upstream)"
+  ],
+  "name": "activity"
+ },
+ {
+  "subject": "a weather card for Florence, Italy \u2014 the current temperature prominently, the condition, and a short forecast list.",
+  "mockup": "r021-weather-swiss",
+  "outcome": "converged",
+  "rounds": 2,
+  "nodes": 65,
+  "upstream": 11,
+  "trail": [
+   "r1 invalid: ~/home/octos-one/lab/gates/e2e_batch/16-weather-r021-weat",
+   "r2 clean (65 nodes, 11 upstream)"
+  ],
+  "name": "weather"
+ },
+ {
+  "subject": "a news card \u2014 one lead story with a headline and standfirst, then four more headlines beneath it.",
+  "mockup": "r021-weather-swiss",
+  "outcome": "converged",
+  "rounds": 1,
+  "nodes": 25,
+  "upstream": 0,
+  "trail": [
+   "r1 clean (25 nodes, 0 upstream)"
+  ],
+  "name": "news"
+ },
+ {
+  "subject": "a stock card for one ticker \u2014 the price as the hero, the day's change, and a few key figures as a small grid.",
+  "mockup": "r021-weather-swiss",
+  "outcome": "converged",
+  "rounds": 2,
+  "nodes": 57,
+  "upstream": 8,
+  "trail": [
+   "r1 invalid: ~/home/octos-one/lab/gates/e2e_batch/18-stock-r021-weathe",
+   "r2 clean (57 nodes, 8 upstream)"
+  ],
+  "name": "stock"
+ },
+ {
+  "subject": "a transit card \u2014 the next departure as the hero, then the following three departures as rows.",
+  "mockup": "r021-weather-swiss",
+  "outcome": "converged",
+  "rounds": 2,
+  "nodes": 56,
+  "upstream": 3,
+  "trail": [
+   "r1 invalid: ~/home/octos-one/lab/gates/e2e_batch/19-transit-r021-weat",
+   "r2 clean (56 nodes, 3 upstream)"
+  ],
+  "name": "transit"
+ },
+ {
+  "subject": "a things-to-do card for a city \u2014 three suggestions, each with a name and a short line of detail.",
+  "mockup": "r021-weather-swiss",
+  "outcome": "converged",
+  "rounds": 2,
+  "nodes": 57,
+  "upstream": 11,
+  "trail": [
+   "r1 invalid: ~/home/octos-one/lab/gates/e2e_batch/20-activity-r021-wea",
+   "r2 clean (57 nodes, 11 upstream)"
+  ],
+  "name": "activity"
+ }
+]

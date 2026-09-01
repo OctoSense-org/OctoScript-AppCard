@@ -1,0 +1,59 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Shop] View #17
+
+theme dark
+
+view root Surface(pad: .page) {
+    TextBody(text: "Checkout")
+    Row(gap: 8, align: .center) {
+      TextCaption(text: "Delivery")
+      TextCaption(text: "Confirmation")
+      TextCaption(text: "Payment")
+    }
+  TextCaption(text: "Contact information")
+  TextCaption(text: "Name", width: .fill)
+  Panel {
+    TextCaption(text: "Maria José Botín")
+  }
+    Row(gap: 8, align: .center) {
+      TextCaption(text: "Email address")
+      Panel {
+        TextCaption(text: "maria@email.com")
+      }
+      TextCaption(text: "Phone number")
+      Panel {
+        TextCaption(text: "Enter number")
+      }
+    }
+  TextCaption(text: "Delivery address")
+    Row(gap: 8, align: .center) {
+      TextCaption(text: "City")
+      Panel {
+        TextCaption(text: "New York")
+      }
+      TextCaption(text: "Zip code")
+      Panel {
+        TextCaption(text: "Enter Zipcode")
+      }
+    }
+  TextCaption(text: "Street Address", width: .fill)
+  Panel {
+    TextCaption(text: "Enter your address")
+  }
+  TextCaption(text: "Delivery interval")
+    Row(gap: 8, align: .center) {
+      TextCaption(text: "Today")
+      TextCaption(text: "14:00 - 18:00")
+      TextBody(text: "$12.99")
+      TextCaption(text: "Tomorrow")
+      TextCaption(text: "09:00 - 21:00")
+      TextBody(text: "$8.99")
+      TextCaption(text: "Next week")
+      TextCaption(text: "Mon - Tue")
+      TextBody(text: "Free")
+    }
+  Panel {
+    TextBody(text: "continue", width: .fill)
+  }
+}

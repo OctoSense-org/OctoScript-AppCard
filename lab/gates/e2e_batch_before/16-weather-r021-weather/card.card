@@ -1,0 +1,51 @@
+# ledger weather_florence @1.0.0
+# level: L0
+# profile: ui/l0
+
+theme vibrant
+
+source place  sys.geocode(name: "Florence, Italy")
+source now    sys.weather(lat: place.lat, lon: place.lon, fields: [temp, cond])
+source week   sys.weather(lat: place.lat, lon: place.lon, days: 4, fields: [dayname, hi, lo, cond], aggregate: [min_lo, max_hi])
+
+copy loading { class: vocabulary, en: "Loading" }
+copy offline { class: vocabulary, en: "Weather unavailable" }
+copy ahead   { class: vocabulary, en: "The days ahead" }
+
+component DayRow(item: record, min: number, max: number) {
+  view Row(align: .baseline, gap: 10) {
+    TextRow(text: item.dayname, width: .day)
+    WeatherIcon(cond: item.cond, size: .row)
+    TempBar(lo: item.lo, hi: item.hi, min: min, max: max)
+    TextCaption(value: item.lo, unit: .c, width: .temp)
+    TextCaption(value: item.hi, unit: .c, width: .temp)
+  }
+}
+
+view head Col(align: .start, gap: 4) {
+  TextEyebrow(text: "Florence, Italy")
+  when now.$state == .pending { TextRow(text: copy.loading) }
+  when now.$state == .failed  { TextRow(text: copy.offline) }
+  TextHero(value: now.temp, unit: .c)
+}
+
+view condition Row(align: .baseline, gap: 8) {
+  WeatherIcon(cond: now.cond, size: .row)
+  TextBody(text: now.cond)
+}
+
+view ahead Col(align: .start, gap: 12) {
+  TextCaption(text: copy.ahead)
+  for d, i in week.days key d.dayname {
+    DayRow(item: d, min: week.min_lo, max: week.max_hi)
+  }
+}
+
+view root Surface(pad: .page) {
+  Col(align: .start, gap: 28) {
+    head
+    condition
+    Rule()
+    ahead
+  }
+}

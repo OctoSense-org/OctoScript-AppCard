@@ -1,0 +1,44 @@
+# level: L0
+# model: atro-app
+
+theme atro_light
+
+view topbar Col(width: .fill, gap: .row) {
+  Row(width: .fill, align: .center) {
+    TextEyebrow(text: "Atro UI")
+  }
+  Row(width: .fill, align: .center) {
+    TextCaption(text: "8", width: .fill)
+    TextRow(text: "Logout")
+  }
+}
+
+view stack Col(width: .fill, align: .center, gap: .row) {
+  Card {
+    Col(width: .fill, align: .center, gap: .row) {
+      TextCaption(glyph: "▣")
+    }
+  }
+  Panel {
+    Rule()
+  }
+  Panel {
+    Rule()
+  }
+}
+
+view menu Col(width: .fill, align: .center, gap: .row) {
+  Chip(text: "Messages", width: .fill)
+  Chip(text: "Trending", width: .fill)
+  Chip(text: "Bookmarks", width: .fill)
+  Chip(text: "Gallery", width: .fill)
+  Chip(text: "Settings", width: .fill)
+}
+
+view root Surface(pad: .page) {
+  Col(width: .fill, gap: .section) {
+    topbar
+    stack
+    menu
+  }
+}

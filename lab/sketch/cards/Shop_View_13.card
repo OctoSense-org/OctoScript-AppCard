@@ -1,0 +1,33 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Shop] View #13
+
+theme dark
+
+view root Surface(pad: .page) {
+    Row(gap: 8, align: .center) {
+      TextBody(text: "Filters")
+      TextBody(text: "Clear filters")
+    }
+    Row(gap: 8, align: .center) {
+      TextCaption(text: "Price Range")
+      TextCaption(text: "$99 - $350")
+    }
+  TextCaption(text: "Brand")
+      TextCaption(text: "All")
+      TextEyebrow(text: "AKG")
+      TextCaption(text: "Audio-Technica")
+      TextCaption(text: "Bang & Olufsen")
+      TextCaption(text: "Beats")
+      TextCaption(text: "Bose")
+  TextCaption(text: "Tehnology")
+      TextCaption(text: "Wired")
+      TextCaption(text: "Bluetooth")
+      TextCaption(text: "Noise-Cancelling")
+      TextCaption(text: "Li-ion/Li-Polymer")
+      TextCaption(text: "Wireless charging")
+  TextCaption(text: "Available colors")
+  Panel {
+      TextBody(text: "83 results")
+  }
+}

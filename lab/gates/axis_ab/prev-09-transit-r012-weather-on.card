@@ -1,0 +1,48 @@
+# ledger transit @ 1.0.0
+# level: L0
+
+theme vibrant accent: .amber type: .display emphasis: .poster
+
+source here   sys.gps()
+source pref   sys.prefs(fields: [work])
+source dest   sys.geocode(name: pref.work)
+source trip   sys.route(from_lat: here.lat, from_lon: here.lon, to_lat: dest.lat, to_lon: dest.lon, mode: "transit", fields: [duration, distance])
+source ahead  sys.step(from_lat: here.lat, from_lon: here.lon, to_lat: dest.lat, to_lon: dest.lon, at_lat: here.lat, at_lon: here.lon, fields: [eta])
+source stops  sys.places(lat: here.lat, lon: here.lon, category: "bus_stop", count: 3, fields: [id, name, distance])
+
+view root Surface(pad: .page) {
+  Col(gap: 28) {
+
+    Col(align: .center, gap: 4) {
+      TextEyebrow(text: "NEXT DEPARTURE")
+      TextTitle(text: dest.name)
+    }
+
+    Col(align: .center, gap: 6) {
+      TextHero(value: trip.duration)
+      TextCaption(text: "ride time")
+      when trip.$state == .pending { TextCaption(text: "Finding the next service") }
+      when trip.$state == .failed  { TextCaption(text: "No service information") }
+    }
+
+    Row(gap: 14) {
+      Tile(label: "ARRIVES IN", value: ahead.eta, unit: .duration)
+      Tile(label: "DISTANCE", value: trip.distance)
+    }
+
+    Col(gap: 10) {
+      TextEyebrow(text: "STOPS NEARBY")
+      for s in stops key s.id {
+        Row(align: .center, gap: 10) {
+          TextRow(text: s.name, width: .fill)
+          TextValue(value: s.distance, unit: .distance)
+        }
+      }
+    }
+
+    Col(gap: 8) {
+      Rule()
+      TextCaption(text: "From where you are now")
+    }
+  }
+}

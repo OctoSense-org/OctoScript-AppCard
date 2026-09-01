@@ -1,0 +1,57 @@
+[
+ {
+  "subject": "a weather card for Florence, Italy \u2014 the current temperature prominently, the condition, and a short forecast list.",
+  "mockup": "ref_mockup",
+  "outcome": "converged",
+  "rounds": 3,
+  "nodes": 61,
+  "upstream": 19,
+  "trail": [
+   "r1 invalid: ~/home/octos-one/lab/gates/e2e_batch/01-weather-ref_mocku",
+   "r2 2 failing: overflow,overlap",
+   "r3 clean (61 nodes, 19 upstream)"
+  ],
+  "name": "weather"
+ },
+ {
+  "subject": "a news card \u2014 one lead story with a headline and standfirst, then four more headlines beneath it.",
+  "mockup": "ref_mockup",
+  "outcome": "converged",
+  "rounds": 4,
+  "nodes": 40,
+  "upstream": 8,
+  "trail": [
+   "r1 2 failing: truncated",
+   "r2 1 failing: overlap",
+   "r3 1 failing: overlap",
+   "r4 clean (40 nodes, 8 upstream)"
+  ],
+  "name": "news"
+ },
+ {
+  "subject": "a stock card for one ticker \u2014 the price as the hero, the day's change, and a few key figures as a small grid.",
+  "mockup": "ref_mockup",
+  "outcome": "converged",
+  "rounds": 2,
+  "nodes": 63,
+  "upstream": 17,
+  "trail": [
+   "r1 invalid: ~/home/octos-one/lab/gates/e2e_batch/03-stock-ref_mockup/",
+   "r2 clean (63 nodes, 17 upstream)"
+  ],
+  "name": "stock"
+ },
+ {
+  "subject": "a transit card \u2014 the next departure as the hero, then the following three departures as rows.",
+  "mockup": "ref_mockup",
+  "outcome": "converged",
+  "rounds": 2,
+  "nodes": 25,
+  "upstream": 1,
+  "trail": [
+   "r1 invalid: ~/home/octos-one/lab/gates/e2e_batch/04-transit-ref_mocku",
+   "r2 clean (25 nodes, 1 upstream)"
+  ],
+  "name": "transit"
+ }
+]

@@ -1,0 +1,26 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Account] Register
+
+theme dark
+
+view root Surface(pad: .page) {
+  Panel {
+    Row(gap: 8, align: .center) {
+      TextBody(text: "alan@gnail.com")
+      TextCaption(text: "subtitle")
+    }
+  }
+    Row(gap: 8, align: .center) {
+      Panel {
+        TextBody(text: "Your password")
+      }
+    }
+  Panel {
+    TextBody(text: "810 089 5940")
+  }
+  Panel {
+    TextBody(text: "Create account ➝")
+  }
+  TextBody(text: "Already have an account? Sign In", width: .fill)
+}

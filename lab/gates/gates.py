@@ -162,7 +162,11 @@ def _in_scroller(doc, n):
         anc = by_i.get(p)
         if anc is None:
             return False
-        if anc.get("scroller"):
+        # A view that clips is scrolling or masking. Either way what falls
+        # outside it is content the design put there, not a layout defect —
+        # and without this every screen taller than its window reports its
+        # whole subtree as clipped and off-screen.
+        if anc.get("scroller") or anc.get("clips"):
             return True
         p = anc.get("parent", -1)
         depth += 1
@@ -179,7 +183,8 @@ def gate_clipped(doc):
         if _area(r) == 0:
             continue
         kept = _inter(r, c) / _area(r)
-        if kept < 0.995 and not _in_scroller(doc, n) and not n.get("clips_ok"):
+        if (kept < 0.995 and not _in_scroller(doc, n)
+                and not n.get("clips_ok") and not n.get("clips")):
             lost = int((1 - kept) * 100)
             out.append(Finding("clipped", FAIL, f"#{n['i']}:{n['id']}",
                                f"{n['kind']} loses {lost}% of {n['w']}x{n['h']} to a clip"))

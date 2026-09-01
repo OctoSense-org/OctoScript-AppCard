@@ -70,7 +70,49 @@ COMPOSITION = {
 # Anything listed here that is not in DSL_CAN becomes `dsl_gap` on the recipe.
 DSL_CAN = {"flat_fill", "radius", "hairline_rule", "weight_ramp", "size_ramp",
            "photo_background", "vertical_scrim", "mono_icon", "panel_inset",
-           "single_hue_bar"}
+           "single_hue_bar",
+           # Added 2026-08-30, each verified on the wire rather than declared.
+           # This set is the whole reason the `dsl_gap` tally means anything, so
+           # an entry added without a measurement is how the tally starts lying.
+           #
+           # palette_key — a card's mood picks its ground, and six moods ship.
+           #               Never actually missing; it sat in the gap list only
+           #               because nothing had revisited the list.
+           # accent_hue  — `accent: .<hue>` reaches `l0_text` and the inks
+           #               derived from it. Moves 20/21 text nodes
+           #               (`gates/axis_proof.py`); the 21st is a connection
+           #               status colour, which should not follow a decorative
+           #               accent.
+           # texture     — `texture: .<material>` tiles a greyscale grain over
+           #               the page. Four materials, each rendering distinctly
+           #               (mean pixel diff 8.0–11.5 against none).
+           "palette_key", "accent_hue", "texture",
+           # Added 2026-08-31, each with a row in `gates/axis_proof.py` showing
+           # it moves pixels. Nothing goes in here on a green compile — the
+           # whole point of the tally is that it reports the SCREEN.
+           #
+           # glow / hard_shadow / soft_shadow — `depth: .glow|.hard|.flat`.
+           #     2.00 and 2.53 mean pixel difference against the derived lift.
+           # serif_display / font_pair — `type: .serif|.display`. 5.11 and 4.12.
+           #     One axis answers both: a pairing is what editorial actually
+           #     wants, and a single family token cannot say it.
+           # pattern — `texture: .deco|.halftone`. 14.57 and 13.26. Free once
+           #     `texture` existed; a pattern is a grain whose structure reads.
+           "glow", "hard_shadow", "soft_shadow", "serif_display", "font_pair",
+           "pattern"}
+
+# Expressible, but ONLY in the narrow form the renderer actually draws. Still
+# counted as gaps: a recipe asking for the general capability does not get it,
+# and folding these into DSL_CAN would report coverage the screen lacks.
+#
+#   gradient  two stops on any node (`bg`/`bg2`), now in EITHER direction —
+#             `gradient_fill_horizontal` was a uniform on every view shader all
+#             along and nothing had ever set it, so every gradient in the product
+#             ran downward because that is the branch the default takes. Still no
+#             angle beyond those two, no third stop, no radial.
+#   stroke    `border_size` applies and insets the box; `sdf.stroke` does not
+#             draw. Upstream in makepad, not an emitter fix.
+PARTIAL = {"gradient", "stroke"}
 
 # ── schools: hard constraints and exclusions ─────────────────────────────────
 SCHOOLS = {

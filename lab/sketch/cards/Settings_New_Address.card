@@ -1,0 +1,33 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Settings] New Address
+
+theme dark
+
+view root Surface(pad: .page) {
+    Row(gap: 8, align: .center) {
+      TextBody(text: "Cancel")
+      TextBody(text: "new address")
+      TextBody(text: "Save")
+    }
+    Row(gap: 8, align: .center) {
+      TextCaption(text: "Alias")
+      TextBody(text: "Office", width: .fill)
+    }
+      Row(gap: 8, align: .center) {
+        TextCaption(text: "Address")
+        TextBody(text: "93 Bayport Ave. South Richmond Hill, NY 11419", width: .fill)
+      }
+    Row(gap: 8, align: .center) {
+      TextCaption(text: "County")
+      TextBody(text: "New York", width: .fill)
+    }
+    Row(gap: 8, align: .center) {
+      TextCaption(text: "City")
+      TextBody(text: "Richmond Hill", width: .fill)
+    }
+      Row(gap: 8, align: .center) {
+        TextCaption(text: "Zip code")
+        TextBody(text: "11419", width: .fill)
+      }
+}

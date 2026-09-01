@@ -1,0 +1,38 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Shop] View #19
+
+theme dark
+
+view root Surface(pad: .page) {
+    TextBody(text: "Checkout")
+    Row(gap: 8, align: .center) {
+      TextCaption(text: "Delivery")
+      TextCaption(text: "Confirmation")
+      TextCaption(text: "Payment")
+    }
+  TextCaption(text: "Enter Payment info")
+    Row(gap: 8, align: .center) {
+      TextCaption(text: "Card number", width: .fill)
+      Panel {
+        TextCaption(text: "4916 3318 9637 1246")
+      }
+    }
+    Row(gap: 8, align: .center) {
+      TextCaption(text: "Expiration date")
+      Panel {
+        TextEyebrow(text: "MM / YY")
+      }
+      TextEyebrow(text: "CVV")
+      Panel {
+        TextCaption(text: "CVV No")
+      }
+    }
+    TextCaption(text: "OR")
+  Panel {
+      TextBody(text: "scan card", width: .fill)
+  }
+  Panel {
+      TextBody(text: "checkout", width: .fill)
+  }
+}

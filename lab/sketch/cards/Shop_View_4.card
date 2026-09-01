@@ -1,0 +1,36 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Shop] View #4
+
+theme dark
+
+view root Surface(pad: .page) {
+    TextBody(text: "headphones")
+    Row(gap: 8, align: .center) {
+      Panel {
+          TextCaption(text: "type")
+      }
+      Panel {
+          TextCaption(text: "brand")
+      }
+    }
+      Row(gap: 8, align: .center) {
+        TextCaption(text: "$239.96")
+        TextCaption(text: "Samsung Galaxy Buds")
+      }
+      TextCaption(text: "-20%")
+      Row(gap: 8, align: .center) {
+        TextCaption(text: "$295.00")
+        TextCaption(text: "Grado Prestige SR325e")
+      }
+      TextCaption(text: "-20%")
+      Row(gap: 8, align: .center) {
+        TextCaption(text: "$399.00")
+        TextCaption(text: "Bose Noise Cancelling 700")
+      }
+      TextCaption(text: "-20%")
+      Row(gap: 8, align: .center) {
+        TextCaption(text: "$105.00")
+        TextCaption(text: "Marshal Headphones")
+      }
+}

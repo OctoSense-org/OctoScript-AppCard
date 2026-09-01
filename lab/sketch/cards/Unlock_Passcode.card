@@ -1,0 +1,43 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Unlock] Passcode
+
+theme dark
+
+view root Surface(pad: .page) {
+      TextHero(text: "1")
+      Row(gap: 8, align: .center) {
+        TextHero(text: "2")
+        TextCaption(text: "abc")
+      }
+      Row(gap: 8, align: .center) {
+        TextHero(text: "3")
+        TextCaption(text: "def")
+      }
+      Row(gap: 8, align: .center) {
+        TextHero(text: "4")
+        TextCaption(text: "ghi")
+      }
+      Row(gap: 8, align: .center) {
+        TextHero(text: "5")
+        TextCaption(text: "jkl")
+      }
+      Row(gap: 8, align: .center) {
+        TextHero(text: "6")
+        TextCaption(text: "mno")
+      }
+      Row(gap: 8, align: .center) {
+        TextHero(text: "7")
+        TextCaption(text: "pqrs")
+      }
+      Row(gap: 8, align: .center) {
+        TextHero(text: "8")
+        TextCaption(text: "tuv")
+      }
+      Row(gap: 8, align: .center) {
+        TextHero(text: "9")
+        TextCaption(text: "wxyz")
+      }
+      TextHero(text: "0")
+  TextTitle(text: "Login with Touch ID or Passcode")
+}

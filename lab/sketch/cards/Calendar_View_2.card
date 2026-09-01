@@ -1,0 +1,69 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Calendar] View #2
+
+theme dark
+
+view root Surface(pad: .page) {
+  TextHero(text: "November")
+  TextCaption(text: "2019")
+  Panel {
+    Row(gap: 8, align: .center) {
+      TextCaption(text: "M")
+      TextCaption(text: "t")
+        TextCaption(text: "7")
+      TextCaption(text: "t")
+        TextCaption(text: "9")
+      TextCaption(text: "f")
+        TextCaption(text: "10")
+      TextCaption(text: "s")
+        TextCaption(text: "11")
+      TextCaption(text: "s")
+        TextCaption(text: "12")
+        Row(gap: 8, align: .center) {
+          TextCaption(text: "wed")
+          TextTitle(text: "8")
+        }
+    }
+      TextCaption(text: "08:30")
+      Row(gap: 8, align: .center) {
+        TextCaption(text: "06:00")
+        Panel {
+          Row(gap: 8, align: .center) {
+            TextCaption(text: "Morning cardio with Marie", width: .fill)
+            TextCaption(text: "06:00 - 7:30")
+          }
+            TextCaption(text: "War Room")
+        }
+      }
+      TextCaption(text: "07:49")
+      TextCaption(text: "07:30")
+    Row(gap: 8, align: .center) {
+        Row(gap: 8, align: .center) {
+          TextCaption(text: "08:00")
+          Panel {
+            Row(gap: 8, align: .center) {
+              TextCaption(text: "Design team daily stand-up", width: .fill)
+              TextCaption(text: "08:00 - 8:30")
+            }
+              TextCaption(text: "War Room")
+          }
+        }
+      Panel {
+        Row(gap: 8, align: .center) {
+          TextCaption(text: "Mobile Design System components review", width: .fill)
+          TextCaption(text: "09:00 - 11:00")
+        }
+          TextCaption(text: "War Room")
+      }
+        Row(gap: 8, align: .center) {
+          TextCaption(text: "11:15")
+          Panel {
+              TextCaption(text: "Pick up groceries")
+          }
+        }
+    }
+      TextCaption(text: "08:30")
+  }
+    TextCaption(text: "6")
+}

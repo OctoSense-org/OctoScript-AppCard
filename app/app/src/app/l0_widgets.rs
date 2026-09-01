@@ -146,9 +146,10 @@ fn fits_roboto(text: Option<&str>) -> bool {
 }
 
 /// The style for a run, naming the family only when the text is known to fit it.
-fn text_style_for(size: f32, weight: Option<i32>, text: Option<&str>) -> String {
+fn text_style_for(size: f32, weight: Option<i32>, text: Option<&str>,
+                  family: Option<&str>, tracking: Option<f32>) -> String {
     if fits_roboto(text) {
-        return text_style(size, weight);
+        return text_style(size, weight, family, tracking);
     }
     // The DOTTED form, not a whole `TextStyle{}`. Replacing the style replaces its
     // font STACK, and a style with no family resolves to no font at all — the arrows
@@ -159,19 +160,51 @@ fn text_style_for(size: f32, weight: Option<i32>, text: Option<&str>) -> String 
     format!(" draw_text.text_style.font_size: {size}")
 }
 
-fn text_style(size: f32, weight: Option<i32>) -> String {
-    let face = match weight.unwrap_or(400) {
+fn text_style(size: f32, weight: Option<i32>, family: Option<&str>,
+              tracking: Option<f32>) -> String {
+    let w = weight.unwrap_or(400);
+    // The theme names a ROLE — "serif" — and this picks the face. Two weights
+    // rather than four: the bundled serif ships Regular and Bold, so a hairline
+    // hero in serif takes Regular rather than silently falling back to a sans
+    // and splitting the card across two families.
+    let face = match (family, w) {
+        (Some("serif"), w) if w >= 600 => "Serif-Bold",
+        (Some("serif"), _) => "Serif-Regular",
+        // The geometric sans — Montserrat, OFL, instanced from the variable
+        // font. Added for the Atro rail, where every one of the kit's 361 text
+        // styles is Montserrat and rendering them in Roboto was the single
+        // largest visible taste loss in the quantization ledger. SemiBold at
+        // the top bucket, not Bold: the kit uses SemiBold 100:13 over Bold.
+        (Some("geometric"), w) if w >= 600 => "Montserrat-SemiBold",
+        (Some("geometric"), w) if w >= 500 => "Montserrat-Medium",
+        (Some("geometric"), _) => "Montserrat-Regular",
         // The hairline face the photo mood's hero asks for (weight_hero = 100).
         // Already bundled: makepad_widgets ships Roboto-Thin in every APK.
-        w if w <= 250 => "Roboto-Thin",
-        w if w >= 600 => "Roboto-Bold",
-        w if w >= 500 => "Roboto-Medium",
+        (_, w) if w <= 250 => "Roboto-Thin",
+        (_, w) if w >= 600 => "Roboto-Bold",
+        (_, w) if w >= 500 => "Roboto-Medium",
         _ => "Roboto-Regular",
     };
+    // NOT EMITTED, and the field is kept so the reason survives.
+    //
+    // `Shaper` genuinely accepts `letter_spacing` — but the only path to it,
+    // `FontFamily::get_or_shape`, hardcodes `Ems(0.0)`, and `TextStyle` has no
+    // such field to carry one. So `letter_spacing:` in this dialect is an
+    // unknown property: accepted, ignored, no error. Emitting it measured a
+    // 0.08 mean pixel difference — i.e. nothing — which is the disconnected
+    // knob this session exists to stop shipping.
+    //
+    // Reaching it means adding the field to `TextStyle`, changing
+    // `FontFamily::get_or_shape`'s signature, and touching five `layouter.rs`
+    // call sites in a shared text stack that four device goldens assert. That
+    // is real L3 work, not an emitter change, so `type: .tracked` is not
+    // offered rather than offered and inert.
+    let _ = tracking;
+    let track = "";
     format!(
         " draw_text.text_style: TextStyle{{ font_family: FontFamily{{ \
          latin := FontMember{{ res: crate_resource(\"makepad_widgets:resources/{face}.ttf\") \
-         asc: 0.0 desc: 0.0 }} }} font_size: {size} }}"
+         asc: 0.0 desc: 0.0 }} }} font_size: {size}{track} }}"
     )
 }
 
@@ -736,7 +769,81 @@ fn row_reveal(node: &UiNode, out: &mut String, depth: usize) -> bool {
     true
 }
 
+/// The textures the theme may lay over a surface, and where each one lives.
+///
+/// A NAME, resolved here — not a path the card supplies. `Photo.src` takes a
+/// bound path and the checker refuses a literal, because a literal in a data
+/// position is a model-authored fact (profile §4). A texture is no more the
+/// card's to name than a hex colour is, so the theme names an intent and this
+/// layer knows the file. An unknown name draws nothing rather than failing:
+/// a missing grain should cost a card its texture, not its render.
+///
+/// The assets live under `makepad_widgets/resources/`, and that is NOT a filing
+/// preference — it is the only place they load from. `crate_resource` resolves
+/// `name:path` through `crate_manifests`, which `add_script_mod` populates from
+/// each registered module's own manifest, and this app's crate is not in it.
+/// Both `self:` and `octos_app:` therefore resolve to nothing: the widget is
+/// built, laid out at full size, and draws no pixels, with no error logged
+/// anywhere. `self:` fails for a second reason too — `splash.rs` evaluates this
+/// dialect with an EMPTY `cargo_manifest_path`, so it would build
+/// `/resources/…` at the filesystem root even if the crate were registered.
+///
+/// Three layers each reported success while the screen stayed blank, which is
+/// why `MAKEPAD_DUMP_DSL` exists now.
+fn texture_resource(name: &str) -> Option<&'static str> {
+    Some(match name {
+        "paper" => "makepad_widgets:resources/textures/paper-laid.png",
+        "linen" => "makepad_widgets:resources/textures/linen.png",
+        "concrete" => "makepad_widgets:resources/textures/concrete.png",
+        "noise" => "makepad_widgets:resources/textures/noise-fine.png",
+        // PATTERNS, not grains, and the same primitive answers both — a pattern
+        // is only a texture whose structure is meant to be legible. `deco-fan`
+        // came from the sheet run that measured 1-of-4 tileable; it is one of
+        // the ones that tiled.
+        "deco" => "makepad_widgets:resources/textures/deco-fan.png",
+        "halftone" => "makepad_widgets:resources/textures/halftone.png",
+        _ => return None,
+    })
+}
+
+/// Lay the theme's grain over a node, as the last thing drawn.
+///
+/// ON TOP, not behind, and that is what a grain physically is: paper tooth and
+/// film grain modulate everything in front of them, including the type. Behind
+/// the node it would be invisible anyway — the node paints its own `bg` over it.
+///
+/// The tile repeats via `DrawImage.tile`, which wraps the coordinate with
+/// `fract` in the shader. The platform has `SamplerAddress::Repeat` and every
+/// backend can translate it, but nothing in the tree ever constructs one
+/// (`ClampToEdge` is the default), so `image_scale` alone smears the edge pixel
+/// across the whole surface instead of repeating it.
+fn emit_textured(node: &UiNode, out: &mut String, depth: usize) -> bool {
+    let Some(res) = node.attrs.texture.as_deref().and_then(texture_resource) else {
+        return false;
+    };
+    let alpha = node.attrs.texture_alpha.unwrap_or(0.06);
+    let scale = node.attrs.texture_scale.unwrap_or(6.0);
+    let pad = "  ".repeat(depth.min(32));
+    let mut bare = node.clone();
+    bare.attrs.texture = None;
+
+    let _ = writeln!(out, "{pad}View{{ width: Fill height: Fill flow: Overlay");
+    emit(&bare, out, depth + 1);
+    let _ = writeln!(
+        out,
+        "{pad}  Image{{ width: Fill height: Fill fit: ImageFit.Stretch \
+         src: crate_resource({res:?}) draw_bg.tile: 1.0 \
+         draw_bg.image_scale: vec2({scale:.1}, {scale:.1}) \
+         draw_bg.opacity: {alpha:.3} }}"
+    );
+    let _ = writeln!(out, "{pad}}}");
+    true
+}
+
 fn emit(node: &UiNode, out: &mut String, depth: usize) {
+    if emit_textured(node, out, depth) {
+        return;
+    }
     if row_reveal(node, out, depth) {
         return;
     }
@@ -765,7 +872,7 @@ fn emit(node: &UiNode, out: &mut String, depth: usize) {
             let _ = write!(out, " draw_text.color: {}", hex(c));
         }
         if let Some(s) = a.size {
-            out.push_str(&text_style_for(s, a.weight, a.text.as_deref()));
+            out.push_str(&text_style_for(s, a.weight, a.text.as_deref(), a.family.as_deref(), a.tracking));
         }
         // CENTRED in its own box, via `label_align` — the property `TextInput` actually
         // reads for its text and its placeholder (`text_input.rs`, used at the
@@ -919,6 +1026,12 @@ fn emit_widget(node: &UiNode, out: &mut String, depth: usize) {
     // scrim can be light where the photograph is and dark under the content.
     if let Some(bg2) = a.bg2 {
         let _ = write!(out, " draw_bg.color_2: {}", hex(bg2));
+        // The direction the two stops run. Only written when the theme asks
+        // ACROSS, because the shader's own default is already down and writing
+        // it either way would move four device goldens for nothing.
+        if a.gradient_across == Some(1) {
+            let _ = write!(out, " draw_bg.gradient_fill_horizontal: 1.0");
+        }
     }
     if let Some(r) = a.radius {
         let _ = write!(out, " draw_bg.border_radius: {r}");
@@ -977,7 +1090,27 @@ fn emit_widget(node: &UiNode, out: &mut String, depth: usize) {
         // that is the measured +0.64 capability. `shadow_offset` below is the
         // uniform that will carry it, so the follow-up is one contract field,
         // not new shader work.
-        if let Some(e) = a.elevation.filter(|e| *e > 0.0) {
+        // A THEMED shadow — the follow-up the paragraph above promised, and the
+        // reason those four contract fields now exist. `elevation` could always
+        // say how FAR a surface sits off the page; it could never say what the
+        // shadow is MADE OF, so a hard coloured drop (memphis, neubrutalist,
+        // punk) was unreachable at every elevation.
+        //
+        // Three shapes fall out of ink + blur + offset with no shader work: a
+        // hard block (opaque ink, zero blur, real offset), a glow (coloured ink,
+        // wide blur, no offset), and the derived soft lift below — which is what
+        // a theme holding no opinion still gets, unchanged.
+        //
+        // Gated on the ALPHA, not on presence: the base moods bind
+        // `l0_shadow_ink` to a fully transparent value so the name always
+        // exists, and an invisible shadow must not displace the derived one.
+        if let Some(ink) = a.shadowcolor.filter(|c| c >> 24 != 0) {
+            let _ = write!(out, " draw_bg.shadow_color: {}", hex(ink));
+            let _ = write!(out, " draw_bg.shadow_radius: {:.1}",
+                           a.shadowblur.unwrap_or(0.0));
+            let _ = write!(out, " draw_bg.shadow_offset: vec2({:.1}, {:.1})",
+                           a.shadowdx.unwrap_or(0.0), a.shadowdy.unwrap_or(0.0));
+        } else if let Some(e) = a.elevation.filter(|e| *e > 0.0) {
             let alpha = ((0.10 + 0.02 * e).min(0.38) * 255.0) as u32;
             let _ = write!(out, " draw_bg.shadow_color: {}", hex(alpha << 24));
             let _ = write!(out, " draw_bg.shadow_radius: {:.1}", e * 1.5);
@@ -1021,7 +1154,7 @@ fn emit_widget(node: &UiNode, out: &mut String, depth: usize) {
             let _ = write!(out, " draw_text.color: {}", hex(c));
         }
         if let Some(s) = a.size {
-            out.push_str(&text_style_for(s, a.weight, a.text.as_deref()));
+            out.push_str(&text_style_for(s, a.weight, a.text.as_deref(), a.family.as_deref(), a.tracking));
         }
         // A Label already wraps (its layout is `Flow::right_wrap`) — it just
         // needs a BOUNDED width to wrap against, or it sizes to content and
@@ -1952,5 +2085,42 @@ mod dump_real_card {
         let head: String = kit.lines().filter(|l| l.contains("air_factor") || l.contains("l0_col_gap"))
             .collect::<Vec<_>>().join("\n");
         println!("KIT KNOBS:\n{head}");
+    }
+}
+
+#[cfg(test)]
+mod texture_tests {
+    use super::*;
+    use splash_node::{Attrs, NodeKind, UiNode};
+
+    /// A textured node emits a tiled image over itself.
+    #[test]
+    fn a_texture_reaches_the_dsl() {
+        let node = UiNode {
+            kind: NodeKind::Column,
+            attrs: Attrs {
+                texture: Some("paper".into()),
+                bg: Some(0xff0a0e14),
+                ..Default::default()
+            },
+            children: vec![],
+        };
+        let mut out = String::new();
+        emit(&node, &mut out, 0);
+        assert!(out.contains("flow: Overlay"), "no overlay wrapper:\n{out}");
+        assert!(
+            out.contains("draw_bg.tile: 1.0"),
+            "the image must tile, not clamp:\n{out}"
+        );
+        assert!(
+            out.contains("resources/textures/paper-laid.png"),
+            "the name must resolve to a bundled file:\n{out}"
+        );
+        // An unknown name draws nothing rather than failing the render.
+        let mut unknown = node.clone();
+        unknown.attrs.texture = Some("nonesuch".into());
+        let mut out2 = String::new();
+        emit(&unknown, &mut out2, 0);
+        assert!(!out2.contains("Image{"), "unknown texture drew something:\n{out2}");
     }
 }

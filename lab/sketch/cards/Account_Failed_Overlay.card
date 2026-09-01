@@ -1,0 +1,17 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Account] Failed Overlay
+
+theme dark
+
+view root Surface(pad: .page) {
+    Row(gap: 8, align: .center) {
+      Panel {
+        TextTitle(text: "Your password cannot be changed", width: .fill)
+        TextBody(text: "Your password cannot be changed for an unknown reason", width: .fill)
+        Panel {
+          TextBody(text: "Close")
+        }
+      }
+    }
+}

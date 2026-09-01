@@ -1,0 +1,41 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Chat] Overview
+
+theme dark
+
+view root Surface(pad: .page) {
+    Row(gap: 8, align: .center) {
+      TextBody(text: "Chats")
+      TextCaption(text: "subtitle")
+    }
+    TextCaption(text: "Friend updates")
+      TextBody(text: "Lucas Sanders")
+      TextBody(text: "Adelaide Sutton")
+      TextBody(text: "Annie Osborne")
+      TextEyebrow(text: "LIVE")
+      TextBody(text: "Eliza Duncan")
+    TextCaption(text: "Frequent contacts")
+    TextCaption(text: "Recent conversations")
+  TextBody(text: "Lettie Zimmerman")
+  TextCaption(text: "In this digital generation where information can be easily obtained within seconds", width: .fill)
+  TextEyebrow(text: "10:58PM")
+  TextBody(text: "Abbie Harmon")
+  TextCaption(text: "Having a home based business is a wonderful asset to your life.", width: .fill)
+  TextEyebrow(text: "10:00AM")
+  TextBody(text: "Emily Turner")
+  TextCaption(text: "Adwords Keyword research for beginners When you embark on your first PPC journey, you need", width: .fill)
+  TextEyebrow(text: "11:07PM")
+  TextBody(text: "Elva Ross")
+  TextCaption(text: "Successful businesses know the importance of building and maintaining", width: .fill)
+  TextEyebrow(text: "00:20PM")
+  TextBody(text: "Rosie Jennings")
+  TextCaption(text: "Poster can be one of the effective marketing and advertising materials", width: .fill)
+  TextEyebrow(text: "08:02PM")
+  Panel {
+      TextCaption(text: "take photo")
+      TextCaption(text: "Record")
+      TextCaption(text: "edit")
+      TextCaption(text: "reload")
+  }
+}

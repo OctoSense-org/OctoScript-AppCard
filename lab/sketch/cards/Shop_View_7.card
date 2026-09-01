@@ -1,0 +1,30 @@
+# level: L0
+# model: atro-translation
+# source-artboard: ⟶ [Shop] View #7
+
+theme dark
+
+view root Surface(pad: .page) {
+  Panel {
+      Row(gap: 8, align: .center) {
+        TextTitle(text: "Bose Noise Cancelling")
+        TextBody(text: "$299.99")
+      }
+      TextCaption(text: "(181)")
+        TextEyebrow(text: "LOW STOCK")
+    TextCaption(text: "The Bose 700 has a much slimmer profile when you fold it up for storage or transport.", width: .fill)
+        TextCaption(text: "Overview")
+        TextCaption(text: "Reviews (14)")
+        TextCaption(text: "Stats")
+    TextCaption(text: "tehnology")
+        TextCaption(text: "Wired")
+        TextCaption(text: "Bluetooth")
+        TextCaption(text: "Noise-Cancelling")
+    TextCaption(text: "Available colors")
+    Row(gap: 8, align: .center) {
+      Panel {
+          TextBody(text: "add to cart")
+      }
+    }
+  }
+}
