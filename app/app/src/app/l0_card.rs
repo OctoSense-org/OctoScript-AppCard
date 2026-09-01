@@ -137,6 +137,37 @@ const SCALAR_AXES: &[(&str, &str, &str)] = &[
 const AXIS_ORDER: &[&str] = &["ground", "accent", "radius", "density", "emphasis",
                               "icons", "texture", "depth", "type"];
 
+/// What each `feel:` resolves to — the request's word, translated into axis
+/// defaults. Explicit axes on the card override these (they splice later), so
+/// `feel: .premium accent: .red` keeps premium's air and depth but takes red.
+///
+/// Every row here was VALIDATED by a blind paired judge ("which render feels
+/// more <word>?") before shipping — the measurement lives in
+/// `lab/gates/judge_feel.py`. A feel that fails its word gets retuned or cut,
+/// never shipped silent: an unvalidated semantic token is the disconnected
+/// knob with better manners.
+const FEELS: &[(&str, &[(&str, &str)])] = &[
+    ("bright", &[("ground", "paper"), ("emphasis", "clear")]),
+    ("calm", &[("density", "airy"), ("emphasis", "quiet"), ("radius", "large")]),
+    ("bold", &[("emphasis", "poster"), ("depth", "hard"), ("radius", "none")]),
+    // .airy was in premium's first tuning and broke the display hero (digits
+    // split and dimmed) — judge-failed, retuned per the shipping rule.
+    // Tuning 3. Tuning 1 (.airy) broke the display hero; tuning 2's glow
+    // halo judged CHEAPER than plain dark ("crisp edges, true black, precise
+    // type" won). Premium is restraint: deep ground, serif display, quiet
+    // emphasis, generous radius — no effects.
+    ("premium", &[("ground", "midnight"), ("type", "display"),
+                  ("emphasis", "quiet"), ("radius", "large")]),
+    ("playful", &[("accent", "magenta"), ("radius", "full"),
+                  ("texture", "halftone")]),
+    ("warm", &[("ground", "sand"), ("accent", "amber")]),
+    ("cool", &[("ground", "slate"), ("accent", "cyan")]),
+    ("minimal", &[("emphasis", "quiet"), ("radius", "small"),
+                  ("accent", "neutral")]),
+    ("inspirational", &[("ground", "midnight"), ("type", "display"),
+                        ("emphasis", "poster"), ("depth", "glow")]),
+];
+
 /// The `accent` axis, as a MOOD x HUE cross product.
 ///
 /// It has to be a cross product because the kit language has no colour maths —
@@ -228,6 +259,23 @@ fn kit_for(source: &str) -> String {
     // naming it and a card naming no accent have to render identically.
     let mut axes = String::new();
     let mut declared = splash_ui_l0::card_theme_axes(source);
+    // A `feel:` expands into axis defaults FIRST, so the card's explicit axes
+    // splice after and win. The card keeps carrying the user's word; what the
+    // word means can improve without touching any card.
+    if let Some(pos) = declared.iter().position(|(a, _)| a == "feel") {
+        let (_, feel) = declared.remove(pos);
+        if let Some((_, defaults)) = FEELS.iter().find(|(f, _)| *f == feel) {
+            let mut expanded: Vec<(String, String)> = defaults
+                .iter()
+                .filter(|(axis, _)| !declared.iter().any(|(a, _)| a == axis))
+                .map(|(a, v)| (a.to_string(), v.to_string()))
+                .collect();
+            expanded.extend(declared);
+            declared = expanded;
+        } else {
+            makepad_widgets::log!("[l0] no resolution for feel {feel:?}");
+        }
+    }
     declared.sort_by_key(|(name, _)| {
         AXIS_ORDER.iter().position(|a| a == name).unwrap_or(usize::MAX)
     });
@@ -1214,7 +1262,15 @@ mod tests {
                 {
                     continue;
                 }
-                let answered = if *axis == "accent" {
+                let answered = if *axis == "feel" {
+                    // A feel has no fragment — it RESOLVES to other axes' values
+                    // in `kit_for`. The completeness claim it must satisfy is
+                    // therefore different: every catalogued feel has a FEELS
+                    // row, and every (axis, value) that row names must itself
+                    // be an answerable axis value. Checked below, outside this
+                    // loop's fragment lookup.
+                    super::FEELS.iter().any(|(f, _)| f == value)
+                } else if *axis == "accent" {
                     // Mood-keyed, so every MOOD must answer every hue — a hue
                     // that exists for `dark` and not for `glass` is a card that
                     // silently loses its accent on one mood.
@@ -1231,6 +1287,30 @@ mod tests {
                 assert!(
                     answered,
                     "the catalog admits {axis}: .{value} and this kit has no delta for it"
+                );
+            }
+        }
+        // Every FEELS row must reference only answerable axis values — a feel
+        // resolving to a value with no fragment would be a two-hop silent
+        // no-op, the worst kind.
+        for (feel, defaults) in super::FEELS {
+            for (axis, value) in *defaults {
+                let ok = if *axis == "accent" {
+                    *value == "neutral"
+                        || super::PALETTES.iter().all(|(mood, _)| {
+                            super::ACCENTS.iter().any(|(h, m, _)| h == value && m == mood)
+                        })
+                } else {
+                    super::SCALAR_AXES.iter().any(|(a, v, _)| a == axis && v == value)
+                };
+                assert!(
+                    ok,
+                    "feel {feel:?} resolves to {axis}: .{value}, which has no delta"
+                );
+                assert!(
+                    splash_ui_l0::catalog::axis(axis)
+                        .is_some_and(|vs| vs.contains(value)),
+                    "feel {feel:?} references {axis}: .{value}, not in the catalog"
                 );
             }
         }
