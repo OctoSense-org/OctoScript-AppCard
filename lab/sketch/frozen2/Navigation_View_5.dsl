@@ -13,35 +13,35 @@ View{ flow: Overlay width: 375 height: 812 draw_bg.color: #ffffffff
     View{ width: 69.9 height: 16.0 margin: Inset{left: 79.0 right: 0 top: 586.5 bottom: 0} flow: Down align: Align{x: 0.0} Label{ width: Fit height: Fit text: "People" draw_text.color: #140f26ff draw_text.text_style: TextStyle{ font_family: FontFamily{ latin := FontMember{ res: crate_resource("makepad_widgets:resources/Montserrat-Medium.ttf") asc: 0.0 desc: 0.0 } } font_size: 8.1 } } }
     View{ width: 67.7 height: 16.0 margin: Inset{left: 79.0 right: 0 top: 636.0 bottom: 0} flow: Down align: Align{x: 0.0} Label{ width: Fit height: Fit text: "Places" draw_text.color: #140f26ff draw_text.text_style: TextStyle{ font_family: FontFamily{ latin := FontMember{ res: crate_resource("makepad_widgets:resources/Montserrat-Medium.ttf") asc: 0.0 desc: 0.0 } } font_size: 8.1 } } }
     RoundedView{ width: 24.0 height: 24.0 margin: Inset{left: 35.0 right: 0 top: 281.5 bottom: 0} draw_bg.color: #1c8ff800 }
-    Image{ width: 14.0 height: 14.0 margin: Inset{left: 40.0 right: 0 top: 287.0 bottom: 0} fit: ImageFit.Stretch src: http_resource("http://127.0.0.1:8787/_icons/dea1fe52be4890fa.png") }
+    Image{ width: 14.0 height: 14.0 margin: Inset{left: 40.0 right: 0 top: 287.0 bottom: 0} fit: ImageFit.Stretch src: http_resource("http://127.0.0.1:8787/_icons/ccd671e26e59f540.png") }
     RoundedView{ width: 24.0 height: 24.0 margin: Inset{left: 35.0 right: 0 top: 331.0 bottom: 0} draw_bg.color: #1c8ff800 }
-    Image{ width: 15.5 height: 14.0 margin: Inset{left: 39.5 right: 0 top: 336.0 bottom: 0} fit: ImageFit.Stretch src: http_resource("http://127.0.0.1:8787/_icons/8da4310de647bcfd.png") }
+    Image{ width: 15.5 height: 14.0 margin: Inset{left: 39.5 right: 0 top: 336.0 bottom: 0} fit: ImageFit.Stretch src: http_resource("http://127.0.0.1:8787/_icons/c1df91cd64032b57.png") }
     RoundedView{ width: 24.0 height: 24.0 margin: Inset{left: 35.0 right: 0 top: 382.0 bottom: 0} draw_bg.color: #1c8ff800 }
-    Image{ width: 11.0 height: 14.0 margin: Inset{left: 41.5 right: 0 top: 387.0 bottom: 0} fit: ImageFit.Stretch src: http_resource("http://127.0.0.1:8787/_icons/45dfae667d5c21b2.png") }
+    Image{ width: 11.0 height: 14.0 margin: Inset{left: 41.5 right: 0 top: 387.0 bottom: 0} fit: ImageFit.Stretch src: http_resource("http://127.0.0.1:8787/_icons/7ba8cd3fdbb64e27.png") }
     RoundedView{ width: 24.0 height: 24.0 margin: Inset{left: 35.0 right: 0 top: 431.5 bottom: 0} draw_bg.color: #1c8ff800 }
-    Image{ width: 12.4 height: 8.6 margin: Inset{left: 41.5 right: 0 top: 441.9 bottom: 0} fit: ImageFit.Stretch src: http_resource("http://127.0.0.1:8787/_icons/b0c7dc6a9bcb142b.png") }
+    Image{ width: 12.4 height: 8.6 margin: Inset{left: 41.5 right: 0 top: 441.9 bottom: 0} fit: ImageFit.Stretch src: http_resource("http://127.0.0.1:8787/_icons/e545509558fb5488.png") }
     RoundedView{ width: 24.0 height: 24.0 margin: Inset{left: 35.0 right: 0 top: 481.0 bottom: 0} draw_bg.color: #1c8ff800 }
-    Image{ width: 17.5 height: 17.5 margin: Inset{left: 38.0 right: 0 top: 484.5 bottom: 0} fit: ImageFit.Stretch src: http_resource("http://127.0.0.1:8787/_icons/5dac2034727288c3.png") }
+    Image{ width: 17.5 height: 17.5 margin: Inset{left: 38.0 right: 0 top: 484.5 bottom: 0} fit: ImageFit.Stretch src: http_resource("http://127.0.0.1:8787/_icons/8a6113d6f8e21368.png") }
     RoundedView{ width: 24.0 height: 24.0 margin: Inset{left: 35.0 right: 0 top: 530.5 bottom: 0} draw_bg.color: #1c8ff800 }
-    Image{ width: 15.5 height: 11.6 margin: Inset{left: 39.5 right: 0 top: 535.0 bottom: 0} fit: ImageFit.Stretch src: http_resource("http://127.0.0.1:8787/_icons/15d9033bbf34e251.png") }
+    Image{ width: 15.5 height: 11.6 margin: Inset{left: 39.5 right: 0 top: 535.0 bottom: 0} fit: ImageFit.Stretch src: http_resource("http://127.0.0.1:8787/_icons/f008c1301e337fd0.png") }
     RoundedView{ width: 24.0 height: 24.0 margin: Inset{left: 35.0 right: 0 top: 580.0 bottom: 0} draw_bg.color: #1c8ff800 }
-    Image{ width: 12.8 height: 4.7 margin: Inset{left: 38.5 right: 0 top: 594.4 bottom: 0} fit: ImageFit.Stretch src: http_resource("http://127.0.0.1:8787/_icons/0ad74cdc6f004c25.png") }
+    Image{ width: 12.8 height: 4.7 margin: Inset{left: 38.5 right: 0 top: 594.4 bottom: 0} fit: ImageFit.Stretch src: http_resource("http://127.0.0.1:8787/_icons/d71157d599f7bf8a.png") }
     RoundedView{ width: 24.0 height: 24.0 margin: Inset{left: 35.0 right: 0 top: 629.5 bottom: 0} draw_bg.color: #1c8ff800 }
-    Image{ width: 14.0 height: 17.5 margin: Inset{left: 40.0 right: 0 top: 633.0 bottom: 0} fit: ImageFit.Stretch src: http_resource("http://127.0.0.1:8787/_icons/91ad07279e08004e.png") }
+    Image{ width: 14.0 height: 17.5 margin: Inset{left: 40.0 right: 0 top: 633.0 bottom: 0} fit: ImageFit.Stretch src: http_resource("http://127.0.0.1:8787/_icons/052bc9e9dd03cc5a.png") }
     RoundedView{ width: 15.0 height: 13.5 margin: Inset{left: 50.0 right: 0 top: 278.5 bottom: 0} draw_bg.color: #4c5fefff draw_bg.border_radius: 3.5 }
     View{ width: 13.1 height: 15.0 margin: Inset{left: 52.1 right: 0 top: 281.0 bottom: 0} flow: Down align: Align{x: 0.5} Label{ width: Fit height: Fit text: "3" draw_text.color: #ffffffff draw_text.text_style: TextStyle{ font_family: FontFamily{ latin := FontMember{ res: crate_resource("makepad_widgets:resources/Montserrat-SemiBold.ttf") asc: 0.0 desc: 0.0 } } font_size: 5.6 } } }
     RoundedView{ width: 15.0 height: 13.5 margin: Inset{left: 50.0 right: 0 top: 527.5 bottom: 0} draw_bg.color: #4c5fefff draw_bg.border_radius: 3.5 }
     View{ width: 18.3 height: 15.0 margin: Inset{left: 52.1 right: 0 top: 530.0 bottom: 0} flow: Down align: Align{x: 0.5} Label{ width: Fit height: Fit text: "12" draw_text.color: #ffffffff draw_text.text_style: TextStyle{ font_family: FontFamily{ latin := FontMember{ res: crate_resource("makepad_widgets:resources/Montserrat-SemiBold.ttf") asc: 0.0 desc: 0.0 } } font_size: 5.6 } } }
     RoundedView{ width: 55.0 height: 55.0 margin: Inset{left: 35.0 right: 0 top: 143.5 bottom: 0} draw_bg.color: #d8d8d8ff draw_bg.border_size: 0.5 draw_bg.border_color: #979797ff }
     RoundedView{ width: 55.0 height: 55.0 margin: Inset{left: 35.0 right: 0 top: 143.5 bottom: 0} draw_bg.color: #212b36ff draw_bg.border_radius: 27.5 }
-    Image{ width: 375.0 height: 37.0 margin: Inset{left: 0.0 right: 0 top: 775.0 bottom: 0} fit: ImageFit.Stretch src: http_resource("http://127.0.0.1:8787/_icons/781917dad39669d8.png") }
+    Image{ width: 375.0 height: 37.0 margin: Inset{left: 0.0 right: 0 top: 775.0 bottom: 0} fit: ImageFit.Stretch src: http_resource("http://127.0.0.1:8787/_icons/21f19e633b0d4992.png") }
     RoundedView{ width: 100.0 height: 4.0 margin: Inset{left: 137.5 right: 0 top: 798.0 bottom: 0} draw_bg.color: #121217ff draw_bg.border_radius: 2.0 }
     RoundedView{ width: 24.0 height: 24.0 margin: Inset{left: 30.0 right: 0 top: 773.0 bottom: 0} draw_bg.color: #50a1ff00 }
     RoundedView{ width: 24.0 height: 24.0 margin: Inset{left: 321.0 right: 0 top: 773.0 bottom: 0} draw_bg.color: #50a1ff00 }
-    Image{ width: 375.0 height: 37.5 margin: Inset{left: 0.0 right: 0 top: 0.0 bottom: 0} fit: ImageFit.Stretch src: http_resource("http://127.0.0.1:8787/_icons/c30489d80e8e95b9.png") }
+    Image{ width: 375.0 height: 37.5 margin: Inset{left: 0.0 right: 0 top: 0.0 bottom: 0} fit: ImageFit.Stretch src: http_resource("http://127.0.0.1:8787/_icons/9529b95a64a3d054.png") }
     View{ width: 55.9 height: 16.0 margin: Inset{left: 25.0 right: 0 top: 14.5 bottom: 0} flow: Down align: Align{x: 0.0} Label{ width: Fit height: Fit text: "Atro UI" draw_text.color: #131315ff draw_text.text_style: TextStyle{ font_family: FontFamily{ latin := FontMember{ res: crate_resource("makepad_widgets:resources/Montserrat-Medium.ttf") asc: 0.0 desc: 0.0 } } font_size: 7.4 } } }
     RoundedView{ width: 1.1 height: 3.4 margin: Inset{left: 356.4 right: 0 top: 15.8 bottom: 0} draw_bg.color: #13131566 }
     RoundedView{ width: 14.4 height: 6.1 margin: Inset{left: 339.6 right: 0 top: 14.4 bottom: 0} draw_bg.color: #131315ff draw_bg.border_radius: 1.4 }
-    Image{ width: 14.0 height: 9.9 margin: Inset{left: 319.0 right: 0 top: 12.5 bottom: 0} fit: ImageFit.Stretch src: http_resource("http://127.0.0.1:8787/_icons/e8d9dd540ef1f854.png") }
-    Image{ width: 15.0 height: 9.2 margin: Inset{left: 299.0 right: 0 top: 13.0 bottom: 0} fit: ImageFit.Stretch src: http_resource("http://127.0.0.1:8787/_icons/de5323857e422527.png") }
+    Image{ width: 14.0 height: 9.9 margin: Inset{left: 319.0 right: 0 top: 12.5 bottom: 0} fit: ImageFit.Stretch src: http_resource("http://127.0.0.1:8787/_icons/9555b9ae4e9df132.png") }
+    Image{ width: 15.0 height: 9.2 margin: Inset{left: 299.0 right: 0 top: 13.0 bottom: 0} fit: ImageFit.Stretch src: http_resource("http://127.0.0.1:8787/_icons/efd8e387ca373f22.png") }
 }

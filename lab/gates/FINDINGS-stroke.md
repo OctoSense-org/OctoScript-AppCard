@@ -58,3 +58,24 @@ Cost so far: five rebuild-and-render cycles. Every one of them was cheap and
 each removed a hypothesis; the reason to stop is the timebox, not a dead end.
 53 of 100 style recipes want a stroke, though only 3 are blocked by it alone —
 see the cluster table in the plan.
+
+
+## Round 4 (2026-09-01): the instance buffer is clean — the fault is in the MSL
+
+`draw_bg.debug_draw: true` (a stock flag, read off the shader source object)
+dumps the draw call. For a 6px red border on RoundedShadowView:
+
+    border_color=[1.0, 0.0, 0.0, 1.0]   border_size: [6.0]   <- ALL PRESENT
+
+So: colour arrives on the GPU, uniforms arrive, the function is invoked
+(round 3), its result mutation persists (round 3), the band geometry is right
+(round 3) — and a 60px stroke is STILL invisible, which also eliminates the
+aa-scale hypothesis (f = clamp(60·aa) shows for any aa > 0.017).
+
+What remains is the translated pixel function itself: something in the
+generated Metal between `stroke(color, width)`'s entry and `calc_blur`'s use
+of it yields f=0 (or the blend contributes nothing) for every path EXCEPT a
+forced constant. Next session: print the generated MSL for shader id 35
+(metal.rs compile path), diff the stroke chain against the working fill chain
+line by line. This is now a translation bug hunt with a two-function scope,
+not a renderer mystery.
