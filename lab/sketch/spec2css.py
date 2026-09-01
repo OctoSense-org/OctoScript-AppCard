@@ -95,6 +95,26 @@ class Css:
             if n.get("svg_d"):
                 fill = n.get("fill")
                 st = n.get("stroke")
+                g = n.get("gradient")
+                if g and g.get("stops"):
+                    gid = f"g{self.stats['nodes']}"
+                    stops = sorted(g["stops"], key=lambda s: s["p"])
+                    (fx, fy), (tx, ty) = g.get("from", (0, 0)), g.get("to", (0, 1))
+                    sdefs = "".join(
+                        f'<stop offset="{s["p"]:.3f}" stop-color="{rgba(s["c"])}"/>'
+                        for s in stops)
+                    oc = n.get("opacity", 1.0)
+                    self.out.append(
+                        f'<svg style="{self.pos(n)}opacity:{oc:.3f};" viewBox="0 0 1 1" '
+                        f'preserveAspectRatio="none"><defs><linearGradient id="{gid}" '
+                        f'x1="{fx:.3f}" y1="{fy:.3f}" x2="{tx:.3f}" y2="{ty:.3f}">'
+                        f'{sdefs}</linearGradient></defs>'
+                        f'<path d="{n["svg_d"]}" fill="url(#{gid})" '
+                        f'fill-rule="{n.get("svg_rule", "nonzero")}"/></svg>')
+                    self.stats["nodes"] += 1
+                    for ch in n.get("children", []):
+                        self.walk(ch)
+                    return
                 if fill:
                     attrs = f'fill="{rgba(fill)}" fill-rule="{n.get("svg_rule", "nonzero")}"'
                 elif st and st.get("c"):

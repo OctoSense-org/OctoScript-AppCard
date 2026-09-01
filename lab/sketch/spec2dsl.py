@@ -90,8 +90,15 @@ class Comp:
             bits.append(f'draw_bg.color: #{hexa(stops[0]["c"])}')
             bits.append(f'draw_bg.color_2: #{hexa(stops[-1]["c"])}')
             (fx, fy), (tx, ty) = g.get("from", (0, 0)), g.get("to", (0, 1))
-            if abs(tx - fx) > abs(ty - fy):
+            import math
+            ang = math.degrees(math.atan2(tx - fx, ty - fy))
+            if abs(ang) < 8 or abs(abs(ang) - 180) < 8:
+                pass                                    # vertical: the default
+            elif abs(abs(ang) - 90) < 8:
                 bits.append("draw_bg.gradient_fill_horizontal: 1.0")
+            else:
+                # the new renderer uniform — Atro's signature diagonals
+                bits.append(f"draw_bg.gradient_angle: {ang:.1f}")
         elif n.get("fill"):
             c = dict(n["fill"])
             c["a"] = c.get("a", 1) * alpha_mul
@@ -124,15 +131,25 @@ class Comp:
         w = max(2, int(n["w"] * S * 2))   # @2x so the stretch stays crisp
         h = max(2, int(n["h"] * S * 2))
         fill, st = n.get("fill"), n.get("stroke")
+        grad = n.get("gradient")
+        op = n.get("opacity", 1.0)
         key = hashlib.md5(_json.dumps(
-            [n["rings"], n.get("ring_ops"), fill, st, w, h]).encode()).hexdigest()[:16]
+            [n["rings"], n.get("ring_ops"), fill, st, grad, op, w, h]).encode()).hexdigest()[:16]
         self.ICON_DIR.mkdir(exist_ok=True)
         out = self.ICON_DIR / f"{key}.png"
         if not out.exists():
-            if fill:
+            if grad and grad.get("stops"):
+                sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+                from spec2png import lin_gradient
+                paint = lin_gradient(w, h, grad)
+                if op < 0.999:
+                    paint.putalpha(paint.getchannel("A").point(lambda v: int(v * op)))
+                tile = P.render_rings(n["rings"], w, h, paint,
+                                      ops=n.get("ring_ops"))
+            elif fill:
                 hx = fill["hex"].lstrip("#")
                 rgba = (int(hx[0:2], 16), int(hx[2:4], 16), int(hx[4:6], 16),
-                        round(255 * fill.get("a", 1)))
+                        round(255 * fill.get("a", 1) * op))
                 tile = P.render_rings(n["rings"], w, h, rgba, ops=n.get("ring_ops"))
             elif st and st.get("c"):
                 hx = st["c"]["hex"].lstrip("#")

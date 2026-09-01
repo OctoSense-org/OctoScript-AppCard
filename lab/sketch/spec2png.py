@@ -153,10 +153,18 @@ class Raster:
         w, h = max(1, x1 - x0), max(1, y1 - y0)
         fill = n.get("fill")
         st = n.get("stroke")
-        if fill:
+        op = n.get("opacity", 1.0)
+        if n.get("gradient"):
+            paint = lin_gradient(w, h, n["gradient"])
+            if op < 0.999:
+                paint.putalpha(paint.getchannel("A").point(lambda v: int(v * op)))
+            tile = P.render_rings(n["rings"], w, h, paint,
+                                  ops=n.get("ring_ops"))
+            self.im.alpha_composite(tile, (x0, y0))
+        elif fill:
             hx = fill["hex"].lstrip("#")
             rgba = (int(hx[0:2], 16), int(hx[2:4], 16), int(hx[4:6], 16),
-                    round(255 * fill.get("a", 1)))
+                    round(255 * fill.get("a", 1) * op))
             tile = P.render_rings(n["rings"], w, h, rgba, ops=n.get("ring_ops"))
             self.im.alpha_composite(tile, (x0, y0))
         elif st and st.get("c"):

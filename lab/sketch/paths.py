@@ -66,6 +66,16 @@ def render_rings(rings, w, h, rgba, ss=3, ops=None):
             acc = ImageChops.logical_or(acc, m)
     alpha = acc.convert("L").resize((max(1, int(w)), max(1, int(h))),
                                     Image.LANCZOS)
+    if isinstance(rgba, Image.Image):
+        # a PAINT image (e.g. a gradient) masked by the rings — the case that
+        # broke three backends three different ways on the phone-mock body
+        paint = rgba.convert("RGBA").resize(alpha.size)
+        pa = paint.getchannel("A").point(lambda v: v)
+        combined = Image.composite(alpha, Image.new("L", alpha.size, 0),
+                                   pa.point(lambda v: 255 if v > 8 else 0))
+        out = paint.copy()
+        out.putalpha(Image.eval(alpha, lambda v: v))
+        return out
     r, g, b, a = rgba
     tile = Image.new("RGBA", alpha.size, (r, g, b, 0))
     tile.putalpha(alpha.point(lambda v: v * a // 255))
