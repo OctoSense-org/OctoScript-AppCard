@@ -143,6 +143,14 @@ def build(mood, name, hue):
         f"let l0_active   = argb( 72, {hue[0]}, {hue[1]}, {hue[2]})",
         "let l0_go       = l0_accent",
         "",
+        "// accent-as-seed: with a seeded ground, _derive_color re-solves the",
+        "// ink against THAT ground in-kit (unrolled five-step contrast search)",
+        "// instead of keeping this fragment's mood-solved literals.",
+        "let seed_hue_on = 1",
+        f"let seed_hue_r  = {hue[0]}",
+        f"let seed_hue_g  = {hue[1]}",
+        f"let seed_hue_b  = {hue[2]}",
+        "",
     ]
     return "\n".join(head + body), worst, t
 

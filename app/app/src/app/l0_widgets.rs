@@ -148,6 +148,16 @@ fn fits_roboto(text: Option<&str>) -> bool {
 /// The style for a run, naming the family only when the text is known to fit it.
 fn text_style_for(size: f32, weight: Option<i32>, text: Option<&str>,
                   family: Option<&str>, tracking: Option<f32>) -> String {
+    // `family == "fa"` is the icon font — a codepoint the lower step resolved
+    // from a semantic name. It must NOT fall through the Roboto-coverage gate
+    // (an FA codepoint never "fits Roboto") nor take the theme's text face.
+    if family == Some("fa") {
+        return format!(
+            " draw_text.text_style: TextStyle{{ font_family: FontFamily{{ \
+             latin := FontMember{{ res: crate_resource(\"makepad_widgets:resources/fa-solid-900.ttf\") \
+             asc: 0.0 desc: 0.0 }} }} font_size: {size} }}"
+        );
+    }
     if fits_roboto(text) {
         return text_style(size, weight, family, tracking);
     }
@@ -872,7 +882,8 @@ fn emit(node: &UiNode, out: &mut String, depth: usize) {
             let _ = write!(out, " draw_text.color: {}", hex(c));
         }
         if let Some(s) = a.size {
-            out.push_str(&text_style_for(s, a.weight, a.text.as_deref(), a.family.as_deref(), a.tracking));
+            let fam = if a.icon == Some(1) { Some("fa") } else { a.family.as_deref() };
+            out.push_str(&text_style_for(s, a.weight, a.text.as_deref(), fam, a.tracking));
         }
         // CENTRED in its own box, via `label_align` — the property `TextInput` actually
         // reads for its text and its placeholder (`text_input.rs`, used at the
@@ -1154,7 +1165,8 @@ fn emit_widget(node: &UiNode, out: &mut String, depth: usize) {
             let _ = write!(out, " draw_text.color: {}", hex(c));
         }
         if let Some(s) = a.size {
-            out.push_str(&text_style_for(s, a.weight, a.text.as_deref(), a.family.as_deref(), a.tracking));
+            let fam = if a.icon == Some(1) { Some("fa") } else { a.family.as_deref() };
+            out.push_str(&text_style_for(s, a.weight, a.text.as_deref(), fam, a.tracking));
         }
         // A Label already wraps (its layout is `Flow::right_wrap`) — it just
         // needs a BOUNDED width to wrap against, or it sizes to content and
