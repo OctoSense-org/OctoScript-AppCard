@@ -1,0 +1,76 @@
+# ledger florence_weather @ 1.0.0
+# level: L0
+# profile: ui/l0
+
+theme dark feel: .bold
+
+state city  { shape: text, initial: "Florence, Italy" }
+state units { shape: enum[c, f], initial: env.locale.temp_unit }
+
+# A source reads state through `state.` — a bare `city` is not in scope here.
+source env.locale  sys.locale()
+source place       sys.geocode(name: state.city)
+source now         sys.weather(lat: place.lat, lon: place.lon, fields: [temp, cond])
+source week        sys.weather(lat: place.lat, lon: place.lon, days: 5,
+                               fields: [dayname, hi, lo],
+                               aggregate: [min_lo, max_hi])
+
+copy week_hd { class: vocabulary, en: "Next days", it: "Prossimi giorni" }
+copy loading { class: vocabulary, en: "Updating",  it: "Aggiornamento" }
+copy offline { class: vocabulary, en: "No signal", it: "Nessun segnale" }
+
+# Two bands over a page that carries the colour, hard left, the number dominant.
+#
+# The status line sits in the Surface, ABOVE the bands, not inside one. A `when`
+# that adds and removes a line INSIDE a Panel changes that Panel's height at the
+# moment `now` resolves, and the box this card is handed was measured before it
+# did — which is the 45% the bar and the row underneath it end up sharing. At
+# the top of the Surface the same line costs the card one band of its own and
+# never resizes a band that is already placed.
+#
+# `Col(gap: 24)` stays: it is what carries the gap between the two bands.
+view root Surface(pad: .page) {
+  when now.$state == .pending { TextCaption(text: copy.loading) }
+  when now.$state == .failed  { TextCaption(text: copy.offline) }
+
+  Col(gap: 24) {
+
+    Panel {
+      Col(align: .start, gap: 10) {
+        TextEyebrow(text: place.name)
+        TextHero(value: now.temp, unit: units)
+        # `width: .fit`: a row fills by default, and a filling row would stretch
+        # its gap the whole width of the page. But everything inside a fitting
+        # row has to fit as well — `TextBody` FILLS, and a filling label in a row
+        # that has already spent its width on the icon paints 15px past the
+        # row's right edge. `TextRow` sizes to its own run and ellipsises, which
+        # is what a label set beside an icon wants anyway.
+        Row(width: .fit, align: .center, gap: 8) {
+          WeatherIcon(cond: now.cond, size: .row)
+          TextRow(text: now.cond)
+        }
+      }
+    }
+
+    # The forecast row is written where it is used. A component takes a `record`
+    # and its own arguments; it does not carry `week.min_lo`/`week.max_hi` in
+    # with it, and the bar needs those bounds to scale against.
+    Panel {
+      Col(align: .start, gap: 6) {
+        TextCaption(text: copy.week_hd)
+        for d in week.days key d.dayname {
+          # This row FILLS, so the bar and the trailing reading share what the
+          # two fixed columns leave — the opposite case from the hero row above,
+          # and the reason neither of them states a width.
+          # `.center`, not `.baseline` — a bar has no baseline to sit on.
+          Row(align: .center, gap: 14) {
+            TextRow(text: d.dayname, width: .day)
+            TextCaption(value: d.lo, unit: units, width: .temp)
+            TempBar(lo: d.lo, hi: d.hi, min: week.min_lo, max: week.max_hi)
+            TextValue(value: d.hi, unit: units)
+          }
+        }
+      }
+    }
+  }
+}
