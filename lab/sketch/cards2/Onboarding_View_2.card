@@ -4,29 +4,26 @@ theme atro
 
 state p1 { shape: text, initial: "http://127.0.0.1:8787/07ba47471dcfb1cf35c1f1c38d42614b382d9987.png" }
 
-view pager Row(width: .fit, align: .center, gap: 8) {
-  TextCaption(text: "—", width: .fit)
-  TextCaption(text: "—", width: .fit)
-  TextCaption(text: "—", width: .fit)
-  TextCaption(text: "—", width: .fit)
-}
-
-view stage Col(align: .center, width: .fill, gap: 16) {
-  Thumb(src: p1, shape: .hero)
-  pager
-  TextTitle(text: "Rule of thirds", width: .fit)
-  TextBody(text: "The rule of thirds states that an image is most pleasing when its subjects or regions are ...", width: .fit)
-}
-
-view foot Col(align: .center, width: .fill, gap: 16) {
-  Chip(text: "→", tone: .primary, width: .fit)
-  TextCaption(text: "Already have an account? Sign In", width: .fit)
+view dots Col(align: .center, width: .fill) {
+  Row(align: .center, gap: 8) {
+    TextCaption(glyph: "—", width: .fit)
+    TextCaption(glyph: "—", width: .fit)
+    TextCaption(glyph: "—", width: .fit)
+    TextCaption(glyph: "—", width: .fit)
+  }
 }
 
 view root Surface(pad: .page) {
   TextEyebrow(text: "Atro UI")
+  Thumb(src: p1, shape: .hero)
+  dots
+  Col(align: .center, gap: 8, width: .fill) {
+    TextTitle(text: "Rule of thirds", width: .fit)
+    TextBody(text: "The rule of thirds states that an image is most pleasing when its subjects or regions are …", width: .fit)
+  }
   Space()
-  stage
-  Space()
-  foot
+  Col(align: .center, gap: 14, width: .fill) {
+    Chip(text: "→", tone: .primary)
+    TextCaption(text: "Already have an account? Sign In", width: .fit)
+  }
 }

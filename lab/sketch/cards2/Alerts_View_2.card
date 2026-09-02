@@ -2,61 +2,64 @@
 # model: atro-app
 theme atro
 
-view appbar Row(width: .fill, align: .center) {
+state p1 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
+
+view header Row(width: .fill, align: .center) {
   TextEyebrow(text: "Atro UI")
   Col(width: .fill, align: .center) {
     TextTitle(text: "Inbox", width: .fit)
     TextCaption(text: "subtitle", width: .fit)
   }
+  Icon(name: .more)
 }
 
-view tabbar Panel {
-  Grid(cols: 5) {
-    Col(align: .center, gap: 4) {
-      Icon(name: .home, size: .tile)
-      TextCaption(text: "item label", width: .fit)
+view hero Col(align: .center, gap: 18, width: .fill) {
+  Icon(name: .edit, size: .hero)
+  TextTitle(text: "Start writing something new", width: .fit)
+  TextBody(text: "Your device is not connect to internet, please make sure your connection is working.", width: .fill)
+}
+
+view actions Col(align: .center, gap: 16, width: .fill) {
+  Chip(text: "New message", tone: .primary, width: .fill)
+  Panel {
+    Row(align: .center, gap: 10) {
+      TextCaption(text: "Connection error.", width: .fit)
+      TextCaption(text: "retry", width: .fit)
     }
-    Col(align: .center, gap: 4) {
-      Icon(name: .image, size: .tile)
-      TextCaption(text: "item label", width: .fit)
+  }
+}
+
+view tabbar Row(width: .fill, align: .center) {
+  Col(align: .center, gap: 6, width: .fill) {
+    Icon(name: .home, size: .tile)
+    TextCaption(text: "item label", width: .fit)
+  }
+  Col(align: .center, gap: 6, width: .fill) {
+    Icon(name: .image, size: .tile)
+    TextCaption(text: "item label", width: .fit)
+  }
+  Col(align: .center, gap: 6, width: .fill) {
+    Row(align: .center, gap: 4) {
+      Icon(name: .chat, size: .tile)
+      TextCaption(text: "10", width: .fit)
     }
-    Col(align: .center, gap: 4) {
-      Row(align: .center, gap: 4) {
-        Icon(name: .chat, size: .tile)
-        TextCaption(text: "10")
-      }
-      TextCaption(text: "item label", width: .fit)
-    }
-    Col(align: .center, gap: 4) {
-      Icon(name: .mail, size: .tile)
-      TextCaption(text: "item label", width: .fit)
-    }
-    Col(align: .center, gap: 4) {
-      Icon(name: .menu, size: .tile)
-      TextCaption(text: "item label", width: .fit)
-    }
+    TextCaption(text: "item label", width: .fit)
+  }
+  Col(align: .center, gap: 6, width: .fill) {
+    Icon(name: .mail, size: .tile)
+    TextCaption(text: "item label", width: .fit)
+  }
+  Col(align: .center, gap: 6, width: .fill) {
+    Icon(name: .menu, size: .tile)
+    TextCaption(text: "item label", width: .fit)
   }
 }
 
 view root Surface(pad: .page) {
-  appbar
+  header
   Space()
-  Col(align: .center, gap: 18) {
-    Icon(name: .edit, size: .hero)
-    TextTitle(text: "Start writing something new", width: .fit)
-    Col(align: .center, gap: 6) {
-      TextBody(text: "Your device is not connect to internet,", width: .fit)
-      TextBody(text: "please make sure your connection is", width: .fit)
-      TextBody(text: "working.", width: .fit)
-    }
-  }
+  hero
   Space()
-  Col(align: .center, width: .fill, gap: 16) {
-    Chip(text: "New message", tone: .primary, width: .fill)
-    Row(align: .center, gap: 12) {
-      Chip(text: "Connection error.")
-      Chip(text: "retry")
-    }
-  }
+  actions
   tabbar
 }

@@ -3,18 +3,24 @@
 theme atro_light
 
 state p1 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
+state p2 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
+state p3 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
 
-view stats Grid(cols: 3) {
-  Col(align: .center, gap: 2) {
-    TextTitle(text: "35k", width: .fit)
+state followers { shape: text, initial: "35k" }
+state stories { shape: text, initial: "315" }
+state following { shape: text, initial: "1931" }
+
+view stats Row(width: .fill, align: .center, gap: 8) {
+  Col(align: .center, width: .fill, gap: 2) {
+    TextStat(value: followers)
     TextCaption(text: "Followers", width: .fit)
   }
-  Col(align: .center, gap: 2) {
-    TextTitle(text: "315", width: .fit)
+  Col(align: .center, width: .fill, gap: 2) {
+    TextStat(value: stories)
     TextCaption(text: "Stories", width: .fit)
   }
-  Col(align: .center, gap: 2) {
-    TextTitle(text: "1931", width: .fit)
+  Col(align: .center, width: .fill, gap: 2) {
+    TextStat(value: following)
     TextCaption(text: "Following", width: .fit)
   }
 }
@@ -23,49 +29,27 @@ view places Col(width: .fill, gap: 10) {
   TextTitle(text: "Favourite places", width: .fill)
   Grid(cols: 3) {
     Thumb(src: p1, shape: .square)
-    Thumb(src: p1, shape: .square)
-    Thumb(src: p1, shape: .square)
-  }
-}
-
-view tabbar Row(width: .fill, align: .center) {
-  Col(align: .center, gap: 2) {
-    Icon(name: .home, size: .tile)
-    TextCaption(text: "item label", width: .fit)
-  }
-  Col(align: .center, gap: 2) {
-    Icon(name: .search, size: .tile)
-    TextCaption(text: "item label", width: .fit)
-  }
-  Col(align: .center, gap: 2) {
-    TextCaption(text: "10", width: .fit)
-    Icon(name: .chat, size: .tile)
-    TextCaption(text: "item label", width: .fit)
-  }
-  Col(align: .center, gap: 2) {
-    Icon(name: .bell, size: .tile)
-    TextCaption(text: "item label", width: .fit)
-  }
-  Col(align: .center, gap: 2) {
-    Icon(name: .user, size: .tile)
-    TextCaption(text: "item label", width: .fit)
+    Thumb(src: p2, shape: .square)
+    Thumb(src: p3, shape: .square)
   }
 }
 
 view root Surface(pad: .page) {
-  Thumb(src: p1)
-  Panel {
-    Col(align: .center, gap: 6) {
-      Avatar(text: "MB")
-      TextCaption(text: "LIVE", glyph: "●", width: .fit)
-      TextTitle(text: "Maria José Botín", width: .fit)
-      TextCaption(text: "Berlin, Germany", width: .fit)
-      TextBody(text: "Typical thinker. Incurable tv geek. Explorer. Friend of animals everywhere. Entrepreneur.", width: .fit)
-      Chip(text: "message", tone: .primary)
-    }
-    stats
-    places
+  Row(width: .fill, align: .center) {
+    Icon(name: .chevron_left)
   }
-  Space()
-  tabbar
+  Band(text: "Atro UI")
+  Col(align: .center, width: .fill, gap: 6) {
+    Avatar(text: "MB")
+    TextCaption(text: "LIVE", glyph: "●", width: .fit)
+    TextTitle(text: "Maria José Botín", width: .fit)
+    TextCaption(text: "Berlin, Germany", width: .fit)
+    TextBody(text: "Typical thinker. Incurable tv geek. Explorer. Friend of animals everywhere. Entrepreneur.", width: .fit)
+  }
+  Col(align: .center, width: .fill) {
+    Chip(text: "message", tone: .primary)
+  }
+  Rule()
+  stats
+  places
 }

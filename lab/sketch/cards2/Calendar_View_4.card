@@ -2,19 +2,10 @@
 # model: atro-app
 theme atro_light
 
-view root Surface(pad: .page) {
-  header
-  weekdays
-  Band(text: "April")
-  aprildays
-  Band(text: "May")
-  maydays
-}
-
-view header Col(align: .start, gap: 4, width: .fill) {
+view topbar Col(width: .fill, gap: 4) {
   TextEyebrow(text: "Atro UI")
   Row(width: .fill, align: .center) {
-    Icon(name: .arrow_left)
+    Icon(name: .chevron_left)
     TextTitle(text: "2020", width: .fill)
     Icon(name: .menu)
     Icon(name: .bookmark)
@@ -31,7 +22,7 @@ view weekdays Grid(cols: 7) {
   TextEyebrow(text: "sun")
 }
 
-view aprildays Grid(cols: 7) {
+view aprilgrid Grid(cols: 7) {
   Tile(label: "25", shape: .square)
   Tile(label: "26", shape: .square)
   Tile(label: "27", glyph: "•", shape: .square)
@@ -76,7 +67,7 @@ view aprildays Grid(cols: 7) {
   Tile(label: "5", shape: .square)
 }
 
-view maydays Grid(cols: 7) {
+view maygrid Grid(cols: 7) {
   Tile(label: "25", shape: .square)
   Tile(label: "26", shape: .square)
   Tile(label: "27", glyph: "•", shape: .square)
@@ -119,4 +110,13 @@ view maydays Grid(cols: 7) {
   Tile(label: "3", shape: .square)
   Tile(label: "4", shape: .square)
   Tile(label: "5", shape: .square)
+}
+
+view root Surface(pad: .page) {
+  topbar
+  weekdays
+  Band(text: "April")
+  aprilgrid
+  Band(text: "May")
+  maygrid
 }

@@ -15,15 +15,7 @@ state p10 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
 state p11 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
 state p12 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
 
-view topbar Row(width: .fill, align: .center) {
-  Icon(name: .arrow_left)
-  Col(width: .fill, align: .center) {
-    TextTitle(text: "Gallery", width: .fit)
-  }
-  Icon(name: .trash)
-}
-
-view gridtop Grid(cols: 3) {
+view topgrid Grid(cols: 3) {
   Thumb(src: p1, shape: .square)
   Thumb(src: p2, shape: .square)
   Thumb(src: p3, shape: .square)
@@ -36,26 +28,25 @@ view mosaic Row(width: .fill, gap: 8) {
   Col(width: .fill) {
     Thumb(src: p7, shape: .hero)
   }
-  Col(width: .fill, gap: 8) {
+  Col(gap: 8) {
     Thumb(src: p8, shape: .square)
     Thumb(src: p9, shape: .square)
   }
 }
 
-view gridbottom Grid(cols: 3) {
+view lastgrid Grid(cols: 3) {
   Thumb(src: p10, shape: .square)
   Thumb(src: p11, shape: .square)
   Thumb(src: p12, shape: .square)
 }
 
-view selectbar Row(width: .fill, align: .center) {
-  Chip(text: "15 images selected", tone: .primary)
-}
-
 view root Surface(pad: .page) {
-  topbar
-  gridtop
+  Band(text: "Gallery")
+  topgrid
   mosaic
-  gridbottom
-  selectbar
+  lastgrid
+  Space()
+  Col(align: .center, width: .fill) {
+    Chip(text: "15 images selected", tone: .primary)
+  }
 }
