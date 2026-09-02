@@ -251,6 +251,9 @@ def main():
             continue
         if "--round2" in sys.argv and name not in feedback:
             continue
+        # Resume: an existing card is kept unless a feedback round targets it.
+        if "--round2" not in sys.argv and (KIT["cards_dir"] / f"{name}.card").exists():
+            continue
         note = (f"A previous attempt was rejected by a design reviewer for: "
                 f"\"{feedback[name]}\" — fix exactly that.\n") if name in feedback else ""
         ok, diags = author(name, note)

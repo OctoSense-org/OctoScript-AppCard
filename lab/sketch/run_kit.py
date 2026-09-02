@@ -65,11 +65,13 @@ def stage_author(kit, rounds=1):
 
 def stage_desktop(kit):
     sh("python3", "render_v2.py", "--kit", kit["name"])
+    sh("python3", "gate_fill.py", "--kit", kit["name"], "--rail", "desktop")
     sh("python3", "judge_shots.py", "--kit", kit["name"], "--rail", "desktop")
 
 
 def stage_android(kit):
     sh("python3", "render_device.py", "l0", "--kit", kit["name"])
+    sh("python3", "gate_fill.py", "--kit", kit["name"], "--rail", "android")
     sh("python3", "judge_shots.py", "--kit", kit["name"], "--rail", "android")
 
 
@@ -81,6 +83,7 @@ def stage_ohos(kit):
                    capture_output=True)
     sh("bash", "-c", "./build-atro.sh --no-launch", cwd=HOME / "home/Splash-OH")
     sh("python3", "capture_ohos.py", "--kit", kit["name"])
+    sh("python3", "gate_fill.py", "--kit", kit["name"], "--rail", "ohos")
     sh("python3", "judge_shots.py", "--kit", kit["name"], "--rail", "ohos")
 
 
