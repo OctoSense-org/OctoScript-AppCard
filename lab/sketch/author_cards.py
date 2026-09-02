@@ -118,10 +118,11 @@ def author(name, round2_note=""):
     ground_note = (f"The page background is a COLOUR (#{hexc}) — you MUST write the "
                    f"theme line as `theme atro{'_light' if mode_hint == 'light' else ''} "
                    f"ground {ground}` so the page carries that colour.\n") if ground else ""
+    notes = (f"The screen reads as a {mode_hint} screen.\n{limits(spec)}"
+             f"{ground_note}{round2_note}")
     prompt = (f"Read {target} — a mobile app screen design to reproduce.\n"
               f"Read {dig_file} — the measured element digest (positions are @2x; "
-              f"indentation = the design's own grouping).\n\n{RULES}\n\n"
-              f"The screen reads as a {mode_hint} screen.\n{ground_note}{round2_note}")
+              f"indentation = the design's own grouping).\n\n{RULES}\n\n{notes}")
     src = B.strip_fence(B.claude_text(prompt, timeout=600)).strip()
     card = HERE / "cards2" / f"{name}.card"
     card.write_text(src + "\n")
@@ -132,7 +133,9 @@ def author(name, round2_note=""):
         fix = B.strip_fence(B.claude_text(
             f"Read {card} — an L0 card that FAILED validation with:\n"
             + "\n".join(f"- {d}" for d in diags[:6])
-            + f"\n\n{RULES}\n\nReturn the corrected FULL card source only.",
+            + f"\n\n{RULES}\n\n{notes}\n"
+            + "Return the corrected FULL card source only — keep the theme "
+            + "line's ground/axes exactly as they were.",
             timeout=600)).strip()
         card.write_text(fix + "\n")
         ok, diags = validate(card)
@@ -175,6 +178,37 @@ def page_colour(spec):
         return best[1], None
     tok = min(GROUNDS, key=lambda k: sum((a - b) ** 2 for a, b in zip(GROUNDS[k], (r, g, b))))
     return best[1], tok
+
+
+def limits(spec):
+    """Per-screen measured caps, stated as hard limits in the prompt."""
+    tsizes, squares, buttons = [], [], []
+
+    def walk(n):
+        t = n.get("text")
+        if t and (t.get("string") or "").strip():
+            r = t.get("run") or {}
+            if r.get("size"):
+                tsizes.append(r["size"] / 2)
+        w, h = n.get("w", 0), n.get("h", 0)
+        if 40 <= w <= 160 and abs(w - h) < 6 and n.get("cls") in ("oval", "bitmap"):
+            squares.append(w / 2)
+        if "button" in (n.get("name") or "").lower() and h > 0:
+            buttons.append((w / 2, h / 2))
+        for c in n.get("children", []):
+            walk(c)
+    walk(spec)
+    out = []
+    if tsizes:
+        out.append(f"the LARGEST text is {max(tsizes):.0f}pt — nothing may render bigger")
+    if squares:
+        out.append(f"avatars/round images are ~{sorted(squares)[len(squares) // 2]:.0f}pt")
+    if buttons:
+        w, h = max(buttons, key=lambda b: b[0])
+        out.append(f"buttons are ~{h:.0f}pt tall (widest {w:.0f}pt)")
+    if not out:
+        return ""
+    return "MEASURED LIMITS for THIS screen: " + "; ".join(out) + ".\n"
 
 
 def judge_mode(spec):

@@ -2,21 +2,21 @@
 # model: atro-app
 theme atro_light
 
-state price1 { shape: text, initial: "$295" }
-state price2 { shape: text, initial: "$295" }
-state price3 { shape: text, initial: "$399" }
-state price4 { shape: text, initial: "$399" }
+state v1 { shape: text, initial: "$295" }
+state v2 { shape: text, initial: "$295" }
+state v3 { shape: text, initial: "$399" }
+state v4 { shape: text, initial: "$399" }
 
-view steps Row(width: .fill, gap: 0) {
-  Col(width: .fill, align: .center, gap: 6) {
-    Icon(name: .check, size: .tile)
+view stepper Row(width: .fill, align: .center, gap: 8) {
+  Col(align: .center, width: .fill, gap: 4) {
+    Icon(name: .location, size: .tile)
     TextCaption(text: "Delivery", width: .fit)
   }
-  Col(width: .fill, align: .center, gap: 6) {
+  Col(align: .center, width: .fill, gap: 4) {
     Icon(name: .check, size: .tile)
     TextCaption(text: "Confirmation", width: .fit)
   }
-  Col(width: .fill, align: .center, gap: 6) {
+  Col(align: .center, width: .fill, gap: 4) {
     Icon(name: .zap, size: .tile)
     TextCaption(text: "Payment", width: .fit)
   }
@@ -30,7 +30,7 @@ view shipping Col(width: .fill, gap: 6) {
   }
 }
 
-view items Col(width: .fill, gap: 14) {
+view items Col(width: .fill, gap: 12) {
   Row(width: .fill, align: .center, gap: 10) {
     Avatar(text: "GP")
     Col(width: .fill, gap: 2) {
@@ -39,7 +39,7 @@ view items Col(width: .fill, gap: 14) {
     }
     Col(gap: 2) {
       TextCaption(text: "x1", width: .fit)
-      TextValue(value: price1)
+      TextValue(value: v1)
     }
   }
   Row(width: .fill, align: .center, gap: 10) {
@@ -50,7 +50,7 @@ view items Col(width: .fill, gap: 14) {
     }
     Col(gap: 2) {
       TextCaption(text: "x1", width: .fit)
-      TextValue(value: price2)
+      TextValue(value: v2)
     }
   }
   Row(width: .fill, align: .center, gap: 10) {
@@ -61,7 +61,7 @@ view items Col(width: .fill, gap: 14) {
     }
     Col(gap: 2) {
       TextCaption(text: "x1", width: .fit)
-      TextValue(value: price3)
+      TextValue(value: v3)
     }
   }
   Row(width: .fill, align: .center, gap: 10) {
@@ -72,30 +72,28 @@ view items Col(width: .fill, gap: 14) {
     }
     Col(gap: 2) {
       TextCaption(text: "x1", width: .fit)
-      TextValue(value: price4)
+      TextValue(value: v4)
     }
   }
 }
 
 view root Surface(pad: .page) {
   TextEyebrow(text: "Atro UI")
-  Row(width: .fill, align: .center) {
+  Row(width: .fill, align: .center, gap: 10) {
     Icon(name: .arrow_left)
-    Col(width: .fill, align: .center) {
-      TextTitle(text: "Checkout", width: .fit)
-    }
+    TextTitle(text: "Checkout", width: .fill)
     Icon(name: .more)
   }
-  steps
+  stepper
   Rule()
   shipping
   Row(width: .fill, align: .center, gap: 10) {
-    TextCaption(text: "Order summary", width: .fill)
+    TextEyebrow(text: "Order summary")
     TextRow(text: "Total: $1312.00", width: .fit)
   }
   items
   Space()
-  Col(width: .fill) {
+  Col(align: .center, width: .fill) {
     Chip(text: "Continue with payment", tone: .primary, width: .fill)
   }
 }

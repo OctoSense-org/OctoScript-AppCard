@@ -2,28 +2,29 @@
 # model: atro-app
 theme atro ground: .indigo
 
-view root Surface(pad: .page) {
-  Row(width: .fill, align: .center) {
-    Col(width: .fill, gap: 4) {
-      TextTitle(text: "Atro UI", width: .fit)
-      Row(gap: 6) {
-        Icon(name: .chat, size: .tile)
-        TextCaption(text: "8", width: .fit)
-      }
-    }
-    TextRow(text: "Logout", width: .fit)
+view topbar Row(width: .fill, align: .center) {
+  Col(width: .fill, gap: 4) {
+    TextTitle(text: "Atro UI", width: .fit)
+    Chip(text: "8")
   }
-  Panel {
-    Col(align: .center, gap: 10, width: .fill) {
+  TextRow(text: "Logout", width: .fit)
+}
+
+view menu Col(width: .fill, gap: 10) {
+  Chip(text: "Messages", width: .fill)
+  Chip(text: "Trending", width: .fill)
+  Chip(text: "Bookmarks", width: .fill)
+  Chip(text: "Gallery", width: .fill)
+  Chip(text: "Settings", width: .fill)
+}
+
+view root Surface(pad: .page) {
+  topbar
+  Card(tint: .neutral) {
+    Col(align: .center, gap: 12, width: .fill) {
       Icon(name: .image, size: .hero)
     }
   }
   Space()
-  Col(align: .center, gap: 10, width: .fill) {
-    Chip(text: "Messages", width: .fill)
-    Chip(text: "Trending", width: .fill)
-    Chip(text: "Bookmarks", width: .fill)
-    Chip(text: "Gallery", width: .fill)
-    Chip(text: "Settings", width: .fill)
-  }
+  menu
 }

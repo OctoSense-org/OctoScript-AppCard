@@ -222,6 +222,7 @@ fn walk(vm: &mut ScriptVm, value: ScriptValue, depth: usize) -> Option<UiNode> {
         align: int_prop(vm, value, id!(align)),
         alignx: f32_prop(vm, value, id!(alignx)),
         aligny: f32_prop(vm, value, id!(aligny)),
+        inkdark: int_prop(vm, value, id!(inkdark)),
         on: int_prop(vm, value, id!(on)),
         tap: int_prop(vm, value, id!(tap)),
         lat: num_prop(vm, value, id!(lat)),
