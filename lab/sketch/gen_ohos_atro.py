@@ -54,6 +54,35 @@ def adapt(kit: str) -> str:
         s = re.sub(rf"\b{key}\s*:\s*[^,}}\n]+,?\s*", "", s)
     s = re.sub(r",\s*}", "}", s)
     s = re.sub(r"{\s*,", "{", s)
+    # OH overrides, appended so the later definition wins: ArkUI stacks center
+    # children by default and percent-fill has no meaning inside them — pages
+    # and pin layers take the frame in vp, and ALIGNMENT does the pinning
+    # (aligny on a fixed-height column justifies its children to top/center/end).
+    s += """
+
+fn l0_surface(kids) {
+    return {t: "column", w: 402, h: 830, bg: l0_base,
+            padx: pad_page_x, pady: 26, spacing: 12, c: kids}
+}
+fn l0_surface_layer(kids, y) {
+    return {t: "column", w: 402, h: 830, aligny: y,
+            padx: pad_page_x, pady: 26, spacing: 12, c: kids}
+}
+fn l0_surface_pin2(top, bottom) {
+    return {t: "stack", w: 402, h: 830, align: 1, bg: l0_base,
+            c: [l0_surface_layer(top, 0), l0_surface_layer(bottom, 1)]}
+}
+fn l0_surface_pin3(top, mid, bottom) {
+    return {t: "stack", w: 402, h: 830, align: 1, bg: l0_base,
+            c: [l0_surface_layer(top, 0), l0_surface_layer(mid, 0.5),
+                l0_surface_layer(bottom, 1)]}
+}
+fn l0_surface_fab(page, fab) {
+    return {t: "stack", w: 402, h: 830, align: 1, c: [page,
+        {t: "column", w: 402, h: 830, alignx: 1, aligny: 1,
+         padx: pad_page_x, pady: 26, c: [fab]}]}
+}
+"""
     return s
 
 
@@ -168,7 +197,7 @@ def main():
                  f"{derive_color}\n{derive}")
         flat = flatten_palette(chain)
         src = (f"{POLYFILL}\n{state_lets(card)}\n{chain}\n{flat}\n{rescale}\n{kit}\n"
-               f'{{t: "stack", w: 402, h: 830, c: [\n{tree},\n'
+               f'{{t: "stack", w: 402, h: 830, align: 1, c: [\n{tree},\n'
                f'  {{t: "column", h: 34, fillw: 1, tapto: {json.dumps(nxt)}}}\n]}}\n')
         (out_dir / f"{name}.splash").write_text(src)
         rows.append(f'    ("{name}", include_str!("../assets/atro/{name}.splash")),')
