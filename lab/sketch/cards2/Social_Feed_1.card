@@ -9,46 +9,38 @@ state p4 { shape: text, initial: "http://127.0.0.1:8787/_ph.png" }
 state p5 { shape: text, initial: "http://127.0.0.1:8787/_ph.png" }
 state p6 { shape: text, initial: "http://127.0.0.1:8787/_ph.png" }
 
-view bar Row(width: .fill, align: .center) {
-  Icon(name: .menu)
-  Col(width: .fill, align: .center) {
-    TextTitle(text: "Following", width: .fit)
-  }
-  Icon(name: .bell)
-}
-
 view feed Grid(cols: 2) {
-  Col(gap: 4, width: .fill) {
+  Col(gap: 6, width: .fill) {
     Thumb(src: p1, shape: .square)
     TextRow(text: "Jeremías del Pozo", width: .fill)
     TextCaption(text: "Incheon", width: .fill)
     TextBody(text: "You miss 100% of the shots you don’t take.", width: .fill)
   }
-  Col(gap: 4, width: .fill) {
+  Col(gap: 6, width: .fill) {
     Thumb(src: p2, shape: .square)
     TextRow(text: "Kendasha Wood", width: .fill)
     TextCaption(text: "Doha", width: .fill)
     TextBody(text: "You miss 100% of the shots you don’t take.", width: .fill)
   }
-  Col(gap: 4, width: .fill) {
+  Col(gap: 6, width: .fill) {
     Thumb(src: p3, shape: .square)
     TextRow(text: "Donat Twerski", width: .fill)
     TextCaption(text: "Montevideo", width: .fill)
     TextBody(text: "You miss 100% of the shots you don’t take.", width: .fill)
   }
-  Col(gap: 4, width: .fill) {
+  Col(gap: 6, width: .fill) {
     Thumb(src: p4, shape: .square)
     TextRow(text: "Sebastian Westergren", width: .fill)
     TextCaption(text: "Washington D.C.", width: .fill)
     TextBody(text: "You miss 100% of the shots you don’t take.", width: .fill)
   }
-  Col(gap: 4, width: .fill) {
+  Col(gap: 6, width: .fill) {
     Thumb(src: p5, shape: .square)
     TextRow(text: "Alexandre Paiva", width: .fill)
     TextCaption(text: "Brazzaville", width: .fill)
     TextBody(text: "You miss 100% of the shots you don’t take.", width: .fill)
   }
-  Col(gap: 4, width: .fill) {
+  Col(gap: 6, width: .fill) {
     Thumb(src: p6, shape: .square)
     TextRow(text: "Angela Longoria", width: .fill)
     TextCaption(text: "Brussels", width: .fill)
@@ -56,14 +48,17 @@ view feed Grid(cols: 2) {
   }
 }
 
-view toast Col(align: .center, width: .fill) {
-  Chip(text: "New post available")
-}
-
 view root Surface(pad: .page) {
-  Col(gap: 12, width: .fill) {
-    bar
-    feed
-    toast
+  TextEyebrow(text: "Atro UI")
+  Row(width: .fill, align: .center) {
+    Icon(name: .menu)
+    Col(width: .fill, align: .center) {
+      TextTitle(text: "Following", width: .fit)
+    }
+    Icon(name: .bell)
+  }
+  feed
+  Row(width: .fill, align: .center) {
+    Chip(text: "New post available", tone: .primary)
   }
 }

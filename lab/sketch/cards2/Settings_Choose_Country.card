@@ -2,9 +2,9 @@
 # model: atro-app
 theme atro_light
 
-state find_ph { shape: text, initial: "Find country" }
+state q { shape: text, initial: "Find country" }
 
-view countries Col(width: .fill, gap: 28) {
+view countrylist Col(width: .fill, gap: 18) {
   TextRow(text: "Somalia", width: .fill)
   TextRow(text: "Greenland", width: .fill)
   TextRow(text: "Russian Federation", width: .fill)
@@ -19,18 +19,10 @@ view countries Col(width: .fill, gap: 28) {
 }
 
 view root Surface(pad: .page) {
-  TextEyebrow(text: "Atro UI")
-  Row(width: .fill, align: .center) {
-    Icon(name: .chevron_left)
-    Col(width: .fill, align: .center) {
-      TextTitle(text: "Select country", width: .fit)
-    }
-    Icon(name: .chevron_down)
-  }
+  Band(text: "Select country")
   Row(width: .fill, align: .center, gap: 10) {
     Icon(name: .search)
-    Field(placeholder: find_ph, width: .fill)
+    Field(placeholder: q)
   }
-  Rule()
-  countries
+  countrylist
 }

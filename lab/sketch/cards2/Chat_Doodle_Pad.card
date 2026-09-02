@@ -5,45 +5,55 @@ theme atro
 state p1 { shape: text, initial: "http://127.0.0.1:8787/_ph.png" }
 
 view bar Row(width: .fill, align: .center) {
-  Icon(name: .chevron_left)
+  Icon(name: .menu)
   Col(width: .fill, align: .center) {
     TextTitle(text: "Isabelle Barker", width: .fit)
-    TextCaption(text: "subtitle", width: .fit)
   }
   Icon(name: .more)
+  Icon(name: .phone)
 }
 
-view thread Col(gap: 10, width: .fill) {
-  Panel {
-    TextBody(text: "Wannabe internet trailblazer. Devoted coffee scholar. Lifelo", width: .fill)
+view chat Col(width: .fill, gap: 8) {
+  Card {
+    TextBody(text: "Wannabe internet trailblazer. Devoted coffee scholar. Lifelong web evangelist. Zombie guru. Introvert. Certified music fanatic.", width: .fill)
   }
-  TextCaption(text: "10:55", width: .fill)
-  Panel {
-    TextBody(text: "If you could have a superpower, what would you choose?", width: .fill)
+  TextCaption(text: "10:55", glyph: "✓", width: .fill)
+  Row(width: .fill, gap: 8) {
+    Avatar(text: "IB")
+    Card {
+      TextBody(text: "If you could have a superpower, what would you choose?", width: .fill)
+    }
   }
-  Panel {
+  Card {
     TextBody(text: "Do you like roller coasters?", width: .fill)
   }
-  Panel {
+  Card {
     TextBody(text: "If you could have any kind of pet, what would you choose?", width: .fill)
   }
-  Panel {
-    TextBody(text: "Wannabe internet trailblazer. Devoted coffee scholar. Lifelo", width: .fill)
+  Card {
+    TextBody(text: "Wannabe internet trailblazer. Devoted coffee scholar. Lifelong web evangelist. Zombie guru. Introvert. Certified music fanatic.", width: .fill)
   }
-  TextCaption(text: "10:59", width: .fill)
+  TextCaption(text: "10:59", glyph: "✓", width: .fill)
+  Row(width: .fill, gap: 8) {
+    Avatar(text: "IB")
+    Chip(text: "•••")
+  }
 }
 
-view pad Col(gap: 12, width: .fill) {
-  Thumb(src: p1, shape: .hero)
-  Col(align: .center, width: .fill) {
-    Chip(text: "Send", tone: .primary)
-  }
+view tools Row(width: .fill, align: .center, gap: 8) {
+  Icon(name: .refresh)
+  Icon(name: .edit, size: .tile)
+  Icon(name: .edit, size: .tile)
+  Icon(name: .edit, size: .tile)
+  Icon(name: .edit, size: .tile)
+  Icon(name: .edit, size: .tile)
+  Chip(text: "Send", tone: .primary)
 }
 
 view root Surface(pad: .page) {
-  Col(gap: 14, width: .fill) {
-    bar
-    thread
-    pad
-  }
+  TextEyebrow(text: "Atro UI")
+  bar
+  chat
+  Thumb(src: p1, shape: .hero)
+  tools
 }

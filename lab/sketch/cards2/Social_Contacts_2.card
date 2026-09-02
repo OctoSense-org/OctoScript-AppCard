@@ -1,104 +1,99 @@
 # level: L0
 # model: atro-app
+
 theme atro_light
 
 state p1 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
-state p2 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
-state p3 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
-state p4 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
-state p5 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
-state p6 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
 
-view bar Row(width: .fill, align: .center) {
-  Icon(name: .chevron_left)
-  Col(width: .fill, align: .center) {
-    TextTitle(text: "Contacts", width: .fit)
-  }
-  Icon(name: .bookmark)
-}
-
-view tabs Row(width: .fill, align: .center) {
+view tabs Grid(cols: 2) {
   Row(width: .fill, align: .center, gap: 8) {
     Icon(name: .user, size: .tile)
-    TextCaption(text: "Requests", width: .fit)
+    TextEyebrow(text: "Requests")
   }
   Row(width: .fill, align: .center, gap: 8) {
     Icon(name: .users, size: .tile)
-    TextCaption(text: "Suggested", width: .fit)
+    TextEyebrow(text: "Suggested")
   }
 }
 
 view people Grid(cols: 2) {
-  Col(width: .fill, align: .center, gap: 6) {
-    Thumb(src: p1)
-    TextRow(text: "Isabelle Barker", width: .fit)
-    TextCaption(text: "Kuala Lumpur", width: .fit)
-    Chip(text: "follow")
+  Panel {
+    Col(align: .center, gap: 8) {
+      Thumb(src: p1, shape: .square)
+      TextRow(text: "Isabelle Barker", width: .fit)
+      TextCaption(text: "Kuala Lumpur", width: .fit)
+      Chip(text: "follow")
+    }
   }
-  Col(width: .fill, align: .center, gap: 6) {
-    Thumb(src: p2)
-    TextRow(text: "Esther Boone", width: .fit)
-    TextCaption(text: "Charlotte", width: .fit)
-    Chip(text: "follow")
+  Panel {
+    Col(align: .center, gap: 8) {
+      Thumb(src: p1, shape: .square)
+      TextRow(text: "Esther Boone", width: .fit)
+      TextCaption(text: "Charlotte", width: .fit)
+      Chip(text: "follow")
+    }
   }
-  Col(width: .fill, align: .center, gap: 6) {
-    Thumb(src: p3)
-    TextRow(text: "Carrie Russell", width: .fit)
-    TextCaption(text: "Haifa", width: .fit)
-    Chip(text: "follow")
+  Panel {
+    Col(align: .center, gap: 8) {
+      Thumb(src: p1, shape: .square)
+      TextRow(text: "Carrie Russell", width: .fit)
+      TextCaption(text: "Haifa", width: .fit)
+      Chip(text: "follow")
+    }
   }
-  Col(width: .fill, align: .center, gap: 6) {
-    Thumb(src: p4)
-    TextRow(text: "Hu Hyon-Suk", width: .fit)
-    TextCaption(text: "Edmonton", width: .fit)
-    Chip(text: "follow")
+  Panel {
+    Col(align: .center, gap: 8) {
+      Thumb(src: p1, shape: .square)
+      TextRow(text: "Hu Hyon-Suk", width: .fit)
+      TextCaption(text: "Edmonton", width: .fit)
+      Chip(text: "follow")
+    }
   }
-  Col(width: .fill, align: .center, gap: 6) {
-    Thumb(src: p5)
-    TextRow(text: "Winnie McKenzie", width: .fit)
-    TextCaption(text: "San Antonio", width: .fit)
-    Chip(text: "follow")
+  Panel {
+    Col(align: .center, gap: 8) {
+      Thumb(src: p1, shape: .square)
+      TextRow(text: "Winnie McKenzie", width: .fit)
+      TextCaption(text: "San Antonio", width: .fit)
+      Chip(text: "follow")
+    }
   }
-  Col(width: .fill, align: .center, gap: 6) {
-    Thumb(src: p6)
-    TextRow(text: "Birdie Hoffman", width: .fit)
-    TextCaption(text: "Budapest", width: .fit)
-    Chip(text: "follow")
+  Panel {
+    Col(align: .center, gap: 8) {
+      Thumb(src: p1, shape: .square)
+      TextRow(text: "Birdie Hoffman", width: .fit)
+      TextCaption(text: "Budapest", width: .fit)
+      Chip(text: "follow")
+    }
   }
 }
 
-view tabbar Row(width: .fill, align: .center) {
-  Col(width: .fill, align: .center, gap: 4) {
+view tabbar Grid(cols: 5) {
+  Col(align: .center, gap: 4) {
     Icon(name: .phone)
     TextCaption(text: "item label", width: .fit)
   }
-  Col(width: .fill, align: .center, gap: 4) {
+  Col(align: .center, gap: 4) {
     Icon(name: .image)
     TextCaption(text: "item label", width: .fit)
   }
-  Col(width: .fill, align: .center, gap: 4) {
-    Row(width: .fit, align: .center, gap: 4) {
-      Icon(name: .chat)
-      TextCaption(text: "10", width: .fit)
-    }
+  Col(align: .center, gap: 4) {
+    Icon(name: .chat)
     TextCaption(text: "item label", width: .fit)
   }
-  Col(width: .fill, align: .center, gap: 4) {
+  Col(align: .center, gap: 4) {
     Icon(name: .mail)
     TextCaption(text: "item label", width: .fit)
   }
-  Col(width: .fill, align: .center, gap: 4) {
+  Col(align: .center, gap: 4) {
     Icon(name: .menu)
     TextCaption(text: "item label", width: .fit)
   }
 }
 
 view root Surface(pad: .page) {
-  TextEyebrow(text: "Atro UI")
-  bar
+  Band(text: "Contacts")
   tabs
-  Rule()
   people
-  Space()
+  Rule()
   tabbar
 }

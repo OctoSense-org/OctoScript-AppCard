@@ -3,11 +3,13 @@
 theme atro
 
 view root Surface(pad: .page) {
-           Col(gap: 14) {
+           Col(gap: 22) {
              topbar
-             cardmint
-             cardsteel
-             cardorchid
+             Col(gap: 10) {
+               cardmint
+               cardsteel
+               cardorchid
+             }
            }
          }
 
@@ -19,8 +21,8 @@ view topbar Row(width: .fill, align: .center) {
               Icon(name: .plus)
             }
 
-view cardmint Card {
-                Col(gap: 18) {
+view cardmint Panel {
+                Col(gap: 28) {
                   Row(width: .fill) {
                     Col(width: .fill, gap: 2) {
                       TextCaption(text: "card balance")
@@ -29,21 +31,23 @@ view cardmint Card {
                     Icon(name: .settings)
                   }
                   TextRow(text: "3713 5878 2833 34195")
-                  Row(width: .fill, gap: 28) {
-                    Col(width: .fit, gap: 2) {
-                      TextCaption(text: "Expire")
-                      TextRow(text: "12/24", width: .fit)
-                    }
-                    Col(width: .fit, gap: 2) {
-                      TextCaption(text: "CVV")
-                      TextRow(text: "235", width: .fit)
+                  Row(width: .fill, align: .end) {
+                    Row(width: .fill, gap: 36) {
+                      Col(width: .fit, gap: 2) {
+                        TextCaption(text: "Expire")
+                        TextRow(text: "12/24", width: .fit)
+                      }
+                      Col(width: .fit, gap: 2) {
+                        TextCaption(text: "CVV")
+                        TextRow(text: "235", width: .fit)
+                      }
                     }
                   }
                 }
               }
 
 view cardsteel Panel {
-                 Col(gap: 18) {
+                 Col(gap: 28) {
                    Row(width: .fill) {
                      Col(width: .fill, gap: 2) {
                        TextCaption(text: "card balance")
@@ -53,7 +57,7 @@ view cardsteel Panel {
                    }
                    TextRow(text: "5326 5149 4497 1577")
                    Row(width: .fill, align: .end) {
-                     Row(width: .fill, gap: 28) {
+                     Row(width: .fill, gap: 36) {
                        Col(width: .fit, gap: 2) {
                          TextCaption(text: "Expire")
                          TextRow(text: "12/24", width: .fit)
@@ -63,13 +67,13 @@ view cardsteel Panel {
                          TextRow(text: "235", width: .fit)
                        }
                      }
-                     TextCaption(glyph: "◉", width: .fit)
+                     TextCaption(glyph: "◉◉", width: .fit)
                    }
                  }
                }
 
 view cardorchid Card {
-                  Col(gap: 18) {
+                  Col(gap: 28) {
                     Row(width: .fill) {
                       Col(width: .fill, gap: 2) {
                         TextCaption(text: "card balance")
@@ -79,7 +83,7 @@ view cardorchid Card {
                     }
                     TextRow(text: "4485 0961 4849 8888")
                     Row(width: .fill, align: .end) {
-                      Row(width: .fill, gap: 28) {
+                      Row(width: .fill, gap: 36) {
                         Col(width: .fit, gap: 2) {
                           TextCaption(text: "Expire")
                           TextRow(text: "12/24", width: .fit)
