@@ -23,10 +23,11 @@ DEVICE = "bf0a4730"
 PKG = "dev.makepad.octos_app"
 REMOTE = f"/storage/emulated/0/Android/media/{PKG}/cards"
 CROP_TOP, CROP_BOTTOM = 90, 195
-NAMES = ["Stats_Cards", "Settings_Choose_Country", "Shop_View_12", "Social_Feed_1",
-         "Social_Contacts_2", "Shop_View_18", "Email_Mail_View_1", "Chat_Doodle_Pad",
-         "Alerts_View_2", "Navigation_View_9", "Onboarding_View_2", "Calendar_View_3",
-         "Profile_View_6", "Calendar_View_4", "Photo_Gallery_Selection"]
+sys.path.insert(0, str(HERE))
+import kitconf
+KIT = kitconf.load(sys.argv[sys.argv.index("--kit") + 1]
+                   if "--kit" in sys.argv else "atro")
+NAMES = KIT["screens"]
 
 
 def adb(*args):
@@ -61,7 +62,7 @@ def settle(timeout=22):
 def render(local, extra_key, wait_marker):
     remote = f"{REMOTE}/{local.name}"
     adb("push", str(local), remote)
-    adb("push", str(HERE / "xrail2" / "data.json"), f"{REMOTE}/data.json")
+    adb("push", str(KIT["desktop_dir"] / "data.json"), f"{REMOTE}/data.json")
     adb("shell", "am", "force-stop", PKG)
     adb("logcat", "-c")
     adb("shell", "input", "keyevent", "KEYCODE_WAKEUP")
@@ -87,8 +88,8 @@ def main():
     adb("reverse", "tcp:8787", "tcp:8787")
     jobs = []
     if which in ("l0", "all"):
-        jobs += [(HERE / "cards2" / f"{n}.card", "SEED_L0_FILE",
-                  "SEED_L0 injected", HERE / "devl0" / f"{n}.png") for n in NAMES]
+        jobs += [(KIT["cards_dir"] / f"{n}.card", "SEED_L0_FILE",
+                  "SEED_L0 injected", KIT["android_dir"] / f"{n}.png") for n in NAMES]
     if which in ("l3", "all"):
         jobs += [(HERE / "frozen2" / f"{n}.dsl", "SEED_CARD_FILE",
                   None, HERE / "devl3" / f"{n}.png") for n in NAMES]

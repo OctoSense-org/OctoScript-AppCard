@@ -10,13 +10,16 @@ os.environ["GATE_WINDOW"] = "375x906"
 os.environ["MAKEPAD_SEED_L0_FILL_HEIGHT"] = "812"
 import shoot
 shoot.SIZE = "375x906"
-OUT = HERE / "xrail2"; OUT.mkdir(exist_ok=True)
+sys.path.insert(0, str(HERE))
+import kitconf
+KIT = kitconf.load(sys.argv[sys.argv.index("--kit") + 1]
+                   if "--kit" in sys.argv else "atro")
+OUT = KIT["desktop_dir"]; OUT.mkdir(exist_ok=True)
 # The kit's own photos, served to the cards. Cards carry the URLs as demo-data
 # state initials — the sanctioned slot — and the renderer fetches them like any
 # data image. Start the server if it is not already up.
 import socket, subprocess
-IMG = pathlib.Path("/private/tmp/claude-501/-Users-yuechen-home-Splash/"
-                   "df6c4ec5-2002-4e8f-84de-7d846576918e/scratchpad/atro/src/images")
+IMG = pathlib.Path(KIT["img_dir"])
 s = socket.socket()
 if s.connect_ex(("127.0.0.1", 8787)) != 0:
     subprocess.Popen(["python3", "-m", "http.server", "8787"], cwd=IMG,
@@ -24,7 +27,7 @@ if s.connect_ex(("127.0.0.1", 8787)) != 0:
     time.sleep(1)
 s.close()
 DATA = OUT / "data.json"; DATA.write_text(json.dumps({"env": {"locale": {}}}))
-for card in sorted((HERE / "cards2").glob("*.card")):
+for card in sorted(KIT["cards_dir"].glob("*.card")):
     png = OUT / f"{card.stem}.png"
     if png.exists(): continue
     ok = shoot.shoot(card, png, None, data=DATA, keep_pt=818)

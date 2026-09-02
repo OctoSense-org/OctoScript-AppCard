@@ -13,14 +13,16 @@ import pathlib
 import re
 import subprocess
 
+import sys
 HERE = pathlib.Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE))
+import kitconf
 L0 = pathlib.Path.home() / "home/octos-one/splash-makepad/components/l0"
 SPLASH = pathlib.Path.home() / "home/Splash"
 OH = pathlib.Path.home() / "home/Splash-OH/crates/splash-oh-native"
-NAMES = ["Stats_Cards", "Settings_Choose_Country", "Shop_View_12", "Social_Feed_1",
-         "Social_Contacts_2", "Shop_View_18", "Email_Mail_View_1", "Chat_Doodle_Pad",
-         "Alerts_View_2", "Navigation_View_9", "Onboarding_View_2", "Calendar_View_3",
-         "Profile_View_6", "Calendar_View_4", "Photo_Gallery_Selection"]
+KIT = kitconf.load(sys.argv[sys.argv.index("--kit") + 1]
+                   if "--kit" in sys.argv else "atro")
+NAMES = KIT["screens"]
 
 POLYFILL = """fn argb(a, r, g, b) { return ((a * 256 + r) * 256 + g) * 256 + b }
 """
@@ -86,8 +88,7 @@ fn l0_surface_fab(page, fab) {
     return s
 
 
-IMG_DIR = pathlib.Path("/private/tmp/claude-501/-Users-yuechen-home-Splash/"
-                       "df6c4ec5-2002-4e8f-84de-7d846576918e/scratchpad/atro/src/images")
+IMG_DIR = None  # resolved from the kit config in main()
 
 
 def data_uri(url: str) -> str:
@@ -95,7 +96,7 @@ def data_uri(url: str) -> str:
     URIs, and a self-contained source beats a reverse-port dependency."""
     import base64
     name = url.rsplit("/", 1)[-1]
-    p = IMG_DIR / name
+    p = pathlib.Path(KIT["img_dir"]) / name
     if not p.exists():
         return url
     mime = "image/png" if name.endswith(".png") else "image/jpeg"
@@ -167,8 +168,8 @@ def flatten_palette(parts: str) -> str:
 
 def main():
     base = (L0 / "_palette_dark.splash").read_text()
-    deltas = {"atro": (L0 / "_palette_atro.splash").read_text(),
-              "atro_light": (L0 / "_palette_atro_light.splash").read_text()}
+    deltas = {KIT["theme"]: (L0 / f"_palette_{KIT['theme']}.splash").read_text(),
+              KIT["theme_light"]: (L0 / f"_palette_{KIT['theme_light']}.splash").read_text()}
     derive_color = (L0 / "_derive_color.splash").read_text()
     derive = (L0 / "_derive.splash").read_text()
     kit = adapt((L0 / "_kit.splash").read_text())
@@ -178,9 +179,10 @@ def main():
     out_dir.mkdir(parents=True, exist_ok=True)
     rows = []
     for i, name in enumerate(NAMES):
-        card_path = HERE / "cards2" / f"{name}.card"
+        card_path = KIT["cards_dir"] / f"{name}.card"
         card = card_path.read_text()
-        mood = "atro_light" if "theme atro_light" in card else "atro"
+        mood = (KIT["theme_light"] if f"theme {KIT['theme_light']}" in card
+                else KIT["theme"])
         ground = ""
         g = re.search(r"ground:\s*\.(\w+)", card)
         if g:
