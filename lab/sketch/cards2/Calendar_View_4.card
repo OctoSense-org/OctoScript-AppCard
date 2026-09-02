@@ -5,9 +5,9 @@ theme atro_light
 view root Surface(pad: .page) {
   header
   weekdays
-  Card { TextTitle(text: "April", width: .fill) }
+  Band(text: "April")
   aprildays
-  Card { TextTitle(text: "May", width: .fill) }
+  Band(text: "May")
   maydays
 }
 
@@ -32,91 +32,91 @@ view weekdays Grid(cols: 7) {
 }
 
 view aprildays Grid(cols: 7) {
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "25", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "26", width: .fit) } }
-  Panel { Col(align: .center, gap: 2, width: .fill) { TextCaption(text: "27", width: .fit) TextCaption(glyph: "•", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "28", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "29", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "30", width: .fit) } }
-  Panel { Col(align: .center, gap: 2, width: .fill) { TextCaption(text: "1", width: .fit) TextCaption(glyph: "•", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "2", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "3", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "4", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "5", width: .fit) } }
-  Panel { Col(align: .center, gap: 2, width: .fill) { TextCaption(text: "6", width: .fit) TextCaption(glyph: "••", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "7", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "8", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "9", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "10", width: .fit) } }
-  Panel { Col(align: .center, gap: 2, width: .fill) { TextCaption(text: "11", width: .fit) TextCaption(glyph: "•", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "12", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "13", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "14", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "15", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "16", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "17", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "18", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "19", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "20", width: .fit) } }
-  Panel { Col(align: .center, gap: 2, width: .fill) { TextCaption(text: "21", width: .fit) TextCaption(glyph: "••", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "22", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "23", width: .fit) } }
-  Panel { Col(align: .center, gap: 2, width: .fill) { TextCaption(text: "24", width: .fit) TextCaption(glyph: "••", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "25", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "26", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "27", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "28", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "29", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "30", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "31", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "1", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "2", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "3", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "4", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "5", width: .fit) } }
+  Tile(label: "25", shape: .square)
+  Tile(label: "26", shape: .square)
+  Tile(label: "27", glyph: "•", shape: .square)
+  Tile(label: "28", shape: .square)
+  Tile(label: "29", shape: .square)
+  Tile(label: "30", shape: .square)
+  Tile(label: "1", glyph: "•", shape: .square)
+  Tile(label: "2", shape: .square)
+  Tile(label: "3", shape: .square)
+  Tile(label: "4", shape: .square)
+  Tile(label: "5", shape: .square)
+  Tile(label: "6", glyph: "••", shape: .square)
+  Tile(label: "7", shape: .square)
+  Tile(label: "8", shape: .square)
+  Tile(label: "9", shape: .square)
+  Tile(label: "10", shape: .square)
+  Tile(label: "11", glyph: "•", shape: .square)
+  Tile(label: "12", shape: .square)
+  Tile(label: "13", shape: .square)
+  Tile(label: "14", shape: .square)
+  Tile(label: "15", shape: .square)
+  Tile(label: "16", shape: .square)
+  Tile(label: "17", shape: .square)
+  Tile(label: "18", shape: .square)
+  Tile(label: "19", shape: .square)
+  Tile(label: "20", shape: .square)
+  Tile(label: "21", glyph: "••", shape: .square)
+  Tile(label: "22", shape: .square)
+  Tile(label: "23", shape: .square)
+  Tile(label: "24", glyph: "••", shape: .square)
+  Tile(label: "25", shape: .square)
+  Tile(label: "26", shape: .square)
+  Tile(label: "27", shape: .square)
+  Tile(label: "28", shape: .square)
+  Tile(label: "29", shape: .square)
+  Tile(label: "30", shape: .square)
+  Tile(label: "31", shape: .square)
+  Tile(label: "1", shape: .square)
+  Tile(label: "2", shape: .square)
+  Tile(label: "3", shape: .square)
+  Tile(label: "4", shape: .square)
+  Tile(label: "5", shape: .square)
 }
 
 view maydays Grid(cols: 7) {
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "25", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "26", width: .fit) } }
-  Panel { Col(align: .center, gap: 2, width: .fill) { TextCaption(text: "27", width: .fit) TextCaption(glyph: "•", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "28", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "29", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "30", width: .fit) } }
-  Panel { Col(align: .center, gap: 2, width: .fill) { TextCaption(text: "1", width: .fit) TextCaption(glyph: "•", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "2", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "3", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "4", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "5", width: .fit) } }
-  Panel { Col(align: .center, gap: 2, width: .fill) { TextCaption(text: "6", width: .fit) TextCaption(glyph: "••", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "7", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "8", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "9", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "10", width: .fit) } }
-  Panel { Col(align: .center, gap: 2, width: .fill) { TextCaption(text: "11", width: .fit) TextCaption(glyph: "•", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "12", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "13", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "14", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "15", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "16", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "17", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "18", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "19", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "20", width: .fit) } }
-  Panel { Col(align: .center, gap: 2, width: .fill) { TextCaption(text: "21", width: .fit) TextCaption(glyph: "••", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "22", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "23", width: .fit) } }
-  Panel { Col(align: .center, gap: 2, width: .fill) { TextCaption(text: "24", width: .fit) TextCaption(glyph: "••", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "25", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "26", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "27", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "28", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "29", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "30", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "31", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "1", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "2", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "3", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "4", width: .fit) } }
-  Panel { Col(align: .center, width: .fill) { TextCaption(text: "5", width: .fit) } }
+  Tile(label: "25", shape: .square)
+  Tile(label: "26", shape: .square)
+  Tile(label: "27", glyph: "•", shape: .square)
+  Tile(label: "28", shape: .square)
+  Tile(label: "29", shape: .square)
+  Tile(label: "30", shape: .square)
+  Tile(label: "1", glyph: "•", shape: .square)
+  Tile(label: "2", shape: .square)
+  Tile(label: "3", shape: .square)
+  Tile(label: "4", shape: .square)
+  Tile(label: "5", shape: .square)
+  Tile(label: "6", glyph: "••", shape: .square)
+  Tile(label: "7", shape: .square)
+  Tile(label: "8", shape: .square)
+  Tile(label: "9", shape: .square)
+  Tile(label: "10", shape: .square)
+  Tile(label: "11", glyph: "•", shape: .square)
+  Tile(label: "12", shape: .square)
+  Tile(label: "13", shape: .square)
+  Tile(label: "14", shape: .square)
+  Tile(label: "15", shape: .square)
+  Tile(label: "16", shape: .square)
+  Tile(label: "17", shape: .square)
+  Tile(label: "18", shape: .square)
+  Tile(label: "19", shape: .square)
+  Tile(label: "20", shape: .square)
+  Tile(label: "21", glyph: "••", shape: .square)
+  Tile(label: "22", shape: .square)
+  Tile(label: "23", shape: .square)
+  Tile(label: "24", glyph: "••", shape: .square)
+  Tile(label: "25", shape: .square)
+  Tile(label: "26", shape: .square)
+  Tile(label: "27", shape: .square)
+  Tile(label: "28", shape: .square)
+  Tile(label: "29", shape: .square)
+  Tile(label: "30", shape: .square)
+  Tile(label: "31", shape: .square)
+  Tile(label: "1", shape: .square)
+  Tile(label: "2", shape: .square)
+  Tile(label: "3", shape: .square)
+  Tile(label: "4", shape: .square)
+  Tile(label: "5", shape: .square)
 }
