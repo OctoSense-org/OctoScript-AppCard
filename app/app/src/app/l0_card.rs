@@ -73,6 +73,8 @@ const PALETTES: &[(&str, &str)] = &[
     // Theme packs — kits imported whole (palette + scale + family + depth).
     ("atro", include_str!("../../../../splash-makepad/components/l0/_palette_atro.splash")),
     ("atro_light", include_str!("../../../../splash-makepad/components/l0/_palette_atro_light.splash")),
+    ("camo", include_str!("../../../../splash-makepad/components/l0/_palette_camo.splash")),
+    ("camo_light", include_str!("../../../../splash-makepad/components/l0/_palette_camo_light.splash")),
 ];
 
 /// One `accent: .<hue>` delta, for one mood.

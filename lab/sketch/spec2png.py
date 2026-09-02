@@ -181,7 +181,10 @@ class Raster:
 
     def paint_image(self, n):
         ref = n.get("image")
-        p = self.images_dir / ref if (ref and self.images_dir) else None
+        # refs may be bare filenames or "images/<hash>.png" — the dir is
+        # already the images dir, so resolve by basename.
+        p = (self.images_dir / pathlib.Path(ref).name
+             if (ref and self.images_dir) else None)
         if not (p and p.exists()):
             self.approx["missing_img"] += 1
             return
@@ -236,11 +239,14 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     scale = float(sys.argv[sys.argv.index("--scale") + 1]) if "--scale" in sys.argv else 0.5
     only = sys.argv[sys.argv.index("--only") + 1] if "--only" in sys.argv else ""
-    images = specs.parent / "images"
-    if not images.exists():
-        images = pathlib.Path(
-            "/private/tmp/claude-501/-Users-user-home-Splash/"
-            "df6c4ec5-2002-4e8f-84de-7d846576918e/scratchpad/atro/src/images")
+    if "--images" in sys.argv:
+        images = pathlib.Path(sys.argv[sys.argv.index("--images") + 1])
+    else:
+        images = specs.parent / "images"
+        if not images.exists():
+            images = pathlib.Path(
+                "/private/tmp/claude-501/-Users-user-home-Splash/"
+                "df6c4ec5-2002-4e8f-84de-7d846576918e/scratchpad/atro/src/images")
     total = {"shapes": 0, "masks": 0, "missing_img": 0}
     n = 0
     for p in sorted(specs.glob("*.json")):

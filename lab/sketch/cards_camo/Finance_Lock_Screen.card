@@ -1,0 +1,37 @@
+theme camo
+
+view keypad Panel {
+  Grid(cols: 3) {
+    Tile(label: "1")
+    Tile(label: "2")
+    Tile(label: "3")
+    Tile(label: "4")
+    Tile(label: "5")
+    Tile(label: "6")
+    Tile(label: "7")
+    Tile(label: "8")
+    Tile(label: "9")
+    Tile(label: ".")
+    Tile(label: "0")
+    Tile(glyph: "⌫")
+  }
+}
+
+view root Surface(pad: .page) {
+  Space()
+  Col(align: .center, gap: 10) {
+    Avatar(text: "LN")
+    TextRow(text: "Linh Nguyen", width: .fit)
+    Row(align: .center, gap: 6) {
+      TextCaption(glyph: "●", width: .fit)
+      TextCaption(glyph: "●", width: .fit)
+      TextCaption(glyph: "●", width: .fit)
+      TextCaption(glyph: "●", width: .fit)
+    }
+  }
+  Space()
+  keypad
+  Col(align: .center, width: .fill) {
+    Chip(text: "Reset", tone: .primary)
+  }
+}

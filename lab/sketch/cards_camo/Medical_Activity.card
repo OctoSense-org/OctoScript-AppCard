@@ -1,0 +1,86 @@
+# level: L0
+# model: camo-app
+theme camo_light
+
+state seg { shape: text, initial: "Active" }
+state v1 { shape: text, initial: "98.00" }
+state v2 { shape: text, initial: "1204" }
+state v3 { shape: text, initial: "30.24" }
+
+view bar Row(width: .fill, align: .center) {
+  Icon(name: .chevron_left)
+  Col(width: .fill, align: .center) {
+    TextTitle(text: "Activity", width: .fit)
+  }
+  Icon(name: .user)
+}
+
+view tabs Row(width: .fill, gap: 6) {
+  Chip(text: "Normal", width: .fill, active: seg == "Normal")
+  Chip(text: "Normal", width: .fill, active: seg == "Normal")
+  Chip(text: "Active", width: .fill, active: seg == "Active")
+}
+
+view cycling Panel {
+  Col(width: .fill, gap: 10) {
+    Row(width: .fill, align: .center) {
+      Icon(name: .activity)
+      TextTitle(text: "Cycling", width: .fill)
+      TextCaption(text: "October", width: .fit)
+    }
+    TextValue(value: v1, unit: "Km")
+    Grid(cols: 2) {
+      TextCaption(text: "Time:")
+      TextCaption(text: "50 min")
+      TextCaption(text: "Calories burnt:")
+      TextCaption(text: "186 Cal")
+    }
+    Icon(name: .arrow_right)
+  }
+}
+
+view steps Panel {
+  Col(width: .fill, gap: 10) {
+    Row(width: .fill, align: .center) {
+      Icon(name: .activity)
+      TextTitle(text: "Steps", width: .fill)
+      TextCaption(text: "September", width: .fit)
+    }
+    TextValue(value: v2, unit: "Steps")
+    Grid(cols: 2) {
+      TextCaption(text: "Time:")
+      TextCaption(text: "37 min")
+      TextCaption(text: "Calories burnt:")
+      TextCaption(text: "328 Cal")
+    }
+    Icon(name: .arrow_right)
+  }
+}
+
+view running Panel {
+  Col(width: .fill, gap: 10) {
+    Row(width: .fill, align: .center) {
+      Icon(name: .activity)
+      TextTitle(text: "Ruuning", width: .fill)
+      TextCaption(text: "September", width: .fit)
+    }
+    TextValue(value: v3, unit: "Km")
+    Grid(cols: 2) {
+      TextCaption(text: "Time:")
+      TextCaption(text: "37 min")
+      TextCaption(text: "Calories burnt:")
+      TextCaption(text: "328 Cal")
+    }
+    Icon(name: .arrow_right)
+  }
+}
+
+view root Surface(pad: .page) {
+  Col(width: .fill, gap: 12) {
+    bar
+    tabs
+    cycling
+    steps
+    running
+  }
+}

@@ -1,0 +1,101 @@
+# level: L0
+# model: camo-app
+
+theme camo_light
+
+state p1 { shape: text, initial: "http://127.0.0.1:8787/5b6f8b2d8a455b5552529cffcff1dc375bf882b7.png" }
+state p2 { shape: text, initial: "http://127.0.0.1:8787/0dc6cbab127560b83585acacdde87447a7bc8168.png" }
+
+state qty1     { shape: number, initial: 1 }
+state qty2     { shape: number, initial: 3 }
+state price1   { shape: text, initial: "$9.99" }
+state price2   { shape: text, initial: "$4.49" }
+state subtotal { shape: text, initial: "$23.46" }
+state delivery { shape: text, initial: "$1.46" }
+state total    { shape: text, initial: "$24.92" }
+
+view tabbar Row(width: .fill, align: .center) {
+  Col(width: .fill, align: .center, gap: 4) {
+    Icon(name: .home, size: .tile)
+    TextCaption(text: "Item", width: .fit)
+  }
+  Col(width: .fill, align: .center, gap: 4) {
+    Icon(name: .search, size: .tile)
+    TextCaption(text: "Item", width: .fit)
+  }
+  Col(width: .fill, align: .center, gap: 4) {
+    Icon(name: .heart, size: .tile)
+    TextCaption(text: "Item", width: .fit)
+  }
+  Col(width: .fill, align: .center, gap: 4) {
+    Icon(name: .bell, size: .tile)
+    TextCaption(text: "Item", width: .fit)
+  }
+  Col(width: .fill, align: .center, gap: 4) {
+    Icon(name: .user, size: .tile)
+    TextCaption(text: "Item", width: .fit)
+  }
+}
+
+view summary Col(width: .fill, gap: 12) {
+  TextTitle(text: "Summary", width: .fill)
+  Row(width: .fill, align: .center) {
+    TextRow(text: "Subtotal", width: .fill)
+    TextValue(value: subtotal)
+  }
+  Row(width: .fill, align: .center) {
+    TextRow(text: "Estimated Delivery", width: .fill)
+    TextValue(value: delivery)
+  }
+  Row(width: .fill, align: .center) {
+    TextRow(text: "Total", width: .fill)
+    TextValue(value: total)
+  }
+}
+
+view root Surface(pad: .page) {
+  Row(width: .fill, align: .center, gap: 8) {
+    TextTitle(text: "Carts", width: .fill)
+    Icon(name: .location, size: .tile)
+    TextCaption(text: "Hanoi, Vietnam", width: .fit)
+    Icon(name: .menu, size: .tile)
+  }
+
+  Row(width: .fill, align: .center, gap: 12) {
+    Thumb(src: p1, shape: .square)
+    Col(width: .fill, gap: 4) {
+      TextRow(text: "Vegetable Salad", width: .fill)
+      TextCaption(text: "Appetizers", width: .fit)
+      Row(align: .center, gap: 10) {
+        Icon(name: .minus, size: .tile)
+        TextValue(value: qty1)
+        Icon(name: .plus, size: .tile)
+      }
+    }
+    TextValue(value: price1)
+  }
+
+  Row(width: .fill, align: .center, gap: 12) {
+    Thumb(src: p2, shape: .square)
+    Col(width: .fill, gap: 4) {
+      TextRow(text: "Pancake with Orange", width: .fill)
+      TextCaption(text: "Appetizers", width: .fit)
+      Row(align: .center, gap: 10) {
+        Icon(name: .minus, size: .tile)
+        TextValue(value: qty2)
+        Icon(name: .plus, size: .tile)
+      }
+    }
+    TextValue(value: price2)
+  }
+
+  Rule()
+
+  summary
+
+  Col(width: .fill, align: .center) {
+    Chip(text: "Pay Now", tone: .primary, width: .fill)
+  }
+
+  tabbar
+}

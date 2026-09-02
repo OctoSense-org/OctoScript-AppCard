@@ -88,6 +88,10 @@ class Extractor:
                     "from": pt(g.get("from")), "to": pt(g.get("to")),
                     "stops": [{"c": hexa(s["color"]), "p": round(s.get("position", 0), 3)}
                               for s in g["stops"]]}
+            elif f.get("fillType") == 4 and (f.get("image") or {}).get("_ref"):
+                # An IMAGE FILL on a shape — how photo-heavy kits place their
+                # pictures (Atro used bitmap layers; CaMo fills rectangles).
+                out["imagefill"] = f["image"]["_ref"]
             elif f.get("color") and f["color"].get("alpha", 1) > 0.02:
                 out["fill"] = hexa(f["color"])
         borders = [b for b in (st.get("borders") or []) if b.get("isEnabled")]
@@ -170,6 +174,9 @@ class Extractor:
                                      else "nonzero")
         if cls == "bitmap":
             n["image"] = (layer.get("image") or {}).get("_ref")
+        elif n.get("imagefill"):
+            n["image"] = n.pop("imagefill")
+            n["cls"] = "bitmap"
         if cls == "symbolInstance":
             self.stats["instances"] += 1
             sid = layer.get("symbolID")
@@ -236,8 +243,14 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     ex = Extractor(src)
     count = 0
+    seen = {}
     for ab in ex.artboards(pf):
         safe = re.sub(r"[^\w\-]+", "_", ab["name"]).strip("_")[:60]
+        # Kits that ship Light and Dark page sets repeat artboard names; a
+        # silent overwrite kept whichever mode came last. Number the repeats.
+        seen[safe] = seen.get(safe, 0) + 1
+        if seen[safe] > 1:
+            safe = f"{safe}_{seen[safe]}"
         (out / f"{safe}.json").write_text(json.dumps(ab))
         count += 1
     print(f"{count} artboards -> {out}")
