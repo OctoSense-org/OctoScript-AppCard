@@ -1,84 +1,88 @@
 # level: L0
 # model: atro-app
-
 theme atro_light
 
+view header Col(width: .fill, gap: 6) {
+  TextEyebrow(text: "Atro UI")
+  Row(width: .fill, align: .center, gap: 12) {
+    Icon(name: .arrow_left)
+    TextTitle(text: "Manufacturers", width: .fill)
+    Icon(name: .menu)
+    Icon(name: .bookmark)
+  }
+}
+
+view list Col(width: .fill, gap: 12) {
+  Rule()
+  Row(width: .fill, align: .center) {
+    TextRow(text: "AKG", width: .fill)
+    Chip(text: "●", width: .fit)
+    Icon(name: .chevron_right)
+  }
+  Rule()
+  Row(width: .fill, align: .center) {
+    TextRow(text: "Audio-Technica", width: .fill)
+    Icon(name: .chevron_right)
+  }
+  Rule()
+  Row(width: .fill, align: .center) {
+    TextRow(text: "Bang & Olufsen", width: .fill)
+    Icon(name: .chevron_right)
+  }
+  Rule()
+  Row(width: .fill, align: .center) {
+    TextRow(text: "Beats Electronics", width: .fill)
+    Icon(name: .chevron_right)
+  }
+  Rule()
+  Row(width: .fill, align: .center) {
+    TextRow(text: "Bose Corporation", width: .fill)
+    Icon(name: .chevron_right)
+  }
+  Rule()
+  Row(width: .fill, align: .center) {
+    TextRow(text: "Harman Kardon", width: .fill)
+    Icon(name: .chevron_right)
+  }
+  Rule()
+  Row(width: .fill, align: .center) {
+    TextRow(text: "JBL", width: .fill)
+    Icon(name: .chevron_right)
+  }
+  Rule()
+  Row(width: .fill, align: .center) {
+    TextRow(text: "Samsung", width: .fill)
+    Icon(name: .chevron_right)
+  }
+  Rule()
+  Row(width: .fill, align: .center) {
+    TextRow(text: "Sennheiser", width: .fill)
+    Icon(name: .chevron_right)
+  }
+  Rule()
+  Row(width: .fill, align: .center) {
+    TextRow(text: "Technics", width: .fill)
+    Icon(name: .chevron_right)
+  }
+  Rule()
+  Row(width: .fill, align: .center) {
+    TextRow(text: "Westone", width: .fill)
+    Icon(name: .chevron_right)
+  }
+  Rule()
+  Row(width: .fill, align: .center) {
+    TextRow(text: "Apple", width: .fill)
+    Icon(name: .chevron_right)
+  }
+  Rule()
+  Row(width: .fill, align: .center) {
+    TextRow(text: "Marshall", width: .fill)
+    Icon(name: .chevron_right)
+  }
+  Rule()
+}
+
 view root Surface(pad: .page) {
-       Col(width: .fill, gap: 22) {
-         header
-         makers
-       }
-     }
-
-view header Row(width: .fill, align: .center) {
-       TextTitle(text: "Manufacturers", width: .fill)
-     }
-
-view makers Panel {
-       Col(width: .fill, gap: 18) {
-         Row(width: .fill, align: .center) {
-           TextRow(text: "AKG", width: .fill)
-           TextCaption(glyph: "›")
-         }
-         Rule()
-         Row(width: .fill, align: .center) {
-           TextRow(text: "Audio-Technica", width: .fill)
-           TextCaption(glyph: "›")
-         }
-         Rule()
-         Row(width: .fill, align: .center) {
-           TextRow(text: "Bang & Olufsen", width: .fill)
-           TextCaption(glyph: "›")
-         }
-         Rule()
-         Row(width: .fill, align: .center) {
-           TextRow(text: "Beats Electronics", width: .fill)
-           TextCaption(glyph: "›")
-         }
-         Rule()
-         Row(width: .fill, align: .center) {
-           TextRow(text: "Bose Corporation", width: .fill)
-           TextCaption(glyph: "›")
-         }
-         Rule()
-         Row(width: .fill, align: .center) {
-           TextRow(text: "Harman Kardon", width: .fill)
-           TextCaption(glyph: "›")
-         }
-         Rule()
-         Row(width: .fill, align: .center) {
-           TextRow(text: "JBL", width: .fill)
-           TextCaption(glyph: "›")
-         }
-         Rule()
-         Row(width: .fill, align: .center) {
-           TextRow(text: "Samsung", width: .fill)
-           TextCaption(glyph: "›")
-         }
-         Rule()
-         Row(width: .fill, align: .center) {
-           TextRow(text: "Sennheiser", width: .fill)
-           TextCaption(glyph: "›")
-         }
-         Rule()
-         Row(width: .fill, align: .center) {
-           TextRow(text: "Technics", width: .fill)
-           TextCaption(glyph: "›")
-         }
-         Rule()
-         Row(width: .fill, align: .center) {
-           TextRow(text: "Westone", width: .fill)
-           TextCaption(glyph: "›")
-         }
-         Rule()
-         Row(width: .fill, align: .center) {
-           TextRow(text: "Apple", width: .fill)
-           TextCaption(glyph: "›")
-         }
-         Rule()
-         Row(width: .fill, align: .center) {
-           TextRow(text: "Marshall", width: .fill)
-           TextCaption(glyph: "›")
-         }
-       }
-     }
+  header
+  list
+}

@@ -1,33 +1,16 @@
 # level: L0
 # model: atro-app
+theme atro
 
-theme atro_light
+state p1 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
 
-view topbar Col(width: .fill, gap: .row) {
-  Row(width: .fill, align: .center) {
-    TextEyebrow(text: "Atro UI")
-  }
-  Row(width: .fill, align: .center) {
-    TextCaption(text: "8", width: .fill)
-    TextRow(text: "Logout")
-  }
+view topbar Row(width: .fill, align: .center, gap: 8) {
+  TextTitle(text: "Atro UI", width: .fit)
+  TextCaption(text: "8", width: .fill)
+  TextRow(text: "Logout", width: .fit)
 }
 
-view stack Col(width: .fill, align: .center, gap: .row) {
-  Card {
-    Col(width: .fill, align: .center, gap: .row) {
-      TextCaption(glyph: "▣")
-    }
-  }
-  Panel {
-    Rule()
-  }
-  Panel {
-    Rule()
-  }
-}
-
-view menu Col(width: .fill, align: .center, gap: .row) {
+view menu Col(width: .fill, align: .center, gap: 10) {
   Chip(text: "Messages", width: .fill)
   Chip(text: "Trending", width: .fill)
   Chip(text: "Bookmarks", width: .fill)
@@ -36,9 +19,9 @@ view menu Col(width: .fill, align: .center, gap: .row) {
 }
 
 view root Surface(pad: .page) {
-  Col(width: .fill, gap: .section) {
+  Col(width: .fill, gap: 20) {
     topbar
-    stack
+    Thumb(src: p1, shape: .hero)
     menu
   }
 }

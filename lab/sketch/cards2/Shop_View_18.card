@@ -4,84 +4,100 @@ theme atro_light
 
 state p1 { shape: text, initial: "http://127.0.0.1:8787/_ph.png" }
 state total { shape: text, initial: "$1312.00" }
-state price1 { shape: text, initial: "$295" }
-state price2 { shape: text, initial: "$295" }
-state price3 { shape: text, initial: "$399" }
-state price4 { shape: text, initial: "$399" }
+state pgrado { shape: text, initial: "$295" }
+state pbose { shape: text, initial: "$399" }
 
-view steps Row(width: .fill, gap: .md) {
-  TextCaption(text: "Delivery", width: .fill)
-  TextCaption(text: "Confirmation", width: .fill)
-  TextCaption(text: "Payment", width: .fill)
+view steps Row(width: .fill, align: .center) {
+  Col(width: .fill, align: .center, gap: 4) {
+    Icon(name: .location, size: .tile)
+    TextCaption(text: "Delivery", width: .fit)
+  }
+  Col(width: .fill, align: .center, gap: 4) {
+    Icon(name: .check, size: .tile)
+    TextCaption(text: "Confirmation", width: .fit)
+  }
+  Col(width: .fill, align: .center, gap: 4) {
+    Icon(name: .zap, size: .tile)
+    TextCaption(text: "Payment", width: .fit)
+  }
 }
 
-view shipping Col(width: .fill, gap: .xs) {
+view shipping Col(width: .fill, gap: 4) {
   TextEyebrow(text: "Shipping")
-  TextBody(text: "Delivery is scheduled for today between 14:00 - 18:00 on 913 Bear Hill Street Flushing, NY 11354.", width: .fill)
+  Row(width: .fill, align: .center, gap: 10) {
+    TextBody(text: "Delivery is scheduled for today between 14:00 - 18:00 on 913 Bear Hill Street Flushing, NY 11354.", width: .fill)
+    Icon(name: .edit, size: .tile)
+  }
 }
 
-view summary Col(width: .fill, gap: .md) {
-  Row(width: .fill, align: .center, gap: .md) {
-    TextEyebrow(text: "Order summary")
-    TextCaption(text: "Total", width: .fill)
+view summary Col(width: .fill, gap: 12) {
+  Row(width: .fill, align: .center, gap: 4) {
+    TextCaption(text: "Order summary", width: .fill)
+    TextCaption(text: "Total:", width: .fit)
     TextValue(value: total)
   }
-  Row(width: .fill, align: .center, gap: .md) {
-    Thumb(src: p1)
-    Col(width: .fill, gap: .xs) {
+  Row(width: .fill, align: .center, gap: 12) {
+    Avatar(text: "GP")
+    Col(width: .fill, gap: 2) {
       TextRow(text: "Grado Prestige SR325e", width: .fill)
       TextCaption(text: "Marshall puts out more than iconic...", width: .fill)
     }
-    Col(align: .end, gap: .xs) {
+    Col(gap: 2) {
       TextCaption(text: "x1")
-      TextValue(value: price1)
+      TextValue(value: pgrado)
     }
   }
-  Row(width: .fill, align: .center, gap: .md) {
-    Thumb(src: p1)
-    Col(width: .fill, gap: .xs) {
+  Row(width: .fill, align: .center, gap: 12) {
+    Avatar(text: "GP")
+    Col(width: .fill, gap: 2) {
       TextRow(text: "Grado Prestige SR325e", width: .fill)
       TextCaption(text: "Marshall puts out more than iconic...", width: .fill)
     }
-    Col(align: .end, gap: .xs) {
+    Col(gap: 2) {
       TextCaption(text: "x1")
-      TextValue(value: price2)
+      TextValue(value: pgrado)
     }
   }
-  Row(width: .fill, align: .center, gap: .md) {
-    Thumb(src: p1)
-    Col(width: .fill, gap: .xs) {
+  Row(width: .fill, align: .center, gap: 12) {
+    Avatar(text: "BN")
+    Col(width: .fill, gap: 2) {
       TextRow(text: "Bose Noise Cancelling 700", width: .fill)
       TextCaption(text: "Marshall puts out more than iconic...", width: .fill)
     }
-    Col(align: .end, gap: .xs) {
+    Col(gap: 2) {
       TextCaption(text: "x1")
-      TextValue(value: price3)
+      TextValue(value: pbose)
     }
   }
-  Row(width: .fill, align: .center, gap: .md) {
-    Thumb(src: p1)
-    Col(width: .fill, gap: .xs) {
+  Row(width: .fill, align: .center, gap: 12) {
+    Avatar(text: "BN")
+    Col(width: .fill, gap: 2) {
       TextRow(text: "Bose Noise Cancelling 700", width: .fill)
       TextCaption(text: "Marshall puts out more than iconic...", width: .fill)
     }
-    Col(align: .end, gap: .xs) {
+    Col(gap: 2) {
       TextCaption(text: "x1")
-      TextValue(value: price4)
+      TextValue(value: pbose)
     }
   }
 }
 
 view root Surface(pad: .page) {
-  Col(width: .fill, gap: .lg) {
+  Col(width: .fill, gap: 18) {
     Row(width: .fill, align: .center) {
-      TextTitle(text: "Checkout", width: .fill)
-      TextCaption(glyph: "⋮")
+      Icon(name: .arrow_left)
+      Col(width: .fill, align: .center) {
+        TextTitle(text: "Checkout", width: .fit)
+      }
+      Icon(name: .more)
     }
     steps
     Rule()
     shipping
     summary
-    Chip(text: "Continue with payment", tone: .primary, width: .fill)
+    Space()
+    Col(width: .fill, align: .center) {
+      Chip(text: "Continue with payment", tone: .primary, width: .fill)
+    }
   }
 }

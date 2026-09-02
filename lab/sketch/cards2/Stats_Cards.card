@@ -2,73 +2,94 @@
 # model: atro-app
 theme atro
 
-state bal1 { shape: text, initial: "$235.00" }
-state bal2 { shape: text, initial: "$12,929.05" }
-state bal3 { shape: text, initial: "$3,841.84" }
-
-view header Col(align: .center, width: .fill) {
-  TextTitle(text: "My virtual cards", width: .fill)
-}
-
-view card1 Card {
-  Col(gap: .sm, width: .fill) {
-    TextEyebrow(text: "card balance")
-    TextValue(value: bal1)
-    TextRow(text: "3713 5878 2833 34195", width: .fill)
-    Row(gap: .lg, width: .fill) {
-      Col(gap: .xs) {
-        TextEyebrow(text: "Expire")
-        TextRow(text: "12/24")
-      }
-      Col(gap: .xs) {
-        TextEyebrow(text: "CVV")
-        TextRow(text: "235")
-      }
-    }
-  }
-}
-
-view card2 Card {
-  Col(gap: .sm, width: .fill) {
-    TextEyebrow(text: "card balance")
-    TextValue(value: bal2)
-    TextRow(text: "5326 5149 4497 1577", width: .fill)
-    Row(gap: .lg, width: .fill) {
-      Col(gap: .xs) {
-        TextEyebrow(text: "Expire")
-        TextRow(text: "12/24")
-      }
-      Col(gap: .xs) {
-        TextEyebrow(text: "CVV")
-        TextRow(text: "235")
-      }
-    }
-  }
-}
-
-view card3 Card {
-  Col(gap: .sm, width: .fill) {
-    TextEyebrow(text: "card balance")
-    TextValue(value: bal3)
-    TextRow(text: "4485 0961 4849 8888", width: .fill)
-    Row(gap: .lg, width: .fill) {
-      Col(gap: .xs) {
-        TextEyebrow(text: "Expire")
-        TextRow(text: "12/24")
-      }
-      Col(gap: .xs) {
-        TextEyebrow(text: "CVV")
-        TextRow(text: "235")
-      }
-    }
-  }
-}
-
 view root Surface(pad: .page) {
-  Col(gap: .lg, width: .fill) {
-    header
-    card1
-    card2
-    card3
-  }
-}
+           Col(gap: 14) {
+             topbar
+             cardmint
+             cardsteel
+             cardorchid
+           }
+         }
+
+view topbar Row(width: .fill, align: .center) {
+              Icon(name: .menu)
+              Col(width: .fill, align: .center) {
+                TextTitle(text: "My virtual cards", width: .fit)
+              }
+              Icon(name: .plus)
+            }
+
+view cardmint Card {
+                Col(gap: 18) {
+                  Row(width: .fill) {
+                    Col(width: .fill, gap: 2) {
+                      TextCaption(text: "card balance")
+                      TextHero(text: "$235.00")
+                    }
+                    Icon(name: .settings)
+                  }
+                  TextRow(text: "3713 5878 2833 34195")
+                  Row(width: .fill, gap: 28) {
+                    Col(width: .fit, gap: 2) {
+                      TextCaption(text: "Expire")
+                      TextRow(text: "12/24", width: .fit)
+                    }
+                    Col(width: .fit, gap: 2) {
+                      TextCaption(text: "CVV")
+                      TextRow(text: "235", width: .fit)
+                    }
+                  }
+                }
+              }
+
+view cardsteel Panel {
+                 Col(gap: 18) {
+                   Row(width: .fill) {
+                     Col(width: .fill, gap: 2) {
+                       TextCaption(text: "card balance")
+                       TextHero(text: "$12,929.05")
+                     }
+                     Icon(name: .settings)
+                   }
+                   TextRow(text: "5326 5149 4497 1577")
+                   Row(width: .fill, align: .end) {
+                     Row(width: .fill, gap: 28) {
+                       Col(width: .fit, gap: 2) {
+                         TextCaption(text: "Expire")
+                         TextRow(text: "12/24", width: .fit)
+                       }
+                       Col(width: .fit, gap: 2) {
+                         TextCaption(text: "CVV")
+                         TextRow(text: "235", width: .fit)
+                       }
+                     }
+                     TextCaption(glyph: "◉", width: .fit)
+                   }
+                 }
+               }
+
+view cardorchid Card {
+                  Col(gap: 18) {
+                    Row(width: .fill) {
+                      Col(width: .fill, gap: 2) {
+                        TextCaption(text: "card balance")
+                        TextHero(text: "$3,841.84")
+                      }
+                      Icon(name: .settings)
+                    }
+                    TextRow(text: "4485 0961 4849 8888")
+                    Row(width: .fill, align: .end) {
+                      Row(width: .fill, gap: 28) {
+                        Col(width: .fit, gap: 2) {
+                          TextCaption(text: "Expire")
+                          TextRow(text: "12/24", width: .fit)
+                        }
+                        Col(width: .fit, gap: 2) {
+                          TextCaption(text: "CVV")
+                          TextRow(text: "235", width: .fit)
+                        }
+                      }
+                      TextEyebrow(text: "VISA")
+                    }
+                  }
+                }
