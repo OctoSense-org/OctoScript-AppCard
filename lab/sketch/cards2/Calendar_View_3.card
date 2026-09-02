@@ -3,43 +3,43 @@
 
 theme atro_light
 
-view details Col(width: .fill, gap: 14) {
-  Row(width: .fill, gap: 12) {
-    Icon(name: .clock)
+view details Col(width: .fill, gap: 12) {
+  Row(width: .fill, align: .center, gap: 12) {
+    Icon(name: .clock, size: .tile)
     TextRow(text: "9:00 - 11:00 AM", width: .fill)
   }
-  Row(width: .fill, gap: 12) {
-    Icon(name: .calendar)
+  Row(width: .fill, align: .center, gap: 12) {
+    Icon(name: .calendar, size: .tile)
     TextRow(text: "Wendsday, November 2019", width: .fill)
   }
-  Row(width: .fill, gap: 12) {
-    Icon(name: .location)
+  Row(width: .fill, align: .center, gap: 12) {
+    Icon(name: .location, size: .tile)
     TextRow(text: "Meeting Room", width: .fill)
   }
   Row(width: .fill, gap: 12) {
-    Icon(name: .menu)
-    Col(width: .fill, gap: 2) {
+    Icon(name: .menu, size: .tile)
+    Col(width: .fill, gap: 4) {
       TextRow(text: "Description", width: .fill)
       TextCaption(text: "Insanity is doing the same thing, over and over again, but expecting different results.", width: .fill)
     }
   }
   Row(width: .fill, gap: 12) {
-    Icon(name: .share)
-    Col(width: .fill, gap: 2) {
+    Icon(name: .share, size: .tile)
+    Col(width: .fill, gap: 4) {
       TextRow(text: "Prototype link", width: .fill)
       TextCaption(text: "https://ui8.net/products/atro-mobile-ui-kit", width: .fill)
     }
   }
   Row(width: .fill, gap: 12) {
-    Icon(name: .video)
-    Col(width: .fill, gap: 2) {
+    Icon(name: .video, size: .tile)
+    Col(width: .fill, gap: 4) {
       TextRow(text: "Video sharing", width: .fill)
       TextCaption(text: "zoom.us/meeting-#21345", width: .fill)
     }
   }
   Row(width: .fill, gap: 12) {
-    Icon(name: .bell)
-    Col(width: .fill, gap: 2) {
+    Icon(name: .bell, size: .tile)
+    Col(width: .fill, gap: 4) {
       TextRow(text: "Preparation", width: .fill)
       TextCaption(text: "You will be notified 15 minute before the meeting", width: .fill)
     }
@@ -52,8 +52,8 @@ view root Surface(pad: .page) {
     Space()
     Icon(name: .calendar)
   }
-  TextTitle(text: "Mobile App nav patterns explorations", width: .fill)
-  Col(width: .fill, gap: 6) {
+  Col(width: .fill, gap: 10) {
+    TextTitle(text: "Mobile App nav patterns explorations", width: .fill)
     TextEyebrow(text: "Invited")
     Col(width: .fill, align: .center) {
       Avatar(text: "+")
@@ -62,8 +62,10 @@ view root Surface(pad: .page) {
   Rule()
   details
   Space()
-  Row(width: .fill, align: .center, gap: 8) {
-    Icon(name: .calendar)
-    Chip(text: "add to calendar", tone: .primary)
+  Col(width: .fill, align: .center) {
+    Row(align: .center, gap: 8) {
+      Icon(name: .calendar)
+      Chip(text: "add to calendar", tone: .primary)
+    }
   }
 }

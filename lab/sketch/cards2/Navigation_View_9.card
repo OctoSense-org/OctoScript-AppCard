@@ -1,26 +1,29 @@
 # level: L0
 # model: atro-app
-theme atro
-
-state p1 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
-
-view menu Col(width: .fill, gap: 10) {
-  Chip(text: "Messages", width: .fill)
-  Chip(text: "Trending", width: .fill)
-  Chip(text: "Bookmarks", width: .fill)
-  Chip(text: "Gallery", width: .fill)
-  Chip(text: "Settings", width: .fill)
-}
+theme atro ground: .indigo
 
 view root Surface(pad: .page) {
   Row(width: .fill, align: .center) {
     Col(width: .fill, gap: 4) {
-      TextEyebrow(text: "Atro UI")
-      Chip(text: "8")
+      TextTitle(text: "Atro UI", width: .fit)
+      Row(gap: 6) {
+        Icon(name: .chat, size: .tile)
+        TextCaption(text: "8", width: .fit)
+      }
     }
     TextRow(text: "Logout", width: .fit)
   }
-  Thumb(src: p1, shape: .hero)
+  Panel {
+    Col(align: .center, gap: 10, width: .fill) {
+      Icon(name: .image, size: .hero)
+    }
+  }
   Space()
-  menu
+  Col(align: .center, gap: 10, width: .fill) {
+    Chip(text: "Messages", width: .fill)
+    Chip(text: "Trending", width: .fill)
+    Chip(text: "Bookmarks", width: .fill)
+    Chip(text: "Gallery", width: .fill)
+    Chip(text: "Settings", width: .fill)
+  }
 }

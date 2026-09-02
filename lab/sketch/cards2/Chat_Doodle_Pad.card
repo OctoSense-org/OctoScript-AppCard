@@ -1,59 +1,31 @@
 # level: L0
 # model: atro-app
+
 theme atro
 
 state p1 { shape: text, initial: "http://127.0.0.1:8787/_ph.png" }
 
-view bar Row(width: .fill, align: .center) {
-  Icon(name: .menu)
-  Col(width: .fill, align: .center) {
-    TextTitle(text: "Isabelle Barker", width: .fit)
-  }
-  Icon(name: .more)
-  Icon(name: .phone)
+view header Col(width: .fill, align: .center, gap: 2) {
+  TextTitle(text: "Isabelle Barker", width: .fit)
+  TextCaption(text: "subtitle", width: .fit)
 }
 
-view chat Col(width: .fill, gap: 8) {
-  Card {
-    TextBody(text: "Wannabe internet trailblazer. Devoted coffee scholar. Lifelong web evangelist. Zombie guru. Introvert. Certified music fanatic.", width: .fill)
-  }
-  TextCaption(text: "10:55", glyph: "✓", width: .fill)
-  Row(width: .fill, gap: 8) {
-    Avatar(text: "IB")
-    Card {
-      TextBody(text: "If you could have a superpower, what would you choose?", width: .fill)
-    }
-  }
-  Card {
-    TextBody(text: "Do you like roller coasters?", width: .fill)
-  }
-  Card {
-    TextBody(text: "If you could have any kind of pet, what would you choose?", width: .fill)
-  }
-  Card {
-    TextBody(text: "Wannabe internet trailblazer. Devoted coffee scholar. Lifelong web evangelist. Zombie guru. Introvert. Certified music fanatic.", width: .fill)
-  }
-  TextCaption(text: "10:59", glyph: "✓", width: .fill)
-  Row(width: .fill, gap: 8) {
-    Avatar(text: "IB")
-    Chip(text: "•••")
-  }
-}
-
-view tools Row(width: .fill, align: .center, gap: 8) {
-  Icon(name: .refresh)
-  Icon(name: .edit, size: .tile)
-  Icon(name: .edit, size: .tile)
-  Icon(name: .edit, size: .tile)
-  Icon(name: .edit, size: .tile)
-  Icon(name: .edit, size: .tile)
-  Chip(text: "Send", tone: .primary)
+view thread Col(width: .fill, gap: 10) {
+  Bubble(text: "Wannabe internet trailblazer. Devoted coffee scholar. Lifelong web evangelist. Zombie guru. Introvert. Certified music fanatic.", side: .me)
+  TextCaption(text: "10:55", width: .fill)
+  Bubble(text: "If you could have a superpower, what would you choose?", side: .them)
+  Bubble(text: "Do you like roller coasters?", side: .them)
+  Bubble(text: "If you could have any kind of pet, what would you choose?", side: .me)
+  Bubble(text: "Wannabe internet trailblazer. Devoted coffee scholar. Lifelong web evangelist. Zombie guru. Introvert. Certified music fanatic.", side: .me)
+  TextCaption(text: "10:59", width: .fill)
 }
 
 view root Surface(pad: .page) {
   TextEyebrow(text: "Atro UI")
-  bar
-  chat
+  header
+  thread
   Thumb(src: p1, shape: .hero)
-  tools
+  Col(width: .fill, align: .center) {
+    Chip(text: "Send", tone: .primary, width: .fit)
+  }
 }

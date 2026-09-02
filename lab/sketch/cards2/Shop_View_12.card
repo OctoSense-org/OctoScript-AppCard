@@ -2,8 +2,24 @@
 # model: atro-app
 theme atro_light
 
-view manufacturers Col(width: .fill, gap: 0) {
-  Row(width: .fill, align: .center) { TextRow(text: "AKG", width: .fill) Chip(text: "•") Icon(name: .chevron_right) }
+view root Surface(pad: .page) {
+  TextEyebrow(text: "Atro UI")
+  Row(width: .fill, align: .center) {
+    Icon(name: .arrow_left)
+    TextTitle(text: "Manufacturers", width: .fill)
+    Icon(name: .menu)
+    Icon(name: .bookmark)
+  }
+  makers
+}
+
+view makers Col(width: .fill, gap: 8) {
+  Rule()
+  Row(width: .fill, align: .center) {
+    TextRow(text: "AKG", width: .fill)
+    Chip(text: "●", tone: .primary)
+    Icon(name: .chevron_right)
+  }
   Rule()
   Row(width: .fill, align: .center) { TextRow(text: "Audio-Technica", width: .fill) Icon(name: .chevron_right) }
   Rule()
@@ -29,16 +45,4 @@ view manufacturers Col(width: .fill, gap: 0) {
   Rule()
   Row(width: .fill, align: .center) { TextRow(text: "Marshall", width: .fill) Icon(name: .chevron_right) }
   Rule()
-}
-
-view root Surface(pad: .page) {
-  TextEyebrow(text: "Atro UI")
-  Row(width: .fill, align: .center, gap: 10) {
-    Icon(name: .arrow_left)
-    TextTitle(text: "Manufacturers", width: .fill)
-    Icon(name: .menu)
-    Icon(name: .bookmark)
-  }
-  Rule()
-  manufacturers
 }
