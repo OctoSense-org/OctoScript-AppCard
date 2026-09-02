@@ -44,7 +44,8 @@ def sh(*cmd, cwd=HERE, check=True):
 
 def stage_extract(kit):
     sh("python3", "sketch2spec.py", kit["sketch"], kit["specs_dir"])
-    sh("python3", "spec2png.py", kit["specs_dir"], kit["targets_dir"])
+    sh("python3", "spec2png.py", kit["specs_dir"], kit["targets_dir"],
+       "--images", kit["img_dir"])
 
 
 def stage_theme(kit):

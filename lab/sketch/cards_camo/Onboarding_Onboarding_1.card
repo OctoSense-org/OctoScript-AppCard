@@ -1,0 +1,21 @@
+# level: L0
+# model: camo-app
+theme camo
+
+state p1 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
+
+view root Surface(pad: .page) {
+  Thumb(src: p1, shape: .hero)
+  Space()
+  Card {
+    Col(align: .center, gap: 10) {
+      TextTitle(text: "Design Templates are Simple and Easy", width: .fit)
+      TextBody(text: "Create a unique emotional story that describes better than words", width: .fit)
+    }
+    Row(width: .fill) {
+      Chip(text: "Skip")
+      Space()
+      Chip(text: "Next")
+    }
+  }
+}

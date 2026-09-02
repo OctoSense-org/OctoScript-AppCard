@@ -1,0 +1,62 @@
+# level: L0
+# model: camo-app
+
+theme camo
+
+state p1 { shape: text, initial: "http://127.0.0.1:8787/dce28e2eab6c426321e0bf19aeb2e2d8d6915049.png" }
+state p2 { shape: text, initial: "http://127.0.0.1:8787/44676d5d91db51079b18bd536c9c19e63f23a504.png" }
+
+view albums Col(width: .fill, gap: 12) {
+  Row(width: .fill, align: .center) {
+    TextTitle(text: "Albums", width: .fill)
+    TextCaption(text: "See all", width: .fit)
+  }
+  Grid(cols: 2) {
+    Col(width: .fill, gap: 6) {
+      Thumb(src: p2, shape: .square)
+      TextRow(text: "Justice", width: .fill)
+      TextCaption(text: "2021 • Album", width: .fill)
+    }
+    Col(width: .fill, gap: 6) {
+      Thumb(src: p2, shape: .square)
+      TextRow(text: "Changes", width: .fill)
+      TextCaption(text: "2021 • Album", width: .fill)
+    }
+  }
+}
+
+view singles Col(width: .fill, gap: 12) {
+  Row(width: .fill, align: .center) {
+    TextTitle(text: "Singles", width: .fill)
+    TextCaption(text: "See all", width: .fit)
+  }
+  Grid(cols: 2) {
+    Col(width: .fill, gap: 6) {
+      Thumb(src: p2, shape: .square)
+      TextRow(text: "Don't Go (with Ju…", width: .fill)
+      TextCaption(text: "Latest Release • Singles", width: .fill)
+    }
+    Col(width: .fill, gap: 6) {
+      Thumb(src: p2, shape: .square)
+      TextRow(text: "Stay (with Justin …", width: .fill)
+      TextCaption(text: "2021 • Singles", width: .fill)
+    }
+  }
+}
+
+view root Surface(pad: .page) {
+  Row(width: .fill, align: .center) {
+    Icon(name: .chevron_left)
+    Col(width: .fill, align: .center) {
+      TextTitle(text: "Artist", width: .fit)
+    }
+    Icon(name: .more)
+  }
+  Thumb(src: p1, shape: .hero)
+  Row(width: .fill, align: .center, gap: 12) {
+    TextTitle(text: "Justin Bieber", width: .fill)
+    Icon(name: .play)
+  }
+  albums
+  singles
+}

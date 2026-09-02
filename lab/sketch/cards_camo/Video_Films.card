@@ -1,0 +1,68 @@
+# level: L0
+# model: camo-app
+
+theme camo
+
+state p1 { shape: text, initial: "http://127.0.0.1:8787/5fba4803fae6bf8a6794206dcc6b6bc1cfc64744.png" }
+state p2 { shape: text, initial: "http://127.0.0.1:8787/66d96c52c62c66c830a6b47853d99c124743b32a.png" }
+state p3 { shape: text, initial: "http://127.0.0.1:8787/5a1eb1d17e26f3ad8d6e80ac9f97be8c4950cadf.png" }
+state cat { shape: text, initial: "All Films" }
+
+view categories Row(width: .fill, gap: 8) {
+  Chip(text: "All Films", active: cat == "All Films")
+  Chip(text: "Comedy", active: cat == "Comedy")
+  Chip(text: "Adventure", active: cat == "Adventure")
+}
+
+view soon Col(width: .fill, gap: 8) {
+  Row(width: .fill, align: .center) {
+    TextTitle(text: "Soon", width: .fill)
+    TextCaption(text: "See all", width: .fit)
+  }
+  Thumb(src: p1)
+  TextRow(text: "John Wick: Chapter 4", width: .fill)
+  TextCaption(text: "Adventure/Animation", width: .fill)
+}
+
+view popular Col(width: .fill, gap: 10) {
+  Row(width: .fill, align: .center) {
+    TextTitle(text: "Popular on CaMo", width: .fill)
+    TextCaption(text: "See all", width: .fit)
+  }
+  Grid(cols: 2) {
+    Col(width: .fill, gap: 6) {
+      Thumb(src: p2, shape: .square)
+      TextRow(text: "Thor: Love & Thunder", width: .fill)
+      TextCaption(text: "Action • Adventure", width: .fill)
+    }
+    Col(width: .fill, gap: 6) {
+      Thumb(src: p3, shape: .square)
+      TextRow(text: "Into the Spider-Verse", width: .fill)
+      TextCaption(text: "Animation • Action", width: .fill)
+    }
+  }
+}
+
+view tabbar Panel {
+  Grid(cols: 5) {
+    Col(align: .center, gap: 4) { Icon(name: .home, size: .tile) TextCaption(text: "Item", width: .fit) }
+    Col(align: .center, gap: 4) { Icon(name: .search, size: .tile) TextCaption(text: "Item", width: .fit) }
+    Col(align: .center, gap: 4) { Icon(name: .video, size: .tile) TextCaption(text: "Item", width: .fit) }
+    Col(align: .center, gap: 4) { Icon(name: .bookmark, size: .tile) TextCaption(text: "Item", width: .fit) }
+    Col(align: .center, gap: 4) { Icon(name: .user, size: .tile) TextCaption(text: "Item", width: .fit) }
+  }
+}
+
+view root Surface(pad: .page) {
+  Col(width: .fill, gap: 16) {
+    Row(width: .fill, align: .center) {
+      TextTitle(text: "Films", width: .fill)
+      Icon(name: .menu)
+    }
+    categories
+    soon
+    popular
+  }
+  Space()
+  tabbar
+}

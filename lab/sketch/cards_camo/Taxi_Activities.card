@@ -1,0 +1,70 @@
+# level: L0
+# model: camo-app
+theme camo_light
+
+view root Surface(pad: .page) {
+  Row(width: .fill, align: .center) {
+    Icon(name: .chevron_left)
+    Col(width: .fill, align: .center) {
+      TextTitle(text: "Activities", width: .fit)
+    }
+  }
+  Row(align: .center, gap: 6) {
+    TextEyebrow(text: "UPCOMING")
+    Chip(text: "0")
+  }
+  TextBody(text: "You don't have any trips scheduled", width: .fill)
+  TextEyebrow(text: "HISTORY")
+  trip1
+  trip2
+}
+
+view trip1 Panel {
+  Row(width: .fill, align: .center, gap: 10) {
+    Icon(name: .map)
+    Col(width: .fill, gap: 2) {
+      TextRow(text: "11/10/2021 | 07:03", width: .fill)
+      TextCaption(text: "Car 4-seater", width: .fill)
+    }
+  }
+  Rule()
+  Row(width: .fill, gap: 10) {
+    Icon(name: .location)
+    Col(width: .fill, gap: 2) {
+      TextRow(text: "Times City Urban Area", width: .fill)
+      TextCaption(text: "Hai Ba Trung, Ha Noi, Viet Nam", width: .fill)
+    }
+  }
+  Row(width: .fill, gap: 10) {
+    Icon(name: .location)
+    Col(width: .fill, gap: 2) {
+      TextRow(text: "43 Hang Bai", width: .fill)
+      TextCaption(text: "Hoan Kiem, Ha Noi, Viet Nam", width: .fill)
+    }
+  }
+}
+
+view trip2 Panel {
+  Row(width: .fill, align: .center, gap: 10) {
+    Icon(name: .map)
+    Col(width: .fill, gap: 2) {
+      TextRow(text: "10/10/2021 | 07:03", width: .fill)
+      TextCaption(text: "Taxi 4-seater", width: .fill)
+    }
+  }
+  Rule()
+  Row(width: .fill, gap: 10) {
+    Icon(name: .location)
+    Col(width: .fill, gap: 2) {
+      TextRow(text: "Times City Urban Area", width: .fill)
+      TextCaption(text: "Hai Ba Trung, Ha Noi, Viet Nam", width: .fill)
+    }
+  }
+  Row(width: .fill, gap: 10) {
+    Icon(name: .location)
+    Col(width: .fill, gap: 2) {
+      TextRow(text: "24 Hang Bai", width: .fill)
+      TextCaption(text: "Hoan Kiem, Ha Noi, Viet Nam", width: .fill)
+    }
+  }
+}
