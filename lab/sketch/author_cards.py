@@ -39,7 +39,7 @@ RULES = """You are writing a Splash L0 card. HARD RULES:
 - COLORED PAGE: when the page background is a strong colour (blue, violet, green...), add a ground axis after the theme: `theme atro ground navy` (dark-leaning colour) or `theme atro_light ground ivory` (light). Grounds: teal violet navy ivory sand terracotta wine forest slate paper cream midnight blush olive — pick the nearest to the design's page colour. The theme derives readable ink and panels on it automatically.
 - ICONS: Icon(name: .bell) — a closed set of ~50 semantic names rendered in the theme's icon font: activity alert arrow_down arrow_left arrow_right arrow_up bell bookmark calendar camera chat check chevron_down chevron_left chevron_right chevron_up clock close cloud edit filter heart home image info location lock mail map menu mic minus moon more phone play plus refresh search send settings share star sun trash user users video wifi zap. UNDERSCORES, never hyphens. Sizes: size: .row (default, inline), .tile (small/dim), .hero (large). Put the icon the design shows: row chevrons, header bells, search glasses, tab icons.
 - For rare marks with no Icon name you may use a unicode glyph inside TextCaption(glyph: "✓") — sparingly, monochrome symbols only, never emoji.
-- NEW capabilities you MUST use where the design does: Avatar(text: "TC") — a tinted initials circle for every avatar/person slot (write the initials yourself from the name); Card { ... } for CONTENT cards — in this pack a Card takes the kit's signature indigo gradient automatically (use Card for credit cards, feature tiles, hero blocks; use Panel for plain sections).
+- NEW capabilities you MUST use where the design does: Avatar(text: "TC") — a tinted initials circle for every avatar/person slot (write the initials yourself from the name); Card { ... } for CONTENT cards — the pack's signature indigo gradient (credit cards, hero blocks). When the DESIGN's card is a different colour, name it: Card(tint: .green) { ... } — tint tokens: neutral green pink blue amber violet cyan red (soft pastel fill, ink stays dark). Use Panel for plain sections.
 - BUTTONS: `tone: .primary` is ONLY for the screen's ONE dominant CTA (a big filled pill). Every in-row / in-card / repeated button (Follow, Add, View) is a plain compact Chip(text: "Follow") — small, never full-width, never primary.
 - CARD GRIDS (contacts, products, features): Grid(cols: 2) { Panel { Col(align: .center, gap: 6) { Avatar(text: "IB") TextRow(text: "Isabelle Barker", width: .fit) TextCaption(text: "Kuala Lumpur", width: .fit) Chip(text: "Follow") } } ... } — one Panel per cell, contents centered.
 - Composition tools you MUST use where the design does: Grid(cols: N) for grids; Col(align: .center) for centered stacks; Chip(text: "...") for buttons/CTAs (they render as filled pills in this pack); Row { TextRow(text:.., width: .fill) TextValue(value: "..") } for label-left value-right rows; Rule() for dividers; Field(placeholder: "...") for inputs; Tile for small stat cells inside Grid.
@@ -47,6 +47,9 @@ RULES = """You are writing a Splash L0 card. HARD RULES:
 - CENTERED HERO SCREENS (onboarding, empty states, success): view root Surface { <top bar if any> Space() Col(align: .center, gap: 10) { <art> <title> <body> } Space() Col(align: .center, width: .fill) { Chip(text: "<cta>", tone: .primary) } } — art, copy and CTA centered, CTA pinned to the bottom. INSIDE a centered Col every text takes width: .fit (a full-width text ignores centering).
 - CALENDAR month grid: Grid(cols: 7) { Tile(label: "25", shape: .square) Tile(label: "27", glyph: "•", shape: .square) ... } — every day is one SQUARE Tile; a day with events carries glyph: "•" (or "••"). Weekday initials are a Grid(cols: 7) of TextEyebrow above.
 - SECTION BANDS: a full-bleed dark strip with a title (month headers, dark app-bar bands over a light page) is Band(text: "April") — never a Card or Panel.
+- CHAT MESSAGES: every message is Bubble(text: "...", side: .them) (left, gray) or Bubble(text: "...", side: .me) (right, accent). Never a Panel or bare text for a message.
+- FAB: a round floating action button = Fab(name: .plus) written as a direct child of view root Surface — it renders pinned bottom-right over the page.
+- SIZE HONESTY: digest positions and sizes are @2x pixels — HALVE them for screen points. An 88px-tall row is 44pt: ONE compact row. The sizeN on TEXT lines is already in points — never render text visibly larger than the digest says.
 - MEDIA SIZES: photo/media grids use SQUARE cells — Thumb(src: pN, shape: .square) inside Grid(cols: 3). A LARGE media area (canvas, illustration panel, hero image, map — anything ≥ a third of the screen) is Thumb(src: pN, shape: .hero) — full-width tall panel. The bare Thumb default is a wide 16:9 list-row tile beside row text. A SMALL leading image in a list row (≤56px in the design) is Avatar initials, never a Thumb.
 - APP BAR with a centered title: Row(width: .fill, align: .center) { Icon(name: .chevron_left) Col(width: .fill, align: .center) { TextTitle(text: "<title>", width: .fit) } Icon(name: .more) } — swap the two icons for what the design shows.
 - PROPORTION: keep every element at the design's scale. A list row is ONE compact row (Avatar + name/subtitle + a trailing compact Chip or Icon) — an action button inside a row is never full-width. Nothing may eat several design-rows of height.
@@ -111,10 +114,14 @@ def author(name, round2_note=""):
     dig_file = HERE / "cards2" / f"{name}.digest.txt"
     dig_file.write_text(digest(spec))
     mode_hint = "light" if "light" in judge_mode(spec) else "dark"
+    hexc, ground = page_colour(spec)
+    ground_note = (f"The page background is a COLOUR (#{hexc}) — you MUST write the "
+                   f"theme line as `theme atro{'_light' if mode_hint == 'light' else ''} "
+                   f"ground {ground}` so the page carries that colour.\n") if ground else ""
     prompt = (f"Read {target} — a mobile app screen design to reproduce.\n"
               f"Read {dig_file} — the measured element digest (positions are @2x; "
               f"indentation = the design's own grouping).\n\n{RULES}\n\n"
-              f"The screen reads as a {mode_hint} screen.\n{round2_note}")
+              f"The screen reads as a {mode_hint} screen.\n{ground_note}{round2_note}")
     src = B.strip_fence(B.claude_text(prompt, timeout=600)).strip()
     card = HERE / "cards2" / f"{name}.card"
     card.write_text(src + "\n")
@@ -130,6 +137,44 @@ def author(name, round2_note=""):
         card.write_text(fix + "\n")
         ok, diags = validate(card)
     return ok, diags
+
+
+GROUNDS = {"teal": (20, 120, 110), "violet": (109, 74, 255), "indigo": (64, 72, 239), "navy": (28, 44, 120),
+           "ivory": (248, 244, 232), "sand": (226, 204, 164),
+           "terracotta": (196, 88, 58), "wine": (112, 28, 52),
+           "forest": (34, 84, 48), "slate": (90, 100, 116), "paper": (244, 244, 240),
+           "cream": (250, 242, 222), "midnight": (16, 18, 38),
+           "blush": (242, 196, 204), "olive": (112, 112, 60)}
+
+
+def page_colour(spec):
+    """The artboard's dominant fill, and whether it is a CHROMATIC colour."""
+    best = (0, None)
+
+    def walk(n):
+        nonlocal best
+        area = n["w"] * n["h"]
+        a = n.get("fill")
+        if a and a.get("a", 0) > 0.9 and area > best[0] and area > 200000:
+            best = (area, a["hex"].lstrip("#"))
+        # A page painted by a GRADIENT fill: take its first stop — the vivid
+        # blue Navigation page is exactly this, and the flat-fill walk saw
+        # only the dark artboard behind it.
+        g = n.get("gradient")
+        if g and g.get("stops") and area >= best[0] and area > 200000:
+            c = g["stops"][0].get("c") or {}
+            if c.get("hex"):
+                best = (area, c["hex"].lstrip("#"))
+        for c in n.get("children", []):
+            walk(c)
+    walk(spec)
+    if not best[1]:
+        return None, None
+    r, g, b = (int(best[1][i:i + 2], 16) for i in (0, 2, 4))
+    if max(r, g, b) - min(r, g, b) < 40:
+        return best[1], None
+    tok = min(GROUNDS, key=lambda k: sum((a - b) ** 2 for a, b in zip(GROUNDS[k], (r, g, b))))
+    return best[1], tok
 
 
 def judge_mode(spec):

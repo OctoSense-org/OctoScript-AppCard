@@ -2,16 +2,6 @@
 # model: atro-app
 theme atro_light
 
-view topbar Col(width: .fill, gap: 4) {
-  TextEyebrow(text: "Atro UI")
-  Row(width: .fill, align: .center) {
-    Icon(name: .chevron_left)
-    TextTitle(text: "2020", width: .fill)
-    Icon(name: .menu)
-    Icon(name: .bookmark)
-  }
-}
-
 view weekdays Grid(cols: 7) {
   TextEyebrow(text: "Mon")
   TextEyebrow(text: "tue")
@@ -22,52 +12,7 @@ view weekdays Grid(cols: 7) {
   TextEyebrow(text: "sun")
 }
 
-view aprilgrid Grid(cols: 7) {
-  Tile(label: "25", shape: .square)
-  Tile(label: "26", shape: .square)
-  Tile(label: "27", glyph: "•", shape: .square)
-  Tile(label: "28", shape: .square)
-  Tile(label: "29", shape: .square)
-  Tile(label: "30", shape: .square)
-  Tile(label: "1", glyph: "•", shape: .square)
-  Tile(label: "2", shape: .square)
-  Tile(label: "3", shape: .square)
-  Tile(label: "4", shape: .square)
-  Tile(label: "5", shape: .square)
-  Tile(label: "6", glyph: "••", shape: .square)
-  Tile(label: "7", shape: .square)
-  Tile(label: "8", shape: .square)
-  Tile(label: "9", shape: .square)
-  Tile(label: "10", shape: .square)
-  Tile(label: "11", glyph: "•", shape: .square)
-  Tile(label: "12", shape: .square)
-  Tile(label: "13", shape: .square)
-  Tile(label: "14", shape: .square)
-  Tile(label: "15", shape: .square)
-  Tile(label: "16", shape: .square)
-  Tile(label: "17", shape: .square)
-  Tile(label: "18", shape: .square)
-  Tile(label: "19", shape: .square)
-  Tile(label: "20", shape: .square)
-  Tile(label: "21", glyph: "••", shape: .square)
-  Tile(label: "22", shape: .square)
-  Tile(label: "23", shape: .square)
-  Tile(label: "24", glyph: "••", shape: .square)
-  Tile(label: "25", shape: .square)
-  Tile(label: "26", shape: .square)
-  Tile(label: "27", shape: .square)
-  Tile(label: "28", shape: .square)
-  Tile(label: "29", shape: .square)
-  Tile(label: "30", shape: .square)
-  Tile(label: "31", shape: .square)
-  Tile(label: "1", shape: .square)
-  Tile(label: "2", shape: .square)
-  Tile(label: "3", shape: .square)
-  Tile(label: "4", shape: .square)
-  Tile(label: "5", shape: .square)
-}
-
-view maygrid Grid(cols: 7) {
+view monthgrid Grid(cols: 7) {
   Tile(label: "25", shape: .square)
   Tile(label: "26", shape: .square)
   Tile(label: "27", glyph: "•", shape: .square)
@@ -113,10 +58,16 @@ view maygrid Grid(cols: 7) {
 }
 
 view root Surface(pad: .page) {
-  topbar
+  TextEyebrow(text: "Atro UI")
+  Row(width: .fill, align: .center) {
+    Icon(name: .arrow_left)
+    TextTitle(text: "2020", width: .fill)
+    Icon(name: .menu)
+    Icon(name: .bookmark)
+  }
   weekdays
   Band(text: "April")
-  aprilgrid
+  monthgrid
   Band(text: "May")
-  maygrid
+  monthgrid
 }

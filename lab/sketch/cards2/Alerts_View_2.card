@@ -1,65 +1,66 @@
 # level: L0
 # model: atro-app
+
 theme atro
 
-state p1 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
+view root Surface(pad: .page) {
+  topbar
+  Space()
+  hero
+  Space()
+  actions
+  Rule()
+  tabbar
+}
 
-view header Row(width: .fill, align: .center) {
+view topbar Row(width: .fill, align: .center) {
   TextEyebrow(text: "Atro UI")
   Col(width: .fill, align: .center) {
     TextTitle(text: "Inbox", width: .fit)
     TextCaption(text: "subtitle", width: .fit)
   }
-  Icon(name: .more)
 }
 
-view hero Col(align: .center, gap: 18, width: .fill) {
-  Icon(name: .edit, size: .hero)
+view hero Col(align: .center, gap: 20, width: .fill) {
+  Row(width: .fill, align: .center, gap: 18) {
+    Icon(name: .star, size: .tile)
+    Icon(name: .edit, size: .hero)
+    Icon(name: .star, size: .tile)
+  }
   TextTitle(text: "Start writing something new", width: .fit)
   TextBody(text: "Your device is not connect to internet, please make sure your connection is working.", width: .fill)
 }
 
-view actions Col(align: .center, gap: 16, width: .fill) {
+view actions Col(align: .center, gap: 20, width: .fill) {
   Chip(text: "New message", tone: .primary, width: .fill)
-  Panel {
-    Row(align: .center, gap: 10) {
-      TextCaption(text: "Connection error.", width: .fit)
-      TextCaption(text: "retry", width: .fit)
-    }
+  Row(width: .fill, align: .center, gap: 12) {
+    Chip(text: "Connection error.", tone: .danger)
+    Chip(text: "retry")
   }
 }
 
 view tabbar Row(width: .fill, align: .center) {
-  Col(align: .center, gap: 6, width: .fill) {
+  Col(width: .fill, align: .center, gap: 6) {
     Icon(name: .home, size: .tile)
     TextCaption(text: "item label", width: .fit)
   }
-  Col(align: .center, gap: 6, width: .fill) {
+  Col(width: .fill, align: .center, gap: 6) {
     Icon(name: .image, size: .tile)
     TextCaption(text: "item label", width: .fit)
   }
-  Col(align: .center, gap: 6, width: .fill) {
+  Col(width: .fill, align: .center, gap: 6) {
     Row(align: .center, gap: 4) {
       Icon(name: .chat, size: .tile)
       TextCaption(text: "10", width: .fit)
     }
     TextCaption(text: "item label", width: .fit)
   }
-  Col(align: .center, gap: 6, width: .fill) {
+  Col(width: .fill, align: .center, gap: 6) {
     Icon(name: .mail, size: .tile)
     TextCaption(text: "item label", width: .fit)
   }
-  Col(align: .center, gap: 6, width: .fill) {
+  Col(width: .fill, align: .center, gap: 6) {
     Icon(name: .menu, size: .tile)
     TextCaption(text: "item label", width: .fit)
   }
-}
-
-view root Surface(pad: .page) {
-  header
-  Space()
-  hero
-  Space()
-  actions
-  tabbar
 }

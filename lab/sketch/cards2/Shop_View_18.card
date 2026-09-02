@@ -6,20 +6,27 @@ state price1 { shape: text, initial: "$295" }
 state price2 { shape: text, initial: "$295" }
 state price3 { shape: text, initial: "$399" }
 state price4 { shape: text, initial: "$399" }
-state total  { shape: text, initial: "Total: $1312.00" }
 
-view steps Row(width: .fill, align: .center) {
-  Col(width: .fill, align: .center, gap: 4) {
-    Icon(name: .send, size: .tile)
+view steps Row(width: .fill, gap: 0) {
+  Col(width: .fill, align: .center, gap: 6) {
+    Icon(name: .check, size: .tile)
     TextCaption(text: "Delivery", width: .fit)
   }
-  Col(width: .fill, align: .center, gap: 4) {
+  Col(width: .fill, align: .center, gap: 6) {
     Icon(name: .check, size: .tile)
     TextCaption(text: "Confirmation", width: .fit)
   }
-  Col(width: .fill, align: .center, gap: 4) {
+  Col(width: .fill, align: .center, gap: 6) {
     Icon(name: .zap, size: .tile)
     TextCaption(text: "Payment", width: .fit)
+  }
+}
+
+view shipping Col(width: .fill, gap: 6) {
+  TextEyebrow(text: "Shipping")
+  Row(width: .fill, align: .center, gap: 10) {
+    TextBody(text: "Delivery is scheduled for today between 14:00 - 18:00 on 913 Bear Hill Street Flushing, NY 11354.", width: .fill)
+    Icon(name: .edit, size: .tile)
   }
 }
 
@@ -30,7 +37,7 @@ view items Col(width: .fill, gap: 14) {
       TextRow(text: "Grado Prestige SR325e", width: .fill)
       TextCaption(text: "Marshall puts out more than iconic...", width: .fill)
     }
-    Col(align: .center, gap: 2) {
+    Col(gap: 2) {
       TextCaption(text: "x1", width: .fit)
       TextValue(value: price1)
     }
@@ -41,7 +48,7 @@ view items Col(width: .fill, gap: 14) {
       TextRow(text: "Grado Prestige SR325e", width: .fill)
       TextCaption(text: "Marshall puts out more than iconic...", width: .fill)
     }
-    Col(align: .center, gap: 2) {
+    Col(gap: 2) {
       TextCaption(text: "x1", width: .fit)
       TextValue(value: price2)
     }
@@ -52,7 +59,7 @@ view items Col(width: .fill, gap: 14) {
       TextRow(text: "Bose Noise Cancelling 700", width: .fill)
       TextCaption(text: "Marshall puts out more than iconic...", width: .fill)
     }
-    Col(align: .center, gap: 2) {
+    Col(gap: 2) {
       TextCaption(text: "x1", width: .fit)
       TextValue(value: price3)
     }
@@ -63,7 +70,7 @@ view items Col(width: .fill, gap: 14) {
       TextRow(text: "Bose Noise Cancelling 700", width: .fill)
       TextCaption(text: "Marshall puts out more than iconic...", width: .fill)
     }
-    Col(align: .center, gap: 2) {
+    Col(gap: 2) {
       TextCaption(text: "x1", width: .fit)
       TextValue(value: price4)
     }
@@ -72,25 +79,23 @@ view items Col(width: .fill, gap: 14) {
 
 view root Surface(pad: .page) {
   TextEyebrow(text: "Atro UI")
-  Row(width: .fill, align: .center, gap: 10) {
+  Row(width: .fill, align: .center) {
     Icon(name: .arrow_left)
-    TextTitle(text: "Checkout", width: .fill)
+    Col(width: .fill, align: .center) {
+      TextTitle(text: "Checkout", width: .fit)
+    }
     Icon(name: .more)
   }
   steps
   Rule()
-  TextEyebrow(text: "Shipping")
+  shipping
   Row(width: .fill, align: .center, gap: 10) {
-    TextBody(text: "Delivery is scheduled for today between 14:00 - 18:00 on 913 Bear Hill Street Flushing, NY 11354.", width: .fill)
-    Icon(name: .edit)
-  }
-  Row(width: .fill, align: .center) {
-    TextTitle(text: "Order summary", width: .fill)
-    TextValue(value: total)
+    TextCaption(text: "Order summary", width: .fill)
+    TextRow(text: "Total: $1312.00", width: .fit)
   }
   items
   Space()
-  Row(width: .fill, align: .center) {
-    Chip(text: "Continue with payment", tone: .primary)
+  Col(width: .fill) {
+    Chip(text: "Continue with payment", tone: .primary, width: .fill)
   }
 }

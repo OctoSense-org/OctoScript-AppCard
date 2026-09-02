@@ -1,114 +1,96 @@
 # level: L0
 # model: atro-app
-
 theme atro_light
 
-view bar Row(width: .fill, align: .center) {
-  Icon(name: .arrow_left)
-  Col(width: .fill, align: .center) {
-    TextTitle(text: "Inbox", width: .fit)
-  }
-  Icon(name: .bookmark)
-}
-
-view people Row(width: .fill, align: .center, gap: 10) {
-  Col(align: .center, gap: 4) {
-    Avatar(text: "TC")
-    TextRow(text: "Tom Castle", width: .fit)
-    TextCaption(text: "Vonbury", width: .fit)
-  }
-  Col(align: .center, gap: 4) {
-    Avatar(text: "OS")
-    TextRow(text: "Olga Simon", width: .fit)
-    TextCaption(text: "Thaddeus", width: .fit)
-  }
-  Col(align: .center, gap: 4) {
-    Avatar(text: "MB")
-    TextRow(text: "Mary Briggs", width: .fit)
-    TextCaption(text: "Yundtfurt", width: .fit)
-  }
-  Col(align: .center, gap: 4) {
-    Avatar(text: "HS")
-    TextRow(text: "Hulda Schwartz", width: .fit)
-    TextCaption(text: "Nikoshire", width: .fit)
-  }
-  Col(align: .center, gap: 4) {
-    Avatar(text: "JE")
-    TextRow(text: "Jane Erickson", width: .fit)
-    TextCaption(text: "Port Golda", width: .fit)
+view people Col(width: .fill, gap: 8) {
+  Grid(cols: 5) {
+    Col(align: .center, gap: 4) { Avatar(text: "TC") TextRow(text: "Tom Castle", width: .fit) TextCaption(text: "Vonbury", width: .fit) }
+    Col(align: .center, gap: 4) { Avatar(text: "OS") TextRow(text: "Olga Simon", width: .fit) TextCaption(text: "Thaddeus", width: .fit) }
+    Col(align: .center, gap: 4) { Avatar(text: "MB") TextRow(text: "Mary Briggs", width: .fit) TextCaption(text: "Yundtfurt", width: .fit) }
+    Col(align: .center, gap: 4) { Avatar(text: "HS") TextRow(text: "Hulda Schwartz", width: .fit) TextCaption(text: "Nikoshire", width: .fit) }
+    Col(align: .center, gap: 4) { Avatar(text: "JE") TextRow(text: "Jane Erickson", width: .fit) TextCaption(text: "Port Golda", width: .fit) }
   }
 }
 
-view mail Col(width: .fill, gap: 10) {
+view mail Col(width: .fill, gap: 8) {
   Col(width: .fill, gap: 3) {
-    Row(width: .fill, align: .center) {
+    Row(width: .fill, align: .center, gap: 6) {
+      TextCaption(glyph: "◆")
       TextRow(text: "Mollie Stevenson", width: .fill)
-      TextCaption(text: "10:27AM", width: .fit)
+      TextCaption(text: "10:27AM")
     }
-    TextRow(text: "Interface design", width: .fill)
-    TextBody(text: "Since the advent of personal computers, many graphic designers have become involved in interface design, in an environment commonly referred to as a Graphical User Interface (GUI).", width: .fill)
+    TextBody(text: "Interface design", width: .fill)
+    TextCaption(text: "Since the advent of personal computers, many graphic designers have become involved in interface design.", width: .fill)
   }
   Rule()
   Col(width: .fill, gap: 3) {
-    Row(width: .fill, align: .center) {
+    Row(width: .fill, align: .center, gap: 6) {
+      TextCaption(glyph: "◆")
       TextRow(text: "Bernard Poole", width: .fill)
-      TextCaption(text: "09:32AM", width: .fit)
+      TextCaption(text: "09:32AM")
     }
-    TextRow(text: "Rapid application development", width: .fill)
-    TextBody(text: "Rapid application development (RAD) is a methodology in which a system designer produces prototypes for an end-user. The end-user reviews the prototype, and offers feedback on its suitability.", width: .fill)
+    TextBody(text: "Rapid application development", width: .fill)
+    TextCaption(text: "Rapid application development (RAD) is a methodology in which a system designer produces prototypes for an end-user.", width: .fill)
   }
   Rule()
   Col(width: .fill, gap: 3) {
-    Row(width: .fill, align: .center) {
+    Row(width: .fill, align: .center, gap: 6) {
+      TextCaption(glyph: "◆")
       TextRow(text: "Mattie Keller", width: .fill)
-      TextCaption(text: "06:07AM", width: .fit)
+      TextCaption(text: "06:07AM")
     }
-    TextRow(text: "Architectural design", width: .fill)
-    TextBody(text: "The architectural design of a system emphasizes the design of the system architecture that describes the structure, behavior and more views of that system and analysis.", width: .fill)
+    TextBody(text: "Architectural design", width: .fill)
+    TextCaption(text: "The architectural design of a system emphasizes the design of the system architecture that describes the structure.", width: .fill)
   }
   Rule()
   Col(width: .fill, gap: 3) {
-    Row(width: .fill, align: .center) {
+    Row(width: .fill, align: .center, gap: 6) {
+      TextCaption(glyph: "◆")
       TextRow(text: "Ernest Griffith", width: .fill)
-      TextCaption(text: "11:32PM", width: .fit)
+      TextCaption(text: "11:32PM")
     }
-    TextRow(text: "Digital technology", width: .fill)
-    TextBody(text: "MIDI and digital audio technology have contributed to the evolution of sound production techniques in the 1980s and 1990s.", width: .fill)
+    TextBody(text: "Digital technology", width: .fill)
+    TextCaption(text: "MIDI and digital audio technology have contributed to the evolution of sound production techniques in the 1980s.", width: .fill)
   }
   Rule()
   Col(width: .fill, gap: 3) {
-    Row(width: .fill, align: .center) {
+    Row(width: .fill, align: .center, gap: 6) {
+      TextCaption(glyph: "◆")
       TextRow(text: "Madge Hunt", width: .fill)
-      TextCaption(text: "07:36PM", width: .fit)
+      TextCaption(text: "07:36PM")
     }
-    TextRow(text: "Information architecture", width: .fill)
-    TextBody(text: "Information architecture (IA) is the structural design of shared information environments; the art and science of organizing and labelling websites, intranets and online communities.", width: .fill)
+    TextBody(text: "Information architecture", width: .fill)
+    TextCaption(text: "Information architecture (IA) is the structural design of shared information environments, the art and science of organizing.", width: .fill)
   }
   Rule()
   Col(width: .fill, gap: 3) {
-    Row(width: .fill, align: .center) {
+    Row(width: .fill, align: .center, gap: 6) {
+      TextCaption(glyph: "◆")
       TextRow(text: "Nelle Norris", width: .fill)
-      TextCaption(text: "03:31AM", width: .fit)
+      TextCaption(text: "03:31AM")
     }
-    TextRow(text: "Yes You Can", width: .fill)
-    TextBody(text: "As we grow, we do so in fits and starts, lurching forward then back, sometimes looking more like clowns than seekers.", width: .fill)
+    TextBody(text: "Yes You Can", width: .fill)
+    TextCaption(text: "As we grow, we do so in fits and starts, lurching forward then back, sometimes looking more like clowns than seekers.", width: .fill)
   }
   Rule()
   Col(width: .fill, gap: 3) {
-    Row(width: .fill, align: .center) {
+    Row(width: .fill, align: .center, gap: 6) {
+      TextCaption(glyph: "◆")
       TextRow(text: "Louise French", width: .fill)
-      TextCaption(text: "08:02PM", width: .fit)
+      TextCaption(text: "08:02PM")
     }
-    TextRow(text: "Why Re Invent The Light Bulb", width: .fill)
-    TextBody(text: "“It is not because things are difficult that we do not dare; it is because we do not dare that they are difficult.”", width: .fill)
+    TextBody(text: "Why Re Invent The Light Bulb", width: .fill)
+    TextCaption(text: "“It is not because things are difficult that we do not dare; it is because we do not dare that they are difficult.”", width: .fill)
   }
 }
 
 view root Surface(pad: .page) {
-  Col(width: .fill, gap: 12) {
-    bar
-    people
-    Rule()
-    mail
+  Row(width: .fill, align: .center) {
+    Icon(name: .arrow_left)
+    Col(width: .fill, align: .center) { TextTitle(text: "Inbox", width: .fit) }
+    Icon(name: .bookmark)
   }
+  people
+  mail
+  Fab(name: .send)
 }
