@@ -2,88 +2,79 @@
 # model: atro-app
 theme atro
 
-state bal1 { shape: text, initial: "$235.00" }
-state bal2 { shape: text, initial: "$12,929.05" }
-state bal3 { shape: text, initial: "$3,841.84" }
-
-view cardgreen Card(tint: .green) {
-  Col(width: .fill, gap: 16) {
-    Row(width: .fill) {
-      Col(width: .fill) {
-        TextHero(text: "card balance", value: bal1)
-      }
-      Icon(name: .settings, size: .tile)
-    }
-    TextRow(text: "3713 5878 2833 34195", width: .fill)
-    Row(width: .fill, gap: 40) {
-      Col(gap: 2) {
-        TextEyebrow(text: "Expire")
-        TextRow(text: "12/24", width: .fit)
-      }
-      Col(gap: 2) {
-        TextEyebrow(text: "CVV")
-        TextRow(text: "235", width: .fit)
-      }
-    }
-  }
-}
-
-view cardsilver Card(tint: .neutral) {
-  Col(width: .fill, gap: 16) {
-    Row(width: .fill) {
-      Col(width: .fill) {
-        TextHero(text: "card balance", value: bal2)
-      }
-      Icon(name: .settings, size: .tile)
-    }
-    TextRow(text: "5326 5149 4497 1577", width: .fill)
-    Row(width: .fill, gap: 40) {
-      Col(gap: 2) {
-        TextEyebrow(text: "Expire")
-        TextRow(text: "12/24", width: .fit)
-      }
-      Col(gap: 2) {
-        TextEyebrow(text: "CVV")
-        TextRow(text: "235", width: .fit)
-      }
-    }
-  }
-}
-
-view cardviolet Card(tint: .violet) {
-  Col(width: .fill, gap: 16) {
-    Row(width: .fill) {
-      Col(width: .fill) {
-        TextHero(text: "card balance", value: bal3)
-      }
-      Icon(name: .settings, size: .tile)
-    }
-    TextRow(text: "4485 0961 4849 8888", width: .fill)
-    Row(width: .fill, gap: 40) {
-      Col(gap: 2) {
-        TextEyebrow(text: "Expire")
-        TextRow(text: "12/24", width: .fit)
-      }
-      Col(gap: 2) {
-        TextEyebrow(text: "CVV")
-        TextRow(text: "235", width: .fit)
-      }
-    }
-  }
-}
+state b1 { shape: text, initial: "$235.00" }
+state b2 { shape: text, initial: "$12,929.05" }
+state b3 { shape: text, initial: "$3,841.84" }
 
 view root Surface(pad: .page) {
   Row(width: .fill, align: .center) {
     Icon(name: .menu)
-    Col(width: .fill, align: .center, gap: 2) {
+    Col(width: .fill, align: .center) {
       TextTitle(text: "My virtual cards", width: .fit)
-      TextCaption(text: "subtitle", width: .fit)
     }
-    Icon(name: .plus)
+    Icon(name: .more)
   }
-  Col(width: .fill, gap: 10) {
-    cardgreen
-    cardsilver
-    cardviolet
+  Card(tint: .green) {
+    Col(width: .fill, gap: 20) {
+      Row(width: .fill) {
+        Col(width: .fill) {
+          TextHero(text: "card balance", value: b1)
+        }
+        Icon(name: .settings, size: .tile)
+      }
+      TextRow(text: "3713 5878 2833 34195", width: .fill)
+      Row(width: .fill, gap: 40) {
+        Col(gap: 2) {
+          TextEyebrow(text: "Expire")
+          TextRow(text: "12/24", width: .fit)
+        }
+        Col(gap: 2) {
+          TextEyebrow(text: "CVV")
+          TextRow(text: "235", width: .fit)
+        }
+      }
+    }
+  }
+  Card(tint: .neutral) {
+    Col(width: .fill, gap: 20) {
+      Row(width: .fill) {
+        Col(width: .fill) {
+          TextHero(text: "card balance", value: b2)
+        }
+        Icon(name: .settings, size: .tile)
+      }
+      TextRow(text: "5326 5149 4497 1577", width: .fill)
+      Row(width: .fill, gap: 40) {
+        Col(gap: 2) {
+          TextEyebrow(text: "Expire")
+          TextRow(text: "12/24", width: .fit)
+        }
+        Col(gap: 2) {
+          TextEyebrow(text: "CVV")
+          TextRow(text: "235", width: .fit)
+        }
+      }
+    }
+  }
+  Card(tint: .pink) {
+    Col(width: .fill, gap: 20) {
+      Row(width: .fill) {
+        Col(width: .fill) {
+          TextHero(text: "card balance", value: b3)
+        }
+        Icon(name: .settings, size: .tile)
+      }
+      TextRow(text: "4485 0961 4849 8888", width: .fill)
+      Row(width: .fill, gap: 40) {
+        Col(gap: 2) {
+          TextEyebrow(text: "Expire")
+          TextRow(text: "12/24", width: .fit)
+        }
+        Col(gap: 2) {
+          TextEyebrow(text: "CVV")
+          TextRow(text: "235", width: .fit)
+        }
+      }
+    }
   }
 }

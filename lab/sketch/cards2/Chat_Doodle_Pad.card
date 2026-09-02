@@ -1,16 +1,10 @@
 # level: L0
 # model: atro-app
-
 theme atro
 
 state p1 { shape: text, initial: "http://127.0.0.1:8787/_ph.png" }
 
-view header Col(width: .fill, align: .center, gap: 2) {
-  TextTitle(text: "Isabelle Barker", width: .fit)
-  TextCaption(text: "subtitle", width: .fit)
-}
-
-view thread Col(width: .fill, gap: 10) {
+view chat Col(width: .fill, gap: 8) {
   Bubble(text: "Wannabe internet trailblazer. Devoted coffee scholar. Lifelong web evangelist. Zombie guru. Introvert. Certified music fanatic.", side: .me)
   TextCaption(text: "10:55", width: .fill)
   Bubble(text: "If you could have a superpower, what would you choose?", side: .them)
@@ -21,11 +15,14 @@ view thread Col(width: .fill, gap: 10) {
 }
 
 view root Surface(pad: .page) {
-  TextEyebrow(text: "Atro UI")
-  header
-  thread
+  Col(width: .fill, align: .center, gap: 2) {
+    TextTitle(text: "Isabelle Barker", width: .fit)
+    TextCaption(text: "subtitle", width: .fit)
+  }
+  chat
   Thumb(src: p1, shape: .hero)
-  Col(width: .fill, align: .center) {
-    Chip(text: "Send", tone: .primary, width: .fit)
+  Row(width: .fill, align: .center) {
+    Space()
+    Chip(text: "Send", tone: .primary)
   }
 }

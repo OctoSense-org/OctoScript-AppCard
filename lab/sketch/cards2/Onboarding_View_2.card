@@ -6,18 +6,12 @@ state p1 { shape: text, initial: "http://127.0.0.1:8787/07ba47471dcfb1cf35c1f1c3
 
 view root Surface(pad: .page) {
   TextEyebrow(text: "Atro UI")
-  Space()
   Thumb(src: p1, shape: .hero)
-  Col(align: .center, width: .fill, gap: 12) {
-    Row(align: .center, gap: 8) {
-      TextCaption(glyph: "—", width: .fit)
-      TextCaption(glyph: "—", width: .fit)
-      TextCaption(glyph: "—", width: .fit)
-      TextCaption(glyph: "—", width: .fit)
-    }
-    TextTitle(text: "Rule of thirds", width: .fit)
+  Col(align: .center, gap: 12, width: .fill) {
+    TextCaption(text: "—  —  —  —", width: .fit)
+    TextRow(text: "Rule of thirds", width: .fit)
     TextBody(text: "The rule of thirds states that an image is most pleasing when its subjects or regions are ...", width: .fit)
-    Chip(text: "→", tone: .primary)
+    Chip(text: "→", tone: .primary, width: .fit)
     TextCaption(text: "Already have an account? Sign In", width: .fit)
   }
 }

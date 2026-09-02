@@ -21,6 +21,12 @@ use std::fmt::Write as _;
 
 /// Render a tree as the DSL this repository's VM evaluates.
 pub fn to_dsl(root: &UiNode) -> String {
+    // `inkdark` containers force readable ink before anything is emitted.
+    let root = &{
+        let mut r = root.clone();
+        apply_inkdark(&mut r);
+        r
+    };
     let mut body = String::new();
     // Per document, not per process: the names must line up with THIS tree's maps.
     MAPS.with(|m| *m.borrow_mut() = (0, String::new()));
@@ -974,6 +980,28 @@ fn emit(node: &UiNode, out: &mut String, depth: usize) {
          on_click: || agent.notify({TAP_CHANNEL:?}, {{target: {target:?}}}) }}"
     );
     let _ = writeln!(out, "{pad}}}");
+}
+
+/// See `Attrs.inkdark`: a subtree whose container sets it gets near-black
+/// text throughout — the fill was the card's choice, the ink must survive it.
+fn apply_inkdark(n: &mut UiNode) {
+    if n.attrs.inkdark == Some(1) {
+        fn force(n: &mut UiNode) {
+            if n.kind == NodeKind::Text {
+                n.attrs.color = Some(0xff1c_1c22);
+            }
+            for c in &mut n.children {
+                force(c);
+            }
+        }
+        for c in &mut n.children {
+            force(c);
+        }
+    } else {
+        for c in &mut n.children {
+            apply_inkdark(c);
+        }
+    }
 }
 
 fn emit_widget(node: &UiNode, out: &mut String, depth: usize) {

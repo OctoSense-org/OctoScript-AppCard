@@ -1,52 +1,81 @@
 # level: L0
 # model: atro-app
+
 theme atro_light
 
 state p1 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
-state p2 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
-state p3 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
-state followers { shape: text, initial: "35k" }
-state stories { shape: text, initial: "315" }
-state following { shape: text, initial: "1931" }
+state s1 { shape: text, initial: "35k" }
+state s2 { shape: text, initial: "315" }
+state s3 { shape: text, initial: "1931" }
 
-view root Surface(pad: .page) {
-  Row(width: .fill, align: .center) {
-    Icon(name: .arrow_left)
+view profile Col(width: .fill, align: .center, gap: 8) {
+  Avatar(text: "MB")
+  Row(align: .center, gap: 4) {
+    TextCaption(text: "LIVE", width: .fit)
+    Icon(name: .video, size: .tile)
   }
-  Band(text: "")
-  Col(width: .fill, align: .center, gap: 8) {
-    Avatar(text: "MB")
-    Chip(text: "LIVE", width: .fit)
-    TextTitle(text: "Maria José Botín", width: .fit)
-    TextCaption(text: "Berlin, Germany", width: .fit)
-    TextBody(text: "Typical thinker. Incurable tv geek. Explorer. Friend of animals everywhere. Entrepreneur.", width: .fit)
-    Chip(text: "message", tone: .primary, width: .fit)
-  }
-  Rule()
-  stats
-  places
+  TextTitle(text: "Maria José Botín", width: .fit)
+  TextCaption(text: "Berlin, Germany", width: .fit)
+  TextBody(text: "Typical thinker. Incurable tv geek. Explorer. Friend of animals everywhere. Entrepreneur.", width: .fit)
+  Chip(text: "message", tone: .primary, width: .fit)
 }
 
-view stats Row(width: .fill, align: .center) {
-  Col(width: .fill, align: .center, gap: 4) {
-    TextStat(value: followers)
+view stats Grid(cols: 3) {
+  Col(align: .center, gap: 4) {
+    TextStat(value: s1)
     TextCaption(text: "Followers", width: .fit)
   }
-  Col(width: .fill, align: .center, gap: 4) {
-    TextStat(value: stories)
+  Col(align: .center, gap: 4) {
+    TextStat(value: s2)
     TextCaption(text: "Stories", width: .fit)
   }
-  Col(width: .fill, align: .center, gap: 4) {
-    TextStat(value: following)
+  Col(align: .center, gap: 4) {
+    TextStat(value: s3)
     TextCaption(text: "Following", width: .fit)
   }
 }
 
 view places Col(width: .fill, gap: 10) {
-  TextTitle(text: "Favourite places")
+  TextTitle(text: "Favourite places", width: .fit)
   Grid(cols: 3) {
     Thumb(src: p1, shape: .square)
-    Thumb(src: p2, shape: .square)
-    Thumb(src: p3, shape: .square)
+    Thumb(src: p1, shape: .square)
+    Thumb(src: p1, shape: .square)
   }
+}
+
+view tabbar Grid(cols: 5) {
+  Col(align: .center, gap: 4) {
+    Icon(name: .phone, size: .tile)
+    TextCaption(text: "item label", width: .fit)
+  }
+  Col(align: .center, gap: 4) {
+    Icon(name: .image, size: .tile)
+    TextCaption(text: "item label", width: .fit)
+  }
+  Col(align: .center, gap: 4) {
+    Row(align: .center, gap: 4) {
+      Icon(name: .chat, size: .tile)
+      TextCaption(text: "10", width: .fit)
+    }
+    TextCaption(text: "item label", width: .fit)
+  }
+  Col(align: .center, gap: 4) {
+    Icon(name: .mail, size: .tile)
+    TextCaption(text: "item label", width: .fit)
+  }
+  Col(align: .center, gap: 4) {
+    Icon(name: .menu, size: .tile)
+    TextCaption(text: "item label", width: .fit)
+  }
+}
+
+view root Surface(pad: .page) {
+  Band(text: "Atro UI")
+  profile
+  Rule()
+  stats
+  Rule()
+  places
+  tabbar
 }

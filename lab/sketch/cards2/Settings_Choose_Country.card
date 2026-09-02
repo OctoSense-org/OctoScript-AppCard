@@ -4,52 +4,22 @@ theme atro_light
 
 state q { shape: text, initial: "Find country" }
 
-view searchbar Row(width: .fill, align: .center, gap: 10) {
-  Icon(name: .search)
-  Field(placeholder: q)
-}
-
-view countries Col(width: .fill, gap: 26) {
-  Row(width: .fill, align: .center) {
-    TextRow(text: "Somalia", width: .fill)
-  }
-  Row(width: .fill, align: .center) {
-    TextRow(text: "Greenland", width: .fill)
-    TextCaption(glyph: "■")
-  }
-  Row(width: .fill, align: .center) {
-    TextRow(text: "Russian Federation", width: .fill)
-  }
-  Row(width: .fill, align: .center) {
-    TextRow(text: "Croatia", width: .fill)
-    TextCaption(glyph: "■")
-  }
-  Row(width: .fill, align: .center) {
-    TextRow(text: "Christmas Island", width: .fill)
-  }
-  Row(width: .fill, align: .center) {
-    TextRow(text: "Belgium", width: .fill)
-  }
-  Row(width: .fill, align: .center) {
-    TextRow(text: "Martinique", width: .fill)
-    TextCaption(glyph: "■")
-  }
-  Row(width: .fill, align: .center) {
-    TextRow(text: "San Marino", width: .fill)
-  }
-  Row(width: .fill, align: .center) {
-    TextRow(text: "Gibraltar", width: .fill)
-  }
-  Row(width: .fill, align: .center) {
-    TextRow(text: "Marshall Islands", width: .fill)
-  }
-  Row(width: .fill, align: .center) {
-    TextRow(text: "Martinique", width: .fill)
-  }
+view countries Col(width: .fill, gap: 24) {
+  TextRow(text: "Somalia", width: .fill)
+  TextRow(text: "Greenland", width: .fill)
+  TextRow(text: "Russian Federation", width: .fill)
+  TextRow(text: "Croatia", width: .fill)
+  TextRow(text: "Christmas Island", width: .fill)
+  TextRow(text: "Belgium", width: .fill)
+  TextRow(text: "Martinique", width: .fill)
+  TextRow(text: "San Marino", width: .fill)
+  TextRow(text: "Gibraltar", width: .fill)
+  TextRow(text: "Marshall Islands", width: .fill)
+  TextRow(text: "Martinique", width: .fill)
 }
 
 view root Surface(pad: .page) {
   Band(text: "Select country")
-  searchbar
+  Field(placeholder: q)
   countries
 }
