@@ -2,31 +2,35 @@
 # model: atro-app
 theme atro_light
 
-state query { shape: text, initial: "Find country" }
+state find_ph { shape: text, initial: "Find country" }
 
-view header Col(align: .center, width: .fill) {
-  TextEyebrow(text: "Atro UI")
-  TextTitle(text: "Select country", width: .fill)
-}
-
-view countries Col(width: .fill) {
-  Row(width: .fill) { TextRow(text: "Somalia", width: .fill) }
-  Row(width: .fill) { TextRow(text: "Greenland", width: .fill) }
-  Row(width: .fill) { TextRow(text: "Russian Federation", width: .fill) }
-  Row(width: .fill) { TextRow(text: "Croatia", width: .fill) }
-  Row(width: .fill) { TextRow(text: "Christmas Island", width: .fill) }
-  Row(width: .fill) { TextRow(text: "Belgium", width: .fill) }
-  Row(width: .fill) { TextRow(text: "Martinique", width: .fill) }
-  Row(width: .fill) { TextRow(text: "San Marino", width: .fill) }
-  Row(width: .fill) { TextRow(text: "Gibraltar", width: .fill) }
-  Row(width: .fill) { TextRow(text: "Marshall Islands", width: .fill) }
-  Row(width: .fill) { TextRow(text: "Martinique", width: .fill) }
+view countries Col(width: .fill, gap: 28) {
+  TextRow(text: "Somalia", width: .fill)
+  TextRow(text: "Greenland", width: .fill)
+  TextRow(text: "Russian Federation", width: .fill)
+  TextRow(text: "Croatia", width: .fill)
+  TextRow(text: "Christmas Island", width: .fill)
+  TextRow(text: "Belgium", width: .fill)
+  TextRow(text: "Martinique", width: .fill)
+  TextRow(text: "San Marino", width: .fill)
+  TextRow(text: "Gibraltar", width: .fill)
+  TextRow(text: "Marshall Islands", width: .fill)
+  TextRow(text: "Martinique", width: .fill)
 }
 
 view root Surface(pad: .page) {
-  Col(width: .fill) {
-    header
-    Field(placeholder: query)
-    countries
+  TextEyebrow(text: "Atro UI")
+  Row(width: .fill, align: .center) {
+    Icon(name: .chevron_left)
+    Col(width: .fill, align: .center) {
+      TextTitle(text: "Select country", width: .fit)
+    }
+    Icon(name: .chevron_down)
   }
+  Row(width: .fill, align: .center, gap: 10) {
+    Icon(name: .search)
+    Field(placeholder: find_ph, width: .fill)
+  }
+  Rule()
+  countries
 }

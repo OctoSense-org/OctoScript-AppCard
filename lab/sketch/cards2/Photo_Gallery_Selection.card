@@ -1,6 +1,5 @@
 # level: L0
 # model: atro-app
-
 theme atro_light
 
 state p1 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
@@ -16,42 +15,47 @@ state p10 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
 state p11 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
 state p12 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
 
-view header Col(width: .fill, align: .center) {
-  TextEyebrow(text: "Atro UI")
-  TextTitle(text: "Gallery")
+view topbar Row(width: .fill, align: .center) {
+  Icon(name: .arrow_left)
+  Col(width: .fill, align: .center) {
+    TextTitle(text: "Gallery", width: .fit)
+  }
+  Icon(name: .trash)
 }
 
-view mosaic Col(width: .fill) {
-  Grid(cols: 3) {
-    Thumb(src: p1)
-    Thumb(src: p2)
-    Thumb(src: p3)
-    Thumb(src: p4)
-    Thumb(src: p5)
-    Thumb(src: p6)
+view gridtop Grid(cols: 3) {
+  Thumb(src: p1, shape: .square)
+  Thumb(src: p2, shape: .square)
+  Thumb(src: p3, shape: .square)
+  Thumb(src: p4, shape: .square)
+  Thumb(src: p5, shape: .square)
+  Thumb(src: p6, shape: .square)
+}
+
+view mosaic Row(width: .fill, gap: 8) {
+  Col(width: .fill) {
+    Thumb(src: p7, shape: .hero)
   }
-  Row(width: .fill) {
-    Thumb(src: p7)
-    Col {
-      Thumb(src: p8)
-      Thumb(src: p9)
-    }
-  }
-  Grid(cols: 3) {
-    Thumb(src: p10)
-    Thumb(src: p11)
-    Thumb(src: p12)
+  Col(width: .fill, gap: 8) {
+    Thumb(src: p8, shape: .square)
+    Thumb(src: p9, shape: .square)
   }
 }
 
-view action Col(width: .fill, align: .center) {
+view gridbottom Grid(cols: 3) {
+  Thumb(src: p10, shape: .square)
+  Thumb(src: p11, shape: .square)
+  Thumb(src: p12, shape: .square)
+}
+
+view selectbar Row(width: .fill, align: .center) {
   Chip(text: "15 images selected", tone: .primary)
 }
 
 view root Surface(pad: .page) {
-  Col(width: .fill) {
-    header
-    mosaic
-    action
-  }
+  topbar
+  gridtop
+  mosaic
+  gridbottom
+  selectbar
 }

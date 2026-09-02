@@ -1,43 +1,71 @@
 # level: L0
 # model: atro-app
-
 theme atro_light
 
-state followers { shape: text, initial: "35k" }
-state stories   { shape: text, initial: "315" }
-state following { shape: text, initial: "1931" }
-
-view profile Col(align: .center, gap: .md, width: .fill) {
-  Avatar(text: "MB")
-  Chip(text: "LIVE", tone: .primary)
-  TextTitle(text: "Maria José Botín")
-  TextCaption(text: "Berlin, Germany")
-  TextBody(text: "Typical thinker. Incurable tv geek. Explorer. Friend of animals everywhere. Entrepreneur.", width: .fill)
-  Chip(text: "message", tone: .primary, width: .fill)
-}
+state p1 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
 
 view stats Grid(cols: 3) {
-  Tile(label: "Followers", value: followers)
-  Tile(label: "Stories", value: stories)
-  Tile(label: "Following", value: following)
+  Col(align: .center, gap: 2) {
+    TextTitle(text: "35k", width: .fit)
+    TextCaption(text: "Followers", width: .fit)
+  }
+  Col(align: .center, gap: 2) {
+    TextTitle(text: "315", width: .fit)
+    TextCaption(text: "Stories", width: .fit)
+  }
+  Col(align: .center, gap: 2) {
+    TextTitle(text: "1931", width: .fit)
+    TextCaption(text: "Following", width: .fit)
+  }
 }
 
-view places Col(gap: .sm, width: .fill) {
+view places Col(width: .fill, gap: 10) {
   TextTitle(text: "Favourite places", width: .fill)
   Grid(cols: 3) {
-    Card { }
-    Card { }
-    Card { }
+    Thumb(src: p1, shape: .square)
+    Thumb(src: p1, shape: .square)
+    Thumb(src: p1, shape: .square)
+  }
+}
+
+view tabbar Row(width: .fill, align: .center) {
+  Col(align: .center, gap: 2) {
+    Icon(name: .home, size: .tile)
+    TextCaption(text: "item label", width: .fit)
+  }
+  Col(align: .center, gap: 2) {
+    Icon(name: .search, size: .tile)
+    TextCaption(text: "item label", width: .fit)
+  }
+  Col(align: .center, gap: 2) {
+    TextCaption(text: "10", width: .fit)
+    Icon(name: .chat, size: .tile)
+    TextCaption(text: "item label", width: .fit)
+  }
+  Col(align: .center, gap: 2) {
+    Icon(name: .bell, size: .tile)
+    TextCaption(text: "item label", width: .fit)
+  }
+  Col(align: .center, gap: 2) {
+    Icon(name: .user, size: .tile)
+    TextCaption(text: "item label", width: .fit)
   }
 }
 
 view root Surface(pad: .page) {
+  Thumb(src: p1)
   Panel {
-    Col(gap: .lg, width: .fill) {
-      profile
-      stats
-      Rule()
-      places
+    Col(align: .center, gap: 6) {
+      Avatar(text: "MB")
+      TextCaption(text: "LIVE", glyph: "●", width: .fit)
+      TextTitle(text: "Maria José Botín", width: .fit)
+      TextCaption(text: "Berlin, Germany", width: .fit)
+      TextBody(text: "Typical thinker. Incurable tv geek. Explorer. Friend of animals everywhere. Entrepreneur.", width: .fit)
+      Chip(text: "message", tone: .primary)
     }
+    stats
+    places
   }
+  Space()
+  tabbar
 }
