@@ -573,8 +573,13 @@ fn sizing_of(kind: NodeKind, a: &Attrs, out: &mut String) {
     // The realized node carries a wide (≈16:9) box that squashed the poster;
     // emit the poster-shaped tile instead. A full-width backdrop (fillw) and a
     // sourceless placeholder fall through to normal sizing untouched.
+    // Only when the node arrives UNSIZED: the kit's thumb states its own box
+    // (wide row tile or square mosaic cell), and overriding it forced twelve
+    // gallery squares into a column of portraits.
     if kind == NodeKind::Image
         && a.fillw != Some(1)
+        && a.w.is_none()
+        && a.h.is_none()
         && a.src.as_deref().is_some_and(|s| !s.is_empty())
     {
         out.push_str(" width: 118 height: 177");

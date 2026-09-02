@@ -29,16 +29,23 @@ NAMES = ["Stats_Cards", "Settings_Choose_Country", "Shop_View_12", "Social_Feed_
 
 RULES = """You are writing a Splash L0 card. HARD RULES:
 - Header lines first: `# level: L0` and `# model: atro-app`, then `theme atro` (dark screens) or `theme atro_light` (light screens). The pack carries the kit's palette, Montserrat, radii and depth — never write a colour, size or file path.
-- Constructors (the ONLY ones): Surface(pad) Panel Card Col(align,gap,width) Row(width,align,gap) Grid(cols) Rule() Field(text,placeholder) Chip(text,active,tone,width) TextHero(text,value,unit) TextTitle(text,width) TextBody(text,width) TextRow(text,width) TextEyebrow(text) TextCaption(text,value,glyph,suffix,width) TextValue(value,unit,tint) TextStat(value,tint) Tile(label,value,unit) Thumb(src).
+- Constructors (the ONLY ones): Surface(pad) Panel Card Col(align,gap,width) Row(width,align,gap) Grid(cols) Rule() Space() Field(text,placeholder) Chip(text,active,tone,width) Icon(name,size) TextHero(text,value,unit) TextTitle(text,width) TextBody(text,width) TextRow(text,width) TextEyebrow(text) TextCaption(text,value,glyph,suffix,width) TextValue(value,unit,tint) TextStat(value,tint) Tile(label,value,unit) Thumb(src,shape).
 - Literal strings ARE allowed in text/placeholder/glyph args: TextTitle(text: "Savings"). Use the design's exact strings.
 - Tokens start with a dot: width: .fill, align: .center, pad: .page.
 - view root Surface(pad: .page) { ... } wraps everything. Views may be split: `view root ...` referencing `view sectionname Col(...) {...}` by bare name.
 - IMAGES: ONLY urls that appear in the digest may be used — NEVER invent one. IMAGE lines are real photos; MEDIA lines are the design's own grey placeholder tiles (galleries, feed media, thumbnails) — bind them exactly the same way. Pattern: declare `state pN { shape: text, initial: "<the url>" }` then `Thumb(src: pN)` where the image sits. A photo GRID (gallery, mosaic, feed media) is `Grid(cols: 3) { Thumb(src: p1) Thumb(src: p2) ... }`. A full-bleed hero image screen uses `view root Photo(src: p1, pad: .page) { ... }` instead of Surface. Small round person photos may be Avatar initials instead.
 - TYPE DISCIPLINE: TextHero is ONLY for the screen's one dominant number/word (a balance, a temperature). List items and names are TextRow; section headers are TextTitle; metadata is TextCaption. Never TextHero in a list.
 - MODE: match the design exactly — a white/light screen is `theme atro_light`, a dark one `theme atro`. Do not invert.
-- NO icons exist. For small marks you may use a unicode glyph inside TextCaption(glyph: "✓") — sparingly, monochrome symbols only, never emoji.
+- ICONS: Icon(name: .bell) — a closed set of ~50 semantic names rendered in the theme's icon font: activity alert arrow_down arrow_left arrow_right arrow_up bell bookmark calendar camera chat check chevron_down chevron_left chevron_right chevron_up clock close cloud edit filter heart home image info location lock mail map menu mic minus moon more phone play plus refresh search send settings share star sun trash user users video wifi zap. UNDERSCORES, never hyphens. Sizes: size: .row (default, inline), .tile (small/dim), .hero (large). Put the icon the design shows: row chevrons, header bells, search glasses, tab icons.
+- For rare marks with no Icon name you may use a unicode glyph inside TextCaption(glyph: "✓") — sparingly, monochrome symbols only, never emoji.
 - NEW capabilities you MUST use where the design does: Avatar(text: "TC") — a tinted initials circle for every avatar/person slot (write the initials yourself from the name); Chip(text: "...", tone: .primary) for the screen's CTA/primary button (renders as a filled accent pill); Card { ... } for CONTENT cards — in this pack a Card takes the kit's signature indigo gradient automatically (use Card for credit cards, feature tiles, hero blocks; use Panel for plain sections).
-- Composition tools you MUST use where the design does: a photo/media mosaic is Grid(cols: 2 or 3) of Thumb; a month calendar is Grid(cols: 7) of Tile(label: "1") cells; Grid(cols: N) for grids; Col(align: .center) for centered stacks; Chip(text: "...") for buttons/CTAs (they render as filled pills in this pack); Row { TextRow(text:.., width: .fill) TextValue(value: "..") } for label-left value-right rows; Rule() for dividers; Field(placeholder: "...") for inputs; Tile for small stat cells inside Grid.
+- Composition tools you MUST use where the design does: Grid(cols: N) for grids; Col(align: .center) for centered stacks; Chip(text: "...") for buttons/CTAs (they render as filled pills in this pack); Row { TextRow(text:.., width: .fill) TextValue(value: "..") } for label-left value-right rows; Rule() for dividers; Field(placeholder: "...") for inputs; Tile for small stat cells inside Grid.
+- FILL THE FRAME: the design is a full 375x812 phone screen and the card must own all of it. Space() is a flexible blank that absorbs leftover height. Put one before a bottom bar/action row to pin it to the bottom; put one above AND below a centered stack to center it vertically; place them between sparse sections to distribute. A screen whose content ends halfway with dead space below is WRONG — add Space() and size media generously until the frame is owned.
+- CENTERED HERO SCREENS (onboarding, empty states, success): view root Surface { <top bar if any> Space() Col(align: .center, gap: 10) { <art> <title> <body> } Space() Col(align: .center, width: .fill) { Chip(text: "<cta>", tone: .primary) } } — art, copy and CTA centered, CTA pinned to the bottom. INSIDE a centered Col every text takes width: .fit (a full-width text ignores centering).
+- CALENDAR month grid: Grid(cols: 7) { TextCaption(text: "1") TextCaption(text: "2") ... } — day cells are PLAIN TEXT captions, never Tile. Only the ONE selected day is a Chip or Tile. Weekday initials are a first Grid row of TextEyebrow.
+- PHOTO/MEDIA GRIDS use SQUARE cells: Thumb(src: pN, shape: .square) inside Grid(cols: 3). The bare Thumb default is a wide 16:9 list-row tile — use that beside row text, never in a mosaic.
+- APP BAR with a centered title: Row(width: .fill, align: .center) { Icon(name: .chevron_left) Col(width: .fill, align: .center) { TextTitle(text: "<title>", width: .fit) } Icon(name: .more) } — swap the two icons for what the design shows.
+- PROPORTION: keep every element at the design's scale. A list row is ONE compact row (Avatar + name/subtitle + a trailing compact Chip or Icon) — an action button inside a row is never full-width. Nothing may eat several design-rows of height.
 - Reproduce the DESIGN: same sections in the same order, same alignment, same grouping into panels, exact text. Do not invent content. Skip status bars, keyboards and iPhone chrome.
 Return ONLY the card source, no fences, no commentary."""
 
@@ -95,8 +102,8 @@ def validate(card_path):
 
 
 def author(name, round2_note=""):
-    spec = json.loads((HERE / "specs" / f"{name}.json").read_text())
-    target = HERE / "targets" / f"{name}.png"
+    spec = json.loads((HERE / "specs2" / f"{name}.json").read_text())
+    target = HERE / "targets2" / f"{name}.png"
     dig_file = HERE / "cards2" / f"{name}.digest.txt"
     dig_file.write_text(digest(spec))
     mode_hint = "light" if "light" in judge_mode(spec) else "dark"
@@ -122,24 +129,24 @@ def author(name, round2_note=""):
 
 
 def judge_mode(spec):
-    f = spec.get("fill")
-    # crude: use the artboard's own background name/colour cues via children scan
-    darks = lights = 0
+    # The single LARGEST opaque fill is the artboard background, and it alone
+    # decides. Counting big fills inverted every dark screen full of light
+    # cards: one dark background, five white panels, verdict "light".
+    best = (0, "dark")
 
     def walk(n):
-        nonlocal darks, lights
+        nonlocal best
         a = n.get("fill")
-        if a and a["a"] > 0.9 and n["w"] * n["h"] > 200000:
-            h = a["hex"].lstrip("#")
-            lum = int(h[0:2], 16) + int(h[2:4], 16) + int(h[4:6], 16)
-            if lum < 300:
-                darks += 1
-            elif lum > 600:
-                lights += 1
+        if a and a.get("a", 0) > 0.9:
+            area = n["w"] * n["h"]
+            if area > best[0] and area > 200000:
+                h = a["hex"].lstrip("#")
+                lum = int(h[0:2], 16) + int(h[2:4], 16) + int(h[4:6], 16)
+                best = (area, "dark" if lum < 384 else "light")
         for c in n.get("children", []):
             walk(c)
     walk(spec)
-    return "light" if lights >= darks else "dark"
+    return best[1]
 
 
 def main():
@@ -147,7 +154,7 @@ def main():
     (HERE / "cards2").mkdir(exist_ok=True)
     feedback = {}
     if "--round2" in sys.argv:
-        for l in (HERE / "xrail" / "strict2.jsonl").open():
+        for l in (HERE / "xrail" / "strict_live3.jsonl").open():
             r = json.loads(l)
             if r["design_match"] < 6:
                 feedback[r["screen"]] = r.get("worst", "")

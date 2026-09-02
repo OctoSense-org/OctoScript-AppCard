@@ -48,7 +48,7 @@ def window_id(pid=None):
     return None
 
 
-def shoot(dsl, out, palette=None, crop_bottom=90, data=None):
+def shoot(dsl, out, palette=None, crop_bottom=90, data=None, keep_pt=None):
     """`data` switches from pre-lowered DSL to the CARD path.
 
     SEED_CARD_FILE pushes DSL that was already lowered, with every colour baked
@@ -91,7 +91,14 @@ def shoot(dsl, out, palette=None, crop_bottom=90, data=None):
     # chrome, not design — judging them would compare the same strip every time.
     from PIL import Image
     im = Image.open(out)
-    im.crop((0, 0, im.width, im.height - crop_bottom * im.height // 780)).save(out)
+    if keep_pt is not None:
+        # An ABSOLUTE card height in logical points (windows are 375pt wide):
+        # the fidelity lane pins the card to a design frame and wants exactly
+        # that region, not a window-proportional guess at the chrome strip.
+        keep = min(im.height, round(keep_pt * im.width / 375))
+        im.crop((0, 0, im.width, keep)).save(out)
+    else:
+        im.crop((0, 0, im.width, im.height - crop_bottom * im.height // 780)).save(out)
     return True
 
 
