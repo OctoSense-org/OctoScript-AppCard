@@ -9,7 +9,7 @@ it reads the target image and a measured digest, writes against the full
 constructor list with the Atro pack available, and repairs against the checker's
 own diagnostics.
 
-Usage: author_cards.py [--only substr] [--round2]
+Usage: author_cards.py [--kit name] [--only substr] [--round2]
 """
 import json
 import pathlib
@@ -21,22 +21,23 @@ HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / "style-factory"))
 import batch_styles as B  # noqa: E402
 
+import kitconf  # noqa: E402
+
 SPLASH = pathlib.Path.home() / "home" / "Splash"
-NAMES = ["Stats_Cards", "Settings_Choose_Country", "Shop_View_12", "Social_Feed_1",
-         "Social_Contacts_2", "Shop_View_18", "Email_Mail_View_1", "Chat_Doodle_Pad",
-         "Alerts_View_2", "Navigation_View_9", "Onboarding_View_2", "Calendar_View_3",
-         "Profile_View_6", "Calendar_View_4", "Photo_Gallery_Selection"]
+KIT = kitconf.load(sys.argv[sys.argv.index("--kit") + 1]
+                   if "--kit" in sys.argv else "atro")
+NAMES = KIT["screens"]
 
 RULES = """You are writing a Splash L0 card. HARD RULES:
-- Header lines first: `# level: L0` and `# model: atro-app`, then `theme atro` (dark screens) or `theme atro_light` (light screens). The pack carries the kit's palette, Montserrat, radii and depth — never write a colour, size or file path.
+- Header lines first: `# level: L0` and `# model: {MODEL}`, then `theme {THEME}` (dark screens) or `theme {THEME_LIGHT}` (light screens). The pack carries the kit's palette, Montserrat, radii and depth — never write a colour, size or file path.
 - Constructors (the ONLY ones): Surface(pad) Panel Card Col(align,gap,width) Row(width,align,gap) Grid(cols) Rule() Space() Field(text,placeholder) Chip(text,active,tone,width) Icon(name,size) TextHero(text,value,unit) TextTitle(text,width) TextBody(text,width) TextRow(text,width) TextEyebrow(text) TextCaption(text,value,glyph,suffix,width) TextValue(value,unit,tint) TextStat(value,tint) Tile(label,value,unit) Thumb(src,shape).
 - Literal strings ARE allowed in text/placeholder/glyph args: TextTitle(text: "Savings"). Use the design's exact strings.
 - Tokens start with a dot: width: .fill, align: .center, pad: .page.
 - view root Surface(pad: .page) { ... } wraps everything. Views may be split: `view root ...` referencing `view sectionname Col(...) {...}` by bare name.
 - IMAGES: ONLY urls that appear in the digest may be used — NEVER invent one. IMAGE lines are real photos; MEDIA lines are the design's own grey placeholder tiles (galleries, feed media, thumbnails) — bind them exactly the same way. Pattern: declare `state pN { shape: text, initial: "<the url>" }` then `Thumb(src: pN)` where the image sits. A photo GRID (gallery, mosaic, feed media) is `Grid(cols: 3) { Thumb(src: p1) Thumb(src: p2) ... }`. A full-bleed hero image screen uses `view root Photo(src: p1, pad: .page) { ... }` instead of Surface. Small round person photos may be Avatar initials instead.
 - TYPE DISCIPLINE: TextHero is ONLY for the screen's one dominant number/word (a balance, a temperature). List items and names are TextRow; section headers are TextTitle; metadata is TextCaption. Never TextHero in a list.
-- MODE: match the design exactly — a white/light screen is `theme atro_light`, a dark one `theme atro`. Do not invert.
-- COLORED PAGE: when the page background is a strong colour (blue, violet, green...), add a ground axis after the theme: `theme atro ground navy` (dark-leaning colour) or `theme atro_light ground ivory` (light). Grounds: teal violet navy ivory sand terracotta wine forest slate paper cream midnight blush olive — pick the nearest to the design's page colour. The theme derives readable ink and panels on it automatically.
+- MODE: match the design exactly — a white/light screen is `theme {THEME_LIGHT}`, a dark one `theme {THEME}`. Do not invert.
+- COLORED PAGE: when the page background is a strong colour (blue, violet, green...), add a ground axis after the theme: `theme {THEME} ground navy` (dark-leaning colour) or `theme {THEME_LIGHT} ground ivory` (light). Grounds: teal violet navy ivory sand terracotta wine forest slate paper cream midnight blush olive — pick the nearest to the design's page colour. The theme derives readable ink and panels on it automatically.
 - ICONS: Icon(name: .bell) — a closed set of ~50 semantic names rendered in the theme's icon font: activity alert arrow_down arrow_left arrow_right arrow_up bell bookmark calendar camera chat check chevron_down chevron_left chevron_right chevron_up clock close cloud edit filter heart home image info location lock mail map menu mic minus moon more phone play plus refresh search send settings share star sun trash user users video wifi zap. UNDERSCORES, never hyphens. Sizes: size: .row (default, inline), .tile (small/dim), .hero (large). Put the icon the design shows: row chevrons, header bells, search glasses, tab icons.
 - For rare marks with no Icon name you may use a unicode glyph inside TextCaption(glyph: "✓") — sparingly, monochrome symbols only, never emoji.
 - NEW capabilities you MUST use where the design does: Avatar(text: "TC") — a tinted initials circle for every avatar/person slot (write the initials yourself from the name); Card { ... } for CONTENT cards — the pack's signature indigo gradient (credit cards, hero blocks). When the DESIGN's card is a different colour, name it: Card(tint: .green) { ... } — tint tokens: neutral green pink blue amber violet cyan red (soft pastel fill, ink stays dark). Use Panel for plain sections.
@@ -55,6 +56,10 @@ RULES = """You are writing a Splash L0 card. HARD RULES:
 - PROPORTION: keep every element at the design's scale. A list row is ONE compact row (Avatar + name/subtitle + a trailing compact Chip or Icon) — an action button inside a row is never full-width. Nothing may eat several design-rows of height.
 - Reproduce the DESIGN: same sections in the same order, same alignment, same grouping into panels, exact text. Do not invent content. Skip status bars, keyboards and iPhone chrome.
 Return ONLY the card source, no fences, no commentary."""
+
+RULES = (RULES.replace("{MODEL}", KIT["model"])
+         .replace("{THEME_LIGHT}", KIT["theme_light"])
+         .replace("{THEME}", KIT["theme"]))
 
 
 def digest(spec, budget=110):
@@ -109,14 +114,14 @@ def validate(card_path):
 
 
 def author(name, round2_note=""):
-    spec = json.loads((HERE / "specs2" / f"{name}.json").read_text())
-    target = HERE / "targets2" / f"{name}.png"
-    dig_file = HERE / "cards2" / f"{name}.digest.txt"
+    spec = json.loads((KIT["specs_dir"] / f"{name}.json").read_text())
+    target = KIT["targets_dir"] / f"{name}.png"
+    dig_file = KIT["cards_dir"] / f"{name}.digest.txt"
     dig_file.write_text(digest(spec))
     mode_hint = "light" if "light" in judge_mode(spec) else "dark"
     hexc, ground = page_colour(spec)
     ground_note = (f"The page background is a COLOUR (#{hexc}) — you MUST write the "
-                   f"theme line as `theme atro{'_light' if mode_hint == 'light' else ''} "
+                   f"theme line as `theme {KIT['theme_light'] if mode_hint == 'light' else KIT['theme']} "
                    f"ground {ground}` so the page carries that colour.\n") if ground else ""
     notes = (f"The screen reads as a {mode_hint} screen.\n{limits(spec)}"
              f"{ground_note}{round2_note}")
@@ -124,7 +129,7 @@ def author(name, round2_note=""):
               f"Read {dig_file} — the measured element digest (positions are @2x; "
               f"indentation = the design's own grouping).\n\n{RULES}\n\n{notes}")
     src = B.strip_fence(B.claude_text(prompt, timeout=600)).strip()
-    card = HERE / "cards2" / f"{name}.card"
+    card = KIT["cards_dir"] / f"{name}.card"
     card.write_text(src + "\n")
     ok, diags = validate(card)
     for attempt in range(2):
@@ -234,7 +239,7 @@ def judge_mode(spec):
 
 def main():
     only = sys.argv[sys.argv.index("--only") + 1] if "--only" in sys.argv else ""
-    (HERE / "cards2").mkdir(exist_ok=True)
+    KIT["cards_dir"].mkdir(exist_ok=True)
     feedback = {}
     if "--round2" in sys.argv:
         for l in (HERE / "xrail" / "strict_live4.jsonl").open():
