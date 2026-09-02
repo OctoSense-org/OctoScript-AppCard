@@ -242,10 +242,21 @@ def main():
     KIT["cards_dir"].mkdir(exist_ok=True)
     feedback = {}
     if "--round2" in sys.argv:
-        for l in (HERE / "xrail" / "strict_live4.jsonl").open():
-            r = json.loads(l)
-            if r["design_match"] < 6:
-                feedback[r["screen"]] = r.get("worst", "")
+        fb = HERE / KIT["feedback"]
+        if fb.exists():
+            for l in fb.open():
+                r = json.loads(l)
+                if r["design_match"] < 6:
+                    feedback[r["screen"]] = r.get("worst", "")
+        # The fill gate's findings ride along: a squeezed frame is the most
+        # common defect and the cheapest to state precisely.
+        gate = HERE / "xrail" / f"fill_{KIT['name']}_desktop.jsonl"
+        if gate.exists():
+            for l in gate.open():
+                g = json.loads(l)
+                if g.get("note"):
+                    prev = feedback.get(g["screen"], "")
+                    feedback[g["screen"]] = (prev + " ALSO: " + g["note"]).strip()
     for name in NAMES:
         if only and only not in name:
             continue
