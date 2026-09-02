@@ -1497,7 +1497,13 @@ fn pin_fullbleed_root_height(body: &str) -> String {
         .map(|r| root_open + 1 + r)
         .unwrap_or(body.len());
     let attrs = &body[root_open + 1..attr_end];
-    let fixed = format!("height: {FULLBLEED_FALLBACK_HEIGHT}");
+    // The seed-render harness treats the card as THE SCREEN: a Fill root
+    // means "the design frame", not the chat feed's tall fullbleed canvas.
+    let pin_h = std::env::var("MAKEPAD_SEED_L0_FILL_HEIGHT")
+        .ok()
+        .and_then(|v| v.parse::<u32>().ok())
+        .unwrap_or(FULLBLEED_FALLBACK_HEIGHT);
+    let fixed = format!("height: {pin_h}");
     let new_attrs = if attrs.contains("height: Fill") {
         attrs.replacen("height: Fill", &fixed, 1)
     } else if attrs.contains("height:Fill") {

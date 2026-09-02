@@ -4,9 +4,12 @@ is real language, so no override splice, which is itself the proof of step 1."""
 import json, os, pathlib, sys, time
 HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / "gates"))
-os.environ["GATE_WINDOW"] = "375x812"
+# The card is pinned to the 812pt design frame; the window is taller so the
+# app's chat chrome sits below the card instead of eating its bottom rows.
+os.environ["GATE_WINDOW"] = "375x906"
+os.environ["MAKEPAD_SEED_L0_FILL_HEIGHT"] = "812"
 import shoot
-shoot.SIZE = "375x812"
+shoot.SIZE = "375x906"
 OUT = HERE / "xrail2"; OUT.mkdir(exist_ok=True)
 # The kit's own photos, served to the cards. Cards carry the URLs as demo-data
 # state initials — the sanctioned slot — and the renderer fetches them like any
@@ -24,5 +27,5 @@ DATA = OUT / "data.json"; DATA.write_text(json.dumps({"env": {"locale": {}}}))
 for card in sorted((HERE / "cards2").glob("*.card")):
     png = OUT / f"{card.stem}.png"
     if png.exists(): continue
-    ok = shoot.shoot(card, png, None, data=DATA)
+    ok = shoot.shoot(card, png, None, data=DATA, keep_pt=818)
     print(card.stem, "ok" if ok else "FAILED", flush=True)
