@@ -1,0 +1,52 @@
+# level: L0
+# model: camo-app
+theme camo
+
+state hero { shape: text, initial: "http://127.0.0.1:8787/13a6b3cc248e1ee1af9468837ae16a751de1e540.png" }
+state p1 { shape: text, initial: "http://127.0.0.1:8787/424cd67a2bdee332d6e4efdd2927366976e5476f.png" }
+state p2 { shape: text, initial: "http://127.0.0.1:8787/1b6fca1cca75b97a012a582eefee946d1394fa9e.png" }
+state p3 { shape: text, initial: "http://127.0.0.1:8787/7f614057dba0caf337b0ec13b1f69623e7f20624.png" }
+state p4 { shape: text, initial: "http://127.0.0.1:8787/1b6fca1cca75b97a012a582eefee946d1394fa9e.png" }
+
+view masthead Col(width: .fill, gap: 8) {
+  Row(width: .fill, align: .start) {
+    Icon(name: .arrow_left)
+  }
+  Thumb(src: hero, shape: .hero)
+  TextTitle(text: "Money Heist", width: .fill)
+  TextCaption(text: "2017 ‧ Sensational ‧ 5 Season", width: .fill)
+  Row(width: .fill, align: .center, gap: 6) {
+    Icon(name: .star, size: .tile)
+    TextCaption(text: "8.2/10 (391k)", width: .fill)
+  }
+}
+
+view seasons Grid(cols: 2) {
+  Col(gap: 6) {
+    Thumb(src: p1, shape: .square)
+    TextRow(text: "Money Heist", width: .fill)
+    TextCaption(text: "Season 5 ‧ 5 Episodes", width: .fill)
+  }
+  Col(gap: 6) {
+    Thumb(src: p2, shape: .square)
+    TextRow(text: "Money Heist", width: .fill)
+    TextCaption(text: "Season 4 ‧ 9 Episodes", width: .fill)
+  }
+  Col(gap: 6) {
+    Thumb(src: p3, shape: .square)
+    TextRow(text: "Money Heist", width: .fill)
+    TextCaption(text: "Season 5 ‧ 5 Episodes", width: .fill)
+  }
+  Col(gap: 6) {
+    Thumb(src: p4, shape: .square)
+    TextRow(text: "Money Heist", width: .fill)
+    TextCaption(text: "Season 4 ‧ 9 Episodes", width: .fill)
+  }
+}
+
+view root Surface(pad: .page) {
+  Col(width: .fill, gap: 14) {
+    masthead
+    seasons
+  }
+}

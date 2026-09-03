@@ -1,36 +1,48 @@
 # level: L0
 # model: camo-app
-
 theme camo
 
 state p1 { shape: text, initial: "http://127.0.0.1:8787/765f07af62a5f4644988f9e29ac6071f11435db4.png" }
 state p2 { shape: text, initial: "http://127.0.0.1:8787/44676d5d91db51079b18bd536c9c19e63f23a504.png" }
-state hot100 { shape: text, initial: "100" }
-state camo200 { shape: text, initial: "200" }
 
-view training Col(width: .fill, gap: 10) {
+state hot_100  { shape: text, initial: "100" }
+state camo_200 { shape: text, initial: "200" }
+
+view root Surface(pad: .page) {
+  TextTitle(text: "Collections", width: .fill)
+  training
+  charts
+  soon
+  tabs
+}
+
+view training Col(width: .fill, gap: 8) {
   Row(width: .fill, align: .center) {
     TextTitle(text: "For Training", width: .fill)
     TextCaption(text: "See all", width: .fit)
   }
   Grid(cols: 2) {
     Col(width: .fill, gap: 6) {
-      Card(tint: .amber) {
-        Col(width: .fill, gap: 6) {
-          TextTitle(text: "Athletics", width: .fit)
+      Card {
+        Col(width: .fill, gap: 8) {
+          Row(width: .fill, align: .center) {
+            Col(width: .fill, align: .center) { TextTitle(text: "Athletics", width: .fit) }
+            Icon(name: .play, size: .tile)
+          }
           Thumb(src: p1)
-          Row(width: .fill, align: .center) { Icon(name: .play, size: .tile) }
         }
       }
       TextRow(text: "Playlists For Athletes", width: .fill)
       TextCaption(text: "Focus on accomplishing the goal", width: .fill)
     }
     Col(width: .fill, gap: 6) {
-      Card(tint: .amber) {
-        Col(width: .fill, gap: 6) {
-          TextTitle(text: "Jogging", width: .fit)
+      Card {
+        Col(width: .fill, gap: 8) {
+          Row(width: .fill, align: .center) {
+            Col(width: .fill, align: .center) { TextTitle(text: "Jogging", width: .fit) }
+            Icon(name: .play, size: .tile)
+          }
           Thumb(src: p1)
-          Row(width: .fill, align: .center) { Icon(name: .play, size: .tile) }
         }
       }
       TextRow(text: "Jogging", width: .fill)
@@ -39,69 +51,75 @@ view training Col(width: .fill, gap: 10) {
   }
 }
 
-view charts Col(width: .fill, gap: 10) {
+view charts Col(width: .fill, gap: 8) {
   Row(width: .fill, align: .center) {
     TextTitle(text: "Charts", width: .fill)
     TextCaption(text: "See all", width: .fit)
   }
   Grid(cols: 2) {
-    Card(tint: .amber) {
-      Col(align: .center, gap: 4) {
+    Card {
+      Col(width: .fill, align: .center, gap: 6) {
+        TextHero(value: hot_100)
         TextTitle(text: "The Hot 100", width: .fit)
-        TextStat(value: hot100)
         Chip(text: "View Chart")
       }
     }
-    Card(tint: .amber) {
-      Col(align: .center, gap: 4) {
+    Card {
+      Col(width: .fill, align: .center, gap: 6) {
+        TextHero(value: camo_200)
         TextTitle(text: "CaMo 200", width: .fit)
-        TextStat(value: camo200)
         Chip(text: "View Chart")
       }
     }
   }
 }
 
-view soon Col(width: .fill, gap: 10) {
+view soon Col(width: .fill, gap: 8) {
   Row(width: .fill, align: .center) {
     TextTitle(text: "Soon", width: .fill)
     TextCaption(text: "See all", width: .fit)
   }
   Grid(cols: 2) {
     Col(width: .fill, gap: 6) {
-      Thumb(src: p2)
-      Row(width: .fill, align: .center) { Icon(name: .play, size: .tile) }
-      TextRow(text: "Have a Great Day!", width: .fill)
+      Thumb(src: p2, shape: .square)
+      Row(width: .fill, align: .center) {
+        TextRow(text: "Have a Great Day!", width: .fill)
+        Icon(name: .play, size: .tile)
+      }
       TextCaption(text: "Feel great with these", width: .fill)
     }
     Col(width: .fill, gap: 6) {
-      Thumb(src: p2)
-      Row(width: .fill, align: .center) { Icon(name: .play, size: .tile) }
-      TextRow(text: "Alone Again", width: .fill)
+      Thumb(src: p2, shape: .square)
+      Row(width: .fill, align: .center) {
+        TextRow(text: "Alone Again", width: .fill)
+        Icon(name: .play, size: .tile)
+      }
       TextCaption(text: "Being alone (again) can be tough", width: .fill)
     }
   }
 }
 
 view tabs Panel {
-  Row(width: .fill, align: .center, gap: 18) {
-    Col(align: .center, gap: 4) { Icon(name: .home, size: .tile) TextCaption(text: "Item", width: .fit) }
-    Col(align: .center, gap: 4) { Icon(name: .search, size: .tile) TextCaption(text: "Item", width: .fit) }
-    Col(align: .center, gap: 4) { Icon(name: .play, size: .tile) TextCaption(text: "Item", width: .fit) }
-    Col(align: .center, gap: 4) { Icon(name: .heart, size: .tile) TextCaption(text: "Item", width: .fit) }
-    Col(align: .center, gap: 4) { Icon(name: .user, size: .tile) TextCaption(text: "Item", width: .fit) }
-  }
-}
-
-view root Surface(pad: .page) {
-  Col(width: .fill, gap: 16) {
-    Row(width: .fill, align: .center) {
-      TextTitle(text: "Collections", width: .fill)
-      Icon(name: .more)
+  Grid(cols: 5) {
+    Col(align: .center, gap: 4) {
+      Icon(name: .home, size: .tile)
+      TextCaption(text: "Item", width: .fit)
     }
-    training
-    charts
-    soon
-    tabs
+    Col(align: .center, gap: 4) {
+      Icon(name: .search, size: .tile)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, gap: 4) {
+      Icon(name: .play, size: .tile)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, gap: 4) {
+      Icon(name: .heart, size: .tile)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, gap: 4) {
+      Icon(name: .user, size: .tile)
+      TextCaption(text: "Item", width: .fit)
+    }
   }
 }

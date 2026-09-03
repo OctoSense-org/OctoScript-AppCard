@@ -1,0 +1,78 @@
+# level: L0
+# model: camo-app
+theme camo
+
+state p1 { shape: text, initial: "http://127.0.0.1:8787/1884a576e2fcaa8b5bb8c7e524edbb378bec2337.png" }
+state p2 { shape: text, initial: "http://127.0.0.1:8787/5fba4803fae6bf8a6794206dcc6b6bc1cfc64744.png" }
+state p3 { shape: text, initial: "http://127.0.0.1:8787/66d96c52c62c66c830a6b47853d99c124743b32a.png" }
+state p4 { shape: text, initial: "http://127.0.0.1:8787/486ccf0af4ab77e04ad9dfac49999cce2bdbd8b5.png" }
+state q { shape: text, initial: "Search for Name & Payments…" }
+state hot { shape: number, initial: 1 }
+
+view soon Col(width: .fill, gap: 8) {
+  Row(width: .fill, align: .center) {
+    TextTitle(text: "Soon", width: .fill)
+    TextCaption(text: "See all", width: .fit)
+  }
+  Grid(cols: 2) {
+    Panel {
+      Col(width: .fill, gap: 6) {
+        Thumb(src: p1, shape: .hero)
+        Chip(text: "15%", active: hot == 1, width: .fit)
+        TextCaption(text: "Adventure/Animation", width: .fill)
+        TextRow(text: "Into the Spider-Verse 2", width: .fill)
+      }
+    }
+    Panel {
+      Col(width: .fill, gap: 6) {
+        Thumb(src: p2, shape: .hero)
+        Chip(text: "15%", active: hot == 1, width: .fit)
+        TextCaption(text: "Action/Splash", width: .fill)
+        TextRow(text: "John Wick: Chapter 4", width: .fill)
+      }
+    }
+  }
+}
+
+view now Col(width: .fill, gap: 8) {
+  Row(width: .fill, align: .center) {
+    TextTitle(text: "Now", width: .fill)
+    TextCaption(text: "See all", width: .fit)
+  }
+  Grid(cols: 2) {
+    Col(width: .fill, gap: 6) {
+      Thumb(src: p3, shape: .hero)
+      Chip(text: "15%", active: hot == 1, width: .fit)
+      TextCaption(text: "Action/Adventure", width: .fill)
+      TextRow(text: "Thor: Love and Thunder…", width: .fill)
+    }
+    Col(width: .fill, gap: 6) {
+      Thumb(src: p4, shape: .hero)
+      Chip(text: "15%", active: hot == 1, width: .fit)
+      TextCaption(text: "Action/Adventure", width: .fill)
+      TextRow(text: "Avatar 2 (2022)", width: .fill)
+    }
+  }
+}
+
+view root Surface(pad: .page) {
+  Col(width: .fill, gap: 10) {
+    Row(width: .fill, align: .center) {
+      Icon(name: .chevron_left)
+      Col(width: .fill, align: .center) {
+        TextTitle(text: "Movie", width: .fit)
+      }
+    }
+    Row(width: .fill, align: .center, gap: 8) {
+      Icon(name: .search)
+      Field(placeholder: q)
+    }
+    Row(width: .fill, gap: 10) {
+      Chip(text: "Comedy")
+      Chip(text: "Action")
+      Chip(text: "Family")
+    }
+    soon
+    now
+  }
+}

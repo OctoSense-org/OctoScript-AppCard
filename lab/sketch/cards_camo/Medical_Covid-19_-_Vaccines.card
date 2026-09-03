@@ -1,0 +1,103 @@
+# level: L0
+# model: camo-app
+
+theme camo_light
+
+state tab { shape: enum[first, second, third], initial: .second }
+
+state cases     { shape: text, initial: "44.199.496" }
+state doses     { shape: text, initial: "391M" }
+state vaxed     { shape: text, initial: "185M" }
+state pct       { shape: text, initial: "56,4%" }
+
+view topbar Row(width: .fill, align: .center, gap: 10) {
+  TextTitle(text: "Covid-19", width: .fill)
+  Icon(name: .info)
+  TextCaption(text: "Help", width: .fit)
+}
+
+view country Panel {
+  Row(width: .fill, align: .center, gap: 14) {
+    Avatar(text: "US")
+    TextRow(text: "United States", width: .fill)
+    TextValue(value: cases)
+  }
+}
+
+view mapcard Panel {
+  Col(align: .center, gap: 40, width: .fill) {
+    Row(width: .fill, align: .center, gap: 56) {
+      Icon(name: .location, size: .hero)
+      Icon(name: .location, size: .hero)
+    }
+    Icon(name: .map, size: .hero)
+    Row(width: .fill, align: .center, gap: 56) {
+      Icon(name: .location, size: .hero)
+      Icon(name: .location, size: .hero)
+    }
+  }
+}
+
+view tabs Col(width: .fill, gap: 14) {
+  Row(width: .fill, align: .center, gap: 8) {
+    Chip(text: "Case", active: tab == .first, width: .fill)
+    Chip(text: "Vaccines", active: tab == .second, width: .fill)
+    Chip(text: "New", active: tab == .third, width: .fill)
+  }
+  Rule()
+}
+
+view stats Col(width: .fill, gap: 22) {
+  TextTitle(text: "Vaccinations by Location", width: .fill)
+  Row(width: .fill, align: .center, gap: 12) {
+    Col(width: .fill, gap: 10) {
+      TextStat(value: doses)
+      TextCaption(text: "Doses Given", width: .fill)
+    }
+    Col(width: .fill, gap: 10) {
+      TextStat(value: vaxed)
+      TextCaption(text: "Vaccinated", width: .fill)
+    }
+    Col(width: .fill, gap: 10) {
+      TextStat(value: pct)
+      TextCaption(text: "% Vaccinated", width: .fill)
+    }
+  }
+}
+
+view tabbar Panel {
+  Row(width: .fill, align: .center, gap: 6) {
+    Col(width: .fill, align: .center, gap: 8) {
+      Icon(name: .home, size: .tile)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(width: .fill, align: .center, gap: 8) {
+      Icon(name: .search, size: .tile)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(width: .fill, align: .center, gap: 8) {
+      Icon(name: .activity, size: .tile)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(width: .fill, align: .center, gap: 8) {
+      Icon(name: .bell, size: .tile)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(width: .fill, align: .center, gap: 8) {
+      Icon(name: .user, size: .tile)
+      TextCaption(text: "Item", width: .fit)
+    }
+  }
+}
+
+view root Surface(pad: .page) {
+  Col(width: .fill, gap: 26) {
+    topbar
+    country
+    mapcard
+    tabs
+    stats
+  }
+  Space()
+  tabbar
+}

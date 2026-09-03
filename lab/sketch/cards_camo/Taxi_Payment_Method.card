@@ -1,0 +1,60 @@
+# level: L0
+# model: camo-app
+theme camo_light
+
+view header Row(width: .fill, align: .center) {
+  Icon(name: .chevron_left)
+  Col(width: .fill, align: .center) {
+    TextTitle(text: "Payment Method", width: .fit)
+  }
+}
+
+view methods Col(width: .fill, gap: 8) {
+  TextEyebrow(text: "PAYMENT METHOD")
+  Panel {
+    Row(width: .fill, align: .center, gap: 10) {
+      TextRow(text: "Cash", width: .fill)
+    }
+  }
+  Panel {
+    Row(width: .fill, align: .center, gap: 10) {
+      TextRow(text: "CaPay", width: .fill)
+    }
+  }
+}
+
+view addnew Col(width: .fill, gap: 8) {
+  TextEyebrow(text: "ADD NEW")
+  Grid(cols: 2) {
+    Panel {
+      Row(width: .fill, align: .center, gap: 8) {
+        Avatar(text: "VM")
+        TextRow(text: "Visa/Ma…", width: .fill)
+      }
+    }
+    Panel {
+      Row(width: .fill, align: .center, gap: 8) {
+        Avatar(text: "PP")
+        TextRow(text: "PayPal", width: .fill)
+      }
+    }
+    Panel {
+      Row(width: .fill, align: .center, gap: 8) {
+        Avatar(text: "CB")
+        TextRow(text: "Citibank", width: .fill)
+      }
+    }
+    Panel {
+      Row(width: .fill, align: .center, gap: 8) {
+        Avatar(text: "MZ")
+        TextRow(text: "Mizuho", width: .fill)
+      }
+    }
+  }
+}
+
+view root Surface(pad: .page) {
+  header
+  methods
+  addnew
+}

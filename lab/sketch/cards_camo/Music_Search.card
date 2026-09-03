@@ -1,0 +1,100 @@
+# level: L0
+# model: camo-app
+
+theme camo
+
+state qp  { shape: text, initial: "Search for songs, name…" }
+state seg { shape: bool, initial: true }
+
+view searchhead Col(width: .fill, gap: 18) {
+  Row(width: .fill, align: .center) {
+    TextTitle(text: "Search", width: .fill)
+    Icon(name: .more)
+  }
+  Panel {
+    Row(width: .fill, align: .center, gap: 14) {
+      Icon(name: .search)
+      Field(placeholder: qp)
+    }
+  }
+  Panel {
+    Row(width: .fill, align: .center, gap: 8) {
+      Chip(text: "Normal", width: .fill)
+      Chip(text: "Active", active: seg, width: .fill)
+    }
+  }
+}
+
+view recently Col(width: .fill, gap: 18) {
+  Row(width: .fill, align: .center) {
+    TextTitle(text: "Recently", width: .fill)
+    TextCaption(text: "Clear", width: .fit)
+  }
+  Row(width: .fill, align: .center, gap: 16) {
+    Avatar(text: "JB")
+    Col(width: .fill, gap: 6) {
+      TextRow(text: "Justin Bieber", width: .fill)
+      TextCaption(text: "Pop, R&B", width: .fill)
+    }
+  }
+  Row(width: .fill, align: .center, gap: 16) {
+    Avatar(text: "ST")
+    Col(width: .fill, gap: 6) {
+      TextRow(text: "Stay", width: .fill)
+      TextCaption(text: "The Kid LAROI, Justin Bieber", width: .fill)
+    }
+  }
+}
+
+view popular Col(width: .fill, gap: 18) {
+  TextTitle(text: "Popular", width: .fill)
+  Row(width: .fill, align: .center, gap: 16) {
+    Avatar(text: "ES")
+    Col(width: .fill, gap: 6) {
+      TextRow(text: "Ed Sheeran", width: .fill)
+      TextCaption(text: "Pop, Folk-pop, Hip Hop, Soft Ro…", width: .fill)
+    }
+  }
+  Row(width: .fill, align: .center, gap: 16) {
+    Avatar(text: "TW")
+    Col(width: .fill, gap: 6) {
+      TextRow(text: "The Weeknd", width: .fill)
+      TextCaption(text: "R&B, Pop, Electropop, Synth-Pop", width: .fill)
+    }
+  }
+}
+
+view tabbar Panel {
+  Row(width: .fill, align: .center) {
+    Col(align: .center, width: .fill, gap: 6) {
+      Icon(name: .home, size: .row)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, width: .fill, gap: 6) {
+      Icon(name: .search, size: .row)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, width: .fill, gap: 6) {
+      Icon(name: .heart, size: .row)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, width: .fill, gap: 6) {
+      Icon(name: .bookmark, size: .row)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, width: .fill, gap: 6) {
+      Icon(name: .user, size: .row)
+      TextCaption(text: "Item", width: .fit)
+    }
+  }
+}
+
+view root Surface(pad: .page) {
+  Col(width: .fill, gap: 22) {
+    searchhead
+    recently
+    popular
+  }
+  Space()
+  tabbar
+}

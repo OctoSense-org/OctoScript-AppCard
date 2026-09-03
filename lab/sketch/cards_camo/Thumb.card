@@ -1,0 +1,12 @@
+# level: L0
+# model: camo-app
+theme camo
+
+view root Surface(pad: .page) {
+  Space()
+  Row(width: .fill, align: .center, gap: 10) {
+    Avatar(text: "C")
+    TextHero(text: "CaMo 2")
+  }
+  Space()
+}

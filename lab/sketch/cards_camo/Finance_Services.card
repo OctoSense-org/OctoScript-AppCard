@@ -1,0 +1,92 @@
+# level: L0
+# model: camo-app
+theme camo
+
+state search_hint { shape: text, initial: "Search for Name & Payments…" }
+
+view appbar Row(width: .fill, align: .center) {
+  TextTitle(text: "Services", width: .fill)
+  Icon(name: .more)
+}
+
+view searchbar Panel {
+  Row(width: .fill, align: .center, gap: 14) {
+    Icon(name: .search)
+    Field(placeholder: search_hint, width: .fill)
+  }
+}
+
+view concerts Col(width: .fill, gap: 20) {
+  TextTitle(text: "Concerts", width: .fill)
+  Card {
+    Col(width: .fill, gap: 28) {
+      TextTitle(text: "People from the Future", width: .fill)
+      TextBody(text: "Is Time Travel, Especially Into the Past Possible?", width: .fill)
+    }
+  }
+}
+
+view food Col(width: .fill, gap: 24) {
+  Row(width: .fill, align: .center) {
+    TextTitle(text: "Food", width: .fill)
+    TextCaption(text: "See all", width: .fit)
+  }
+  Row(width: .fill, align: .center, gap: 16) {
+    Avatar(text: "MD")
+    Col(width: .fill, gap: 8) {
+      TextRow(text: "20%-40% Off", width: .fill)
+      TextCaption(text: "McDonald's", width: .fill)
+    }
+    Icon(name: .chevron_right)
+  }
+  Row(width: .fill, align: .center, gap: 16) {
+    Avatar(text: "PH")
+    Col(width: .fill, gap: 8) {
+      TextRow(text: "Cashback 15%", width: .fill)
+      TextCaption(text: "Pizza Hut", width: .fill)
+    }
+    Icon(name: .chevron_right)
+  }
+  Row(width: .fill, align: .center, gap: 16) {
+    Avatar(text: "KF")
+    Col(width: .fill, gap: 8) {
+      TextRow(text: "Discount 20%", width: .fill)
+      TextCaption(text: "KFC", width: .fill)
+    }
+    Icon(name: .chevron_right)
+  }
+}
+
+view tabbar Panel {
+  Grid(cols: 5) {
+    Col(align: .center, gap: 8) {
+      Icon(name: .home, size: .tile)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, gap: 8) {
+      Icon(name: .search, size: .tile)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, gap: 8) {
+      Icon(name: .send, size: .tile)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, gap: 8) {
+      Icon(name: .bell, size: .tile)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, gap: 8) {
+      Icon(name: .user, size: .tile)
+      TextCaption(text: "Item", width: .fit)
+    }
+  }
+}
+
+view root Surface(pad: .page) {
+  appbar
+  searchbar
+  concerts
+  food
+  Space()
+  tabbar
+}

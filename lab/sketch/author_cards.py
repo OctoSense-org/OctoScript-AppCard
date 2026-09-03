@@ -44,7 +44,7 @@ RULES = """You are writing a Splash L0 card. HARD RULES:
 - BUTTONS: `tone: .primary` is ONLY for the screen's ONE dominant CTA (a big filled pill). Every in-row / in-card / repeated button (Follow, Add, View) is a plain compact Chip(text: "Follow") — small, never full-width, never primary.
 - CARD GRIDS (contacts, products, features): Grid(cols: 2) { Panel { Col(align: .center, gap: 6) { Avatar(text: "IB") TextRow(text: "Isabelle Barker", width: .fit) TextCaption(text: "Kuala Lumpur", width: .fit) Chip(text: "Follow") } } ... } — one Panel per cell, contents centered.
 - Composition tools you MUST use where the design does: Grid(cols: N) for grids; Col(align: .center) for centered stacks; Chip(text: "...") for buttons/CTAs (they render as filled pills in this pack); Row { TextRow(text:.., width: .fill) TextValue(value: "..") } for label-left value-right rows; Rule() for dividers; Field(placeholder: "...") for inputs; Tile for small stat cells inside Grid.
-- FILL THE FRAME: the design is a full 375x812 phone screen and the card must own all of it — size media generously, keep lists complete. Space() is a flexible blank that absorbs leftover height, and it is ONLY for what the design shows: ONE before a bar/CTA the design pins at the screen floor, or one above AND below a centered hero on a sparse screen. A dense list/grid screen takes NO Space() at all — never put one between adjacent content sections; a giant vacuum in the middle of content is as wrong as dead space at the end.
+- FILL THE FRAME: the design is a full 375x812 phone screen and the card must own ALL of it. Reproduce EVERY row, tile and section the digest lists — down to the last line; a render whose content stops higher than the design's is rejected by a deterministic gate. Size media generously, keep lists complete. Space() is a flexible blank that absorbs leftover height, and it is ONLY for what the design shows: ONE before a bar/CTA the design pins at the screen floor, or one above AND below a centered hero on a sparse screen. A dense list/grid screen takes NO Space() at all — never put one between adjacent content sections; a giant vacuum in the middle of content is as wrong as dead space at the end.
 - CENTERED HERO SCREENS (onboarding, empty states, success): view root Surface { <top bar if any> Space() Col(align: .center, gap: 10) { <art> <title> <body> } Space() Col(align: .center, width: .fill) { Chip(text: "<cta>", tone: .primary) } } — art, copy and CTA centered, CTA pinned to the bottom. INSIDE a centered Col every text takes width: .fit (a full-width text ignores centering).
 - CALENDAR month grid: Grid(cols: 7) { Tile(label: "25", shape: .square) Tile(label: "27", glyph: "•", shape: .square) ... } — every day is one SQUARE Tile; a day with events carries glyph: "•" (or "••"). Weekday initials are a Grid(cols: 7) of TextEyebrow above.
 - SECTION BANDS: a full-bleed dark strip with a title (month headers, dark app-bar bands over a light page) is Band(text: "April") — never a Card or Panel.
@@ -62,7 +62,7 @@ RULES = (RULES.replace("{MODEL}", KIT["model"])
          .replace("{THEME}", KIT["theme"]))
 
 
-def digest(spec, budget=110):
+def digest(spec, budget=220):
     lines = []
 
     def walk(n, d):

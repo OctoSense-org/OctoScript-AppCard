@@ -1,0 +1,24 @@
+# level: L0
+# model: camo-app
+theme camo
+
+state p1 { shape: text, initial: "http://127.0.0.1:8787/420e57e6e25ee9efa270803f107360808ca029cd.png" }
+
+view root Surface(pad: .page) {
+  Row(width: .fill, align: .center) {
+    Icon(name: .chevron_left)
+    Col(width: .fill, align: .center) {
+      TextTitle(text: "My Appeals", width: .fit)
+    }
+  }
+  Space()
+  Col(align: .center, gap: 14, width: .fill) {
+    Thumb(src: p1, shape: .hero)
+    TextTitle(text: "You Have Not Left an Appeal to the Bank", width: .fit)
+    TextBody(text: "Postcards have been consistently one of he more popular collectibles and used as promotional materials", width: .fit)
+  }
+  Space()
+  Col(align: .center, width: .fill) {
+    Chip(text: "Ask a Chat Question", tone: .primary, width: .fill)
+  }
+}

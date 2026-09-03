@@ -1,0 +1,35 @@
+# level: L0
+# model: camo-app
+theme camo
+
+view profilelist Col(width: .fill, gap: 14) {
+  Row(width: .fill, align: .center, gap: 12) {
+    Avatar(text: "MP")
+    Col(width: .fill, gap: 4) {
+      TextRow(text: "Main Profile", width: .fill)
+      TextCaption(text: "Age limit 18+", width: .fill)
+    }
+  }
+  Rule()
+  Row(width: .fill, align: .center, gap: 12) {
+    Avatar(text: "MP")
+    Col(width: .fill, gap: 4) {
+      TextRow(text: "Main Profile", width: .fill)
+      TextCaption(text: "Age limit 12+", width: .fill)
+    }
+  }
+}
+
+view root Surface(pad: .page) {
+  Row(width: .fill, align: .center) {
+    Icon(name: .chevron_left)
+    Col(width: .fill, align: .center) {
+      TextTitle(text: "Main Profile", width: .fit)
+    }
+  }
+  profilelist
+  Space()
+  Col(align: .center, width: .fill) {
+    Chip(text: "New Profile", tone: .primary)
+  }
+}

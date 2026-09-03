@@ -1,0 +1,47 @@
+# level: L0
+# model: camo-app
+theme camo_light
+
+state p1 { shape: text, initial: "http://127.0.0.1:8787/9fd0b28ca61790e9dec3d9e7c69eb95bcf8db609.png" }
+
+state city { shape: text, initial: "Hanoi" }
+state city_hint { shape: text, initial: "City" }
+state street { shape: text, initial: "Hai Ba Trung" }
+state street_hint { shape: text, initial: "Street" }
+state house { shape: text, initial: "02" }
+state house_hint { shape: text, initial: "House" }
+state flat { shape: text, initial: "02" }
+state flat_hint { shape: text, initial: "Flat" }
+
+view fields Col(width: .fill, gap: 24) {
+  Col(width: .fill, gap: 10) {
+    TextEyebrow(text: "City")
+    Field(text: city, placeholder: city_hint, width: .fill)
+  }
+  Col(width: .fill, gap: 10) {
+    TextEyebrow(text: "Street")
+    Field(text: street, placeholder: street_hint, width: .fill)
+  }
+  Row(width: .fill, gap: 16) {
+    Col(width: .fill, gap: 10) {
+      TextEyebrow(text: "House")
+      Field(text: house, placeholder: house_hint, width: .fill)
+    }
+    Col(width: .fill, gap: 10) {
+      TextEyebrow(text: "Flat")
+      Field(text: flat, placeholder: flat_hint, width: .fill)
+    }
+  }
+}
+
+view root Surface(pad: .page) {
+  Col(width: .fill, align: .center, gap: 26) {
+    Thumb(src: p1, shape: .hero)
+    TextTitle(text: "Delivery Address", width: .fit)
+  }
+  fields
+  Space()
+  Col(width: .fill, align: .center) {
+    Chip(text: "Select Adress", tone: .primary, width: .fill)
+  }
+}

@@ -1,0 +1,76 @@
+# level: L0
+# model: camo-app
+theme camo_light
+
+view list Col(width: .fill, gap: 36) {
+  Row(width: .fill, align: .center, gap: 16) {
+    Icon(name: .user, size: .hero)
+    TextRow(text: "Infomation", width: .fill)
+    Icon(name: .chevron_right, size: .tile)
+  }
+  Row(width: .fill, align: .center, gap: 16) {
+    Icon(name: .zap, size: .hero)
+    TextRow(text: "Calories", width: .fill)
+    Icon(name: .chevron_right, size: .tile)
+  }
+  Row(width: .fill, align: .center, gap: 16) {
+    Icon(name: .heart, size: .hero)
+    TextRow(text: "Heart", width: .fill)
+    Icon(name: .chevron_right, size: .tile)
+  }
+  Row(width: .fill, align: .center, gap: 16) {
+    Icon(name: .activity, size: .hero)
+    TextRow(text: "Activity", width: .fill)
+    Icon(name: .chevron_right, size: .tile)
+  }
+  Row(width: .fill, align: .center, gap: 16) {
+    Icon(name: .calendar, size: .hero)
+    TextRow(text: "Cycle Tracking", width: .fill)
+    Icon(name: .chevron_right, size: .tile)
+  }
+  Row(width: .fill, align: .center, gap: 16) {
+    Icon(name: .plus, size: .hero)
+    TextRow(text: "Medication", width: .fill)
+    Icon(name: .chevron_right, size: .tile)
+  }
+  Row(width: .fill, align: .center, gap: 16) {
+    Icon(name: .moon, size: .hero)
+    TextRow(text: "Sleep", width: .fill)
+    Icon(name: .chevron_right, size: .tile)
+  }
+}
+
+view tabs Panel {
+  Row(width: .fill, align: .center) {
+    Col(align: .center, width: .fill, gap: 6) {
+      Icon(name: .home)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, width: .fill, gap: 6) {
+      Icon(name: .activity)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, width: .fill, gap: 6) {
+      Icon(name: .heart)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, width: .fill, gap: 6) {
+      Icon(name: .bell)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, width: .fill, gap: 6) {
+      Icon(name: .user)
+      TextCaption(text: "Item", width: .fit)
+    }
+  }
+}
+
+view root Surface(pad: .page) {
+  Row(width: .fill, align: .center) {
+    TextTitle(text: "Health", width: .fill)
+    Icon(name: .more)
+  }
+  list
+  Space()
+  tabs
+}

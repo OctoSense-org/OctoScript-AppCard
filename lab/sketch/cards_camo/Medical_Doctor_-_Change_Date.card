@@ -1,0 +1,88 @@
+# level: L0
+# model: camo-app
+
+theme camo_light
+
+state slot { shape: enum[s1000, s1200, s1230, s1300, s1400, s1430, s1600, s1830], initial: .s1000 }
+
+view topbar Row(width: .fill, align: .center) {
+  Icon(name: .chevron_left)
+  Col(width: .fill, align: .center) {
+    TextTitle(text: "Change Date", width: .fit)
+  }
+  Icon(name: .calendar)
+}
+
+view daygrid Grid(cols: 7) {
+  Tile(label: "1", shape: .square)
+  Tile(label: "2", shape: .square)
+  Tile(label: "3", shape: .square)
+  Tile(label: "4", shape: .square)
+  Tile(label: "5", shape: .square)
+  Tile(label: "6", shape: .square)
+  Tile(label: "7", shape: .square)
+  Tile(label: "8", shape: .square)
+  Tile(label: "9", shape: .square)
+  Tile(label: "10", shape: .square)
+  Tile(label: "11", glyph: "•", shape: .square)
+  Tile(label: "12", shape: .square)
+  Tile(label: "13", shape: .square)
+  Tile(label: "14", shape: .square)
+  Tile(label: "15", shape: .square)
+  Tile(label: "16", shape: .square)
+  Tile(label: "17", shape: .square)
+  Tile(label: "18", shape: .square)
+  Tile(label: "19", shape: .square)
+  Tile(label: "20", shape: .square)
+  Tile(label: "21", shape: .square)
+  Tile(label: "22", shape: .square)
+  Tile(label: "23", shape: .square)
+  Tile(label: "24", shape: .square)
+  Tile(label: "25", shape: .square)
+  Tile(label: "26", shape: .square)
+  Tile(label: "27", shape: .square)
+  Tile(label: "28", shape: .square)
+  Tile(label: "29", shape: .square)
+  Tile(label: "30", shape: .square)
+  Tile(label: "31", shape: .square)
+}
+
+view weekdays Grid(cols: 7) {
+  TextEyebrow(text: "Mon")
+  TextEyebrow(text: "Tue")
+  TextEyebrow(text: "Wed")
+  TextEyebrow(text: "Thu")
+  TextEyebrow(text: "Fri")
+  TextEyebrow(text: "Sat")
+  TextEyebrow(text: "Sun")
+}
+
+view times Grid(cols: 4) {
+  Chip(text: "10:00", active: slot == .s1000, width: .fill)
+  Chip(text: "12:00", active: slot == .s1200, width: .fill)
+  Chip(text: "12:30", active: slot == .s1230, width: .fill)
+  Chip(text: "13:00", active: slot == .s1300, width: .fill)
+  Chip(text: "14:00", active: slot == .s1400, width: .fill)
+  Chip(text: "14:30", active: slot == .s1430, width: .fill)
+  Chip(text: "16:00", active: slot == .s1600, width: .fill)
+  Chip(text: "18:30", active: slot == .s1830, width: .fill)
+}
+
+view daysection Col(width: .fill, gap: 22) {
+  TextTitle(text: "Choose Another Day", width: .fill)
+  daygrid
+  weekdays
+}
+
+view timesection Col(width: .fill, gap: 22) {
+  TextTitle(text: "Choose a Time", width: .fill)
+  times
+}
+
+view root Surface(pad: .page) {
+  topbar
+  daysection
+  timesection
+  Space()
+  Chip(text: "Save", tone: .primary, width: .fill)
+}

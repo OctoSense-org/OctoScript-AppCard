@@ -1,0 +1,112 @@
+# level: L0
+# model: camo-app
+theme camo_light
+
+view header Row(width: .fill, align: .center) {
+  TextTitle(text: "Doctors", width: .fill)
+  Icon(name: .menu)
+}
+
+view grid Grid(cols: 2) {
+  Panel {
+    Col(gap: 10) {
+      Icon(name: .cloud, size: .hero)
+      TextRow(text: "Allergist")
+      TextCaption(text: "+32 Doctors")
+    }
+  }
+  Panel {
+    Col(gap: 10) {
+      Icon(name: .star, size: .hero)
+      TextRow(text: "Dentist")
+      TextCaption(text: "+22 Doctors")
+    }
+  }
+  Panel {
+    Col(gap: 10) {
+      Icon(name: .zap, size: .hero)
+      TextRow(text: "Dermatologist")
+      TextCaption(text: "+532 Doctors")
+    }
+  }
+  Panel {
+    Col(gap: 10) {
+      Icon(name: .alert, size: .hero)
+      TextRow(text: "Epidemiologist")
+      TextCaption(text: "+2423 Doctors")
+    }
+  }
+  Panel {
+    Col(gap: 10) {
+      Icon(name: .activity, size: .hero)
+      TextRow(text: "Neurologist")
+      TextCaption(text: "+123 Doctors")
+    }
+  }
+  Panel {
+    Col(gap: 10) {
+      Icon(name: .refresh, size: .hero)
+      TextRow(text: "Oncologist")
+      TextCaption(text: "+879 Doctors")
+    }
+  }
+  Panel {
+    Col(gap: 10) {
+      Icon(name: .user, size: .hero)
+      TextRow(text: "Pediatrician")
+      TextCaption(text: "+675 Doctors")
+    }
+  }
+  Panel {
+    Col(gap: 10) {
+      Icon(name: .users, size: .hero)
+      TextRow(text: "Therpapist")
+      TextCaption(text: "+135 Doctors")
+    }
+  }
+  Panel {
+    Col(gap: 10) {
+      Icon(name: .user, size: .hero)
+      TextRow(text: "Pediatrician")
+      TextCaption(text: "+675 Doctors")
+    }
+  }
+  Panel {
+    Col(gap: 10) {
+      Icon(name: .users, size: .hero)
+      TextRow(text: "Therpapist")
+      TextCaption(text: "+135 Doctors")
+    }
+  }
+}
+
+view tabbar Panel {
+  Row(width: .fill, align: .center) {
+    Col(align: .center, gap: 4, width: .fill) {
+      Icon(name: .home)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, gap: 4, width: .fill) {
+      Icon(name: .search)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, gap: 4, width: .fill) {
+      Icon(name: .calendar)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, gap: 4, width: .fill) {
+      Icon(name: .chat)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, gap: 4, width: .fill) {
+      Icon(name: .user)
+      TextCaption(text: "Item", width: .fit)
+    }
+  }
+}
+
+view root Surface(pad: .page) {
+  header
+  grid
+  tabbar
+}

@@ -1,0 +1,73 @@
+# level: L0
+# model: camo-app
+theme camo_light
+
+state seg { shape: enum[first, second, third], initial: .third }
+
+state hrv_bpm   { shape: text, initial: "98" }
+state avg_bpm   { shape: text, initial: "104" }
+state rest_bpm  { shape: text, initial: "99" }
+state pulse_bpm { shape: text, initial: "86" }
+
+view topbar Row(width: .fill, align: .center) {
+  Icon(name: .chevron_left)
+  Col(width: .fill, align: .center) {
+    TextTitle(text: "Heart", width: .fit)
+  }
+  Icon(name: .user)
+}
+
+view segments Panel {
+  Row(width: .fill, align: .center, gap: 8) {
+    Chip(text: "Normal", active: seg == .first, width: .fill)
+    Chip(text: "Normal", active: seg == .second, width: .fill)
+    Chip(text: "Active", active: seg == .third, width: .fill)
+  }
+}
+
+view metrics Grid(cols: 2) {
+  Panel {
+    Col(width: .fill, gap: 26) {
+      Icon(name: .heart, size: .hero)
+      TextValue(value: hrv_bpm, unit: "bpm")
+      TextCaption(text: "Heart Heart Variability", width: .fill)
+      Icon(name: .arrow_right)
+    }
+  }
+  Panel {
+    Col(width: .fill, gap: 26) {
+      Icon(name: .heart, size: .hero)
+      TextValue(value: avg_bpm, unit: "bpm")
+      TextCaption(text: "Average Heart Rate", width: .fill)
+      Icon(name: .arrow_right)
+    }
+  }
+  Panel {
+    Col(width: .fill, gap: 26) {
+      Icon(name: .heart, size: .hero)
+      TextValue(value: rest_bpm, unit: "bpm")
+      TextCaption(text: "Pulse at Rest", width: .fill)
+      Icon(name: .arrow_right)
+    }
+  }
+  Panel {
+    Col(width: .fill, gap: 26) {
+      Icon(name: .heart, size: .hero)
+      TextValue(value: pulse_bpm, unit: "bpm")
+      TextCaption(text: "Pulse", width: .fill)
+      Icon(name: .arrow_right)
+    }
+  }
+}
+
+view root Surface(pad: .page) {
+  Col(width: .fill, gap: 24) {
+    topbar
+    segments
+    metrics
+  }
+  Space()
+  Col(width: .fill, align: .center) {
+    Chip(text: "More Heart", tone: .primary, width: .fill)
+  }
+}

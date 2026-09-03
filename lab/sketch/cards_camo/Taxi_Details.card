@@ -1,0 +1,59 @@
+# level: L0
+# model: camo-app
+theme camo_light
+
+state p1 { shape: text, initial: "http://127.0.0.1:8787/c06798a2f89299479b974443b62d5171ff231060.png" }
+state fare_car4 { shape: text, initial: "$49.00" }
+state fare_car7 { shape: text, initial: "$79.00" }
+state fare_taxi4 { shape: text, initial: "$39.00" }
+state pay { shape: enum[cash, promotion], initial: .cash }
+
+view fares Grid(cols: 3) {
+  Col(align: .center, gap: 4) {
+    TextValue(value: fare_car4)
+    TextCaption(text: "Car 4-seater", width: .fit)
+  }
+  Col(align: .center, gap: 4) {
+    TextValue(value: fare_car7)
+    TextCaption(text: "Car 7-seater", width: .fit)
+  }
+  Col(align: .center, gap: 4) {
+    TextValue(value: fare_taxi4)
+    TextCaption(text: "Taxi 4-seater", width: .fit)
+  }
+}
+
+view payments Grid(cols: 2) {
+  Panel {
+    Row(width: .fill, align: .center, gap: 10) {
+      Icon(name: .check, size: .tile)
+      Col(gap: 2) {
+        TextRow(text: "$49.00", width: .fit)
+        TextCaption(text: "Cash", width: .fit)
+      }
+    }
+  }
+  Panel {
+    Row(width: .fill, align: .center, gap: 10) {
+      TextCaption(glyph: "○")
+      Col(gap: 2) {
+        TextRow(text: "$49.00", width: .fit)
+        TextCaption(text: "CaPay", width: .fit)
+      }
+    }
+  }
+}
+
+view root Surface(pad: .page) {
+  Thumb(src: p1, shape: .hero)
+  fares
+  Row(width: .fill, align: .center, gap: 12) {
+    Chip(text: "CASH", active: pay == .cash)
+    Chip(text: "PROMOTION", active: pay == .promotion)
+  }
+  payments
+  Space()
+  Col(align: .center, width: .fill) {
+    Chip(text: "Book a Ride", tone: .primary)
+  }
+}

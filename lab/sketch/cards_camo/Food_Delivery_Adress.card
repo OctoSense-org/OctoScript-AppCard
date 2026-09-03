@@ -1,0 +1,30 @@
+# level: L0
+# model: camo-app
+theme camo_light
+
+state p1 { shape: text, initial: "http://127.0.0.1:8787/9fd0b28ca61790e9dec3d9e7c69eb95bcf8db609.png" }
+
+view topbar Row(width: .fill, align: .center) {
+  Icon(name: .chevron_left)
+  Col(width: .fill, align: .center) {
+    TextTitle(text: "Adress", width: .fit)
+  }
+  Row(align: .center, gap: 4) {
+    Icon(name: .location)
+    TextCaption(text: "Hanoi", width: .fit)
+  }
+}
+
+view actions Col(width: .fill, gap: 10) {
+  Row(width: .fill, align: .center, gap: 8) {
+    Icon(name: .location)
+    Chip(text: "Use Current Location", width: .fill)
+  }
+  Chip(text: "Select Adress", tone: .primary, width: .fill)
+}
+
+view root Photo(src: p1, pad: .page) {
+  topbar
+  Space()
+  actions
+}

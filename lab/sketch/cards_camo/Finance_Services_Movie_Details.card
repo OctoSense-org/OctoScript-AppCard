@@ -1,0 +1,27 @@
+# level: L0
+# model: camo-app
+theme camo
+
+state p1 { shape: text, initial: "http://127.0.0.1:8787/66d96c52c62c66c830a6b47853d99c124743b32a.png" }
+
+view appbar Row(width: .fill, align: .center) {
+  Icon(name: .chevron_left)
+  Col(width: .fill, align: .center) {
+    TextTitle(text: "Thor: Love and Thunder", width: .fit)
+  }
+}
+
+view details Col(width: .fill, gap: 10) {
+  TextTitle(text: "Thor: Love and Thunder", width: .fill)
+  TextCaption(text: "Action/Adventure", width: .fill)
+  TextBody(text: "Thor: Love and Thunder is an upcoming American superhero film based on the Marvel Comics character Thor, produced by Marvel Studios and distributed by Walt Disney Studios Motion Pictures.", width: .fill)
+}
+
+view root Surface(pad: .page) {
+  appbar
+  Thumb(src: p1, shape: .hero)
+  Row(width: .fill) {
+    Chip(text: "15%")
+  }
+  details
+}

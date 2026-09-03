@@ -2,79 +2,82 @@
 # model: camo-app
 theme camo
 
-state q { shape: text, initial: "Search for Name..." }
+state p1 { shape: text, initial: "http://127.0.0.1:8787/5446c50b566e1093416e2e14d3327d4c61db15e4.png" }
+state q { shape: text, initial: "Search for Name…" }
 
-view chats Col(width: .fill, gap: 14) {
-  Row(width: .fill, align: .center, gap: 12) {
-    Avatar(text: "CB")
-    Col(width: .fill, gap: 2) {
+view chats Col(width: .fill, gap: 20) {
+  Row(width: .fill, align: .center, gap: 14) {
+    Thumb(src: p1, shape: .square)
+    Col(width: .fill, gap: 8) {
       TextRow(text: "CaMo Bank", width: .fill)
       TextCaption(text: "Welcome to Chat", width: .fill)
     }
   }
-  Row(width: .fill, align: .center, gap: 12) {
-    Avatar(text: "AO")
-    Col(width: .fill, gap: 2) {
+  Row(width: .fill, align: .center, gap: 14) {
+    Thumb(src: p1, shape: .square)
+    Col(width: .fill, gap: 8) {
       TextRow(text: "Alberta Owens", width: .fill)
       TextCaption(text: "Hello Linh", width: .fill)
     }
     TextCaption(text: "5s", width: .fit)
   }
-  Row(width: .fill, align: .center, gap: 12) {
-    Avatar(text: "SG")
-    Col(width: .fill, gap: 2) {
+  Row(width: .fill, align: .center, gap: 14) {
+    Thumb(src: p1, shape: .square)
+    Col(width: .fill, gap: 8) {
       TextRow(text: "Stanley Graham", width: .fill)
       TextCaption(text: "Good Morning", width: .fill)
     }
     TextCaption(text: "24 mins", width: .fit)
   }
-  Row(width: .fill, align: .center, gap: 12) {
-    Avatar(text: "AO")
-    Col(width: .fill, gap: 2) {
+  Row(width: .fill, align: .center, gap: 14) {
+    Thumb(src: p1, shape: .square)
+    Col(width: .fill, gap: 8) {
       TextRow(text: "Alberta Owens", width: .fill)
       TextCaption(text: "How are you", width: .fill)
     }
     TextCaption(text: "34 mins", width: .fit)
   }
-  Row(width: .fill, align: .center, gap: 12) {
-    Avatar(text: "AO")
-    Col(width: .fill, gap: 2) {
+  Row(width: .fill, align: .center, gap: 14) {
+    Thumb(src: p1, shape: .square)
+    Col(width: .fill, gap: 8) {
       TextRow(text: "Alberta Owens", width: .fill)
-      TextCaption(text: "I have transferred your ...", width: .fill)
+      TextCaption(text: "I have transferred your …", width: .fill)
     }
     TextCaption(text: "2 hours", width: .fit)
   }
-  Row(width: .fill, align: .center, gap: 12) {
-    Avatar(text: "AO")
-    Col(width: .fill, gap: 2) {
+  Row(width: .fill, align: .center, gap: 14) {
+    Thumb(src: p1, shape: .square)
+    Col(width: .fill, gap: 8) {
       TextRow(text: "Alberta Owens", width: .fill)
-      TextCaption(text: "Have you receive mone...", width: .fill)
+      TextCaption(text: "Have you receive mone…", width: .fill)
     }
     TextCaption(text: "23 Sep", width: .fit)
   }
 }
 
-view tabbar Col(width: .fill) {
-  Row(width: .fill, align: .center) {
-    Col(align: .center, width: .fill, gap: 4) {
-      Icon(name: .home, size: .tile)
-      TextCaption(text: "Item", width: .fit)
-    }
-    Col(align: .center, width: .fill, gap: 4) {
-      Icon(name: .search, size: .tile)
-      TextCaption(text: "Item", width: .fit)
-    }
-    Col(align: .center, width: .fill, gap: 4) {
-      Icon(name: .chat, size: .tile)
-      TextCaption(text: "Item", width: .fit)
-    }
-    Col(align: .center, width: .fill, gap: 4) {
-      Icon(name: .bell, size: .tile)
-      TextCaption(text: "Item", width: .fit)
-    }
-    Col(align: .center, width: .fill, gap: 4) {
-      Icon(name: .user, size: .tile)
-      TextCaption(text: "Item", width: .fit)
+view navbar Col(width: .fill) {
+  Card(tint: .neutral) {
+    Row(width: .fill, align: .center) {
+      Col(width: .fill, align: .center, gap: 6) {
+        Icon(name: .home, size: .tile)
+        TextCaption(text: "Item", width: .fit)
+      }
+      Col(width: .fill, align: .center, gap: 6) {
+        Icon(name: .search, size: .tile)
+        TextCaption(text: "Item", width: .fit)
+      }
+      Col(width: .fill, align: .center, gap: 6) {
+        Icon(name: .chat, size: .tile)
+        TextCaption(text: "Item", width: .fit)
+      }
+      Col(width: .fill, align: .center, gap: 6) {
+        Icon(name: .bell, size: .tile)
+        TextCaption(text: "Item", width: .fit)
+      }
+      Col(width: .fill, align: .center, gap: 6) {
+        Icon(name: .user, size: .tile)
+        TextCaption(text: "Item", width: .fit)
+      }
     }
   }
 }
@@ -87,5 +90,5 @@ view root Surface(pad: .page) {
   Field(placeholder: q)
   chats
   Space()
-  tabbar
+  navbar
 }

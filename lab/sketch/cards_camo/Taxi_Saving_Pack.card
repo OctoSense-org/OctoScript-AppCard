@@ -1,0 +1,57 @@
+# level: L0
+# model: camo-app
+theme camo_light
+
+state on { shape: bool, initial: true }
+
+view topbar Row(width: .fill, align: .center) {
+  Icon(name: .chevron_left)
+  Col(width: .fill, align: .center) {
+    TextTitle(text: "Saving Pack", width: .fit)
+  }
+}
+
+view tabs Row(width: .fill, gap: 8) {
+  Chip(text: "Active", active: on, width: .fill)
+  Chip(text: "Normal", width: .fill)
+}
+
+view pack1 Panel {
+  Col(width: .fill, gap: 10) {
+    TextTitle(text: "Discount 20% (Only $2.99)", width: .fill)
+    Rule()
+    TextBody(text: "Save up to $9.99 (15 days)", width: .fill)
+    TextCaption(text: "20% (Up to $2.99) Car/Taxi x2", glyph: "✓", width: .fill)
+    Chip(text: "Buy this pack with $4.99", width: .fill)
+  }
+}
+
+view pack2 Panel {
+  Col(width: .fill, gap: 10) {
+    TextTitle(text: "CaMo Discount 20%", width: .fill)
+    Rule()
+    TextBody(text: "Save up to $19.99 (30 days)", width: .fill)
+    TextCaption(text: "20% (Up to $4.99) Car x5", glyph: "✓", width: .fill)
+    Chip(text: "Buy this pack with $9.99", width: .fill)
+  }
+}
+
+view pack3 Panel {
+  Col(width: .fill, gap: 10) {
+    TextTitle(text: "Discount 20% (Only $2.99)", width: .fill)
+    Rule()
+    TextBody(text: "Save up to $9.99 (15 days)", width: .fill)
+    TextCaption(text: "20% (Up to $2.99) Car/Taxi x2", glyph: "✓", width: .fill)
+    Chip(text: "Buy this pack with $4.99", width: .fill)
+  }
+}
+
+view root Surface(pad: .page) {
+  Col(width: .fill, gap: 14) {
+    topbar
+    tabs
+    pack1
+    pack2
+    pack3
+  }
+}

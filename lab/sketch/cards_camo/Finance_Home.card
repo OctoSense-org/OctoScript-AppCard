@@ -3,92 +3,116 @@
 theme camo
 
 state p1 { shape: text, initial: "http://127.0.0.1:8787/ad725d8f5c21c57030aac89d6072f9ca4d17da70.png" }
-state b1 { shape: text, initial: "$1050.99" }
-state b2 { shape: text, initial: "$1004.00" }
-state b3 { shape: text, initial: "$484.00" }
 
-view greeting Row(width: .fill, gap: 12) {
+state october_total { shape: text, initial: "$1050.99" }
+state card_one_bal  { shape: text, initial: "$1004.00" }
+state card_two_bal  { shape: text, initial: "$484.00" }
+
+view header Row(width: .fill, align: .center, gap: 12) {
   Avatar(text: "LN")
-  Col(width: .fill, gap: 2) {
-    TextEyebrow(text: "Good Morning")
+  Col(width: .fill, gap: 4) {
+    TextCaption(text: "Good Morning")
     TextRow(text: "Hi, Linh Nguyen", width: .fill)
   }
   Icon(name: .more)
 }
 
-view spending Card {
-  Col(width: .fill, gap: 12) {
-    Row(width: .fill) {
-      Col(width: .fill, gap: 2) {
-        TextEyebrow(text: "October Spending")
-        TextHero(value: b1)
+view spending Col(width: .fill) {
+  Card {
+    Col(width: .fill, gap: 22) {
+      Row(width: .fill, align: .center) {
+        Col(width: .fill, gap: 6) {
+          TextCaption(text: "October Spending")
+          TextHero(value: october_total)
+        }
+        TextCaption(text: "See all")
       }
-      TextCaption(text: "See all", width: .fit)
-    }
-    Row(width: .fill, gap: 12) {
-      Chip(text: "Deposit", width: .fill)
-      Chip(text: "Withdraw", width: .fill)
+      Row(width: .fill, align: .center, gap: 14) {
+        Chip(text: "Deposit")
+        Chip(text: "Withdraw")
+      }
     }
   }
 }
 
-view mycards Col(width: .fill, gap: 10) {
-  TextTitle(text: "My Cards", width: .fill)
-  Row(width: .fill, gap: 12) {
-    Card {
+view mycards Grid(cols: 2) {
+  Card {
+    Col(width: .fill, gap: 20) {
+      Row(width: .fill, align: .center) {
+        Icon(name: .zap, size: .tile)
+        Col(width: .fill, align: .center) { TextValue(value: card_one_bal) }
+      }
       Col(width: .fill, gap: 6) {
-        TextValue(value: b2)
-        TextCaption(text: "Linh Nguyen")
+        TextCaption(text: "Linh Nguyen", width: .fill)
         TextRow(text: "0000 **** **** 9999", width: .fill)
       }
     }
-    Card(tint: .amber) {
+  }
+  Card(tint: .violet) {
+    Col(width: .fill, gap: 20) {
+      Row(width: .fill, align: .center) {
+        Icon(name: .zap, size: .tile)
+        Col(width: .fill, align: .center) { TextValue(value: card_two_bal) }
+      }
       Col(width: .fill, gap: 6) {
-        TextValue(value: b3)
-        TextCaption(text: "Linh Nguyen")
+        TextCaption(text: "Linh Nguyen", width: .fill)
         TextRow(text: "1111 **** **** 8888", width: .fill)
       }
     }
   }
 }
 
-view offers Col(width: .fill, gap: 10) {
-  Row(width: .fill) {
-    TextTitle(text: "Top Offers", width: .fill)
-    TextCaption(text: "See all", width: .fit)
-  }
-  Panel {
-    Row(width: .fill, gap: 12) {
+view offers Col(width: .fill) {
+  Card(tint: .amber) {
+    Row(width: .fill, align: .center, gap: 16) {
       Thumb(src: p1, shape: .square)
-      Col(width: .fill, gap: 4) {
+      Col(width: .fill, gap: 10) {
         TextRow(text: "20%-40% Off", width: .fill)
-        TextCaption(text: "Flat Discount on Every purchase!")
+        TextCaption(text: "Flat Discount on Every purchase!", width: .fill)
         Row(gap: 14) {
-          TextCaption(text: "Food", width: .fit)
-          TextCaption(text: "15 Days", width: .fit)
+          TextCaption(text: "Food")
+          TextCaption(text: "15 Days")
         }
       }
     }
   }
 }
 
-view tabbar Panel {
+view navbar Panel {
   Grid(cols: 5) {
-    Col(align: .center, gap: 4) { Icon(name: .home, size: .tile) TextCaption(text: "Item", width: .fit) }
-    Col(align: .center, gap: 4) { Icon(name: .search, size: .tile) TextCaption(text: "Item", width: .fit) }
-    Col(align: .center, gap: 4) { Icon(name: .activity, size: .tile) TextCaption(text: "Item", width: .fit) }
-    Col(align: .center, gap: 4) { Icon(name: .bell, size: .tile) TextCaption(text: "Item", width: .fit) }
-    Col(align: .center, gap: 4) { Icon(name: .user, size: .tile) TextCaption(text: "Item", width: .fit) }
+    Col(align: .center, gap: 8) {
+      Icon(name: .home, size: .tile)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, gap: 8) {
+      Icon(name: .search, size: .tile)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, gap: 8) {
+      Icon(name: .activity, size: .tile)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, gap: 8) {
+      Icon(name: .bell, size: .tile)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, gap: 8) {
+      Icon(name: .user, size: .tile)
+      TextCaption(text: "Item", width: .fit)
+    }
   }
 }
 
 view root Surface(pad: .page) {
-  Col(width: .fill, gap: 18) {
-    greeting
-    spending
-    mycards
-    offers
+  header
+  spending
+  TextTitle(text: "My Cards", width: .fill)
+  mycards
+  Row(width: .fill, align: .center) {
+    TextTitle(text: "Top Offers", width: .fill)
+    TextCaption(text: "See all")
   }
+  offers
   Space()
-  tabbar
+  navbar
 }

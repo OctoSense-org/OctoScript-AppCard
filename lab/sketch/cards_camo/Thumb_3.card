@@ -1,0 +1,14 @@
+# level: L0
+# model: camo-app
+theme camo
+
+state count { shape: number, initial: 2 }
+
+view root Surface(pad: .page) {
+  Space()
+  Row(width: .fill, align: .center, gap: 40) {
+    Tile(label: "", shape: .square)
+    TextValue(value: count)
+  }
+  Space()
+}

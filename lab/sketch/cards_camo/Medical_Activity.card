@@ -1,83 +1,86 @@
 # level: L0
 # model: camo-app
+
 theme camo_light
 
-state seg { shape: text, initial: "Active" }
-state v1 { shape: text, initial: "98.00" }
-state v2 { shape: text, initial: "1204" }
-state v3 { shape: text, initial: "30.24" }
+state tab { shape: enum[first, second, third], initial: .third }
 
-view bar Row(width: .fill, align: .center) {
+state cyc_km   { shape: text, initial: "98.00" }
+state cyc_time { shape: text, initial: "50 min" }
+state cyc_cal  { shape: text, initial: "186 Cal" }
+
+state step_no   { shape: text, initial: "1204" }
+state step_time { shape: text, initial: "37 min" }
+state step_cal  { shape: text, initial: "328 Cal" }
+
+state run_km   { shape: text, initial: "30.24" }
+state run_time { shape: text, initial: "37 min" }
+state run_cal  { shape: text, initial: "328 Cal" }
+
+view topbar Row(width: .fill, align: .center) {
   Icon(name: .chevron_left)
   Col(width: .fill, align: .center) {
     TextTitle(text: "Activity", width: .fit)
   }
-  Icon(name: .user)
+  Icon(name: .more)
 }
 
-view tabs Row(width: .fill, gap: 6) {
-  Chip(text: "Normal", width: .fill, active: seg == "Normal")
-  Chip(text: "Normal", width: .fill, active: seg == "Normal")
-  Chip(text: "Active", width: .fill, active: seg == "Active")
+view tabs Panel {
+  Row(width: .fill, align: .center, gap: 8) {
+    Chip(text: "Normal", active: tab == .first, width: .fill)
+    Chip(text: "Normal", active: tab == .second, width: .fill)
+    Chip(text: "Active", active: tab == .third, width: .fill)
+  }
 }
 
 view cycling Panel {
-  Col(width: .fill, gap: 10) {
-    Row(width: .fill, align: .center) {
-      Icon(name: .activity)
+  Col(width: .fill, gap: 24) {
+    Row(width: .fill, align: .center, gap: 14) {
+      Icon(name: .activity, size: .hero)
       TextTitle(text: "Cycling", width: .fill)
       TextCaption(text: "October", width: .fit)
     }
-    TextValue(value: v1, unit: "Km")
-    Grid(cols: 2) {
-      TextCaption(text: "Time:")
-      TextCaption(text: "50 min")
-      TextCaption(text: "Calories burnt:")
-      TextCaption(text: "186 Cal")
+    TextValue(value: cyc_km, unit: "Km")
+    Col(width: .fill, gap: 10) {
+      TextCaption(text: "Time:", value: cyc_time, width: .fit)
+      TextCaption(text: "Calories burnt:", value: cyc_cal, width: .fit)
     }
-    Icon(name: .arrow_right)
   }
 }
 
 view steps Panel {
-  Col(width: .fill, gap: 10) {
-    Row(width: .fill, align: .center) {
-      Icon(name: .activity)
+  Col(width: .fill, gap: 24) {
+    Row(width: .fill, align: .center, gap: 14) {
+      Icon(name: .user, size: .hero)
       TextTitle(text: "Steps", width: .fill)
       TextCaption(text: "September", width: .fit)
     }
-    TextValue(value: v2, unit: "Steps")
-    Grid(cols: 2) {
-      TextCaption(text: "Time:")
-      TextCaption(text: "37 min")
-      TextCaption(text: "Calories burnt:")
-      TextCaption(text: "328 Cal")
+    TextValue(value: step_no, unit: "Steps")
+    Col(width: .fill, gap: 10) {
+      TextCaption(text: "Time:", value: step_time, width: .fit)
+      TextCaption(text: "Calories burnt:", value: step_cal, width: .fit)
     }
-    Icon(name: .arrow_right)
   }
 }
 
 view running Panel {
-  Col(width: .fill, gap: 10) {
-    Row(width: .fill, align: .center) {
-      Icon(name: .activity)
+  Col(width: .fill, gap: 24) {
+    Row(width: .fill, align: .center, gap: 14) {
+      Icon(name: .zap, size: .hero)
       TextTitle(text: "Ruuning", width: .fill)
       TextCaption(text: "September", width: .fit)
     }
-    TextValue(value: v3, unit: "Km")
-    Grid(cols: 2) {
-      TextCaption(text: "Time:")
-      TextCaption(text: "37 min")
-      TextCaption(text: "Calories burnt:")
-      TextCaption(text: "328 Cal")
+    TextValue(value: run_km, unit: "Km")
+    Col(width: .fill, gap: 10) {
+      TextCaption(text: "Time:", value: run_time, width: .fit)
+      TextCaption(text: "Calories burnt:", value: run_cal, width: .fit)
     }
-    Icon(name: .arrow_right)
   }
 }
 
 view root Surface(pad: .page) {
-  Col(width: .fill, gap: 12) {
-    bar
+  Col(width: .fill, gap: 14) {
+    topbar
     tabs
     cycling
     steps

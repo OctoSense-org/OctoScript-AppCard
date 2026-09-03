@@ -1,0 +1,46 @@
+# level: L0
+# model: camo-app
+theme camo
+
+state p1 { shape: text, initial: "http://127.0.0.1:8787/c7aab69313e0449719c7592bd22e07be494dc064.png" }
+
+view player Col(width: .fill, gap: 18) {
+  Row(width: .fill, align: .center, gap: 12) {
+    Col(width: .fill, gap: 6) {
+      TextTitle(text: "Deserve You", width: .fill)
+      TextRow(text: "Justin Bieber", width: .fill)
+    }
+    Icon(name: .heart)
+  }
+  Col(width: .fill, gap: 8) {
+    Rule()
+    Row(width: .fill, align: .center) {
+      TextCaption(text: "1:03", width: .fill)
+      TextCaption(text: "3:07", width: .fit)
+    }
+  }
+  Row(width: .fill, align: .center, gap: 20) {
+    Icon(name: .refresh, size: .tile)
+    Icon(name: .chevron_left)
+    Icon(name: .play, size: .hero)
+    Icon(name: .chevron_right)
+    Icon(name: .image, size: .tile)
+  }
+  Row(width: .fill, align: .center, gap: 12) {
+    Row(width: .fill, align: .center, gap: 8) {
+      Icon(name: .menu, size: .tile)
+      TextRow(text: "List songs", width: .fit)
+    }
+    Icon(name: .share, size: .tile)
+  }
+}
+
+view root Photo(src: p1, pad: .page) {
+  Row(width: .fill, align: .center) {
+    Icon(name: .chevron_left)
+    Col(width: .fill, align: .center) { TextTitle(text: "Justice", width: .fit) }
+    Icon(name: .more)
+  }
+  Space()
+  player
+}

@@ -1,0 +1,79 @@
+# level: L0
+# model: camo-app
+theme camo_light
+
+state phone { shape: text, initial: "999 999 999" }
+state city { shape: text, initial: "Hanoi, VN" }
+
+view root Surface(pad: .page) {
+  Col(width: .fill, gap: 30) {
+    TextTitle(text: "More", width: .fill)
+    Row(width: .fill, align: .center) {
+      TextTitle(text: "Profile", width: .fill)
+      Chip(text: "Edit")
+    }
+    Row(width: .fill, align: .center, gap: 12) {
+      Avatar(text: "LN")
+      Col(width: .fill, gap: 6) {
+        TextRow(text: "Linh Nguyen", width: .fill)
+        TextCaption(text: "Founder at CaDesign", width: .fill)
+      }
+      Icon(name: .chevron_right)
+    }
+    TextTitle(text: "General", width: .fill)
+    Col(width: .fill, gap: 44) {
+      Row(width: .fill, align: .center, gap: 12) {
+        Icon(name: .user)
+        TextRow(text: "Evgenily", width: .fill)
+        TextValue(value: phone)
+        Icon(name: .chevron_right)
+      }
+      Row(width: .fill, align: .center, gap: 12) {
+        Icon(name: .bookmark)
+        TextRow(text: "Preferences", width: .fill)
+        Icon(name: .chevron_right)
+      }
+      Row(width: .fill, align: .center, gap: 12) {
+        Icon(name: .location)
+        TextRow(text: "City", width: .fill)
+        TextValue(value: city)
+        Icon(name: .chevron_right)
+      }
+      Row(width: .fill, align: .center, gap: 12) {
+        Icon(name: .home)
+        TextRow(text: "Address", width: .fill)
+        Icon(name: .chevron_right)
+      }
+      Row(width: .fill, align: .center, gap: 12) {
+        Icon(name: .chat)
+        TextRow(text: "Chat", width: .fill)
+        Icon(name: .chevron_right)
+      }
+    }
+  }
+  Space()
+  Panel {
+    Row(width: .fill, align: .center) {
+      Col(align: .center, width: .fill, gap: 6) {
+        Icon(name: .home)
+        TextCaption(text: "Item", width: .fit)
+      }
+      Col(align: .center, width: .fill, gap: 6) {
+        Icon(name: .search)
+        TextCaption(text: "Item", width: .fit)
+      }
+      Col(align: .center, width: .fill, gap: 6) {
+        Icon(name: .heart)
+        TextCaption(text: "Item", width: .fit)
+      }
+      Col(align: .center, width: .fill, gap: 6) {
+        Icon(name: .bell)
+        TextCaption(text: "Item", width: .fit)
+      }
+      Col(align: .center, width: .fill, gap: 6) {
+        Icon(name: .user)
+        TextCaption(text: "Item", width: .fit)
+      }
+    }
+  }
+}
