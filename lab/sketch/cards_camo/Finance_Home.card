@@ -1,79 +1,76 @@
-# level: L0
-# model: camo-app
 theme camo
 
-state spend_total   { shape: text, initial: "$1050.99" }
-state card_one_bal  { shape: text, initial: "$1004.00" }
-state card_two_bal  { shape: text, initial: "$484.00" }
-
-view header Row(width: .fill, align: .center, gap: 10) {
-  Avatar(text: "LN")
-  Col(width: .fill, gap: 2) {
-    TextCaption(text: "Good Morning")
-    TextRow(text: "Hi, Linh Nguyen")
-  }
-  Icon(name: .more)
-}
-
-view spending Card(tint: .blue) {
-  Row(width: .fill, align: .center) {
-    Col(width: .fill, gap: 4) {
-      TextEyebrow(text: "October Spending")
-      TextHero(value: spend_total)
-    }
-    TextCaption(text: "See all", width: .fit)
-  }
-  Row(width: .fill, gap: 12) {
-    Chip(text: "Deposit", width: .fill)
-    Chip(text: "Withdraw", width: .fill)
-  }
-}
-
-view mycards Row(width: .fill, gap: 12) {
-  Card {
-    Col(width: .fill, gap: 8) {
-      TextValue(value: card_one_bal)
-      TextCaption(text: "Linh Nguyen")
-      TextRow(text: "0000 **** **** 9999")
-    }
-  }
-  Card(tint: .amber) {
-    Col(width: .fill, gap: 8) {
-      TextValue(value: card_two_bal)
-      TextCaption(text: "Linh Nguyen")
-      TextRow(text: "1111 **** **** 8888")
-    }
-  }
-}
-
-view offer Panel {
-  Row(width: .fill, align: .center, gap: 12) {
-    Avatar(text: "M")
-    Col(width: .fill, gap: 4) {
-      TextRow(text: "20%-40% Off")
-      TextCaption(text: "Flat Discount on Every purchase!")
-      Row(gap: 10) {
-        TextCaption(text: "Food", width: .fit)
-        TextCaption(text: "15 Days", width: .fit)
-      }
-    }
-  }
-}
+state p1 { shape: text, initial: "http://127.0.0.1:8787/cc79b3df763c3bb43552231fd1b02049bdce86de.png" }
+state spend { shape: text, initial: "$1050.99" }
+state card_a { shape: text, initial: "$1004.00" }
+state card_b { shape: text, initial: "$484.00" }
 
 view root Surface(pad: .page) {
-  header
-  spending
+  Row(width: .fill, align: .center, gap: 10) {
+    Avatar(text: "LN")
+    Col(width: .fill, gap: 2) {
+      TextCaption(text: "Good Morning", width: .fill)
+      TextRow(text: "Hi, Linh Nguyen", width: .fill)
+    }
+    Icon(name: .more)
+  }
+
+  Card(tint: .blue) {
+    Row(width: .fill, align: .center) {
+      Col(width: .fill, gap: 4) {
+        TextEyebrow(text: "October Spending")
+        TextHero(value: spend)
+      }
+      TextCaption(text: "See all", width: .fit)
+    }
+    Row(width: .fill, gap: 10) {
+      Chip(text: "Deposit", width: .fill)
+      Chip(text: "Withdraw", width: .fill)
+    }
+  }
+
   TextTitle(text: "My Cards", width: .fill)
-  mycards
+  Row(width: .fill, gap: 12) {
+    Card {
+      Row(width: .fill, align: .center) {
+        Space()
+        TextValue(value: card_a)
+      }
+      TextCaption(text: "Linh Nguyen", width: .fill)
+      TextRow(text: "0000 **** **** 9999", width: .fill)
+    }
+    Card(tint: .amber) {
+      Row(width: .fill, align: .center) {
+        Space()
+        TextValue(value: card_b)
+      }
+      TextCaption(text: "Linh Nguyen", width: .fill)
+      TextRow(text: "1111 **** **** 8888", width: .fill)
+    }
+  }
+
   Row(width: .fill, align: .center) {
     TextTitle(text: "Top Offers", width: .fill)
     TextCaption(text: "See all", width: .fit)
   }
-  offer
+  Panel {
+    Row(width: .fill, align: .center, gap: 12) {
+      Avatar(text: "M")
+      Col(width: .fill, gap: 4) {
+        TextRow(text: "20%-40% Off", width: .fill)
+        TextCaption(text: "Flat Discount on Every purchase!", width: .fill)
+        Row(width: .fill, gap: 14) {
+          TextCaption(text: "Food", width: .fit)
+          TextCaption(text: "15 Days", width: .fit)
+        }
+      }
+    }
+  }
+
   TabBar {
     Tab(icon: .home, label: "Item", active: .on)
     Tab(icon: .search, label: "Item")
-    Tab(icon: .plus, label: "Item")
+    Tab(icon: .activity, label: "Item")
     Tab(icon: .bell, label: "Item")
     Tab(icon: .user, label: "Item")
   }

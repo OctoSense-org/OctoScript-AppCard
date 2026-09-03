@@ -2,7 +2,10 @@
 # model: camo-app
 theme camo
 
-view profilelist Col(width: .fill, gap: 14) {
+state p1 { shape: text, initial: "http://127.0.0.1:8787/c17b19865a00dc3ccdd8be8a21a16fadbd41f93d.png" }
+state p2 { shape: text, initial: "http://127.0.0.1:8787/a7694d1ebda5af9565a3e0764b397e5bf2f5cff6.png" }
+
+view profiles Col(width: .fill, gap: 14) {
   Row(width: .fill, align: .center, gap: 12) {
     Avatar(text: "MP")
     Col(width: .fill, gap: 4) {
@@ -26,10 +29,11 @@ view root Surface(pad: .page) {
     Col(width: .fill, align: .center) {
       TextTitle(text: "Main Profile", width: .fit)
     }
+    Icon(name: .chevron_left)
   }
-  profilelist
+  profiles
   Space()
   Col(align: .center, width: .fill) {
-    Chip(text: "New Profile", tone: .primary)
+    Chip(text: "New Profile", tone: .primary, width: .fill)
   }
 }

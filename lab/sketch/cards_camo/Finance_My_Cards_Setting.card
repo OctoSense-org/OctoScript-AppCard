@@ -2,10 +2,11 @@
 # model: camo-app
 theme camo
 
-state notif_level   { shape: text, initial: "12%" }
-state overdraft_cap { shape: text, initial: "$1000.00" }
+state card_number { shape: text, initial: "0000 **** **** 9999" }
+state notif_value { shape: text, initial: "12%" }
+state overdraft   { shape: text, initial: "$1000.00" }
 
-view header Row(width: .fill, align: .center) {
+view appbar Row(width: .fill, align: .center) {
   Icon(name: .chevron_left)
   Col(width: .fill, align: .center) {
     TextTitle(text: "Card", width: .fit)
@@ -13,52 +14,44 @@ view header Row(width: .fill, align: .center) {
   Icon(name: .more)
 }
 
-view bankcard Card {
-  Col(width: .fill, gap: 18) {
-    TextRow(text: "CaMo Bank", width: .fill)
-    TextCaption(text: "Linh Nguyen", width: .fill)
-    TextTitle(text: "0000 **** **** 9999", width: .fill)
-    TextCaption(text: "04 / 23", width: .fill)
-  }
+view cardface Card {
+  TextTitle(text: "CaMo Bank", width: .fill)
+  TextCaption(text: "Linh Nguyen", width: .fill)
+  TextValue(value: card_number)
+  TextCaption(text: "04 / 23", width: .fill)
 }
 
-view settings Panel {
-  Col(width: .fill, gap: 26) {
-    Row(width: .fill, align: .center, gap: 16) {
-      Icon(name: .bell)
-      TextRow(text: "Notification", width: .fill)
-      TextValue(value: notif_level)
-    }
-    Row(width: .fill, align: .center, gap: 16) {
-      Icon(name: .refresh)
-      TextRow(text: "Overdraft", width: .fill)
-      TextValue(value: overdraft_cap)
-    }
-    Row(width: .fill, align: .center, gap: 16) {
-      Icon(name: .lock)
-      TextRow(text: "Limit", width: .fill)
-      Icon(name: .chevron_right)
-    }
-    Row(width: .fill, align: .center, gap: 16) {
-      Icon(name: .info)
-      TextRow(text: "Card Statement", width: .fill)
-      Icon(name: .chevron_right)
-    }
-    Row(width: .fill, align: .center, gap: 16) {
-      Icon(name: .users)
-      TextRow(text: "Share Account", width: .fill)
-      Icon(name: .chevron_right)
-    }
-    Row(width: .fill, align: .center, gap: 16) {
-      Icon(name: .star)
-      TextRow(text: "Rate", width: .fill)
-      Icon(name: .chevron_right)
-    }
+view settings Col(width: .fill, gap: 18) {
+  Row(width: .fill, align: .center, gap: 12) {
+    Icon(name: .bell)
+    TextRow(text: "Notification", width: .fill)
+    TextValue(value: notif_value)
+  }
+  Row(width: .fill, align: .center, gap: 12) {
+    Icon(name: .refresh)
+    TextRow(text: "Overdraft", width: .fill)
+    TextValue(value: overdraft)
+  }
+  Row(width: .fill, align: .center, gap: 12) {
+    Icon(name: .lock)
+    TextRow(text: "Limit", width: .fill)
+  }
+  Row(width: .fill, align: .center, gap: 12) {
+    Icon(name: .info)
+    TextRow(text: "Card Statement", width: .fill)
+  }
+  Row(width: .fill, align: .center, gap: 12) {
+    Icon(name: .users)
+    TextRow(text: "Share Account", width: .fill)
+  }
+  Row(width: .fill, align: .center, gap: 12) {
+    Icon(name: .heart)
+    TextRow(text: "Rate", width: .fill)
   }
 }
 
 view root Surface(pad: .page) {
-  header
-  bankcard
+  appbar
+  cardface
   settings
 }

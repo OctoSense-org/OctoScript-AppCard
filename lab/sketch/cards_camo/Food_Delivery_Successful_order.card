@@ -1,17 +1,15 @@
+# level: L0
+# model: camo-app
 theme camo_light
 
 view root Surface(pad: .page) {
   Space()
-  Col(align: .center, gap: 40, width: .fill) {
-    Col(align: .center, gap: 14, width: .fill) {
-      Card {
-        Col(align: .center, gap: 10, width: .fill) {
-          Icon(name: .check, size: .hero)
-        }
-      }
-      TextTitle(text: "Your Order is Successfully!", width: .fit)
-    }
-    Chip(text: "Continue Shopping", tone: .primary)
+  Col(align: .center, gap: 10) {
+    Icon(name: .check, size: .hero)
+    TextTitle(text: "Your Order is Successfully!", width: .fit)
   }
   Space()
+  Col(align: .center, width: .fill) {
+    Chip(text: "Continue Shopping", tone: .primary)
+  }
 }

@@ -14,18 +14,12 @@ view albums Col(width: .fill, gap: 10) {
     Col(width: .fill, gap: 6) {
       Thumb(src: p2, shape: .square)
       TextRow(text: "Justice", width: .fill)
-      Row(width: .fill, align: .center) {
-        TextCaption(text: "2021 • Album", width: .fill)
-        Icon(name: .play, size: .tile)
-      }
+      TextCaption(text: "2021 • Album", width: .fill)
     }
     Col(width: .fill, gap: 6) {
       Thumb(src: p2, shape: .square)
       TextRow(text: "Changes", width: .fill)
-      Row(width: .fill, align: .center) {
-        TextCaption(text: "2021 • Album", width: .fill)
-        Icon(name: .play, size: .tile)
-      }
+      TextCaption(text: "2021 • Album", width: .fill)
     }
   }
 }
@@ -39,28 +33,25 @@ view singles Col(width: .fill, gap: 10) {
     Col(width: .fill, gap: 6) {
       Thumb(src: p2, shape: .square)
       TextRow(text: "Don't Go (with Ju…", width: .fill)
-      Row(width: .fill, align: .center) {
-        TextCaption(text: "Latest Release • Singles", width: .fill)
-        Icon(name: .play, size: .tile)
-      }
+      TextCaption(text: "Latest Release • Singles", width: .fill)
     }
     Col(width: .fill, gap: 6) {
       Thumb(src: p2, shape: .square)
       TextRow(text: "Stay (with Justin …", width: .fill)
-      Row(width: .fill, align: .center) {
-        TextCaption(text: "2021 • Singles", width: .fill)
-        Icon(name: .play, size: .tile)
-      }
+      TextCaption(text: "2021 • Singles", width: .fill)
     }
   }
 }
 
-view root Photo(src: p1, pad: .page) {
+view root Surface(pad: .page) {
   Row(width: .fill, align: .center) {
     Icon(name: .chevron_left)
-    Col(width: .fill, align: .center) { TextTitle(text: "Artist", width: .fit) }
+    Col(width: .fill, align: .center) {
+      TextTitle(text: "Artist", width: .fit)
+    }
     Icon(name: .more)
   }
+  Thumb(src: p1, shape: .hero)
   Row(width: .fill, align: .center) {
     TextTitle(text: "Justin Bieber", width: .fill)
     Icon(name: .play, size: .hero)

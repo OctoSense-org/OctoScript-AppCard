@@ -2,66 +2,74 @@
 # model: camo-app
 theme camo_light
 
-state tab { shape: enum[normal, active], initial: .active }
+view header Row(width: .fill, align: .center) {
+  Icon(name: .chevron_left)
+  Col(width: .fill, align: .center) {
+    TextTitle(text: "Promotion", width: .fit)
+  }
+  TextCaption(text: "1.010", glyph: "◎", width: .fit)
+}
+
+view tabs Panel {
+  Row(width: .fill, align: .center, gap: 6) {
+    Chip(text: "Normal", width: .fill)
+    Chip(text: "Active", active: .on, width: .fill)
+  }
+}
+
+view promos Grid(cols: 2) {
+  Panel {
+    Col(gap: 6) {
+      Icon(name: .image, size: .hero)
+      Chip(text: "x10")
+      TextRow(text: "#Car4-seater - 10% Discount for All Trips", width: .fill)
+      TextCaption(text: "Expiry: 12/10/2021", width: .fill)
+    }
+  }
+  Panel {
+    Col(gap: 6) {
+      Icon(name: .image, size: .hero)
+      Chip(text: "x10")
+      TextRow(text: "#Car4-seater - 15% Discount for All Trips", width: .fill)
+      TextCaption(text: "Expiry: 10/10/2021", width: .fill)
+    }
+  }
+  Panel {
+    Col(gap: 6) {
+      Icon(name: .image, size: .hero)
+      Chip(text: "x5")
+      TextRow(text: "#taxi4-seater - 20% Discount for All Trips", width: .fill)
+      TextCaption(text: "Expiry: 12/10/2021", width: .fill)
+    }
+  }
+  Panel {
+    Col(gap: 6) {
+      Icon(name: .image, size: .hero)
+      Chip(text: "x10")
+      TextRow(text: "#taxi4-$4.99 Discount for Total Bill $50", width: .fill)
+      TextCaption(text: "Expiry: 06/10/2021", width: .fill)
+    }
+  }
+  Panel {
+    Col(gap: 6) {
+      Icon(name: .image, size: .hero)
+      Chip(text: "x10")
+      TextRow(text: "#taxi4-$4.99 Discount for Total Bill $50", width: .fill)
+      TextCaption(text: "Expiry: 06/10/2021", width: .fill)
+    }
+  }
+  Panel {
+    Col(gap: 6) {
+      Icon(name: .image, size: .hero)
+      Chip(text: "x10")
+      TextRow(text: "#taxi4-$4.99 Discount for Total Bill $50", width: .fill)
+      TextCaption(text: "Expiry: 06/10/2021", width: .fill)
+    }
+  }
+}
 
 view root Surface(pad: .page) {
-  Row(width: .fill, align: .center) {
-    Icon(name: .chevron_left)
-    Col(width: .fill, align: .center) { TextTitle(text: "Promotion", width: .fit) }
-    TextCaption(text: "1.010", glyph: "◱", width: .fit)
-  }
-  Row(width: .fill, gap: 8) {
-    Chip(text: "Normal", active: tab == .normal, width: .fill)
-    Chip(text: "Active", active: tab == .active, width: .fill)
-  }
-  Grid(cols: 2) {
-    Panel {
-      Col(gap: 6) {
-        Icon(name: .zap, size: .hero)
-        Chip(text: "x10")
-        TextRow(text: "#Car4-seater - 10% Discount for All Trips", width: .fill)
-        TextCaption(text: "Expiry: 12/10/2021", width: .fill)
-      }
-    }
-    Panel {
-      Col(gap: 6) {
-        Icon(name: .zap, size: .hero)
-        Chip(text: "x10")
-        TextRow(text: "#Car4-seater - 15% Discount for All Trips", width: .fill)
-        TextCaption(text: "Expiry: 10/10/2021", width: .fill)
-      }
-    }
-    Panel {
-      Col(gap: 6) {
-        Icon(name: .zap, size: .hero)
-        Chip(text: "x5")
-        TextRow(text: "#taxi4-seater - 20% Discount for All Trips", width: .fill)
-        TextCaption(text: "Expiry: 12/10/2021", width: .fill)
-      }
-    }
-    Panel {
-      Col(gap: 6) {
-        Icon(name: .zap, size: .hero)
-        Chip(text: "x10")
-        TextRow(text: "#taxi4-$4.99 Discount for Total Bill $50", width: .fill)
-        TextCaption(text: "Expiry: 06/10/2021", width: .fill)
-      }
-    }
-    Panel {
-      Col(gap: 6) {
-        Icon(name: .zap, size: .hero)
-        Chip(text: "x10")
-        TextRow(text: "#taxi4-$4.99 Discount for Total Bill $50", width: .fill)
-        TextCaption(text: "Expiry: 06/10/2021", width: .fill)
-      }
-    }
-    Panel {
-      Col(gap: 6) {
-        Icon(name: .zap, size: .hero)
-        Chip(text: "x10")
-        TextRow(text: "#taxi4-$4.99 Discount for Total Bill $50", width: .fill)
-        TextCaption(text: "Expiry: 06/10/2021", width: .fill)
-      }
-    }
-  }
+  header
+  tabs
+  promos
 }

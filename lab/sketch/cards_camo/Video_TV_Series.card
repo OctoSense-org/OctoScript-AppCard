@@ -5,30 +5,19 @@ theme camo
 state p1 { shape: text, initial: "http://127.0.0.1:8787/4aca2d62922ee9bf1504a50081bafde556b4f7a4.png" }
 state p2 { shape: text, initial: "http://127.0.0.1:8787/13a6b3cc248e1ee1af9468837ae16a751de1e540.png" }
 
-view topbar Row(width: .fill, align: .center) {
-  TextTitle(text: "TV Series", width: .fill)
-  Icon(name: .more)
-}
-
-view filters Row(width: .fill, gap: 8) {
-  Chip(text: "All Films")
-  Chip(text: "Comedy")
-  Chip(text: "Adventure", active: 1)
-}
-
 view popular Col(width: .fill, gap: 10) {
   Row(width: .fill, align: .center) {
     TextTitle(text: "Popular on TV Series", width: .fill)
     TextCaption(text: "See all", width: .fit)
   }
   Grid(cols: 2) {
-    Col(gap: 6, width: .fill) {
-      Thumb(src: p1, shape: .square)
+    Col(width: .fill, gap: 6) {
+      Thumb(src: p1, shape: .hero)
       TextRow(text: "Squid Game", width: .fill)
       TextCaption(text: "2021 ‧ Drama ‧ 1 Season", width: .fill)
     }
-    Col(gap: 6, width: .fill) {
-      Thumb(src: p2, shape: .square)
+    Col(width: .fill, gap: 6) {
+      Thumb(src: p2, shape: .hero)
       TextRow(text: "Money Heist", width: .fill)
       TextCaption(text: "2017 ‧ Sensational ‧ 5 Seasons", width: .fill)
     }
@@ -43,63 +32,49 @@ view actors Col(width: .fill, gap: 10) {
   Grid(cols: 5) {
     Col(align: .center, gap: 4) {
       Avatar(text: "SJ")
-      TextCaption(text: "Samuel L. Jackson", width: .fit)
+      TextRow(text: "Samuel L. Jackson", width: .fit)
       TextCaption(text: "Movies: 5", width: .fit)
     }
     Col(align: .center, gap: 4) {
       Avatar(text: "DJ")
-      TextCaption(text: "Dwayne Johnson", width: .fit)
+      TextRow(text: "Dwayne Johnson", width: .fit)
       TextCaption(text: "Movies: 3", width: .fit)
     }
     Col(align: .center, gap: 4) {
       Avatar(text: "MR")
-      TextCaption(text: "Margot Robbie", width: .fit)
+      TextRow(text: "Margot Robbie", width: .fit)
       TextCaption(text: "Movies: 4", width: .fit)
     }
     Col(align: .center, gap: 4) {
       Avatar(text: "WS")
-      TextCaption(text: "Will Smith", width: .fit)
+      TextRow(text: "Will Smith", width: .fit)
       TextCaption(text: "Movies: 3", width: .fit)
     }
     Col(align: .center, gap: 4) {
       Avatar(text: "MM")
-      TextCaption(text: "Melissa McCarthy", width: .fit)
+      TextRow(text: "Melissa McCarthy", width: .fit)
       TextCaption(text: "Movies: 5", width: .fit)
-    }
-  }
-}
-
-view tabbar Panel {
-  Row(width: .fill) {
-    Col(align: .center, gap: 4, width: .fill) {
-      Icon(name: .home, size: .tile)
-      TextCaption(text: "Item", width: .fit)
-    }
-    Col(align: .center, gap: 4, width: .fill) {
-      Icon(name: .search, size: .tile)
-      TextCaption(text: "Item", width: .fit)
-    }
-    Col(align: .center, gap: 4, width: .fill) {
-      Icon(name: .play, size: .tile)
-      TextCaption(text: "Item", width: .fit)
-    }
-    Col(align: .center, gap: 4, width: .fill) {
-      Icon(name: .bookmark, size: .tile)
-      TextCaption(text: "Item", width: .fit)
-    }
-    Col(align: .center, gap: 4, width: .fill) {
-      Icon(name: .user, size: .tile)
-      TextCaption(text: "Item", width: .fit)
     }
   }
 }
 
 view root Surface(pad: .page) {
-  Col(width: .fill, gap: 16) {
-    topbar
-    filters
-    popular
-    actors
-    tabbar
+  Row(width: .fill, align: .center) {
+    TextTitle(text: "TV Series", width: .fill)
+    Icon(name: .more)
+  }
+  Row(width: .fill, gap: 8) {
+    Chip(text: "All Films", active: .on)
+    Chip(text: "Comedy")
+    Chip(text: "Adventure")
+  }
+  popular
+  actors
+  TabBar {
+    Tab(icon: .home, label: "Item", active: .on)
+    Tab(icon: .search, label: "Item")
+    Tab(icon: .video, label: "Item")
+    Tab(icon: .bookmark, label: "Item")
+    Tab(icon: .user, label: "Item")
   }
 }

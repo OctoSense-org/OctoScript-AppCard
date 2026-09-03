@@ -2,96 +2,99 @@
 # model: camo-app
 theme camo
 
-state seat_total { shape: text, initial: "$75.09" }
-
-view appbar Row(width: .fill, align: .center, gap: 8) {
+view appbar Row(width: .fill, align: .center) {
   Icon(name: .chevron_left)
-  Col(width: .fill, align: .center) { TextTitle(text: "Select Seats", width: .fit) }
+  Col(width: .fill, align: .center) {
+    TextTitle(text: "Select Seats", width: .fit)
+  }
 }
 
 view dates Row(width: .fill, gap: 8) {
-  Chip(text: "Tue, 28 Sep", width: .fill)
-  Chip(text: "Wed, 29 Sep", width: .fill)
-  Chip(text: "Thu, 30 Sep", width: .fill)
+  Chip(text: "Tue, 28 Sep", active: .on)
+  Chip(text: "Wed, 29 Sep")
+  Chip(text: "Thu, 30 Sep")
 }
 
-view times Row(width: .fill, align: .center, gap: 8) {
-  TextCaption(text: "17:00", width: .fill)
-  TextCaption(text: "18:30", width: .fill)
-  TextRow(text: "19:30", width: .fill)
-  TextCaption(text: "20:00", width: .fill)
-  TextCaption(text: "21:00", width: .fill)
+view times Col(width: .fill, gap: 6) {
+  Row(width: .fill, align: .center, gap: 6) {
+    TextCaption(text: "17:00", width: .fill)
+    TextCaption(text: "18:30", width: .fill)
+    Chip(text: "19:30", active: .on)
+    TextCaption(text: "20:00", width: .fill)
+    TextCaption(text: "21:00", width: .fit)
+  }
+  Rule()
 }
 
-view seatmap Grid(cols: 8) {
-  Tile(label: "A1", shape: .square)
-  Tile(label: "A2", shape: .square)
-  Tile(label: "A3", shape: .square)
-  Tile(label: "A4", shape: .square)
-  Tile(label: "A5", shape: .square)
-  Tile(label: "A6", shape: .square)
-  Tile(label: "A7", shape: .square)
-  Tile(label: "A8", shape: .square)
-  Tile(label: "B1", shape: .square)
-  Tile(label: "B2", shape: .square)
-  Tile(label: "B3", glyph: "✕", shape: .square)
-  Tile(label: "B4", glyph: "✕", shape: .square)
-  Tile(label: "B5", shape: .square)
-  Tile(label: "B6", shape: .square)
-  Tile(label: "B7", shape: .square)
-  Tile(label: "B8", shape: .square)
-  Tile(label: "C1", shape: .square)
-  Tile(label: "C2", shape: .square)
-  Tile(label: "C3", shape: .square)
-  Tile(label: "C4", shape: .square)
-  Tile(label: "C5", glyph: "✕", shape: .square)
-  Tile(label: "C6", shape: .square)
-  Tile(label: "C7", shape: .square)
-  Tile(label: "C8", shape: .square)
-  Tile(label: "D1", shape: .square)
-  Tile(label: "D2", shape: .square)
-  Tile(label: "D3", shape: .square)
-  Tile(label: "D4", shape: .square)
-  Tile(label: "D5", shape: .square)
-  Tile(label: "D6", shape: .square)
-  Tile(label: "D7", glyph: "✕", shape: .square)
-  Tile(label: "D8", shape: .square)
-  Tile(label: "E1", shape: .square)
-  Tile(label: "E2", shape: .square)
-  Tile(label: "E3", shape: .square)
-  Tile(label: "E4", shape: .square)
-  Tile(label: "E5", glyph: "●", shape: .square)
-  Tile(label: "E6", glyph: "●", shape: .square)
-  Tile(label: "E7", shape: .square)
-  Tile(label: "E8", shape: .square)
-  Tile(label: "F1", shape: .square)
-  Tile(label: "F2", glyph: "✕", shape: .square)
-  Tile(label: "F3", shape: .square)
-  Tile(label: "F4", shape: .square)
-  Tile(label: "F5", shape: .square)
-  Tile(label: "F6", shape: .square)
-  Tile(label: "F7", shape: .square)
-  Tile(label: "F8", shape: .square)
-  Tile(label: "G1", shape: .square)
-  Tile(label: "G2", shape: .square)
-  Tile(label: "G3", shape: .square)
-  Tile(label: "G4", glyph: "✕", shape: .square)
-  Tile(label: "G5", shape: .square)
-  Tile(label: "G6", shape: .square)
-  Tile(label: "G7", shape: .square)
-  Tile(label: "G8", shape: .square)
+view seats Grid(cols: 8) {
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "●", active: .on)
+  Chip(text: "●", active: .on)
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "●")
+  Chip(text: "●")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
+  Chip(text: "○")
 }
 
 view legend Row(width: .fill, align: .center, gap: 14) {
-  TextCaption(text: "Available", glyph: "○", width: .fill)
-  TextCaption(text: "Reserved", glyph: "✕", width: .fill)
-  TextCaption(text: "Selected", glyph: "●", width: .fill)
+  TextCaption(text: "Available", glyph: "○", width: .fit)
+  TextCaption(text: "Reserved", glyph: "●", width: .fit)
+  TextCaption(text: "Selected", glyph: "◼", width: .fit)
 }
 
-view checkout Row(width: .fill, align: .center, gap: 12) {
-  Col(width: .fill, gap: 4) {
-    TextCaption(text: "2 Seats")
-    TextValue(value: seat_total)
+view buybar Row(width: .fill, align: .center) {
+  Col(width: .fill, gap: 2) {
+    TextCaption(text: "2 Seats", width: .fit)
+    TextTitle(text: "$75.09", width: .fit)
   }
   Chip(text: "Buy Now", tone: .primary)
 }
@@ -100,8 +103,8 @@ view root Surface(pad: .page) {
   appbar
   dates
   times
-  seatmap
+  seats
   legend
   Space()
-  checkout
+  buybar
 }

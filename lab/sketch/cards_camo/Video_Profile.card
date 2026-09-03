@@ -3,6 +3,13 @@
 theme camo
 
 view profilehead Col(width: .fill, gap: 14) {
+  Row(width: .fill, align: .center) {
+    Icon(name: .chevron_left)
+    Col(width: .fill, align: .center) {
+      TextTitle(text: "Profile", width: .fit)
+    }
+    Space()
+  }
   Row(width: .fill, align: .center, gap: 12) {
     Avatar(text: "MP")
     TextRow(text: "Main Profile", width: .fill)
@@ -10,7 +17,7 @@ view profilehead Col(width: .fill, gap: 14) {
   Rule()
 }
 
-view menulist Col(width: .fill, gap: 18) {
+view profilemenu Col(width: .fill, gap: 18) {
   Row(width: .fill, align: .center, gap: 14) {
     Icon(name: .bookmark)
     TextRow(text: "My Collection", width: .fill)
@@ -28,7 +35,7 @@ view menulist Col(width: .fill, gap: 18) {
     TextRow(text: "Reminders", width: .fill)
   }
   Row(width: .fill, align: .center, gap: 14) {
-    Icon(name: .send)
+    Icon(name: .check)
     TextRow(text: "Payments", width: .fill)
   }
   Row(width: .fill, align: .center, gap: 14) {
@@ -42,15 +49,6 @@ view menulist Col(width: .fill, gap: 18) {
 }
 
 view root Surface(pad: .page) {
-  Row(width: .fill, align: .center) {
-    Icon(name: .chevron_left)
-    Col(width: .fill, align: .center) {
-      TextTitle(text: "Profile", width: .fit)
-    }
-    Icon(name: .chevron_left)
-  }
-  Col(width: .fill, gap: 22) {
-    profilehead
-    menulist
-  }
+  profilehead
+  profilemenu
 }

@@ -1,17 +1,6 @@
+# level: L0
+# model: camo-app
 theme camo
-
-state p1 { shape: text, initial: "http://127.0.0.1:8787/cc79b3df763c3bb43552231fd1b02049bdce86de.png" }
-
-view profile Col(align: .center, gap: 14, width: .fill) {
-  Thumb(src: p1, shape: .square)
-  TextRow(text: "Linh Nguyen", width: .fit)
-  Row(width: .fill, align: .center, gap: 12) {
-    TextCaption(glyph: "●", width: .fit)
-    TextCaption(glyph: "●", width: .fit)
-    TextCaption(glyph: "●", width: .fit)
-    TextCaption(glyph: "●", width: .fit)
-  }
-}
 
 view keypad Panel {
   Grid(cols: 3) {
@@ -26,15 +15,25 @@ view keypad Panel {
     Tile(label: "9")
     Tile(label: ".")
     Tile(label: "0")
-    Col(align: .center, width: .fill) { Icon(name: .arrow_left) }
+    Tile(label: "⌫")
   }
 }
 
 view root Surface(pad: .page) {
   Space()
-  profile
+  Col(align: .center, gap: 10) {
+    Avatar(text: "LN")
+    TextRow(text: "Linh Nguyen", width: .fit)
+    Row(align: .center, gap: 8) {
+      TextCaption(glyph: "●")
+      TextCaption(glyph: "●")
+      TextCaption(glyph: "●")
+      TextCaption(glyph: "●")
+    }
+  }
   Space()
   keypad
+  Rule()
   Col(align: .center, width: .fill) {
     Chip(text: "Reset", tone: .primary)
   }

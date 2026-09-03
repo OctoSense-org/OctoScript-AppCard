@@ -1,12 +1,17 @@
 # level: L0
 # model: camo-app
-theme camo
+theme camo_light
+
+view mark Row(align: .center, gap: 8) {
+  Icon(name: .image, size: .hero)
+  TextHero(text: "CaMo")
+  TextCaption(text: "2", width: .fit)
+}
 
 view root Surface(pad: .page) {
   Space()
-  Row(width: .fill, align: .center, gap: 10) {
-    Avatar(text: "C")
-    TextHero(text: "CaMo 2")
+  Col(align: .center, gap: 10) {
+    mark
   }
   Space()
 }

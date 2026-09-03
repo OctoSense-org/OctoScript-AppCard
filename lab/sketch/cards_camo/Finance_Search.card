@@ -1,72 +1,58 @@
 # level: L0
 # model: camo-app
-
 theme camo
 
-state p1 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
-state q  { shape: text, initial: "Bank" }
-state qp { shape: text, initial: "Search" }
-state amt_one { shape: text, initial: "-$240.00" }
-state amt_two { shape: text, initial: "-$180.40" }
+state q { shape: text, initial: "Bank" }
+state q_hint { shape: text, initial: "Search" }
+state op_a { shape: text, initial: "-$240.00" }
+state op_b { shape: text, initial: "-$180.40" }
 
-view appbar Row(width: .fill, align: .center) {
-  Icon(name: .chevron_left)
-  Col(width: .fill, align: .center) {
-    TextTitle(text: "Search", width: .fit)
-  }
-}
-
-view searchbar Panel {
-  Row(width: .fill, align: .center, gap: 14) {
-    Icon(name: .search)
-    Field(text: q, placeholder: qp)
-  }
-}
-
-view providers Col(width: .fill, gap: 30) {
+view providers Col(width: .fill, gap: 12) {
   Row(width: .fill, align: .center) {
     TextTitle(text: "Providers", width: .fill)
     TextCaption(text: "See all", width: .fit)
   }
-  Row(width: .fill, align: .center, gap: 16) {
+  Row(width: .fill, align: .center, gap: 12) {
     Avatar(text: "BA")
     TextRow(text: "Bank of America", width: .fill)
   }
-  Row(width: .fill, align: .center, gap: 16) {
+  Row(width: .fill, align: .center, gap: 12) {
     Avatar(text: "MZ")
     TextRow(text: "Mizuho", width: .fill)
   }
 }
 
-view operations Col(width: .fill, gap: 30) {
+view operations Col(width: .fill, gap: 12) {
   Row(width: .fill, align: .center) {
     TextTitle(text: "Operations", width: .fill)
     TextCaption(text: "See all", width: .fit)
   }
-  Row(width: .fill, align: .center, gap: 16) {
+  Row(width: .fill, align: .center, gap: 12) {
     Avatar(text: "SC")
-    Col(width: .fill, gap: 8) {
+    Col(width: .fill) {
       TextRow(text: "Service Charge", width: .fill)
       TextCaption(text: "Bank services", width: .fill)
     }
-    TextValue(value: amt_one)
+    TextValue(value: op_a)
   }
-  Row(width: .fill, align: .center, gap: 16) {
+  Row(width: .fill, align: .center, gap: 12) {
     Avatar(text: "SC")
-    Col(width: .fill, gap: 8) {
+    Col(width: .fill) {
       TextRow(text: "Service Charge", width: .fill)
       TextCaption(text: "Bank services", width: .fill)
     }
-    TextValue(value: amt_two)
+    TextValue(value: op_b)
   }
 }
 
 view root Surface(pad: .page) {
-  Col(width: .fill, gap: 34) {
-    appbar
-    searchbar
-    providers
-    operations
-    Thumb(src: p1, shape: .hero)
+  Row(width: .fill, align: .center) {
+    Icon(name: .chevron_left)
+    Col(width: .fill, align: .center) {
+      TextTitle(text: "Search", width: .fit)
+    }
   }
+  Field(text: q, placeholder: q_hint)
+  providers
+  operations
 }

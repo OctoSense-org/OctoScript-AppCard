@@ -1,14 +1,13 @@
 # level: L0
 # model: camo-app
-
 theme camo
 
 state p1 { shape: text, initial: "http://127.0.0.1:8787/aa1d09a274cbdd0628e0dd49bf58f11e3e363d5e.png" }
 
-view tracks Col(width: .fill, gap: 14) {
+view tracks Col(width: .fill, gap: 12) {
   Row(width: .fill, align: .center, gap: 12) {
     TextRow(text: "1", width: .fit)
-    Col(width: .fill) {
+    Col(width: .fill, gap: 2) {
       TextRow(text: "2 Much", width: .fill)
       TextCaption(text: "Justin Bieber", width: .fill)
     }
@@ -16,7 +15,7 @@ view tracks Col(width: .fill, gap: 14) {
   }
   Row(width: .fill, align: .center, gap: 12) {
     TextRow(text: "2", width: .fit)
-    Col(width: .fill) {
+    Col(width: .fill, gap: 2) {
       TextRow(text: "Deserve You", width: .fill)
       TextCaption(text: "Justin Bieber", width: .fill)
     }
@@ -24,7 +23,7 @@ view tracks Col(width: .fill, gap: 14) {
   }
   Row(width: .fill, align: .center, gap: 12) {
     TextRow(text: "3", width: .fit)
-    Col(width: .fill) {
+    Col(width: .fill, gap: 2) {
       TextRow(text: "As I Am ( feat. Khalid)", width: .fill)
       TextCaption(text: "Justin Bieber, Khalid", width: .fill)
     }
@@ -32,7 +31,7 @@ view tracks Col(width: .fill, gap: 14) {
   }
   Row(width: .fill, align: .center, gap: 12) {
     TextRow(text: "4", width: .fit)
-    Col(width: .fill) {
+    Col(width: .fill, gap: 2) {
       TextRow(text: "Off My Face", width: .fill)
       TextCaption(text: "Justin Bieber", width: .fill)
     }
@@ -48,12 +47,12 @@ view root Surface(pad: .page) {
   }
   Thumb(src: p1, shape: .hero)
   Row(width: .fill, align: .center, gap: 12) {
-    Col(width: .fill) {
-      TextTitle(text: "Justice", width: .fill)
-      TextCaption(text: "Justin Bieber", width: .fill)
+    Col(width: .fill, gap: 4) {
+      TextTitle(text: "Justice", width: .fit)
+      TextCaption(text: "Justin Bieber", width: .fit)
     }
-    Chip(text: "✕")
+    Icon(name: .play)
+    Icon(name: .close)
   }
   tracks
-  Fab(name: .play)
 }

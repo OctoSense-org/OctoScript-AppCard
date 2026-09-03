@@ -1,41 +1,43 @@
 # level: L0
 # model: camo-app
-
 theme camo_light
 
-view menu Col(width: .fill, gap: 18) {
-  Row(width: .fill, align: .center, gap: 12) {
+view header Row(width: .fill, align: .center, gap: 12) {
+  Avatar(text: "LN")
+  Col(width: .fill, gap: 4) {
+    TextRow(text: "Linh Nguyen", width: .fill)
+    TextCaption(text: "DV-557HA", width: .fill)
+  }
+}
+
+view menu Col(width: .fill, gap: 20) {
+  Row(width: .fill, align: .center, gap: 14) {
     Icon(name: .activity)
     TextRow(text: "Activities", width: .fill)
   }
-  Row(width: .fill, align: .center, gap: 12) {
+  Row(width: .fill, align: .center, gap: 14) {
     Icon(name: .heart)
     TextRow(text: "Saving Pack", width: .fill)
   }
-  Row(width: .fill, align: .center, gap: 12) {
+  Row(width: .fill, align: .center, gap: 14) {
     Icon(name: .bookmark)
     TextRow(text: "Payment Method", width: .fill)
   }
-  Row(width: .fill, align: .center, gap: 12) {
+  Row(width: .fill, align: .center, gap: 14) {
     Icon(name: .info)
     TextRow(text: "Help", width: .fill)
   }
 }
 
+view about Col(width: .fill, gap: 8) {
+  TextRow(text: "About the Application", width: .fill)
+  TextCaption(text: "Version 4.43.1", width: .fill)
+}
+
 view root Surface(pad: .page) {
-  Col(width: .fill, gap: 26) {
-    Row(width: .fill, align: .center, gap: 12) {
-      Avatar(text: "LN")
-      Col(width: .fill, gap: 4) {
-        TextRow(text: "Linh Nguyen", width: .fill)
-        TextCaption(text: "DV-557HA", width: .fill)
-      }
-    }
-    menu
-  }
+  header
   Space()
-  Col(width: .fill, gap: 6) {
-    TextRow(text: "About the Application", width: .fill)
-    TextCaption(text: "Version 4.43.1", width: .fill)
-  }
+  menu
+  Space()
+  about
 }

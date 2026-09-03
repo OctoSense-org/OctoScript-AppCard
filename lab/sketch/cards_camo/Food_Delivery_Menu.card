@@ -3,112 +3,97 @@
 theme camo_light
 
 view header Row(width: .fill, align: .center) {
-  TextTitle(text: "Menu", width: .fill)
-  Icon(name: .location)
-  TextRow(text: "Hanoi, Vietnam", width: .fit)
+  TextTitle(text: "Menu", width: .fit)
+  Col(width: .fill, align: .center) {
+    Row(align: .center, gap: 6) {
+      Icon(name: .location, size: .tile)
+      TextRow(text: "Hanoi, Vietnam", width: .fit)
+    }
+  }
   Icon(name: .menu)
 }
 
-view menugrid Grid(cols: 2) {
+view categories Grid(cols: 2) {
   Panel {
-    Col(gap: 12, width: .fill) {
-      Icon(name: .image, size: .hero)
+    Col(gap: 6) {
+      Icon(name: .image, size: .tile)
       TextRow(text: "Appetizers", width: .fill)
       TextCaption(text: "+32 Foods", width: .fill)
     }
   }
   Panel {
-    Col(gap: 12, width: .fill) {
-      Icon(name: .image, size: .hero)
+    Col(gap: 6) {
+      Icon(name: .image, size: .tile)
       TextRow(text: "Cold Platter", width: .fill)
       TextCaption(text: "+22 Foods", width: .fill)
     }
   }
   Panel {
-    Col(gap: 12, width: .fill) {
-      Icon(name: .image, size: .hero)
+    Col(gap: 6) {
+      Icon(name: .image, size: .tile)
       TextRow(text: "Hot Appetizers", width: .fill)
       TextCaption(text: "+532 Foods", width: .fill)
     }
   }
   Panel {
-    Col(gap: 12, width: .fill) {
-      Icon(name: .image, size: .hero)
+    Col(gap: 6) {
+      Icon(name: .image, size: .tile)
       TextRow(text: "Starters", width: .fill)
       TextCaption(text: "+2423 Foods", width: .fill)
     }
   }
   Panel {
-    Col(gap: 12, width: .fill) {
-      Icon(name: .image, size: .hero)
+    Col(gap: 6) {
+      Icon(name: .image, size: .tile)
       TextRow(text: "Soups", width: .fill)
       TextCaption(text: "+123 Foods", width: .fill)
     }
   }
   Panel {
-    Col(gap: 12, width: .fill) {
-      Icon(name: .image, size: .hero)
+    Col(gap: 6) {
+      Icon(name: .image, size: .tile)
       TextRow(text: "Main Disher", width: .fill)
       TextCaption(text: "+879 Foods", width: .fill)
     }
   }
   Panel {
-    Col(gap: 12, width: .fill) {
-      Icon(name: .image, size: .hero)
+    Col(gap: 6) {
+      Icon(name: .image, size: .tile)
       TextRow(text: "Meat", width: .fill)
       TextCaption(text: "+675 Foods", width: .fill)
     }
   }
   Panel {
-    Col(gap: 12, width: .fill) {
-      Icon(name: .image, size: .hero)
+    Col(gap: 6) {
+      Icon(name: .image, size: .tile)
       TextRow(text: "Fish & Seafoods", width: .fill)
       TextCaption(text: "+135 Foods", width: .fill)
     }
   }
   Panel {
-    Col(gap: 12, width: .fill) {
-      Icon(name: .image, size: .hero)
+    Col(gap: 6) {
+      Icon(name: .image, size: .tile)
       TextRow(text: "Side Dishes", width: .fill)
       TextCaption(text: "+675 Foods", width: .fill)
     }
   }
   Panel {
-    Col(gap: 12, width: .fill) {
-      Icon(name: .image, size: .hero)
+    Col(gap: 6) {
+      Icon(name: .image, size: .tile)
       TextRow(text: "Snack", width: .fill)
       TextCaption(text: "+135 Foods", width: .fill)
     }
   }
 }
 
-view tabbar Panel {
-  Row(width: .fill, align: .center) {
-    Col(align: .center, width: .fill, gap: 6) {
-      Icon(name: .home)
-      TextCaption(text: "Item", width: .fit)
-    }
-    Col(align: .center, width: .fill, gap: 6) {
-      Icon(name: .search)
-      TextCaption(text: "Item", width: .fit)
-    }
-    Col(align: .center, width: .fill, gap: 6) {
-      Icon(name: .heart)
-      TextCaption(text: "Item", width: .fit)
-    }
-    Col(align: .center, width: .fill, gap: 6) {
-      Icon(name: .chat)
-      TextCaption(text: "Item", width: .fit)
-    }
-    Col(align: .center, width: .fill, gap: 6) {
-      Icon(name: .user)
-      TextCaption(text: "Item", width: .fit)
-    }
-  }
-}
-
 view root Surface(pad: .page) {
   header
-  menugrid
-  tabbar
+  categories
+  TabBar {
+    Tab(icon: .home, label: "Item", active: .on)
+    Tab(icon: .search, label: "Item")
+    Tab(icon: .heart, label: "Item")
+    Tab(icon: .bell, label: "Item")
+    Tab(icon: .user, label: "Item")
+  }
 }
