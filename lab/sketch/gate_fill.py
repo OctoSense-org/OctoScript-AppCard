@@ -25,20 +25,34 @@ sys.path.insert(0, str(HERE))
 import kitconf  # noqa: E402
 
 ROW_STD = 6.0      # horizontal stddev above this = a content row
-SHORTFALL = 0.12   # render content ends this much earlier than target = squeezed
-FILL_RATIO = 0.70  # or render has under 70% of the target's content rows
+MISSING_MAX = 0.18  # design fills this fraction the render leaves empty = squeezed
+
+
+def _mask(path):
+    """A per-row 'has content' mask + the page background colour.
+
+    Content = rows that are NOT the flat page background. A flat card counts
+    (its fill differs from the page), a photo counts, text counts; only the
+    uniform page gutter is 'dead'. This is what pixel-variance got wrong —
+    a flat-but-correct card read as empty because it lacked texture."""
+    im = Image.open(path).convert("RGB").resize((120, 300), Image.BILINEAR)
+    a = np.asarray(im, dtype=np.float32)[:, 8:-8, :]
+    # background = the median of the four corners (page colour, light or dark)
+    corners = np.concatenate([a[:6, :6], a[:6, -6:], a[-6:, :6], a[-6:, -6:]]
+                             ).reshape(-1, 3)
+    bg = np.median(corners, axis=0)
+    near_bg = (np.abs(a - bg).sum(2) < 36)          # pixel ~= page colour
+    row_content = near_bg.mean(1) < 0.90            # <90% background = content row
+    return row_content
 
 
 def profile(path):
-    im = Image.open(path).convert("L").resize((150, 300), Image.BILINEAR)
-    a = np.asarray(im, dtype=np.float32)
-    # ignore a thin frame border on each side
-    a = a[:, 6:-6]
-    act = a.std(axis=1) > ROW_STD
-    rows = np.where(act)[0]
+    """fill fraction and content-bottom, from the dead-space mask."""
+    m = _mask(path)
+    rows = np.where(m)[0]
     if len(rows) == 0:
-        return 0.0, 0.0
-    return float(act.mean()), float(rows.max() / a.shape[0])
+        return 0.0, 0.0, m
+    return float(m.mean()), float(rows.max() / len(m)), m
 
 
 def main():
@@ -53,24 +67,26 @@ def main():
         t, x = kit["targets_dir"] / f"{name}.png", shots / f"{name}.png"
         if not (t.exists() and x.exists()):
             continue
-        tf, tb = profile(t)
-        rf, rb = profile(x)
+        tf, tb, tm = profile(t)
+        rf, rb, rm = profile(x)
+        # The real signal: rows the DESIGN fills but the RENDER leaves empty.
+        # Symmetric flatness (a flat card in both) cancels; only genuine
+        # missing content survives. Design-only chrome (a keyboard) still
+        # shows here — a small, known residual.
+        missing = float((tm & ~rm).mean())
         flag = note = None
-        if tb - rb > SHORTFALL or rf < tf * FILL_RATIO:
+        if missing > MISSING_MAX:
             flag = "squeezed"
-            note = (f"content fills {rf:.0%} of the frame and ends at "
-                    f"{rb:.0%} height; the design fills {tf:.0%} and ends at "
-                    f"{tb:.0%} — stretch sections, size media taller, and "
-                    f"include the design's remaining rows")
+            note = (f"the design fills {tf:.0%} of the frame; the render leaves "
+                    f"{missing:.0%} of it empty where the design has content — "
+                    f"add the missing sections, size media taller, keep lists complete")
             flags += 1
-        elif rb - tb > SHORTFALL and tb < 0.85:
-            flag = "overflow"
-            note = "content runs past where the design stops"
         rows.append({"screen": name, "target_fill": round(tf, 3),
                      "render_fill": round(rf, 3), "target_bottom": round(tb, 3),
-                     "render_bottom": round(rb, 3), "flag": flag, "note": note})
-        mark = f"  << {flag.upper()}" if flag else ""
-        print(f"{name:<34} target {tf:4.0%}/{tb:4.0%}  render {rf:4.0%}/{rb:4.0%}{mark}")
+                     "render_bottom": round(rb, 3), "missing": round(missing, 3),
+                     "flag": flag, "note": note})
+        mark = f"  << SQUEEZED (missing {missing:.0%})" if flag else ""
+        print(f"{name:<34} design {tf:4.0%}  render {rf:4.0%}  missing {missing:4.0%}{mark}")
     out.write_text("".join(json.dumps(r) + "\n" for r in rows))
     print(f"\n{rail}: {flags}/{len(rows)} flagged -> {out.name}")
 
