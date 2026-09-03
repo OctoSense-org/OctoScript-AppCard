@@ -38,28 +38,38 @@ def main():
     out = kit["ohos_dir"]
     out.mkdir(exist_ok=True)
     n = len(names)
-    k = 0  # fresh install starts the persisted counter at 0
-    need = set(range(n))
-    for _ in range(n * 6):
+    need = {i for i in range(n) if not (out / f"{names[i]}.png").exists()}
+    for _ in range(n * 3 + 40):
         if not need:
             break
         hdc("shell", "aa", "force-stop", PKG)
-        time.sleep(1.2)
+        time.sleep(1.0)
+        hdc("shell", "hilog", "-r")
         hdc("shell", "aa", "start", "-a", "EntryAbility", "-b", PKG)
-        shown, k = k, (k + 1) % n
-        if shown not in need:
-            time.sleep(1.2)
+        time.sleep(6.5)
+        # The counter on the phone is the only truth: a crashed or throttled
+        # launch silently desyncs any local mirror, and 107 mislabeled
+        # captures judge as 107 rejects. The app logs the index it mounted.
+        log = hdc("shell", "hilog", "-x", "-T", "SplashOH").stdout.decode("utf-8", "replace")
+        shown = None
+        for line in reversed(log.splitlines()):
+            if "atroScreen(" in line:
+                shown = int(line.split("atroScreen(")[1].split(")")[0]) % n
+                break
+        if shown is None:
+            print("no mount log; relaunching", flush=True)
             continue
-        time.sleep(7.0)
+        if shown not in need:
+            continue
         hdc("shell", "snapshot_display", "-f", "/data/local/tmp/cap.jpeg")
         hdc("file", "recv", "/data/local/tmp/cap.jpeg", "/tmp/cap.jpeg")
         im = Image.open("/tmp/cap.jpeg").convert("RGB")
         if np.asarray(im.convert("L")).mean() > 2.0:
             im.crop((0, 112, im.width, im.height)).save(out / f"{names[shown]}.png")
             need.discard(shown)
-            print(f"{shown:02d} {names[shown]} ok", flush=True)
+            print(f"{shown:03d} {names[shown]} ok ({len(need)} left)", flush=True)
         else:
-            print(f"{shown:02d} {names[shown]} black; retry on wrap", flush=True)
+            print(f"{shown:03d} {names[shown]} black; retry on wrap", flush=True)
     if need:
         sys.exit(f"unfinished: {sorted(need)}")
 

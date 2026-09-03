@@ -1,0 +1,66 @@
+# level: L0
+# model: camo-app
+theme camo
+
+view artistlist Col(width: .fill, gap: 18) {
+  Row(width: .fill, align: .center, gap: 12) {
+    Avatar(text: "JB")
+    Col(width: .fill, gap: 4) {
+      TextRow(text: "Justin Bieber", width: .fill)
+      TextCaption(text: "Pop, R&B", width: .fill)
+    }
+  }
+  Row(width: .fill, align: .center, gap: 12) {
+    Avatar(text: "TS")
+    Col(width: .fill, gap: 4) {
+      TextRow(text: "Taylor Swift", width: .fill)
+      TextCaption(text: "Pop, Country, Rock, Folk, Alterna…", width: .fill)
+    }
+  }
+  Row(width: .fill, align: .center, gap: 12) {
+    Avatar(text: "TW")
+    Col(width: .fill, gap: 4) {
+      TextRow(text: "The Weeknd", width: .fill)
+      TextCaption(text: "R&B, Pop, Electropop, Synth-Pop", width: .fill)
+    }
+  }
+  Row(width: .fill, align: .center, gap: 12) {
+    Avatar(text: "ES")
+    Col(width: .fill, gap: 4) {
+      TextRow(text: "Ed Sheeran", width: .fill)
+      TextCaption(text: "Pop, Folk-pop, Hip Hop, Soft Ro…", width: .fill)
+    }
+  }
+  Row(width: .fill, align: .center, gap: 12) {
+    Avatar(text: "BE")
+    Col(width: .fill, gap: 4) {
+      TextRow(text: "Billie Eilish", width: .fill)
+      TextCaption(text: "Alternative pop, Electropop, Po…", width: .fill)
+    }
+  }
+  Row(width: .fill, align: .center, gap: 12) {
+    Avatar(text: "AG")
+    Col(width: .fill, gap: 4) {
+      TextRow(text: "Ariana Grande", width: .fill)
+      TextCaption(text: "Pop, R&B", width: .fill)
+    }
+  }
+  Row(width: .fill, align: .center, gap: 12) {
+    Avatar(text: "KL")
+    Col(width: .fill, gap: 4) {
+      TextRow(text: "The Kid LAROI", width: .fill)
+      TextCaption(text: "Hip Hop, Pop Rap, Trap, R&B, …", width: .fill)
+    }
+  }
+}
+
+view root Surface(pad: .page) {
+  Row(width: .fill, align: .center) {
+    Icon(name: .chevron_left)
+    Col(width: .fill, align: .center) {
+      TextTitle(text: "Artists", width: .fit)
+    }
+    Icon(name: .more)
+  }
+  artistlist
+}

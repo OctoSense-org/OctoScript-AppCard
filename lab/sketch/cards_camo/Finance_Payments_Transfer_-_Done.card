@@ -1,0 +1,42 @@
+theme camo
+
+state p1 { shape: text, initial: "http://127.0.0.1:8787/8bfd21bf5261f228145093483a5a654bad0f491e.png" }
+
+view topbar Row(width: .fill, align: .center) {
+  Icon(name: .chevron_left)
+  Col(width: .fill, align: .center) {
+    TextTitle(text: "Transfer", width: .fit)
+  }
+}
+
+view amount Col(align: .center, gap: 10, width: .fill) {
+  TextCaption(text: "Score CaMo Bank", width: .fit)
+  TextTitle(text: "$404.00", width: .fit)
+}
+
+view bankcard Panel {
+  Col(align: .center, gap: 16, width: .fill) {
+    Thumb(src: p1, shape: .square)
+    TextRow(text: "Bank of America", width: .fit)
+    TextCaption(text: "Score CaMo Bank", width: .fit)
+    TextRow(text: "0000 **** **** 9999", width: .fit)
+  }
+}
+
+view receipt Col(align: .center, gap: 12, width: .fill) {
+  Icon(name: .phone, size: .hero)
+  TextCaption(text: "Submit a Receipt", width: .fit)
+}
+
+view root Surface(pad: .page) {
+  Col(width: .fill, gap: 22) {
+    topbar
+    amount
+    bankcard
+    receipt
+    Space()
+    Col(align: .center, width: .fill) {
+      Chip(text: "Done", tone: .primary, width: .fill)
+    }
+  }
+}

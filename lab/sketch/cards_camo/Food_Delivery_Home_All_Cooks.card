@@ -1,0 +1,142 @@
+# level: L0
+# model: camo-app
+theme camo_light
+
+state p1 { shape: text, initial: "http://127.0.0.1:8787/341e9a1f15aef47323d85f61d2d58ad9053d5d26.png" }
+state p2 { shape: text, initial: "http://127.0.0.1:8787/ddb05b64bf6319c235cf85fdd5028f06aecf542d.png" }
+state p3 { shape: text, initial: "http://127.0.0.1:8787/38f93e87678eed638c111e2015990522b106ea70.png" }
+state p4 { shape: text, initial: "http://127.0.0.1:8787/cff4ca1ce212df831723f28073ced8bbb5b758d3.png" }
+state p5 { shape: text, initial: "http://127.0.0.1:8787/08c9860a0147afc31f822c263f60139569cec5ed.png" }
+state p6 { shape: text, initial: "http://127.0.0.1:8787/edfebff4666ae678eb4dc5c39998e5240b0f482c.png" }
+state f1 { shape: text, initial: "http://127.0.0.1:8787/f0b787dad6caadc59b0b536a3e2a99612abaff5d.png" }
+state f2 { shape: text, initial: "http://127.0.0.1:8787/0dc6cbab127560b83585acacdde87447a7bc8168.png" }
+state price1 { shape: text, initial: "$9.99" }
+state price2 { shape: text, initial: "$9.99" }
+
+view header Row(width: .fill, align: .center, gap: 10) {
+  Avatar(text: "HV")
+  Icon(name: .location, size: .tile)
+  TextRow(text: "Hanoi, Vietnam", width: .fill)
+}
+
+view category Col(width: .fill, gap: 10) {
+  Row(width: .fill, align: .center) {
+    TextTitle(text: "Popular Category", width: .fill)
+    TextCaption(text: "See all", width: .fit)
+  }
+  Row(width: .fill, gap: 10) {
+    Chip(text: "Hamburger", width: .fill)
+    Chip(text: "Hotdog", width: .fill)
+    Chip(text: "French fries", width: .fill)
+  }
+}
+
+view food Col(width: .fill, gap: 10) {
+  Row(width: .fill, align: .center) {
+    TextTitle(text: "Popular Food", width: .fill)
+    TextCaption(text: "See all (171)", width: .fit)
+  }
+  Grid(cols: 2) {
+    Col(width: .fill, gap: 6) {
+      Thumb(src: f1)
+      Chip(text: "15%")
+      TextRow(text: "Sandwich with Bolied Egg", width: .fill)
+      Row(width: .fill, gap: 6) {
+        TextCaption(text: "24min •", width: .fit)
+        Icon(name: .star, size: .tile)
+        TextCaption(text: "4.5", width: .fit)
+      }
+      Row(width: .fill, gap: 8) {
+        TextValue(value: price1)
+        TextCaption(text: "$12.99", width: .fit)
+      }
+    }
+    Col(width: .fill, gap: 6) {
+      Thumb(src: f2)
+      Chip(text: "15%")
+      TextRow(text: "Pancake with Orange", width: .fill)
+      Row(width: .fill, gap: 6) {
+        TextCaption(text: "24min •", width: .fit)
+        Icon(name: .star, size: .tile)
+        TextCaption(text: "4.5", width: .fit)
+      }
+      Row(width: .fill, gap: 8) {
+        TextValue(value: price2)
+        TextCaption(text: "$12.99", width: .fit)
+      }
+    }
+  }
+}
+
+view cooks Panel {
+  Col(width: .fill, gap: 12) {
+    Col(width: .fill, align: .center) {
+      TextTitle(text: "All Cooks", width: .fit)
+    }
+    Grid(cols: 3) {
+      Col(width: .fill, align: .center, gap: 6) {
+        Thumb(src: p1, shape: .square)
+        TextRow(text: "Alberta", width: .fit)
+      }
+      Col(width: .fill, align: .center, gap: 6) {
+        Thumb(src: p2, shape: .square)
+        TextRow(text: "Eugene", width: .fit)
+      }
+      Col(width: .fill, align: .center, gap: 6) {
+        Thumb(src: p3, shape: .square)
+        TextRow(text: "Isabella", width: .fit)
+      }
+      Col(width: .fill, align: .center, gap: 6) {
+        Thumb(src: p4, shape: .square)
+        TextRow(text: "Lucille", width: .fit)
+      }
+      Col(width: .fill, align: .center, gap: 6) {
+        Thumb(src: p5, shape: .square)
+        TextRow(text: "Frederick", width: .fit)
+      }
+      Col(width: .fill, align: .center, gap: 6) {
+        Thumb(src: p6, shape: .square)
+        TextRow(text: "Mitchell", width: .fit)
+      }
+    }
+  }
+}
+
+view tabbar Panel {
+  Row(width: .fill, align: .center) {
+    Col(width: .fill, align: .center, gap: 4) {
+      Icon(name: .home)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(width: .fill, align: .center, gap: 4) {
+      Icon(name: .search)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(width: .fill, align: .center, gap: 4) {
+      Icon(name: .heart)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(width: .fill, align: .center, gap: 4) {
+      Icon(name: .bell)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(width: .fill, align: .center, gap: 4) {
+      Icon(name: .user)
+      TextCaption(text: "Item", width: .fit)
+    }
+  }
+}
+
+view root Surface(pad: .page) {
+  Col(width: .fill, gap: 12) {
+    header
+    category
+    food
+    Row(width: .fill, align: .center) {
+      TextTitle(text: "Cooks", width: .fill)
+      TextCaption(text: "See all (9)", width: .fit)
+    }
+    cooks
+  }
+  tabbar
+}

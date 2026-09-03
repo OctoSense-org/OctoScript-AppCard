@@ -1,0 +1,97 @@
+# level: L0
+# model: camo-app
+theme camo
+
+state q { shape: text, initial: "Search for Name…" }
+
+view appbar Row(width: .fill, align: .center) {
+  Icon(name: .chevron_left)
+  Col(width: .fill, align: .center) { TextTitle(text: "My Contacts", width: .fit) }
+  Icon(name: .search)
+}
+
+view search Panel {
+  Row(width: .fill, align: .center, gap: 12) {
+    Icon(name: .search)
+    Field(placeholder: q)
+  }
+}
+
+view sectiona Col(width: .fill, gap: 26) {
+  Row(width: .fill, align: .center) {
+    TextTitle(text: "A", width: .fill)
+    TextCaption(text: "5 Contacts", width: .fit)
+  }
+  Row(width: .fill, align: .center, gap: 14) {
+    Avatar(text: "AO")
+    Col(width: .fill, gap: 6) {
+      TextRow(text: "Alberta Owens", width: .fill)
+      TextCaption(text: "Hello Linh", width: .fill)
+    }
+    Icon(name: .chevron_right)
+  }
+  Row(width: .fill, align: .center, gap: 14) {
+    Avatar(text: "AW")
+    Col(width: .fill, gap: 6) {
+      TextRow(text: "Alvin Webster", width: .fill)
+      TextCaption(text: "5213 - 4124 - 9572", width: .fill)
+    }
+    Icon(name: .chevron_right)
+  }
+  Row(width: .fill, align: .center, gap: 14) {
+    Avatar(text: "AP")
+    Col(width: .fill, gap: 6) {
+      TextRow(text: "Anne Pearson", width: .fill)
+      TextCaption(text: "3432 - 6462 - 1321", width: .fill)
+    }
+    Icon(name: .chevron_right)
+  }
+  Row(width: .fill, align: .center, gap: 14) {
+    Avatar(text: "AP")
+    Col(width: .fill, gap: 6) {
+      TextRow(text: "Amy Potter", width: .fill)
+      TextCaption(text: "8544 - 3123 - 5765", width: .fill)
+    }
+    Icon(name: .chevron_right)
+  }
+  Row(width: .fill, align: .center, gap: 14) {
+    Avatar(text: "AG")
+    Col(width: .fill, gap: 6) {
+      TextRow(text: "Albert Gardner", width: .fill)
+      TextCaption(text: "42142 - 6574 - 3131", width: .fill)
+    }
+    Icon(name: .chevron_right)
+  }
+}
+
+view sectionb Col(width: .fill, gap: 26) {
+  Row(width: .fill, align: .center) {
+    TextTitle(text: "B", width: .fill)
+    TextCaption(text: "10 Contacts", width: .fit)
+  }
+  Row(width: .fill, align: .center, gap: 14) {
+    Avatar(text: "BP")
+    Col(width: .fill, gap: 6) {
+      TextRow(text: "Bryan Perry", width: .fill)
+      TextCaption(text: "4214 - 6425 - 2435", width: .fill)
+    }
+    Icon(name: .chevron_right)
+  }
+  Row(width: .fill, align: .center, gap: 14) {
+    Avatar(text: "BA")
+    Col(width: .fill, gap: 6) {
+      TextRow(text: "Bruce Andrews", width: .fill)
+      TextCaption(text: "5213 - 4124 - 9572", width: .fill)
+    }
+    Icon(name: .chevron_right)
+  }
+}
+
+view root Surface(pad: .page) {
+  Col(width: .fill, gap: 30) {
+    appbar
+    search
+    sectiona
+    sectionb
+  }
+}

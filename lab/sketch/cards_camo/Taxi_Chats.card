@@ -1,0 +1,42 @@
+# level: L0
+# model: camo-app
+theme camo_light
+
+state composer_hint { shape: text, initial: "Message the Driver" }
+
+view appbar Row(width: .fill, align: .center) {
+  Icon(name: .chevron_left)
+  Col(width: .fill, align: .center) {
+    TextTitle(text: "Linh Nguyen", width: .fit)
+  }
+  Icon(name: .phone)
+}
+
+view thread Col(width: .fill, gap: 8) {
+  Bubble(text: "I am going to", side: .them)
+  TextCaption(text: "07:05 AM")
+  Bubble(text: "I'm waiting for you at the pick up point", side: .me)
+  TextCaption(text: "07:06 AM")
+  Bubble(text: "Wait for me, I'll come as soon as possible", side: .them)
+  Bubble(text: "Please wait for me 4 minutes", side: .them)
+  TextCaption(text: "07:05 AM")
+}
+
+view quickreplies Row(width: .fill, gap: 8) {
+  Chip(text: "Ok")
+  Chip(text: "Please wait a moment")
+  Chip(text: "I'm going out")
+}
+
+view composer Row(width: .fill, align: .center, gap: 8) {
+  Field(placeholder: composer_hint, width: .fill)
+  Icon(name: .arrow_up)
+}
+
+view root Surface(pad: .page) {
+  appbar
+  thread
+  Space()
+  quickreplies
+  composer
+}

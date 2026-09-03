@@ -1,0 +1,30 @@
+theme camo_light
+
+state p1 { shape: text, initial: "http://127.0.0.1:8787/c06798a2f89299479b974443b62d5171ff231060.png" }
+
+view root Surface(pad: .page) {
+  Row(width: .fill) {
+    Icon(name: .chevron_left)
+  }
+  Thumb(src: p1, shape: .hero)
+  Panel {
+    Col(width: .fill, gap: 12) {
+      TextTitle(text: "Your driver is coming", width: .fill)
+      Row(width: .fill, align: .center, gap: 12) {
+        Col(width: .fill, gap: 6) {
+          TextRow(text: "Linh Nguyen", width: .fill)
+          TextCaption(text: "Lamborghini • Aventador", width: .fill)
+          Chip(text: "DV-557HA")
+        }
+        Col(align: .center, gap: 4) {
+          Avatar(text: "LN")
+          TextCaption(text: "5.0", glyph: "★", width: .fit)
+        }
+      }
+      Row(width: .fill, gap: 12) {
+        Chip(text: "Message", tone: .primary, width: .fill)
+        Chip(text: "Call now", tone: .primary, width: .fill)
+      }
+    }
+  }
+}

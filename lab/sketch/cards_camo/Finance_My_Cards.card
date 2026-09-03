@@ -1,0 +1,78 @@
+# level: L0
+# model: camo-app
+
+theme camo
+
+state total_spend   { shape: text,   initial: "$1050.99" }
+state shop_amount   { shape: text,   initial: "-$240.00" }
+state shop_delta    { shape: number, initial: -240.00 }
+state sophie_amount { shape: text,   initial: "+$100.00" }
+state sophie_delta  { shape: number, initial: 100.00 }
+state med_amount    { shape: text,   initial: "-$42.90" }
+state med_delta     { shape: number, initial: -42.90 }
+
+view header Row(width: .fill, align: .center) {
+  Icon(name: .chevron_left)
+  Col(width: .fill, align: .center) {
+    TextTitle(text: "Card", width: .fit)
+  }
+  Icon(name: .more)
+}
+
+view bankcard Card {
+  Col(width: .fill, gap: 24) {
+    TextRow(text: "CaMo Bank", width: .fill)
+    TextCaption(text: "Linh Nguyen", width: .fill)
+    TextTitle(text: "0000 **** **** 9999", width: .fill)
+    TextCaption(text: "04 / 23", width: .fill)
+  }
+}
+
+view actions Row(width: .fill, align: .center, gap: 16) {
+  Chip(text: "Replenish", width: .fill)
+  Chip(text: "Topay", width: .fill)
+}
+
+view spending Row(width: .fill, align: .center) {
+  Col(width: .fill, gap: 8) {
+    TextEyebrow(text: "Total Spending")
+    TextHero(value: total_spend)
+  }
+  TextCaption(text: "October", width: .fit)
+}
+
+view txlist Col(width: .fill, gap: 22) {
+  Row(width: .fill, align: .center, gap: 14) {
+    Avatar(text: "SH")
+    Col(width: .fill, gap: 4) {
+      TextRow(text: "Shopping", width: .fill)
+      TextCaption(text: "Today, 09:21 AM", width: .fill)
+    }
+    TextValue(value: shop_amount, tint: shop_delta)
+  }
+  Row(width: .fill, align: .center, gap: 14) {
+    Avatar(text: "SO")
+    Col(width: .fill, gap: 4) {
+      TextRow(text: "Sophie Owens", width: .fill)
+      TextCaption(text: "Today, 08:30 AM", width: .fill)
+    }
+    TextValue(value: sophie_amount, tint: sophie_delta)
+  }
+  Row(width: .fill, align: .center, gap: 14) {
+    Avatar(text: "ME")
+    Col(width: .fill, gap: 4) {
+      TextRow(text: "Medicine", width: .fill)
+      TextCaption(text: "Today, 08:00 AM", width: .fill)
+    }
+    TextValue(value: med_amount, tint: med_delta)
+  }
+}
+
+view root Surface(pad: .page) {
+  header
+  bankcard
+  actions
+  spending
+  TextTitle(text: "Today, 27 Sep", width: .fill)
+  txlist
+}

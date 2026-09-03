@@ -1,0 +1,121 @@
+# level: L0
+# model: camo-app
+theme camo_light
+
+state p1 { shape: text, initial: "http://127.0.0.1:8787/f0b787dad6caadc59b0b536a3e2a99612abaff5d.png" }
+state p2 { shape: text, initial: "http://127.0.0.1:8787/5b6f8b2d8a455b5552529cffcff1dc375bf882b7.png" }
+state p3 { shape: text, initial: "http://127.0.0.1:8787/951005ade223e2e67266b6ea26ae51cb417422c7.png" }
+state p4 { shape: text, initial: "http://127.0.0.1:8787/0dc6cbab127560b83585acacdde87447a7bc8168.png" }
+state q1 { shape: text, initial: "Search for food…" }
+
+state seg { shape: enum[on, off], initial: .on }
+
+state price1 { shape: text, initial: "$9.99" }
+state was1   { shape: text, initial: "$12.99" }
+state price2 { shape: text, initial: "$9.99" }
+state was2   { shape: text, initial: "$12.99" }
+state price3 { shape: text, initial: "$9.99" }
+state was3   { shape: text, initial: "$12.99" }
+state price4 { shape: text, initial: "$9.99" }
+state was4   { shape: text, initial: "$12.99" }
+
+view header Row(width: .fill, align: .center, gap: 10) {
+  TextTitle(text: "Search", width: .fill)
+  Icon(name: .location, size: .tile)
+  TextCaption(text: "Hanoi, Vietnam", width: .fit)
+}
+
+view filters Row(width: .fill, gap: 12) {
+  Chip(text: "Active", active: seg == .on, width: .fill)
+  Chip(text: "Normal", active: seg == .off, width: .fill)
+}
+
+view results Grid(cols: 2) {
+  Col(width: .fill, gap: 10) {
+    Thumb(src: p1, shape: .hero)
+    Chip(text: "15%")
+    TextRow(text: "Sandwich with Bolied Egg", width: .fill)
+    Row(gap: 8) {
+      TextCaption(text: "24min •", width: .fit)
+      TextCaption(text: "4.5", glyph: "★", width: .fit)
+    }
+    Row(gap: 10) {
+      TextValue(value: price1)
+      TextValue(value: was1)
+    }
+  }
+  Col(width: .fill, gap: 10) {
+    Thumb(src: p2, shape: .hero)
+    Chip(text: "15%")
+    TextRow(text: "Vegetable Salad on White", width: .fill)
+    Row(gap: 8) {
+      TextCaption(text: "24min •", width: .fit)
+      TextCaption(text: "4.5", glyph: "★", width: .fit)
+    }
+    Row(gap: 10) {
+      TextValue(value: price2)
+      TextValue(value: was2)
+    }
+  }
+  Col(width: .fill, gap: 10) {
+    Thumb(src: p3, shape: .hero)
+    Chip(text: "15%")
+    TextRow(text: "Sandwich with Bolied Egg", width: .fill)
+    Row(gap: 8) {
+      TextCaption(text: "24min •", width: .fit)
+      TextCaption(text: "4.5", glyph: "★", width: .fit)
+    }
+    Row(gap: 10) {
+      TextValue(value: price3)
+      TextValue(value: was3)
+    }
+  }
+  Col(width: .fill, gap: 10) {
+    Thumb(src: p4, shape: .hero)
+    Chip(text: "15%")
+    TextRow(text: "Sandwich with Bolied Egg", width: .fill)
+    Row(gap: 8) {
+      TextCaption(text: "24min •", width: .fit)
+      TextCaption(text: "4.5", glyph: "★", width: .fit)
+    }
+    Row(gap: 10) {
+      TextValue(value: price4)
+      TextValue(value: was4)
+    }
+  }
+}
+
+view tabbar Panel {
+  Row(width: .fill, align: .center) {
+    Col(width: .fill, align: .center, gap: 6) {
+      Icon(name: .home)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(width: .fill, align: .center, gap: 6) {
+      Icon(name: .search)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(width: .fill, align: .center, gap: 6) {
+      Icon(name: .heart)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(width: .fill, align: .center, gap: 6) {
+      Icon(name: .bell)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(width: .fill, align: .center, gap: 6) {
+      Icon(name: .user)
+      TextCaption(text: "Item", width: .fit)
+    }
+  }
+}
+
+view root Surface(pad: .page) {
+  Col(width: .fill, gap: 16) {
+    header
+    Field(placeholder: q1)
+    filters
+    results
+  }
+  tabbar
+}

@@ -1,0 +1,63 @@
+# level: L0
+# model: camo-app
+theme camo
+
+view hero Card(tint: .amber) {
+  Col(width: .fill, gap: 24) {
+    Col(width: .fill, align: .center, gap: 4) {
+      TextTitle(text: "Best Dance Songs 2021", width: .fit)
+    }
+    Row(width: .fill, align: .center, gap: 12) {
+      TextRow(text: "CaMo", width: .fill)
+      Icon(name: .play, size: .hero)
+    }
+  }
+}
+
+view library Col(width: .fill, gap: 16) {
+  Row(width: .fill, align: .center, gap: 12) {
+    Col(width: .fill, gap: 4) {
+      TextTitle(text: "Dance", width: .fill)
+      TextCaption(text: "134 Songs", width: .fill)
+    }
+    Icon(name: .close)
+  }
+  Row(width: .fill, align: .center, gap: 12) {
+    Avatar(text: "ST")
+    Col(width: .fill, gap: 2) {
+      TextRow(text: "Stay", width: .fill)
+      TextCaption(text: "The Kid LAROI, Justin Bieber", width: .fill)
+    }
+    Icon(name: .more)
+  }
+  Rule()
+  Row(width: .fill, align: .center, gap: 12) {
+    Avatar(text: "IB")
+    Col(width: .fill, gap: 2) {
+      TextRow(text: "Industry Baby", width: .fill)
+      TextCaption(text: "Lil Nas X & Jack Harlow", width: .fill)
+    }
+    Icon(name: .more)
+  }
+  Rule()
+  Row(width: .fill, align: .center, gap: 12) {
+    Avatar(text: "BH")
+    Col(width: .fill, gap: 2) {
+      TextRow(text: "Bad Habits", width: .fill)
+      TextCaption(text: "Ed Sheeran", width: .fill)
+    }
+    Icon(name: .more)
+  }
+}
+
+view root Surface(pad: .page) {
+  Row(width: .fill, align: .center, gap: 12) {
+    Icon(name: .chevron_left)
+    Col(width: .fill, align: .center) {
+      TextTitle(text: "Album", width: .fit)
+    }
+    Icon(name: .more)
+  }
+  hero
+  library
+}

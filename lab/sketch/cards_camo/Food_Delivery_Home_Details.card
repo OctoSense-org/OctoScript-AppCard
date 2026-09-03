@@ -1,0 +1,73 @@
+# level: L0
+# model: camo-app
+
+theme camo_light
+
+state p1 { shape: text, initial: "http://127.0.0.1:8787/f0b787dad6caadc59b0b536a3e2a99612abaff5d.png" }
+
+state price_now { shape: text, initial: "$9.99" }
+state price_champ { shape: text, initial: "$1.99" }
+state price_tom { shape: text, initial: "$0.99" }
+
+view head Row(width: .fill, align: .center) {
+  Icon(name: .chevron_left)
+  Col(width: .fill, align: .center) {
+    TextTitle(text: "Details", width: .fit)
+  }
+  Icon(name: .heart)
+}
+
+view hero Col(width: .fill, gap: 12) {
+  Thumb(src: p1, shape: .hero)
+  Row(width: .fill) {
+    Chip(text: "15%")
+  }
+}
+
+view info Col(width: .fill, gap: 20) {
+  TextTitle(text: "Sandwich with Bolied Egg", width: .fill)
+  Row(width: .fill, align: .center, gap: 6) {
+    TextCaption(text: "24min •", width: .fit)
+    Icon(name: .star, size: .tile)
+    TextCaption(text: "4.5", width: .fit)
+  }
+  Row(width: .fill, align: .center, gap: 10) {
+    TextValue(value: price_now)
+    TextCaption(text: "$12.99", width: .fit)
+  }
+  TextBody(text: "To prepare an egg sandwich, transfer the chopped eggs in a deep bowl. Add the mayonnaise. It gives a nice creaminess to the sandwich.", width: .fill)
+}
+
+view addons Col(width: .fill, gap: 20) {
+  Row(width: .fill, align: .center) {
+    TextTitle(text: "Add to Food", width: .fill)
+    TextCaption(text: "See all", width: .fit)
+  }
+  Grid(cols: 2) {
+    Panel {
+      Row(width: .fill, align: .center, gap: 8) {
+        TextRow(text: "Champignons", width: .fill)
+        TextValue(value: price_champ)
+      }
+    }
+    Panel {
+      Row(width: .fill, align: .center, gap: 8) {
+        TextRow(text: "Tomatoes", width: .fill)
+        TextValue(value: price_tom)
+      }
+    }
+  }
+}
+
+view root Surface(pad: .page) {
+  Col(width: .fill, gap: 24) {
+    head
+    hero
+    info
+    addons
+  }
+  Space()
+  Col(width: .fill) {
+    Chip(text: "Add to Cart", tone: .primary, width: .fill)
+  }
+}

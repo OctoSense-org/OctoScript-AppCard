@@ -1,0 +1,85 @@
+# level: L0
+# model: camo-app
+theme camo
+
+state search_hint { shape: text, initial: "Search for Setting…" }
+
+view topbar Row(width: .fill, align: .center) {
+  TextTitle(text: "More", width: .fill)
+  Icon(name: .more)
+}
+
+view searchbar Panel {
+  Row(width: .fill, align: .center, gap: 14) {
+    Icon(name: .search)
+    Field(placeholder: search_hint, width: .fill)
+  }
+}
+
+view profile Col(width: .fill, gap: 20) {
+  Row(width: .fill, align: .center) {
+    TextTitle(text: "Profile", width: .fill)
+    TextCaption(text: "Edit", width: .fit)
+  }
+  Row(width: .fill, align: .center, gap: 14) {
+    Avatar(text: "LN")
+    Col(width: .fill, gap: 6) {
+      TextRow(text: "Linh Nguyen", width: .fill)
+      TextCaption(text: "Founder at CaDesign", width: .fill)
+    }
+  }
+}
+
+view general Col(width: .fill, gap: 34) {
+  Row(width: .fill, align: .center, gap: 16) {
+    Icon(name: .wifi)
+    TextRow(text: "Internet", width: .fill)
+  }
+  Row(width: .fill, align: .center, gap: 16) {
+    Icon(name: .location)
+    TextRow(text: "Location", width: .fill)
+  }
+  Row(width: .fill, align: .center, gap: 16) {
+    Icon(name: .bell)
+    TextRow(text: "Notifications", width: .fill)
+  }
+  Row(width: .fill, align: .center, gap: 16) {
+    Icon(name: .lock)
+    TextRow(text: "Security", width: .fill)
+  }
+}
+
+view tabbar Panel {
+  Grid(cols: 5) {
+    Col(align: .center, gap: 8) {
+      Icon(name: .home)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, gap: 8) {
+      Icon(name: .search)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, gap: 8) {
+      Icon(name: .chat)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, gap: 8) {
+      Icon(name: .activity)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, gap: 8) {
+      Icon(name: .user)
+      TextCaption(text: "Item", width: .fit)
+    }
+  }
+}
+
+view root Surface(pad: .page) {
+  topbar
+  searchbar
+  profile
+  TextTitle(text: "General", width: .fill)
+  general
+  Space()
+  tabbar
+}

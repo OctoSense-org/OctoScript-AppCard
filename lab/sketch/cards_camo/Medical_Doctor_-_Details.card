@@ -1,0 +1,78 @@
+# level: L0
+# model: camo-app
+theme camo_light
+
+state p1 { shape: text, initial: "http://127.0.0.1:8787/e5ce3e34062b6c5248b1f1b54cb6d8dfe9754e20.png" }
+
+state fee  { shape: text, initial: "$15.90" }
+state plan { shape: enum[first, second], initial: .second }
+
+view topbar Row(width: .fill, align: .center) {
+  Icon(name: .chevron_left)
+}
+
+view profile Col(width: .fill, gap: 20) {
+  Row(width: .fill, align: .center, gap: 14) {
+    Thumb(src: p1, shape: .square)
+    Col(width: .fill, gap: 10) {
+      TextTitle(text: "Joseph Atkins", width: .fill)
+      Row(width: .fill, align: .center, gap: 4) {
+        Icon(name: .star, size: .tile)
+        Icon(name: .star, size: .tile)
+        Icon(name: .star, size: .tile)
+        Icon(name: .star, size: .tile)
+        Icon(name: .star, size: .tile)
+        TextCaption(text: "680 Reviews", width: .fit)
+      }
+    }
+  }
+  Col(width: .fill, gap: 14) {
+    TextBody(text: "• Doctor of Qualification", width: .fill)
+    TextBody(text: "• Work Experience: 10 years", width: .fill)
+  }
+  TextValue(value: fee)
+}
+
+view tabs Panel {
+  Row(width: .fill, align: .center, gap: 8) {
+    Chip(text: "Normal", active: plan == .first, width: .fill)
+    Chip(text: "Active", active: plan == .second, width: .fill)
+  }
+}
+
+view appointment Col(width: .fill, gap: 16) {
+  TextBody(text: "Make an Appointment", width: .fill)
+  Row(width: .fill, align: .center, gap: 8) {
+    TextTitle(text: "30 Sep 2021, 10:00", width: .fill)
+    TextCaption(text: "Change", width: .fit)
+  }
+}
+
+view channels Col(width: .fill, gap: 26) {
+  Row(width: .fill, align: .center, gap: 12) {
+    TextCaption(glyph: "◉")
+    TextRow(text: "Audio Chat", width: .fill)
+  }
+  Row(width: .fill, align: .center, gap: 12) {
+    TextCaption(glyph: "○")
+    TextRow(text: "Video Conference", width: .fill)
+  }
+  Row(width: .fill, align: .center, gap: 12) {
+    TextCaption(glyph: "○")
+    TextRow(text: "Text Chat", width: .fill)
+  }
+}
+
+view root Surface(pad: .page) {
+  Col(width: .fill, gap: 26) {
+    topbar
+    profile
+    tabs
+    appointment
+    channels
+  }
+  Space()
+  Col(width: .fill, align: .center) {
+    Chip(text: "Continue", tone: .primary, width: .fill)
+  }
+}

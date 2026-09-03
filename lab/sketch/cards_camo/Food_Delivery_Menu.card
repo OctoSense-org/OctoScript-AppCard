@@ -1,0 +1,114 @@
+# level: L0
+# model: camo-app
+theme camo_light
+
+view header Row(width: .fill, align: .center) {
+  TextTitle(text: "Menu", width: .fill)
+  Icon(name: .location)
+  TextRow(text: "Hanoi, Vietnam", width: .fit)
+  Icon(name: .menu)
+}
+
+view menugrid Grid(cols: 2) {
+  Panel {
+    Col(gap: 12, width: .fill) {
+      Icon(name: .image, size: .hero)
+      TextRow(text: "Appetizers", width: .fill)
+      TextCaption(text: "+32 Foods", width: .fill)
+    }
+  }
+  Panel {
+    Col(gap: 12, width: .fill) {
+      Icon(name: .image, size: .hero)
+      TextRow(text: "Cold Platter", width: .fill)
+      TextCaption(text: "+22 Foods", width: .fill)
+    }
+  }
+  Panel {
+    Col(gap: 12, width: .fill) {
+      Icon(name: .image, size: .hero)
+      TextRow(text: "Hot Appetizers", width: .fill)
+      TextCaption(text: "+532 Foods", width: .fill)
+    }
+  }
+  Panel {
+    Col(gap: 12, width: .fill) {
+      Icon(name: .image, size: .hero)
+      TextRow(text: "Starters", width: .fill)
+      TextCaption(text: "+2423 Foods", width: .fill)
+    }
+  }
+  Panel {
+    Col(gap: 12, width: .fill) {
+      Icon(name: .image, size: .hero)
+      TextRow(text: "Soups", width: .fill)
+      TextCaption(text: "+123 Foods", width: .fill)
+    }
+  }
+  Panel {
+    Col(gap: 12, width: .fill) {
+      Icon(name: .image, size: .hero)
+      TextRow(text: "Main Disher", width: .fill)
+      TextCaption(text: "+879 Foods", width: .fill)
+    }
+  }
+  Panel {
+    Col(gap: 12, width: .fill) {
+      Icon(name: .image, size: .hero)
+      TextRow(text: "Meat", width: .fill)
+      TextCaption(text: "+675 Foods", width: .fill)
+    }
+  }
+  Panel {
+    Col(gap: 12, width: .fill) {
+      Icon(name: .image, size: .hero)
+      TextRow(text: "Fish & Seafoods", width: .fill)
+      TextCaption(text: "+135 Foods", width: .fill)
+    }
+  }
+  Panel {
+    Col(gap: 12, width: .fill) {
+      Icon(name: .image, size: .hero)
+      TextRow(text: "Side Dishes", width: .fill)
+      TextCaption(text: "+675 Foods", width: .fill)
+    }
+  }
+  Panel {
+    Col(gap: 12, width: .fill) {
+      Icon(name: .image, size: .hero)
+      TextRow(text: "Snack", width: .fill)
+      TextCaption(text: "+135 Foods", width: .fill)
+    }
+  }
+}
+
+view tabbar Panel {
+  Row(width: .fill, align: .center) {
+    Col(align: .center, width: .fill, gap: 6) {
+      Icon(name: .home)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, width: .fill, gap: 6) {
+      Icon(name: .search)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, width: .fill, gap: 6) {
+      Icon(name: .heart)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, width: .fill, gap: 6) {
+      Icon(name: .chat)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(align: .center, width: .fill, gap: 6) {
+      Icon(name: .user)
+      TextCaption(text: "Item", width: .fit)
+    }
+  }
+}
+
+view root Surface(pad: .page) {
+  header
+  menugrid
+  tabbar
+}

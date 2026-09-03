@@ -1,0 +1,101 @@
+# level: L0
+# model: camo-app
+
+theme camo_light
+
+state sys    { shape: text, initial: "119" }
+state sex    { shape: text, initial: "Male" }
+state age    { shape: text, initial: "24" }
+state blood  { shape: text, initial: "A+" }
+state weight { shape: text, initial: "80kg" }
+state height { shape: text, initial: "175cm" }
+
+view bar Row(width: .fill, align: .center) {
+  Icon(name: .chevron_left)
+  Col(width: .fill, align: .center) {
+    TextTitle(text: "Infomation", width: .fit)
+  }
+  Icon(name: .user)
+}
+
+view head Row(width: .fill, align: .center) {
+  TextTitle(text: "Overview", width: .fill)
+  TextCaption(text: "See all", width: .fit)
+}
+
+view chart Panel {
+  Col(width: .fill, gap: 18) {
+    Row(width: .fill, align: .center) {
+      TextRow(text: "SYS", width: .fill)
+      Icon(name: .heart)
+    }
+    Row(width: .fill, align: .center, gap: 6) {
+      TextHero(value: sys)
+      TextRow(text: "mmHg", width: .fit)
+    }
+    Row(width: .fill, gap: 14) {
+      Col(gap: 28) {
+        TextCaption(text: "160", width: .fit)
+        TextCaption(text: "140", width: .fit)
+        TextCaption(text: "120", width: .fit)
+      }
+      Col(width: .fill, gap: 38) {
+        Rule()
+        Rule()
+        Rule()
+      }
+    }
+    Grid(cols: 7) {
+      TextEyebrow(text: "Mon")
+      TextEyebrow(text: "Tue")
+      TextEyebrow(text: "Wed")
+      TextEyebrow(text: "Thu")
+      TextEyebrow(text: "Fri")
+      TextEyebrow(text: "Sat")
+      TextEyebrow(text: "Sun")
+    }
+  }
+}
+
+view pager Row(width: .fill, align: .center, gap: 6) {
+  TextCaption(text: "•", width: .fit)
+  TextCaption(text: "•", width: .fit)
+  TextCaption(text: "•", width: .fit)
+}
+
+view vitals Col(width: .fill, gap: 18) {
+  Row(width: .fill, align: .center) {
+    TextRow(text: "Sex", width: .fill)
+    TextValue(value: sex)
+  }
+  Rule()
+  Row(width: .fill, align: .center) {
+    TextRow(text: "Age", width: .fill)
+    TextValue(value: age)
+  }
+  Rule()
+  Row(width: .fill, align: .center) {
+    TextRow(text: "Blood", width: .fill)
+    TextValue(value: blood)
+  }
+  Rule()
+  Row(width: .fill, align: .center) {
+    TextRow(text: "Weight", width: .fill)
+    TextValue(value: weight)
+  }
+  Rule()
+  Row(width: .fill, align: .center) {
+    TextRow(text: "Height", width: .fill)
+    TextValue(value: height)
+  }
+}
+
+view root Surface(pad: .page) {
+  Col(width: .fill, gap: 40) {
+    bar
+    head
+    chart
+    pager
+    vitals
+  }
+}

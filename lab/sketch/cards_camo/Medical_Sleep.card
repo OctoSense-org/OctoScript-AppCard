@@ -1,0 +1,105 @@
+# level: L0
+# model: camo-app
+theme camo_light
+
+state tab { shape: enum[first, second, third], initial: .second }
+
+state bed_hr  { shape: text, initial: "8" }
+state bed_min { shape: text, initial: "25" }
+state asl_hr  { shape: text, initial: "8" }
+state asl_min { shape: text, initial: "40" }
+state sched   { shape: text, initial: "23:30 - 07:30" }
+
+view bar Row(width: .fill, align: .center) {
+  Icon(name: .chevron_left)
+  Col(width: .fill, align: .center) {
+    TextTitle(text: "Sleep", width: .fit)
+  }
+  Icon(name: .moon)
+}
+
+view segments Panel {
+  Row(width: .fill, align: .center, gap: 8) {
+    Chip(text: "Normal", active: tab == .first, width: .fill)
+    Chip(text: "Active", active: tab == .second, width: .fill)
+    Chip(text: "Normal", active: tab == .third, width: .fill)
+  }
+}
+
+view stats Row(width: .fill, gap: 12) {
+  Col(width: .fill, gap: 18) {
+    TextCaption(text: "AVG. Time in Bed", glyph: "◆", width: .fill)
+    Row(align: .center, gap: 12) {
+      TextValue(value: bed_hr, unit: "hr")
+      TextValue(value: bed_min, unit: "min")
+    }
+  }
+  Col(width: .fill, gap: 18) {
+    TextCaption(text: "AVG. Time Asleep", glyph: "◆", width: .fill)
+    Row(align: .center, gap: 12) {
+      TextValue(value: asl_hr, unit: "hr")
+      TextValue(value: asl_min, unit: "min")
+    }
+  }
+}
+
+view daterow Row(width: .fill, align: .center, gap: 10) {
+  Icon(name: .calendar)
+  TextRow(text: "Otc 04 - Otc 10, 2021", width: .fill)
+}
+
+view chart Col(width: .fill, gap: 28) {
+  Row(width: .fill, align: .center, gap: 14) {
+    TextEyebrow(text: "22:00")
+    Col(width: .fill) { Rule() }
+  }
+  Row(width: .fill, align: .center, gap: 14) {
+    TextEyebrow(text: "00:00")
+    Col(width: .fill) { Rule() }
+  }
+  Row(width: .fill, align: .center, gap: 14) {
+    TextEyebrow(text: "02:00")
+    Col(width: .fill) { Rule() }
+  }
+  Row(width: .fill, align: .center, gap: 14) {
+    TextEyebrow(text: "04:00")
+    Col(width: .fill) { Rule() }
+  }
+  Row(width: .fill, align: .center, gap: 14) {
+    TextEyebrow(text: "06:00")
+    Col(width: .fill) { Rule() }
+  }
+  Row(width: .fill, align: .center, gap: 14) {
+    TextEyebrow(text: "08:00")
+    Col(width: .fill) { Rule() }
+  }
+  Grid(cols: 7) {
+    TextEyebrow(text: "Mon")
+    TextEyebrow(text: "Tue")
+    TextEyebrow(text: "Wed")
+    TextEyebrow(text: "Thu")
+    TextEyebrow(text: "Fri")
+    TextEyebrow(text: "Sat")
+    TextEyebrow(text: "Sun")
+  }
+}
+
+view schedule Panel {
+  Row(width: .fill, align: .center, gap: 10) {
+    Icon(name: .clock)
+    TextRow(text: "Sleep Schedule", width: .fill)
+    TextValue(value: sched)
+  }
+}
+
+view root Surface(pad: .page) {
+  Col(width: .fill, gap: 30) {
+    bar
+    segments
+    stats
+    daterow
+    chart
+  }
+  Space()
+  schedule
+}

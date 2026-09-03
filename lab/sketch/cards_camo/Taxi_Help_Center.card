@@ -1,0 +1,49 @@
+# level: L0
+# model: camo-app
+theme camo_light
+
+state searchq { shape: text, initial: "Search for Questions" }
+
+view topics Col(width: .fill, gap: 8) {
+  Panel {
+    Col(width: .fill, gap: 6) {
+      TextRow(text: "How to add a new card to CaMo?", width: .fill)
+      TextCaption(text: "You can add payment methods including credit and debit cards", width: .fill)
+    }
+  }
+  Panel {
+    Col(width: .fill, gap: 6) {
+      TextRow(text: "How do I create a trip?", width: .fill)
+      TextCaption(text: "If your trip was booked directly with an airline, hotel or a", width: .fill)
+    }
+  }
+  Panel {
+    Col(width: .fill, gap: 6) {
+      TextRow(text: "Canceling a ride", width: .fill)
+      TextCaption(text: "Canceling a trip · 1. Tap the menu icon in the bottom right ", width: .fill)
+    }
+  }
+  Panel {
+    Col(width: .fill, gap: 6) {
+      TextRow(text: "I left my phone in a vehicle", width: .fill)
+      TextCaption(text: "If you left your phone in a vehicle and can't sign in to you", width: .fill)
+    }
+  }
+}
+
+view root Surface(pad: .page) {
+  Col(width: .fill, gap: 16) {
+    Row(width: .fill, align: .center) {
+      Icon(name: .chevron_left)
+      Col(width: .fill, align: .center) {
+        TextTitle(text: "Help Center", width: .fit)
+      }
+    }
+    Field(placeholder: searchq)
+    Row(width: .fill, align: .center) {
+      TextTitle(text: "Topics", width: .fill)
+      TextCaption(text: "View all", width: .fit)
+    }
+    topics
+  }
+}

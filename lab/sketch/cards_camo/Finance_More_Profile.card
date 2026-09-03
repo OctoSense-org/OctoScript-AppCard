@@ -1,0 +1,49 @@
+# level: L0
+# model: camo-app
+theme camo
+
+state email_label { shape: text, initial: "Email" }
+state email_value { shape: text, initial: "Hello.carrotlabs@gmail.com" }
+state phone_label { shape: text, initial: "Phone Number" }
+state phone_value { shape: text, initial: "(+84) 999 999 999" }
+
+view topbar Row(width: .fill, align: .center) {
+  Icon(name: .chevron_left)
+  Col(width: .fill, align: .center) {
+    TextTitle(text: "Profile", width: .fit)
+  }
+  TextCaption(text: "Exit", width: .fit)
+}
+
+view identity Col(width: .fill, align: .center, gap: 8) {
+  Avatar(text: "LN")
+  TextTitle(text: "Linh Nguyen", width: .fit)
+  TextCaption(text: "Founder at CaDesign", width: .fit)
+}
+
+view form Col(width: .fill, gap: 14) {
+  Field(text: email_value, placeholder: email_label)
+  Field(text: phone_value, placeholder: phone_label)
+}
+
+view employer Row(width: .fill, align: .center, gap: 12) {
+  Icon(name: .plus)
+  TextTitle(text: "Employer Infomation", width: .fill)
+}
+
+view body Col(width: .fill, gap: 30) {
+  identity
+  form
+  employer
+}
+
+view cta Col(width: .fill, align: .center) {
+  Chip(text: "Save", tone: .primary, width: .fill)
+}
+
+view root Surface(pad: .page) {
+  topbar
+  body
+  Space()
+  cta
+}

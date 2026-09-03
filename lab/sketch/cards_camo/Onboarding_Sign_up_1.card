@@ -1,0 +1,39 @@
+# level: L0
+# model: camo-app
+theme camo
+
+view header Col(width: .fill, gap: 8) {
+  TextTitle(text: "Get Started to CaMo 2", width: .fill)
+  TextBody(text: "Hello there, sign in to continue!", width: .fill)
+}
+
+view form Col(width: .fill, gap: 12) {
+  Field(text: "Nguyen Van Linh", placeholder: "Full name")
+  Field(text: "hello.carrotlabs@gmail.com", placeholder: "Email")
+  Row(width: .fill, align: .center) {
+    Field(text: "••••••", placeholder: "Password")
+    TextCaption(text: "Forgot?", width: .fit)
+  }
+}
+
+view social Col(align: .center, width: .fill, gap: 14) {
+  TextCaption(text: "Or continue with social account", width: .fit)
+  Grid(cols: 2) {
+    Chip(text: "Google", width: .fill)
+    Chip(text: "Facebook", width: .fill)
+  }
+}
+
+view root Surface(pad: .page) {
+  Col(width: .fill, gap: 22) {
+    header
+    form
+    Col(align: .center, width: .fill) {
+      Chip(text: "Start", tone: .primary, width: .fill)
+    }
+    social
+    Col(align: .center, width: .fill) {
+      TextCaption(text: "Already have an account? Sign in", width: .fit)
+    }
+  }
+}

@@ -1,0 +1,59 @@
+# level: L0
+# model: camo-app
+
+theme camo
+
+state transfer_amount { shape: text, initial: "$404.00" }
+state card_balance    { shape: text, initial: "$1004.00" }
+state message_hint    { shape: text, initial: "Message" }
+
+view topbar Row(width: .fill, align: .center) {
+  Icon(name: .chevron_left)
+  Col(width: .fill, align: .center) {
+    TextTitle(text: "Transfer", width: .fit)
+  }
+}
+
+view amount Col(width: .fill, align: .center, gap: 12) {
+  TextCaption(text: "Amount", width: .fit)
+  TextHero(value: transfer_amount)
+}
+
+view sourcecard Card {
+  Col(width: .fill, gap: 24) {
+    Col(width: .fill, gap: 12) {
+      TextCaption(text: "Linh Nguyen", width: .fill)
+      TextRow(text: "0000 **** **** 9999", width: .fill)
+    }
+    Col(width: .fill, gap: 12) {
+      TextCaption(text: "Balance", width: .fill)
+      TextValue(value: card_balance)
+    }
+  }
+}
+
+view payee Row(width: .fill, align: .center, gap: 16) {
+  Avatar(text: "AO")
+  Col(width: .fill, gap: 6) {
+    TextRow(text: "Alberta Owens", width: .fill)
+    TextCaption(text: "Hello Linh", width: .fill)
+  }
+}
+
+view note Panel {
+  Col(width: .fill, gap: 10) {
+    Field(placeholder: message_hint)
+  }
+}
+
+view root Surface(pad: .page) {
+  topbar
+  amount
+  sourcecard
+  payee
+  note
+  Space()
+  Col(width: .fill, align: .center) {
+    Chip(text: "Transfer", tone: .primary, width: .fill)
+  }
+}

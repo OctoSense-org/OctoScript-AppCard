@@ -1,0 +1,97 @@
+# level: L0
+# model: camo-app
+
+theme camo_light
+
+view root Surface(pad: .page) {
+  topbar
+  profilesection
+  devicessection
+  othersection
+  Space()
+  tabbar
+}
+
+view topbar Row(width: .fill, align: .center) {
+  TextTitle(text: "Profile", width: .fill)
+  Icon(name: .more)
+}
+
+view profilesection Col(width: .fill, gap: 12) {
+  Row(width: .fill, align: .center) {
+    TextTitle(text: "Profile", width: .fill)
+    Chip(text: "Edit")
+  }
+  Panel {
+    Row(width: .fill, align: .center, gap: 14) {
+      Avatar(text: "LN")
+      Col(width: .fill, gap: 4) {
+        TextRow(text: "Linh Nguyen", width: .fill)
+        TextCaption(text: "Founder at CaDesign", width: .fill)
+      }
+      Icon(name: .chevron_right)
+    }
+  }
+}
+
+view devicessection Col(width: .fill, gap: 12) {
+  TextTitle(text: "My Devices", width: .fill)
+  Panel {
+    Row(width: .fill, align: .center, gap: 10) {
+      TextRow(text: "Apple Watch", width: .fill)
+      Icon(name: .chevron_right)
+    }
+  }
+}
+
+view othersection Col(width: .fill, gap: 12) {
+  TextTitle(text: "Other", width: .fill)
+  Panel {
+    Col(width: .fill, gap: 16) {
+      Row(width: .fill, align: .center, gap: 10) {
+        TextRow(text: "Friends", width: .fill)
+        Icon(name: .chevron_right)
+      }
+      Rule()
+      Row(width: .fill, align: .center, gap: 10) {
+        TextRow(text: "Add Accounts", width: .fill)
+        Icon(name: .chevron_right)
+      }
+      Rule()
+      Row(width: .fill, align: .center, gap: 10) {
+        TextRow(text: "Feedback", width: .fill)
+        Icon(name: .chevron_right)
+      }
+      Rule()
+      Row(width: .fill, align: .center, gap: 10) {
+        TextRow(text: "Smart Analysis", width: .fill)
+        Icon(name: .chevron_right)
+      }
+    }
+  }
+}
+
+view tabbar Panel {
+  Row(width: .fill, align: .center) {
+    Col(width: .fill, align: .center, gap: 6) {
+      Icon(name: .home)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(width: .fill, align: .center, gap: 6) {
+      Icon(name: .search)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(width: .fill, align: .center, gap: 6) {
+      Icon(name: .chat)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(width: .fill, align: .center, gap: 6) {
+      Icon(name: .bell)
+      TextCaption(text: "Item", width: .fit)
+    }
+    Col(width: .fill, align: .center, gap: 6) {
+      Icon(name: .user)
+      TextCaption(text: "Item", width: .fit)
+    }
+  }
+}

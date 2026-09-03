@@ -1,0 +1,56 @@
+# level: L0
+# model: camo-app
+theme camo
+
+view profilehead Col(width: .fill, gap: 14) {
+  Row(width: .fill, align: .center, gap: 12) {
+    Avatar(text: "MP")
+    TextRow(text: "Main Profile", width: .fill)
+  }
+  Rule()
+}
+
+view menulist Col(width: .fill, gap: 18) {
+  Row(width: .fill, align: .center, gap: 14) {
+    Icon(name: .bookmark)
+    TextRow(text: "My Collection", width: .fill)
+  }
+  Row(width: .fill, align: .center, gap: 14) {
+    Icon(name: .cloud)
+    TextRow(text: "Downloads", width: .fill)
+  }
+  Row(width: .fill, align: .center, gap: 14) {
+    Icon(name: .video)
+    TextRow(text: "Subscriptions", width: .fill)
+  }
+  Row(width: .fill, align: .center, gap: 14) {
+    Icon(name: .clock)
+    TextRow(text: "Reminders", width: .fill)
+  }
+  Row(width: .fill, align: .center, gap: 14) {
+    Icon(name: .send)
+    TextRow(text: "Payments", width: .fill)
+  }
+  Row(width: .fill, align: .center, gap: 14) {
+    Icon(name: .settings)
+    TextRow(text: "Setting", width: .fill)
+  }
+  Row(width: .fill, align: .center, gap: 14) {
+    Icon(name: .info)
+    TextRow(text: "Help", width: .fill)
+  }
+}
+
+view root Surface(pad: .page) {
+  Row(width: .fill, align: .center) {
+    Icon(name: .chevron_left)
+    Col(width: .fill, align: .center) {
+      TextTitle(text: "Profile", width: .fit)
+    }
+    Icon(name: .chevron_left)
+  }
+  Col(width: .fill, gap: 22) {
+    profilehead
+    menulist
+  }
+}

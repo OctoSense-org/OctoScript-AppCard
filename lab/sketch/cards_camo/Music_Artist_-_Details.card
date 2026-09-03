@@ -1,12 +1,11 @@
 # level: L0
 # model: camo-app
-
 theme camo
 
 state p1 { shape: text, initial: "http://127.0.0.1:8787/dce28e2eab6c426321e0bf19aeb2e2d8d6915049.png" }
 state p2 { shape: text, initial: "http://127.0.0.1:8787/44676d5d91db51079b18bd536c9c19e63f23a504.png" }
 
-view albums Col(width: .fill, gap: 12) {
+view albums Col(width: .fill, gap: 10) {
   Row(width: .fill, align: .center) {
     TextTitle(text: "Albums", width: .fill)
     TextCaption(text: "See all", width: .fit)
@@ -15,17 +14,23 @@ view albums Col(width: .fill, gap: 12) {
     Col(width: .fill, gap: 6) {
       Thumb(src: p2, shape: .square)
       TextRow(text: "Justice", width: .fill)
-      TextCaption(text: "2021 • Album", width: .fill)
+      Row(width: .fill, align: .center) {
+        TextCaption(text: "2021 • Album", width: .fill)
+        Icon(name: .play, size: .tile)
+      }
     }
     Col(width: .fill, gap: 6) {
       Thumb(src: p2, shape: .square)
       TextRow(text: "Changes", width: .fill)
-      TextCaption(text: "2021 • Album", width: .fill)
+      Row(width: .fill, align: .center) {
+        TextCaption(text: "2021 • Album", width: .fill)
+        Icon(name: .play, size: .tile)
+      }
     }
   }
 }
 
-view singles Col(width: .fill, gap: 12) {
+view singles Col(width: .fill, gap: 10) {
   Row(width: .fill, align: .center) {
     TextTitle(text: "Singles", width: .fill)
     TextCaption(text: "See all", width: .fit)
@@ -34,28 +39,31 @@ view singles Col(width: .fill, gap: 12) {
     Col(width: .fill, gap: 6) {
       Thumb(src: p2, shape: .square)
       TextRow(text: "Don't Go (with Ju…", width: .fill)
-      TextCaption(text: "Latest Release • Singles", width: .fill)
+      Row(width: .fill, align: .center) {
+        TextCaption(text: "Latest Release • Singles", width: .fill)
+        Icon(name: .play, size: .tile)
+      }
     }
     Col(width: .fill, gap: 6) {
       Thumb(src: p2, shape: .square)
       TextRow(text: "Stay (with Justin …", width: .fill)
-      TextCaption(text: "2021 • Singles", width: .fill)
+      Row(width: .fill, align: .center) {
+        TextCaption(text: "2021 • Singles", width: .fill)
+        Icon(name: .play, size: .tile)
+      }
     }
   }
 }
 
-view root Surface(pad: .page) {
+view root Photo(src: p1, pad: .page) {
   Row(width: .fill, align: .center) {
     Icon(name: .chevron_left)
-    Col(width: .fill, align: .center) {
-      TextTitle(text: "Artist", width: .fit)
-    }
+    Col(width: .fill, align: .center) { TextTitle(text: "Artist", width: .fit) }
     Icon(name: .more)
   }
-  Thumb(src: p1, shape: .hero)
-  Row(width: .fill, align: .center, gap: 12) {
+  Row(width: .fill, align: .center) {
     TextTitle(text: "Justin Bieber", width: .fill)
-    Icon(name: .play)
+    Icon(name: .play, size: .hero)
   }
   albums
   singles

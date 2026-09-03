@@ -1,0 +1,35 @@
+# level: L0
+# model: camo-app
+
+theme camo_light
+
+state p1 { shape: text, initial: "http://127.0.0.1:8787/c06798a2f89299479b974443b62d5171ff231060.png" }
+state dest_hint { shape: text, initial: "Enter destination" }
+
+view sheet Panel {
+  Col(width: .fill, gap: 14) {
+    TextTitle(text: "Where are you going?", width: .fill)
+    Row(width: .fill, align: .center, gap: 10) {
+      Icon(name: .arrow_up)
+      TextRow(text: "Hai Ba Trung, Ha Noi, Viet Nam", width: .fill)
+    }
+    Rule()
+    Row(width: .fill, align: .center, gap: 10) {
+      Icon(name: .location)
+      Field(placeholder: dest_hint)
+    }
+    Row(width: .fill, gap: 8) {
+      Chip(text: "43 Hang Bai")
+      Chip(text: "Hai Ba Trung")
+      Chip(text: "+ Add Home")
+    }
+  }
+}
+
+view root Surface(pad: .page) {
+  Col(width: .fill, gap: 12) {
+    TextRow(text: "Hello, Linh!", width: .fit)
+    Thumb(src: p1, shape: .hero)
+    sheet
+  }
+}

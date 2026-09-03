@@ -1,0 +1,93 @@
+# level: L0
+# model: camo-app
+theme camo
+
+state p1 { shape: text, initial: "http://127.0.0.1:8787/424cd67a2bdee332d6e4efdd2927366976e5476f.png" }
+
+state e1n { shape: text, initial: "1" }
+state e1d { shape: text, initial: "49m" }
+state e2n { shape: text, initial: "2" }
+state e2d { shape: text, initial: "52m" }
+state e3n { shape: text, initial: "3" }
+state e3d { shape: text, initial: "49m" }
+state e4n { shape: text, initial: "4" }
+state e4d { shape: text, initial: "51m" }
+state e5n { shape: text, initial: "5" }
+state e5d { shape: text, initial: "55m" }
+
+view episodes Col(width: .fill, gap: 14) {
+  Row(width: .fill, align: .center, gap: 10) {
+    TextValue(value: e1n)
+    Thumb(src: p1)
+    Col(width: .fill, gap: 2) {
+      Row(width: .fill, align: .center) {
+        TextRow(text: "The end of the Road", width: .fill)
+        TextValue(value: e1d)
+      }
+      TextCaption(text: "The Professor faces of with Sierra as Tomayo raises of the n", width: .fill)
+    }
+  }
+  Row(width: .fill, align: .center, gap: 10) {
+    TextValue(value: e2n)
+    Thumb(src: p1)
+    Col(width: .fill, gap: 2) {
+      Row(width: .fill, align: .center) {
+        TextRow(text: "Do You Believe in R…", width: .fill)
+        TextValue(value: e2d)
+      }
+      TextCaption(text: "Arturo seizes an opportunity to fight back while escalating", width: .fill)
+    }
+  }
+  Row(width: .fill, align: .center, gap: 10) {
+    TextValue(value: e3n)
+    Thumb(src: p1)
+    Col(width: .fill, gap: 2) {
+      Row(width: .fill, align: .center) {
+        TextRow(text: "Welcome to the Sp…", width: .fill)
+        TextValue(value: e3d)
+      }
+      TextCaption(text: "A betrayal and an emergency both catch Sierra by surprise…", width: .fill)
+    }
+  }
+  Row(width: .fill, align: .center, gap: 10) {
+    TextValue(value: e4n)
+    Thumb(src: p1)
+    Col(width: .fill, gap: 2) {
+      Row(width: .fill, align: .center) {
+        TextRow(text: "Your Place in Heaven", width: .fill)
+        TextValue(value: e4d)
+      }
+      TextCaption(text: "With Helsinki’s life in danger, the thieves mount a covert c", width: .fill)
+    }
+  }
+  Row(width: .fill, align: .center, gap: 10) {
+    TextValue(value: e5n)
+    Thumb(src: p1)
+    Col(width: .fill, gap: 2) {
+      Row(width: .fill, align: .center) {
+        TextRow(text: "Life Many Lives", width: .fill)
+        TextValue(value: e5d)
+      }
+      TextCaption(text: "While surrounded by gunfire and trapped in the kitchen, Toky", width: .fill)
+    }
+  }
+}
+
+view root Surface(pad: .page) {
+  Thumb(src: p1, shape: .hero)
+  TextTitle(text: "Money Heist", width: .fill)
+  TextCaption(text: "Season 5 ‧ 5 Episodes", width: .fill)
+  Row(align: .center, gap: 6) {
+    Icon(name: .star, size: .tile)
+    TextRow(text: "8.2/10 (391k)", width: .fit)
+  }
+  Col(align: .center, width: .fill) {
+    Chip(text: "Watch", tone: .primary)
+  }
+  TextBody(text: "An unusual group of robbers attempt to carry out the most perfect robbery in Spanish history - stealing 2.4 billion euros from the Royal Mint of Spain.", width: .fill)
+  Row(width: .fill, align: .center) {
+    TextTitle(text: "Episodes", width: .fill)
+    Chip(text: "Season 5")
+  }
+  episodes
+}

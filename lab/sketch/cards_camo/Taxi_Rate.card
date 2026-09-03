@@ -1,0 +1,62 @@
+# level: L0
+# model: camo-app
+
+theme camo_light
+
+state comment_hint { shape: text, initial: "Input your Comment" }
+
+view driver Col(align: .center, gap: 8, width: .fill) {
+  Avatar(text: "LN")
+  TextTitle(text: "Linh Nguyen", width: .fit)
+  TextCaption(text: "Lamborghini • Aventador", width: .fit)
+  Chip(text: "DV-557HA")
+}
+
+view ratings Grid(cols: 5) {
+  Col(align: .center, gap: 6) {
+    Icon(name: .heart)
+    TextCaption(text: "Very Bad", width: .fit)
+  }
+  Col(align: .center, gap: 6) {
+    Icon(name: .heart)
+    TextCaption(text: "Bad", width: .fit)
+  }
+  Col(align: .center, gap: 6) {
+    Icon(name: .heart)
+    TextCaption(text: "Passable", width: .fit)
+  }
+  Col(align: .center, gap: 6) {
+    Icon(name: .heart)
+    TextCaption(text: "Good", width: .fit)
+  }
+  Col(align: .center, gap: 6) {
+    Icon(name: .heart)
+    TextCaption(text: "Very Good", width: .fit)
+  }
+}
+
+view comment Col(gap: 8, width: .fill) {
+  TextEyebrow(text: "Your Comment")
+  Field(placeholder: comment_hint)
+}
+
+view root Surface(pad: .page) {
+  Row(width: .fill, align: .center) {
+    Icon(name: .chevron_left)
+    Col(width: .fill, align: .center) {
+      TextTitle(text: "Rate Drive", width: .fit)
+    }
+  }
+  driver
+  Rule()
+  ratings
+  comment
+  Row(width: .fill, align: .center, gap: 8) {
+    Icon(name: .check)
+    TextRow(text: "Dont’s pair with this driver again", width: .fill)
+  }
+  Space()
+  Col(align: .center, width: .fill) {
+    Chip(text: "Send", tone: .primary)
+  }
+}

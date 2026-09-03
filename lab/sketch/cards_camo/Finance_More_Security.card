@@ -1,0 +1,55 @@
+# level: L0
+# model: camo-app
+theme camo
+
+view root Surface(pad: .page) {
+  Col(width: .fill, gap: 60) {
+    Row(width: .fill, align: .center) {
+      Icon(name: .chevron_left)
+      Col(width: .fill, align: .center) {
+        TextTitle(text: "Security", width: .fit)
+      }
+      Icon(name: .more)
+    }
+    Row(width: .fill, align: .center, gap: 14) {
+      Icon(name: .bell)
+      Col(width: .fill, gap: 26) {
+        TextRow(text: "Hide notification feed before login", width: .fill)
+        TextCaption(text: "Hidden in a mobile device", width: .fill)
+      }
+      Chip(text: "Off")
+    }
+    Row(width: .fill, align: .center, gap: 14) {
+      Icon(name: .user)
+      Col(width: .fill, gap: 26) {
+        TextRow(text: "Face ID", width: .fill)
+        TextCaption(text: "Manage & track your accounts on the go.", width: .fill)
+      }
+      Chip(text: "On")
+    }
+    Row(width: .fill, align: .center, gap: 14) {
+      Icon(name: .cloud)
+      Col(width: .fill, gap: 26) {
+        TextRow(text: "Data storage", width: .fill)
+        TextCaption(text: "The application saves field data for convenient repeat payme", width: .fill)
+      }
+      Chip(text: "Off")
+    }
+    Row(width: .fill, align: .center, gap: 14) {
+      Icon(name: .activity)
+      Col(width: .fill, gap: 26) {
+        TextRow(text: "Collec statistics", width: .fill)
+        TextCaption(text: "To improve the application, we collect anonymous statistics", width: .fill)
+      }
+      Chip(text: "On")
+    }
+    Row(width: .fill, align: .center, gap: 14) {
+      Icon(name: .lock)
+      Col(width: .fill, gap: 26) {
+        TextRow(text: "Incognita", width: .fill)
+        TextCaption(text: "Turn on incognito mode to prevent other clients from seeing", width: .fill)
+      }
+      Chip(text: "On")
+    }
+  }
+}

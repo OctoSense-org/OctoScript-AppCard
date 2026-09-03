@@ -1,10 +1,13 @@
+# level: L0
+# model: camo-app
+
 theme camo
 
 state p1 { shape: text, initial: "http://127.0.0.1:8787/aa1d09a274cbdd0628e0dd49bf58f11e3e363d5e.png" }
 
-view tracks Col(width: .fill, gap: 10) {
+view tracks Col(width: .fill, gap: 14) {
   Row(width: .fill, align: .center, gap: 12) {
-    TextCaption(text: "1", width: .fit)
+    TextRow(text: "1", width: .fit)
     Col(width: .fill) {
       TextRow(text: "2 Much", width: .fill)
       TextCaption(text: "Justin Bieber", width: .fill)
@@ -12,7 +15,7 @@ view tracks Col(width: .fill, gap: 10) {
     Icon(name: .more)
   }
   Row(width: .fill, align: .center, gap: 12) {
-    TextCaption(text: "2", width: .fit)
+    TextRow(text: "2", width: .fit)
     Col(width: .fill) {
       TextRow(text: "Deserve You", width: .fill)
       TextCaption(text: "Justin Bieber", width: .fill)
@@ -20,7 +23,7 @@ view tracks Col(width: .fill, gap: 10) {
     Icon(name: .more)
   }
   Row(width: .fill, align: .center, gap: 12) {
-    TextCaption(text: "3", width: .fit)
+    TextRow(text: "3", width: .fit)
     Col(width: .fill) {
       TextRow(text: "As I Am ( feat. Khalid)", width: .fill)
       TextCaption(text: "Justin Bieber, Khalid", width: .fill)
@@ -28,7 +31,7 @@ view tracks Col(width: .fill, gap: 10) {
     Icon(name: .more)
   }
   Row(width: .fill, align: .center, gap: 12) {
-    TextCaption(text: "4", width: .fit)
+    TextRow(text: "4", width: .fit)
     Col(width: .fill) {
       TextRow(text: "Off My Face", width: .fill)
       TextCaption(text: "Justin Bieber", width: .fill)
@@ -40,9 +43,7 @@ view tracks Col(width: .fill, gap: 10) {
 view root Surface(pad: .page) {
   Row(width: .fill, align: .center) {
     Icon(name: .chevron_left)
-    Col(width: .fill, align: .center) {
-      TextTitle(text: "Album", width: .fit)
-    }
+    Col(width: .fill, align: .center) { TextTitle(text: "Album", width: .fit) }
     Icon(name: .share)
   }
   Thumb(src: p1, shape: .hero)
@@ -51,7 +52,8 @@ view root Surface(pad: .page) {
       TextTitle(text: "Justice", width: .fill)
       TextCaption(text: "Justin Bieber", width: .fill)
     }
-    Icon(name: .close)
+    Chip(text: "✕")
   }
   tracks
+  Fab(name: .play)
 }
