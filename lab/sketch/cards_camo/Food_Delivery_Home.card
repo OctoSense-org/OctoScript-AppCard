@@ -1,70 +1,70 @@
 # level: L0
 # model: camo-app
+
 theme camo_light
 
 state p1 { shape: text, initial: "http://127.0.0.1:8787/f0b787dad6caadc59b0b536a3e2a99612abaff5d.png" }
 state p2 { shape: text, initial: "http://127.0.0.1:8787/0dc6cbab127560b83585acacdde87447a7bc8168.png" }
-state q1 { shape: text, initial: "Search for food…" }
+state q { shape: text, initial: "Search for food…" }
 state price1 { shape: text, initial: "$9.99" }
 state price2 { shape: text, initial: "$9.99" }
 
-view header Row(width: .fill, align: .center, gap: 10) {
-  Avatar(text: "HV")
-  Icon(name: .location, size: .tile)
-  TextRow(text: "Hanoi, Vietnam", width: .fill)
+view header Row(width: .fill, align: .center, gap: 8) {
+  Avatar(text: "H")
+  Row(width: .fill, align: .center, gap: 4) {
+    Icon(name: .location, size: .tile)
+    TextRow(text: "Hanoi, Vietnam", width: .fit)
+  }
+  Icon(name: .more)
 }
 
-view hero Card(tint: .neutral) {
-  Col(width: .fill, gap: 24) {
-    Col(width: .fill, align: .center) {
-      TextTitle(text: "What do you want to eat today?", width: .fit)
-    }
-    Field(placeholder: q1)
+view hero Card(tint: .blue) {
+  Col(align: .center, gap: 12, width: .fill) {
+    TextTitle(text: "What do you want to eat today?", width: .fit)
+    Field(placeholder: q)
   }
 }
 
-view category Col(width: .fill, gap: 14) {
+view categories Col(width: .fill, gap: 10) {
   Row(width: .fill, align: .center) {
     TextTitle(text: "Popular Category", width: .fill)
     TextCaption(text: "See all", width: .fit)
   }
-  Row(width: .fill, gap: 10) {
-    Chip(text: "Hamburger", width: .fill)
-    Chip(text: "Hotdog", width: .fill)
-    Chip(text: "French fries", width: .fill)
+  Row(width: .fill, gap: 8) {
+    Chip(text: "Hamburger")
+    Chip(text: "Hotdog")
+    Chip(text: "French fries")
   }
 }
 
-view food Col(width: .fill, gap: 14) {
+view foods Col(width: .fill, gap: 10) {
   Row(width: .fill, align: .center) {
     TextTitle(text: "Popular Food", width: .fill)
     TextCaption(text: "See all (171)", width: .fit)
   }
   Grid(cols: 2) {
-    Col(width: .fill, gap: 8) {
-      Thumb(src: p1, shape: .square)
-      Chip(text: "15%")
+    Col(width: .fill, gap: 6) {
+      Thumb(src: p1)
+      Chip(text: "15%", width: .fit)
       TextRow(text: "Sandwich with Bolied Egg", width: .fill)
-      Row(width: .fill, gap: 6) {
+      Row(width: .fill, align: .center, gap: 6) {
         TextCaption(text: "24min •", width: .fit)
-        Icon(name: .star, size: .tile)
-        TextCaption(text: "4.5", width: .fit)
+        TextCaption(text: "4.5", glyph: "★", width: .fit)
       }
-      Row(width: .fill, gap: 8) {
+      Row(width: .fill, align: .center, gap: 6) {
         TextValue(value: price1)
         TextCaption(text: "$12.99", width: .fit)
       }
     }
-    Col(width: .fill, gap: 8) {
-      Thumb(src: p2, shape: .square)
-      Chip(text: "15%")
+    Col(width: .fill, gap: 6) {
+      Thumb(src: p2)
+      Chip(text: "15%", width: .fit)
       TextRow(text: "Pancake with Orange", width: .fill)
-      Row(width: .fill, gap: 6) {
+      Row(width: .fill, align: .center, gap: 6) {
         TextCaption(text: "24min •", width: .fit)
-        Icon(name: .star, size: .tile)
-        TextCaption(text: "4.5", width: .fit)
+        TextCaption(text: "4.5", glyph: "★", width: .fit)
       }
-      Row(width: .fill, gap: 8) {
+      Row(width: .fill, align: .center, gap: 6) {
         TextValue(value: price2)
         TextCaption(text: "$12.99", width: .fit)
       }
@@ -72,38 +72,16 @@ view food Col(width: .fill, gap: 14) {
   }
 }
 
-view tabbar Panel {
-  Row(width: .fill, align: .center) {
-    Col(width: .fill, align: .center, gap: 4) {
-      Icon(name: .home)
-      TextCaption(text: "Item", width: .fit)
-    }
-    Col(width: .fill, align: .center, gap: 4) {
-      Icon(name: .search)
-      TextCaption(text: "Item", width: .fit)
-    }
-    Col(width: .fill, align: .center, gap: 4) {
-      Icon(name: .heart)
-      TextCaption(text: "Item", width: .fit)
-    }
-    Col(width: .fill, align: .center, gap: 4) {
-      Icon(name: .bell)
-      TextCaption(text: "Item", width: .fit)
-    }
-    Col(width: .fill, align: .center, gap: 4) {
-      Icon(name: .user)
-      TextCaption(text: "Item", width: .fit)
-    }
-  }
-}
-
 view root Surface(pad: .page) {
-  Col(width: .fill, gap: 18) {
-    header
-    hero
-    category
-    food
+  header
+  hero
+  categories
+  foods
+  TabBar {
+    Tab(icon: .home, label: "Item", active: .on)
+    Tab(icon: .search, label: "Item")
+    Tab(icon: .heart, label: "Item")
+    Tab(icon: .bell, label: "Item")
+    Tab(icon: .user, label: "Item")
   }
-  Space()
-  tabbar
 }
