@@ -2,117 +2,97 @@
 # model: camo-app
 theme camo_light
 
-view september Col(width: .fill, gap: 16) {
-  TextTitle(text: "September", width: .fill)
-  Panel {
-    Col(width: .fill, gap: 16) {
-      Grid(cols: 7) {
-        Tile(label: "1", shape: .square)
-        Tile(label: "2", shape: .square)
-        Tile(label: "3", shape: .square)
-        Tile(label: "4", shape: .square)
-        Tile(label: "5", shape: .square)
-        Tile(label: "6", shape: .square)
-        Tile(label: "7", shape: .square)
-        Tile(label: "8", shape: .square)
-        Tile(label: "9", shape: .square)
-        Tile(label: "10", glyph: "•", shape: .square)
-        Tile(label: "11", glyph: "•", shape: .square)
-        Tile(label: "12", glyph: "•", shape: .square)
-        Tile(label: "13", glyph: "•", shape: .square)
-        Tile(label: "14", glyph: "•", shape: .square)
-        Tile(label: "15", shape: .square)
-        Tile(label: "16", shape: .square)
-        Tile(label: "17", shape: .square)
-        Tile(label: "18", shape: .square)
-        Tile(label: "19", shape: .square)
-        Tile(label: "20", shape: .square)
-        Tile(label: "21", shape: .square)
-        Tile(label: "22", shape: .square)
-        Tile(label: "23", shape: .square)
-        Tile(label: "24", shape: .square)
-        Tile(label: "25", shape: .square)
-        Tile(label: "26", shape: .square)
-        Tile(label: "27", shape: .square)
-        Tile(label: "28", shape: .square)
-        Tile(label: "29", shape: .square)
-        Tile(label: "30", shape: .square)
-      }
-      Grid(cols: 7) {
-        TextEyebrow(text: "Mon")
-        TextEyebrow(text: "Tue")
-        TextEyebrow(text: "Wed")
-        TextEyebrow(text: "Thu")
-        TextEyebrow(text: "Fri")
-        TextEyebrow(text: "Sat")
-        TextEyebrow(text: "Sun")
-      }
-    }
-  }
+view septdays Grid(cols: 7) {
+  Tile(label: "1", shape: .square)
+  Tile(label: "2", shape: .square)
+  Tile(label: "3", shape: .square)
+  Tile(label: "4", shape: .square)
+  Tile(label: "5", shape: .square)
+  Tile(label: "6", shape: .square)
+  Tile(label: "7", shape: .square)
+  Tile(label: "8", shape: .square)
+  Tile(label: "9", shape: .square)
+  Tile(label: "10", glyph: "•", shape: .square)
+  Tile(label: "11", glyph: "•", shape: .square)
+  Tile(label: "12", glyph: "•", shape: .square)
+  Tile(label: "13", glyph: "•", shape: .square)
+  Tile(label: "14", glyph: "•", shape: .square)
+  Tile(label: "15", shape: .square)
+  Tile(label: "16", shape: .square)
+  Tile(label: "17", shape: .square)
+  Tile(label: "18", shape: .square)
+  Tile(label: "19", shape: .square)
+  Tile(label: "20", shape: .square)
+  Tile(label: "21", shape: .square)
+  Tile(label: "22", shape: .square)
+  Tile(label: "23", shape: .square)
+  Tile(label: "24", shape: .square)
+  Tile(label: "25", shape: .square)
+  Tile(label: "26", shape: .square)
+  Tile(label: "27", shape: .square)
+  Tile(label: "28", shape: .square)
+  Tile(label: "29", shape: .square)
+  Tile(label: "30", shape: .square)
 }
 
-view november Col(width: .fill, gap: 16) {
-  TextTitle(text: "November", width: .fill)
-  Panel {
-    Col(width: .fill, gap: 16) {
-      Grid(cols: 7) {
-        Tile(label: "", shape: .square)
-        Tile(label: "", shape: .square)
-        Tile(label: "1", shape: .square)
-        Tile(label: "2", shape: .square)
-        Tile(label: "3", shape: .square)
-        Tile(label: "4", shape: .square)
-        Tile(label: "5", shape: .square)
-        Tile(label: "6", shape: .square)
-        Tile(label: "7", shape: .square)
-        Tile(label: "8", shape: .square)
-        Tile(label: "9", shape: .square)
-        Tile(label: "10", shape: .square)
-        Tile(label: "11", shape: .square)
-        Tile(label: "12", shape: .square)
-        Tile(label: "13", shape: .square)
-        Tile(label: "14", shape: .square)
-        Tile(label: "15", shape: .square)
-        Tile(label: "16", shape: .square)
-        Tile(label: "17", shape: .square)
-        Tile(label: "18", shape: .square)
-        Tile(label: "19", shape: .square)
-        Tile(label: "20", shape: .square)
-        Tile(label: "21", glyph: "•", shape: .square)
-        Tile(label: "22", glyph: "•", shape: .square)
-        Tile(label: "23", glyph: "•", shape: .square)
-        Tile(label: "24", glyph: "•", shape: .square)
-        Tile(label: "25", glyph: "•", shape: .square)
-        Tile(label: "26", shape: .square)
-        Tile(label: "27", shape: .square)
-        Tile(label: "28", shape: .square)
-        Tile(label: "29", shape: .square)
-        Tile(label: "30", shape: .square)
-        Tile(label: "31", shape: .square)
-      }
-      Grid(cols: 7) {
-        TextEyebrow(text: "Mon")
-        TextEyebrow(text: "Tue")
-        TextEyebrow(text: "Wed")
-        TextEyebrow(text: "Thu")
-        TextEyebrow(text: "Fri")
-        TextEyebrow(text: "Sat")
-        TextEyebrow(text: "Sun")
-      }
-    }
-  }
+view novdays Grid(cols: 7) {
+  Tile(label: "", shape: .square)
+  Tile(label: "", shape: .square)
+  Tile(label: "1", shape: .square)
+  Tile(label: "2", shape: .square)
+  Tile(label: "3", shape: .square)
+  Tile(label: "4", shape: .square)
+  Tile(label: "5", shape: .square)
+  Tile(label: "6", shape: .square)
+  Tile(label: "7", shape: .square)
+  Tile(label: "8", shape: .square)
+  Tile(label: "9", glyph: "•", shape: .square)
+  Tile(label: "10", shape: .square)
+  Tile(label: "11", shape: .square)
+  Tile(label: "12", shape: .square)
+  Tile(label: "13", shape: .square)
+  Tile(label: "14", shape: .square)
+  Tile(label: "15", shape: .square)
+  Tile(label: "16", shape: .square)
+  Tile(label: "17", shape: .square)
+  Tile(label: "18", shape: .square)
+  Tile(label: "19", shape: .square)
+  Tile(label: "20", shape: .square)
+  Tile(label: "21", glyph: "•", shape: .square)
+  Tile(label: "22", glyph: "•", shape: .square)
+  Tile(label: "23", glyph: "•", shape: .square)
+  Tile(label: "24", glyph: "•", shape: .square)
+  Tile(label: "25", glyph: "•", shape: .square)
+  Tile(label: "26", shape: .square)
+  Tile(label: "27", shape: .square)
+  Tile(label: "28", shape: .square)
+  Tile(label: "29", shape: .square)
+  Tile(label: "30", shape: .square)
+  Tile(label: "31", shape: .square)
+}
+
+view weekdays Grid(cols: 7) {
+  TextEyebrow(text: "Mon")
+  TextEyebrow(text: "Tue")
+  TextEyebrow(text: "Wed")
+  TextEyebrow(text: "Thu")
+  TextEyebrow(text: "Fri")
+  TextEyebrow(text: "Sat")
+  TextEyebrow(text: "Sun")
 }
 
 view root Surface(pad: .page) {
-  Col(width: .fill, gap: 26) {
-    Row(width: .fill, align: .center) {
-      Icon(name: .chevron_left)
-      Col(width: .fill, align: .center) {
-        TextTitle(text: "Cycle Tracking", width: .fit)
-      }
-      Icon(name: .user)
+  Row(width: .fill, align: .center) {
+    Icon(name: .chevron_left)
+    Col(width: .fill, align: .center) {
+      TextTitle(text: "Cycle Tracking", width: .fit)
     }
-    september
-    november
+    Icon(name: .more)
   }
+  TextTitle(text: "September", width: .fill)
+  septdays
+  weekdays
+  TextTitle(text: "November", width: .fill)
+  novdays
+  weekdays
 }

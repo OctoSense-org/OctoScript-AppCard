@@ -2,46 +2,27 @@
 # model: camo-app
 theme camo
 
-view hero Card(tint: .amber) {
-  Col(width: .fill, gap: 24) {
-    Col(width: .fill, align: .center, gap: 4) {
-      TextTitle(text: "Best Dance Songs 2021", width: .fit)
-    }
-    Row(width: .fill, align: .center, gap: 12) {
-      TextRow(text: "CaMo", width: .fill)
-      Icon(name: .play, size: .hero)
-    }
-  }
-}
+state p1 { shape: text, initial: "http://127.0.0.1:8787/44676d5d91db51079b18bd536c9c19e63f23a504.png" }
 
-view library Col(width: .fill, gap: 16) {
+view tracks Col(width: .fill, gap: 12) {
   Row(width: .fill, align: .center, gap: 12) {
-    Col(width: .fill, gap: 4) {
-      TextTitle(text: "Dance", width: .fill)
-      TextCaption(text: "134 Songs", width: .fill)
-    }
-    Icon(name: .close)
-  }
-  Row(width: .fill, align: .center, gap: 12) {
-    Avatar(text: "ST")
+    Thumb(src: p1, shape: .square)
     Col(width: .fill, gap: 2) {
       TextRow(text: "Stay", width: .fill)
       TextCaption(text: "The Kid LAROI, Justin Bieber", width: .fill)
     }
     Icon(name: .more)
   }
-  Rule()
   Row(width: .fill, align: .center, gap: 12) {
-    Avatar(text: "IB")
+    Thumb(src: p1, shape: .square)
     Col(width: .fill, gap: 2) {
       TextRow(text: "Industry Baby", width: .fill)
       TextCaption(text: "Lil Nas X & Jack Harlow", width: .fill)
     }
     Icon(name: .more)
   }
-  Rule()
   Row(width: .fill, align: .center, gap: 12) {
-    Avatar(text: "BH")
+    Thumb(src: p1, shape: .square)
     Col(width: .fill, gap: 2) {
       TextRow(text: "Bad Habits", width: .fill)
       TextCaption(text: "Ed Sheeran", width: .fill)
@@ -51,13 +32,26 @@ view library Col(width: .fill, gap: 16) {
 }
 
 view root Surface(pad: .page) {
-  Row(width: .fill, align: .center, gap: 12) {
+  Row(width: .fill, align: .center) {
     Icon(name: .chevron_left)
-    Col(width: .fill, align: .center) {
-      TextTitle(text: "Album", width: .fit)
-    }
+    Col(width: .fill, align: .center) { TextTitle(text: "Album", width: .fit) }
     Icon(name: .more)
   }
-  hero
-  library
+  Card(tint: .amber) {
+    Col(width: .fill, align: .center, gap: 10) {
+      TextTitle(text: "Best Dance Songs 2021", width: .fit)
+    }
+    Row(width: .fill, align: .center) {
+      TextCaption(text: "CaMo", width: .fill)
+      Icon(name: .play)
+    }
+  }
+  Row(width: .fill, align: .center) {
+    Col(width: .fill, gap: 2) {
+      TextTitle(text: "Dance", width: .fill)
+      TextCaption(text: "134 Songs", width: .fill)
+    }
+    Icon(name: .close)
+  }
+  tracks
 }

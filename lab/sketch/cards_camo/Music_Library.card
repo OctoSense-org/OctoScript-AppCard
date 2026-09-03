@@ -4,9 +4,9 @@ theme camo
 
 state p1 { shape: text, initial: "http://127.0.0.1:8787/44676d5d91db51079b18bd536c9c19e63f23a504.png" }
 
-view browse Col(width: .fill, gap: 20) {
+view categories Col(width: .fill, gap: 14) {
   Row(width: .fill, align: .center, gap: 14) {
-    Icon(name: .bookmark)
+    Icon(name: .menu)
     TextRow(text: "Playlists", width: .fill)
   }
   Row(width: .fill, align: .center, gap: 14) {
@@ -14,60 +14,35 @@ view browse Col(width: .fill, gap: 20) {
     TextRow(text: "Artists", width: .fill)
   }
   Row(width: .fill, align: .center, gap: 14) {
-    Icon(name: .image)
+    Icon(name: .play)
     TextRow(text: "Albums", width: .fill)
   }
   Row(width: .fill, align: .center, gap: 14) {
-    Icon(name: .play)
+    Icon(name: .mic)
     TextRow(text: "Songs", width: .fill)
   }
   Row(width: .fill, align: .center, gap: 14) {
-    Icon(name: .menu)
+    Icon(name: .bookmark)
     TextRow(text: "Collections", width: .fill)
   }
 }
 
-view recent Col(width: .fill, gap: 16) {
-  Row(width: .fill, align: .center, gap: 14) {
+view recent Col(width: .fill, gap: 12) {
+  Row(width: .fill, align: .center, gap: 12) {
     Thumb(src: p1)
     Col(width: .fill, gap: 4) {
       TextRow(text: "Stay", width: .fill)
-      TextCaption(text: "The Kid LAROI, Justin Bieber", width: .fill)
+      TextCaption(text: "The Kid LAROI, Justi…", width: .fill)
     }
     Icon(name: .more)
   }
-  Row(width: .fill, align: .center, gap: 14) {
+  Row(width: .fill, align: .center, gap: 12) {
     Thumb(src: p1)
     Col(width: .fill, gap: 4) {
       TextRow(text: "Industry Baby", width: .fill)
-      TextCaption(text: "Lil Nas X & Jack Harlow", width: .fill)
+      TextCaption(text: "Lil Nas X & Jack Harl…", width: .fill)
     }
     Icon(name: .more)
-  }
-}
-
-view tabbar Panel {
-  Row(width: .fill, align: .center) {
-    Col(width: .fill, align: .center, gap: 6) {
-      Icon(name: .home, size: .tile)
-      TextCaption(text: "Item", width: .fit)
-    }
-    Col(width: .fill, align: .center, gap: 6) {
-      Icon(name: .home, size: .tile)
-      TextCaption(text: "Item", width: .fit)
-    }
-    Col(width: .fill, align: .center, gap: 6) {
-      Icon(name: .home, size: .tile)
-      TextCaption(text: "Item", width: .fit)
-    }
-    Col(width: .fill, align: .center, gap: 6) {
-      Icon(name: .home, size: .tile)
-      TextCaption(text: "Item", width: .fit)
-    }
-    Col(width: .fill, align: .center, gap: 6) {
-      Icon(name: .home, size: .tile)
-      TextCaption(text: "Item", width: .fit)
-    }
   }
 }
 
@@ -76,12 +51,17 @@ view root Surface(pad: .page) {
     TextTitle(text: "Library", width: .fill)
     Icon(name: .more)
   }
-  browse
+  categories
   Row(width: .fill, align: .center) {
     TextTitle(text: "Recently Added", width: .fill)
     TextCaption(text: "See all", width: .fit)
   }
   recent
-  Space()
-  tabbar
+  TabBar {
+    Tab(icon: .home, label: "Item", active: .on)
+    Tab(icon: .search, label: "Item")
+    Tab(icon: .play, label: "Item")
+    Tab(icon: .heart, label: "Item")
+    Tab(icon: .user, label: "Item")
+  }
 }

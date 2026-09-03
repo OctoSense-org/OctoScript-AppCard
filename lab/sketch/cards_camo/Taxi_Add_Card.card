@@ -2,16 +2,19 @@
 # model: camo-app
 theme camo_light
 
-state card_no { shape: text, initial: "2018 8017 301 8888" }
-state expiry  { shape: text, initial: "10/2023" }
-state cvv     { shape: text, initial: "999" }
+state cardnum { shape: text, initial: "2018 8017 301 8888" }
+state cardnum_ph { shape: text, initial: "Full name" }
+state expiry { shape: text, initial: "10/2023" }
+state expiry_ph { shape: text, initial: "Expiry date" }
+state cvv { shape: text, initial: "999" }
+state cvv_ph { shape: text, initial: "CVV" }
 
-view cards Col(width: .fill, gap: 10) {
+view cardlist Col(width: .fill, gap: 12) {
   TextTitle(text: "Credit Cards", width: .fill)
   Panel {
     Row(width: .fill, align: .center, gap: 12) {
       Avatar(text: "MC")
-      Col(width: .fill, gap: 2) {
+      Col(width: .fill, gap: 4) {
         TextRow(text: "MasterCard", width: .fill)
         TextCaption(text: "1236 **** **** 8888", width: .fill)
       }
@@ -21,7 +24,7 @@ view cards Col(width: .fill, gap: 10) {
   Panel {
     Row(width: .fill, align: .center, gap: 12) {
       Avatar(text: "VI")
-      Col(width: .fill, gap: 2) {
+      Col(width: .fill, gap: 4) {
         TextRow(text: "Visa", width: .fill)
         TextCaption(text: "1236 **** **** 6666", width: .fill)
       }
@@ -32,28 +35,20 @@ view cards Col(width: .fill, gap: 10) {
 
 view sheet Panel {
   Col(width: .fill, gap: 14) {
-    Col(align: .center, width: .fill) {
+    Col(width: .fill, align: .center) {
       TextTitle(text: "Add Card", width: .fit)
     }
-    Col(width: .fill, gap: 4) {
-      TextEyebrow(text: "Full name")
-      Field(placeholder: card_no)
-    }
+    Field(text: cardnum, placeholder: cardnum_ph)
     Row(width: .fill, gap: 12) {
-      Col(width: .fill, gap: 4) {
-        TextEyebrow(text: "Expiry date")
-        Field(placeholder: expiry)
-      }
-      Col(width: .fill, gap: 4) {
-        TextEyebrow(text: "CVV")
-        Field(placeholder: cvv)
-      }
+      Field(text: expiry, placeholder: expiry_ph)
+      Field(text: cvv, placeholder: cvv_ph)
     }
     Row(width: .fill, align: .center, gap: 8) {
-      Icon(name: .check)
-      TextRow(text: "Set Default Payment", width: .fill)
+      Icon(name: .check, size: .tile)
+      TextCaption(text: "Set Default Payment", width: .fill)
     }
-    Col(align: .center, width: .fill) {
+    Space()
+    Col(width: .fill, align: .center) {
       Chip(text: "Add Card", tone: .primary, width: .fill)
     }
   }
@@ -67,6 +62,6 @@ view root Surface(pad: .page) {
     }
     Space()
   }
-  cards
+  cardlist
   sheet
 }

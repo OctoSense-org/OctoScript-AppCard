@@ -2,21 +2,27 @@
 # model: camo-app
 theme camo
 
-view root Surface(pad: .page) {
+state p1 { shape: text, initial: "http://127.0.0.1:8787/_ph_dark.png" }
+
+view code Row(width: .fill, align: .center, gap: 12) {
+  Tile(label: "0", shape: .square)
+  Tile(label: "9", shape: .square)
+  Tile(label: "", shape: .square)
+}
+
+view root Photo(src: p1, pad: .page) {
   Space()
-  Col(align: .center, gap: 8) {
-    TextTitle(text: "Verify Phone Number", width: .fit)
-    TextCaption(text: "We have sent code to your number (+84) 999 999 999", width: .fit)
-  }
-  Col(align: .center, gap: 10) {
-    Row(align: .center, gap: 12) {
-      Chip(text: "0")
-      Chip(text: "9")
-      Chip(text: "")
+  Col(align: .center, gap: 10, width: .fill) {
+    Row(align: .center, gap: 6) {
+      TextCaption(glyph: "●")
+      TextCaption(glyph: "●")
     }
+    TextTitle(text: "Verify Phone Number", width: .fit)
+    TextBody(text: "We have sent code to your number (+84) 999 999 999", width: .fit)
+    code
   }
   Space()
-  Col(align: .center, width: .fill, gap: 10) {
+  Col(align: .center, gap: 12, width: .fill) {
     Chip(text: "Send code", tone: .primary, width: .fill)
     Chip(text: "Resend code", width: .fill)
   }

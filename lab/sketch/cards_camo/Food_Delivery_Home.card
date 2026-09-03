@@ -1,31 +1,28 @@
 # level: L0
 # model: camo-app
-
 theme camo_light
 
 state p1 { shape: text, initial: "http://127.0.0.1:8787/f0b787dad6caadc59b0b536a3e2a99612abaff5d.png" }
 state p2 { shape: text, initial: "http://127.0.0.1:8787/0dc6cbab127560b83585acacdde87447a7bc8168.png" }
-state q { shape: text, initial: "Search for food…" }
-state price1 { shape: text, initial: "$9.99" }
-state price2 { shape: text, initial: "$9.99" }
+state search_hint { shape: text, initial: "Search for food…" }
+state price_a { shape: text, initial: "$9.99" }
+state price_b { shape: text, initial: "$9.99" }
 
 view header Row(width: .fill, align: .center, gap: 8) {
-  Avatar(text: "H")
-  Row(width: .fill, align: .center, gap: 4) {
-    Icon(name: .location, size: .tile)
-    TextRow(text: "Hanoi, Vietnam", width: .fit)
-  }
+  Avatar(text: "HV")
+  Icon(name: .location, size: .tile)
+  TextRow(text: "Hanoi, Vietnam", width: .fill)
   Icon(name: .more)
 }
 
 view hero Card(tint: .blue) {
   Col(align: .center, gap: 12, width: .fill) {
     TextTitle(text: "What do you want to eat today?", width: .fit)
-    Field(placeholder: q)
+    Field(placeholder: search_hint)
   }
 }
 
-view categories Col(width: .fill, gap: 10) {
+view category Col(width: .fill, gap: 10) {
   Row(width: .fill, align: .center) {
     TextTitle(text: "Popular Category", width: .fill)
     TextCaption(text: "See all", width: .fit)
@@ -37,36 +34,40 @@ view categories Col(width: .fill, gap: 10) {
   }
 }
 
-view foods Col(width: .fill, gap: 10) {
+view food Col(width: .fill, gap: 10) {
   Row(width: .fill, align: .center) {
     TextTitle(text: "Popular Food", width: .fill)
     TextCaption(text: "See all (171)", width: .fit)
   }
   Grid(cols: 2) {
-    Col(width: .fill, gap: 6) {
-      Thumb(src: p1)
-      Chip(text: "15%", width: .fit)
-      TextRow(text: "Sandwich with Bolied Egg", width: .fill)
-      Row(width: .fill, align: .center, gap: 6) {
-        TextCaption(text: "24min •", width: .fit)
-        TextCaption(text: "4.5", glyph: "★", width: .fit)
-      }
-      Row(width: .fill, align: .center, gap: 6) {
-        TextValue(value: price1)
-        TextCaption(text: "$12.99", width: .fit)
+    Panel {
+      Col(width: .fill, gap: 6) {
+        Thumb(src: p1)
+        Chip(text: "15%")
+        TextRow(text: "Sandwich with Bolied Egg", width: .fill)
+        Row(width: .fill, gap: 6) {
+          TextCaption(text: "24min •", width: .fit)
+          TextCaption(text: "4.5", glyph: "★", width: .fit)
+        }
+        Row(width: .fill, align: .center, gap: 6) {
+          TextValue(value: price_a)
+          TextCaption(text: "$12.99", width: .fit)
+        }
       }
     }
-    Col(width: .fill, gap: 6) {
-      Thumb(src: p2)
-      Chip(text: "15%", width: .fit)
-      TextRow(text: "Pancake with Orange", width: .fill)
-      Row(width: .fill, align: .center, gap: 6) {
-        TextCaption(text: "24min •", width: .fit)
-        TextCaption(text: "4.5", glyph: "★", width: .fit)
-      }
-      Row(width: .fill, align: .center, gap: 6) {
-        TextValue(value: price2)
-        TextCaption(text: "$12.99", width: .fit)
+    Panel {
+      Col(width: .fill, gap: 6) {
+        Thumb(src: p2)
+        Chip(text: "15%")
+        TextRow(text: "Pancake with Orange", width: .fill)
+        Row(width: .fill, gap: 6) {
+          TextCaption(text: "24min •", width: .fit)
+          TextCaption(text: "4.5", glyph: "★", width: .fit)
+        }
+        Row(width: .fill, align: .center, gap: 6) {
+          TextValue(value: price_b)
+          TextCaption(text: "$12.99", width: .fit)
+        }
       }
     }
   }
@@ -75,8 +76,8 @@ view foods Col(width: .fill, gap: 10) {
 view root Surface(pad: .page) {
   header
   hero
-  categories
-  foods
+  category
+  food
   TabBar {
     Tab(icon: .home, label: "Item", active: .on)
     Tab(icon: .search, label: "Item")

@@ -1,61 +1,89 @@
 # level: L0
 # model: camo-app
+
 theme camo_light
 
-state cycling_dist  { shape: text, initial: "98.00" }
-state cycling_time  { shape: text, initial: "50 min" }
-state cycling_cal   { shape: text, initial: "186 Cal" }
-state steps_count   { shape: text, initial: "1204" }
-state steps_time    { shape: text, initial: "37 min" }
-state steps_cal     { shape: text, initial: "328 Cal" }
-state running_dist  { shape: text, initial: "30.24" }
-state running_time  { shape: text, initial: "37 min" }
-state running_cal   { shape: text, initial: "328 Cal" }
+state tab { shape: enum[first, second, third], initial: .third }
+
+state cyc_km   { shape: text, initial: "98.00" }
+state cyc_time { shape: text, initial: "50 min" }
+state cyc_cal  { shape: text, initial: "186 Cal" }
+
+state step_no   { shape: text, initial: "1204" }
+state step_time { shape: text, initial: "37 min" }
+state step_cal  { shape: text, initial: "328 Cal" }
+
+state run_km   { shape: text, initial: "30.24" }
+state run_time { shape: text, initial: "37 min" }
+state run_cal  { shape: text, initial: "328 Cal" }
+
+view topbar Row(width: .fill, align: .center) {
+  Icon(name: .chevron_left)
+  Col(width: .fill, align: .center) {
+    TextTitle(text: "Activity", width: .fit)
+  }
+  Icon(name: .more)
+}
+
+view tabs Panel {
+  Row(width: .fill, align: .center, gap: 8) {
+    Chip(text: "Normal", active: tab == .first, width: .fill)
+    Chip(text: "Normal", active: tab == .second, width: .fill)
+    Chip(text: "Active", active: tab == .third, width: .fill)
+  }
+}
+
+view cycling Panel {
+  Col(width: .fill, gap: 24) {
+    Row(width: .fill, align: .center, gap: 14) {
+      Icon(name: .activity, size: .hero)
+      TextTitle(text: "Cycling", width: .fill)
+      TextCaption(text: "October", width: .fit)
+    }
+    TextValue(value: cyc_km, unit: "Km")
+    Col(width: .fill, gap: 10) {
+      TextCaption(text: "Time:", value: cyc_time, width: .fit)
+      TextCaption(text: "Calories burnt:", value: cyc_cal, width: .fit)
+    }
+  }
+}
+
+view steps Panel {
+  Col(width: .fill, gap: 24) {
+    Row(width: .fill, align: .center, gap: 14) {
+      Icon(name: .user, size: .hero)
+      TextTitle(text: "Steps", width: .fill)
+      TextCaption(text: "September", width: .fit)
+    }
+    TextValue(value: step_no, unit: "Steps")
+    Col(width: .fill, gap: 10) {
+      TextCaption(text: "Time:", value: step_time, width: .fit)
+      TextCaption(text: "Calories burnt:", value: step_cal, width: .fit)
+    }
+  }
+}
+
+view running Panel {
+  Col(width: .fill, gap: 24) {
+    Row(width: .fill, align: .center, gap: 14) {
+      Icon(name: .zap, size: .hero)
+      TextTitle(text: "Ruuning", width: .fill)
+      TextCaption(text: "September", width: .fit)
+    }
+    TextValue(value: run_km, unit: "Km")
+    Col(width: .fill, gap: 10) {
+      TextCaption(text: "Time:", value: run_time, width: .fit)
+      TextCaption(text: "Calories burnt:", value: run_cal, width: .fit)
+    }
+  }
+}
 
 view root Surface(pad: .page) {
-  Row(width: .fill, align: .center) {
-    Icon(name: .chevron_left)
-    Col(width: .fill, align: .center) { TextTitle(text: "Activity", width: .fit) }
-    Icon(name: .bell)
-  }
-  Row(width: .fill, gap: 8) {
-    Chip(text: "Normal", width: .fill)
-    Chip(text: "Normal", width: .fill)
-    Chip(text: "Active", active: .on, width: .fill)
-  }
-  Col(width: .fill, gap: 16) {
-    Panel {
-      Row(width: .fill, align: .center, gap: 8) {
-        Icon(name: .activity, size: .tile)
-        TextTitle(text: "Cycling", width: .fill)
-        TextCaption(text: "October", width: .fit)
-      }
-      TextValue(value: cycling_dist, unit: "Km")
-      TextCaption(text: "Time:", value: cycling_time)
-      TextCaption(text: "Calories burnt:", value: cycling_cal)
-      Icon(name: .arrow_right)
-    }
-    Panel {
-      Row(width: .fill, align: .center, gap: 8) {
-        Icon(name: .activity, size: .tile)
-        TextTitle(text: "Steps", width: .fill)
-        TextCaption(text: "September", width: .fit)
-      }
-      TextValue(value: steps_count, unit: "Steps")
-      TextCaption(text: "Time:", value: steps_time)
-      TextCaption(text: "Calories burnt:", value: steps_cal)
-      Icon(name: .arrow_right)
-    }
-    Panel {
-      Row(width: .fill, align: .center, gap: 8) {
-        Icon(name: .activity, size: .tile)
-        TextTitle(text: "Ruuning", width: .fill)
-        TextCaption(text: "September", width: .fit)
-      }
-      TextValue(value: running_dist, unit: "Km")
-      TextCaption(text: "Time:", value: running_time)
-      TextCaption(text: "Calories burnt:", value: running_cal)
-      Icon(name: .arrow_right)
-    }
+  Col(width: .fill, gap: 14) {
+    topbar
+    tabs
+    cycling
+    steps
+    running
   }
 }

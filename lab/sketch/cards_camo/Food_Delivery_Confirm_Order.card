@@ -6,75 +6,59 @@ state p1 { shape: text, initial: "http://127.0.0.1:8787/9fd0b28ca61790e9dec3d9e7
 state p2 { shape: text, initial: "http://127.0.0.1:8787/5b6f8b2d8a455b5552529cffcff1dc375bf882b7.png" }
 state p3 { shape: text, initial: "http://127.0.0.1:8787/0dc6cbab127560b83585acacdde87447a7bc8168.png" }
 
-state qty1     { shape: text, initial: "1" }
-state qty2     { shape: text, initial: "3" }
-state price1   { shape: text, initial: "$9.99" }
-state price2   { shape: text, initial: "$4.49" }
+state qty1 { shape: text, initial: "1" }
+state qty2 { shape: text, initial: "3" }
+state price1 { shape: text, initial: "$9.99" }
+state price2 { shape: text, initial: "$4.49" }
 state subtotal { shape: text, initial: "$23.46" }
 state delivery { shape: text, initial: "$1.46" }
-state voucher  { shape: text, initial: "-$4.56" }
-state total    { shape: text, initial: "$24.92" }
+state voucher { shape: text, initial: "-$4.56" }
+state total { shape: text, initial: "$24.92" }
 
-view topbar Row(width: .fill, align: .center) {
-  Icon(name: .chevron_left)
-  Col(width: .fill, align: .center) {
-    TextTitle(text: "Confirm Order", width: .fit)
-  }
-  Space()
-}
-
-view courier Col(width: .fill, gap: 18) {
-  Thumb(src: p1, shape: .hero)
-  Col(width: .fill, gap: 12) {
-    TextRow(text: "Linh Nguyen", width: .fill)
-    TextCaption(text: "Hanoi, Vietnam", width: .fill)
-    Row(width: .fill, align: .center, gap: 8) {
-      Icon(name: .location, size: .tile)
-      TextCaption(text: "5km from here", width: .fill)
-    }
-  }
-}
-
-view items Col(width: .fill, gap: 28) {
+view items Col(width: .fill, gap: 16) {
   TextTitle(text: "Your Items", width: .fill)
-  Row(width: .fill, align: .center, gap: 16) {
+  Row(width: .fill, align: .center, gap: 12) {
     Thumb(src: p2, shape: .square)
-    Col(width: .fill, gap: 14) {
+    Col(width: .fill, gap: 6) {
       TextRow(text: "Vegetable Salad", width: .fill)
-      TextCaption(text: "Appetizers", width: .fill)
-      Row(width: .fill, align: .center) {
-        Row(width: .fill, align: .center, gap: 14) {
-          Icon(name: .minus, size: .tile)
-          TextValue(value: qty1)
-          Icon(name: .plus, size: .tile)
-        }
-        TextValue(value: price1)
+      TextCaption(text: "Appetizers")
+      Row(width: .fill, align: .center, gap: 12) {
+        Icon(name: .minus, size: .tile)
+        TextValue(value: qty1)
+        Icon(name: .plus, size: .tile)
       }
     }
+    Col(align: .center, gap: 16) {
+      Icon(name: .trash, size: .tile)
+      TextValue(value: price1)
+    }
   }
-  Row(width: .fill, align: .center, gap: 16) {
+  Row(width: .fill, align: .center, gap: 12) {
     Thumb(src: p3, shape: .square)
-    Col(width: .fill, gap: 14) {
+    Col(width: .fill, gap: 6) {
       TextRow(text: "Pancake with Orange", width: .fill)
-      TextCaption(text: "Appetizers", width: .fill)
-      Row(width: .fill, align: .center) {
-        Row(width: .fill, align: .center, gap: 14) {
-          Icon(name: .minus, size: .tile)
-          TextValue(value: qty2)
-          Icon(name: .plus, size: .tile)
-        }
-        TextValue(value: price2)
+      TextCaption(text: "Appetizers")
+      Row(width: .fill, align: .center, gap: 12) {
+        Icon(name: .minus, size: .tile)
+        TextValue(value: qty2)
+        Icon(name: .plus, size: .tile)
       }
+    }
+    Col(align: .center, gap: 16) {
+      Icon(name: .trash, size: .tile)
+      TextValue(value: price2)
     }
   }
 }
 
-view summary Col(width: .fill, gap: 28) {
+view summary Col(width: .fill, gap: 16) {
   TextTitle(text: "Summary", width: .fill)
   Panel {
-    Row(width: .fill, align: .center, gap: 12) {
-      Icon(name: .bookmark, size: .tile)
-      TextRow(text: "Enter your discount code", width: .fill)
+    Col(width: .fill, align: .center) {
+      Row(align: .center, gap: 10) {
+        Icon(name: .bookmark, size: .tile)
+        TextRow(text: "Enter your discount code", width: .fit)
+      }
     }
   }
   Row(width: .fill, align: .center) {
@@ -89,9 +73,6 @@ view summary Col(width: .fill, gap: 28) {
     TextRow(text: "Voucher", width: .fill)
     TextValue(value: voucher)
   }
-}
-
-view totalbar Col(width: .fill, gap: 18) {
   Rule()
   Row(width: .fill, align: .center) {
     TextRow(text: "Total", width: .fill)
@@ -100,10 +81,23 @@ view totalbar Col(width: .fill, gap: 18) {
 }
 
 view root Surface(pad: .page) {
-  topbar
-  courier
+  Row(width: .fill, align: .center) {
+    Icon(name: .chevron_left)
+    Col(width: .fill, align: .center) {
+      TextTitle(text: "Confirm Order", width: .fit)
+    }
+  }
+  Thumb(src: p1)
+  Row(width: .fill, align: .center, gap: 12) {
+    Col(width: .fill, gap: 6) {
+      TextRow(text: "Linh Nguyen", width: .fill)
+      TextCaption(text: "Hanoi, Vietnam")
+      Row(align: .center, gap: 6) {
+        Icon(name: .location, size: .tile)
+        TextCaption(text: "5km from here")
+      }
+    }
+  }
   items
   summary
-  Space()
-  totalbar
 }

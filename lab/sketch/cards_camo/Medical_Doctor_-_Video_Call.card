@@ -8,19 +8,16 @@ state p2 { shape: text, initial: "http://127.0.0.1:8787/fe0f8e02f96b082b8007be11
 view root Photo(src: p1, pad: .page) {
   Row(width: .fill, align: .center) {
     Icon(name: .chevron_left)
-    Space()
-    Col(align: .center, gap: 8) {
-      Thumb(src: p2)
-      Icon(name: .video)
-    }
+    Col(width: .fill) { }
+    Thumb(src: p2, shape: .square)
   }
   Space()
-  Col(align: .center, gap: 6, width: .fill) {
+  Col(align: .center, gap: 8, width: .fill) {
     TextTitle(text: "Dr. Joseph Atkins", width: .fit)
     TextCaption(text: "08:23", width: .fit)
   }
-  Row(width: .fill, align: .center, gap: 24) {
-    Icon(name: .camera)
+  Row(width: .fill, align: .center, gap: 28) {
+    Icon(name: .video)
     Icon(name: .phone)
     Icon(name: .mic)
   }

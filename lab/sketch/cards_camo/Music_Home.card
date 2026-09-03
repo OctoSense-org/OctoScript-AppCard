@@ -5,106 +5,98 @@ theme camo
 state p1 { shape: text, initial: "http://127.0.0.1:8787/aa1d09a274cbdd0628e0dd49bf58f11e3e363d5e.png" }
 state p2 { shape: text, initial: "http://127.0.0.1:8787/44676d5d91db51079b18bd536c9c19e63f23a504.png" }
 
-view artists Grid(cols: 4) {
-  Col(align: .center, gap: 6) {
-    Avatar(text: "JB")
-    TextCaption(text: "Justin Bieber", width: .fit)
+view topbar Row(width: .fill, align: .center, gap: 10) {
+  Avatar(text: "LN")
+  Col(width: .fill, gap: 2) {
+    TextCaption(text: "Good Morning", width: .fill)
+    TextRow(text: "Hi, Linh Nguyen", width: .fill)
   }
-  Col(align: .center, gap: 6) {
-    Avatar(text: "TS")
-    TextCaption(text: "Taylor Swift", width: .fit)
-  }
-  Col(align: .center, gap: 6) {
-    Avatar(text: "TW")
-    TextCaption(text: "The Weeknd", width: .fit)
-  }
-  Col(align: .center, gap: 6) {
-    Avatar(text: "ES")
-    TextCaption(text: "Ed Sheeran", width: .fit)
-  }
+  Icon(name: .more)
 }
 
-view singles Grid(cols: 2) {
-  Col(width: .fill, gap: 6) {
-    Thumb(src: p2, shape: .square)
-    Row(width: .fill, align: .center, gap: 6) {
-      Col(width: .fill, gap: 2) {
-        TextRow(text: "Happier Than Ever", width: .fill)
-        TextCaption(text: "Billie Eilish", width: .fill)
-      }
-      Icon(name: .play, size: .tile)
-    }
-  }
-  Col(width: .fill, gap: 6) {
-    Thumb(src: p2, shape: .square)
-    Row(width: .fill, align: .center, gap: 6) {
-      Col(width: .fill, gap: 2) {
-        TextRow(text: "Montero", width: .fill)
-        TextCaption(text: "Lil Nas X", width: .fill)
-      }
-      Icon(name: .play, size: .tile)
-    }
-  }
-}
-
-view tabbar Panel {
+view thebest Col(width: .fill, gap: 8) {
   Row(width: .fill, align: .center) {
-    Col(width: .fill, align: .center, gap: 4) {
-      Icon(name: .home, size: .tile)
-      TextCaption(text: "Item", width: .fit)
+    TextTitle(text: "The Best", width: .fill)
+    TextCaption(text: "See all", width: .fit)
+  }
+  Thumb(src: p1, shape: .hero)
+  Row(width: .fill, align: .center, gap: 8) {
+    Col(width: .fill, gap: 2) {
+      TextTitle(text: "Justice", width: .fill)
+      TextCaption(text: "Justin Bieber", width: .fill)
     }
-    Col(width: .fill, align: .center, gap: 4) {
-      Icon(name: .search, size: .tile)
-      TextCaption(text: "Item", width: .fit)
+    Icon(name: .play, size: .hero)
+  }
+}
+
+view artists Col(width: .fill, gap: 8) {
+  Row(width: .fill, align: .center) {
+    TextTitle(text: "Popular Artists", width: .fill)
+    TextCaption(text: "See all", width: .fit)
+  }
+  Grid(cols: 5) {
+    Col(align: .center, gap: 6) {
+      Avatar(text: "JB")
+      TextCaption(text: "Justin Bieber", width: .fit)
     }
-    Col(width: .fill, align: .center, gap: 4) {
-      Icon(name: .play, size: .tile)
-      TextCaption(text: "Item", width: .fit)
+    Col(align: .center, gap: 6) {
+      Avatar(text: "TS")
+      TextCaption(text: "Taylor Swift", width: .fit)
     }
-    Col(width: .fill, align: .center, gap: 4) {
-      Icon(name: .heart, size: .tile)
-      TextCaption(text: "Item", width: .fit)
+    Col(align: .center, gap: 6) {
+      Avatar(text: "TW")
+      TextCaption(text: "The Weeknd", width: .fit)
     }
-    Col(width: .fill, align: .center, gap: 4) {
-      Icon(name: .user, size: .tile)
-      TextCaption(text: "Item", width: .fit)
+    Col(align: .center, gap: 6) {
+      Avatar(text: "ES")
+      TextCaption(text: "Ed Sheeran", width: .fit)
+    }
+    Col(align: .center, gap: 6) {
+      Avatar(text: "BE")
+      TextCaption(text: "Billie Eilish", width: .fit)
+    }
+  }
+}
+
+view singles Col(width: .fill, gap: 8) {
+  Row(width: .fill, align: .center) {
+    TextTitle(text: "New Singles", width: .fill)
+    TextCaption(text: "See all", width: .fit)
+  }
+  Grid(cols: 2) {
+    Col(width: .fill, gap: 6) {
+      Thumb(src: p2, shape: .square)
+      Row(width: .fill, align: .center, gap: 6) {
+        Col(width: .fill, gap: 2) {
+          TextRow(text: "Happier Than Ever", width: .fill)
+          TextCaption(text: "Billie Eilish", width: .fill)
+        }
+        Icon(name: .play)
+      }
+    }
+    Col(width: .fill, gap: 6) {
+      Thumb(src: p2, shape: .square)
+      Row(width: .fill, align: .center, gap: 6) {
+        Col(width: .fill, gap: 2) {
+          TextRow(text: "Montero", width: .fill)
+          TextCaption(text: "Lil Nas X", width: .fill)
+        }
+        Icon(name: .play)
+      }
     }
   }
 }
 
 view root Surface(pad: .page) {
-  Row(width: .fill, align: .center, gap: 10) {
-    Avatar(text: "LN")
-    Col(width: .fill, gap: 2) {
-      TextCaption(text: "Good Morning", width: .fill)
-      TextRow(text: "Hi, Linh Nguyen", width: .fill)
-    }
-    Icon(name: .more)
-  }
-  Row(width: .fill, align: .center) {
-    TextTitle(text: "The Best", width: .fill)
-    TextCaption(text: "See all", width: .fit)
-  }
-  Col(width: .fill, gap: 8) {
-    Thumb(src: p1, shape: .hero)
-    Row(width: .fill, align: .center, gap: 8) {
-      Col(width: .fill, gap: 2) {
-        TextTitle(text: "Justice", width: .fill)
-        TextCaption(text: "Justin Bieber", width: .fill)
-      }
-      Icon(name: .play)
-    }
-  }
-  Row(width: .fill, align: .center) {
-    TextTitle(text: "Popular Artists", width: .fill)
-    TextCaption(text: "See all", width: .fit)
-  }
+  topbar
+  thebest
   artists
-  Row(width: .fill, align: .center) {
-    TextTitle(text: "New Singles", width: .fill)
-    TextCaption(text: "See all", width: .fit)
-  }
   singles
-  Space()
-  tabbar
+  TabBar {
+    Tab(icon: .home, label: "Item", active: .on)
+    Tab(icon: .search, label: "Item")
+    Tab(icon: .play, label: "Item")
+    Tab(icon: .heart, label: "Item")
+    Tab(icon: .user, label: "Item")
+  }
 }

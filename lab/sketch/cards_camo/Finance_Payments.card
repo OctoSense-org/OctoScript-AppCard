@@ -2,118 +2,96 @@
 # model: camo-app
 theme camo
 
-state search_hint { shape: text, initial: "Search for Name & Payments…" }
+state search_ph { shape: text, initial: "Search for Name & Payments…" }
 
-view appbar Row(width: .fill, align: .center) {
-  TextTitle(text: "Payments", width: .fill)
-  Icon(name: .more)
-}
-
-view searchbar Row(width: .fill, align: .center, gap: 12) {
-  Icon(name: .search)
-  Field(placeholder: search_hint, width: .fill)
-}
-
-view contacts Col(width: .fill, gap: 16) {
+view contacts Col(width: .fill, gap: 10) {
   Row(width: .fill, align: .center) {
     TextTitle(text: "My Contacts", width: .fill)
     TextCaption(text: "See all", width: .fit)
   }
   Grid(cols: 5) {
-    Col(align: .center, gap: 10) {
-      Avatar(text: "AL")
+    Col(align: .center, gap: 6) {
+      Avatar(text: "A")
       TextCaption(text: "Alberta", width: .fit)
     }
-    Col(align: .center, gap: 10) {
-      Avatar(text: "FR")
+    Col(align: .center, gap: 6) {
+      Avatar(text: "F")
       TextCaption(text: "Frederick", width: .fit)
     }
-    Col(align: .center, gap: 10) {
-      Avatar(text: "EU")
+    Col(align: .center, gap: 6) {
+      Avatar(text: "E")
       TextCaption(text: "Eugene", width: .fit)
     }
-    Col(align: .center, gap: 10) {
-      Avatar(text: "IS")
+    Col(align: .center, gap: 6) {
+      Avatar(text: "I")
       TextCaption(text: "Isabella", width: .fit)
     }
-    Col(align: .center, gap: 10) {
-      Avatar(text: "LU")
+    Col(align: .center, gap: 6) {
+      Avatar(text: "L")
       TextCaption(text: "Lucille", width: .fit)
     }
   }
 }
 
-view transfers Col(width: .fill, gap: 16) {
+view transfers Col(width: .fill, gap: 10) {
   Row(width: .fill, align: .center) {
     TextTitle(text: "Transfers", width: .fill)
     TextCaption(text: "See all", width: .fit)
   }
   Grid(cols: 2) {
-    Card {
-      Col(width: .fill, gap: 14) {
-        Icon(name: .bookmark, size: .tile)
-        TextRow(text: "Card Number", width: .fill)
-        TextCaption(text: "Enter card number", width: .fill)
+    Card(tint: .blue) {
+      Row(width: .fill, align: .center, gap: 10) {
+        Icon(name: .settings)
+        Col(width: .fill, gap: 4) {
+          TextRow(text: "Card Number", width: .fill)
+          TextCaption(text: "Enter card number", width: .fill)
+        }
       }
     }
-    Card(tint: .violet) {
-      Col(width: .fill, gap: 14) {
-        Icon(name: .user, size: .tile)
-        TextRow(text: "Account Number", width: .fill)
-        TextCaption(text: "Enter Account", width: .fill)
+    Card(tint: .amber) {
+      Row(width: .fill, align: .center, gap: 10) {
+        Icon(name: .user)
+        Col(width: .fill, gap: 4) {
+          TextRow(text: "Account Number", width: .fill)
+          TextCaption(text: "Enter Account", width: .fill)
+        }
       }
     }
   }
 }
 
-view payments Col(width: .fill, gap: 20) {
+view payments Col(width: .fill, gap: 10) {
   Row(width: .fill, align: .center) {
     TextTitle(text: "Payments", width: .fill)
     TextCaption(text: "See all", width: .fit)
   }
-  Row(width: .fill, align: .center, gap: 14) {
-    Icon(name: .wifi, size: .tile)
+  Row(width: .fill, align: .center, gap: 12) {
+    Icon(name: .wifi)
     TextRow(text: "Internet", width: .fill)
     Icon(name: .chevron_right)
   }
-  Row(width: .fill, align: .center, gap: 14) {
-    Icon(name: .zap, size: .tile)
+  Rule()
+  Row(width: .fill, align: .center, gap: 12) {
+    Icon(name: .zap)
     TextRow(text: "Electricity", width: .fill)
     Icon(name: .chevron_right)
   }
 }
 
-view tabbar Panel {
-  Grid(cols: 5) {
-    Col(align: .center, gap: 8) {
-      Icon(name: .home, size: .tile)
-      TextCaption(text: "Item", width: .fit)
-    }
-    Col(align: .center, gap: 8) {
-      Icon(name: .search, size: .tile)
-      TextCaption(text: "Item", width: .fit)
-    }
-    Col(align: .center, gap: 8) {
-      Icon(name: .send, size: .tile)
-      TextCaption(text: "Item", width: .fit)
-    }
-    Col(align: .center, gap: 8) {
-      Icon(name: .bell, size: .tile)
-      TextCaption(text: "Item", width: .fit)
-    }
-    Col(align: .center, gap: 8) {
-      Icon(name: .user, size: .tile)
-      TextCaption(text: "Item", width: .fit)
-    }
-  }
-}
-
 view root Surface(pad: .page) {
-  appbar
-  searchbar
+  Row(width: .fill, align: .center) {
+    TextTitle(text: "Payments", width: .fill)
+    Icon(name: .more)
+  }
+  Field(placeholder: search_ph)
   contacts
   transfers
   payments
-  Space()
-  tabbar
+  TabBar {
+    Tab(icon: .home, label: "Item", active: .on)
+    Tab(icon: .search, label: "Item")
+    Tab(icon: .send, label: "Item")
+    Tab(icon: .bell, label: "Item")
+    Tab(icon: .user, label: "Item")
+  }
 }

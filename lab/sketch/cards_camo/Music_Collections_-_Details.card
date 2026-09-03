@@ -5,31 +5,16 @@ theme camo
 state p1 { shape: text, initial: "http://127.0.0.1:8787/765f07af62a5f4644988f9e29ac6071f11435db4.png" }
 state p2 { shape: text, initial: "http://127.0.0.1:8787/44676d5d91db51079b18bd536c9c19e63f23a504.png" }
 
-view topbar Row(width: .fill, align: .center) {
-  Icon(name: .chevron_left)
-  Col(width: .fill, align: .center) {
-    TextTitle(text: "Playlists For Athletes", width: .fit)
-  }
-  Icon(name: .share)
-}
-
-view hero Col(width: .fill) {
-  Card(tint: .amber) {
-    Col(align: .center, gap: 14, width: .fill) {
-      TextTitle(text: "Athletics", width: .fit)
-      Thumb(src: p1, shape: .hero)
-      Icon(name: .play, size: .hero)
-    }
+view hero Card(tint: .amber) {
+  Col(width: .fill, align: .center, gap: 10) {
+    TextTitle(text: "Athletics", width: .fit)
+    Thumb(src: p1, shape: .hero)
+    Icon(name: .play, size: .hero)
   }
 }
 
-view intro Col(width: .fill, gap: 8) {
-  TextTitle(text: "Playlists For Athletes", width: .fill)
-  TextCaption(text: "Focus on accomplishing the goal", width: .fill)
-}
-
-view tracks Col(width: .fill, gap: 20) {
-  Row(width: .fill, align: .center, gap: 14) {
+view tracks Col(width: .fill, gap: 14) {
+  Row(width: .fill, align: .center, gap: 12) {
     Thumb(src: p2, shape: .square)
     Col(width: .fill, gap: 4) {
       TextRow(text: "Stay", width: .fill)
@@ -37,7 +22,7 @@ view tracks Col(width: .fill, gap: 20) {
     }
     Icon(name: .more)
   }
-  Row(width: .fill, align: .center, gap: 14) {
+  Row(width: .fill, align: .center, gap: 12) {
     Thumb(src: p2, shape: .square)
     Col(width: .fill, gap: 4) {
       TextRow(text: "Industry Baby", width: .fill)
@@ -45,7 +30,7 @@ view tracks Col(width: .fill, gap: 20) {
     }
     Icon(name: .more)
   }
-  Row(width: .fill, align: .center, gap: 14) {
+  Row(width: .fill, align: .center, gap: 12) {
     Thumb(src: p2, shape: .square)
     Col(width: .fill, gap: 4) {
       TextRow(text: "Bad Habits", width: .fill)
@@ -56,9 +41,18 @@ view tracks Col(width: .fill, gap: 20) {
 }
 
 view root Surface(pad: .page) {
-  topbar
+  Row(width: .fill, align: .center) {
+    Icon(name: .chevron_left)
+    Col(width: .fill, align: .center) {
+      TextTitle(text: "Playlists For Athletes", width: .fit)
+    }
+    Icon(name: .more)
+  }
   hero
-  intro
+  Col(width: .fill, gap: 6) {
+    TextTitle(text: "Playlists For Athletes", width: .fill)
+    TextCaption(text: "Focus on accomplishing the goal", width: .fill)
+  }
   Chip(text: "Shuffle", tone: .primary, width: .fill)
   tracks
 }

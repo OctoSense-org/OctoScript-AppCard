@@ -2,71 +2,74 @@
 # model: camo-app
 theme camo
 
-state total     { shape: text, initial: "$1050.99" }
-state amt_shop  { shape: text, initial: "-$240.00" }
-state amt_soph  { shape: text, initial: "+$100.00" }
-state amt_med   { shape: text, initial: "-$42.90" }
+state spend { shape: text, initial: "$1050.99" }
+state amt1 { shape: text, initial: "-$240.00" }
+state amt2 { shape: text, initial: "+$100.00" }
+state amt3 { shape: text, initial: "-$42.90" }
 
-view chart Panel {
-  Col(align: .center, gap: 56, width: .fill) {
-    TextCaption(text: "Total Spending", width: .fit)
-    TextHero(value: total)
+view header Row(width: .fill, align: .center) {
+  Icon(name: .chevron_left)
+  Col(width: .fill, align: .center) {
+    TextTitle(text: "Spending", width: .fit)
+  }
+}
+
+view total Panel {
+  Col(align: .center, gap: 6, width: .fill) {
+    TextEyebrow(text: "Total Spending")
+    TextHero(value: spend)
     TextCaption(text: "September", width: .fit)
   }
 }
 
-view categories Col(width: .fill, gap: 12) {
-  Row(width: .fill, gap: 12) {
+view categories Col(width: .fill, gap: 10) {
+  Row(width: .fill, gap: 10) {
     Chip(text: "Transfer $1004")
     Chip(text: "Shop $800.00")
   }
-  Row(width: .fill, gap: 12) {
+  Row(width: .fill, gap: 10) {
     Chip(text: "Entertaiment $360.86")
     Chip(text: "Internet $20.94")
   }
-  Row(width: .fill, gap: 12) {
+  Row(width: .fill, gap: 10) {
     Chip(text: "Cellular $120.00")
     Chip(text: "Medicine $432.11")
   }
 }
 
-view today Col(width: .fill, gap: 24) {
+view transactions Col(width: .fill, gap: 14) {
   TextTitle(text: "Today, 27 Sep", width: .fill)
-  Row(width: .fill, align: .center, gap: 16) {
+  Row(width: .fill, align: .center, gap: 12) {
     Avatar(text: "SH")
-    Col(width: .fill, gap: 6) {
+    Col(width: .fill, gap: 2) {
       TextRow(text: "Shopping", width: .fill)
       TextCaption(text: "Today, 09:21 AM", width: .fill)
     }
-    TextValue(value: amt_shop)
+    TextValue(value: amt1, tint: amt1)
   }
-  Row(width: .fill, align: .center, gap: 16) {
+  Row(width: .fill, align: .center, gap: 12) {
     Avatar(text: "SO")
-    Col(width: .fill, gap: 6) {
+    Col(width: .fill, gap: 2) {
       TextRow(text: "Sophie Owens", width: .fill)
       TextCaption(text: "Today, 08:30 AM", width: .fill)
     }
-    TextValue(value: amt_soph)
+    TextValue(value: amt2, tint: amt2)
   }
-  Row(width: .fill, align: .center, gap: 16) {
+  Row(width: .fill, align: .center, gap: 12) {
     Avatar(text: "ME")
-    Col(width: .fill, gap: 6) {
+    Col(width: .fill, gap: 2) {
       TextRow(text: "Medicine", width: .fill)
       TextCaption(text: "Today, 08:00 AM", width: .fill)
     }
-    TextValue(value: amt_med)
+    TextValue(value: amt3, tint: amt3)
   }
 }
 
 view root Surface(pad: .page) {
-  Row(width: .fill, align: .center) {
-    Icon(name: .chevron_left)
-    Col(width: .fill, align: .center) {
-      TextTitle(text: "Spending", width: .fit)
-    }
-    Icon(name: .more)
+  Col(width: .fill, gap: 18) {
+    header
+    total
+    categories
+    transactions
   }
-  chart
-  categories
-  today
 }

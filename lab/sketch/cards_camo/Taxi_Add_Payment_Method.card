@@ -1,8 +1,16 @@
+theme camo_light
 # level: L0
 # model: camo-app
-theme camo_light
 
-view cards Col(width: .fill, gap: 12) {
+view root Surface(pad: .page) {
+  Row(width: .fill, align: .center) {
+    Icon(name: .chevron_left)
+    Col(width: .fill, align: .center) {
+      TextTitle(text: "Payment Method", width: .fit)
+    }
+    Space()
+  }
+  TextTitle(text: "Credit Cards", width: .fill)
   Panel {
     Row(width: .fill, align: .center, gap: 12) {
       Avatar(text: "MC")
@@ -15,26 +23,13 @@ view cards Col(width: .fill, gap: 12) {
   }
   Panel {
     Row(width: .fill, align: .center, gap: 12) {
-      Avatar(text: "VS")
+      Avatar(text: "VI")
       Col(width: .fill, gap: 4) {
         TextRow(text: "Visa", width: .fill)
         TextCaption(text: "1236 **** **** 6666", width: .fill)
       }
       Icon(name: .chevron_right)
     }
-  }
-}
-
-view root Surface(pad: .page) {
-  Row(width: .fill, align: .center) {
-    Icon(name: .chevron_left)
-    Col(width: .fill, align: .center) {
-      TextTitle(text: "Payment Method", width: .fit)
-    }
-  }
-  Col(width: .fill, gap: 12) {
-    TextTitle(text: "Credit Cards", width: .fill)
-    cards
   }
   Space()
   Col(align: .center, width: .fill) {

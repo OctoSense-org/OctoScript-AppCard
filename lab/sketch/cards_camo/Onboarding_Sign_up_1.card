@@ -2,38 +2,40 @@
 # model: camo-app
 theme camo
 
-view header Col(width: .fill, gap: 8) {
+state name { shape: text, initial: "Nguyen Van Linh" }
+state name_hint { shape: text, initial: "Full name" }
+state email { shape: text, initial: "hello.carrotlabs@gmail.com" }
+state email_hint { shape: text, initial: "Email" }
+state pass { shape: text, initial: "••••••" }
+state pass_hint { shape: text, initial: "Password" }
+
+view header Col(width: .fill, gap: 10) {
   TextTitle(text: "Get Started to CaMo 2", width: .fill)
   TextBody(text: "Hello there, sign in to continue!", width: .fill)
 }
 
 view form Col(width: .fill, gap: 12) {
-  Field(text: "Nguyen Van Linh", placeholder: "Full name")
-  Field(text: "hello.carrotlabs@gmail.com", placeholder: "Email")
-  Row(width: .fill, align: .center) {
-    Field(text: "••••••", placeholder: "Password")
+  Field(text: name, placeholder: name_hint)
+  Field(text: email, placeholder: email_hint)
+  Row(width: .fill, align: .center, gap: 12) {
+    Field(text: pass, placeholder: pass_hint)
     TextCaption(text: "Forgot?", width: .fit)
   }
 }
 
-view social Col(align: .center, width: .fill, gap: 14) {
+view actions Col(align: .center, width: .fill, gap: 16) {
+  Chip(text: "Start", tone: .primary, width: .fill)
   TextCaption(text: "Or continue with social account", width: .fit)
-  Grid(cols: 2) {
+  Row(width: .fill, align: .center, gap: 12) {
     Chip(text: "Google", width: .fill)
     Chip(text: "Facebook", width: .fill)
   }
+  TextCaption(text: "Already have an account? Sign in", width: .fit)
 }
 
 view root Surface(pad: .page) {
-  Col(width: .fill, gap: 22) {
-    header
-    form
-    Col(align: .center, width: .fill) {
-      Chip(text: "Start", tone: .primary, width: .fill)
-    }
-    social
-    Col(align: .center, width: .fill) {
-      TextCaption(text: "Already have an account? Sign in", width: .fit)
-    }
-  }
+  header
+  form
+  Space()
+  actions
 }

@@ -2,37 +2,34 @@
 # model: camo-app
 theme camo
 
-state draft { shape: text, initial: "Type something" }
+state composer_q { shape: text, initial: "Type something" }
 
-view header Row(width: .fill, align: .center) {
+view appbar Row(width: .fill, align: .center) {
   Icon(name: .chevron_left)
   Col(width: .fill, align: .center) {
     TextTitle(text: "Alberta Owens", width: .fit)
   }
-  Icon(name: .video)
+  Icon(name: .more)
 }
 
-view thread Col(width: .fill, gap: 44) {
+view thread Col(width: .fill, gap: 12) {
   Col(width: .fill, align: .center) {
     TextEyebrow(text: "Today")
   }
   Bubble(text: "Hey there! What’s up?", side: .them)
   Bubble(text: "Nothing. Just chilling & watching Youtube. What about you ?", side: .me)
-  Col(width: .fill, gap: 12) {
-    Bubble(text: "Same here! Been watching Youtube for the past 5 hours despite of having so much to do!", side: .them)
-    Bubble(text: "It’s hard to be productive, man", side: .them)
-    Bubble(text: "• • •", side: .them)
-  }
+  Bubble(text: "Same here! Been watching Youtube for the past 5 hours despite of having so much to do!", side: .them)
+  Bubble(text: "It’s hard to be productive, man", side: .them)
 }
 
-view composer Row(width: .fill, align: .center, gap: 14) {
+view composer Row(width: .fill, align: .center, gap: 10) {
   Icon(name: .camera)
-  Field(placeholder: draft, width: .fill)
-  Icon(name: .send)
+  Field(placeholder: composer_q)
+  Icon(name: .arrow_up)
 }
 
 view root Surface(pad: .page) {
-  header
+  appbar
   thread
   Space()
   composer

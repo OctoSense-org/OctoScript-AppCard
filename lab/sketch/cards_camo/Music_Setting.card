@@ -2,70 +2,58 @@
 # model: camo-app
 theme camo
 
-view settings Col(width: .fill, gap: 40) {
-  TextEyebrow(text: "Interface")
-  Row(width: .fill, align: .center, gap: 16) {
-    Icon(name: .moon)
-    TextRow(text: "Dark Theme", width: .fill)
-    TextCaption(glyph: "●", width: .fit)
-  }
-  TextEyebrow(text: "Other")
-  Row(width: .fill, align: .center, gap: 16) {
-    Icon(name: .activity)
-    TextRow(text: "Equalizer", width: .fill)
-  }
-  Row(width: .fill, align: .center, gap: 16) {
-    Icon(name: .mic)
-    TextRow(text: "Volume Limit", width: .fill)
-  }
-  Row(width: .fill, align: .center, gap: 16) {
-    Icon(name: .mic)
-    TextRow(text: "Volume Correction", width: .fill)
-    TextCaption(glyph: "●", width: .fit)
-  }
-  Row(width: .fill, align: .center, gap: 16) {
-    Icon(name: .zap)
-    TextRow(text: "Use Story", width: .fill)
-    TextCaption(glyph: "●", width: .fit)
-  }
-  TextEyebrow(text: "About Application")
-  Row(width: .fill, align: .center, gap: 16) {
-    Icon(name: .lock)
-    TextRow(text: "Privacy Policy", width: .fill)
-  }
-}
-
-view tabbar Panel {
-  Grid(cols: 5) {
-    Col(align: .center, gap: 6) {
-      Icon(name: .home)
-      TextCaption(text: "Item", width: .fit)
-    }
-    Col(align: .center, gap: 6) {
-      Icon(name: .search)
-      TextCaption(text: "Item", width: .fit)
-    }
-    Col(align: .center, gap: 6) {
-      Icon(name: .play)
-      TextCaption(text: "Item", width: .fit)
-    }
-    Col(align: .center, gap: 6) {
-      Icon(name: .heart)
-      TextCaption(text: "Item", width: .fit)
-    }
-    Col(align: .center, gap: 6) {
-      Icon(name: .user)
-      TextCaption(text: "Item", width: .fit)
-    }
-  }
-}
-
 view root Surface(pad: .page) {
   Row(width: .fill, align: .center) {
     TextTitle(text: "Setting", width: .fill)
     Icon(name: .more)
   }
-  settings
-  Space()
-  tabbar
+  interface
+  other
+  about
+  TabBar {
+    Tab(icon: .home, label: "Item", active: .on)
+    Tab(icon: .search, label: "Item")
+    Tab(icon: .play, label: "Item")
+    Tab(icon: .heart, label: "Item")
+    Tab(icon: .user, label: "Item")
+  }
+}
+
+view interface Col(width: .fill, gap: 16) {
+  TextTitle(text: "Interface", width: .fill)
+  Row(width: .fill, align: .center, gap: 12) {
+    Icon(name: .moon)
+    TextRow(text: "Dark Theme", width: .fill)
+    TextCaption(glyph: "●", width: .fit)
+  }
+}
+
+view other Col(width: .fill, gap: 16) {
+  TextTitle(text: "Other", width: .fill)
+  Row(width: .fill, align: .center, gap: 12) {
+    Icon(name: .activity)
+    TextRow(text: "Equalizer", width: .fill)
+  }
+  Row(width: .fill, align: .center, gap: 12) {
+    Icon(name: .mic)
+    TextRow(text: "Volume Limit", width: .fill)
+  }
+  Row(width: .fill, align: .center, gap: 12) {
+    Icon(name: .mic)
+    TextRow(text: "Volume Correction", width: .fill)
+    TextCaption(glyph: "●", width: .fit)
+  }
+  Row(width: .fill, align: .center, gap: 12) {
+    Icon(name: .zap)
+    TextRow(text: "Use Story", width: .fill)
+    TextCaption(glyph: "●", width: .fit)
+  }
+}
+
+view about Col(width: .fill, gap: 16) {
+  TextTitle(text: "About Application", width: .fill)
+  Row(width: .fill, align: .center, gap: 12) {
+    Icon(name: .lock)
+    TextRow(text: "Privacy Policy", width: .fill)
+  }
 }
