@@ -987,6 +987,12 @@ fn emit(node: &UiNode, out: &mut String, depth: usize) {
 fn apply_inkdark(n: &mut UiNode) {
     if n.attrs.inkdark == Some(1) {
         fn force(n: &mut UiNode) {
+            // A Chip carries its own fill and ink; forcing its label dark on a
+            // dark chip fill made "Deposit"/"Withdraw" pills render blank on a
+            // tinted card. Leave chips (and nested tinted cards) to self-manage.
+            if n.kind == NodeKind::Chip || n.attrs.inkdark == Some(1) {
+                return;
+            }
             if n.kind == NodeKind::Text {
                 n.attrs.color = Some(0xff1c_1c22);
             }
