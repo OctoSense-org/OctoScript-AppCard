@@ -117,41 +117,66 @@ def data_uri(url: str) -> str:
     return f"data:{mime};base64," + base64.b64encode(p.read_bytes()).decode()
 
 
-def data_lets(snapshot: dict, card: str) -> str:
-    """Answer the card's live `sys.*` calls from a REAL data snapshot.
+def data_lets(snapshot: dict, card: str, live: bool = True) -> str:
+    """Answer the card's `sys.*` calls — from the network, or from a snapshot.
 
-    The lowering emits actual calls (`sys.weather(sys.geocodenum("上海",
-    "lat"), .., "current.temperature_2m")`), not variable reads — binding the
-    source names as lets does nothing. The ArkUI assembler has no runtime to
-    execute those calls, so unanswered ones render `[Error:WrongValue]`.
-    These shims give the same tree the numbers the phone runtime would have
-    fetched: one snapshot, taken live, keyed by the open-meteo field path the
-    lowering asks for.
+    The lowering emits real calls (`sys.weather(sys.geocodenum("上海","lat"),
+    .., "current.temperature_2m")`). With `live` the shims forward them to the
+    device's own capabilities (`fetch_num`/`fetch_fmt`/`fetch_weekday`, which
+    fetch and cache open-meteo just as the weather kit does), so the phone
+    holds real data with no workstation in the loop. Without it they read a
+    snapshot taken on the host — a fallback for capture runs with no network.
+
+    Both forms keep the §4 boundary: the card names WHERE to look, never what
+    was found.
     """
     import json as _json
+    place = snapshot.get("place", {})
+    lat, lon = place.get("lat", 0), place.get("lon", 0)
+    if live:
+        wx = ("https://api.open-meteo.com/v1/forecast?latitude=" + str(lat)
+              + "&longitude=" + str(lon)
+              + "&current=temperature_2m,relative_humidity_2m,apparent_temperature,"
+                "weather_code,wind_speed_10m"
+                "&daily=weather_code,temperature_2m_max,temperature_2m_min,uv_index_max"
+                "&timezone=auto&forecast_days=7")
+        news_url = "https://hn.algolia.com/api/v1/search?tags=front_page&hitsPerPage=10"
+        return f"""
+// --- live data: the device fetches, exactly as the weather kit does ---
+let _WX = "{wx}"
+let _NEWS = "{news_url}"
+fn sys_geocodenum(name, which) {{
+    if which == "lat" {{ return {lat} }}
+    return {lon}
+}}
+fn sys_dayname(lat, lon, i) {{ return fetch_weekday(_WX, "daily.time", i) }}
+fn sys_weather(lat, lon, path) {{
+    let v = fetch_num(_WX, path, -1)
+    if v == nil {{ return 0 }}
+    return v
+}}
+fn sys_weathercond(lat, lon, path) {{ return sys_weather(lat, lon, path) }}
+fn sys_weatherword(lat, lon, path) {{ return sys_weather(lat, lon, path) }}
+fn sys_news(count, field, i) {{ return fetch_str(_NEWS, "hits#" + field, i) }}
+"""
     now = snapshot.get("now", {})
     week = snapshot.get("week", {}).get("days", [])
     top = snapshot.get("top", [])
-    place = snapshot.get("place", {})
-    hi = _json.dumps([d.get("hi", 0) for d in week])
-    lo = _json.dumps([d.get("lo", 0) for d in week])
-    names = _json.dumps([d.get("dayname", "") for d in week])
-    conds = _json.dumps([d.get("cond", "") for d in week])
     unrolled = "\n".join(
         f'    if path == "daily.temperature_2m_max.{i}" {{ return _hi[{i}] }}\n'
         f'    if path == "daily.temperature_2m_min.{i}" {{ return _lo[{i}] }}\n'
         f'    if path == "daily.weather_code.{i}" {{ return _cond[{i}] }}'
         for i in range(7))
     return f"""
-// --- live-data shims: a snapshot answers what the runtime would fetch ---
-let _hi = {hi}
-let _lo = {lo}
-let _dayname = {names}
-let _cond = {conds}
+// --- snapshot fallback: real values, taken once on the host ---
+let _hi = {_json.dumps([d.get("hi", 0) for d in week])}
+let _lo = {_json.dumps([d.get("lo", 0) for d in week])}
+let _dayname = {_json.dumps([d.get("dayname", "") for d in week])}
+let _cond = {_json.dumps([d.get("cond", "") for d in week])}
 let _news = {_json.dumps(top, ensure_ascii=False)}
 fn sys_geocodenum(name, which) {{
-    if which == "lat" {{ return {place.get("lat", 0)} }}
-    return {place.get("lon", 0)}
+    if which == "lat" {{ return {lat} }}
+    return {lon}
 }}
 fn sys_dayname(lat, lon, i) {{ return _dayname[i] }}
 fn sys_weather(lat, lon, path) {{
@@ -162,13 +187,12 @@ fn sys_weather(lat, lon, path) {{
     if path == "current.uv_index" {{ return {now.get("uv", 0)} }}
     if path == "daily.uv_index_max.0" {{ return {now.get("uv", 0)} }}
     if path == "current.weather_code" {{ return "{now.get("cond", "")}" }}
-    let d0 = ""
 {unrolled}
     return 0
 }}
-fn sys_news(count, field, i) {{ return _news[i][field] }}
 fn sys_weathercond(lat, lon, path) {{ return sys_weather(lat, lon, path) }}
 fn sys_weatherword(lat, lon, path) {{ return sys_weather(lat, lon, path) }}
+fn sys_news(count, field, i) {{ return _news[i][field] }}
 """
 
 
