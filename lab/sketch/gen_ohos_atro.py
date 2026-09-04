@@ -51,9 +51,16 @@ def adapt(kit: str) -> str:
     s = s.replace("padx: pad_page_x, padtop: pad_page_top, padbottom: pad_page_bot, c:",
                   "padx: pad_page_x, pady: 26, spacing: 12, c:")
     for key in ("bg2", "gradient_across", "texture_alpha", "texture_scale", "texture",
-                "family", "tracking", "fitw", "fith", "inkdark", "lines",
+                # fitw/fith stay: the ArkUI walk now reads them, and deleting
+                # them is what flattened the seven-day list into one row.
+                "family", "tracking", "inkdark", "lines",
                 "margintop", "marginbottom", "marginx", "padtop", "padbottom"):
         s = re.sub(rf"\b{key}\s*:\s*[^,}}\n]+,?\s*", "", s)
+    # A flexible blank grows along a ROW here (that is where the kit uses it);
+    # `fillh` alone reads in ArkUI as "be page-tall" and stacks a list's rows
+    # on top of each other.
+    s = s.replace('fn l0_space() { return {t: "column", fillh: 1} }',
+                  'fn l0_space() { return {t: "column", fillw: 1, w: 1} }')
     s = re.sub(r",\s*}", "}", s)
     s = re.sub(r"{\s*,", "{", s)
     # OH overrides, appended so the later definition wins: ArkUI stacks center
@@ -63,8 +70,13 @@ def adapt(kit: str) -> str:
     s += """
 
 fn l0_surface(kids) {
-    return {t: "column", w: 402, h: 830, bg: l0_base,
-            padx: pad_page_x, pady: 26, spacing: 12, c: kids}
+    // A scroll, not a fixed box: a card taller than the viewport was being
+    // clamped to 830 and its lower sections squeezed out. ArkUI scrolls what
+    // overflows; the page keeps the frame width and its own background.
+    return {t: "scroll", w: 402, h: 830, bg: l0_base, align: 1, c: [
+        {t: "column", w: 402, bg: l0_base,
+         padx: pad_page_x, pady: 26, spacing: 12, c: kids}
+    ]}
 }
 fn l0_surface_layer(kids, y) {
     return {t: "column", w: 402, h: 830, aligny: y,
