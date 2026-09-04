@@ -50,7 +50,9 @@ def adapt(kit: str) -> str:
                   "padx: pad_page_x, pady: 26, spacing: 12,")
     s = s.replace("padx: pad_page_x, padtop: pad_page_top, padbottom: pad_page_bot, c:",
                   "padx: pad_page_x, pady: 26, spacing: 12, c:")
-    for key in ("bg2", "gradient_across", "texture_alpha", "texture_scale", "texture",
+    # bg2 + gradient_across stay: the ArkUI walk paints them as a real
+    # linear gradient now (NODE_LINEAR_GRADIENT via the shim).
+    for key in ("texture_alpha", "texture_scale", "texture",
                 # fitw/fith stay: the ArkUI walk now reads them, and deleting
                 # them is what flattened the seven-day list into one row.
                 "family", "tracking", "inkdark", "lines",
