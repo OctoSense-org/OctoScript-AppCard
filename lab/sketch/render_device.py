@@ -9,6 +9,7 @@ colours baked, straight onto the phone's Metal^H^H^H^H^H Vulkan surface.
 Resume-safe: existing shots are skipped. Usage: render_device.py [l0|l3|all]
 """
 import io
+import os
 import pathlib
 import subprocess
 import sys
@@ -19,7 +20,7 @@ import numpy as np
 
 HERE = pathlib.Path(__file__).resolve().parent
 ADB = str(pathlib.Path.home() / "Library/Android/sdk/platform-tools/adb")
-DEVICE = "bf0a4730"
+DEVICE = None  # set from kit config in main path below
 PKG = "dev.makepad.octos_app"
 REMOTE = f"/storage/emulated/0/Android/media/{PKG}/cards"
 CROP_TOP, CROP_BOTTOM = 90, 195
@@ -28,6 +29,7 @@ import kitconf
 KIT = kitconf.load(sys.argv[sys.argv.index("--kit") + 1]
                    if "--kit" in sys.argv else "atro")
 NAMES = KIT["screens"]
+DEVICE = os.environ.get("ANDROID_SERIAL", KIT["android_serial"])
 
 
 def adb(*args):
