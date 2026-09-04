@@ -37,7 +37,8 @@ from e4_roundtrip import (  # noqa: E402
 L0 = HERE.parent.parent / "splash-makepad" / "components" / "l0"
 MOODS = ["dark", "light", "glass", "photo", "vibrant", "minimal",
          # theme packs answer every hue too — a pack is a mood with luggage
-         "atro", "atro_light"]
+         "atro", "atro_light",
+         "camo", "camo_light"]
 # The hues the axis already named, unchanged — this is a rewiring, not a
 # repalette. Keeping them identical means any measured difference is the
 # wiring and not a new set of colours.
