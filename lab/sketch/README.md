@@ -1,5 +1,6 @@
 # The beauty pipeline: a purchased design kit → judged live cards on three backends
 
+Entry point: `tools/beauty-pipeline.sh` at the repo root (forwards here).
 One command per stage. Input is a UI kit bought from UI8 (a `.zip` holding a
 `.sketch`). Output is: a registered Splash theme pack, one validated L0 card
 per screen, renders on desktop / Android / HarmonyOS, and a score plus a
@@ -16,9 +17,12 @@ Run the preflight first; it checks everything below and names what is missing:
     python3 run_kit.py --kit <name> --stages doctor
 
 - macOS host. Python 3 with `pillow` + `numpy`.
-- Rust toolchain; these repos as siblings under `~/home/`:
-  `Splash` (the language), `octos-one` (this repo, with `splash/` and
-  `splash-makepad/` inside it), `Splash-OH` (the HarmonyOS app).
+- Rust toolchain. Desktop and Android rails are **self-contained in this
+  repo**: the language crates (`../../splash/`), the theme kit
+  (`../../splash-makepad/`), the render binary (`../../app/`) and the LLM
+  helper (`llm.py`, vendored) all live here. Only the HarmonyOS rail needs a
+  sibling checkout of `Splash-OH` under `~/home/` — skip the `ohos` stage and
+  nothing else changes.
 - Desktop render binary: `cd ~/home/octos-one/app && cargo build -p octos-app`.
 - `claude` CLI on PATH — the strict judge and the card author both run
   through `claude -p` (vision + text). Any account that can run it works.
