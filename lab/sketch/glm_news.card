@@ -1,0 +1,70 @@
+# level: L0
+# model: news-app
+theme camo_light
+
+source top sys.news(count: 10, fields: [id, title, author, points, comments, url])
+source lead sys.news(count: 1, fields: [id, title, author, points, comments, url])
+
+view masthead Col(gap: 2, width: .fill) {
+  Row(width: .fill, align: .center, gap: 8) {
+    Icon(name: .zap, size: .row)
+    TextEyebrow(text: "TOP STORIES")
+    Space()
+    Icon(name: .bell, size: .row)
+  }
+  TextTitle(text: "Hacker News", width: .fill)
+}
+
+view root Surface(pad: .page) {
+  Col(gap: 16, width: .fill) {
+    masthead
+
+    for s, i in lead key s.id {
+      Card {
+        Col(gap: 8, width: .fill) {
+          TextEyebrow(text: "1 · TOP STORY")
+          TextTitle(text: s.title, width: .fill)
+          Row(width: .fill, align: .center, gap: 12) {
+            TextValue(value: s.points, unit: "points")
+            TextValue(value: s.comments, unit: "comments")
+            TextCaption(text: "by", value: s.author)
+          }
+          TextCaption(text: s.url, width: .fill)
+        }
+      }
+    }
+
+    Rule()
+
+    Row(width: .fill, align: .center, gap: 8) {
+      TextEyebrow(text: "LATEST")
+      Space()
+      Icon(name: .chevron_right, size: .row)
+    }
+
+    Col(gap: 8, width: .fill) {
+      for n, i in top key n.id {
+        Card {
+          Row(width: .fill, align: .center, gap: 12) {
+            TextValue(value: n.points, unit: "pts")
+            Col(gap: 4, width: .fill) {
+              TextBody(text: n.title, width: .fill)
+              Row(width: .fill, align: .center, gap: 8) {
+                TextCaption(text: "by", value: n.author)
+                TextValue(value: n.comments, unit: "comments")
+              }
+            }
+            Icon(name: .chevron_right, size: .row)
+          }
+        }
+      }
+    }
+
+    TabBar {
+      Tab(icon: .sun, label: "Today", active: .off)
+      Tab(icon: .zap, label: "News", active: .on)
+      Tab(icon: .bookmark, label: "Saved", active: .off)
+      Tab(icon: .search, label: "Search", active: .off)
+    }
+  }
+}
