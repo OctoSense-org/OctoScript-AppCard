@@ -11,8 +11,7 @@ import sys
 
 HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-sys.path.insert(0, str(HERE.parent / "style-factory"))
-import batch_styles as B  # noqa: E402
+import llm as B  # noqa: E402
 import kitconf  # noqa: E402
 
 PROMPT = (

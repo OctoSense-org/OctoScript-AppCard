@@ -18,7 +18,7 @@ HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import kitconf
 L0 = pathlib.Path.home() / "home/octos-one/splash-makepad/components/l0"
-SPLASH = pathlib.Path.home() / "home/Splash"
+SPLASH = pathlib.Path(__file__).resolve().parents[2] / "splash"
 OH = pathlib.Path.home() / "home/Splash-OH/crates/splash-oh-native"
 KIT = kitconf.load(sys.argv[sys.argv.index("--kit") + 1]
                    if "--kit" in sys.argv else "atro")

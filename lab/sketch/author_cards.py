@@ -18,12 +18,11 @@ import subprocess
 import sys
 
 HERE = pathlib.Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE.parent / "style-factory"))
-import batch_styles as B  # noqa: E402
+import llm as B  # noqa: E402
 
 import kitconf  # noqa: E402
 
-SPLASH = pathlib.Path.home() / "home" / "Splash"
+SPLASH = pathlib.Path(__file__).resolve().parents[2] / "splash"
 KIT = kitconf.load(sys.argv[sys.argv.index("--kit") + 1]
                    if "--kit" in sys.argv else "atro")
 NAMES = KIT["screens"]
