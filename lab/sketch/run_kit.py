@@ -42,6 +42,93 @@ def sh(*cmd, cwd=HERE, check=True):
         sys.exit(f"stage failed: {' '.join(str(c) for c in cmd)}")
 
 
+def stage_unpack(kit):
+    """A purchased kit arrives as a .zip holding a .sketch (itself a zip).
+    Land the unpacked sketch tree in work/<kit>_sketch and point the config
+    at it, so every later stage reads durable paths."""
+    import json
+    import zipfile
+    src = pathlib.Path(kit["sketch"])
+    dest = HERE / "work" / f"{kit['name']}_sketch"
+    if (dest / "document.json").exists():
+        print(f"already unpacked: {dest}")
+        return
+    if src.is_dir() and (src / "document.json").exists():
+        print(f"sketch already a directory: {src}")
+        return
+    if src.suffix == ".zip":
+        with zipfile.ZipFile(src) as z:
+            inner = [n for n in z.namelist()
+                     if n.endswith(".sketch") and "__MACOSX" not in n]
+            if not inner:
+                sys.exit(f"no .sketch inside {src}")
+            tmp = HERE / "work" / f"{kit['name']}_zip"
+            z.extract(inner[0], tmp)
+            src = tmp / inner[0]
+    dest.mkdir(parents=True, exist_ok=True)
+    with zipfile.ZipFile(src) as z:
+        z.extractall(dest)
+    conf = HERE / "kits" / f"{kit['name']}.json"
+    c = json.loads(conf.read_text())
+    c["sketch"] = f"work/{kit['name']}_sketch"
+    c["img_dir"] = f"work/{kit['name']}_sketch/images"
+    conf.write_text(json.dumps(c, indent=2))
+    print(f"unpacked -> {dest}; config repointed")
+
+
+def stage_doctor(kit):
+    """Preflight: everything the loop needs, checked in one pass."""
+    import shutil
+    import socket
+    import subprocess as sp
+    ok = True
+
+    def check(name, cond, hint=""):
+        nonlocal ok
+        mark = "ok " if cond else "MISSING"
+        print(f"  [{mark:>7}] {name}" + (f"  ({hint})" if hint and not cond else ""))
+        ok = ok and bool(cond)
+
+    print("tools:")
+    check("python PIL+numpy", _try_import("PIL") and _try_import("numpy"),
+          "pip install pillow numpy")
+    check("claude CLI (judge)", shutil.which("claude"), "npm i -g @anthropic-ai/claude-code")
+    check("cargo", shutil.which("cargo"))
+    check("adb", (pathlib.Path.home() / "Library/Android/sdk/platform-tools/adb").exists()
+          or shutil.which("adb"), "Android platform-tools")
+    print("repos:")
+    for rel in ("home/Splash", "home/octos-one/splash-makepad", "home/Splash-OH"):
+        check(rel, (HOME / rel).exists())
+    check("desktop binary", (HOME / "home/octos-one/app/target/debug/octos-app").exists(),
+          "cd app && cargo build -p octos-app")
+    print("kit inputs:")
+    check("sketch tree", pathlib.Path(kit["sketch"]).exists())
+    check("images dir", pathlib.Path(kit["img_dir"]).is_dir())
+    print("devices (optional per rail):")
+    adb = str(pathlib.Path.home() / "Library/Android/sdk/platform-tools/adb")
+    r = sp.run([adb, "devices"], capture_output=True, text=True) if pathlib.Path(adb).exists() else None
+    check(f"android {kit['android_serial']}",
+          r and kit["android_serial"] in r.stdout, "plug in + adb authorize")
+    hdc = pathlib.Path.home() / "ohos-sdk/ohos-base-deveco/21/toolchains/hdc"
+    r = sp.run([str(hdc), "list", "targets"], capture_output=True, text=True) if hdc.exists() else None
+    check(f"ohos {kit['ohos_serial']}",
+          r and kit["ohos_serial"] in r.stdout, "plug in + 14-day debug signature valid")
+    s2 = socket.socket()
+    free = s2.connect_ex(("127.0.0.1", kit["img_port"])) != 0
+    s2.close()
+    check(f"port {kit['img_port']}", True,
+          "" if free else "in use (fine if it is this kit's image server)")
+    print("doctor:", "ready" if ok else "NOT ready — fix MISSING lines above")
+
+
+def _try_import(m):
+    try:
+        __import__(m)
+        return True
+    except ImportError:
+        return False
+
+
 def stage_extract(kit):
     sh("python3", "sketch2spec.py", kit["sketch"], kit["specs_dir"])
     sh("python3", "spec2png.py", kit["specs_dir"], kit["targets_dir"],
@@ -108,7 +195,7 @@ def stage_status(kit):
         print(line)
 
 
-STAGES = {"extract": stage_extract, "theme": stage_theme, "author": stage_author,
+STAGES = {"unpack": stage_unpack, "doctor": stage_doctor, "extract": stage_extract, "theme": stage_theme, "author": stage_author,
           "desktop": stage_desktop, "android": stage_android, "ohos": stage_ohos,
           "status": stage_status}
 

@@ -10,6 +10,7 @@ the counter wraps around.
 Prereqs: HAP freshly installed via build-atro.sh (uninstall first so the
 counter starts at 0). Usage: capture_ohos.py [--kit atro]
 """
+import os
 import pathlib
 import subprocess
 import sys
@@ -22,8 +23,9 @@ HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import kitconf  # noqa: E402
 
-HDC = str(pathlib.Path.home() / "ohos-sdk/ohos-base-deveco/21/toolchains/hdc")
-DEV = "5ZGYD25B13020968"
+HDC = os.environ.get(
+    "HDC", str(pathlib.Path.home() / "ohos-sdk/ohos-base-deveco/21/toolchains/hdc"))
+DEV = None  # set from kit config below
 PKG = "com.example.myapplication"
 
 
@@ -34,6 +36,8 @@ def hdc(*a):
 def main():
     kit = kitconf.load(sys.argv[sys.argv.index("--kit") + 1]
                        if "--kit" in sys.argv else "atro")
+    global DEV
+    DEV = os.environ.get("OHOS_SERIAL", kit["ohos_serial"])
     names = kit["screens"]
     out = kit["ohos_dir"]
     out.mkdir(exist_ok=True)
