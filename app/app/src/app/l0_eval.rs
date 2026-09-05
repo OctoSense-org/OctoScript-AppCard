@@ -83,7 +83,19 @@ pub fn build(
         values: Vec::new(),
     });
 
+    // A nil root is the only failure this evaluator can see, and everything
+    // short of it — a name the palette chain never bound, an attribute of the
+    // wrong type — yields a value the walk uses happily. A colour that failed
+    // to resolve is the integer 0, a legal fully transparent colour, so zero is
+    // indistinguishable from failure here. This VM exposes no error channel to
+    // read, so the check lives EARLIER instead: `lab/sketch/lint_theme.py`
+    // resolves every identifier the assembled chain reads, before it is ever
+    // evaluated.
     if value.is_nil() {
+        println!(
+            "l0: the source evaluated to nil — the document produced no tree at \
+             all (a self-rebinding `let` will do this, silently)"
+        );
         return None;
     }
     walk(vm, value, 0)
@@ -222,7 +234,7 @@ fn walk(vm: &mut ScriptVm, value: ScriptValue, depth: usize) -> Option<UiNode> {
         align: int_prop(vm, value, id!(align)),
         alignx: f32_prop(vm, value, id!(alignx)),
         aligny: f32_prop(vm, value, id!(aligny)),
-        inkdark: int_prop(vm, value, id!(inkdark)),
+        ink: u32_prop(vm, value, id!(ink)),
         on: int_prop(vm, value, id!(on)),
         tap: int_prop(vm, value, id!(tap)),
         lat: num_prop(vm, value, id!(lat)),
