@@ -191,10 +191,48 @@ def test_lint():
 # --- regress_desktop -------------------------------------------------------
 
 def test_regress():
-    src = (HERE / "regress_desktop.py").read_text()
-    check("regress: a render that did not happen fails the run",
-          "missing" in src and "return 1" in src.split("moved")[-1],
-          "a missing image must not pass silently")
+    """Run the comparison for real, against directories built by hand.
+
+    This test used to grep the source for the strings "missing" and "return 1".
+    Changing `if missing:` to `if False:` satisfied it — so the one test written
+    to prove a gate breaks on purpose broke nothing, which is the same failure
+    it was written about.
+    """
+    import numpy as np
+    from PIL import Image
+    import regress_desktop as R
+
+    def png(path, shade):
+        Image.fromarray(np.full((409, 188), shade, np.uint8)).save(path)
+
+    with tempfile.TemporaryDirectory() as d:
+        p = pathlib.Path(d)
+        cards, base, out = p / "cards", p / "base", p / "out"
+        for x in (cards, base, out):
+            x.mkdir()
+        for name in ("a", "b"):
+            (cards / f"{name}.card").write_text("# level: L0\n")
+            png(base / f"{name}.png", 40)
+            png(out / f"{name}.png", 40)
+
+        argv = sys.argv[:]
+        sys.argv = ["regress_desktop.py", "--against", str(base), "--out", str(out)]
+        try:
+            moved, missing = R.compare_dirs(sorted(cards.glob("*.card")), base, out)
+            check("regress: identical renders report no movement",
+                  not moved and not missing, f"{moved} {missing}")
+
+            png(out / "b.png", 200)
+            moved, missing = R.compare_dirs(sorted(cards.glob("*.card")), base, out)
+            check("regress: a screen that changed is reported",
+                  [n for _, n in moved] == ["b"], f"{moved}")
+
+            (out / "a.png").unlink()
+            moved, missing = R.compare_dirs(sorted(cards.glob("*.card")), base, out)
+            check("regress: a render that did not happen is reported",
+                  missing == ["a"], f"{missing}")
+        finally:
+            sys.argv = argv
 
 
 if __name__ == "__main__":

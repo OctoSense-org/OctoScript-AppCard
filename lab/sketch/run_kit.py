@@ -77,7 +77,13 @@ def stage_unpack(kit):
 
 
 def stage_doctor(kit):
-    """Preflight: everything the loop needs, checked in one pass."""
+    """Preflight: everything the loop needs, checked in one pass.
+
+    RAISES when not ready. It used to print `NOT ready` and return normally, so
+    `--stages doctor,desktop` sailed past a failed preflight and a caller
+    reading the shell status was told everything was fine. A preflight that
+    cannot stop anything is a paragraph, not a check.
+    """
     import shutil
     import socket
     import subprocess as sp
@@ -105,6 +111,11 @@ def stage_doctor(kit):
     print("tools:")
     check("python PIL+numpy", _try_import("PIL") and _try_import("numpy"),
           "pip install pillow numpy")
+    # The desktop capture path imports Quartz (`lab/gates/shoot.py`). It was an
+    # undocumented prerequisite: a newcomer discovered it by following an import
+    # after the render stage failed.
+    check("python Quartz (desktop capture)", _try_import("Quartz"),
+          "pip install pyobjc-framework-Quartz")
     check("claude CLI (judge)", shutil.which("claude"), "npm i -g @anthropic-ai/claude-code")
     check("cargo", shutil.which("cargo"))
     check("adb", (pathlib.Path.home() / "Library/Android/sdk/platform-tools/adb").exists()
@@ -132,6 +143,8 @@ def stage_doctor(kit):
     check(f"port {kit['img_port']}", True,
           "" if free else "in use (fine if it is this kit's image server)")
     print("doctor:", "ready" if ok else "NOT ready — fix MISSING lines above")
+    if not ok:
+        raise SystemExit("doctor: preflight failed; nothing after it will be run")
 
 
 def _try_import(m):
@@ -169,9 +182,33 @@ def stage_desktop(kit):
     sh("python3", "judge_shots.py", "--kit", kit["name"], "--rail", "desktop")
 
 
+def _ink_parity(kit, rail):
+    """Every screen on a device rail, against the desktop render of the same card.
+
+    `gate_ink` existed, passed its own tests, was documented — and no stage
+    called it, so nothing it can catch was being caught on any rail. A tested
+    gate that is not an applied gate protects nothing.
+    """
+    ref_dir, shot_dir = kit["desktop_dir"], kit[f"{rail}_dir"]
+    bad = []
+    for shot in sorted(shot_dir.glob("*.png")):
+        ref = ref_dir / shot.name
+        if not ref.exists():
+            continue
+        r = sp.run([sys.executable, str(HERE / "gate_ink.py"), "--ref", str(ref),
+                    "--shot", str(shot), "--json"], capture_output=True, text=True)
+        if r.returncode != 0:
+            bad.append((shot.stem, r.stdout.strip()))
+    print(f"ink parity vs desktop: {len(bad)} of {len(list(shot_dir.glob('*.png')))} "
+          f"screen(s) dropping content")
+    for name, detail in bad[:12]:
+        print(f"  {name}: {detail[:120]}")
+
+
 def stage_android(kit):
     sh("python3", "render_device.py", "l0", "--kit", kit["name"])
     sh("python3", "gate_fill.py", "--kit", kit["name"], "--rail", "android")
+    _ink_parity(kit, "android")
     sh("python3", "judge_shots.py", "--kit", kit["name"], "--rail", "android")
 
 
@@ -184,6 +221,7 @@ def stage_ohos(kit):
     sh("bash", "-c", "./build-atro.sh --no-launch", cwd=HOME / "home/Splash-OH")
     sh("python3", "capture_ohos.py", "--kit", kit["name"])
     sh("python3", "gate_fill.py", "--kit", kit["name"], "--rail", "ohos")
+    _ink_parity(kit, "ohos")
     sh("python3", "judge_shots.py", "--kit", kit["name"], "--rail", "ohos")
 
 
@@ -199,13 +237,32 @@ def stage_status(kit):
     print(f"  specs    {newest(kit['specs_dir'], '*.json')}")
     print(f"  targets  {newest(kit['targets_dir'])}")
     print(f"  cards    {newest(kit['cards_dir'], '*.card')}")
+    # Freshness PER CARD, not "the newest file in the directory".
+    #
+    # The directory's newest file says nothing about the other hundred. Measured
+    # here once: 106 of 106 Android captures and 68 of 68 OHOS captures predated
+    # the cards they were rendered from, violating this loop's own "renders must
+    # postdate their cards" rule, while status printed their medians without a
+    # word. A median over stale screens is a number about a previous run.
+    cards = {c.stem: c.stat().st_mtime for c in kit["cards_dir"].glob("*.card")}
     for rail in ("desktop", "android", "ohos"):
-        line = f"  {rail:<8} {newest(kit[f'{rail}_dir'])}"
+        d = kit[f"{rail}_dir"]
+        shots = {f.stem: f.stat().st_mtime for f in pathlib.Path(d).glob("*.png")}
+        missing = sorted(set(cards) - set(shots))
+        stale = sorted(n for n, t in shots.items() if n in cards and t < cards[n])
+        line = f"  {rail:<8} {newest(d)}"
         v = HERE / kit["verdicts"][rail]
         if v.exists():
             scores = [json.loads(l)["design_match"] for l in v.open()]
             line += f"  · judged {len(scores)}, median {statistics.median(scores)}"
+        if missing or stale:
+            line += f"  · {len(missing)} MISSING, {len(stale)} STALE"
         print(line)
+        for label, names in (("missing", missing), ("stale", stale)):
+            if names:
+                shown = ", ".join(names[:4])
+                more = f" +{len(names) - 4} more" if len(names) > 4 else ""
+                print(f"             {label}: {shown}{more}")
 
 
 
@@ -222,7 +279,14 @@ def stage_verify(kit):
 
     Needs the phone; `desktop` alone cannot answer it, which is the point.
     """
-    for i, name in enumerate(kit.get("parity_cards", [])):
+    cards = kit.get("parity_cards", [])
+    if not cards:
+        raise SystemExit(
+            "verify: this kit lists no `parity_cards`, so there is nothing to "
+            "compare. Silently doing zero comparisons and reporting success is "
+            "the failure this stage exists to prevent — add the card stems to "
+            f"kits/{kit['name']}.json.")
+    for i, name in enumerate(cards):
         print(f"--- content parity: {name} (screen {i})")
         sh("python3", "content_parity.py", "--card", f"{name}.card", "--index", str(i))
 
