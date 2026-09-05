@@ -21,12 +21,14 @@ use std::fmt::Write as _;
 
 /// Render a tree as the DSL this repository's VM evaluates.
 pub fn to_dsl(root: &UiNode) -> String {
-    // `inkdark` containers force readable ink before anything is emitted.
+    // A surface that states an ink lends it to unreadable text below, before
+    // anything is emitted.
     let root = &{
         let mut r = root.clone();
-        apply_inkdark(&mut r);
+        apply_ink_planes(&mut r, None, None);
         r
     };
+    dump_content(root);
     let mut body = String::new();
     // Per document, not per process: the names must line up with THIS tree's maps.
     MAPS.with(|m| *m.borrow_mut() = (0, String::new()));
@@ -982,30 +984,143 @@ fn emit(node: &UiNode, out: &mut String, depth: usize) {
     let _ = writeln!(out, "{pad}}}");
 }
 
-/// See `Attrs.inkdark`: a subtree whose container sets it gets near-black
-/// text throughout — the fill was the card's choice, the ink must survive it.
-fn apply_inkdark(n: &mut UiNode) {
-    if n.attrs.inkdark == Some(1) {
-        fn force(n: &mut UiNode) {
-            // A Chip carries its own fill and ink; forcing its label dark on a
-            // dark chip fill made "Deposit"/"Withdraw" pills render blank on a
-            // tinted card. Leave chips (and nested tinted cards) to self-manage.
-            if n.kind == NodeKind::Chip || n.attrs.inkdark == Some(1) {
-                return;
-            }
-            if n.kind == NodeKind::Text {
-                n.attrs.color = Some(0xff1c_1c22);
-            }
-            for c in &mut n.children {
-                force(c);
+/// Relative luminance of an 0xAARRGGBB colour, sRGB, alpha ignored.
+fn rlum(c: u32) -> f64 {
+    let ch = |s: u32| {
+        let v = ((c >> s) & 0xff) as f64 / 255.0;
+        if v <= 0.04045 {
+            v / 12.92
+        } else {
+            ((v + 0.055) / 1.055).powf(2.4)
+        }
+    };
+    0.2126 * ch(16) + 0.7152 * ch(8) + 0.0722 * ch(0)
+}
+
+fn contrast(a: u32, b: u32) -> f64 {
+    let (x, y) = (rlum(a), rlum(b));
+    (x.max(y) + 0.05) / (x.min(y) + 0.05)
+}
+
+/// The colour this text can actually be read in on `fill`.
+///
+/// Three steps, in order: keep the text's own colour when it already reads;
+/// otherwise take the surface's stated ink; otherwise go to whichever pole the
+/// surface contrasts with. The last step is what a stated ink cannot cover — a
+/// card's fill is not always the PACK's colour. `Card(tint:)` takes a pastel
+/// straight from the card, and the pack's ink (white, chosen for its own dark
+/// card) is just as unreadable on pale green as the mood's white text was. That
+/// is the case the old `inkdark` flag existed for, and dropping the flag for a
+/// stated colour lost it: three pastel credit cards went from black type to
+/// white on pastel.
+/// Write the ordered content of a tree to `SPLASH_CONTENT_DUMP`, if set.
+///
+/// The check a screenshot cannot be. A rendered card is correct when it carries
+/// the content the card asked for; pixels only ever show that it carries
+/// something. Two rails rendering one card against one fixture must resolve the
+/// same strings in the same order, and where they differ one of them is
+/// dropping or inventing content. Every data defect this session produced —
+/// numbers rendering blank, a shim arity that fetched nothing, a field name the
+/// API does not have, a label the lowering discarded — is a difference in this
+/// list and in nothing any pixel gate was measuring.
+///
+/// Truncated at 60 characters per node, matching the ArkUI rail, so a long
+/// headline abbreviated differently is not read as a difference.
+fn dump_content(root: &UiNode) {
+    let Ok(path) = std::env::var("SPLASH_CONTENT_DUMP") else {
+        return;
+    };
+    fn walk(n: &UiNode, out: &mut Vec<String>) {
+        if let Some(t) = &n.attrs.text {
+            // An icon is not content: its glyph is a PUA codepoint the theme
+            // chose, and the two rails draw icons by different mechanisms.
+            let icon = !t.is_empty()
+                && t.chars().all(|c| ('\u{e000}'..='\u{f8ff}').contains(&c));
+            if !icon {
+                out.push(t.chars().take(60).collect());
             }
         }
-        for c in &mut n.children {
-            force(c);
+        for c in &n.children {
+            walk(c, out);
         }
+    }
+    let mut out = Vec::new();
+    walk(root, &mut out);
+    let body: String = out
+        .iter()
+        .enumerate()
+        .map(|(i, s)| format!("content[{i}]: {s}\n"))
+        .collect();
+    let _ = std::fs::write(path, format!("content: {} nodes\n{body}", out.len()));
+}
+
+/// `top` over `ground`, so a translucent surface is measured as the colour seen.
+fn composite(top: u32, ground: u32) -> u32 {
+    let a = ((top >> 24) & 0xff) as f64 / 255.0;
+    let mix = |s: u32| {
+        let t = ((top >> s) & 0xff) as f64;
+        let g = ((ground >> s) & 0xff) as f64;
+        ((t * a + g * (1.0 - a)).round() as u32) & 0xff
+    };
+    0xff00_0000 | (mix(16) << 16) | (mix(8) << 8) | mix(0)
+}
+
+fn readable_on(own: u32, ink: u32, fill: u32) -> u32 {
+    if contrast(own, fill) >= 4.5 {
+        return own;
+    }
+    if contrast(ink, fill) >= 4.5 {
+        return ink;
+    }
+    // Whichever pole this fill contrasts with more — not a luminance cutoff.
+    // A cutoff has to pick a number, and the number was wrong for the pink
+    // credit card: it sits a hair under any sensible midpoint and took white,
+    // at 2.1 against black's 9.0 on the same fill.
+    const INK_DARK: u32 = 0xff1c_1c22;
+    const INK_LIGHT: u32 = 0xffff_ffff;
+    if contrast(INK_DARK, fill) >= contrast(INK_LIGHT, fill) {
+        INK_DARK
     } else {
+        INK_LIGHT
+    }
+}
+
+/// See `Attrs.ink`: a surface states the ink its contents are read with, and
+/// descending text takes it where its own colour fails against that surface.
+///
+/// This forced NEAR-BLACK on a flag, which suited the pastel tinted cards it
+/// was written for and nothing else. A pack's card colour is its own — CaMo's
+/// black slab — and it does not flip when the pack's light variant flips the
+/// ink, so CaMo light drew near-black headlines on black and forcing them
+/// darker would not have helped. Carrying the colour and testing contrast
+/// covers both, and leaves alone anything that already reads: a chip on a
+/// tinted card renders its own fill and label, which forcing dark used to
+/// blank out.
+fn apply_ink_planes(n: &mut UiNode, ink: Option<u32>, fill: Option<u32>) {
+    // The plane a node's text sits on is the nearest enclosing FILL, whether or
+    // not that same node stated an ink. Updating the two together meant a
+    // control with its own background — a chip on a card — had its label
+    // checked against the CARD, and a `Chip` exception was bolted on to cover
+    // it. That exception skipped recolouring the chip NODE while still
+    // recursing into its children, and the label is a child, so it protected
+    // nothing. Tracking the fill properly removes the need for it.
+    //
+    // A translucent fill composites over what it sits on, because the colour
+    // text is read against is the one you SEE: a panel stated as
+    // `argb(18, 255, 255, 255)` measured literally is white-on-white, a failure
+    // the eye never has.
+    let fill = match n.attrs.bg {
+        Some(bg) if bg >> 24 == 0xff => Some(bg),
+        Some(bg) => Some(composite(bg, fill.unwrap_or(0xff00_0000))),
+        None => fill,
+    };
+    let ink = n.attrs.ink.or(ink);
+    if let (Some(own), Some(i), Some(f)) = (n.attrs.color, ink, fill) {
+        n.attrs.color = Some(readable_on(own, i, f));
+    }
+    {
         for c in &mut n.children {
-            apply_inkdark(c);
+            apply_ink_planes(c, ink, fill);
         }
     }
 }
