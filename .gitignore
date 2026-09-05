@@ -8,3 +8,11 @@ app/target/
 __pycache__/
 *.pyc
 .DS_Store
+
+# Transient comparison output. `regress_desktop.py` renders the corpus twice —
+# once with a change reverted — and both sets are derived from code that is in
+# git already. Keeping them would add five hundred PNGs per investigation and
+# none of them mean anything once the code moves.
+lab/sketch/*_regress*/
+lab/sketch/*_base/
+lab/sketch/content_parity/

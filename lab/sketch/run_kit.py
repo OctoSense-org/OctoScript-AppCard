@@ -89,6 +89,19 @@ def stage_doctor(kit):
         print(f"  [{mark:>7}] {name}" + (f"  ({hint})" if hint and not cond else ""))
         ok = ok and bool(cond)
 
+    # The validators, and the theme chain they check. A gate that cannot catch
+    # its own defect is worse than no gate, and three of these shipped blind
+    # today — so the preflight runs them against injected failures before the
+    # loop trusts a single one of their answers.
+    print("validators:")
+    for name, argv in (
+            ("gates catch what they exist for", ["test_gates.py"]),
+            ("theme chain resolves in every mood", ["lint_theme.py"]),
+            ("HarmonyOS theme copy is current", ["vendor_oh_themes.py", "--check"])):
+        r = sp.run([sys.executable, str(HERE / argv[0]), *argv[1:]],
+                   capture_output=True, text=True)
+        check(name, r.returncode == 0, (r.stdout or r.stderr).strip()[-160:])
+
     print("tools:")
     check("python PIL+numpy", _try_import("PIL") and _try_import("numpy"),
           "pip install pillow numpy")
@@ -195,8 +208,41 @@ def stage_status(kit):
         print(line)
 
 
+
+def stage_verify(kit):
+    """What proves a render kept the card's CONTENT, independent of pixels.
+
+    The rest of this loop measures how a screen looks. Everything that went
+    wrong on the data path this year looked fine: numbers that rendered blank,
+    a shim whose arity fetched nothing, a field name the API does not have, a
+    coordinate that defaulted to 0,0 and pulled a week of ocean weather under a
+    card headed 上海. So this stage asks a different question — do two rails
+    resolve the SAME strings, in the same order, for one card — and it answers
+    it without looking at a single pixel.
+
+    Needs the phone; `desktop` alone cannot answer it, which is the point.
+    """
+    for i, name in enumerate(kit.get("parity_cards", [])):
+        print(f"--- content parity: {name} (screen {i})")
+        sh("python3", "content_parity.py", "--card", f"{name}.card", "--index", str(i))
+
+
+def stage_regress(kit):
+    """Did a change to a SHARED piece move screens it was not aimed at?
+
+    The kit, the lowering and the palettes are shared by every screen, and a fix
+    is normally proven on the handful that motivated it. Two real regressions
+    this year were caught here and nowhere else. Render the corpus twice — once
+    with the change reverted — and compare; see regress_desktop.py for why the
+    kit's own shots directory is not a baseline.
+    """
+    sh("python3", "regress_desktop.py", "--kit", kit["name"],
+       "--out", f"{kit['desktop_dir'].name}_regress")
+
+
 STAGES = {"unpack": stage_unpack, "doctor": stage_doctor, "extract": stage_extract, "theme": stage_theme, "author": stage_author,
           "desktop": stage_desktop, "android": stage_android, "ohos": stage_ohos,
+          "verify": stage_verify, "regress": stage_regress,
           "status": stage_status}
 
 
