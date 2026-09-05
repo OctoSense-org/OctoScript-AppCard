@@ -46,10 +46,15 @@ def adapt(kit: str) -> str:
     s = s.replace('t: "eyebrow"', 't: "text"')
     # page insets: top/bottom pair -> symmetric pady; page columns gain the
     # spacing that panel margintop used to provide
+    # ArkUI has no asymmetric page inset, so the top/bottom pair folds into one
+    # `pady`. Take it from the THEME (36/24 either side, averaged) rather than
+    # the 26 this used to hardcode: 26 top and bottom is 20pt less page than the
+    # desktop renders, on every screen, and it reads as the card sitting high in
+    # a frame it does not fill.
     s = s.replace("padx: pad_page_x, padtop: pad_page_top, padbottom: pad_page_bot,",
-                  "padx: pad_page_x, pady: 26, spacing: 12,")
+                  "padx: pad_page_x, pady: (pad_page_top + pad_page_bot) / 2, spacing: 12,")
     s = s.replace("padx: pad_page_x, padtop: pad_page_top, padbottom: pad_page_bot, c:",
-                  "padx: pad_page_x, pady: 26, spacing: 12, c:")
+                  "padx: pad_page_x, pady: (pad_page_top + pad_page_bot) / 2, spacing: 12, c:")
     # bg2 + gradient_across stay: the ArkUI walk paints them as a real
     # linear gradient now (NODE_LINEAR_GRADIENT via the shim).
     for key in ("texture_alpha", "texture_scale", "texture",
@@ -71,18 +76,92 @@ def adapt(kit: str) -> str:
     # (aligny on a fixed-height column justifies its children to top/center/end).
     s += """
 
+// `align: .center` on a ROW centres its children along the row too.
+//
+// The shared kit reads it as cross-axis only, which on makepad still looks
+// centred because a Label there defaults to Fill and three of them split the
+// row into thirds. An ArkUI text node hugs its content instead, so the same
+// row left-aligned: the three readings under a centred hero sat jammed against
+// the page margin. Setting the main axis as well says what the card meant.
+fn l0_aligned(node, how) {
+    if how == "center" {
+        node.alignx = 0.5
+        if node.t == "row" { node.aligny = 0.5 }
+    }
+    if how == "end" {
+        if node.t == "row" { node.aligny = 1.0 } else { node.alignx = 1.0 }
+    }
+    return node
+}
+
+// A weather icon, drawn.
+//
+// The shared kit returns {t: "weathericon", variant: <cond>} and leaves the
+// drawing to a backend that has a vector for it. The ArkUI walk has no
+// `variant` arm at all, so this retagged to a bare 34x34 column: the row kept
+// a gap where the icon belonged and drew nothing, on every forecast row of
+// every weather screen. The desktop rail draws all eight.
+//
+// The device already has a whole Font Awesome solid face registered for
+// `icon: 1` (1966 codepoints, resources/rawfile/fonts/fa-solid-900.ttf), and
+// `l0_icon` reaches it. So the condition WORD picks a glyph and the icon goes
+// down the path that already works, which also means the card's ink plane
+// recolours it like any other text.
+fn _wx_glyph(cond) {
+    if cond == "Clear" { return "" }
+    if cond == "Mainly clear" { return "" }
+    if cond == "Partly cloudy" { return "" }
+    if cond == "Overcast" { return "" }
+    if cond == "Fog" { return "" }
+    if cond == "Drizzle" { return "" }
+    if cond == "Freezing drizzle" { return "" }
+    if cond == "Rain" { return "" }
+    if cond == "Heavy rain" { return "" }
+    if cond == "Freezing rain" { return "" }
+    if cond == "Showers" { return "" }
+    if cond == "Heavy showers" { return "" }
+    if cond == "Snow" { return "" }
+    if cond == "Heavy snow" { return "" }
+    if cond == "Snow grains" { return "" }
+    if cond == "Snow showers" { return "" }
+    if cond == "Thunderstorm" { return "" }
+    return ""
+}
+fn l0_weathericon(cond, size) {
+    let g = _wx_glyph(cond)
+    if size == "hero" { return {t: "text", text: g, icon: 1, size: font_title * 2.0,
+                                color: l0_text, fitw: 1, fith: 1} }
+    if size == "tile" { return {t: "text", text: g, icon: 1, size: font_caption * 1.4,
+                                color: l0_dim, fitw: 1, fith: 1} }
+    return {t: "text", text: g, icon: 1, size: font_value * 3.1,
+            color: l0_text, fitw: 1, fith: 1}
+}
+
 fn l0_surface(kids) {
     // A scroll, not a fixed box: a card taller than the viewport was being
     // clamped to 830 and its lower sections squeezed out. ArkUI scrolls what
     // overflows; the page keeps the frame width and its own background.
+    // `spread`: the desktop harness stretches a card to fill its design frame,
+    // and nothing here did — a page shorter than the frame left the rest of the
+    // screen blank (62% against the desktop's 88% on the weather card). The
+    // leftover height goes into the gaps between sections instead. A page that
+    // already overflows is unaffected.
+    // NOT spread to fill the frame. The renderer has `spread` (ArkUI
+    // SPACE_BETWEEN) and it works — measured here, it pushed the page's three
+    // sections to the extremes, opened a void the height of the hero between
+    // the readings and the forecast, and drove the stat tiles under the gesture
+    // bar. The desktop rail's fill is a PROPORTIONAL stretch of paddings and
+    // media, not a maximal spread, and nothing here implements that yet. A page
+    // at its natural height reads better than one pulled apart, so the slack
+    // stays at the bottom until the stretch exists.
     return {t: "scroll", w: 402, h: 830, bg: l0_base, align: 1, c: [
         {t: "column", w: 402, bg: l0_base,
-         padx: pad_page_x, pady: 26, spacing: 12, c: kids}
+         padx: pad_page_x, pady: (pad_page_top + pad_page_bot) / 2, spacing: 12, c: kids}
     ]}
 }
 fn l0_surface_layer(kids, y) {
     return {t: "column", w: 402, h: 830, aligny: y,
-            padx: pad_page_x, pady: 26, spacing: 12, c: kids}
+            padx: pad_page_x, pady: (pad_page_top + pad_page_bot) / 2, spacing: 12, c: kids}
 }
 fn l0_surface_pin2(top, bottom) {
     return {t: "stack", w: 402, h: 830, align: 1, bg: l0_base,
@@ -96,7 +175,7 @@ fn l0_surface_pin3(top, mid, bottom) {
 fn l0_surface_fab(page, fab) {
     return {t: "stack", w: 402, h: 830, align: 1, c: [page,
         {t: "column", w: 402, h: 830, alignx: 1, aligny: 1,
-         padx: pad_page_x, pady: 26, c: [fab]}]}
+         padx: pad_page_x, pady: (pad_page_top + pad_page_bot) / 2, c: [fab]}]}
 }
 """
     return s
@@ -134,30 +213,102 @@ def data_lets(snapshot: dict, card: str, live: bool = True) -> str:
     place = snapshot.get("place", {})
     lat, lon = place.get("lat", 0), place.get("lon", 0)
     if live:
-        wx = ("https://api.open-meteo.com/v1/forecast?latitude=" + str(lat)
-              + "&longitude=" + str(lon)
-              + "&current=temperature_2m,relative_humidity_2m,apparent_temperature,"
-                "weather_code,wind_speed_10m"
-                "&daily=weather_code,temperature_2m_max,temperature_2m_min,uv_index_max"
-                "&timezone=auto&forecast_days=7")
+        query = ("&current=temperature_2m,relative_humidity_2m,apparent_temperature,"
+                 "weather_code,wind_speed_10m"
+                 "&daily=weather_code,temperature_2m_max,temperature_2m_min,uv_index_max"
+                 "&timezone=auto&forecast_days=7")
         news_url = "https://hn.algolia.com/api/v1/search?tags=front_page&hitsPerPage=10"
         return f"""
 // --- live data: the device fetches, exactly as the weather kit does ---
-let _WX = "{wx}"
 let _NEWS = "{news_url}"
+
+// The coordinate is resolved ON THE DEVICE from the name the card states, and
+// the data URL is built from what comes back.
+//
+// It used to be written in here from a snapshot taken on the workstation, and
+// when a regeneration ran without one the pair silently defaulted to 0,0 — so
+// the phone fetched the Gulf of Guinea while the card said 上海, and a week of
+// ocean weather (every day 24.5°-25.4°) looked entirely plausible on screen.
+// Nothing about that is visible in a screenshot; only the URL says it.
+fn _wx(lat, lon) {{
+    return "https://api.open-meteo.com/v1/forecast?latitude=" + lat
+         + "&longitude=" + lon + "{query}"
+}}
 fn sys_geocodenum(name, which) {{
-    if which == "lat" {{ return {lat} }}
-    return {lon}
+    if which == "lat" {{ return geocodenum(name, "lat") }}
+    return geocodenum(name, "lon")
 }}
-fn sys_dayname(lat, lon, i) {{ return fetch_weekday(_WX, "daily.time", i) }}
+// Day 0 is "Now", as the makepad rail's own `sys.weather` answers it. The
+// content-parity check found this: same card, same fixture, one rail said
+// "Sat" where the other said "Now", and no pixel gate can see a divergence
+// like that because both screens look entirely correct.
+fn sys_dayname(lat, lon, i) {{
+    if i == 0 {{ return "Now" }}
+    return fetch_weekday(_wx(lat, lon), "daily.time", i)
+}}
+// A miss is NOT zero. `return 0` here made a failed fetch indistinguishable
+// from a real 0 degrees, a real 0% humidity, a real 0 UV — the screen showed a
+// number, the number was wrong, and nothing anywhere said so. "--" is what
+// `net.rs::fetch_fmt` already answers for an absent field, so a miss now reads
+// as a miss on the screen and in the empty-value count.
 fn sys_weather(lat, lon, path) {{
-    let v = fetch_num(_WX, path, -1)
-    if v == nil {{ return 0 }}
-    return v
+    let v = fetch_num(_wx(lat, lon), path, -1)
+    if v == nil {{ return "--" }}
+    // Rounded, because the makepad rail's `sys.weather` rounds and one card
+    // must read the same on both. Raw API values put "30.2 °" beside the other
+    // rail's "30 °" on every temperature of every weather screen.
+    return mod.math.round(v)
 }}
-fn sys_weathercond(lat, lon, path) {{ return sys_weather(lat, lon, path) }}
-fn sys_weatherword(lat, lon, path) {{ return sys_weather(lat, lon, path) }}
-fn sys_news(count, field, i) {{ return fetch_str(_NEWS, "hits#" + field, i) }}
+// A WMO code is a NUMBER; every consumer of it wants a word. Without this the
+// forecast rows carried "51" and the headline condition line read "3".
+fn _wmo(c) {{
+    if c == "--" {{ return "Unknown" }}
+    if c == 0 {{ return "Clear" }}
+    if c == 1 {{ return "Mainly clear" }}
+    if c == 2 {{ return "Partly cloudy" }}
+    if c == 3 {{ return "Overcast" }}
+    if c == 45 {{ return "Fog" }}
+    if c == 48 {{ return "Fog" }}
+    if c == 51 {{ return "Drizzle" }}
+    if c == 53 {{ return "Drizzle" }}
+    if c == 55 {{ return "Drizzle" }}
+    if c == 56 {{ return "Freezing drizzle" }}
+    if c == 57 {{ return "Freezing drizzle" }}
+    if c == 61 {{ return "Rain" }}
+    if c == 63 {{ return "Rain" }}
+    if c == 65 {{ return "Heavy rain" }}
+    if c == 66 {{ return "Freezing rain" }}
+    if c == 67 {{ return "Freezing rain" }}
+    if c == 71 {{ return "Snow" }}
+    if c == 73 {{ return "Snow" }}
+    if c == 75 {{ return "Heavy snow" }}
+    if c == 77 {{ return "Snow grains" }}
+    if c == 80 {{ return "Showers" }}
+    if c == 81 {{ return "Showers" }}
+    if c == 82 {{ return "Heavy showers" }}
+    if c == 85 {{ return "Snow showers" }}
+    if c == 86 {{ return "Snow showers" }}
+    if c == 95 {{ return "Thunderstorm" }}
+    if c == 96 {{ return "Thunderstorm" }}
+    if c == 99 {{ return "Thunderstorm" }}
+    return "Unknown"
+}}
+fn sys_weathercond(lat, lon, path) {{ return _wmo(sys_weather(lat, lon, path)) }}
+fn sys_weatherword(lat, lon, path) {{ return _wmo(sys_weather(lat, lon, path)) }}
+// The lowering emits `sys.news(<index>, "<field>")` — the story's index first.
+// Reading that first argument as a COUNT left the real index nil, and every
+// headline on the page fetched nothing.
+//
+// Two of the six field names the card may ask for are not the names the API
+// answers to. Forwarding them verbatim returned nil, and a nil in a text slot
+// is a node that draws nothing — so the comment count was absent from every
+// row while the row itself looked complete.
+fn _news_field(f) {{
+    if f == "comments" {{ return "num_comments" }}
+    if f == "id" {{ return "objectID" }}
+    return f
+}}
+fn sys_news(i, field) {{ return fetch_str(_NEWS, "hits#" + _news_field(field), i) }}
 """
     now = snapshot.get("now", {})
     week = snapshot.get("week", {}).get("days", [])
@@ -192,7 +343,7 @@ fn sys_weather(lat, lon, path) {{
 }}
 fn sys_weathercond(lat, lon, path) {{ return sys_weather(lat, lon, path) }}
 fn sys_weatherword(lat, lon, path) {{ return sys_weather(lat, lon, path) }}
-fn sys_news(count, field, i) {{ return _news[i][field] }}
+fn sys_news(i, field) {{ return _news[i][field] }}
 """
 
 
