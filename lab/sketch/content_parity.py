@@ -114,6 +114,20 @@ def main():
     phone = phone_content(a.device, a.index)
     print(f"desktop resolved {len(desk)} text nodes, phone {len(phone)}")
 
+    # Two empty lists are not a match. A capture that produced nothing — a
+    # render that failed, a log that was cleared, a card that never mounted —
+    # compares equal to another one, and the tool said "content matches".
+    # Agreement between two absences is the emptiest possible pass.
+    if not desk or not phone:
+        print("NO CONTENT: "
+              + ", ".join(r for r, l in (("desktop", desk), ("phone", phone)) if not l)
+              + " resolved nothing — this is a failed capture, not a match")
+        return 1
+    if "\x00MISSING" in desk or "\x00MISSING" in phone:
+        print("GAP: a capture is missing an index another one has — the two "
+              "logs did not come from one render each")
+        return 1
+
     holes = [(r, i) for r, lst in (("desktop", desk), ("phone", phone))
              for i, s in enumerate(lst) if s == ""]
     for rail, i in holes:
@@ -145,6 +159,26 @@ def main():
     else:
         structural = [(None, None, None)]
 
+    # Live data moves by a little. A temperature that reads 30 on one rail and
+    # -273 on the other is not drift, and an unconditional numeric exemption
+    # passed exactly that. Bound it: same sign, and within a quarter of the
+    # larger magnitude.
+    def plausible(d, p_):
+        x, y = float(d), float(p_)
+        if (x < 0) != (y < 0):
+            return False
+        return abs(x - y) <= max(abs(x), abs(y), 1.0) * 0.25
+
+    wild = [(i, d, p_) for i, d, p_ in drift if not plausible(d, p_)]
+    if wild:
+        print("\nnumeric values differ by more than live data explains:")
+        for i, d, p_ in wild[:8]:
+            print(f"  [{i}] desktop {d}  phone {p_}")
+        return 1
+    if holes:
+        print("\nboth rails resolved a text node to nothing at the same "
+              "position — agreeing about an absence is not a pass")
+        return 1
     if drift and not structural:
         print(f"\ncontent matches structurally; {len(drift)} numeric value(s) "
               f"differ — live data moved between the two renders:")

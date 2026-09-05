@@ -30,10 +30,19 @@ AA_LARGE = 3.0
 # Surfaces text sits on, the ink that sits on them, and what to call it.
 # A card states its own ink because the pack's card colour does not flip when
 # the pack's light variant flips `l0_text`.
+# Checking only the PRIMARY ink was a hole the size of the roles that use the
+# others: `l0_caption` draws in `l0_dim` and `l0_row_text` in `l0_soft`, and
+# neither was ever measured. The base light mood's `l0_dim` sits at 2.92
+# against its page — below AA, below even the large-text floor — while the
+# auditor reported "0 unreadable".
 SURFACES = [("l0_card_1", "l0_card_ink", "card"),
             ("l0_card_2", "l0_card_ink", "card, far end"),
             ("l0_fill", "l0_text", "panel"),
-            ("l0_base", "l0_text", "page")]
+            ("l0_fill", "l0_soft", "panel, row text"),
+            ("l0_fill", "l0_dim", "panel, caption"),
+            ("l0_base", "l0_text", "page"),
+            ("l0_base", "l0_soft", "page, row text"),
+            ("l0_base", "l0_dim", "page, caption")]
 
 
 def literals(path):

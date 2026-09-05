@@ -92,6 +92,30 @@ def serve_kit_images(img_dir: pathlib.Path, port: int = 8787):
     raise SystemExit(f"image server on {port} is not serving {img_dir}")
 
 
+def compare_dirs(cards, base, out):
+    """(moved, missing) for one card list across two render directories.
+
+    Split out so a test can drive it with directories it built itself. The test
+    that used to stand for this one searched the source for a string.
+    """
+    import numpy as np
+    from PIL import Image
+
+    moved, missing = [], []
+    for card in cards:
+        a_p, b_p = base / f"{card.stem}.png", out / f"{card.stem}.png"
+        if not (a_p.exists() and b_p.exists()):
+            missing.append(card.stem)
+            continue
+        a = Image.open(a_p).convert("L").resize((188, 409))
+        b = Image.open(b_p).convert("L").resize((188, 409))
+        d = float((np.abs(np.asarray(a, float) - np.asarray(b, float)) > 24).mean())
+        if d > 0.005:
+            moved.append((d, card.stem))
+    moved.sort(reverse=True)
+    return moved, missing
+
+
 def main():
     kit = kitconf.load(arg("--kit", "camo"))
     base = kit["desktop_dir"]
@@ -123,18 +147,7 @@ def main():
         print(f"WARNING: comparing against {base.name}, which fill_fix.py also "
               f"writes into — pass --against a baseline rendered by this script")
 
-    moved, missing = [], []
-    for card in cards:
-        a_p, b_p = base / f"{card.stem}.png", out / f"{card.stem}.png"
-        if not (a_p.exists() and b_p.exists()):
-            missing.append(card.stem)
-            continue
-        a = Image.open(a_p).convert("L").resize((188, 409))
-        b = Image.open(b_p).convert("L").resize((188, 409))
-        d = float((np.abs(np.asarray(a, float) - np.asarray(b, float)) > 24).mean())
-        if d > 0.005:
-            moved.append((d, card.stem))
-    moved.sort(reverse=True)
+    moved, missing = compare_dirs(cards, base, out)
     print(f"\n{len(moved)} of {len(cards)} screens moved")
     for d, name in moved:
         print(f"  {d:6.1%}  {name}")

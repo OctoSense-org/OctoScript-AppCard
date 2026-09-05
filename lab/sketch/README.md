@@ -12,11 +12,16 @@ Two kits have been through it: Atro V2 (15 screens, the bring-up) and CaMo 2
 
 ## Prerequisites
 
-Run the preflight first; it checks everything below and names what is missing:
+Run everything from `lab/sketch`.
+
+Run the preflight first. It names what is missing and FAILS when something is
+— it used to print `NOT ready` and exit 0, so `--stages doctor,desktop` sailed
+straight past a failed preflight:
 
     python3 run_kit.py --kit <name> --stages doctor
 
-- macOS host. Python 3 with `pillow` + `numpy`.
+- macOS host. Python 3 with `pillow`, `numpy` and
+  `pyobjc-framework-Quartz` (the desktop capture path imports Quartz).
 - Rust toolchain. Desktop and Android rails are **self-contained in this
   repo**: the language crates (`../../splash/`), the theme kit
   (`../../splash-makepad/`), the render binary (`../../app/`) and the LLM
@@ -56,6 +61,9 @@ Run the preflight first; it checks everything below and names what is missing:
 
 ## Run the loop
 
+All commands run from `lab/sketch`. `run_kit.py` resolves its own paths, but
+the helper scripts it calls do not.
+
     python3 run_kit.py --kit <name> --stages doctor          # before anything
     python3 run_kit.py --kit <name> --stages author,desktop
     python3 run_kit.py --kit <name> --stages android
@@ -67,7 +75,11 @@ Run the preflight first; it checks everything below and names what is missing:
   Round 2 (`--rounds 2` or rerun after judging) feeds each screen's judge
   verdict and fill-gate note back into the prompt.
 - `desktop` / `android` / `ohos` — render, fill-gate, strict-judge that rail.
-  Every stage is resumable; `--stages status` shows freshness and medians.
+  Every stage is resumable. `--stages status` reports medians and names the
+  screens that are missing or STALE — a capture older than the card it came
+  from. Do not read a median without reading those: 106 of 106 Android and 68
+  of 68 OHOS captures were stale when this check was added, and their medians
+  had been quoted as current.
 - `doctor` — the preflight, and it now runs the VALIDATORS first: the gate
   self-tests, the theme-chain linter, and the vendored-theme comparison. A
   loop that trusts a gate it has not tested is measuring nothing.
@@ -78,6 +90,21 @@ Run the preflight first; it checks everything below and names what is missing:
 - `regress` — render the whole corpus and report which screens MOVED. Run it
   after touching the kit, the lowering or a palette: a fix proven on four
   screens has twice moved a hundred others.
+
+  The stage renders one set. A comparison needs a baseline rendered the SAME
+  way, which means rendering it with the change reverted — the kit's own shots
+  directory will not do, because `fill_fix.py` writes into it and the diff then
+  reports scale, not content:
+
+      # revert the change, then
+      python3 regress_desktop.py --kit <name> --out shots_<name>_desktop_base
+      # restore the change, then
+      python3 regress_desktop.py --kit <name> --out shots_<name>_desktop_new \
+                                 --against shots_<name>_desktop_base
+
+- `verify` compares the cards named in the kit's `parity_cards`, in list order,
+  against the phone screen at the same index. Without that key it has nothing
+  to compare and says so rather than succeeding.
 
 Useful loops beyond the stages:
 

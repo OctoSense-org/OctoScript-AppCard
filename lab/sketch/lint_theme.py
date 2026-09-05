@@ -111,6 +111,24 @@ def scan(chain: list) -> list:
     return events
 
 
+def _stale_at_call(events, read_i, fn_name, name):
+    """Is `fn_name` still CALLED after `name` is rebound past its definition?
+
+    A later rebind is not by itself a defect. `dc_tint_ok` reads the original
+    ink seed on purpose and is called before the accent solve replaces it —
+    correct, and flagging it buried the one case that mattered. The binding a
+    function keeps is the one that existed when it was DEFINED, so the finding
+    is: a rebind lands after the definition AND the function is called after
+    that rebind, so the call cannot see what the rebind wrote.
+    """
+    rebind = next((j for j, e in enumerate(events)
+                   if e[2] == "bind" and e[3] == name and j > read_i), None)
+    if rebind is None:
+        return False
+    return any(e[2] == "read" and e[3] == fn_name and j > rebind
+               for j, e in enumerate(events))
+
+
 def lint(chain: list) -> list:
     """UNBOUND and TOO LATE findings for one assembled chain."""
     events = scan(chain)
@@ -127,6 +145,17 @@ def lint(chain: list) -> list:
         first = bound_at.get(name)
         if first is None:
             out.append(("UNBOUND", f, ln, name, kind))
+            seen.add((kind, name))
+        elif kind.startswith("read@") and bind_kind.get(name) == "bind" \
+                and _stale_at_call(events, i, kind.split("@", 1)[1], name):
+            # An override that lands AFTER a function that reads the name. The
+            # function keeps the binding that existed when it was defined, so
+            # the later `let` is inert — this is precisely how a whole type
+            # rescale block sat behind the kit doing nothing for its entire
+            # life. An earlier binding existing does NOT make it fine; it is
+            # what makes the failure silent, because the name resolves to a
+            # plausible old value instead of erroring.
+            out.append(("INERT", f, ln, name, kind))
             seen.add((kind, name))
         elif first > i and bind_kind[name] == "bind":
             # A read before the binding, for a `let`. Asked on the device (the
