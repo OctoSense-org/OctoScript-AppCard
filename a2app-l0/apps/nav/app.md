@@ -1,5 +1,13 @@
 # nav — requirements
 
+The prompt exemplar contains only the L0 declarations and UI. Historical
+implementation commentary is preserved in
+[`nav-before.card`](../../../docs/reviews/qwen-serving-20260909/responses-continuation/nav-before.card).
+It uses six host capabilities (`sys.gps`, `sys.search`, `sys.route`, `sys.step`,
+`sys.locale`, and `sys.prefs`); routing, geocoding, GPS tracking, and map rendering
+are implemented by the shared runtime. Source declarations and mutually guarded
+maps describe the different origin, stop, and screen states.
+
 Getting somewhere: pick a destination, see the route and how long it takes. Use
 it for any travel verb — "directions to SFO", "navigate home", "导航去北京".
 
