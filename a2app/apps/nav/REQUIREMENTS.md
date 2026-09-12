@@ -6,7 +6,7 @@ times, and drive it with 3D turn-by-turn. This is the accumulated requirement se
 the map app, current as of the `nav-planner-search-legs` ship.
 
 **Status:** shipped for review ·
-[makepad#15](https://github.com/octos-org/makepad/pull/15) (map widget) +
+[makepad#15](https://github.com/OctoSense-org/makepad/pull/15) (map widget) +
 [octos-one#28](https://github.com/octos-org/octos-one/pull/28) (nav card) ·
 33 host tests green · verified on OnePlus 6 / 6T.
 
