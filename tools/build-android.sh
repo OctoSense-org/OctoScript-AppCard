@@ -83,4 +83,7 @@ fi
 export RUSTFLAGS="${RUSTFLAGS:--Cprofile-use=$ROOT/aichat/libs/box3d/box3d.profdata}"
 
 cd "$ROOT/app"
+# Android renders through the Vulkan backend (like the OpenHarmony build): the
+# map's compact vertex formats only exist there. `MAKEPAD=gles` forces OpenGL.
+export MAKEPAD="${MAKEPAD:-vulkan}"
 exec cargo makepad android "$ACTION" -p octos-app --release
