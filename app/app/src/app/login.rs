@@ -264,6 +264,9 @@ script_mod! {
 /// than inventing a second location. Two config directories is how one of them
 /// ends up unbacked-up and the other undiscoverable.
 pub fn config_dir() -> Option<PathBuf> {
+    if let Some(dir) = std::env::var_os("OCTOS_APP_CONFIG_DIR").filter(|v| !v.is_empty()) {
+        return Some(PathBuf::from(dir));
+    }
     let home = std::env::var_os("HOME")?;
     let mut p = PathBuf::from(home);
     // Match the W08 spec wording (`~/.config/octos-app/server.json`)
@@ -349,6 +352,8 @@ struct LlmProvisionConfig {
     llm_family: String,
     llm_model: Option<String>,
     llm_key: String,
+    llm_base_url: Option<String>,
+    llm_api_type: Option<String>,
 }
 
 /// Apply an LLM-only QR / intent payload — a self-contained JSON object:
@@ -362,6 +367,8 @@ pub fn apply_provision_config_json(payload: &str) -> Result<String, String> {
         &config.llm_family,
         config.llm_model.as_deref(),
         Some(&config.llm_key),
+        config.llm_base_url.as_deref(),
+        config.llm_api_type.as_deref(),
     )?;
     Ok(format!("llm={}", config.llm_family))
 }
@@ -381,6 +388,19 @@ fn parse_llm_provision_config(payload: &str) -> Result<LlmProvisionConfig, Strin
         .is_some_and(|model| model.trim().is_empty())
     {
         return Err("provision: llm_model must not be empty".into());
+    }
+    if let Some(base_url) = &config.llm_base_url {
+        let url = validate_server_url(base_url)?;
+        if !url.username().is_empty() || url.password().is_some()
+            || url.query().is_some() || url.fragment().is_some()
+        {
+            return Err("provision: llm_base_url must be an endpoint without credentials, query or fragment".into());
+        }
+    }
+    if let Some(api_type) = &config.llm_api_type {
+        if !matches!(api_type.as_str(), "openai" | "anthropic" | "responses") {
+            return Err("provision: llm_api_type must be openai, anthropic or responses".into());
+        }
     }
     Ok(config)
 }
@@ -415,15 +435,18 @@ fn key_env_for(family: &str) -> String {
 /// The embedded kernel's `_main.json` profile config (same HOME the kernel is
 /// spawned with: `$HOME/octos-home/.octos/profiles/_main.json`).
 fn octos_profile_config_path() -> Result<PathBuf, String> {
+    if let Some(dir) = std::env::var_os("OCTOS_APP_CORE_DIR").filter(|v| !v.is_empty()) {
+        return Ok(PathBuf::from(dir).join("profiles/_main.json"));
+    }
     let home = std::env::var("HOME").map_err(|_| "no HOME set".to_string())?;
     Ok(PathBuf::from(home).join("octos-home/.octos/profiles/_main.json"))
 }
 
 /// Merge the provider/model/key into `_main.json` without disturbing the rest of
 /// the config. Takes effect on the next kernel/session start.
-fn apply_llm_config(family: &str, model: Option<&str>, key: Option<&str>) -> Result<(), String> {
+fn apply_llm_config(family: &str, model: Option<&str>, key: Option<&str>, base_url: Option<&str>, api_type: Option<&str>) -> Result<(), String> {
     let path = octos_profile_config_path()?;
-    apply_llm_config_at_path(&path, family, model, key)
+    apply_llm_config_at_path(&path, family, model, key, base_url, api_type)
 }
 
 /// Path-injected implementation so persistence can be tested without touching
@@ -433,6 +456,8 @@ fn apply_llm_config_at_path(
     family: &str,
     model: Option<&str>,
     key: Option<&str>,
+    base_url: Option<&str>,
+    api_type: Option<&str>,
 ) -> Result<(), String> {
     let mut root: serde_json::Value = if path.exists() {
         serde_json::from_slice(&std::fs::read(path).map_err(|e| e.to_string())?)
@@ -469,6 +494,16 @@ fn apply_llm_config_at_path(
     primary.insert("family_id".into(), serde_json::json!(family));
     if let Some(m) = model {
         primary.insert("model_id".into(), serde_json::json!(m));
+    }
+    if base_url.is_some() || api_type.is_some() {
+        let mut route = serde_json::Map::new();
+        if let Some(url) = base_url {
+            route.insert("base_url".into(), serde_json::json!(url.trim()));
+        }
+        if let Some(protocol) = api_type {
+            route.insert("api_type".into(), serde_json::json!(protocol));
+        }
+        primary.insert("route".into(), serde_json::Value::Object(route));
     }
     let llm = cfg.entry("llm").or_insert_with(|| serde_json::json!({}));
     if !llm.is_object() {
@@ -586,6 +621,38 @@ mod tests {
     }
 
     #[test]
+    fn llm_qr_custom_endpoint_preserves_profile_and_clears_on_provider_switch() {
+        let config = parse_llm_provision_config(
+            r#"{"llm_family":"openai","llm_model":"qwen3.8-27b","llm_key":"local-test","llm_base_url":"http://127.0.0.1:30880/v1","llm_api_type":"openai"}"#,
+        ).unwrap();
+        let dir = std::env::temp_dir().join(format!("octos-custom-route-{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+        let path = dir.join("_main.json");
+        std::fs::write(&path, br#"{"config":{"custom":"keep"}}"#).unwrap();
+        apply_llm_config_at_path(&path, &config.llm_family, config.llm_model.as_deref(),
+            Some(&config.llm_key), config.llm_base_url.as_deref(), config.llm_api_type.as_deref()).unwrap();
+        let first: serde_json::Value = serde_json::from_slice(&std::fs::read(&path).unwrap()).unwrap();
+        assert_eq!(first["config"]["llm"]["primary"]["route"]["base_url"], "http://127.0.0.1:30880/v1");
+        assert_eq!(first["config"]["llm"]["primary"]["route"]["api_type"], "openai");
+        assert_eq!(first["config"]["custom"], "keep");
+        apply_llm_config_at_path(&path, "zai", Some("glm-5.3-flash"), None, None, None).unwrap();
+        let second: serde_json::Value = serde_json::from_slice(&std::fs::read(&path).unwrap()).unwrap();
+        assert!(second["config"]["llm"]["primary"].get("route").is_none());
+        assert_eq!(second["config"]["custom"], "keep");
+        std::fs::remove_dir_all(dir).unwrap();
+    }
+
+    #[test]
+    fn llm_qr_custom_endpoint_rejects_invalid_route() {
+        for url in ["", "file:///tmp/model", "http://user:secret@localhost/v1", "http://localhost/v1?key=secret"] {
+            let payload = serde_json::json!({"llm_family":"openai", "llm_key":"test", "llm_base_url":url});
+            assert!(parse_llm_provision_config(&payload.to_string()).is_err());
+        }
+        let payload = serde_json::json!({"llm_family":"openai", "llm_key":"test", "llm_api_type":"unknown"});
+        assert!(parse_llm_provision_config(&payload.to_string()).is_err());
+    }
+
+    #[test]
     fn llm_qr_persistence_updates_profile_without_clobbering_other_config() {
         let unique = format!(
             "octos-qr-test-{}-{}",
@@ -604,7 +671,7 @@ mod tests {
         )
         .unwrap();
 
-        apply_llm_config_at_path(&path, "zai", Some("glm-5.2"), Some("sk-fake-test"))
+        apply_llm_config_at_path(&path, "zai", Some("glm-5.2"), Some("sk-fake-test"), None, None)
             .unwrap();
         let profile: serde_json::Value =
             serde_json::from_slice(&std::fs::read(&path).unwrap()).unwrap();
@@ -640,7 +707,7 @@ mod qr_provision_audit {
         let path = dir.join("_main.json");
         let payload = r#"{"llm_family":"moonshot-coding","llm_model":"k3","llm_key":"sk-kimi-TEST"}"#;
         let cfg = parse_llm_provision_config(payload).expect("payload parses");
-        apply_llm_config_at_path(&path, &cfg.llm_family, cfg.llm_model.as_deref(), Some(&cfg.llm_key))
+        apply_llm_config_at_path(&path, &cfg.llm_family, cfg.llm_model.as_deref(), Some(&cfg.llm_key), None, None)
             .expect("writes");
         let v: serde_json::Value = serde_json::from_slice(&std::fs::read(&path).unwrap()).unwrap();
         let primary = &v["config"]["llm"]["primary"];

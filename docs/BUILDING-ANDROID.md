@@ -21,8 +21,8 @@ device. Default ABI is **aarch64** (arm64-v8a).
 `app/` inside the repo:
 
 ```bash
-git clone https://github.com/octos-org/octos-one.git
-cd octos-one
+git clone https://github.com/OctoSense-org/Octoscript-AppCard.git
+cd Octoscript-AppCard
 
 # aichat (Splash engine + sys.* helpers) → ./aichat  (== app/../aichat) and
 # makepad (cargo-makepad + the Android Java/JNI packaged into the APK) → ./makepad
@@ -41,7 +41,7 @@ git submodule update --init octos
 ```
 
 (`aichat/` and `makepad/` are git submodules pinned to exact commits in the
-[`octos-org/makepad`](https://github.com/OctoSense-org/makepad) fork — referenced deps,
+[`OctoSense-org/makepad`](https://github.com/OctoSense-org/makepad) fork — referenced deps,
 not vendored. **Bumping the `makepad` pin means reinstalling `cargo-makepad`**
 (next step) so the packaged Java matches the pinned aichat JNI — otherwise the app
 panics at boot naming the missing JNI method.)

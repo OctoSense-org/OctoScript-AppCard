@@ -1,0 +1,128 @@
+# ledger stock-04@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy heading_text { class: user-copy, en: "Apple" }
+copy subtitle_text { class: user-copy, en: "Design fixture · Prices are illustrative" }
+copy symbol_text { class: user-copy, en: "AAPL · NASDAQ" }
+copy price_text { class: user-copy, en: "$182.40" }
+copy gain_text { class: user-copy, en: "+2.24  (1.24%) today" }
+copy period_0_text { class: user-copy, en: "1D" }
+copy period_1_text { class: user-copy, en: "1W" }
+copy period_2_text { class: user-copy, en: "1M" }
+copy period_3_text { class: user-copy, en: "1Y" }
+copy open_label_text { class: user-copy, en: "Open" }
+copy open_value_text { class: user-copy, en: "$180.16" }
+copy volume_label_text { class: user-copy, en: "Volume" }
+copy volume_value_text { class: user-copy, en: "48.2M" }
+copy primary_label_text { class: user-copy, en: "View watchlist" }
+state primary_control_enabled { shape: bool, initial: true }
+state range_control_0_enabled { shape: bool, initial: true }
+state range_control_1_enabled { shape: bool, initial: true }
+state range_control_2_enabled { shape: bool, initial: true }
+state range_control_3_enabled { shape: bool, initial: true }
+component Surface0ac2bc9656b0(instance: text) {
+  view Kit(component: "Surface0ac2bc9656b0", instance: instance) { slot }
+}
+component Text9b1d5493ead0(instance: text, text: text) {
+  view Kit(component: "Text9b1d5493ead0", instance: instance, text: text)
+}
+component Text6b1d9ff18aa6(instance: text, text: text) {
+  view Kit(component: "Text6b1d9ff18aa6", instance: instance, text: text)
+}
+component Text6c1edabda280(instance: text, text: text) {
+  view Kit(component: "Text6c1edabda280", instance: instance, text: text)
+}
+component Texta336ac7fb384(instance: text, text: text) {
+  view Kit(component: "Texta336ac7fb384", instance: instance, text: text)
+}
+component Text0e8895aed0a0(instance: text, text: text) {
+  view Kit(component: "Text0e8895aed0a0", instance: instance, text: text)
+}
+component Surfacea9006898a87f(instance: text) {
+  view Kit(component: "Surfacea9006898a87f", instance: instance) { slot }
+}
+component Stockplot7c91b8e0daf8(instance: text) {
+  view Kit(component: "Stockplot7c91b8e0daf8", instance: instance)
+}
+component Textf1df8a086d8e(instance: text, text: text) {
+  view Kit(component: "Textf1df8a086d8e", instance: instance, text: text)
+}
+component Textf66466af054e(instance: text, text: text) {
+  view Kit(component: "Textf66466af054e", instance: instance, text: text)
+}
+component Text3876753382ea(instance: text, text: text) {
+  view Kit(component: "Text3876753382ea", instance: instance, text: text)
+}
+component Texte787693d1607(instance: text, text: text) {
+  view Kit(component: "Texte787693d1607", instance: instance, text: text)
+}
+component Surface9e95a49925b3(instance: text) {
+  view Kit(component: "Surface9e95a49925b3", instance: instance) { slot }
+}
+component Text0526e4ef7aa8(instance: text, text: text) {
+  view Kit(component: "Text0526e4ef7aa8", instance: instance, text: text)
+}
+component Text1e4fe376f24d(instance: text, text: text) {
+  view Kit(component: "Text1e4fe376f24d", instance: instance, text: text)
+}
+component Surfacea55067c02499(instance: text) {
+  view Kit(component: "Surfacea55067c02499", instance: instance) { slot }
+}
+component Text7c9c56a1aab0(instance: text, text: text) {
+  view Kit(component: "Text7c9c56a1aab0", instance: instance, text: text)
+}
+component Text803e49c96f9b(instance: text, text: text) {
+  view Kit(component: "Text803e49c96f9b", instance: instance, text: text)
+}
+component KitButtone3f1fa815770(instance: text) {
+  view Kit(component: "KitButtone3f1fa815770", instance: instance) { slot }
+}
+component Surface5bed7003607e(instance: text) {
+  view Kit(component: "Surface5bed7003607e", instance: instance) { slot }
+}
+component Text9c96224c80cc(instance: text, text: text) {
+  view Kit(component: "Text9c96224c80cc", instance: instance, text: text)
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Surface0cb56056ec96(instance: text) {
+  view Kit(component: "Surface0cb56056ec96", instance: instance)
+}
+
+view root Surface0ac2bc9656b0(instance: "page") {
+  Text9b1d5493ead0(instance: "heading", text: copy.heading_text)
+  Text6b1d9ff18aa6(instance: "subtitle", text: copy.subtitle_text)
+  Text6c1edabda280(instance: "symbol", text: copy.symbol_text)
+  Texta336ac7fb384(instance: "price", text: copy.price_text)
+  Text0e8895aed0a0(instance: "gain", text: copy.gain_text)
+  Surfacea9006898a87f(instance: "chart_panel") {
+    Stockplot7c91b8e0daf8(instance: "price_chart")
+    Textf1df8a086d8e(instance: "period_0", text: copy.period_0_text)
+    Textf66466af054e(instance: "period_1", text: copy.period_1_text)
+    Text3876753382ea(instance: "period_2", text: copy.period_2_text)
+    Texte787693d1607(instance: "period_3", text: copy.period_3_text)
+  }
+  Surface9e95a49925b3(instance: "open") {
+    Text0526e4ef7aa8(instance: "open_label", text: copy.open_label_text)
+    Text1e4fe376f24d(instance: "open_value", text: copy.open_value_text)
+  }
+  Surfacea55067c02499(instance: "volume") {
+    Text7c9c56a1aab0(instance: "volume_label", text: copy.volume_label_text)
+    Text803e49c96f9b(instance: "volume_value", text: copy.volume_value_text)
+  }
+  KitButtone3f1fa815770(instance: "primary") {
+    Surface5bed7003607e(instance: "primary_surface") {
+
+    }
+    Text9c96224c80cc(instance: "primary_label", text: copy.primary_label_text)
+    NativeButton02f1d1bd99b4(instance: "primary_control", enabled: primary_control_enabled)
+  }
+  NativeButton02f1d1bd99b4(instance: "range_control_0", enabled: range_control_0_enabled)
+  NativeButton02f1d1bd99b4(instance: "range_control_1", enabled: range_control_1_enabled)
+  NativeButton02f1d1bd99b4(instance: "range_control_2", enabled: range_control_2_enabled)
+  NativeButton02f1d1bd99b4(instance: "range_control_3", enabled: range_control_3_enabled)
+  Surface0cb56056ec96(instance: "range_indicator")
+}

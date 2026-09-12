@@ -1,0 +1,249 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.1.0",
+  "reference_sha256": "d1dd8a25bb6d8adb9a2edd608f7362e263fac48163de0af97e817fc3546d854a",
+  "contract_sha256": "d2ff2197835b747a486b557f6d7a4ad99a98d136defa9b0260018a23eda66bc5",
+  "classification_scope": "Reviewed original reference regions and authored intent; approximate plot measurements are explicitly marked.",
+  "elements": [
+    {
+      "id": "weather_symbol",
+      "role": "icon",
+      "basis": "Reviewed isolated source artwork; no UI text, controls or quantitative chart are included.",
+      "confidence": 1.0,
+      "decision": "reviewed",
+      "asset": {
+        "path": "repaired-assets/weather_symbol.svg",
+        "sha256": "2a02d691c0a158d93dbef061f173d0e797f4f396e21eaa64e7ed272beb05d5df",
+        "reference_sha256": "d1dd8a25bb6d8adb9a2edd608f7362e263fac48163de0af97e817fc3546d854a",
+        "method": "reference_svg",
+        "crop_pixels": [
+          599,
+          536,
+          196,
+          170
+        ],
+        "contains_ui": false,
+        "fit": "contain",
+        "clip": true,
+        "notes": "Reference-colored vector contours; native SVG paths, no embedded bitmap/text."
+      }
+    },
+    {
+      "id": "page",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "heading",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "subtitle",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "featured",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "location",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "condition",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "temperature",
+      "role": "layout",
+      "basis": "Native number and independently sized degree Labels composed as a text group.",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "city_0",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "city_name_0",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "city_note_0",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "city_temp_0",
+      "role": "layout",
+      "basis": "Native number and independently sized degree Labels composed as a text group.",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "city_1",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "city_name_1",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "city_note_1",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "city_temp_1",
+      "role": "layout",
+      "basis": "Native number and independently sized degree Labels composed as a text group.",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "city_2",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "city_name_2",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "city_note_2",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "city_temp_2",
+      "role": "layout",
+      "basis": "Native number and independently sized degree Labels composed as a text group.",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary_label",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "temperature_number",
+      "role": "text",
+      "basis": "Reviewed part of 24\u00b0; independent native font size for the degree symbol.",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "temperature_degree",
+      "role": "text",
+      "basis": "Reviewed part of 24\u00b0; independent native font size for the degree symbol.",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "city_temp_0_number",
+      "role": "text",
+      "basis": "Reviewed part of 19\u00b0; independent native font size for the degree symbol.",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "city_temp_0_degree",
+      "role": "text",
+      "basis": "Reviewed part of 19\u00b0; independent native font size for the degree symbol.",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "city_temp_1_number",
+      "role": "text",
+      "basis": "Reviewed part of 28\u00b0; independent native font size for the degree symbol.",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "city_temp_1_degree",
+      "role": "text",
+      "basis": "Reviewed part of 28\u00b0; independent native font size for the degree symbol.",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "city_temp_2_number",
+      "role": "text",
+      "basis": "Reviewed part of 16\u00b0; independent native font size for the degree symbol.",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "city_temp_2_degree",
+      "role": "text",
+      "basis": "Reviewed part of 16\u00b0; independent native font size for the degree symbol.",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    }
+  ]
+}

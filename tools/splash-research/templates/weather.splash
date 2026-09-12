@@ -1,0 +1,12 @@
+use mod.research
+
+// Start independent reads before awaiting either one.
+let forecast_task = research.forecast(request.location)
+let air_task = research.air_quality(request.location)
+let forecast = forecast_task.await()
+let air = try air_task.await() catch nil
+let status = "ready"
+if air == nil {
+    status = "partial"
+}
+{schema_id: "weather.v1", status: status, data: {forecast: forecast, air_quality: air}}

@@ -1,0 +1,106 @@
+# ledger weather-10@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy heading_text { class: user-copy, en: "Outside today" }
+copy subtitle_text { class: user-copy, en: "Monday, September 7" }
+copy comfort_kicker_text { class: user-copy, en: "OUTDOOR COMFORT" }
+copy comfort_score_text { class: user-copy, en: "86" }
+copy comfort_label_text { class: user-copy, en: "A great day to get outside." }
+copy sunrise_label_text { class: user-copy, en: "Sunrise" }
+copy sunrise_value_text { class: user-copy, en: "6:42 AM" }
+copy sunset_label_text { class: user-copy, en: "Sunset" }
+copy sunset_value_text { class: user-copy, en: "7:28 PM" }
+copy activity_text { class: user-copy, en: "Try a late afternoon walk." }
+copy activity_detail_text { class: user-copy, en: "24° and a gentle breeze in Cupertino." }
+copy primary_label_text { class: user-copy, en: "My cities" }
+state primary_control_enabled { shape: bool, initial: true }
+component Surface3d61cec57980(instance: text) {
+  view Kit(component: "Surface3d61cec57980", instance: instance) { slot }
+}
+component Texta017d8ed674a(instance: text, text: text) {
+  view Kit(component: "Texta017d8ed674a", instance: instance, text: text)
+}
+component Text24ef02b6e35d(instance: text, text: text) {
+  view Kit(component: "Text24ef02b6e35d", instance: instance, text: text)
+}
+component Surface10a106b2ef04(instance: text) {
+  view Kit(component: "Surface10a106b2ef04", instance: instance) { slot }
+}
+component Text09edda5c41c0(instance: text, text: text) {
+  view Kit(component: "Text09edda5c41c0", instance: instance, text: text)
+}
+component Textadcb43e71700(instance: text, text: text) {
+  view Kit(component: "Textadcb43e71700", instance: instance, text: text)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Text39d13b2e33f8(instance: text, text: text) {
+  view Kit(component: "Text39d13b2e33f8", instance: instance, text: text)
+}
+component Surfaceb65e9e3e3ca9(instance: text) {
+  view Kit(component: "Surfaceb65e9e3e3ca9", instance: instance) { slot }
+}
+component Text34c37695d11e(instance: text, text: text) {
+  view Kit(component: "Text34c37695d11e", instance: instance, text: text)
+}
+component Text2cb80b56899b(instance: text, text: text) {
+  view Kit(component: "Text2cb80b56899b", instance: instance, text: text)
+}
+component Surfacec8ff3eb67739(instance: text) {
+  view Kit(component: "Surfacec8ff3eb67739", instance: instance) { slot }
+}
+component Text2c42b6851728(instance: text, text: text) {
+  view Kit(component: "Text2c42b6851728", instance: instance, text: text)
+}
+component Textf2d73d043804(instance: text, text: text) {
+  view Kit(component: "Textf2d73d043804", instance: instance, text: text)
+}
+component Text8f50e38056f2(instance: text, text: text) {
+  view Kit(component: "Text8f50e38056f2", instance: instance, text: text)
+}
+component Text02e27bb942d9(instance: text, text: text) {
+  view Kit(component: "Text02e27bb942d9", instance: instance, text: text)
+}
+component KitButtone3f1fa815770(instance: text) {
+  view Kit(component: "KitButtone3f1fa815770", instance: instance) { slot }
+}
+component Surfaceb51c84e5648f(instance: text) {
+  view Kit(component: "Surfaceb51c84e5648f", instance: instance) { slot }
+}
+component Textec9890e51398(instance: text, text: text) {
+  view Kit(component: "Textec9890e51398", instance: instance, text: text)
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+
+view root Surface3d61cec57980(instance: "page") {
+  Texta017d8ed674a(instance: "heading", text: copy.heading_text)
+  Text24ef02b6e35d(instance: "subtitle", text: copy.subtitle_text)
+  Surface10a106b2ef04(instance: "comfort") {
+    Text09edda5c41c0(instance: "comfort_kicker", text: copy.comfort_kicker_text)
+    Textadcb43e71700(instance: "comfort_score", text: copy.comfort_score_text)
+    Vectore0a378fde04f(instance: "weather_symbol")
+    Text39d13b2e33f8(instance: "comfort_label", text: copy.comfort_label_text)
+  }
+  Surfaceb65e9e3e3ca9(instance: "sunrise") {
+    Text34c37695d11e(instance: "sunrise_label", text: copy.sunrise_label_text)
+    Text2cb80b56899b(instance: "sunrise_value", text: copy.sunrise_value_text)
+  }
+  Surfacec8ff3eb67739(instance: "sunset") {
+    Text2c42b6851728(instance: "sunset_label", text: copy.sunset_label_text)
+    Textf2d73d043804(instance: "sunset_value", text: copy.sunset_value_text)
+  }
+  Text8f50e38056f2(instance: "activity", text: copy.activity_text)
+  Text02e27bb942d9(instance: "activity_detail", text: copy.activity_detail_text)
+  KitButtone3f1fa815770(instance: "primary") {
+    Surfaceb51c84e5648f(instance: "primary_surface") {
+
+    }
+    Textec9890e51398(instance: "primary_label", text: copy.primary_label_text)
+    NativeButton02f1d1bd99b4(instance: "primary_control", enabled: primary_control_enabled)
+  }
+}

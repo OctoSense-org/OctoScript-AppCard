@@ -1,0 +1,201 @@
+# ledger stock-05@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy heading_text { class: user-copy, en: "Market overview" }
+copy subtitle_text { class: user-copy, en: "Design fixture · Prices are illustrative" }
+copy index_label_0_text { class: user-copy, en: "S&P 500" }
+copy index_value_0_text { class: user-copy, en: "5,420" }
+copy index_gain_0_text { class: user-copy, en: "+0.82%" }
+copy index_label_1_text { class: user-copy, en: "NASDAQ" }
+copy index_value_1_text { class: user-copy, en: "17,132" }
+copy index_gain_1_text { class: user-copy, en: "+0.82%" }
+copy index_label_2_text { class: user-copy, en: "DOW" }
+copy index_value_2_text { class: user-copy, en: "39,420" }
+copy index_gain_2_text { class: user-copy, en: "+0.82%" }
+copy trend_title_text { class: user-copy, en: "Market trend" }
+copy quote_symbol_text { class: user-copy, en: "AAPL" }
+copy quote_name_text { class: user-copy, en: "Apple" }
+copy quote_price_text { class: user-copy, en: "182.40" }
+copy quote_change_text { class: user-copy, en: "+1.24%" }
+copy primary_label_text { class: user-copy, en: "View watchlist" }
+copy chart_annotation_0_text { class: user-copy, en: "5.4K" }
+copy chart_annotation_1_text { class: user-copy, en: "5.3K" }
+copy chart_annotation_2_text { class: user-copy, en: "5.2K" }
+copy chart_annotation_3_text { class: user-copy, en: "5.1K" }
+copy chart_annotation_4_text { class: user-copy, en: "5.0K" }
+copy chart_annotation_5_text { class: user-copy, en: "4.9K" }
+copy chart_annotation_6_text { class: user-copy, en: "9:30" }
+copy chart_annotation_7_text { class: user-copy, en: "11:00" }
+copy chart_annotation_8_text { class: user-copy, en: "12:30" }
+copy chart_annotation_9_text { class: user-copy, en: "14:00" }
+copy chart_annotation_10_text { class: user-copy, en: "15:30" }
+copy chart_annotation_11_text { class: user-copy, en: "16:00" }
+state primary_control_enabled { shape: bool, initial: true }
+component Surfacef7385ceef155(instance: text) {
+  view Kit(component: "Surfacef7385ceef155", instance: instance) { slot }
+}
+component Text37d757a5e3eb(instance: text, text: text) {
+  view Kit(component: "Text37d757a5e3eb", instance: instance, text: text)
+}
+component Text49e14f3fc148(instance: text, text: text) {
+  view Kit(component: "Text49e14f3fc148", instance: instance, text: text)
+}
+component Surface066caa58b618(instance: text) {
+  view Kit(component: "Surface066caa58b618", instance: instance) { slot }
+}
+component Text3c8d3a71b073(instance: text, text: text) {
+  view Kit(component: "Text3c8d3a71b073", instance: instance, text: text)
+}
+component Text2026691486ac(instance: text, text: text) {
+  view Kit(component: "Text2026691486ac", instance: instance, text: text)
+}
+component Text58a0b9d41bef(instance: text, text: text) {
+  view Kit(component: "Text58a0b9d41bef", instance: instance, text: text)
+}
+component Surfaceb2c793d84323(instance: text) {
+  view Kit(component: "Surfaceb2c793d84323", instance: instance) { slot }
+}
+component Text3eac1467aeff(instance: text, text: text) {
+  view Kit(component: "Text3eac1467aeff", instance: instance, text: text)
+}
+component Text5589c5a5c9da(instance: text, text: text) {
+  view Kit(component: "Text5589c5a5c9da", instance: instance, text: text)
+}
+component Text4a425054d692(instance: text, text: text) {
+  view Kit(component: "Text4a425054d692", instance: instance, text: text)
+}
+component Surfaceadd25055a722(instance: text) {
+  view Kit(component: "Surfaceadd25055a722", instance: instance) { slot }
+}
+component Text6dfdc87ae3dc(instance: text, text: text) {
+  view Kit(component: "Text6dfdc87ae3dc", instance: instance, text: text)
+}
+component Texta73ab0449e3b(instance: text, text: text) {
+  view Kit(component: "Texta73ab0449e3b", instance: instance, text: text)
+}
+component Text1a250d05053e(instance: text, text: text) {
+  view Kit(component: "Text1a250d05053e", instance: instance, text: text)
+}
+component Text41a0ad6b7145(instance: text, text: text) {
+  view Kit(component: "Text41a0ad6b7145", instance: instance, text: text)
+}
+component Surfacea94b1defab77(instance: text) {
+  view Kit(component: "Surfacea94b1defab77", instance: instance) { slot }
+}
+component Stockplot7c91b8e0daf8(instance: text) {
+  view Kit(component: "Stockplot7c91b8e0daf8", instance: instance)
+}
+component Surfaceb9e511dfef83(instance: text) {
+  view Kit(component: "Surfaceb9e511dfef83", instance: instance) { slot }
+}
+component Text84fcb5647b3c(instance: text, text: text) {
+  view Kit(component: "Text84fcb5647b3c", instance: instance, text: text)
+}
+component Textd24c3af5a584(instance: text, text: text) {
+  view Kit(component: "Textd24c3af5a584", instance: instance, text: text)
+}
+component Texta3ffff4ca53e(instance: text, text: text) {
+  view Kit(component: "Texta3ffff4ca53e", instance: instance, text: text)
+}
+component Texte96348b48446(instance: text, text: text) {
+  view Kit(component: "Texte96348b48446", instance: instance, text: text)
+}
+component KitButtone3f1fa815770(instance: text) {
+  view Kit(component: "KitButtone3f1fa815770", instance: instance) { slot }
+}
+component Surfaceee14509dc44d(instance: text) {
+  view Kit(component: "Surfaceee14509dc44d", instance: instance) { slot }
+}
+component Text5b3a5c056a0e(instance: text, text: text) {
+  view Kit(component: "Text5b3a5c056a0e", instance: instance, text: text)
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Text2b01e489a568(instance: text, text: text) {
+  view Kit(component: "Text2b01e489a568", instance: instance, text: text)
+}
+component Textade80db0c2e1(instance: text, text: text) {
+  view Kit(component: "Textade80db0c2e1", instance: instance, text: text)
+}
+component Textf65170b72712(instance: text, text: text) {
+  view Kit(component: "Textf65170b72712", instance: instance, text: text)
+}
+component Text496dab58163a(instance: text, text: text) {
+  view Kit(component: "Text496dab58163a", instance: instance, text: text)
+}
+component Text88ae55005a1a(instance: text, text: text) {
+  view Kit(component: "Text88ae55005a1a", instance: instance, text: text)
+}
+component Textfd77ef4839f5(instance: text, text: text) {
+  view Kit(component: "Textfd77ef4839f5", instance: instance, text: text)
+}
+component Textc3d975a2b25f(instance: text, text: text) {
+  view Kit(component: "Textc3d975a2b25f", instance: instance, text: text)
+}
+component Texta94b161d060d(instance: text, text: text) {
+  view Kit(component: "Texta94b161d060d", instance: instance, text: text)
+}
+component Textcd1186016b9d(instance: text, text: text) {
+  view Kit(component: "Textcd1186016b9d", instance: instance, text: text)
+}
+component Texta2e57ae1a068(instance: text, text: text) {
+  view Kit(component: "Texta2e57ae1a068", instance: instance, text: text)
+}
+component Texta42c37504d8c(instance: text, text: text) {
+  view Kit(component: "Texta42c37504d8c", instance: instance, text: text)
+}
+component Text3924a0c87ac9(instance: text, text: text) {
+  view Kit(component: "Text3924a0c87ac9", instance: instance, text: text)
+}
+
+view root Surfacef7385ceef155(instance: "page") {
+  Text37d757a5e3eb(instance: "heading", text: copy.heading_text)
+  Text49e14f3fc148(instance: "subtitle", text: copy.subtitle_text)
+  Surface066caa58b618(instance: "index_0") {
+    Text3c8d3a71b073(instance: "index_label_0", text: copy.index_label_0_text)
+    Text2026691486ac(instance: "index_value_0", text: copy.index_value_0_text)
+    Text58a0b9d41bef(instance: "index_gain_0", text: copy.index_gain_0_text)
+  }
+  Surfaceb2c793d84323(instance: "index_1") {
+    Text3eac1467aeff(instance: "index_label_1", text: copy.index_label_1_text)
+    Text5589c5a5c9da(instance: "index_value_1", text: copy.index_value_1_text)
+    Text4a425054d692(instance: "index_gain_1", text: copy.index_gain_1_text)
+  }
+  Surfaceadd25055a722(instance: "index_2") {
+    Text6dfdc87ae3dc(instance: "index_label_2", text: copy.index_label_2_text)
+    Texta73ab0449e3b(instance: "index_value_2", text: copy.index_value_2_text)
+    Text1a250d05053e(instance: "index_gain_2", text: copy.index_gain_2_text)
+  }
+  Text41a0ad6b7145(instance: "trend_title", text: copy.trend_title_text)
+  Surfacea94b1defab77(instance: "trend") {
+    Stockplot7c91b8e0daf8(instance: "market_chart")
+  }
+  Surfaceb9e511dfef83(instance: "quote") {
+    Text84fcb5647b3c(instance: "quote_symbol", text: copy.quote_symbol_text)
+    Textd24c3af5a584(instance: "quote_name", text: copy.quote_name_text)
+    Texta3ffff4ca53e(instance: "quote_price", text: copy.quote_price_text)
+    Texte96348b48446(instance: "quote_change", text: copy.quote_change_text)
+  }
+  KitButtone3f1fa815770(instance: "primary") {
+    Surfaceee14509dc44d(instance: "primary_surface") {
+
+    }
+    Text5b3a5c056a0e(instance: "primary_label", text: copy.primary_label_text)
+    NativeButton02f1d1bd99b4(instance: "primary_control", enabled: primary_control_enabled)
+  }
+  Text2b01e489a568(instance: "chart_annotation_0", text: copy.chart_annotation_0_text)
+  Textade80db0c2e1(instance: "chart_annotation_1", text: copy.chart_annotation_1_text)
+  Textf65170b72712(instance: "chart_annotation_2", text: copy.chart_annotation_2_text)
+  Text496dab58163a(instance: "chart_annotation_3", text: copy.chart_annotation_3_text)
+  Text88ae55005a1a(instance: "chart_annotation_4", text: copy.chart_annotation_4_text)
+  Textfd77ef4839f5(instance: "chart_annotation_5", text: copy.chart_annotation_5_text)
+  Textc3d975a2b25f(instance: "chart_annotation_6", text: copy.chart_annotation_6_text)
+  Texta94b161d060d(instance: "chart_annotation_7", text: copy.chart_annotation_7_text)
+  Textcd1186016b9d(instance: "chart_annotation_8", text: copy.chart_annotation_8_text)
+  Texta2e57ae1a068(instance: "chart_annotation_9", text: copy.chart_annotation_9_text)
+  Texta42c37504d8c(instance: "chart_annotation_10", text: copy.chart_annotation_10_text)
+  Text3924a0c87ac9(instance: "chart_annotation_11", text: copy.chart_annotation_11_text)
+}

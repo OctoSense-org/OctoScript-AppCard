@@ -17,7 +17,7 @@ not a place name parsed out of the message.
 
 | what | source |
 |---|---|
-| the saved cities, each joined to a live reading | `sys.cities(fields: [name, temp, feels, humidity, wind, cond])` |
+| the saved cities, each joined to a live reading | `sys.cities(fields: [name, temp, feels_delta, humidity, wind, cond], unit: state.units)` |
 | the device locale, for the unit seed | `sys.locale()` |
 
 `sys.cities` is a **durable collection** (profile §5.12). The store holds names
@@ -29,32 +29,16 @@ Ask for exactly the fields you render. A field outside the `fields:` list reads
 as an em dash, which on screen is indistinguishable from a value still arriving,
 and the checker now refuses it.
 
-## This app is L1, and why
+## Runtime calculation
 
-```
-# level: L1
-```
-
-It is the one app in this memory that declares a level above L0, and it needs a
-single thing from it: **one arithmetic expression**.
-
-```
-TextCaption(value: c.feels - c.temp, unit: units, glyph: "≈")
-```
-
-"How much warmer or cooler it feels than it is" is not a fact any source
-carries — it is a fact *about* two facts the card already declared. That is the
-whole of what L1 buys, and §9.3's rule is what keeps it honest: an expression
-must **read** something. A coefficient is fine (`c.temp * 9 / 5 + 32` is a
-formula); an expression made only of literals is a fabricated number wearing
-arithmetic, and is refused.
-
-Do not reach for L1 for anything else here. There is no grouping and no unary
-minus, so precedence is fixed — `(a + b) * c` cannot be written.
+The card is L0. `sys.cities` computes `feels_delta` from the same weather response
+as `temp`, before display rounding. It returns both in the requested `unit`:
+absolute Fahrenheit temperatures include the offset; temperature differences do
+not. Missing values remain missing. Bind `c.feels_delta` without arithmetic.
 
 ## What this app deliberately does NOT do
 
-**It does not rank.** L0 and L1 have no sort, no count and no comparison across
+**It does not rank.** L0 has no sort, no count and no comparison across
 loop items. The order on screen is the order the cities were saved, which §5.12
 says is the user's order and the only ordering the store carries.
 
@@ -101,7 +85,7 @@ event toggle_units { units: cycle(.c, .f) }
 - **A `Panel`** holding one row per city, `for c, i in picks key c.name`.
 - **Each row** is a `Row(align: .center)` of: a filling `Col` with the city name
   and its humidity; a `WeatherIcon(cond: c.cond, size: .row)`; the temperature as
-  a `TextValue(unit: units)`; and the L1 feels-difference as a `TextCaption`.
+  a `TextValue(unit: units)`; and the runtime feels-difference as a `TextCaption`.
 - **The row carries `on_tap: toggle_units`**, so the whole list switches units
   from any row.
 - **A `Rule()` between rows.**
@@ -119,5 +103,5 @@ this as open, and it is why the caption has to make sense on its own.
 - a claim that one city is better, best, or first
 - unit conversion done in the card
 - a field read that the `fields:` list does not ask for
-- an expression built only of literals
+- arithmetic in the card
 - any colour or font size

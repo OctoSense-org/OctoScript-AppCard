@@ -118,7 +118,7 @@ handles, and the rest:
 > Counted in `makepad/tools/cargo_makepad/…/MakepadActivity.java` (3 970 lines),
 > which is **the tree that actually ships**: `strings $(which cargo-makepad)`
 > resolves its baked `CARGO_MANIFEST_DIR` to
-> `~/home/octos-one/makepad/tools/cargo_makepad`. The `aichat/`
+> `~/home/Octoscript-AppCard/makepad/tools/cargo_makepad`. The `aichat/`
 > checkout has a stale 2 865-line copy of the same file with 17 — reading that
 > one understates the marshalling, and it is never compiled into an APK. This is
 > the split-tree gotcha recorded in `BUILDING-ANDROID.md`. Some methods do also

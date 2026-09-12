@@ -1,0 +1,574 @@
+{
+  "schema_version": 1,
+  "elements": [
+    {
+      "source_id": "page",
+      "native_id": "beauty_0",
+      "parent": null,
+      "kind": "stack",
+      "component": "Surface512b3deefe80",
+      "semantic_role": "layout",
+      "bounds": [
+        0,
+        0,
+        406,
+        776
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "heading",
+      "native_id": "beauty_0_0",
+      "parent": "page",
+      "kind": "text",
+      "component": "Text65a114806a7b",
+      "semantic_role": "text",
+      "bounds": [
+        23.541436353663418,
+        27.536332179930795,
+        245.75819520882618,
+        36.22145328719723
+      ],
+      "text": "Evening forecast",
+      "enabled": null,
+      "font": "self:resources/ux/Roboto-Medium.ttf",
+      "size": 33.27762800412503
+    },
+    {
+      "source_id": "subtitle",
+      "native_id": "beauty_0_1",
+      "parent": "page",
+      "kind": "text",
+      "component": "Text703125025af0",
+      "semantic_role": "text",
+      "bounds": [
+        24.433396022937938,
+        71.84083044982698,
+        152.16538037486217,
+        18.320645905420992
+      ],
+      "text": "Monday, September 7",
+      "enabled": null,
+      "font": "self:resources/ux/Roboto-Medium.ttf",
+      "size": 14.865019165890619
+    },
+    {
+      "source_id": "location",
+      "native_id": "beauty_0_2",
+      "parent": "page",
+      "kind": "text",
+      "component": "Textd42dee926e24",
+      "semantic_role": "text",
+      "bounds": [
+        24.395974408960676,
+        118.3829296424452,
+        79.20176405733186,
+        13.845444059976932
+      ],
+      "text": "CUPERTINO",
+      "enabled": null,
+      "font": "self:resources/ux/Roboto-Medium.ttf",
+      "size": 13.478254969807994
+    },
+    {
+      "source_id": "temperature",
+      "native_id": "beauty_0_3",
+      "parent": "page",
+      "kind": "stack",
+      "component": "Group3d2637879433",
+      "semantic_role": "layout",
+      "bounds": [
+        23.962513781697904,
+        151.49942329873124,
+        171.86108048511576,
+        100.66435986159169
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "temperature_number",
+      "native_id": "beauty_0_3_0",
+      "parent": "temperature",
+      "kind": "text",
+      "component": "Textedabd01c7256",
+      "semantic_role": "text",
+      "bounds": [
+        15.335835810158684,
+        151.49942329873124,
+        148.11196730274727,
+        100.66435986159169
+      ],
+      "text": "24",
+      "enabled": null,
+      "font": "self:resources/ux/Inter-300.ttf",
+      "size": 131.10503907055616
+    },
+    {
+      "source_id": "temperature_degree",
+      "native_id": "beauty_0_3_1",
+      "parent": "temperature",
+      "kind": "text",
+      "component": "Text585eccad94b5",
+      "semantic_role": "text",
+      "bounds": [
+        161.41682846590265,
+        151.94694348327565,
+        41.74627691604471,
+        29.508650519031143
+      ],
+      "text": "\u00b0",
+      "enabled": null,
+      "font": "self:resources/ux/RobotoCondensed-300.ttf",
+      "size": 105.11411722932752
+    },
+    {
+      "source_id": "weather_symbol",
+      "native_id": "beauty_0_4",
+      "parent": "page",
+      "kind": "svg",
+      "component": "Vectore0a378fde04f",
+      "semantic_role": "icon",
+      "bounds": [
+        277.08269018743107,
+        143.20645905420992,
+        102.954796030871,
+        113.6979051819184
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "condition",
+      "native_id": "beauty_0_5",
+      "parent": "page",
+      "kind": "text",
+      "component": "Text6d24b28319f6",
+      "semantic_role": "text",
+      "bounds": [
+        25.250430125703204,
+        280.3852364475202,
+        183.05181918412347,
+        21.90080738177624
+      ],
+      "text": "A calm, clear evening",
+      "enabled": null,
+      "font": "self:resources/ux/Roboto-Regular.ttf",
+      "size": 18.675931491532214
+    },
+    {
+      "source_id": "forecast_title",
+      "native_id": "beauty_0_6",
+      "parent": "page",
+      "kind": "text",
+      "component": "Text6ef98db7be35",
+      "semantic_role": "text",
+      "bounds": [
+        25.005639159708917,
+        330.50749711649365,
+        128.08504123046825,
+        22.79584775086505
+      ],
+      "text": "Next few days",
+      "enabled": null,
+      "font": "self:resources/ux/Roboto-Medium.ttf",
+      "size": 19.304862684940634
+    },
+    {
+      "source_id": "forecast",
+      "native_id": "beauty_0_7",
+      "parent": "page",
+      "kind": "stack",
+      "component": "Surface83c5ed95b470",
+      "semantic_role": "layout",
+      "bounds": [
+        20.0,
+        361.0,
+        366.0,
+        308.0
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "day_0",
+      "native_id": "beauty_0_7_0",
+      "parent": "forecast",
+      "kind": "stack",
+      "component": "Group3d2637879433",
+      "semantic_role": "layout",
+      "bounds": [
+        20.0,
+        361.0,
+        366.0,
+        77.0
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "day_label_0",
+      "native_id": "beauty_0_7_0_0",
+      "parent": "day_0",
+      "kind": "text",
+      "component": "Text8f392803a143",
+      "semantic_role": "text",
+      "bounds": [
+        38.05261090438415,
+        388.6851211072664,
+        40.257993384785,
+        17.425605536332178
+      ],
+      "text": "Now",
+      "enabled": null,
+      "font": "self:resources/camo/DMSans-Medium.ttf",
+      "size": 18.85618755102834
+    },
+    {
+      "source_id": "day_icon_0",
+      "native_id": "beauty_0_7_0_1",
+      "parent": "day_0",
+      "kind": "svg",
+      "component": "Vectore0a378fde04f",
+      "semantic_role": "icon",
+      "bounds": [
+        172.78500551267916,
+        367.41407151095734,
+        62.22050716648291,
+        59.98235942668136
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "day_temp_0",
+      "native_id": "beauty_0_7_0_2",
+      "parent": "day_0",
+      "kind": "text",
+      "component": "Textcf87b0625f23",
+      "semantic_role": "text",
+      "bounds": [
+        313.8129899880333,
+        381.97231833910035,
+        55.32116040647295,
+        31.74625144175317
+      ],
+      "text": "24\u00b0",
+      "enabled": null,
+      "font": "self:resources/ux/Roboto-Regular.ttf",
+      "size": 38.472798207657746
+    },
+    {
+      "source_id": "day_1",
+      "native_id": "beauty_0_7_1",
+      "parent": "forecast",
+      "kind": "stack",
+      "component": "Group3d2637879433",
+      "semantic_role": "layout",
+      "bounds": [
+        20.0,
+        438.0,
+        366.0,
+        77.0
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "day_label_1",
+      "native_id": "beauty_0_7_1_0",
+      "parent": "day_1",
+      "kind": "text",
+      "component": "Texte3696adc54f5",
+      "semantic_role": "text",
+      "bounds": [
+        37.96816787315775,
+        464.31603229527104,
+        33.543550165380374,
+        17.425605536332178
+      ],
+      "text": "Tue",
+      "enabled": null,
+      "font": "self:resources/camo/DMSans-Medium.ttf",
+      "size": 18.85618755102834
+    },
+    {
+      "source_id": "day_icon_1",
+      "native_id": "beauty_0_7_1_1",
+      "parent": "day_1",
+      "kind": "svg",
+      "component": "Vectore0a378fde04f",
+      "semantic_role": "icon",
+      "bounds": [
+        172.78500551267916,
+        443.0449826989619,
+        62.22050716648291,
+        59.98235942668136
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "day_temp_1",
+      "native_id": "beauty_0_7_1_2",
+      "parent": "day_1",
+      "kind": "text",
+      "component": "Text4bfd79aa8bdb",
+      "semantic_role": "text",
+      "bounds": [
+        314.07753113380653,
+        458.05074971164936,
+        54.86253959841957,
+        31.74625144175317
+      ],
+      "text": "25\u00b0",
+      "enabled": null,
+      "font": "self:resources/ux/Roboto-Medium.ttf",
+      "size": 37.95879956760888
+    },
+    {
+      "source_id": "day_2",
+      "native_id": "beauty_0_7_2",
+      "parent": "forecast",
+      "kind": "stack",
+      "component": "Group3d2637879433",
+      "semantic_role": "layout",
+      "bounds": [
+        20.0,
+        515.0,
+        366.0,
+        77.0
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "day_label_2",
+      "native_id": "beauty_0_7_2_0",
+      "parent": "day_2",
+      "kind": "text",
+      "component": "Text9734419adf02",
+      "semantic_role": "text",
+      "bounds": [
+        38.01965331911391,
+        539.9469434832756,
+        40.257993384785,
+        17.873125720876587
+      ],
+      "text": "Wed",
+      "enabled": null,
+      "font": "self:resources/ux/Inter-400.ttf",
+      "size": 18.766288953999503
+    },
+    {
+      "source_id": "day_icon_2",
+      "native_id": "beauty_0_7_2_1",
+      "parent": "day_2",
+      "kind": "svg",
+      "component": "Vectore0a378fde04f",
+      "semantic_role": "icon",
+      "bounds": [
+        172.78500551267916,
+        518.6758938869665,
+        62.22050716648291,
+        60.429988974641674
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "day_temp_2",
+      "native_id": "beauty_0_7_2_2",
+      "parent": "day_2",
+      "kind": "text",
+      "component": "Text5ad6332424c9",
+      "semantic_role": "text",
+      "bounds": [
+        313.80848092265757,
+        533.2341407151096,
+        55.26357388537103,
+        32.193771626297575
+      ],
+      "text": "23\u00b0",
+      "enabled": null,
+      "font": "self:resources/ux/Roboto-Regular.ttf",
+      "size": 38.57103827031225
+    },
+    {
+      "source_id": "day_3",
+      "native_id": "beauty_0_7_3",
+      "parent": "forecast",
+      "kind": "stack",
+      "component": "Group3d2637879433",
+      "semantic_role": "layout",
+      "bounds": [
+        20.0,
+        592.0,
+        366.0,
+        77.0
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "day_label_3",
+      "native_id": "beauty_0_7_3_0",
+      "parent": "day_3",
+      "kind": "text",
+      "component": "Text029059c061ab",
+      "semantic_role": "text",
+      "bounds": [
+        37.6927471762688,
+        615.5778546712803,
+        33.991179713340685,
+        17.425605536332178
+      ],
+      "text": "Thu",
+      "enabled": null,
+      "font": "self:resources/ux/Inter-500.ttf",
+      "size": 18.28167562394169
+    },
+    {
+      "source_id": "day_icon_3",
+      "native_id": "beauty_0_7_3_1",
+      "parent": "day_3",
+      "kind": "svg",
+      "component": "Vectore0a378fde04f",
+      "semantic_role": "icon",
+      "bounds": [
+        172.78500551267916,
+        594.3068050749712,
+        62.22050716648291,
+        59.98235942668136
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "day_temp_3",
+      "native_id": "beauty_0_7_3_2",
+      "parent": "day_3",
+      "kind": "text",
+      "component": "Text71a012e99081",
+      "semantic_role": "text",
+      "bounds": [
+        313.8129899880333,
+        608.8650519031141,
+        55.32116040647295,
+        31.74625144175317
+      ],
+      "text": "22\u00b0",
+      "enabled": null,
+      "font": "self:resources/ux/Roboto-Regular.ttf",
+      "size": 38.472798207657746
+    },
+    {
+      "source_id": "primary",
+      "native_id": "beauty_0_8",
+      "parent": "page",
+      "kind": "stack",
+      "component": "KitButtone3f1fa815770",
+      "semantic_role": "button",
+      "bounds": [
+        21.0,
+        690.0,
+        363.0,
+        56.0
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "primary_surface",
+      "native_id": "beauty_0_8_0",
+      "parent": "primary",
+      "kind": "stack",
+      "component": "Surface7615f4ff60f5",
+      "semantic_role": "layout",
+      "bounds": [
+        21.0,
+        690.0,
+        363.0,
+        56.0
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "primary_label",
+      "native_id": "beauty_0_8_1",
+      "parent": "primary",
+      "kind": "text",
+      "component": "Text32f3047f6487",
+      "semantic_role": "text",
+      "bounds": [
+        166.88544144825215,
+        709.1095732410611,
+        72.52734261922052,
+        20.110726643598614
+      ],
+      "text": "My cities",
+      "enabled": null,
+      "font": "self:resources/ux/Roboto-Regular.ttf",
+      "size": 17.247657169937252
+    },
+    {
+      "source_id": "primary_control",
+      "native_id": "beauty_0_8_2",
+      "parent": "primary",
+      "kind": "button",
+      "component": "NativeButton02f1d1bd99b4",
+      "semantic_role": "button",
+      "bounds": [
+        21.0,
+        690.0,
+        363.0,
+        56.0
+      ],
+      "text": null,
+      "enabled": 1,
+      "font": null,
+      "size": null
+    }
+  ],
+  "fonts": {
+    "self:resources/ux/Roboto-Medium.ttf": "7984aafeaf437899ce89b251d2875fc5048cb7d290152eac070239cca7ff726c",
+    "self:resources/ux/Inter-300.ttf": "13baeb62e18b46fe3da6a9362936836c05c9ea10510454e4ba0965b5d6f60989",
+    "self:resources/ux/RobotoCondensed-300.ttf": "24d4202520829e5fd82f1cb260ccfb33284a34279ba0fe734f6ee025df10c066",
+    "self:resources/ux/Roboto-Regular.ttf": "797e35f7f5d6020a5c6ea13b42ecd668bcfb3bbc4baa0e74773527e5b6cb3174",
+    "self:resources/camo/DMSans-Medium.ttf": "2f436049344215f77f1ee8d7eb1118b48a38b0d293c2f51b0d305c86ce046836",
+    "self:resources/ux/Inter-400.ttf": "b6724fa153562e675ad77673f50bddfc5caf2fcd9e4be279f2d0aa56bb210488",
+    "self:resources/ux/Inter-500.ttf": "a72a127e3850c1fb05d969c181932a4088008c8e4cd580f0372231f52ef03603"
+  },
+  "contract_sha256": "ecce664eca48b145c596e22651cbd759bfcbc8937b5446a961cdacb67268f9ef",
+  "mapping_basis": "mapped.json"
+}

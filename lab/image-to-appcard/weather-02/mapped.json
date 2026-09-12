@@ -1,0 +1,632 @@
+{
+  "schema_version": 1,
+  "reference_sha256": "d0df5f63b41474363486cee6da3263a757e52ececb282d691186d4adaa56cfd2",
+  "tree": {
+    "t": "stack",
+    "id": "page",
+    "x": 0,
+    "y": 0,
+    "w": 406,
+    "h": 776,
+    "variant": "surface",
+    "bg": 4278322966,
+    "c": [
+      {
+        "t": "text",
+        "id": "heading",
+        "text": "Evening forecast",
+        "x": 23.541436353663418,
+        "y": 27.536332179930795,
+        "w": 245.75819520882618,
+        "h": 36.22145328719723,
+        "size": 33.27762800412503,
+        "weight": 500,
+        "line_height": 36.22145328719723,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/ux/Roboto-Medium.ttf",
+        "color": 4294243320,
+        "tracking": -0.3812653207932897,
+        "font_asc": -0.10738003131040597,
+        "font_desc": -0.023967624939594034
+      },
+      {
+        "t": "text",
+        "id": "subtitle",
+        "text": "Monday, September 7",
+        "x": 24.433396022937938,
+        "y": 71.84083044982698,
+        "w": 152.16538037486217,
+        "h": 18.320645905420992,
+        "size": 14.865019165890619,
+        "weight": 500,
+        "line_height": 18.320645905420992,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/ux/Roboto-Medium.ttf",
+        "color": 4286814903,
+        "tracking": 0.2525109801497412,
+        "font_asc": -0.043190317055613714,
+        "font_desc": -0.10378233919438629
+      },
+      {
+        "t": "text",
+        "id": "location",
+        "text": "CUPERTINO",
+        "x": 24.395974408960676,
+        "y": 118.3829296424452,
+        "w": 79.20176405733186,
+        "h": 13.845444059976932,
+        "size": 13.478254969807994,
+        "weight": 500,
+        "line_height": 13.845444059976932,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/ux/Roboto-Medium.ttf",
+        "color": 4287080144,
+        "tracking": 0.4284279839288132,
+        "font_asc": -0.05864408827319589,
+        "font_desc": 0.08598783827319598
+      },
+      {
+        "t": "stack",
+        "id": "temperature",
+        "x": 23.962513781697904,
+        "y": 151.49942329873124,
+        "w": 171.86108048511576,
+        "h": 100.66435986159169,
+        "c": [
+          {
+            "t": "text",
+            "id": "temperature_number",
+            "text": "24",
+            "x": 15.335835810158684,
+            "y": 151.49942329873124,
+            "w": 148.11196730274727,
+            "h": 100.66435986159169,
+            "size": 131.10503907055616,
+            "weight": 300,
+            "line_height": 100.66435986159169,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/ux/Inter-300.ttf",
+            "color": 4294309114,
+            "tracking": -8.40454477503394,
+            "font_asc": -0.21619036872225805,
+            "font_desc": 0.22595599372225814
+          },
+          {
+            "t": "text",
+            "id": "temperature_degree",
+            "text": "\u00b0",
+            "x": 161.41682846590265,
+            "y": 151.94694348327565,
+            "w": 41.74627691604471,
+            "h": 29.508650519031143,
+            "size": 105.11411722932752,
+            "weight": 300,
+            "line_height": 29.508650519031143,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/ux/RobotoCondensed-300.ttf",
+            "color": 4294309114,
+            "tracking": 0.02053143972658944,
+            "font_asc": -0.18800431001593865,
+            "font_desc": 0.7031410287659388
+          }
+        ]
+      },
+      {
+        "t": "svg",
+        "id": "weather_symbol",
+        "x": 277.08269018743107,
+        "y": 143.20645905420992,
+        "w": 102.954796030871,
+        "h": 113.6979051819184,
+        "src": "http://127.0.0.1:8170/ux-images/weather-02/assets/weather_symbol.svg"
+      },
+      {
+        "t": "text",
+        "id": "condition",
+        "text": "A calm, clear evening",
+        "x": 25.250430125703204,
+        "y": 280.3852364475202,
+        "w": 183.05181918412347,
+        "h": 21.90080738177624,
+        "size": 18.675931491532214,
+        "weight": 400,
+        "line_height": 21.90080738177624,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/ux/Roboto-Regular.ttf",
+        "color": 4294374903,
+        "tracking": 0.23837214411428675,
+        "font_asc": -0.07064466968025129,
+        "font_desc": -0.07144517406974871
+      },
+      {
+        "t": "text",
+        "id": "forecast_title",
+        "text": "Next few days",
+        "x": 25.005639159708917,
+        "y": 330.50749711649365,
+        "w": 128.08504123046825,
+        "h": 22.79584775086505,
+        "size": 19.304862684940634,
+        "weight": 500,
+        "line_height": 22.79584775086505,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/ux/Roboto-Medium.ttf",
+        "color": 4294309367,
+        "tracking": 0.30527600498020746,
+        "font_asc": -0.0638796282446612,
+        "font_desc": -0.07283912175533869
+      },
+      {
+        "t": "stack",
+        "id": "forecast",
+        "x": 20.0,
+        "y": 361.0,
+        "w": 366.0,
+        "h": 308.0,
+        "variant": "surface",
+        "bg": 4279445058,
+        "radius": 15.8,
+        "c": [
+          {
+            "t": "stack",
+            "id": "day_0",
+            "x": 20.0,
+            "y": 361.0,
+            "w": 366.0,
+            "h": 77.0,
+            "c": [
+              {
+                "t": "text",
+                "id": "day_label_0",
+                "text": "Now",
+                "x": 38.05261090438415,
+                "y": 388.6851211072664,
+                "w": 40.257993384785,
+                "h": 17.425605536332178,
+                "size": 18.85618755102834,
+                "weight": 500,
+                "line_height": 17.425605536332178,
+                "alignx": 0,
+                "variant": "single_line",
+                "font_src": "self:resources/camo/DMSans-Medium.ttf",
+                "color": 4294309111,
+                "tracking": -0.642338014656211,
+                "font_asc": -0.18593402061855668,
+                "font_desc": 0.1919340206185567
+              },
+              {
+                "t": "svg",
+                "id": "day_icon_0",
+                "x": 172.78500551267916,
+                "y": 367.41407151095734,
+                "w": 62.22050716648291,
+                "h": 59.98235942668136,
+                "src": "http://127.0.0.1:8170/ux-images/weather-02/assets/day_icon_0.svg"
+              },
+              {
+                "t": "text",
+                "id": "day_temp_0",
+                "text": "24\u00b0",
+                "x": 313.8129899880333,
+                "y": 381.97231833910035,
+                "w": 55.32116040647295,
+                "h": 31.74625144175317,
+                "size": 38.472798207657746,
+                "weight": 400,
+                "line_height": 31.74625144175317,
+                "alignx": 0,
+                "variant": "single_line",
+                "font_src": "self:resources/ux/Roboto-Regular.ttf",
+                "color": 4294309113,
+                "tracking": -1.431369725004835,
+                "font_asc": -0.1545581874714208,
+                "font_desc": 0.19215584372142086
+              }
+            ]
+          },
+          {
+            "t": "stack",
+            "id": "day_1",
+            "x": 20.0,
+            "y": 438.0,
+            "w": 366.0,
+            "h": 77.0,
+            "c": [
+              {
+                "t": "text",
+                "id": "day_label_1",
+                "text": "Tue",
+                "x": 37.96816787315775,
+                "y": 464.31603229527104,
+                "w": 33.543550165380374,
+                "h": 17.425605536332178,
+                "size": 18.85618755102834,
+                "weight": 500,
+                "line_height": 17.425605536332178,
+                "alignx": 0,
+                "variant": "single_line",
+                "font_src": "self:resources/camo/DMSans-Medium.ttf",
+                "color": 4294375160,
+                "tracking": -1.0485662726225904,
+                "font_asc": -0.18593402061855668,
+                "font_desc": 0.1919340206185567
+              },
+              {
+                "t": "svg",
+                "id": "day_icon_1",
+                "x": 172.78500551267916,
+                "y": 443.0449826989619,
+                "w": 62.22050716648291,
+                "h": 59.98235942668136,
+                "src": "http://127.0.0.1:8170/ux-images/weather-02/assets/day_icon_1.svg"
+              },
+              {
+                "t": "text",
+                "id": "day_temp_1",
+                "text": "25\u00b0",
+                "x": 314.07753113380653,
+                "y": 458.05074971164936,
+                "w": 54.86253959841957,
+                "h": 31.74625144175317,
+                "size": 37.95879956760888,
+                "weight": 500,
+                "line_height": 31.74625144175317,
+                "alignx": 0,
+                "variant": "single_line",
+                "font_src": "self:resources/ux/Roboto-Medium.ttf",
+                "color": 4294309112,
+                "tracking": -1.57478990218058,
+                "font_asc": -0.15385426355431076,
+                "font_desc": 0.1816862948043107
+              }
+            ]
+          },
+          {
+            "t": "stack",
+            "id": "day_2",
+            "x": 20.0,
+            "y": 515.0,
+            "w": 366.0,
+            "h": 77.0,
+            "c": [
+              {
+                "t": "text",
+                "id": "day_label_2",
+                "text": "Wed",
+                "x": 38.01965331911391,
+                "y": 539.9469434832756,
+                "w": 40.257993384785,
+                "h": 17.873125720876587,
+                "size": 18.766288953999503,
+                "weight": 400,
+                "line_height": 17.873125720876587,
+                "alignx": 0,
+                "variant": "single_line",
+                "font_src": "self:resources/ux/Inter-400.ttf",
+                "color": 4294375161,
+                "tracking": -1.3703504238726083,
+                "font_asc": -0.13463685644953438,
+                "font_desc": 0.12291810644953438
+              },
+              {
+                "t": "svg",
+                "id": "day_icon_2",
+                "x": 172.78500551267916,
+                "y": 518.6758938869665,
+                "w": 62.22050716648291,
+                "h": 60.429988974641674,
+                "src": "http://127.0.0.1:8170/ux-images/weather-02/assets/day_icon_2.svg"
+              },
+              {
+                "t": "text",
+                "id": "day_temp_2",
+                "text": "23\u00b0",
+                "x": 313.80848092265757,
+                "y": 533.2341407151096,
+                "w": 55.26357388537103,
+                "h": 32.193771626297575,
+                "size": 38.57103827031225,
+                "weight": 400,
+                "line_height": 32.193771626297575,
+                "alignx": 0,
+                "variant": "single_line",
+                "font_src": "self:resources/ux/Roboto-Regular.ttf",
+                "color": 4294309112,
+                "tracking": -1.499605315398405,
+                "font_asc": -0.15469059220821058,
+                "font_desc": 0.18252262345821066
+              }
+            ]
+          },
+          {
+            "t": "stack",
+            "id": "day_3",
+            "x": 20.0,
+            "y": 592.0,
+            "w": 366.0,
+            "h": 77.0,
+            "c": [
+              {
+                "t": "text",
+                "id": "day_label_3",
+                "text": "Thu",
+                "x": 37.6927471762688,
+                "y": 615.5778546712803,
+                "w": 33.991179713340685,
+                "h": 17.425605536332178,
+                "size": 18.28167562394169,
+                "weight": 500,
+                "line_height": 17.425605536332178,
+                "alignx": 0,
+                "variant": "single_line",
+                "font_src": "self:resources/ux/Inter-500.ttf",
+                "color": 4294243575,
+                "tracking": -0.9071470203082352,
+                "font_asc": -0.131811775128866,
+                "font_desc": 0.1249758376288661
+              },
+              {
+                "t": "svg",
+                "id": "day_icon_3",
+                "x": 172.78500551267916,
+                "y": 594.3068050749712,
+                "w": 62.22050716648291,
+                "h": 59.98235942668136,
+                "src": "http://127.0.0.1:8170/ux-images/weather-02/assets/day_icon_3.svg"
+              },
+              {
+                "t": "text",
+                "id": "day_temp_3",
+                "text": "22\u00b0",
+                "x": 313.8129899880333,
+                "y": 608.8650519031141,
+                "w": 55.32116040647295,
+                "h": 31.74625144175317,
+                "size": 38.472798207657746,
+                "weight": 400,
+                "line_height": 31.74625144175317,
+                "alignx": 0,
+                "variant": "single_line",
+                "font_src": "self:resources/ux/Roboto-Regular.ttf",
+                "color": 4294308856,
+                "tracking": -1.431369725004835,
+                "font_asc": -0.1545581874714208,
+                "font_desc": 0.19215584372142086
+              }
+            ]
+          }
+        ],
+        "bg2": 4279445058
+      },
+      {
+        "t": "stack",
+        "id": "primary",
+        "x": 21.0,
+        "y": 690.0,
+        "w": 363.0,
+        "h": 56.0,
+        "c": [
+          {
+            "t": "stack",
+            "id": "primary_surface",
+            "x": 21.0,
+            "y": 690.0,
+            "w": 363.0,
+            "h": 56.0,
+            "variant": "surface",
+            "bg": 4287612148,
+            "radius": 16.74,
+            "c": [],
+            "bg2": 4287612147
+          },
+          {
+            "t": "text",
+            "id": "primary_label",
+            "text": "My cities",
+            "x": 166.88544144825215,
+            "y": 709.1095732410611,
+            "w": 72.52734261922052,
+            "h": 20.110726643598614,
+            "size": 17.247657169937252,
+            "weight": 400,
+            "line_height": 20.110726643598614,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/ux/Roboto-Regular.ttf",
+            "color": 4278520342,
+            "tracking": 0.2137902765763222,
+            "font_asc": -0.09107347206561422,
+            "font_desc": -0.08519605918438572
+          },
+          {
+            "t": "button",
+            "id": "primary_control",
+            "x": 21.0,
+            "y": 690.0,
+            "w": 363.0,
+            "h": 56.0,
+            "enabled": 1
+          }
+        ],
+        "kit": "{\"widget\":\"KitButton\",\"bindings\":{\"control\":[2],\"label\":[1]}}"
+      }
+    ],
+    "bg2": 4278323222
+  },
+  "changes": [
+    {
+      "id": "page",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "weather_symbol",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "forecast",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "day_0",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "day_icon_0",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "day_1",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "day_icon_1",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "day_2",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "day_icon_2",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "day_3",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "day_icon_3",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "primary",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "primary_surface",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "primary_control",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "heading",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.05818040390951868
+    },
+    {
+      "id": "subtitle",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.01813882759743176
+    },
+    {
+      "id": "location",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": 0.003384795467719912
+    },
+    {
+      "id": "temperature",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.10729340619162911
+    },
+    {
+      "id": "condition",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.020683676786505897
+    },
+    {
+      "id": "forecast_title",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.04936550465422845
+    },
+    {
+      "id": "day_label_0",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.03406510530922145
+    },
+    {
+      "id": "day_temp_0",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.09250272939033478
+    },
+    {
+      "id": "day_label_1",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.05560860432603227
+    },
+    {
+      "id": "day_temp_1",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.07106457314410436
+    },
+    {
+      "id": "day_label_2",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.10394371659072592
+    },
+    {
+      "id": "day_temp_2",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.06953973864975364
+    },
+    {
+      "id": "day_label_3",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.011900246649768706
+    },
+    {
+      "id": "day_temp_3",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.057502729390334774
+    },
+    {
+      "id": "primary_label",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.024394944570453367
+    }
+  ],
+  "limits": [
+    "Measured fixed artboard; not a responsive production application."
+  ],
+  "feedback_repairs": [
+    {
+      "id": "temperature",
+      "from_round": "002",
+      "ink_width_delta": -3.361,
+      "tracking_adjustment": 1.6805
+    }
+  ],
+  "font_repair": {
+    "method": "reference glyph silhouette fit; native verification required",
+    "family": "Roboto",
+    "family_errors": {
+      "RobotoCondensed": 0.554999278991032,
+      "DMSans": 0.3942806784081457,
+      "Roboto": 0.3592758526477316,
+      "Inter": 0.39383502374170715
+    }
+  }
+}

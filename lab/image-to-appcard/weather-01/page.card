@@ -1,0 +1,198 @@
+# ledger weather-01@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy heading_text { class: user-copy, en: "Cupertino" }
+copy subtitle_text { class: user-copy, en: "Monday, September 7" }
+copy units_label_text { class: user-copy, en: "°C" }
+copy current_kicker_text { class: user-copy, en: "CURRENT WEATHER" }
+copy temperature_number_text { class: user-copy, en: "24" }
+copy temperature_degree_text { class: user-copy, en: "°" }
+copy condition_text { class: user-copy, en: "Partly cloudy" }
+copy range_text { class: user-copy, en: "H 27° · L 17°" }
+copy forecast_title_text { class: user-copy, en: "This week" }
+copy forecast_title_detail_text { class: user-copy, en: "4-day outlook" }
+copy day_label_0_text { class: user-copy, en: "Now" }
+copy day_temp_0_text { class: user-copy, en: "24°" }
+copy day_label_1_text { class: user-copy, en: "Tue" }
+copy day_temp_1_text { class: user-copy, en: "25°" }
+copy day_label_2_text { class: user-copy, en: "Wed" }
+copy day_temp_2_text { class: user-copy, en: "23°" }
+copy day_label_3_text { class: user-copy, en: "Thu" }
+copy day_temp_3_text { class: user-copy, en: "22°" }
+copy details_title_text { class: user-copy, en: "Details" }
+copy humidity_label_text { class: user-copy, en: "Humidity" }
+copy humidity_value_text { class: user-copy, en: "64%" }
+copy wind_label_text { class: user-copy, en: "Wind" }
+copy wind_value_text { class: user-copy, en: "12 km/h" }
+copy primary_label_text { class: user-copy, en: "My cities" }
+state units_control_enabled { shape: bool, initial: true }
+state primary_control_enabled { shape: bool, initial: true }
+component Surface34dbe434a6cc(instance: text) {
+  view Kit(component: "Surface34dbe434a6cc", instance: instance) { slot }
+}
+component Text1b3d889f8b2b(instance: text, text: text) {
+  view Kit(component: "Text1b3d889f8b2b", instance: instance, text: text)
+}
+component Textd7f5bfdef1bd(instance: text, text: text) {
+  view Kit(component: "Textd7f5bfdef1bd", instance: instance, text: text)
+}
+component KitButtone3f1fa815770(instance: text) {
+  view Kit(component: "KitButtone3f1fa815770", instance: instance) { slot }
+}
+component Surface73facf58bae8(instance: text) {
+  view Kit(component: "Surface73facf58bae8", instance: instance) { slot }
+}
+component Text692713f51bd0(instance: text, text: text) {
+  view Kit(component: "Text692713f51bd0", instance: instance, text: text)
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Surface0e59251450da(instance: text) {
+  view Kit(component: "Surface0e59251450da", instance: instance) { slot }
+}
+component Texte3bfb5f7c8d0(instance: text, text: text) {
+  view Kit(component: "Texte3bfb5f7c8d0", instance: instance, text: text)
+}
+component Group3d2637879433(instance: text) {
+  view Kit(component: "Group3d2637879433", instance: instance) { slot }
+}
+component Text1ea50a732fdd(instance: text, text: text) {
+  view Kit(component: "Text1ea50a732fdd", instance: instance, text: text)
+}
+component Textbc1fd318aa09(instance: text, text: text) {
+  view Kit(component: "Textbc1fd318aa09", instance: instance, text: text)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Textfdffab78c540(instance: text, text: text) {
+  view Kit(component: "Textfdffab78c540", instance: instance, text: text)
+}
+component Text41dd228c266b(instance: text, text: text) {
+  view Kit(component: "Text41dd228c266b", instance: instance, text: text)
+}
+component Textec78435bfe44(instance: text, text: text) {
+  view Kit(component: "Textec78435bfe44", instance: instance, text: text)
+}
+component Text5691cc104100(instance: text, text: text) {
+  view Kit(component: "Text5691cc104100", instance: instance, text: text)
+}
+component Surfacece8604600265(instance: text) {
+  view Kit(component: "Surfacece8604600265", instance: instance) { slot }
+}
+component Textbc819268539c(instance: text, text: text) {
+  view Kit(component: "Textbc819268539c", instance: instance, text: text)
+}
+component Text63aa930d50ee(instance: text, text: text) {
+  view Kit(component: "Text63aa930d50ee", instance: instance, text: text)
+}
+component Textdf4e83affc96(instance: text, text: text) {
+  view Kit(component: "Textdf4e83affc96", instance: instance, text: text)
+}
+component Textd08471be84e1(instance: text, text: text) {
+  view Kit(component: "Textd08471be84e1", instance: instance, text: text)
+}
+component Text8479766d4e7c(instance: text, text: text) {
+  view Kit(component: "Text8479766d4e7c", instance: instance, text: text)
+}
+component Text65de06e3cfdf(instance: text, text: text) {
+  view Kit(component: "Text65de06e3cfdf", instance: instance, text: text)
+}
+component Textb95b018ce58d(instance: text, text: text) {
+  view Kit(component: "Textb95b018ce58d", instance: instance, text: text)
+}
+component Texte82c55141c5f(instance: text, text: text) {
+  view Kit(component: "Texte82c55141c5f", instance: instance, text: text)
+}
+component Text3792c20d7768(instance: text, text: text) {
+  view Kit(component: "Text3792c20d7768", instance: instance, text: text)
+}
+component Surfacead874809886b(instance: text) {
+  view Kit(component: "Surfacead874809886b", instance: instance) { slot }
+}
+component Text90584d732e7f(instance: text, text: text) {
+  view Kit(component: "Text90584d732e7f", instance: instance, text: text)
+}
+component Text2c5a5f265091(instance: text, text: text) {
+  view Kit(component: "Text2c5a5f265091", instance: instance, text: text)
+}
+component Surfacea32b38bfda00(instance: text) {
+  view Kit(component: "Surfacea32b38bfda00", instance: instance) { slot }
+}
+component Textaf8c228b9070(instance: text, text: text) {
+  view Kit(component: "Textaf8c228b9070", instance: instance, text: text)
+}
+component Text29417f8bfad3(instance: text, text: text) {
+  view Kit(component: "Text29417f8bfad3", instance: instance, text: text)
+}
+component Surfaceba75230c35cf(instance: text) {
+  view Kit(component: "Surfaceba75230c35cf", instance: instance) { slot }
+}
+component Text93601b62e904(instance: text, text: text) {
+  view Kit(component: "Text93601b62e904", instance: instance, text: text)
+}
+
+view root Surface34dbe434a6cc(instance: "page") {
+  Text1b3d889f8b2b(instance: "heading", text: copy.heading_text)
+  Textd7f5bfdef1bd(instance: "subtitle", text: copy.subtitle_text)
+  KitButtone3f1fa815770(instance: "units") {
+    Surface73facf58bae8(instance: "units_surface") {
+
+    }
+    Text692713f51bd0(instance: "units_label", text: copy.units_label_text)
+    NativeButton02f1d1bd99b4(instance: "units_control", enabled: units_control_enabled)
+  }
+  Surface0e59251450da(instance: "current") {
+    Texte3bfb5f7c8d0(instance: "current_kicker", text: copy.current_kicker_text)
+    Group3d2637879433(instance: "temperature") {
+      Text1ea50a732fdd(instance: "temperature_number", text: copy.temperature_number_text)
+      Textbc1fd318aa09(instance: "temperature_degree", text: copy.temperature_degree_text)
+    }
+    Vectore0a378fde04f(instance: "weather_symbol")
+    Textfdffab78c540(instance: "condition", text: copy.condition_text)
+    Text41dd228c266b(instance: "range", text: copy.range_text)
+  }
+  Textec78435bfe44(instance: "forecast_title", text: copy.forecast_title_text)
+  Text5691cc104100(instance: "forecast_title_detail", text: copy.forecast_title_detail_text)
+  Surfacece8604600265(instance: "forecast") {
+    Group3d2637879433(instance: "day_0") {
+      Textbc819268539c(instance: "day_label_0", text: copy.day_label_0_text)
+      Vectore0a378fde04f(instance: "day_icon_0")
+      Text63aa930d50ee(instance: "day_temp_0", text: copy.day_temp_0_text)
+    }
+    Group3d2637879433(instance: "day_1") {
+      Textdf4e83affc96(instance: "day_label_1", text: copy.day_label_1_text)
+      Vectore0a378fde04f(instance: "day_icon_1")
+      Textd08471be84e1(instance: "day_temp_1", text: copy.day_temp_1_text)
+    }
+    Group3d2637879433(instance: "day_2") {
+      Text8479766d4e7c(instance: "day_label_2", text: copy.day_label_2_text)
+      Vectore0a378fde04f(instance: "day_icon_2")
+      Text65de06e3cfdf(instance: "day_temp_2", text: copy.day_temp_2_text)
+    }
+    Group3d2637879433(instance: "day_3") {
+      Textb95b018ce58d(instance: "day_label_3", text: copy.day_label_3_text)
+      Vectore0a378fde04f(instance: "day_icon_3")
+      Texte82c55141c5f(instance: "day_temp_3", text: copy.day_temp_3_text)
+    }
+  }
+  Text3792c20d7768(instance: "details_title", text: copy.details_title_text)
+  Surfacead874809886b(instance: "humidity") {
+    Text90584d732e7f(instance: "humidity_label", text: copy.humidity_label_text)
+    Text2c5a5f265091(instance: "humidity_value", text: copy.humidity_value_text)
+  }
+  Surfacea32b38bfda00(instance: "wind") {
+    Textaf8c228b9070(instance: "wind_label", text: copy.wind_label_text)
+    Text29417f8bfad3(instance: "wind_value", text: copy.wind_value_text)
+  }
+  KitButtone3f1fa815770(instance: "primary") {
+    Surfaceba75230c35cf(instance: "primary_surface") {
+
+    }
+    Text93601b62e904(instance: "primary_label", text: copy.primary_label_text)
+    NativeButton02f1d1bd99b4(instance: "primary_control", enabled: primary_control_enabled)
+  }
+}
