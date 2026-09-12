@@ -26,10 +26,10 @@ reuse requires matching original content and reference-image hashes.
 
 ```sh
 lab/sketch-to-appcard/.venv/bin/python lab/sketch-to-appcard/migrate_legacy.py --kit taskplan \
-  --review lab/sketch-to-appcard/work/taskplan/native/source-semantic-review.json
+  --review lab/core/work/taskplan/native/source-semantic-review.json
 lab/sketch-to-appcard/.venv/bin/python lab/sketch-to-appcard/sketch_native.py --kit taskplan-native-all
-lab/sketch-to-appcard/.venv/bin/python lab/sketch-to-appcard/promote_l0.py --kit taskplan-native-all
-lab/sketch-to-appcard/.venv/bin/python lab/sketch-to-appcard/render_splash_makepad.py \
+lab/sketch-to-appcard/.venv/bin/python lab/core/promote_l0.py --kit taskplan-native-all
+lab/sketch-to-appcard/.venv/bin/python lab/core/render_splash_makepad.py \
   --kit taskplan-l0-all --studio 127.0.0.1:8002
 ```
 

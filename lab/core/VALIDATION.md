@@ -13,9 +13,9 @@ test logs, code hashes and browser evidence.
 
 | Kit | Accepted artboards | Native chart/progress regions | Studio builds | Generated cards |
 |---|---:|---:|---|---|
-| Taskplan | 79/79 | 32 | 17, 21 | [L0 cards](../sketch-to-appcard/work/taskplan/native/l0/) |
-| Atro V2 | 150/150 | 38 | 20 | [L0 cards](../sketch-to-appcard/work/atro/native/l0/) |
-| Camo 2 | 246/246 | 30 | 18, 19 | [L0 cards](../sketch-to-appcard/work/camo/native/l0/) |
+| Taskplan | 79/79 | 32 | 17, 21 | [L0 cards](work/taskplan/native/l0/) |
+| Atro V2 | 150/150 | 38 | 20 | [L0 cards](work/atro/native/l0/) |
+| Camo 2 | 246/246 | 30 | 18, 19 | [L0 cards](work/camo/native/l0/) |
 
 All 475 captures passed a final input/runtime fingerprint check. Valid saved
 checkpoints retain their original build IDs. Visual receipts bind exact source

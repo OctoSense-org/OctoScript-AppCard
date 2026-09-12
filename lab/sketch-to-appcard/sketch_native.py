@@ -22,6 +22,8 @@ import zipfile
 import xml.etree.ElementTree as ET
 from PIL import Image
 
+import sys as _sys, pathlib as _pathlib
+_sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[1]))
 from core import kitconf
 from sketch2spec import Extractor
 from sketch_assets import export_graphics

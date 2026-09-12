@@ -72,20 +72,20 @@ After the host is ready, rerun that design's capture/gate stages without
 ## Sketch input
 
 Copy [the generic kit configuration](examples/sketch-kit.json) to
-`lab/sketch-to-appcard/kits/example-native-all.json`. Edit the archive member, page,
+`lab/core/kits/example-native-all.json`. Edit the archive member, page,
 artboard names, scale and fonts for your input. Paths are relative to
-`lab/sketch-to-appcard`; keep each kit's outputs in its own `work/` directory.
+`lab/core`; keep each kit's outputs in its own `work/` directory.
 `font_files`, when needed, must point to your exact local font files; those
 local settings are not part of the shareable example.
 
 ```sh
-cp lab/core/examples/sketch-kit.json lab/sketch-to-appcard/kits/example-native-all.json
-# Place your archive at lab/sketch-to-appcard/work/example/source.zip and edit the config.
+cp lab/core/examples/sketch-kit.json lab/core/kits/example-native-all.json
+# Place your archive at lab/core/work/example/source.zip and edit the config.
 lab/sketch-to-appcard/.venv/bin/python lab/sketch-to-appcard/sketch_native.py --kit example-native-all
 
 # Repeat for each configured screen. This creates an UNREVIEWED template.
 lab/sketch-to-appcard/.venv/bin/python lab/core/review.py prepare-source \
-  --kit example-native-all --screen Home --out lab/sketch-to-appcard/work/example/source-review/Home
+  --kit example-native-all --screen Home --out lab/core/work/example/source-review/Home
 ```
 
 Inspect the complete source image and tree, including anonymous numerical
@@ -100,13 +100,13 @@ a review aid and does not classify the image for you.
 ```sh
 # Lower the reviewed semantic mappings, then create reusable L0 cards.
 lab/sketch-to-appcard/.venv/bin/python lab/sketch-to-appcard/sketch_native.py --kit example-native-all
-lab/sketch-to-appcard/.venv/bin/python lab/sketch-to-appcard/promote_l0.py --kit example-native-all
-lab/sketch-to-appcard/.venv/bin/python lab/sketch-to-appcard/render_splash_makepad.py \
+lab/sketch-to-appcard/.venv/bin/python lab/core/promote_l0.py --kit example-native-all
+lab/sketch-to-appcard/.venv/bin/python lab/core/render_splash_makepad.py \
   --kit example-l0-all --studio "$BEAUTY_STUDIO"
 
 # Prepare a fixed source/native pair; inspect its index.html before deciding.
 lab/sketch-to-appcard/.venv/bin/python lab/core/review.py prepare \
-  --kit example-l0-all --screen Home --out lab/sketch-to-appcard/work/example/visual-review/Home
+  --kit example-l0-all --screen Home --out lab/core/work/example/visual-review/Home
 ```
 
 Copy `decision.template.json` to `decision.json` in that packet. A reviewer
@@ -116,8 +116,8 @@ template cannot be submitted. Then repeat submission for every reviewed screen:
 
 ```sh
 lab/sketch-to-appcard/.venv/bin/python lab/core/review.py submit \
-  --packet lab/sketch-to-appcard/work/example/visual-review/Home \
-  --decision lab/sketch-to-appcard/work/example/visual-review/Home/decision.json
+  --packet lab/core/work/example/visual-review/Home \
+  --decision lab/core/work/example/visual-review/Home/decision.json
 bash tools/beauty-pipeline.sh --kit example-l0-all --stages audit
 ```
 
