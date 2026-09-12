@@ -312,7 +312,7 @@ native views and web documents are guests in rectangles.
 
 ## 8. The new Splash language (ymote/Splash)
 
-The repo at `github.com/ymote/Splash` is not the widget layer — it's the Splash
+The repo at `github.com/OctoSense-org/Octoscript` is not the widget layer — it's the Splash
 *VM/language*, restructured into a capability-secure, bounded, UI-optional
 orchestration runtime.
 
