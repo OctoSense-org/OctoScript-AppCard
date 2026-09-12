@@ -1,0 +1,501 @@
+{
+  "validated_at": "2026-09-08T09:46:19.022712+00:00",
+  "scope": "Legacy Taskplan, Atro V2 and Camo 2 migration to reviewed native numerical widgets and reusable L0 cards at source artboard sizes.",
+  "tests": {
+    "sketch": 185,
+    "image": 38,
+    "shared": 16,
+    "total": 239,
+    "failed": 0
+  },
+  "sketch": {
+    "taskplan-l0-all": {
+      "screens": 79,
+      "fresh_captures": 79,
+      "structural_pass": 79,
+      "current_visual_pass": 79,
+      "semantic_policy_pass": 79,
+      "l0_kit_pass": 79,
+      "overall_status": "passed",
+      "overall_accepted": 79,
+      "native_elements": 13049,
+      "numerical_regions": 32,
+      "numerical_roles": {
+        "progress": 12,
+        "chart.donut": 14,
+        "chart.bar": 4,
+        "chart.area": 2
+      },
+      "build_ids": [
+        [
+          17
+        ],
+        [
+          21
+        ]
+      ],
+      "evidence": "lab/sketch/work/taskplan/native/l0-captures/acceptance.json",
+      "source_review": "lab/sketch/work/taskplan/native/source-semantic-review.json",
+      "durable_source_review_artifacts": 7,
+      "cards": "lab/sketch/work/taskplan/native/l0",
+      "gallery": "http://127.0.0.1:8170/old-kits/taskplan/l0-captures/gallery.html",
+      "acceptance_sha256": "3bae6086e6045b5c7dc9387a05a40bc8684dda881987214d60492a0435a9eed6"
+    },
+    "atro-l0-all": {
+      "screens": 150,
+      "fresh_captures": 150,
+      "structural_pass": 150,
+      "current_visual_pass": 150,
+      "semantic_policy_pass": 150,
+      "l0_kit_pass": 150,
+      "overall_status": "passed",
+      "overall_accepted": 150,
+      "native_elements": 26650,
+      "numerical_regions": 38,
+      "numerical_roles": {
+        "progress": 10,
+        "chart.area": 7,
+        "chart.donut": 9,
+        "waveform": 2,
+        "chart.line": 3,
+        "chart.bar": 5,
+        "chart.radar": 2
+      },
+      "build_ids": [
+        [
+          20
+        ]
+      ],
+      "evidence": "lab/sketch/work/atro/native/l0-captures/acceptance.json",
+      "source_review": "lab/sketch/work/atro/native/source-semantic-review.json",
+      "durable_source_review_artifacts": 14,
+      "cards": "lab/sketch/work/atro/native/l0",
+      "gallery": "http://127.0.0.1:8170/old-kits/atro/l0-captures/gallery.html",
+      "acceptance_sha256": "8257f39e385937623f6f232fe4c519860b18dba291b2c0b7300c76a7248a6300"
+    },
+    "camo-l0-all": {
+      "screens": 246,
+      "fresh_captures": 246,
+      "structural_pass": 246,
+      "current_visual_pass": 246,
+      "semantic_policy_pass": 246,
+      "l0_kit_pass": 246,
+      "overall_status": "passed",
+      "overall_accepted": 246,
+      "native_elements": 29955,
+      "numerical_regions": 30,
+      "numerical_roles": {
+        "chart.donut": 10,
+        "chart.scatter": 4,
+        "chart.area": 2,
+        "chart.line": 2,
+        "chart.bar": 2,
+        "progress": 10
+      },
+      "build_ids": [
+        [
+          18
+        ],
+        [
+          19
+        ]
+      ],
+      "evidence": "lab/sketch/work/camo/native/l0-captures/acceptance.json",
+      "source_review": "lab/sketch/work/camo/native/source-semantic-review.json",
+      "durable_source_review_artifacts": 22,
+      "cards": "lab/sketch/work/camo/native/l0",
+      "gallery": "http://127.0.0.1:8170/old-kits/camo/l0-captures/gallery.html",
+      "acceptance_sha256": "9fbe906ab4549ddbeaf1fb96ac514307b126f947237d265b93d0d070b8458752"
+    }
+  },
+  "numerical_regions": 100,
+  "native_elements": 69654,
+  "test_evidence": {
+    "sketch": {
+      "log": "lab/beauty_core/qa-work/old-kit-migration/sketch-tests.log",
+      "sha256": "64e2193d1eb7d1457aa3e307b923f1c3abbd7595f61b62bc5367528f7dc8855a"
+    },
+    "image": {
+      "log": "lab/beauty_core/qa-work/old-kit-migration/image-tests.log",
+      "sha256": "e79ed2c7ddf832e6f826be8f7a497aa7ff93c3ab4ea718d0e3f3858f0b625c21"
+    },
+    "shared": {
+      "log": "lab/beauty_core/qa-work/old-kit-migration/shared-tests.log",
+      "sha256": "b05156def03dabbff9e1eff6cbf994fdfac2fdcd87bc2f4103d9541de8bebeb2"
+    }
+  },
+  "validation_code_sha256": {
+    "lab/sketch/semantic_policy.py": "b47aa732a1948ae3e1676cf5fc98f7b0cc884f7bd96deb26d488e6b2ab963d07",
+    "lab/sketch/gate_structure.py": "076d7402b694131804cd273b6a5ef990e835e028f017433ef2cb8d3fdd0643b2",
+    "lab/sketch/render_splash_makepad.py": "953ee5f7e2e4916eb36c6ad1ed96df2a4b0251bf7422bf1e2f03aa24290a4933",
+    "lab/sketch/migrate_legacy.py": "d6183d422f9e2d4226a175e870c9e8302db99300d6cba54878305ddaa740787d",
+    "lab/sketch/gate_kit.py": "08cf04552f79264071507f3f20968fa204b39d8e09afb6f3f363d4bfa09606a5",
+    "lab/ux-image/gate.py": "d1456439537d0d623f8ee0b970108d55e8f54bd61872028d2b67fa955d6be1d1",
+    "lab/ux-image/studio.py": "0c1c8140fa38d057c9e32c803cf67180e6bed7d02c40b89c3353d8ea24c6571f"
+  },
+  "image_designs": {
+    "total": 31,
+    "accepted": 31,
+    "native_elements": 914,
+    "build_ids": [
+      [
+        22
+      ]
+    ],
+    "designs": [
+      {
+        "id": "weather-01",
+        "round": "012",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 45
+      },
+      {
+        "id": "weather-02",
+        "round": "009",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 31
+      },
+      {
+        "id": "weather-03",
+        "round": "011",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 33
+      },
+      {
+        "id": "weather-04",
+        "round": "010",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 41
+      },
+      {
+        "id": "weather-05",
+        "round": "014",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 40
+      },
+      {
+        "id": "weather-06",
+        "round": "010",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 32
+      },
+      {
+        "id": "weather-07",
+        "round": "008",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 18
+      },
+      {
+        "id": "weather-08",
+        "round": "013",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 46
+      },
+      {
+        "id": "weather-09",
+        "round": "008",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 35
+      },
+      {
+        "id": "weather-10",
+        "round": "014",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 20
+      },
+      {
+        "id": "news-01",
+        "round": "008",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 23
+      },
+      {
+        "id": "news-02",
+        "round": "008",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 27
+      },
+      {
+        "id": "news-03",
+        "round": "007",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 23
+      },
+      {
+        "id": "news-04",
+        "round": "011",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 30
+      },
+      {
+        "id": "news-05",
+        "round": "007",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 22
+      },
+      {
+        "id": "news-06",
+        "round": "006",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 26
+      },
+      {
+        "id": "news-07",
+        "round": "007",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 23
+      },
+      {
+        "id": "news-08",
+        "round": "008",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 23
+      },
+      {
+        "id": "news-09",
+        "round": "009",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 26
+      },
+      {
+        "id": "news-10",
+        "round": "008",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 23
+      },
+      {
+        "id": "stock-01",
+        "round": "011",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 23
+      },
+      {
+        "id": "stock-02",
+        "round": "009",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 31
+      },
+      {
+        "id": "stock-03",
+        "round": "008",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 28
+      },
+      {
+        "id": "stock-04",
+        "round": "008",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 27
+      },
+      {
+        "id": "stock-05",
+        "round": "011",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 39
+      },
+      {
+        "id": "stock-06",
+        "round": "009",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 20
+      },
+      {
+        "id": "stock-07",
+        "round": "010",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 31
+      },
+      {
+        "id": "stock-08",
+        "round": "011",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 40
+      },
+      {
+        "id": "stock-09",
+        "round": "010",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 31
+      },
+      {
+        "id": "stock-10",
+        "round": "007",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 24
+      },
+      {
+        "id": "weather-11",
+        "round": "007",
+        "build_id": [
+          22
+        ],
+        "accepted": true,
+        "native_elements": 33
+      }
+    ]
+  },
+  "gallery": {
+    "checked_at": "2026-09-08T09:43:43.975925+00:00",
+    "url": "http://127.0.0.1:8170/old-kits/",
+    "pass": true,
+    "design_comparisons": 475,
+    "kits": {
+      "taskplan": 79,
+      "atro": 150,
+      "camo": 246
+    },
+    "source_native_image_hashes_verified": 950,
+    "artifact_links_checked": 3788,
+    "browser_checks": [
+      {
+        "kit": "taskplan",
+        "search": true,
+        "repair_filter_empty": true,
+        "images_aligned": true
+      },
+      {
+        "kit": "atro",
+        "search": true,
+        "repair_filter_empty": true,
+        "images_aligned": true
+      },
+      {
+        "kit": "camo",
+        "search": true,
+        "repair_filter_empty": true,
+        "images_aligned": true
+      }
+    ],
+    "console_errors": [],
+    "scope": "Local comparison gallery and published evidence; the browser mobile viewport does not establish native phone parity."
+  },
+  "image_gallery": {
+    "checked_at": "2026-09-08T09:45:42.744226+00:00",
+    "url": "http://127.0.0.1:8170/ux-images/",
+    "pass": true,
+    "design_comparisons": 31,
+    "published_reference_native_hashes_verified": 62,
+    "artifact_links_checked": 373,
+    "build_ids": [
+      [
+        22
+      ]
+    ],
+    "console_errors": []
+  },
+  "scope_limits": [
+    "Source artboard dimensions only; responsive layouts and Mate 70 parity are not established.",
+    "Native controls and numerical state probes do not establish complete application workflows.",
+    "Numerical arrays approximate Sketch geometry; they are not recovered business values or live feeds.",
+    "Visual acceptance is source parity at the configured 9/10 threshold, not user design-preference approval."
+  ],
+  "cleanup": {
+    "requested_at": "2026-09-08T09:47:14.364345+00:00",
+    "studio_pid": 27795,
+    "studio_address": "127.0.0.1:8002",
+    "bridge_pid": 83853,
+    "bridge_address": "127.0.0.1:8169",
+    "clear_build_22": {
+      "sent": true
+    },
+    "studio_graceful_quit": "{\"ok\":1}",
+    "preserved_user_studio_pid": 86685,
+    "preserved_user_bridge_pid": 35374,
+    "preserved_gallery_pid": 11417,
+    "gallery_url": "http://127.0.0.1:8170/old-kits/",
+    "verified_at": "2026-09-08T09:47:42.851147+00:00",
+    "temporary_processes_stopped": true,
+    "user_studio_and_gallery_preserved": true
+  },
+  "completed_at": "2026-09-08T09:50:18.155387+00:00"
+}

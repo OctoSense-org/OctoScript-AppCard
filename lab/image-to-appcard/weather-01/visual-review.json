@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "reference_sha256": "4151ef99fa08444701901ef37f66db47944ca3ca2f8e7d72b86d785c4ab2ca64",
+  "native_sha256": "e9d72a1161b7b983b47344fda8a42fce85dd7cc4e1e2f339951c3d53e9b557b8",
+  "reviewer": "Codex \u2014 source/native screenshot review",
+  "reviewed_at": "2026-09-08T00:02:03.378566+00:00",
+  "verdict": "pass",
+  "criteria": {
+    "typography": true,
+    "colors": true,
+    "imagery": true,
+    "effects": true
+  },
+  "findings": [
+    {
+      "area": "screen composition",
+      "status": "verified after repair",
+      "detail": "Restored the pale cloud and removed texture holes from the small SVG cloud; reviewed the hero, degree symbol, four forecasts and detail-card borders."
+    },
+    {
+      "area": "font and effects fidelity",
+      "status": "accepted approximation",
+      "detail": "Bundled font faces approximate the generated glyphs. Fine image grain, lighting and stroke rendering are not pixel-identical."
+    }
+  ],
+  "scope": "Native design prototype at 406 \u00d7 776 logical pixels, captured at 2\u00d7 in desktop Studio. No claim of exact generated-font identity, responsive phone layout, live feeds or complete app navigation.",
+  "build_id": [
+    53
+  ],
+  "round": "010",
+  "visual_evidence": {
+    "reviewed_round": "009",
+    "reviewed_build_id": [
+      52
+    ],
+    "current_capture_pixels_identical_to_reviewed": true
+  },
+  "user_design_preference": "not reviewed by user in this QA receipt"
+}

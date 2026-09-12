@@ -1,0 +1,283 @@
+{
+  "schema_version": 1,
+  "id": "weather-07",
+  "app": "weather",
+  "number": 7,
+  "title": "Rain watch",
+  "structure": "Precipitation focus: wide radar-like vector rings, rain timeline, one humidity metric.",
+  "artboard": [
+    406,
+    776
+  ],
+  "font_family": "DM Sans",
+  "palette": {
+    "name": "Lavender",
+    "page": "F4F0FA",
+    "panel": "FFFFFF",
+    "ink": "3A2A56",
+    "muted": "8C7C9C",
+    "tint": "E5DDF4",
+    "accent": "7551A9"
+  },
+  "content_source": "deterministic design fixture",
+  "tree": {
+    "t": "stack",
+    "id": "page",
+    "x": 0,
+    "y": 0,
+    "w": 406,
+    "h": 776,
+    "variant": "surface",
+    "bg": 4294242554,
+    "c": [
+      {
+        "t": "text",
+        "id": "heading",
+        "text": "Rain watch",
+        "x": 24,
+        "y": 32,
+        "w": 290,
+        "h": 39.0,
+        "size": 30,
+        "weight": 700,
+        "line_height": 39.0,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/camo/DMSans-Bold.ttf",
+        "color": 4282002006
+      },
+      {
+        "t": "text",
+        "id": "subtitle",
+        "text": "Monday, September 7",
+        "x": 24,
+        "y": 76,
+        "w": 350,
+        "h": 16.9,
+        "size": 13,
+        "weight": 400,
+        "line_height": 16.9,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/camo/DMSans-Regular.ttf",
+        "color": 4287397020
+      },
+      {
+        "t": "text",
+        "id": "location",
+        "text": "Cupertino",
+        "x": 24,
+        "y": 120,
+        "w": 358,
+        "h": 22.1,
+        "size": 17,
+        "weight": 700,
+        "line_height": 22.1,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/camo/DMSans-Bold.ttf",
+        "color": 4282002006
+      },
+      {
+        "t": "stack",
+        "id": "radar",
+        "x": 24,
+        "y": 164,
+        "w": 358,
+        "h": 254,
+        "variant": "surface",
+        "bg": 4293254644,
+        "radius": 20,
+        "c": [
+          {
+            "t": "svg",
+            "id": "rain_radar",
+            "x": 75,
+            "y": 180,
+            "w": 256,
+            "h": 220,
+            "src": "http://127.0.0.1:8170/ux-images/weather-07/assets/rain_radar.svg"
+          }
+        ]
+      },
+      {
+        "t": "text",
+        "id": "rain_headline",
+        "text": "Rain in 35 minutes",
+        "x": 24,
+        "y": 449,
+        "w": 358,
+        "h": 36.4,
+        "size": 28,
+        "weight": 700,
+        "line_height": 36.4,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/camo/DMSans-Bold.ttf",
+        "color": 4282002006
+      },
+      {
+        "t": "text",
+        "id": "rain_note",
+        "text": "A short shower, then clearer skies.",
+        "x": 24,
+        "y": 496,
+        "w": 358,
+        "h": 18.2,
+        "size": 14,
+        "weight": 400,
+        "line_height": 18.2,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/camo/DMSans-Regular.ttf",
+        "color": 4287397020
+      },
+      {
+        "t": "stack",
+        "id": "chance",
+        "x": 24,
+        "y": 550,
+        "w": 171,
+        "h": 92,
+        "variant": "surface",
+        "bg": 4294967295,
+        "radius": 20,
+        "c": [
+          {
+            "t": "text",
+            "id": "chance_label",
+            "text": "Rain chance",
+            "x": 40,
+            "y": 564,
+            "w": 139,
+            "h": 15.6,
+            "size": 12,
+            "weight": 500,
+            "line_height": 15.6,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/camo/DMSans-Medium.ttf",
+            "color": 4287397020
+          },
+          {
+            "t": "text",
+            "id": "chance_value",
+            "text": "80%",
+            "x": 40,
+            "y": 589,
+            "w": 139,
+            "h": 32.5,
+            "size": 25,
+            "weight": 700,
+            "line_height": 32.5,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/camo/DMSans-Bold.ttf",
+            "color": 4282002006
+          }
+        ]
+      },
+      {
+        "t": "stack",
+        "id": "humidity",
+        "x": 211,
+        "y": 550,
+        "w": 171,
+        "h": 92,
+        "variant": "surface",
+        "bg": 4294967295,
+        "radius": 20,
+        "c": [
+          {
+            "t": "text",
+            "id": "humidity_label",
+            "text": "Humidity",
+            "x": 227,
+            "y": 564,
+            "w": 139,
+            "h": 15.6,
+            "size": 12,
+            "weight": 500,
+            "line_height": 15.6,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/camo/DMSans-Medium.ttf",
+            "color": 4287397020
+          },
+          {
+            "t": "text",
+            "id": "humidity_value",
+            "text": "64%",
+            "x": 227,
+            "y": 589,
+            "w": 139,
+            "h": 32.5,
+            "size": 25,
+            "weight": 700,
+            "line_height": 32.5,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/camo/DMSans-Bold.ttf",
+            "color": 4282002006
+          }
+        ]
+      },
+      {
+        "t": "stack",
+        "id": "primary",
+        "x": 24,
+        "y": 708,
+        "w": 358,
+        "h": 44,
+        "c": [
+          {
+            "t": "stack",
+            "id": "primary_surface",
+            "x": 24,
+            "y": 708,
+            "w": 358,
+            "h": 44,
+            "variant": "surface",
+            "bg": 4285878697,
+            "radius": 14,
+            "c": []
+          },
+          {
+            "t": "text",
+            "id": "primary_label",
+            "text": "My cities",
+            "x": 32,
+            "y": 720.0,
+            "w": 342,
+            "h": 20,
+            "size": 14,
+            "weight": 500,
+            "line_height": 18.2,
+            "alignx": 0.5,
+            "variant": "single_line",
+            "font_src": "self:resources/camo/DMSans-Medium.ttf",
+            "color": 4294967295
+          },
+          {
+            "t": "button",
+            "id": "primary_control",
+            "x": 24,
+            "y": 708,
+            "w": 358,
+            "h": 44,
+            "enabled": 1
+          }
+        ],
+        "kit": "{\"widget\":\"KitButton\",\"bindings\":{\"control\":[2],\"label\":[1]}}"
+      }
+    ]
+  },
+  "graphics": {
+    "rain_radar": {
+      "kind": "radar",
+      "ink": "#7551A9",
+      "sun": "#E8BD63",
+      "cloud": "#B6CCC1"
+    }
+  }
+}

@@ -1,0 +1,168 @@
+# ledger weather-03@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy heading_text { class: user-copy, en: "Hour by hour" }
+copy subtitle_text { class: user-copy, en: "Monday, September 7" }
+copy temperature_number_text { class: user-copy, en: "24" }
+copy temperature_degree_text { class: user-copy, en: "°" }
+copy condition_text { class: user-copy, en: "Partly cloudy" }
+copy location_text { class: user-copy, en: "Cupertino" }
+copy hourly_title_text { class: user-copy, en: "Temperature trend" }
+copy hourly_title_detail_text { class: user-copy, en: "Next 12 hours" }
+copy hour_0_text { class: user-copy, en: "12 PM" }
+copy hour_1_text { class: user-copy, en: "3 PM" }
+copy hour_2_text { class: user-copy, en: "6 PM" }
+copy hour_3_text { class: user-copy, en: "9 PM" }
+copy humidity_label_text { class: user-copy, en: "Humidity" }
+copy humidity_value_text { class: user-copy, en: "64%" }
+copy wind_label_text { class: user-copy, en: "Wind" }
+copy wind_value_number_text { class: user-copy, en: "12" }
+copy wind_value_unit_text { class: user-copy, en: "km/h" }
+copy primary_label_text { class: user-copy, en: "My cities" }
+copy chart_annotation_0_text { class: user-copy, en: "27°" }
+copy chart_annotation_1_text { class: user-copy, en: "24°" }
+copy chart_annotation_2_text { class: user-copy, en: "22°" }
+copy chart_annotation_3_text { class: user-copy, en: "18°" }
+state primary_control_enabled { shape: bool, initial: true }
+component Surfacef42490109823(instance: text) {
+  view Kit(component: "Surfacef42490109823", instance: instance) { slot }
+}
+component Texta768934ccdd4(instance: text, text: text) {
+  view Kit(component: "Texta768934ccdd4", instance: instance, text: text)
+}
+component Text7b70a09e1b8e(instance: text, text: text) {
+  view Kit(component: "Text7b70a09e1b8e", instance: instance, text: text)
+}
+component Surface79ddd7902558(instance: text) {
+  view Kit(component: "Surface79ddd7902558", instance: instance) { slot }
+}
+component Group3d2637879433(instance: text) {
+  view Kit(component: "Group3d2637879433", instance: instance) { slot }
+}
+component Textb10ad17c71a7(instance: text, text: text) {
+  view Kit(component: "Textb10ad17c71a7", instance: instance, text: text)
+}
+component Text73762f38050b(instance: text, text: text) {
+  view Kit(component: "Text73762f38050b", instance: instance, text: text)
+}
+component Textd49d0f90deb2(instance: text, text: text) {
+  view Kit(component: "Textd49d0f90deb2", instance: instance, text: text)
+}
+component Text28adc54e59db(instance: text, text: text) {
+  view Kit(component: "Text28adc54e59db", instance: instance, text: text)
+}
+component Text6886fa5058ca(instance: text, text: text) {
+  view Kit(component: "Text6886fa5058ca", instance: instance, text: text)
+}
+component Text6f127bec7724(instance: text, text: text) {
+  view Kit(component: "Text6f127bec7724", instance: instance, text: text)
+}
+component Surfacee3908b369b7c(instance: text) {
+  view Kit(component: "Surfacee3908b369b7c", instance: instance) { slot }
+}
+component Stockplot7c91b8e0daf8(instance: text) {
+  view Kit(component: "Stockplot7c91b8e0daf8", instance: instance)
+}
+component Text366f72f2bd82(instance: text, text: text) {
+  view Kit(component: "Text366f72f2bd82", instance: instance, text: text)
+}
+component Text98e9a5f11669(instance: text, text: text) {
+  view Kit(component: "Text98e9a5f11669", instance: instance, text: text)
+}
+component Text85ebbb54fe65(instance: text, text: text) {
+  view Kit(component: "Text85ebbb54fe65", instance: instance, text: text)
+}
+component Text1606cf7f069b(instance: text, text: text) {
+  view Kit(component: "Text1606cf7f069b", instance: instance, text: text)
+}
+component Surface5a3ae70e2535(instance: text) {
+  view Kit(component: "Surface5a3ae70e2535", instance: instance) { slot }
+}
+component Textd8e88bf09f2f(instance: text, text: text) {
+  view Kit(component: "Textd8e88bf09f2f", instance: instance, text: text)
+}
+component Text38fb5410ee24(instance: text, text: text) {
+  view Kit(component: "Text38fb5410ee24", instance: instance, text: text)
+}
+component Surfacea94143b54f6a(instance: text) {
+  view Kit(component: "Surfacea94143b54f6a", instance: instance) { slot }
+}
+component Text9626a21f8ef3(instance: text, text: text) {
+  view Kit(component: "Text9626a21f8ef3", instance: instance, text: text)
+}
+component Text6abf7d4ef3eb(instance: text, text: text) {
+  view Kit(component: "Text6abf7d4ef3eb", instance: instance, text: text)
+}
+component Text4613a99d576c(instance: text, text: text) {
+  view Kit(component: "Text4613a99d576c", instance: instance, text: text)
+}
+component KitButtone3f1fa815770(instance: text) {
+  view Kit(component: "KitButtone3f1fa815770", instance: instance) { slot }
+}
+component Surface76961ccf7f35(instance: text) {
+  view Kit(component: "Surface76961ccf7f35", instance: instance) { slot }
+}
+component Textbeea036b1eaf(instance: text, text: text) {
+  view Kit(component: "Textbeea036b1eaf", instance: instance, text: text)
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Text537712e4b102(instance: text, text: text) {
+  view Kit(component: "Text537712e4b102", instance: instance, text: text)
+}
+component Text535fdec32be1(instance: text, text: text) {
+  view Kit(component: "Text535fdec32be1", instance: instance, text: text)
+}
+component Text7500179a5c48(instance: text, text: text) {
+  view Kit(component: "Text7500179a5c48", instance: instance, text: text)
+}
+component Textecc0a46b4c26(instance: text, text: text) {
+  view Kit(component: "Textecc0a46b4c26", instance: instance, text: text)
+}
+
+view root Surfacef42490109823(instance: "page") {
+  Texta768934ccdd4(instance: "heading", text: copy.heading_text)
+  Text7b70a09e1b8e(instance: "subtitle", text: copy.subtitle_text)
+  Surface79ddd7902558(instance: "current") {
+    Group3d2637879433(instance: "temperature") {
+      Textb10ad17c71a7(instance: "temperature_number", text: copy.temperature_number_text)
+      Text73762f38050b(instance: "temperature_degree", text: copy.temperature_degree_text)
+    }
+    Textd49d0f90deb2(instance: "condition", text: copy.condition_text)
+    Text28adc54e59db(instance: "location", text: copy.location_text)
+  }
+  Text6886fa5058ca(instance: "hourly_title", text: copy.hourly_title_text)
+  Text6f127bec7724(instance: "hourly_title_detail", text: copy.hourly_title_detail_text)
+  Surfacee3908b369b7c(instance: "timeline") {
+    Stockplot7c91b8e0daf8(instance: "temperature_chart")
+    Text366f72f2bd82(instance: "hour_0", text: copy.hour_0_text)
+    Text98e9a5f11669(instance: "hour_1", text: copy.hour_1_text)
+    Text85ebbb54fe65(instance: "hour_2", text: copy.hour_2_text)
+    Text1606cf7f069b(instance: "hour_3", text: copy.hour_3_text)
+  }
+  Surface5a3ae70e2535(instance: "humidity") {
+    Textd8e88bf09f2f(instance: "humidity_label", text: copy.humidity_label_text)
+    Text38fb5410ee24(instance: "humidity_value", text: copy.humidity_value_text)
+  }
+  Surfacea94143b54f6a(instance: "wind") {
+    Text9626a21f8ef3(instance: "wind_label", text: copy.wind_label_text)
+    Group3d2637879433(instance: "wind_value") {
+      Text6abf7d4ef3eb(instance: "wind_value_number", text: copy.wind_value_number_text)
+      Text4613a99d576c(instance: "wind_value_unit", text: copy.wind_value_unit_text)
+    }
+  }
+  KitButtone3f1fa815770(instance: "primary") {
+    Surface76961ccf7f35(instance: "primary_surface") {
+
+    }
+    Textbeea036b1eaf(instance: "primary_label", text: copy.primary_label_text)
+    NativeButton02f1d1bd99b4(instance: "primary_control", enabled: primary_control_enabled)
+  }
+  Text537712e4b102(instance: "chart_annotation_0", text: copy.chart_annotation_0_text)
+  Text535fdec32be1(instance: "chart_annotation_1", text: copy.chart_annotation_1_text)
+  Text7500179a5c48(instance: "chart_annotation_2", text: copy.chart_annotation_2_text)
+  Textecc0a46b4c26(instance: "chart_annotation_3", text: copy.chart_annotation_3_text)
+}

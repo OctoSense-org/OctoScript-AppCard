@@ -1,0 +1,391 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.1.0",
+  "policy_sha256": "d502a7c4f7dcc52ada37cfbbaf6bd9289afdcab90e30c504de96e8f8f39ff153",
+  "evaluator_sha256": "2c7c0d4d9a950fd0597baf49187f32e600f04cd29c85ca42f2fc47c57d57e4bc",
+  "manifest_sha256": "692d18544014eff1696e7a77c62d148a82e0952b41a9f206c83025838d2f7af5",
+  "reference_sha256": "d1dd8a25bb6d8adb9a2edd608f7362e263fac48163de0af97e817fc3546d854a",
+  "id": "weather-06",
+  "round": "011",
+  "phase": "inspection",
+  "pass": true,
+  "errors": [],
+  "elements": [
+    {
+      "id": "weather_symbol",
+      "role": "icon",
+      "basis": "Reviewed isolated source artwork; no UI text, controls or quantitative chart are included.",
+      "expected_widgets": [
+        "Svg",
+        "Icon",
+        "Image"
+      ],
+      "actual_widget": "Svg",
+      "issues": [],
+      "repair": "Use a matching kit icon or reference-derived SVG. A source crop requires a recorded visual feature that cannot be reproduced faithfully with the available vector renderer."
+    },
+    {
+      "id": "page",
+      "role": "layout",
+      "basis": "authored stack node",
+      "expected_widgets": [
+        "View"
+      ],
+      "actual_widget": "View",
+      "issues": [],
+      "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+    },
+    {
+      "id": "heading",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "subtitle",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "featured",
+      "role": "layout",
+      "basis": "authored stack node",
+      "expected_widgets": [
+        "View"
+      ],
+      "actual_widget": "View",
+      "issues": [],
+      "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+    },
+    {
+      "id": "location",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "condition",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "temperature",
+      "role": "layout",
+      "basis": "Native number and independently sized degree Labels composed as a text group.",
+      "expected_widgets": [
+        "View"
+      ],
+      "actual_widget": "View",
+      "issues": [],
+      "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+    },
+    {
+      "id": "city_0",
+      "role": "layout",
+      "basis": "authored stack node",
+      "expected_widgets": [
+        "View"
+      ],
+      "actual_widget": "View",
+      "issues": [],
+      "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+    },
+    {
+      "id": "city_name_0",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "city_note_0",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "city_temp_0",
+      "role": "layout",
+      "basis": "Native number and independently sized degree Labels composed as a text group.",
+      "expected_widgets": [
+        "View"
+      ],
+      "actual_widget": "View",
+      "issues": [],
+      "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+    },
+    {
+      "id": "city_1",
+      "role": "layout",
+      "basis": "authored stack node",
+      "expected_widgets": [
+        "View"
+      ],
+      "actual_widget": "View",
+      "issues": [],
+      "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+    },
+    {
+      "id": "city_name_1",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "city_note_1",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "city_temp_1",
+      "role": "layout",
+      "basis": "Native number and independently sized degree Labels composed as a text group.",
+      "expected_widgets": [
+        "View"
+      ],
+      "actual_widget": "View",
+      "issues": [],
+      "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+    },
+    {
+      "id": "city_2",
+      "role": "layout",
+      "basis": "authored stack node",
+      "expected_widgets": [
+        "View"
+      ],
+      "actual_widget": "View",
+      "issues": [],
+      "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+    },
+    {
+      "id": "city_name_2",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "city_note_2",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "city_temp_2",
+      "role": "layout",
+      "basis": "Native number and independently sized degree Labels composed as a text group.",
+      "expected_widgets": [
+        "View"
+      ],
+      "actual_widget": "View",
+      "issues": [],
+      "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+    },
+    {
+      "id": "primary",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "expected_widgets": [
+        "Button",
+        "KitButton"
+      ],
+      "actual_widget": "KitButton",
+      "issues": [],
+      "repair": "Use a native control and verify its declared action."
+    },
+    {
+      "id": "primary_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "expected_widgets": [
+        "View"
+      ],
+      "actual_widget": "View",
+      "issues": [],
+      "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+    },
+    {
+      "id": "primary_label",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "primary_control",
+      "role": "button",
+      "basis": "authored button node",
+      "expected_widgets": [
+        "Button",
+        "KitButton"
+      ],
+      "actual_widget": "Button",
+      "issues": [],
+      "repair": "Use a native control and verify its declared action."
+    },
+    {
+      "id": "temperature_number",
+      "role": "text",
+      "basis": "Reviewed part of 24\u00b0; independent native font size for the degree symbol.",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "temperature_degree",
+      "role": "text",
+      "basis": "Reviewed part of 24\u00b0; independent native font size for the degree symbol.",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "city_temp_0_number",
+      "role": "text",
+      "basis": "Reviewed part of 19\u00b0; independent native font size for the degree symbol.",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "city_temp_0_degree",
+      "role": "text",
+      "basis": "Reviewed part of 19\u00b0; independent native font size for the degree symbol.",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "city_temp_1_number",
+      "role": "text",
+      "basis": "Reviewed part of 28\u00b0; independent native font size for the degree symbol.",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "city_temp_1_degree",
+      "role": "text",
+      "basis": "Reviewed part of 28\u00b0; independent native font size for the degree symbol.",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "city_temp_2_number",
+      "role": "text",
+      "basis": "Reviewed part of 16\u00b0; independent native font size for the degree symbol.",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "city_temp_2_degree",
+      "role": "text",
+      "basis": "Reviewed part of 16\u00b0; independent native font size for the degree symbol.",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    }
+  ],
+  "scope": "Semantic mapping checks only; geometry, visual fidelity and complete app workflows remain separate."
+}

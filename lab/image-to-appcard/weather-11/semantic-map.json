@@ -1,0 +1,286 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.1.0",
+  "contract_sha256": "e8c44aade033b1b86d034cf2ae42b739a61f1f52e868940ced1dab489d9f3f80",
+  "reference_sha256": "d91b83bac0ffde1209da12ccc0dcb0b7c7ff537cc7049e3a1ff03eb9cfafe777",
+  "classification_scope": "Authored intent and explicit review candidates; no claim of automatic visual recognition.",
+  "elements": [
+    {
+      "id": "page",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "label_0",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "label_1",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "label_2",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "temperature",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "temperature_number",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "temperature_degree",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "label_4",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "label_22",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "botanical_art",
+      "role": "illustration",
+      "basis": "Reviewed botanical rectangle contains artwork only, no UI; preserve original illustration",
+      "confidence": 1.0,
+      "decision": "reviewed",
+      "asset": {
+        "path": "repaired-assets/botanical.png",
+        "sha256": "a9e89c3927b7ba73a737c23ae8146dd9d7a6fae4bd44d214e9ced2bc6fb84c2c",
+        "method": "source_crop",
+        "reference_sha256": "d91b83bac0ffde1209da12ccc0dcb0b7c7ff537cc7049e3a1ff03eb9cfafe777",
+        "crop_pixels": [
+          506,
+          401,
+          362,
+          345
+        ],
+        "contains_ui": false,
+        "fit": "stretch",
+        "clip": true,
+        "notes": "The generated canvas differs from 406:776 aspect by 0.024%; the exact source crop follows that same explicit canvas scale."
+      }
+    },
+    {
+      "id": "temperature_card",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "temperature_curve",
+      "role": "chart.line",
+      "basis": "Reviewed temperature curve with Celsius axis; source samples are approximate, not a live feed",
+      "confidence": 1.0,
+      "decision": "reviewed",
+      "data": {
+        "path": "data/temperature_curve_smooth.json",
+        "sha256": "d3e3312f8a70ef55a834cf9ab7eecb958e6de7e17aa0ecb09d51e00717c30412",
+        "origin": "measured_image",
+        "approximate": true,
+        "x_key": "x",
+        "y_keys": [
+          "y"
+        ],
+        "units": {
+          "x": "hour slot",
+          "y": "degrees Celsius"
+        },
+        "domain": {
+          "x": [
+            0,
+            6
+          ],
+          "y": [
+            16,
+            26
+          ]
+        }
+      },
+      "plot": {
+        "colors": [
+          "#183b32"
+        ],
+        "line_width": 2.8
+      }
+    },
+    {
+      "id": "label_5",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "label_6",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "label_7",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "label_8",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "label_9",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "label_10",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "label_11",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "label_12",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "label_13",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "label_14",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "label_15",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "label_16",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "label_17",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "label_18",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "label_19",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "label_20",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "label_21",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary_label",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    }
+  ]
+}

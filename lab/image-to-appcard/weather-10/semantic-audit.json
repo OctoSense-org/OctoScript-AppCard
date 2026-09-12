@@ -1,0 +1,252 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.1.0",
+  "policy_sha256": "d502a7c4f7dcc52ada37cfbbaf6bd9289afdcab90e30c504de96e8f8f39ff153",
+  "evaluator_sha256": "2c7c0d4d9a950fd0597baf49187f32e600f04cd29c85ca42f2fc47c57d57e4bc",
+  "manifest_sha256": "e347ec395e601cb89a974e8b988ddf04a14148f88d66566fe4c19379d67f9c3f",
+  "reference_sha256": "15454cd1d40ed6b3f8a40f2419eeb2f757f40f6745e2111865b5fee7304ccd1c",
+  "id": "weather-10",
+  "round": "015",
+  "phase": "inspection",
+  "pass": true,
+  "errors": [],
+  "elements": [
+    {
+      "id": "weather_symbol",
+      "role": "icon",
+      "basis": "Reviewed isolated source artwork; no UI text, controls or quantitative chart are included.",
+      "expected_widgets": [
+        "Svg",
+        "Icon",
+        "Image"
+      ],
+      "actual_widget": "Svg",
+      "issues": [],
+      "repair": "Use a matching kit icon or reference-derived SVG. A source crop requires a recorded visual feature that cannot be reproduced faithfully with the available vector renderer."
+    },
+    {
+      "id": "page",
+      "role": "layout",
+      "basis": "authored stack node",
+      "expected_widgets": [
+        "View"
+      ],
+      "actual_widget": "View",
+      "issues": [],
+      "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+    },
+    {
+      "id": "heading",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "subtitle",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "comfort",
+      "role": "layout",
+      "basis": "authored stack node",
+      "expected_widgets": [
+        "View"
+      ],
+      "actual_widget": "View",
+      "issues": [],
+      "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+    },
+    {
+      "id": "comfort_kicker",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "comfort_score",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "comfort_label",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "sunrise",
+      "role": "layout",
+      "basis": "authored stack node",
+      "expected_widgets": [
+        "View"
+      ],
+      "actual_widget": "View",
+      "issues": [],
+      "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+    },
+    {
+      "id": "sunrise_label",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "sunrise_value",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "sunset",
+      "role": "layout",
+      "basis": "authored stack node",
+      "expected_widgets": [
+        "View"
+      ],
+      "actual_widget": "View",
+      "issues": [],
+      "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+    },
+    {
+      "id": "sunset_label",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "sunset_value",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "activity",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "activity_detail",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "primary",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "expected_widgets": [
+        "Button",
+        "KitButton"
+      ],
+      "actual_widget": "KitButton",
+      "issues": [],
+      "repair": "Use a native control and verify its declared action."
+    },
+    {
+      "id": "primary_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "expected_widgets": [
+        "View"
+      ],
+      "actual_widget": "View",
+      "issues": [],
+      "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+    },
+    {
+      "id": "primary_label",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "primary_control",
+      "role": "button",
+      "basis": "authored button node",
+      "expected_widgets": [
+        "Button",
+        "KitButton"
+      ],
+      "actual_widget": "Button",
+      "issues": [],
+      "repair": "Use a native control and verify its declared action."
+    }
+  ],
+  "scope": "Semantic mapping checks only; geometry, visual fidelity and complete app workflows remain separate."
+}

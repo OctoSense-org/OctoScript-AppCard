@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "reference_sha256": "127779bf4fc91966693bbd39e63f88d7ea66617d94e65dbaf618dd375150dca6",
+  "native_sha256": "fc518432765e9af8dff7781f829bbd99f405c62a23cb9772dfb4421409865f4f",
+  "reviewer": "Codex direct source/native visual inspection",
+  "reviewed_at": "2026-09-08T00:02:03.556728+00:00",
+  "verdict": "pass",
+  "criteria": {
+    "typography": true,
+    "colors": true,
+    "imagery": true,
+    "effects": true
+  },
+  "findings": [
+    {
+      "area": "screen composition",
+      "status": "verified after repair",
+      "detail": "Replaced the trend drawing with a numerical LinePlot, gradient fill, markers and bounded guides; repaired humidity typography and separate number/unit Labels."
+    },
+    {
+      "area": "font and effects fidelity",
+      "status": "accepted approximation",
+      "detail": "Bundled font faces approximate the generated glyphs. Fine image grain, lighting and stroke rendering are not pixel-identical."
+    }
+  ],
+  "scope": "Native design prototype at 406 \u00d7 776 logical pixels, captured at 2\u00d7 in desktop Studio. No claim of exact generated-font identity, responsive phone layout, live feeds or complete app navigation.",
+  "build_id": [
+    53
+  ],
+  "round": "009",
+  "visual_evidence": {
+    "reviewed_round": "008",
+    "reviewed_build_id": [
+      52
+    ],
+    "current_capture_pixels_identical_to_reviewed": true
+  },
+  "user_design_preference": "not reviewed by user in this QA receipt",
+  "runtime_regression": {
+    "reviewed_at": "2026-09-08T09:44:12.235810+00:00",
+    "round": "011",
+    "build_id": [
+      22
+    ],
+    "basis": "Personally compared all seven current source/native pairs. Native numerical charts retain source trends, selected points, area shading, legends and axes; typography, cards, controls and the original botanical crop remain consistent. Approximate curve sampling, small font rasterization differences and flatter source gradients/paper grain remain accepted prototype limitations documented in the individual findings.",
+    "sheet": "lab/beauty_core/qa-work/old-kit-migration/image-review/build-22/4bc6d46b36/000.png",
+    "sheet_sha256": "e8a0909ec9199b8d28f6fb7864564551c273643b619e269b6fbda537dba589ec"
+  }
+}

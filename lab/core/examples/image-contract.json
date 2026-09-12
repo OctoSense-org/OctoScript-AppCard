@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "id": "example-01",
+  "app": "weather",
+  "number": 1,
+  "title": "Daily weather",
+  "structure": "Heading and current-temperature panel",
+  "artboard": [406, 776],
+  "palette": {"name": "Example"},
+  "graphics": {},
+  "tree": {
+    "t": "stack", "id": "page", "x": 0, "y": 0, "w": 406, "h": 776,
+    "variant": "surface", "bg": 4294375163,
+    "c": [
+      {
+        "t": "text", "id": "heading", "text": "Daily weather",
+        "x": 24, "y": 32, "w": 358, "h": 40, "size": 30, "line_height": 40,
+        "weight": 700, "color": 4279707222, "variant": "single_line",
+        "font_src": "self:resources/example/YourFont-Bold.ttf"
+      },
+      {
+        "t": "stack", "id": "conditions", "x": 24, "y": 110, "w": 358, "h": 160,
+        "variant": "surface", "bg": 4294967295, "radius": 20,
+        "c": [{
+          "t": "text", "id": "temperature", "text": "24 degrees",
+          "x": 44, "y": 150, "w": 310, "h": 62, "size": 44, "line_height": 62,
+          "weight": 700, "color": 4279707222, "variant": "single_line",
+          "font_src": "self:resources/example/YourFont-Bold.ttf"
+        }]
+      }
+    ]
+  }
+}

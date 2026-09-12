@@ -1,0 +1,212 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.1.0",
+  "reference_sha256": "fb91539ef4fea208a96c79942076afca6a6bc6c91e5c935c8db875f8b24ad602",
+  "contract_sha256": "1427491ce9440f881015534858fc220df0ee97c226b98c3af417215bbf4db5a5",
+  "classification_scope": "Reviewed original reference regions and authored intent; approximate plot measurements are explicitly marked.",
+  "elements": [
+    {
+      "id": "portfolio_chart",
+      "role": "chart.area",
+      "basis": "Numeric series digitized from the original trend; approximate design measurements, not market data.",
+      "confidence": 1.0,
+      "decision": "reviewed",
+      "data": {
+        "path": "data/portfolio_chart.json",
+        "sha256": "d8d187017da8f7aa6e90c4340c69e4c9acf84dae2eefd00ca11781ba8144cc34",
+        "origin": "measured_image",
+        "approximate": true,
+        "x_key": "x",
+        "y_keys": [
+          "y0"
+        ],
+        "units": {
+          "x": "normalized image plot position",
+          "y": "normalized image plot height"
+        },
+        "domain": {
+          "x": [
+            0,
+            1
+          ],
+          "y": [
+            0,
+            1
+          ]
+        }
+      },
+      "plot": {
+        "colors": [
+          "#35664e"
+        ],
+        "fills": [
+          "#98b99380"
+        ],
+        "line_width": 1.3,
+        "gradient_fill": true,
+        "markers": [
+          {
+            "x": 0.997207,
+            "y": 0.962366,
+            "color": "#35664e",
+            "radius": 2.8
+          }
+        ]
+      }
+    },
+    {
+      "id": "page",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "heading",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "subtitle",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "portfolio",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "balance_label",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "balance",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "gain",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "watchlist_title",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "quote_0",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "quote_0_symbol",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "quote_0_name",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "quote_0_price",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "quote_0_change",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "quote_1",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "quote_1_symbol",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "quote_1_name",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "quote_1_price",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "quote_1_change",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary_label",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    }
+  ]
+}

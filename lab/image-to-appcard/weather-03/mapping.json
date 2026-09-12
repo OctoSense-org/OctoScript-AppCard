@@ -1,0 +1,612 @@
+{
+  "schema_version": 1,
+  "elements": [
+    {
+      "source_id": "page",
+      "native_id": "beauty_0",
+      "parent": null,
+      "kind": "stack",
+      "component": "Surfacef42490109823",
+      "semantic_role": "layout",
+      "bounds": [
+        0,
+        0,
+        406,
+        776
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "heading",
+      "native_id": "beauty_0_0",
+      "parent": "page",
+      "kind": "text",
+      "component": "Texta768934ccdd4",
+      "semantic_role": "text",
+      "bounds": [
+        23.599226339061275,
+        30.221453287197228,
+        216.1256015917028,
+        36.66897347174164
+      ],
+      "text": "Hour by hour",
+      "enabled": null,
+      "font": "self:resources/camo/DMSans-Bold.ttf",
+      "size": 34.754227097597486
+    },
+    {
+      "source_id": "subtitle",
+      "native_id": "beauty_0_1",
+      "parent": "page",
+      "kind": "text",
+      "component": "Text7b70a09e1b8e",
+      "semantic_role": "text",
+      "bounds": [
+        25.260154816916124,
+        75.42099192618224,
+        131.574421168688,
+        17.425605536332178
+      ],
+      "text": "Monday, September 7",
+      "enabled": null,
+      "font": "self:resources/ux/Roboto-Regular.ttf",
+      "size": 13.935955468022454
+    },
+    {
+      "source_id": "current",
+      "native_id": "beauty_0_2",
+      "parent": "page",
+      "kind": "stack",
+      "component": "Surface79ddd7902558",
+      "semantic_role": "layout",
+      "bounds": [
+        21.0,
+        106.0,
+        364.0,
+        127.0
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "temperature",
+      "native_id": "beauty_0_2_0",
+      "parent": "current",
+      "kind": "stack",
+      "component": "Group3d2637879433",
+      "semantic_role": "layout",
+      "bounds": [
+        45.44873208379272,
+        127.33333333333334,
+        141.42227122381476,
+        81.86851211072664
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "temperature_number",
+      "native_id": "beauty_0_2_0_0",
+      "parent": "temperature",
+      "kind": "text",
+      "component": "Textb10ad17c71a7",
+      "semantic_role": "text",
+      "bounds": [
+        38.88835260671946,
+        127.33333333333334,
+        122.31247935698153,
+        81.86851211072664
+      ],
+      "text": "24",
+      "enabled": null,
+      "font": "self:resources/ux/Inter-300.ttf",
+      "size": 105.61239258461468
+    },
+    {
+      "source_id": "temperature_degree",
+      "native_id": "beauty_0_2_0_1",
+      "parent": "temperature",
+      "kind": "text",
+      "component": "Text73762f38050b",
+      "semantic_role": "text",
+      "bounds": [
+        151.61474168800095,
+        127.78085351787774,
+        43.0517745116704,
+        30.85121107266436
+      ],
+      "text": "\u00b0",
+      "enabled": null,
+      "font": "self:resources/ux/Roboto-Light.ttf",
+      "size": 110.86951668713026
+    },
+    {
+      "source_id": "condition",
+      "native_id": "beauty_0_2_1",
+      "parent": "current",
+      "kind": "text",
+      "component": "Textd49d0f90deb2",
+      "semantic_role": "text",
+      "bounds": [
+        224.2872284150835,
+        151.05190311418684,
+        113.66923925027562,
+        21.453287197231834
+      ],
+      "text": "Partly cloudy",
+      "enabled": null,
+      "font": "self:resources/ux/Roboto-Medium.ttf",
+      "size": 18.116742108429193
+    },
+    {
+      "source_id": "location",
+      "native_id": "beauty_0_2_2",
+      "parent": "current",
+      "kind": "text",
+      "component": "Text28adc54e59db",
+      "semantic_role": "text",
+      "bounds": [
+        224.4642290431645,
+        182.37831603229526,
+        62.63947078280044,
+        16.978085351787776
+      ],
+      "text": "Cupertino",
+      "enabled": null,
+      "font": "self:resources/ux/Roboto-Medium.ttf",
+      "size": 13.923058564935234
+    },
+    {
+      "source_id": "hourly_title",
+      "native_id": "beauty_0_3",
+      "parent": "page",
+      "kind": "text",
+      "component": "Text6886fa5058ca",
+      "semantic_role": "text",
+      "bounds": [
+        23.769640096068027,
+        257.5617070357555,
+        162.46085997794927,
+        21.453287197231834
+      ],
+      "text": "Temperature trend",
+      "enabled": null,
+      "font": "self:resources/ux/Roboto-Medium.ttf",
+      "size": 18.31164558398094
+    },
+    {
+      "source_id": "hourly_title_detail",
+      "native_id": "beauty_0_4",
+      "parent": "page",
+      "kind": "text",
+      "component": "Text6f127bec7724",
+      "semantic_role": "text",
+      "bounds": [
+        316.4458358068331,
+        262.48442906574394,
+        69.35391400220507,
+        12.502883506343714
+      ],
+      "text": "Next 12 hours",
+      "enabled": null,
+      "font": "self:resources/ux/Roboto-Regular.ttf",
+      "size": 11.191455926087357
+    },
+    {
+      "source_id": "timeline",
+      "native_id": "beauty_0_5",
+      "parent": "page",
+      "kind": "stack",
+      "component": "Surfacee3908b369b7c",
+      "semantic_role": "layout",
+      "bounds": [
+        21.0,
+        289.0,
+        364.0,
+        266.0
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "temperature_chart",
+      "native_id": "beauty_0_5_0",
+      "parent": "timeline",
+      "kind": "stockplot",
+      "component": "Stockplot7c91b8e0daf8",
+      "semantic_role": "chart.line",
+      "bounds": [
+        31,
+        341,
+        344,
+        175
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "hour_0",
+      "native_id": "beauty_0_5_1",
+      "parent": "timeline",
+      "kind": "text",
+      "component": "Text366f72f2bd82",
+      "semantic_role": "text",
+      "bounds": [
+        49.2012660598827,
+        523.836216839677,
+        33.09592061742006,
+        12.055363321799307
+      ],
+      "text": "12 PM",
+      "enabled": null,
+      "font": "self:resources/ux/Roboto-Regular.ttf",
+      "size": 11.177089487157845
+    },
+    {
+      "source_id": "hour_1",
+      "native_id": "beauty_0_5_2",
+      "parent": "timeline",
+      "kind": "text",
+      "component": "Text98e9a5f11669",
+      "semantic_role": "text",
+      "bounds": [
+        144.47566391746878,
+        523.836216839677,
+        28.17199558985667,
+        12.055363321799307
+      ],
+      "text": "3 PM",
+      "enabled": null,
+      "font": "self:resources/camo/DMSans-Regular.ttf",
+      "size": 11.126192433424457
+    },
+    {
+      "source_id": "hour_2",
+      "native_id": "beauty_0_5_3",
+      "parent": "timeline",
+      "kind": "text",
+      "component": "Text85ebbb54fe65",
+      "semantic_role": "text",
+      "bounds": [
+        241.03024832003356,
+        523.836216839677,
+        28.17199558985667,
+        12.055363321799307
+      ],
+      "text": "6 PM",
+      "enabled": null,
+      "font": "self:resources/ux/Inter-300.ttf",
+      "size": 10.782603975846392
+    },
+    {
+      "source_id": "hour_3",
+      "native_id": "beauty_0_5_4",
+      "parent": "timeline",
+      "kind": "text",
+      "component": "Text1606cf7f069b",
+      "semantic_role": "text",
+      "bounds": [
+        332.7941892995577,
+        523.836216839677,
+        28.17199558985667,
+        12.055363321799307
+      ],
+      "text": "9 PM",
+      "enabled": null,
+      "font": "self:resources/camo/DMSans-Regular.ttf",
+      "size": 11.126192433424457
+    },
+    {
+      "source_id": "humidity",
+      "native_id": "beauty_0_6",
+      "parent": "page",
+      "kind": "stack",
+      "component": "Surface5a3ae70e2535",
+      "semantic_role": "layout",
+      "bounds": [
+        21.0,
+        568.0,
+        176.0,
+        109.0
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "humidity_label",
+      "native_id": "beauty_0_6_0",
+      "parent": "humidity",
+      "kind": "text",
+      "component": "Textd8e88bf09f2f",
+      "semantic_role": "text",
+      "bounds": [
+        36.83161051728476,
+        585.1464821222606,
+        55.02976846747519,
+        16.978085351787776
+      ],
+      "text": "Humidity",
+      "enabled": null,
+      "font": "self:resources/ux/Roboto-Light.ttf",
+      "size": 13.471423619088373
+    },
+    {
+      "source_id": "humidity_value",
+      "native_id": "beauty_0_6_1",
+      "parent": "humidity",
+      "kind": "text",
+      "component": "Text38fb5410ee24",
+      "semantic_role": "text",
+      "bounds": [
+        36.14632658380322,
+        614.6828143021914,
+        73.70276565613918,
+        32.193771626297575
+      ],
+      "text": "64%",
+      "enabled": null,
+      "font": "self:resources/ux/Roboto-Bold.ttf",
+      "size": 38.57103827031225
+    },
+    {
+      "source_id": "wind",
+      "native_id": "beauty_0_7",
+      "parent": "page",
+      "kind": "stack",
+      "component": "Surfacea94143b54f6a",
+      "semantic_role": "layout",
+      "bounds": [
+        208.0,
+        568.0,
+        177.0,
+        109.0
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "wind_label",
+      "native_id": "beauty_0_7_0",
+      "parent": "wind",
+      "kind": "text",
+      "component": "Text9626a21f8ef3",
+      "semantic_role": "text",
+      "bounds": [
+        223.01744286722217,
+        585.1464821222606,
+        34.43880926130099,
+        13.845444059976932
+      ],
+      "text": "Wind",
+      "enabled": null,
+      "font": "self:resources/camo/DMSans-Regular.ttf",
+      "size": 13.450060191225317
+    },
+    {
+      "source_id": "wind_value",
+      "native_id": "beauty_0_7_1",
+      "parent": "wind",
+      "kind": "stack",
+      "component": "Group3d2637879433",
+      "semantic_role": "layout",
+      "bounds": [
+        222.71003307607495,
+        614.2352941176471,
+        107.40242557883131,
+        32.193771626297575
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "wind_value_number",
+      "native_id": "beauty_0_7_1_0",
+      "parent": "wind_value",
+      "kind": "text",
+      "component": "Text6abf7d4ef3eb",
+      "semantic_role": "text",
+      "bounds": [
+        221.6940439650695,
+        614.2352941176471,
+        37.003137505378305,
+        32.193771626297575
+      ],
+      "text": "12",
+      "enabled": null,
+      "font": "self:resources/ux/RobotoCondensed-700.ttf",
+      "size": 39.093327211007065
+    },
+    {
+      "source_id": "wind_value_unit",
+      "native_id": "beauty_0_7_1_1",
+      "parent": "wind_value",
+      "kind": "text",
+      "component": "Text4613a99d576c",
+      "semantic_role": "text",
+      "bounds": [
+        266.35552655786097,
+        622.7381776239907,
+        67.15550330588006,
+        23.690888119953865
+      ],
+      "text": "km/h",
+      "enabled": null,
+      "font": "self:resources/ux/Roboto-Bold.ttf",
+      "size": 24.264102809666376
+    },
+    {
+      "source_id": "primary",
+      "native_id": "beauty_0_8",
+      "parent": "page",
+      "kind": "stack",
+      "component": "KitButtone3f1fa815770",
+      "semantic_role": "button",
+      "bounds": [
+        21.0,
+        692.0,
+        364.0,
+        55.0
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "primary_surface",
+      "native_id": "beauty_0_8_0",
+      "parent": "primary",
+      "kind": "stack",
+      "component": "Surface76961ccf7f35",
+      "semantic_role": "layout",
+      "bounds": [
+        21.0,
+        692.0,
+        364.0,
+        55.0
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "primary_label",
+      "native_id": "beauty_0_8_1",
+      "parent": "primary",
+      "kind": "text",
+      "component": "Textbeea036b1eaf",
+      "semantic_role": "text",
+      "bounds": [
+        168.85544673792447,
+        711.3471741637832,
+        70.696802646086,
+        20.110726643598614
+      ],
+      "text": "My cities",
+      "enabled": null,
+      "font": "self:resources/ux/Roboto-Medium.ttf",
+      "size": 17.09573480108288
+    },
+    {
+      "source_id": "primary_control",
+      "native_id": "beauty_0_8_2",
+      "parent": "primary",
+      "kind": "button",
+      "component": "NativeButton02f1d1bd99b4",
+      "semantic_role": "button",
+      "bounds": [
+        21.0,
+        692.0,
+        364.0,
+        55.0
+      ],
+      "text": null,
+      "enabled": 1,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "chart_annotation_0",
+      "native_id": "beauty_0_9",
+      "parent": "page",
+      "kind": "text",
+      "component": "Text537712e4b102",
+      "semantic_role": "text",
+      "bounds": [
+        145.5773854560603,
+        317.9769319492503,
+        27.72436604189636,
+        16.530565167243367
+      ],
+      "text": "27\u00b0",
+      "enabled": null,
+      "font": "self:resources/ux/Roboto-Regular.ttf",
+      "size": 17.374812093780918
+    },
+    {
+      "source_id": "chart_annotation_1",
+      "native_id": "beauty_0_10",
+      "parent": "page",
+      "kind": "text",
+      "component": "Text535fdec32be1",
+      "semantic_role": "text",
+      "bounds": [
+        51.22431528949849,
+        346.17070357554786,
+        29.962513781697904,
+        16.978085351787776
+      ],
+      "text": "24\u00b0",
+      "enabled": null,
+      "font": "self:resources/camo/DMSans-Regular.ttf",
+      "size": 18.227647965994066
+    },
+    {
+      "source_id": "chart_annotation_2",
+      "native_id": "beauty_0_11",
+      "parent": "page",
+      "kind": "text",
+      "component": "Text7500179a5c48",
+      "semantic_role": "text",
+      "bounds": [
+        242.68451605177012,
+        365.41407151095734,
+        28.17199558985667,
+        16.978085351787776
+      ],
+      "text": "22\u00b0",
+      "enabled": null,
+      "font": "self:resources/ux/Roboto-Regular.ttf",
+      "size": 17.99534109713024
+    },
+    {
+      "source_id": "chart_annotation_3",
+      "native_id": "beauty_0_12",
+      "parent": "page",
+      "kind": "text",
+      "component": "Textecc0a46b4c26",
+      "semantic_role": "text",
+      "bounds": [
+        334.78268720737947,
+        420.45905420991926,
+        27.06320422475882,
+        16.978085351787776
+      ],
+      "text": "18\u00b0",
+      "enabled": null,
+      "font": "self:resources/ux/RobotoCondensed-500.ttf",
+      "size": 17.7549223783977
+    }
+  ],
+  "fonts": {
+    "self:resources/camo/DMSans-Bold.ttf": "35879eb94bef73bd2fab40f0c3391c26d53844b67e7fd4a7c7ba9ef86fb96968",
+    "self:resources/ux/Roboto-Regular.ttf": "797e35f7f5d6020a5c6ea13b42ecd668bcfb3bbc4baa0e74773527e5b6cb3174",
+    "self:resources/ux/Inter-300.ttf": "13baeb62e18b46fe3da6a9362936836c05c9ea10510454e4ba0965b5d6f60989",
+    "self:resources/ux/Roboto-Light.ttf": "e5c6b2b3cad15fd7dd820970eb859635d75bb2155b1a70f78a0668f8ba6d6eef",
+    "self:resources/ux/Roboto-Medium.ttf": "7984aafeaf437899ce89b251d2875fc5048cb7d290152eac070239cca7ff726c",
+    "self:resources/camo/DMSans-Regular.ttf": "11886d1bb0fcea64c7e1278b019236137ef98578f6fe9f692038e1faa1e3bcac",
+    "self:resources/ux/Roboto-Bold.ttf": "36f3709dea3e3ce3c6aedc058079e55980825f898f1e901d091c73c40de8bab1",
+    "self:resources/ux/RobotoCondensed-700.ttf": "21de2db03f72604be19bddfd42110f7e52bc2825c363bc729c1bcfa79dff1ee8",
+    "self:resources/ux/RobotoCondensed-500.ttf": "b0fa3828a360490316f426ebe53f5b0917022d977cc948d092fcca681a059fc0"
+  },
+  "contract_sha256": "fd6955b55d1df1bd27cd9df5a1785c182d988ba12466f56272861c5f0ba8453e",
+  "mapping_basis": "mapped.json"
+}

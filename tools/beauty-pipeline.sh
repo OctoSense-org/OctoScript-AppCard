@@ -1,9 +1,26 @@
 #!/usr/bin/env bash
 # Entry point for the beauty card pipeline (design kit -> judged live cards).
-# Docs: lab/sketch/README.md. Everything forwards to run_kit.py:
-#   tools/beauty-pipeline.sh --kit camo --stages doctor
-#   tools/beauty-pipeline.sh --kit <name> --stages unpack,extract,theme
-#   tools/beauty-pipeline.sh --kit <name> --stages author,desktop,android,ohos
+# Setup for both branches: lab/core/REPRODUCE.md.
+#   tools/beauty-pipeline.sh --kit atro-native-all --stages beauty
+#   tools/beauty-pipeline.sh --kit <name> --stages splash-makepad
+#   tools/beauty-pipeline.sh --kit <name> --stages audit
+#   tools/beauty-pipeline.sh --kit <name> --stages report
 set -euo pipefail
-cd "$(dirname "${BASH_SOURCE[0]}")/../lab/sketch"
-exec python3 run_kit.py "$@"
+if [[ "${1:-}" == "--repair" ]]; then
+    shift
+    ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+    PYTHON="${BEAUTY_PYTHON:-$ROOT/lab/sketch-to-appcard/.venv/bin/python}"
+    if [[ ! -x "$PYTHON" ]]; then PYTHON=python3; fi
+    exec "$PYTHON" "$ROOT/lab/core/repair.py" "$@"
+fi
+if [[ "${1:-}" == "--ux-image" ]]; then
+    shift
+    ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+    PYTHON="${BEAUTY_PYTHON:-$ROOT/lab/image-to-appcard/.venv/bin/python}"
+    if [[ ! -x "$PYTHON" ]]; then PYTHON=python3; fi
+    exec "$PYTHON" "$ROOT/lab/image-to-appcard/run.py" "$@"
+fi
+cd "$(dirname "${BASH_SOURCE[0]}")/../lab/sketch-to-appcard"
+PYTHON="${BEAUTY_PYTHON:-$PWD/.venv/bin/python}"
+if [[ ! -x "$PYTHON" ]]; then PYTHON=python3; fi
+exec "$PYTHON" run_kit.py "$@"

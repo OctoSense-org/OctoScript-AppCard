@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "findings": [
+    "Review round001: chart has quantization steps; denoise approximate samples while preserving numeric units and native LinePlot"
+  ],
+  "evidence": {
+    "rounds/001/gate.json": "6e019ff38b6bf5ff23fe292fb3e922563e7beb4b6744145b6cc3e5f88ee13212",
+    "reference.png": "d91b83bac0ffde1209da12ccc0dcb0b7c7ff537cc7049e3a1ff03eb9cfafe777",
+    "data/temperature_curve_smooth.json": "d3e3312f8a70ef55a834cf9ab7eecb958e6de7e17aa0ecb09d51e00717c30412"
+  },
+  "inputs": {
+    "semantic-map.json": "d602a78169742515345951117d80a7de7c4dcaa142a901dca3c73a380fd9b447"
+  },
+  "operations": [
+    {
+      "op": "set",
+      "file": "semantic-map.json",
+      "pointer": "/elements/11/data",
+      "before": {
+        "path": "data/temperature_curve.json",
+        "sha256": "db1ecd1e58fcb53f65c616efbdf0bd74e4409bbb305d36b9dc8269ce3918ad99",
+        "origin": "measured_image",
+        "approximate": true,
+        "x_key": "x",
+        "y_keys": [
+          "y"
+        ],
+        "units": {
+          "x": "hour slot",
+          "y": "degrees Celsius"
+        },
+        "domain": {
+          "x": [
+            0,
+            6
+          ],
+          "y": [
+            16,
+            26
+          ]
+        }
+      },
+      "after": {
+        "path": "data/temperature_curve_smooth.json",
+        "sha256": "d3e3312f8a70ef55a834cf9ab7eecb958e6de7e17aa0ecb09d51e00717c30412",
+        "origin": "measured_image",
+        "approximate": true,
+        "x_key": "x",
+        "y_keys": [
+          "y"
+        ],
+        "units": {
+          "x": "hour slot",
+          "y": "degrees Celsius"
+        },
+        "domain": {
+          "x": [
+            0,
+            6
+          ],
+          "y": [
+            16,
+            26
+          ]
+        }
+      },
+      "category": "data",
+      "element": "temperature_curve",
+      "reason": "Bind the explicitly smoothed source measurements; original measurement remains archived"
+    },
+    {
+      "op": "set",
+      "file": "semantic-map.json",
+      "pointer": "/elements/11/plot/line_width",
+      "before": 3.1,
+      "after": 2.8,
+      "category": "semantic",
+      "element": "temperature_curve",
+      "reason": "Source stroke is about six physical pixels"
+    }
+  ]
+}
