@@ -11,6 +11,8 @@ import zipfile
 import subprocess
 
 from fontTools.ttLib import TTFont
+import sys as _sys, pathlib as _pathlib
+_sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[1]))
 from core import kitconf
 
 
