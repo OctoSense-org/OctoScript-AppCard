@@ -10,12 +10,18 @@ something this document promised.
 | role | arguments |
 |---|---|
 | `AqiContour` | `lat: path`, `lon: path`, `span: number` |
-| `Card` | `on_tap: event`, `value: any` |
+| `Avatar` | `text: text` |
+| `Band` | `text: text` |
+| `Bubble` | `text: text`, `side: token` |
+| `Card` | `on_tap: event`, `value: any`, `tint: token` |
 | `Chip` | `text: text`, `on_tap: event`, `value: any`, `active: bool`, `tone: .normal \| .primary \| .danger`, `width: .fill \| .fit \| .day \| .rank \| .temp \| .label` |
 | `Col` | `align: .start \| .center \| .end`, `gap: number`, `width: width` |
+| `Fab` | `name: token` |
 | `Field` | `text: path`, `placeholder: data`, `on_commit: event`, `on_change: event`, `width: width` |
 | `Grid` | `cols: number` |
+| `Icon` | `name: token`, `size: token` |
 | `IndicatorPlot` | `countries: path`, `indicator: path`, `years: path` |
+| `Kit` | `component: text`, `instance: text`, `part: text`, `text: text`, `placeholder: text`, `enabled: bool`, `checked: bool`, `selected: bool`, `index: number`, `value: number` |
 | `Map` | `mode: .plan \| .drive \| .flat`, `from: path`, `to: path`, `via: path` |
 | `MoonPhase` | `phase: path`, `illum: path` |
 | `Panel` | `dock: .top \| .bottom \| .right` |
@@ -24,19 +30,23 @@ something this document promised.
 | `Row` | `width: width`, `align: .start \| .center \| .end \| .baseline`, `gap: number`, `on_tap: event`, `value: any` |
 | `Rule` | — |
 | `Satellite` | `lat: path`, `lon: path` |
+| `Space` | — |
 | `StockPlot` | `symbol: path`, `range: unit` |
 | `SunArc` | `rise: path`, `set: path`, `now: path` |
 | `Surface` | `pad: .page \| .tight \| .none` |
+| `Tab` | `icon: token`, `label: text`, `active: token` |
+| `TabBar` | — |
 | `TempBar` | `lo: path`, `hi: path`, `min: path`, `max: path` |
 | `TextBody` | `text: text`, `width: width` |
 | `TextCaption` | `text: text`, `value: data`, `glyph: text`, `suffix: text`, `unit: unit`, `width: width` |
+| `TextEyebrow` | `text: text` |
 | `TextHero` | `text: text`, `value: data`, `unit: unit`, `format: format`, `on_tap: event` |
 | `TextRow` | `text: text`, `width: width` |
 | `TextStat` | `value: data`, `format: format`, `tint: path` |
 | `TextTitle` | `text: text`, `width: width` |
 | `TextValue` | `value: data`, `unit: unit`, `format: format`, `tint: path` |
-| `Thumb` | `src: path` |
-| `Tile` | `label: text`, `value: data`, `unit: unit`, `format: format` |
+| `Thumb` | `src: path`, `shape: token` |
+| `Tile` | `label: text`, `value: data`, `unit: unit`, `format: format`, `glyph: text`, `shape: token` |
 | `WeatherIcon` | `cond: path`, `size: .hero \| .row \| .tile` |
 
 ## Capabilities
@@ -51,7 +61,8 @@ and that looks exactly like data still arriving.
 | capability | arguments | answers |
 |---|---|---|
 | `sys.airquality` | `lat`, `lon` | `aqi`, `pm25`, `pm10`, `ozone` |
-| `sys.cities` | `fields` | `name`, `lat`, `lon`, `temp`, `feels`, `hi`, `lo`, `cond`, `humidity`, `wind` |
+| `sys.cities` | `fields`, `unit` | `name`, `lat`, `lon`, `temp`, `feels`, `feels_delta`, `hi`, `lo`, `cond`, `humidity`, `wind` |
+| `sys.convert` | `amount`, `from`, `to`, `direction`, `fields` | `amount`, `value` |
 | `sys.daylight` | `lat`, `lon` | `rise`, `set`, `now` |
 | `sys.geocode` | `name` | `lat`, `lon`, `name`, `country`, `admin1`, `timezone`, `population` |
 | `sys.gps` | — (no arguments) | `lat`, `lon`, `accuracy`, `ok` |
@@ -71,12 +82,13 @@ and that looks exactly like data still arriving.
 | `sys.route` | `from_lat`, `from_lon`, `to_lat`, `to_lon`, `via`, `mode`, `fields` | `duration`, `distance`, `steps` |
 | `sys.search` | `query`, `count`, `fields` | `id`, `name`, `label`, `query`, `lat`, `lon`, `distance` |
 | `sys.series` | `ticker`, `range`, `points`, `fields`, `aggregate` | `min`, `max`<br>`aggregate:` `min`, `max` |
-| `sys.step` | `from_lat`, `from_lon`, `to_lat`, `to_lon`, `at_lat`, `at_lon`, `fields` | `instruction`, `remaining`, `progress`, `eta` |
+| `sys.step` | `from_lat`, `from_lon`, `to_lat`, `to_lon`, `at_lat`, `at_lon`, `via`, `fields` | `instruction`, `remaining`, `progress`, `eta` |
 | `sys.symbol_search` | `query`, `count`, `fields` | `ticker`, `name`, `exchange`, `kind` |
 | `sys.topics` | `fields` | `name`, `top_title`, `top_points`, `top_id` |
 | `sys.video` | `query`, `count`, `fields` | `id`, `title`, `channel`, `length`, `views`, `age`, `thumb`, `embed` |
 | `sys.watchlist` | `ticker`, `fields` | `ticker`, `name`, `last`, `change`, `pct`, `open`, `high`, `low`, `prev`, `volume`, `mktcap`, `pe`, `currency`, `exchange`, `has` |
 | `sys.weather` | `lat`, `lon`, `days`, `fields`, `aggregate`, `day` | `temp`, `feels`, `hi`, `lo`, `cond`, `humidity`, `wind`, `pressure`, `uv`, `visibility`, `precip`, `dayname`, `days`<br>`aggregate:` `min_lo`, `max_hi` |
+| `sys.wiki` | `query` | `title`, `extract`, `description` |
 
 ## Shared token sets
 

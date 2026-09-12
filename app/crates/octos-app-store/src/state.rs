@@ -518,6 +518,9 @@ fn apply_protocol(state: &mut AppState, cursor: Option<UiCursor>, n: UiNotificat
         // Compaction start is informational; the top-bar usage chip keys off
         // `ContextCompactionCompleted`'s context_state above.
         UiNotification::ContextCompactionStarted(_) => {}
+        // This client submits one turn at a time and has no background pane.
+        UiNotification::TurnSteerDropped(_) => {}
+        UiNotification::BackgroundActivity(_) => {}
     }
 }
 

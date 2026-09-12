@@ -28,11 +28,21 @@ use std::collections::BTreeMap;
 use std::sync::RwLock;
 use std::sync::atomic::AtomicBool;
 
-/// The reader overlay the L0 cards drive through `sys.link`. OPEN is the
-/// overlay's liveness; PLACED goes false on every spawn so the app positions
-/// the native view (full window) exactly once, on its next event.
+/// The app shell realizes `sys.link` as a WebCard with its own viewport and
+/// Back control. Keeping the request here avoids positioning native views
+/// from a card event before the next widget layout exists.
 pub static L0_READER_OPEN: AtomicBool = AtomicBool::new(false);
-pub static L0_READER_PLACED: AtomicBool = AtomicBool::new(false);
+static L0_READER_URL: RwLock<String> = RwLock::new(String::new());
+
+pub fn reader_url() -> String {
+    L0_READER_URL.read().map(|url| url.clone()).unwrap_or_default()
+}
+
+pub fn close_reader() {
+    L0_READER_OPEN.store(false, std::sync::atomic::Ordering::Relaxed);
+    if let Ok(mut url) = L0_READER_URL.write() { url.clear(); }
+    makepad_widgets::splash::set_link("");
+}
 
 /// The theme kit, baked in. §1.1's middle layer: the card names roles and this
 /// answers them, so no colour or size is decided in Rust.
@@ -75,6 +85,7 @@ const PALETTES: &[(&str, &str)] = &[
     ("atro_light", include_str!("../../../../splash-makepad/components/l0/_palette_atro_light.splash")),
     ("camo", include_str!("../../../../splash-makepad/components/l0/_palette_camo.splash")),
     ("camo_light", include_str!("../../../../splash-makepad/components/l0/_palette_camo_light.splash")),
+    ("taskplan_light", include_str!("../../../../splash-makepad/components/l0/_palette_taskplan_light.splash")),
 ];
 
 /// One `accent: .<hue>` delta, for one mood.
@@ -223,30 +234,7 @@ const ACCENTS: &[(&str, &str, &str)] = &[
 /// The kit as this host assembles it for `source`: base, the card's declared
 /// mood, the derivation, then the body — in that order.
 fn kit_for(source: &str) -> String {
-    let declared = splash_ui_l0::card_theme(source);
-    // A `light` mood over a PHOTO page is a legibility failure rather than a
-    // style. `light` is the only mood that inverts the ink, and dark ink over an
-    // arbitrary photograph is unreadable — measured on "minimal weather tokyo",
-    // where the H/L/feels row rendered dark grey directly on a photo of the sky.
-    //
-    // The card is not wrong and is not refused: it asked for a light look AND a
-    // photograph, and `photo` is the mood that answers both — nearly-black fills
-    // laid over the image, with light ink. Resolving that here is exactly what
-    // this layer is for; the alternative was telling agents in prose not to pair
-    // them, which fails silently the first time one forgets.
-    let theme = match (
-        declared.as_deref(),
-        splash_ui_l0::card_root_role(source).as_deref(),
-    ) {
-        // Every DARK-INK mood takes the same substitution — dark ink over an
-        // arbitrary photograph is unreadable whatever the mood is called.
-        // `atro_light` is the Atro pack's light mode (#131315 ink).
-        (Some("light" | "atro_light"), Some("Photo")) => {
-            makepad_widgets::log!("[l0] dark-ink theme over a Photo page -> photo (legibility)");
-            Some("photo".to_owned())
-        }
-        _ => declared,
-    };
+    let theme = splash_ui_l0::card_theme(source);
     let (mood, delta) = theme
         .as_deref()
         .and_then(|t| PALETTES.iter().find(|(n, _)| *n == t))
@@ -333,7 +321,15 @@ fn kit_for(source: &str) -> String {
         .unwrap_or_default();
     // Axes BEFORE the env override, so a measurement run still wins over what
     // the card asked for — that hook exists to substitute a whole palette.
-    format!("{PALETTE_BASE}\n{delta}\n{axes}\n{PALETTE_DERIVE_COLOR}\n{axis}\n{PALETTE_DERIVE}\n{KIT_BODY}")
+    let pack_type = super::l0_pack_theme::defaults(mood);
+    // Preserve the requested light kit on photo pages. An opaque wash in that
+    // kit's page colors protects dark text over arbitrary imagery; replacing
+    // the entire palette with `photo` discarded fonts, accents and surfaces.
+    let photo_wash = if splash_ui_l0::card_root_role(source).as_deref() == Some("Photo")
+        && matches!(mood, "light" | "atro_light" | "camo_light" | "taskplan_light") {
+        "let l0_scrim_top = l0_base\nlet l0_scrim = l0_base_2\n"
+    } else { "" };
+    format!("{PALETTE_BASE}\n{delta}\n{pack_type}\n{axes}\n{PALETTE_DERIVE_COLOR}\n{axis}\n{PALETTE_DERIVE}\n{photo_wash}\n{KIT_BODY}")
 }
 
 /// The kit source, for tests that need to reproduce the DEVICE's exact chain.
@@ -362,6 +358,8 @@ fn render_through_kit(
     data: &serde_json::Value,
     store: &splash_ui_l0::InstanceStore,
 ) -> Result<String, String> {
+    let started = std::time::Instant::now();
+    super::l0_approval::require(source, &kit_for(source))?;
     // Durable collections join the data here, so a `for` over one iterates the
     // rows the store actually holds (see `with_durable`).
     let mut data = with_durable(source, data, store);
@@ -407,6 +405,15 @@ fn render_through_kit(
     // And so do the values the card GUARDS on. Last, because a guard's call is
     // built from the source's arguments and those may reach anything above.
     resolve_guards(cx, source, &mut data, store);
+    // Observe before realizing guards: a route arriving must reveal GO in this
+    // draw, without a second rebuild at the same fetch epoch.
+    observe_source_states(cx, source, &data, store);
+    if let (Some(map), Some(status)) = (
+        data.as_object_mut(), live_source_status(source).get("$status").cloned()
+    ) {
+        map.insert("$status".to_owned(), status);
+    }
+    let sources_elapsed = started.elapsed();
     let data = &data;
     let report = splash_ui_l0::realize_with_state(
         source,
@@ -414,25 +421,23 @@ fn render_through_kit(
         store,
         splash_ui_l0::RealizeLimits::default(),
     );
-    LAST_CAPTURED.with(|c| *c.borrow_mut() = Some(report.captured.clone()));
-    let Some(root) = report.root else {
-        return Err(report
-            .diagnostics
-            .iter()
-            .map(|d| d.message.clone())
-            .collect::<Vec<_>>()
-            .join("; "));
-    };
-    // What each source's fetch is doing, for the NEXT realize to read as `$state`.
-    // After realize because a source's arguments are only resolved here.
-    observe_source_states(cx, source, &root, data, store);
+    let root = report.complete_root()?;
+    let realized_elapsed = started.elapsed();
     let src = format!("{}\n{}", kit_for(source), splash_ui_l0::kit::lower(&root));
     // With capabilities: the kit lowers a source this backend can answer into a
     // `sys.*` call, and on a bare VM that call is undefined — the concatenation
     // around it yields `$[Error:WrongValue]`, which then draws as the price.
     let tree = super::l0_eval::build_with_capabilities(cx, &src)
-        .ok_or_else(|| "the lowered card evaluated to nil".to_owned())?;
-    Ok(super::l0_widgets::to_dsl(&tree))
+        .ok_or_else(|| "the lowered card failed evaluation or exceeded rendering limits".to_owned())?;
+    LAST_CAPTURED.with(|c| *c.borrow_mut() = Some(report.captured.clone()));
+    LAST_DISPATCH_DATA.with(|c| *c.borrow_mut() = Some(data.clone()));
+    let evaluated_elapsed = started.elapsed();
+    let tree = super::l0_kit_components::compose(source, tree);
+    let dsl = super::l0_widgets::to_dsl(&tree);
+    makepad_widgets::log!("[l0-perf] render sources_us={} realize_us={} kit_us={} emit_us={} total_us={}",
+        sources_elapsed.as_micros(), (realized_elapsed-sources_elapsed).as_micros(),
+        (evaluated_elapsed-realized_elapsed).as_micros(), (started.elapsed()-evaluated_elapsed).as_micros(), started.elapsed().as_micros());
+    Ok(dsl)
 }
 
 /// The card, its data, and its live state.
@@ -440,11 +445,14 @@ fn render_through_kit(
 /// The store is what makes a tap local: it holds the cells a transition writes,
 /// keyed by instance, and outlives the tree that is rebuilt around it.
 pub struct L0Session {
+    approval: splash_ui_l0::approval::ArtifactApproval,
     /// The L0 ledger source — re-realized on every dispatch.
     pub source: String,
     /// Host-supplied data. Static for the skeleton; §5.9 invalidation and
     /// refetch are a separate step and deliberately not attempted here.
     pub data: serde_json::Value,
+    /// The source rows and lifecycle that produced the current tap targets.
+    dispatch_data: serde_json::Value,
     /// Live cells. Survives the rebuild — which is the point.
     pub store: splash_ui_l0::InstanceStore,
     /// Which chat message holds the rendered card, so a redraw replaces the
@@ -496,10 +504,7 @@ pub fn render(
 /// question outside of rendering. A text node is the smallest thing `build` will
 /// return, and its `text` is the answer.
 fn eval_text(cx: &mut makepad_widgets::Cx, expr: &str) -> Option<String> {
-    // One expression, no roles and therefore no colours — the default
-    // palette keeps the VM identical to the rendering path.
-    let src = format!("{}\nreturn {{t: \"text\", text: \"\" + {expr}}}", kit_for(""));
-    super::l0_eval::build_with_capabilities(cx, &src)?.attrs.text
+    super::l0_eval::probe_text(cx, expr)
 }
 
 /// How many rows a LIST source has, and what identifies each of them.
@@ -523,6 +528,33 @@ fn fetched_rows(
     data: &serde_json::Value,
     store: &splash_ui_l0::InstanceStore,
 ) -> Option<Vec<serde_json::Value>> {
+    if request.helper == "sys.news_digest" {
+        let initials = splash_ui_l0::state_initials(source);
+        let resolve = |name: &str, default: &str| -> String {
+            match request.args.iter().find(|(n, _)| n == name).map(|(_, a)| a) {
+                Some(splash_ui_l0::SourceArg::Text(t)) => t.clone(),
+                Some(splash_ui_l0::SourceArg::Path(p)) => {
+                    let key = p.strip_prefix("state.").unwrap_or(p);
+                    store.get(splash_ui_l0::CARD_STATE_KEY, key).or_else(|| data.get(key))
+                        .or_else(|| initials.get(key)).and_then(|v| v.as_str()).unwrap_or(default).to_owned()
+                }
+                _ => default.to_owned(),
+            }
+        };
+        let query = resolve("query", "");
+        let language = resolve("language", "en");
+        let count = eval_text(cx, &format!("sys.news_digest({query:?}, {language:?}, \"count\")"))?
+            .parse::<usize>().ok()?;
+        let cap = request.args.iter().find(|(n, _)| n == "count")
+            .and_then(|(_, a)| match a { splash_ui_l0::SourceArg::Number(n) => Some(*n as usize), _ => None }).unwrap_or(3);
+        let mut rows = Vec::new();
+        for i in 0..count.min(cap).min(3) {
+            let id = eval_text(cx, &format!("sys.news_digest({query:?}, {language:?}, \"items.{i}.id\")"))?;
+            if id.is_empty() || id == "—" || id == "n/a" { break; }
+            rows.push(serde_json::json!({"id":id}));
+        }
+        return Some(rows);
+    }
     // The indicator source takes three arguments rather than a query, so it
     // seeds its rows here rather than through the query path below. One row
     // per country the card named, in that order — the chart assigns its
@@ -591,10 +623,9 @@ fn fetched_rows(
     // Named rather than inferred: these are the lists the backend answers by
     // index today. A table here beats a guess.
     let (key_field, count_helper) = match request.helper.as_str() {
-        // Keyed on the LABEL, because the name is not unique: a search for
-        // "Stanford" answers five rows all named that, and identity has to be the
-        // line that tells them apart.
-        "sys.search" => ("label", "sys.searchnum"),
+        // Addresses and names are shared by distinct POIs. Use the provider's
+        // feature identity, while keeping the address available for display.
+        "sys.search" => ("id", "sys.searchnum"),
         // A video's id IS its identity, and it is what the row keys on.
         "sys.video" => ("id", "sys.videonum"),
         // A ticker IS its identity; the stock add-flow searches these.
@@ -660,7 +691,13 @@ fn fetched_rows(
         if key.trim().is_empty() {
             break;
         }
-        rows.push(serde_json::json!({ key_field: key }));
+        let mut row = serde_json::json!({ key_field: key });
+        if request.helper == "sys.search" {
+            if let Some(label) = eval_text(cx, &format!("sys.search({query:?}, {i}, \"label\")")) {
+                row["label"] = label.into();
+            }
+        }
+        rows.push(row);
     }
     Some(rows)
 }
@@ -920,11 +957,17 @@ fn publish_locale() {
 
 /// Record the card that was just seeded, so its taps have somewhere to land.
 pub fn begin(source: String, data: serde_json::Value, item: usize) {
+    let approval = match super::l0_approval::require(&source, &kit_for(&source)) {
+        Ok(approval) => approval,
+        Err(why) => { makepad_widgets::log!("L0 session refused: {why}"); return; }
+    };
     if let Ok(mut map) = SESSIONS.write() {
         map.insert(
             item,
             L0Session {
+                approval,
                 source,
+                dispatch_data: data.clone(),
                 data,
                 store: splash_ui_l0::InstanceStore::default(),
                 item,
@@ -947,7 +990,48 @@ pub fn tap(
     event: &str,
     value: &str,
 ) -> Result<Option<(usize, String)>, String> {
-    tap_inner(cx, item, key, event, value, false)
+    tap_inner(cx, item, key, event, value, false, true)
+}
+
+/// Apply a ledger event. Its draw path renders from the updated session once;
+/// producing a second, discarded widget body here also defeated input debounce.
+pub fn tap_deferred(
+    cx: &mut makepad_widgets::Cx, item: usize, key: &str, event: &str, value: &str,
+) -> Result<Option<(usize, String)>, String> {
+    tap_inner(cx, item, key, event, value, false, false)
+}
+
+/// The foreground news card owns composer searches as well as its own Field.
+/// Dispatch through the card's actual controls, preserving user-input origin
+/// and the same admission/state checks used for a physical field submission.
+pub fn submit_news_query(cx: &mut makepad_widgets::Cx, item: usize, value: &str) -> Result<bool, String> {
+    let is_news = SESSIONS.read().ok().and_then(|map| map.get(&item).map(|session|
+        splash_ui_l0::source_plan(&session.source).requests.iter().any(|s| s.helper == "sys.news_digest")
+    )).unwrap_or(false);
+    if !is_news { return Ok(false); }
+    if value.trim().is_empty() || value.chars().count() > 160 {
+        return Err("News search needs 1–160 characters".into());
+    }
+    fn control(item: usize, prop: &str, event: &str) -> Option<String> {
+        fn find(node: &splash_ui_l0::UiNode, prop: &str, event: &str) -> Option<String> {
+            if node.args.iter().any(|(p, v)| p == prop && matches!(v, splash_ui_l0::NodeValue::Event(e) if e == event)) {
+                return Some(node.key.clone());
+            }
+            node.children.iter().find_map(|child| find(child, prop, event))
+        }
+        let map = SESSIONS.read().ok()?;
+        let session = map.get(&item)?;
+        let data = with_durable(&session.source, &session.dispatch_data, &session.store);
+        let report = splash_ui_l0::realize_with_state(&session.source, &data, &session.store, splash_ui_l0::RealizeLimits::default());
+        find(report.complete_root().ok()?, prop, event)
+    }
+    if control(item, "on_commit", "search").is_none() {
+        let key = control(item, "on_tap", "edit_search").ok_or("News card has no search control")?;
+        tap_deferred(cx, item, &key, "edit_search", "")?.ok_or("Could not open news search")?;
+    }
+    let key = control(item, "on_commit", "search").ok_or("News card has no search field")?;
+    tap_deferred(cx, item, &key, "search", value.trim())?.ok_or("News search was not applied")?;
+    Ok(true)
 }
 
 /// A system gesture, offered to the LATEST card as one of its own events —
@@ -955,9 +1039,23 @@ pub fn tap(
 /// swipe. `Some` only when a cell actually moved: a card already at the edge
 /// must NOT consume the gesture (back could never leave the app), and a card
 /// that declares no such event applies to nothing, which is the same answer.
-pub fn gesture(cx: &mut makepad_widgets::Cx, event: &str) -> Option<(usize, String)> {
+pub fn gesture(cx: &mut makepad_widgets::Cx, event: &str, render_body: bool) -> Option<(usize, String)> {
     let item = SESSIONS.read().ok()?.keys().max().copied()?;
-    tap_inner(cx, item, "root", event, "", true).ok().flatten()
+    tap_inner(cx, item, "root", event, "", true, render_body).ok().flatten()
+}
+
+/// Restore scalar types lost by the native button's string transport. The
+/// current realized control owns its numeric/boolean value; a text field's
+/// user input stays text, including numeric-looking strings.
+fn tap_payload(root: &splash_ui_l0::UiNode, key: &str, text: &str) -> Option<serde_json::Value> {
+    if root.key == key {
+        return Some(match root.args.iter().find(|(name, _)| name == "value").map(|(_, value)| value) {
+            Some(splash_ui_l0::NodeValue::Number(number)) => serde_json::json!(number),
+            Some(splash_ui_l0::NodeValue::Bool(value)) => serde_json::json!(value),
+            _ => serde_json::Value::String(text.to_owned()),
+        });
+    }
+    root.children.iter().find_map(|child| tap_payload(child, key, text))
 }
 
 fn tap_inner(
@@ -967,28 +1065,38 @@ fn tap_inner(
     event: &str,
     value: &str,
     require_change: bool,
+    render_body: bool,
 ) -> Result<Option<(usize, String)>, String> {
+    let started = std::time::Instant::now();
     let mut map = SESSIONS.write().map_err(|_| "session lock poisoned".to_owned())?;
     // The card the tap came FROM, not whichever was rendered last.
     let Some(session) = map.get_mut(&item) else {
         return Ok(None);
     };
 
-    let payload = (!value.is_empty()).then(|| serde_json::Value::String(value.to_owned()));
+    super::l0_approval::verify(&session.approval, &session.source, &kit_for(&session.source))?;
     // Dispatch sees the DURABLE rows too: `next(cities.name)` walks the saved
     // list, and the saved list is the store's, not the seed blob's.
-    let dispatch_data = with_durable(&session.source, &session.data, &session.store);
+    let dispatch_data = with_durable(&session.source, &session.dispatch_data, &session.store);
     // `dispatch_reporting`, not the bool form: a §5.12 transition writes nothing
     // in the card and instead REPORTS a write the host owes its store. The bool
     // form cannot express that, so a tap on a watchlist row would have applied
     // and done nothing.
-    let outcome = splash_ui_l0::dispatch_reporting(
+    let realized = splash_ui_l0::realize_with_state(&session.source, &dispatch_data, &session.store, splash_ui_l0::RealizeLimits::default());
+    let root = realized.complete_root()?;
+    let origin = splash_ui_l0::event_payload_origin(root, key, event);
+    // System gestures carry no user-authored value. A stale or invented widget
+    // route cannot upgrade a payload to user input.
+    if origin.is_none() && !require_change { return Ok(None); }
+    let payload = tap_payload(root, key, value);
+    let outcome = splash_ui_l0::dispatch_reporting_with_origin(
         &session.source,
         &mut session.store,
         key,
         event,
         payload.as_ref(),
         &dispatch_data,
+        origin.unwrap_or(splash_ui_l0::ValueOrigin::Authored),
     );
     for write in &outcome.writes {
         // A sys.link write is not a store write at all: the card asked the
@@ -997,17 +1105,13 @@ fn tap_inner(
         // system back detaches (both in main.rs) — the card only ever says
         // which page, never how pages are shown.
         if write.helper == "sys.link" {
-            let browser = makepad_widgets::web_card::web_card_browser_id();
             makepad_widgets::log!("[l0] reader {} {:?}", write.op, write.value);
             if write.op == "set" && !write.value.is_empty() {
-                cx.system_browser(browser).spawn(&write.value);
+                if let Ok(mut url) = L0_READER_URL.write() { *url = write.value.clone(); }
                 makepad_widgets::splash::set_link(&write.value);
                 L0_READER_OPEN.store(true, std::sync::atomic::Ordering::Relaxed);
-                L0_READER_PLACED.store(false, std::sync::atomic::Ordering::Relaxed);
             } else {
-                cx.system_browser(browser).detach();
-                makepad_widgets::splash::set_link("");
-                L0_READER_OPEN.store(false, std::sync::atomic::Ordering::Relaxed);
+                close_reader();
             }
             continue;
         }
@@ -1060,32 +1164,27 @@ fn tap_inner(
     // state waiting — which looks like a rendering bug and is not.
     // The store may have just grown by this very tap, so the durable rows are
     // merged AFTER the write rather than from the session's original blob.
-    let tapped_data = with_durable(&session.source, &session.data, &session.store);
+    let tapped_data = with_durable(&session.source, &session.dispatch_data, &session.store);
     let report = splash_ui_l0::realize_with_state(
         &session.source,
         &tapped_data,
         &session.store,
         splash_ui_l0::RealizeLimits::default(),
     );
-    let Some(root) = report.root else {
-        return Err(report
-            .diagnostics
-            .iter()
-            .map(|d| d.message.clone())
-            .collect::<Vec<_>>()
-            .join("; "));
-    };
-    let body = {
+    let root = report.complete_root()?;
+    let body = if render_body {
         let src = format!(
             "{}\n{}",
             kit_for(&session.source),
             splash_ui_l0::kit::lower(&root)
         );
         let tree = super::l0_eval::build_with_capabilities(cx, &src)
-            .ok_or_else(|| "the lowered card evaluated to nil".to_owned())?;
+            .ok_or_else(|| "the lowered card failed evaluation or exceeded rendering limits".to_owned())?;
+        let tree = super::l0_kit_components::compose(&session.source, tree);
         super::l0_widgets::to_dsl(&tree)
-    };
+    } else { String::new() };
     session.store.prune(&report.live_keys);
+    makepad_widgets::log!("[l0-perf] tap event={} total_us={}", event, started.elapsed().as_micros());
     Ok(Some((session.item, body)))
 }
 
@@ -1137,80 +1236,63 @@ mod exemplar_drift {
 
 #[cfg(test)]
 mod tests {
-    /// A light mood over a PHOTO page is resolved to `photo`.
-    ///
-    /// Not a style preference: `light` inverts the ink, and dark ink over an
-    /// arbitrary photograph is unreadable. Measured on device before this existed —
-    /// "minimal weather tokyo" put the H/L/feels row in dark grey directly on a
-    /// photo of the sky. The card keeps asking for both; the kit answers with the
-    /// mood that reads.
     #[test]
-    fn a_light_mood_over_a_photo_page_becomes_photo() {
-        let photo_card = "theme light\n\
-                          source scene sys.photo(query: \"kyoto\")\n\
-                          view root Photo(src: scene) { Rule() }\n";
-        let kit = super::kit_for(photo_card);
-        assert!(
-            kit.contains("#05070cf2"),
-            "a light+Photo card must be assembled with the photo palette's scrim"
-        );
-        assert!(
-            !kit.contains("#f2f2f7"),
-            "the light page colour must not survive the substitution"
-        );
-
-        // The same mood on a plain surface stays light — the rule is about photos,
-        // not about disliking light.
-        let plain = "theme light\nview root Surface { Rule() }\n";
-        assert!(
-            super::kit_for(plain).contains("#f2f2f7"),
-            "light on a Surface page must stay light"
-        );
-
-        // And a photo page that declared no mood still takes the default.
-        let bare = "source scene sys.photo(query: \"x\")\n\
-                    view root Photo(src: scene) { Rule() }\n";
-        assert!(
-            super::kit_for(bare).contains("#0a0e14"),
-            "a photo page that declared nothing must take dark, not photo"
-        );
+    fn l0_migration_numeric_presets_keep_their_type_and_declared_value() {
+        let source = include_str!("../../../../a2app-l0/apps/convert/exemplar.card");
+        let mut store = splash_ui_l0::InstanceStore::default();
+        let data = serde_json::json!({});
+        for (index, amount) in [(1, 10), (2, 100)] {
+            let report = splash_ui_l0::realize_with_state(source, &data, &store, Default::default());
+            let root = report.complete_root().unwrap();
+            let key = format!("root/presets#0/presets/Chip#{index}");
+            let payload = super::tap_payload(root, &key, "999").unwrap();
+            assert_eq!(payload.as_f64(), Some(amount as f64), "the realized control owns its value");
+            let origin = splash_ui_l0::event_payload_origin(root, &key, "set_amount").unwrap();
+            let outcome = splash_ui_l0::dispatch_reporting_with_origin(
+                source, &mut store, &key, "set_amount", Some(&payload), &data, origin,
+            );
+            assert!(outcome.applied);
+            assert_eq!(outcome.changed, ["amount"]);
+            assert_eq!(outcome.stale, ["conversion"]);
+        }
+        let source = "state draft { shape: text, initial: \"\" }\nevent edit { draft: set($value) }\nview root Field(text: draft, on_commit: edit)";
+        let report = splash_ui_l0::realize(source, &data, Default::default());
+        let root = report.complete_root().unwrap();
+        assert_eq!(super::tap_payload(root, "root", "010"), Some(serde_json::json!("010")));
+        assert_eq!(super::tap_payload(root, "missing", "10"), None);
     }
 
-    /// `light` is the only mood that inverts the ink, which is what the photo
-    /// substitution above relies on.
-    ///
-    /// If a new mood overrides `l0_text` to something dark it needs the same
-    /// treatment, and this is where that gets noticed — the alternative is a card
-    /// rendering unreadable text over a photograph while every automated check
-    /// still passes.
+    /// Changing the page role must not replace the selected palette or font.
     #[test]
-    fn light_is_the_only_mood_that_inverts_the_ink() {
-        // The rule, stated precisely: a mood whose PRIMARY INK IS DARK must be
-        // in `kit_for`'s photo substitution. Theme packs override l0_text as a
-        // matter of course (a pack carries a whole system), so the check reads
-        // the actual ink rather than banning the override.
-        let dark_ink_moods_with_substitution = ["light", "atro_light"];
-        for (name, delta) in super::PALETTES {
-            let Some(line) = delta
-                .lines()
-                .filter(|l| l.trim_start().starts_with("let l0_text") && l.contains("argb("))
-                .last()
-            else {
-                continue;
-            };
-            let nums: Vec<u32> = line
-                .split(&['(', ')', ','][..])
-                .filter_map(|s| s.trim().parse().ok())
-                .collect();
-            let [_, r, g, b] = nums[..4] else { panic!("unparsable ink in {name}") };
-            let dark = (r + g + b) < 380;
-            if dark {
-                assert!(
-                    dark_ink_moods_with_substitution.contains(name),
-                    "mood {name:?} has DARK ink and is missing from `kit_for`'s \
-                     Photo substitution — dark ink over a photograph is unreadable"
-                );
+    fn photo_pages_preserve_light_kits_and_protect_dark_text() {
+        let mut cx = makepad_widgets::Cx::new(Box::new(|_, _| {}));
+        for (theme, base, ink) in [
+            ("light", 0xfff2f2f7, 0xff1c1c1e),
+            ("atro_light", 0xffffffff, 0xff131315),
+            ("camo_light", 0xffffffff, 0xff141418),
+            ("taskplan_light", 0xffffffff, 0xff111927),
+        ] {
+            let source = format!("theme {theme}\nsource scene sys.photo(query: \"Cupertino\")\nview root Photo(src: scene) {{ Rule() }}\n");
+            let code = format!("{}\nlet node = l0_surface_photo(\"\", [{{t: \"text\", text: \"Weather\", color: l0_text, family: l0_family}}])\nnode\n", super::kit_for(&source));
+            let tree = crate::app::l0_eval::build_with_capabilities(&mut cx, &code).expect("photo kit evaluates");
+            assert_eq!(tree.attrs.bg, Some(base), "{theme} page fill");
+            assert_eq!(tree.children[1].attrs.bg, Some(base), "{theme} opaque photo wash");
+            assert_eq!(tree.children[2].children[0].attrs.color, Some(ink), "{theme} ink");
+            if theme != "light" {
+                assert_eq!(tree.children[2].children[0].attrs.family.as_deref(), Some(format!("kit:{theme}:body").as_str()));
             }
+        }
+    }
+
+    #[test]
+    fn photo_pages_keep_dark_theme_identity_with_missing_images() {
+        let mut cx = makepad_widgets::Cx::new(Box::new(|_, _| {}));
+        for (theme, base) in [("atro", 0xff121217), ("camo", 0xff000000)] {
+            let source = format!("theme {theme}\nsource scene sys.photo(query: \"Cupertino\")\nview root Photo(src: scene) {{ Rule() }}\n");
+            let code = format!("{}\nlet node = l0_surface_photo(\"\", [])\nnode\n", super::kit_for(&source));
+            let tree = crate::app::l0_eval::build_with_capabilities(&mut cx, &code).unwrap();
+            assert_eq!(tree.attrs.bg, Some(base), "{theme}");
+            assert!(tree.children[1].attrs.bg.unwrap() >> 24 < 255, "dark photo overlay stays translucent");
         }
     }
 
@@ -1633,7 +1715,6 @@ fn state_of_answer(text: &str) -> &'static str {
 fn observe_source_states(
     cx: &mut makepad_widgets::Cx,
     ledger: &str,
-    _root: &splash_ui_l0::UiNode,
     data: &serde_json::Value,
     store: &splash_ui_l0::InstanceStore,
 ) {
@@ -1681,6 +1762,8 @@ thread_local! {
     /// only the outermost one can write.
     static LAST_CAPTURED: std::cell::RefCell<Option<Vec<(String, serde_json::Value)>>> =
         const { std::cell::RefCell::new(None) };
+    static LAST_DISPATCH_DATA: std::cell::RefCell<Option<serde_json::Value>> =
+        const { std::cell::RefCell::new(None) };
 }
 
 /// Render, and FREEZE anything the card captured from a source.
@@ -1714,11 +1797,12 @@ fn render_capturing(
     let captured = LAST_CAPTURED
         .with(|c| c.borrow_mut().take())
         .unwrap_or_default();
-    if captured.is_empty() {
-        return Ok(dsl);
-    }
+    let dispatch_data = LAST_DISPATCH_DATA.with(|c| c.borrow_mut().take());
     if let Ok(mut map) = SESSIONS.write() {
         if let Some(session) = map.get_mut(&item) {
+            if let Some(data) = dispatch_data {
+                session.dispatch_data = data;
+            }
             for (path, value) in captured {
                 if session
                     .store
@@ -1727,7 +1811,7 @@ fn render_capturing(
                 {
                     session
                         .store
-                        .set_cell(splash_ui_l0::CARD_STATE_KEY, &path, value);
+                        .set_cell_with_origin(splash_ui_l0::CARD_STATE_KEY, &path, value, splash_ui_l0::ValueOrigin::Source);
                 }
             }
         }
@@ -1735,11 +1819,42 @@ fn render_capturing(
     Ok(dsl)
 }
 
+thread_local! {
+    // One bounded entry per UI thread. Validation is pure over source; data
+    // updates still realize normally below. Streaming redraws must not reparse
+    // and log the identical incomplete card sixty times a second.
+    static LAST_CARD_CHECK: std::cell::RefCell<Option<(String, splash_ui_l0::UiL0Report)>> = const { std::cell::RefCell::new(None) };
+}
+
+fn checked_card(source: &str) -> (splash_ui_l0::UiL0Report, bool) {
+    LAST_CARD_CHECK.with(|cache| {
+        let mut cache = cache.borrow_mut();
+        if let Some((previous, report)) = cache.as_ref() {
+            if previous == source { return (report.clone(), false); }
+        }
+        let report = splash_ui_l0::check_ui_l0_named("card", source);
+        *cache = Some((source.to_owned(), report.clone()));
+        (report, true)
+    })
+}
+
+#[test]
+fn generation_render_cache_rechecks_changed_card_before_admission() {
+    LAST_CARD_CHECK.with(|c| *c.borrow_mut() = None);
+    let valid = "view root Col {}";
+    assert!(checked_card(valid).0.valid);
+    assert!(!checked_card(valid).1);
+    let (invalid, changed) = checked_card("view root UnknownWidget {}");
+    assert!(changed && !invalid.valid);
+    let (valid_again, changed) = checked_card(valid);
+    assert!(changed && valid_again.valid);
+}
+
 fn render_ledger(cx: &mut makepad_widgets::Cx, source: &str, item: usize) -> String {
     // Check first. `realize` is tolerant where the profile is not, so a card
     // that realizes is not necessarily a card that was admissible, and shipping
     // an inadmissible one would make the checker decorative.
-    let report = splash_ui_l0::check_ui_l0_named("card", source);
+    let (report, changed) = checked_card(source);
     if !report.valid {
         // A REFUSAL IS NOT A SCREEN.
         //
@@ -1753,7 +1868,7 @@ fn render_ledger(cx: &mut makepad_widgets::Cx, source: &str, item: usize) -> Str
         // which is what it is — and it is the presentation §5.9 already gives to
         // data in flight, rather than a new failure vocabulary aimed at the wrong
         // audience.
-        makepad_widgets::log!(
+        if changed { makepad_widgets::log!(
             "L0 card refused, not rendered ({} diagnostic(s)): {}",
             report.diagnostics.len(),
             report
@@ -1762,7 +1877,7 @@ fn render_ledger(cx: &mut makepad_widgets::Cx, source: &str, item: usize) -> Str
                 .map(|d| format!("line {}: {}", d.line, d.message))
                 .collect::<Vec<_>>()
                 .join(" | ")
-        );
+        ); }
         return quiet_card();
     }
     // What the model actually declared. Only the `state` lines: enough to tell a
@@ -1771,7 +1886,7 @@ fn render_ledger(cx: &mut makepad_widgets::Cx, source: &str, item: usize) -> Str
     //
     // Refusals were logged and acceptances were not, so a card that passed the
     // checker and then rendered nothing but em dashes gave nothing to read.
-    {
+    if changed {
         let states: Vec<&str> = source
             .lines()
             .map(str::trim)
@@ -1786,22 +1901,8 @@ fn render_ledger(cx: &mut makepad_widgets::Cx, source: &str, item: usize) -> Str
                 roles.push(r);
             }
         }
-        // The §7 closure digest, logged rather than stored.
-        //
-        // §7 asks a host to keep the digest beside the approved level so a card
-        // cannot inherit a level that was derived from a component definition since
-        // replaced. That hazard needs two things this host does not have: a level
-        // it CACHES, and components defined outside the card. Neither exists —
-        // `check_ui_l0_named` runs on every render and on every acceptance, and the
-        // checker refuses any constructor the card does not declare itself
-        // ("`X` is not an L0 constructor or a declared component"), so a card's
-        // closure is always its own text. `a_card_cannot_reference_a_component_it_
-        // does_not_declare` holds the second half, which is what makes the first
-        // half safe rather than assumed: the day a shared component library lands,
-        // that test fails and this has to become a stored pin.
-        //
-        // Logged because a digest nobody can see is also a digest nobody can use to
-        // tell two cards apart in a bug report.
+        // Component digests aid diagnostics; the complete artifact is pinned
+        // by l0_approval before any capability work or mounting.
         let digest: Vec<String> = report
             .closure
             .iter()
@@ -1857,11 +1958,9 @@ fn render_ledger(cx: &mut makepad_widgets::Cx, source: &str, item: usize) -> Str
     ) {
         map.insert("$status".to_owned(), fresh);
     }
+    if is_new { begin(source.to_owned(), data.clone(), item); }
     match render_capturing(cx, source, &data, &store, item) {
         Ok(dsl) => {
-            if is_new {
-                begin(source.to_owned(), data.clone(), item);
-            }
             // And the session keeps the refreshed one, so a tap re-realizes against
             // the lifecycle the screen was showing rather than the one it was born
             // with.

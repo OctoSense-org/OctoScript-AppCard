@@ -5,8 +5,10 @@ including a bare city name ("Kyoto", "东京天气").
 
 A request may also name a LOOK — "dark weather tokyo", "minimal weather",
 "毛玻璃天气", "photo weather shanghai". That is a `theme` declaration (see the
-language reference, §4b) and nothing else: same card, same sources, same views,
-one extra line. Never a colour, and never a second card variant.
+language reference, §4b). Supplied context may also select or adapt a native page
+composition: a forecast-first page for planning, or a dashboard for a quick
+conditions check. Preserve the sources, controls and required content below.
+Never write raw colours, fonts or pixel dimensions.
 
 `exemplar.card` meets every requirement below.
 
@@ -75,7 +77,7 @@ written through declared transitions on it, joined to live readings by the host.
 
 ```
 source cities sys.cities(fields: [name, temp])
-source found  sys.search(query: state.query, count: 5, fields: [name, label, query])
+source found  sys.search(query: state.query, count: 5, fields: [id, name, label, query])
 state  query   { shape: text, initial: "" }
 state  editing { shape: enum[none, add], initial: .none }
 event  open_city { city: set($value) }
@@ -94,6 +96,9 @@ event  drop_city { cities: remove($value) }
   only while `editing == .add`. Results are bare rows over `found` gated on
   `query != ""`; a result row's payload is `f.query` — name plus label, the
   text that finds the hit again.
+- Key search results with `for f, i in found key f.id`. Different places can
+  have the same name or region label (London returns several with the label
+  `England, United Kingdom`); those display strings are not unique row keys.
 - Never store a temperature or coordinates: the collection keeps **names only**
   and every reading beside one is fetched at read time.
 

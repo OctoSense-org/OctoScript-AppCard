@@ -46,6 +46,10 @@ log      = "0.4"
 [patch."https://github.com/ZhangHanDong/makepad.git"]
 makepad-widgets = { path = "../aichat/widgets" }
 
+[patch.crates-io]
+mmap-rs = { path = "../octos/vendor/mmap-rs" }
+nix = { path = "../octos/vendor/nix" }
+
 [profile.release]
 # Fat LTO conflicts with the `-C prefer-dynamic` rustflag cargo-makepad uses
 # on Android to share libstd as a bundled .so ("cannot prefer dynamic linking

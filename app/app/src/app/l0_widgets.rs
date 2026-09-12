@@ -181,6 +181,9 @@ fn text_style_for(size: f32, weight: Option<i32>, text: Option<&str>,
 fn text_style(size: f32, weight: Option<i32>, family: Option<&str>,
               tracking: Option<f32>) -> String {
     let w = weight.unwrap_or(400);
+    if let Some(resource) = family.and_then(|family| super::l0_pack_theme::font_resource(family, w)) {
+        return format!(" draw_text.text_style: TextStyle{{ font_family: FontFamily{{ latin := FontMember{{ res: crate_resource({resource:?}) asc: 0.0 desc: 0.0 weight: {w} }} }} font_size: {size} }}");
+    }
     // The theme names a ROLE — "serif" — and this picks the face. Two weights
     // rather than four: the bundled serif ships Regular and Bold, so a hairline
     // hero in serif takes Regular rather than silently falling back to a sans
@@ -292,11 +295,11 @@ fn takes_a_tap(node: &UiNode) -> bool {
 }
 
 /// Register a live text node and return the name to emit it under.
-fn live_name(call: &str) -> Option<String> {
+fn live_name(call: &str, explicit: Option<&str>) -> Option<String> {
     LIVE.with(|l| {
         let mut slot = l.borrow_mut();
         let found = slot.as_mut()?;
-        let name = format!("l0v{}", found.len());
+        let name = explicit.map(str::to_owned).unwrap_or_else(|| format!("l0v{}", found.len()));
         found.push((name.clone(), call.to_owned()));
         Some(name)
     })
@@ -695,10 +698,31 @@ pub const TAP_CHANNEL: &str = "l0kit";
 /// travel in the payload. The `l0:` prefix separates it from the renderer's own
 /// `set:` verbs. This is the only reader; the shape is not restated anywhere.
 pub fn parse_tap(target: &str) -> Option<(String, String, String)> {
+    #[derive(serde::Deserialize)]
+    struct Target {
+        k: String,
+        e: String,
+        #[serde(default)]
+        v: String,
+        #[serde(default, rename = "c")]
+        _changing: Option<u8>,
+    }
     let json = target.strip_prefix("l0:")?;
-    let t: serde_json::Value = serde_json::from_str(json).ok()?;
-    let field = |k: &str| t.get(k).and_then(|v| v.as_str()).unwrap_or("").to_owned();
-    Some((field("k"), field("e"), field("v")))
+    let t: Target = serde_json::from_str(json).ok()?;
+    Some((t.k, t.e, t.v))
+}
+
+/// Build a field callback from parsed routing metadata. Text is one JSON value;
+/// quotes, control characters and `$$` in keys cannot change the route.
+fn field_target_expr(target: &str, changing: bool) -> Option<String> {
+    let (key, event, _) = parse_tap(target)?;
+    let mut routing = serde_json::json!({"k": key, "e": event});
+    if changing {
+        routing["c"] = serde_json::json!(1);
+    }
+    let routing = routing.to_string();
+    let head = format!("l0:{},\"v\":", routing.trim_end_matches('}'));
+    Some(format!("{head:?} + sys.json_string(t) + {:?}", "}"))
 }
 
 // A node is wrapped in a hit target when it declares one, and the tap MUST be a
@@ -864,6 +888,33 @@ fn emit_textured(node: &UiNode, out: &mut String, depth: usize) -> bool {
 }
 
 fn emit(node: &UiNode, out: &mut String, depth: usize) {
+    if let Some(contract) = &node.attrs.kit {
+        let config: serde_json::Value = serde_json::from_str(contract).expect("validated kit contract");
+        let widget = config["widget"].as_str().expect("native kit class");
+        assert!(matches!(widget, "KitButton" | "KitFormField" | "KitTabBar" | "KitBottomNavigation" | "TaskplanProjectCard" | "CamoTrackRow"));
+        let pad = "  ".repeat(depth.min(32));
+        let id = node.attrs.id.as_deref().expect("kit instance ID");
+        let _ = write!(out, "{pad}{id} := {widget}{{ padding: 0 margin: 0 spacing: 0 contract: {contract:?}");
+        sizing_of(node.kind, &node.attrs, out);
+        box_model(&node.attrs, out);
+        if let Some(flow) = flow(node.kind) { let _ = write!(out, " flow: {flow}"); }
+        out.push('\n');
+        for child in &node.children { emit(child, out, depth + 1); }
+        let _ = writeln!(out, "{pad}}}");
+        return;
+    }
+    if node.kind == NodeKind::Button {
+        let pad = "  ".repeat(depth.min(32));
+        out.push_str(&pad);
+        if let Some(id) = &node.attrs.id { let _ = write!(out, "{id} := "); }
+        out.push_str("Button{ text: \"\" padding: 0 margin: 0 draw_bg.color: #00000000 draw_bg.color_hover: #ffffff08 draw_bg.color_down: #ffffff12 draw_bg.color_focus: #00000000 draw_bg.border_size: 0");
+        sizing(&node.attrs, out);
+        if let Some(target) = &node.attrs.tapto {
+            let _ = write!(out, " on_click: || agent.notify({TAP_CHANNEL:?}, {{target: {target:?}}})");
+        }
+        let _ = writeln!(out, " }}");
+        return;
+    }
     if emit_textured(node, out, depth) {
         return;
     }
@@ -881,8 +932,8 @@ fn emit(node: &UiNode, out: &mut String, depth: usize) {
         let pad = "  ".repeat(depth.min(32));
         let a = &node.attrs;
         let target = a.tapto.as_deref().unwrap_or("");
-        let (head, tail) = target.split_once("$$").unwrap_or((target, ""));
-        let _ = write!(out, "{pad}TextInput{{");
+        if let Some(id) = &a.id { let _ = write!(out, "{pad}{id} := TextInput{{"); }
+        else { let _ = write!(out, "{pad}TextInput{{"); }
         sizing_of(node.kind, a, out);
         box_model(a, out);
         if let Some(bg) = a.bg {
@@ -893,6 +944,24 @@ fn emit(node: &UiNode, out: &mut String, depth: usize) {
         }
         if let Some(c) = a.color {
             let _ = write!(out, " draw_text.color: {}", hex(c));
+        }
+        if a.id.as_deref().is_some_and(|id| id.starts_with("kit_")) {
+            // Keep native focus/typing behavior, but do not let the host's dark
+            // TextInput state palette replace a kit field's light surface/ink.
+            if let Some(bg) = a.bg {
+                for state in ["color_hover", "color_focus", "color_down", "color_empty", "color_2"] {
+                    let _ = write!(out, " draw_bg.{state}: {}", hex(bg));
+                }
+                for state in ["hover", "focus", "down", "empty"] {
+                    let _ = write!(out, " draw_bg.color_2_{state}: {}", hex(bg));
+                }
+            }
+            if let Some(c) = a.color {
+                for state in ["color_hover", "color_focus", "color_empty", "color_empty_hover", "color_empty_focus"] {
+                    let _ = write!(out, " draw_text.{state}: {}", hex(c));
+                }
+                let _ = write!(out, " draw_cursor.color: {} draw_bg.border_size: 1 draw_bg.border_color: #00000000 draw_bg.border_color_2: #00000000 draw_bg.border_color_focus: {} draw_bg.border_color_2_focus: {}", hex(c), hex(c), hex(c));
+            }
         }
         if let Some(s) = a.size {
             let fam = if a.icon == Some(1) { Some("fa") } else { a.family.as_deref() };
@@ -913,26 +982,20 @@ fn emit(node: &UiNode, out: &mut String, depth: usize) {
             " empty_text: {:?}",
             a.placeholder.as_deref().unwrap_or("")
         );
-        if !target.is_empty() {
+        if let Some(expr) = field_target_expr(target, false) {
             let _ = write!(
                 out,
-                " on_return: |t| agent.notify({TAP_CHANNEL:?}, {{target: {head:?} + t + {tail:?}}})"
+                " on_return: |t| agent.notify({TAP_CHANNEL:?}, {{target: {expr}}})"
             );
         }
         // And the same, per KEYSTROKE. `TextInput` calls `on_change` with the text so
         // far, exactly as it calls `on_return` with the committed text, so a search
         // box can list results while you type and still commit a destination on
         // return. Two moments, two declared events, one widget.
-        if let Some(changing) = a.changeto.as_deref().filter(|c| !c.is_empty()) {
-            let (h, t2) = changing.split_once("$$").unwrap_or((changing, ""));
-            // `"c":1` marks this dispatch as a KEYSTROKE, so the app can apply the
-            // state change immediately but COALESCE the expensive re-render — a
-            // full re-resolve per character re-laid the sheet out under the
-            // user's finger, which read as the field jittering while they typed.
-            let h = h.replacen("\"v\":\"", "\"c\":1,\"v\":\"", 1);
+        if let Some(expr) = a.changeto.as_deref().and_then(|t| field_target_expr(t, true)) {
             let _ = write!(
                 out,
-                " on_change: |t| agent.notify({TAP_CHANNEL:?}, {{target: {h:?} + t + {t2:?}}})"
+                " on_change: |t| agent.notify({TAP_CHANNEL:?}, {{target: {expr}}})"
             );
         }
         let _ = writeln!(out, " }}");
@@ -1136,10 +1199,10 @@ fn emit_widget(node: &UiNode, out: &mut String, depth: usize) {
     // kit stamps the call onto `action` (see `l0_live`); the name is assigned here in
     // emission order so it matches the tick written after the tree.
     let named = if node.kind == NodeKind::Text {
-        a.action.as_deref().and_then(live_name)
+        a.action.as_deref().and_then(|call| live_name(call, a.id.as_deref()))
     } else {
         None
-    };
+    }.or_else(|| a.id.clone());
     // A REVEAL starts hidden and is named, so a swipe on its sheet can show it
     // without touching card state. Card state would re-resolve the card, re-parse the
     // document and rebuild the `MapView` — up to 327 ms of frozen map. The shipping
@@ -1403,6 +1466,13 @@ fn emit_widget(node: &UiNode, out: &mut String, depth: usize) {
                 a.symbol.as_deref().unwrap_or(""),
                 plot_range(a.range.as_deref().unwrap_or(""))
             );
+            if let Some(ink) = a.color {
+                // StockPlot's standalone defaults assume a dark surface.
+                // Carry the kit's axis ink into the native plot on light kits.
+                let _ = write!(out, " text_color: {} grid_color: {} baseline_color: {}",
+                    hex(ink), hex((ink & 0x00ffffff) | 0x24000000),
+                    hex((ink & 0x00ffffff) | 0x70000000));
+            }
         }
         NodeKind::IndicatorPlot => {
             // Strings, not shader uniforms: the widget resolves them into a
@@ -1968,8 +2038,8 @@ mod field_tests {
             "the return key must reach the handler:\n{dsl}"
         );
         assert!(
-            dsl.contains(r#"\"v\":\"" + t + "\"}"#),
-            "the typed text must be spliced into the payload:\n{dsl}"
+            dsl.contains("sys.json_string(t)"),
+            "the typed text must be JSON encoded into the payload:\n{dsl}"
         );
         // The placeholder is what the field shows when empty — dropping it
         // leaves a box with no indication of what it wants.
@@ -2289,4 +2359,15 @@ mod texture_tests {
         emit(&unknown, &mut out2, 0);
         assert!(!out2.contains("Image{"), "unknown texture drew something:\n{out2}");
     }
+}
+
+#[test]
+fn generation_render_stockplot_carries_theme_axis_ink() {
+    let node = UiNode { kind: NodeKind::StockPlot,
+        attrs: Attrs { symbol: Some("AAPL".into()), range: Some("m1".into()),
+            color: Some(0xff71717a), ..Attrs::default() }, children: vec![] };
+    let dsl = to_dsl(&node);
+    assert!(dsl.contains("text_color: #71717aff"));
+    assert!(dsl.contains("grid_color: #71717a24"));
+    assert!(dsl.contains("symbol: \"AAPL\""));
 }

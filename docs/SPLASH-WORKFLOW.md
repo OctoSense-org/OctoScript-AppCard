@@ -1,5 +1,13 @@
 # Splash-Workflow: exactly-once effects and capability-scoped tools
 
+**2026-09-09 update:** For short Octos One research, the standalone Splash
+language can orchestrate deferred tool reads directly. The runnable
+[Splash research experiment](SPLASH-RESEARCH.md) uses bounded host concurrency
+and small templates without a DOT planner. The historical recommendation below
+to keep DOT for orchestration concerns the long agent/report workflow; it is
+not a requirement for every app research task. `splash-workflow` durability
+machinery and Splash language tool orchestration have different scopes.
+
 *octos-one engineering note — why the new Splash VM's `splash-workflow` layer
 matters when LLM-composed cards start doing real things, and why "just call
 bash / shell out from a script" is the wrong model on a phone. Documented from a

@@ -1,4 +1,5 @@
 # ledger weather@1.0.0
+theme atro_light
 # level:   L0
 # profile: ui/l0
 # model:   glm-5.2
@@ -31,7 +32,7 @@ source cities      sys.cities(fields: [name, temp])
 # typed. `query` (the field) is "name, label": the text that finds this hit
 # again, which is what gets stored — a bare name sends the top "Springfield"
 # whichever one was tapped.
-source found       sys.search(query: state.query, count: 5, fields: [name, label, query])
+source found       sys.search(query: state.query, count: 5, fields: [id, name, label, query])
 source env.locale  sys.locale()
 
 # ── state: shape only; the runtime holds the values ──────────────────────────
@@ -111,7 +112,7 @@ view saved  Col {
                     # Row taps PREVIEW; only the Add chip beside a result
                     # stores it (chip as sibling — a row's hit target covers
                     # its children, measured).
-                    for f, i in found key f.label {
+                    for f, i in found key f.id {
                       Row(align: .center, gap: 10) {
                         Row(align: .center, gap: 10, width: .fill, on_tap: preview, value: f.query) {
                           Col(gap: 2) {

@@ -11,20 +11,15 @@ over a collection you declared. That is not a restriction to work around — it 
 what makes a card safe to run, and everything you would reach for those with has
 a declared form here instead.
 
-**Two apps are above L0 and say so.** `city-picks` declares `# level: L1`
-because comparing places needs one arithmetic expression — how much warmer
-somewhere feels than it is — and that is a fact about two facts rather than a
-fact any source carries. `convert` declares it for the same reason: a converter
-computes one value from an amount and a coefficient it already declared. Both are
-written into their own specs, and raising the level is never something you
-decide: if you are not building an app whose spec declares a level, the paragraph
-above is the whole of the language.
-Even at L1 the no-facts rule holds, one level up — an expression must **read**
-something, so an expression made only of literals is refused.
+**All registered app cards are L0.** Calculations belong to catalogued runtime
+capabilities: `sys.convert` returns a converted amount, and `sys.cities`
+returns `feels_delta` in the requested temperature unit. Cards bind these values
+without arithmetic or a higher language level.
 
-**Read `framework/l0.md` for the language and `framework/catalog.md` for the
-roles and capabilities.** Then follow the spec for the app you were routed to,
-in `apps/<id>/app.md`.
+**Use `framework/l0.md` for the language and `framework/catalog.md` for the
+roles and capabilities.** Adapt the selected app's supplied card, preserving
+its data, state, events and views. Per-app `app.md` files are developer
+documentation and are not required in the generation reference.
 
 ---
 
@@ -49,7 +44,7 @@ in `apps/<id>/app.md`.
   korea", "中国和印度的 GDP". A company's share price is **stock**; a city's
   weather is **weather**.
 - **convert** — unit conversion. "km to miles", "how many miles is 42 km",
-  "20°C in fahrenheit", "多少英里". `# level: L1`. CURRENCY IS NOT THIS APP: a
+  "20°C in fahrenheit", "多少英里". CURRENCY IS NOT THIS APP: a
   rate needs a live capability the catalog does not have, and a rate written into
   a card is wrong within the hour.
 - **quake** — earthquakes. "recent quakes", "any earthquakes today?", "地震".

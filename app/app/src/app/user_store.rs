@@ -44,6 +44,9 @@ static STORE: RwLock<Option<UserStore>> = RwLock::new(None);
 /// `files/.config/octos-app/user.json`, beside the server config that already
 /// lives there.
 fn path() -> Option<PathBuf> {
+    if let Some(path) = std::env::var_os("OCTOS_USER_STORE_PATH").filter(|p| !p.is_empty()) {
+        return Some(PathBuf::from(path));
+    }
     let dir = super::login::config_dir()?;
     Some(dir.join("user.json"))
 }

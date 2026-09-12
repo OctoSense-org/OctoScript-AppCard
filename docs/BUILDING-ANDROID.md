@@ -21,8 +21,8 @@ device. Default ABI is **aarch64** (arm64-v8a).
 `app/` inside the repo:
 
 ```bash
-git clone https://github.com/octos-org/octos-one.git
-cd octos-one
+git clone https://github.com/OctoSense-org/Octoscript-AppCard.git
+cd Octoscript-AppCard
 
 # aichat (Splash engine + sys.* helpers) → ./aichat  (== app/../aichat) and
 # makepad (cargo-makepad + the Android Java/JNI packaged into the APK) → ./makepad
