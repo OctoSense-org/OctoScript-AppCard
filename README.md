@@ -49,8 +49,8 @@ tool. These are large and live in their own repos:
 
 | Dependency | Repo / branch | Why |
 |---|---|---|
-| **Framework fork** (the Splash engine + `sys.*` live-data helpers, the vendored plot widget, Android JNI) | [`octos-org/makepad`](https://github.com/octos-org/makepad) branch **`octos-one-framework`** | `app/` path-deps `../aichat` — this is that crate tree. |
-| **Build tool** (`cargo-makepad`, native composer Java) | [`octos-org/makepad`](https://github.com/octos-org/makepad) branch **`octos-one-buildtool`** | Builds/signs the APK; bakes the Android SDK/NDK. |
+| **Framework fork** (the Splash engine + `sys.*` live-data helpers, the vendored plot widget, Android JNI) | [`octos-org/makepad`](https://github.com/OctoSense-org/makepad) branch **`octos-one-framework`** | `app/` path-deps `../aichat` — this is that crate tree. |
+| **Build tool** (`cargo-makepad`, native composer Java) | [`octos-org/makepad`](https://github.com/OctoSense-org/makepad) branch **`octos-one-buildtool`** | Builds/signs the APK; bakes the Android SDK/NDK. |
 | **octos kernel** (`liboctos.so serve --stdio`) | [`octos-org/octos`](https://github.com/octos-org/octos) | The agent runtime, bundled into the APK. |
 
 See **[docs/BUILDING-ANDROID.md](docs/BUILDING-ANDROID.md)** for exactly where to
