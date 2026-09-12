@@ -73,6 +73,9 @@ pub struct OctosUiAgent {
     /// (and future per-prompt ops) target the RIGHT session in a multi-session
     /// client instead of guessing the "first" one.
     prompt_sessions: HashMap<PromptId, SessionKey>,
+    /// Per-turn timings contain no prompt text, credentials or request bodies.
+    generation_started: HashMap<TurnId, (std::time::Instant, bool)>,
+    app_prompt_cache: super::app_prompt_cache::AppPromptCache,
     /// Most recent connection state — also mirrored into
     /// `APP_STATE.connection` (via `fold_connection_into_store`) for the
     /// top-bar status indicator and toast queue. Kept locally so we can
@@ -110,9 +113,14 @@ impl OctosUiAgent {
     /// `is_session_ready` stays `false` forever — matching M1's "boots even
     /// without a server" requirement.
     pub fn new(config: TransportConfig) -> Self {
+        #[cfg(target_env = "ohos")]
+        let config = TransportConfig {
+            profile_id: octos_app_transport::ProfileId::new("_main"),
+            ..config
+        };
         let workspace_cwd = config.workspace_cwd.clone();
         let fallback_profile = config.profile_id.0.clone();
-        let stdio_transport = config.stdio.is_some();
+        let stdio_transport = config.stdio.is_some() || cfg!(target_env = "ohos");
         let runtime = tokio::runtime::Builder::new_multi_thread()
             .worker_threads(1)
             .enable_all()
@@ -126,6 +134,12 @@ impl OctosUiAgent {
             let waker = Some(std::sync::Arc::new(|| {
                 makepad_widgets::SignalToUI::set_ui_signal();
             }) as std::sync::Arc<dyn Fn() + Send + Sync>);
+            #[cfg(target_env = "ohos")]
+            {
+                octos_app_transport::embedded::spawn_with_waker(config, waker,
+                    std::sync::Arc::new(|message| log::info!("{message}")))
+            }
+            #[cfg(not(target_env = "ohos"))]
             // stdio spawns `octos serve --stdio` as a child; ws dials a socket.
             if stdio_transport {
                 stdio::spawn_with_waker(config, waker)
@@ -143,6 +157,8 @@ impl OctosUiAgent {
             turn_ids: HashMap::new(),
             prompt_ids: HashMap::new(),
             prompt_sessions: HashMap::new(),
+            generation_started: HashMap::new(),
+            app_prompt_cache: Default::default(),
             connection_state: ConnectionState::Idle,
             capabilities: None,
             workspace_cwd,
@@ -243,6 +259,16 @@ impl OctosUiAgent {
     fn translate(&mut self, event: TransportEvent) -> Vec<AgentEvent> {
         match event {
             TransportEvent::ConnectionState(state) => {
+                // An automatic first prompt can already be queued while the
+                // initial connection opens. Preserve its pending reference;
+                // reconnects still discard all previously trusted state.
+                let initial_connection = matches!(self.connection_state,
+                    ConnectionState::Idle | ConnectionState::Dialing | ConnectionState::Handshaking)
+                    && matches!(state,
+                        ConnectionState::Idle | ConnectionState::Dialing | ConnectionState::Handshaking);
+                if state != ConnectionState::Live && !initial_connection {
+                    self.app_prompt_cache.clear();
+                }
                 let prev = std::mem::replace(&mut self.connection_state, state.clone());
                 self.fold_connection_into_store(&prev, &self.connection_state.clone());
                 Vec::new()
@@ -434,6 +460,111 @@ impl OctosUiAgent {
     }
 
     fn translate_notification(&mut self, n: UiNotification) -> Vec<AgentEvent> {
+        // Current native OUP connections project terminal lifecycle events into
+        // v2. Finalizing only legacy turn/completed left the spinner running
+        // after a valid card had already arrived. Retire the turn once, using
+        // its explicit ID; a later duplicate legacy terminal then does nothing.
+        if let UiNotification::EnvelopeV2(ev) = &n {
+            if let PayloadV2::TurnTerminal { outcome, error, token_usage } = &ev.envelope.payload {
+                let turn = self.prompt_ids.keys()
+                    .find(|turn| turn.0.to_string() == ev.envelope.turn_id).cloned();
+                if let Some(turn) = turn {
+                    let pid = self.prompt_ids.remove(&turn).unwrap();
+                    self.turn_ids.remove(&pid);
+                    self.prompt_sessions.remove(&pid);
+                    let elapsed = self.generation_started.remove(&turn)
+                        .map(|(started, _)| started.elapsed().as_millis());
+                    let success = matches!(outcome, octos_core::ui_protocol::TurnTerminalOutcome::Completed);
+                    self.app_prompt_cache.complete(&turn, success,
+                        token_usage.as_ref().map(|usage| usage.output_tokens as usize));
+                    log::info!("generation-metric {}", serde_json::json!({
+                        "event": if success { "completed" } else { "failed" },
+                        "turn_id": turn, "elapsed_ms": elapsed,
+                        "outcome": outcome, "token_usage": token_usage
+                    }));
+                    return if success {
+                        vec![AgentEvent::TurnComplete { prompt_id: pid, stop_reason: StopReason::EndTurn }]
+                    } else {
+                        vec![AgentEvent::PromptError { prompt_id: pid,
+                            error: error.as_ref().map(|e| e.message.clone())
+                                .unwrap_or_else(|| format!("Generation ended: {outcome:?}")) }]
+                    };
+                }
+            }
+        }
+        match &n {
+            UiNotification::ContextNormalizationReported(ev) => {
+                self.app_prompt_cache.context(&ev.session_id,
+                    ev.context_state.token_estimate.max(ev.normalization.token_estimate),
+                    ev.normalization.dropped_count == 0 && ev.normalization.truncated_count == 0);
+                log::info!("generation-metric {}", serde_json::json!({
+                    "event": "context_normalized", "session_id": ev.session_id,
+                    "context_tokens": ev.context_state.token_estimate,
+                    "prompt_tokens_estimate": ev.normalization.token_estimate,
+                    "dropped": ev.normalization.dropped_count,
+                    "truncated": ev.normalization.truncated_count
+                }));
+            }
+            UiNotification::ContextCompactionStarted(ev) => {
+                self.app_prompt_cache.compacting(&ev.session_id, ev.threshold_tokens);
+            }
+            UiNotification::ContextCompactionCompleted(ev) => {
+                self.app_prompt_cache.invalidate(&ev.session_id);
+            }
+            // Tool loops can add context beyond a single card response.
+            UiNotification::ToolStarted(ev) => {
+                self.app_prompt_cache.forget(&ev.session_id);
+            }
+            UiNotification::ProgressUpdated(ev) => {
+                if let Some(usage) = &ev.metadata.token_cost {
+                    if let Some(window) = usage.context_window {
+                        self.app_prompt_cache.window(&ev.session_id, window as usize);
+                    }
+                    log::info!("generation-metric {}", serde_json::json!({
+                        "event": "provider_usage", "session_id": ev.session_id,
+                        "turn_id": ev.turn_id, "token_usage": usage
+                    }));
+                }
+            }
+            UiNotification::MessageDelta(ev) if !ev.text.is_empty() => {
+                if let Some((started, first_seen)) = self.generation_started.get_mut(&ev.turn_id) {
+                    if !*first_seen {
+                        *first_seen = true;
+                        log::info!("generation-metric {}", serde_json::json!({
+                            "event": "first_text", "turn_id": ev.turn_id,
+                            "elapsed_ms": started.elapsed().as_millis()
+                        }));
+                    }
+                }
+            }
+            UiNotification::TurnCompleted(ev) => {
+                self.app_prompt_cache.complete(&ev.turn_id, true, ev.tokens_out.map(|tokens| tokens as usize));
+                if let Some((started, _)) = self.generation_started.remove(&ev.turn_id) {
+                    log::info!("generation-metric {}", serde_json::json!({
+                        "event": "completed", "turn_id": ev.turn_id,
+                        "elapsed_ms": started.elapsed().as_millis(),
+                        "tokens_in": ev.tokens_in, "tokens_out": ev.tokens_out
+                    }));
+                }
+            }
+            UiNotification::TurnError(ev) => {
+                self.app_prompt_cache.complete(&ev.turn_id, false, None);
+                self.generation_started.remove(&ev.turn_id);
+                log::info!("generation-metric {}", serde_json::json!({
+                    "event": "failed", "turn_id": ev.turn_id, "code": ev.code
+                }));
+            }
+            UiNotification::EnvelopeV2(ev) => {
+                if let PayloadV2::TurnTerminal { token_usage: Some(token_usage), .. } = &ev.envelope.payload {
+                    log::info!("generation-metric {}", serde_json::json!({
+                        "event": "usage", "session_id": ev.session_id,
+                        "turn_id": ev.envelope.turn_id,
+                        "token_usage": token_usage
+                    }));
+                }
+            }
+            _ => {}
+        }
         match n {
             UiNotification::MessageDelta(ev) => self
                 .prompt_ids
@@ -585,6 +716,8 @@ impl OctosUiAgent {
             | UiNotification::MonitorExpired(_)
             | UiNotification::ContextCompactionCompleted(_)
             | UiNotification::ContextCompactionStarted(_)
+            | UiNotification::TurnSteerDropped(_)
+            | UiNotification::BackgroundActivity(_)
             | UiNotification::ContextNormalizationReported(_)
             | UiNotification::SessionOrchestration(_)
             // 2026-07 protocol catch-up: no plan pane / voice surface here.
@@ -633,6 +766,9 @@ impl Agent for OctosUiAgent {
     /// `SessionResumeHydrated` action.
     fn resume_session(&mut self, _cx: &mut Cx, backend_key: &str) -> Option<SessionId> {
         let key = SessionKey(backend_key.to_owned());
+        // Invalidate at the start of a resume, before any new prompt can be
+        // queued. Its later open receipt must not erase that new submission.
+        self.app_prompt_cache.forget(&key);
         // Re-use the existing mapping if the user re-taps the same session.
         let session_id = if let Some(&sid) = self.session_ids.get(&key) {
             sid
@@ -678,11 +814,25 @@ impl Agent for OctosUiAgent {
         // W08: remember which session owns this prompt, so cancel/routing can
         // target it without guessing.
         self.prompt_sessions.insert(prompt_id, key.clone());
+        // Reference reuse depends on local backend lifecycle telemetry and the
+        // default compaction policy. Remote/overridden policies keep full input.
+        let cache_enabled = (self.stdio_transport || cfg!(target_env = "ohos"))
+            && self.capabilities.as_ref().is_some_and(|caps| caps.context_lifecycle)
+            && std::env::var_os("OCTOS_CONTEXT_COMPACT_THRESHOLD_TOKENS").is_none()
+            && std::env::var_os("OCTOS_A2APP_DISABLE_REFERENCE_CACHE").is_none();
+        let (sent_text, reference_hit) = self.app_prompt_cache.prepare(&key, &turn_id, text, cache_enabled);
+        self.generation_started.insert(turn_id.clone(), (std::time::Instant::now(), false));
+        log::info!("generation-metric {}", serde_json::json!({
+            "event": "submitted", "turn_id": turn_id, "session_id": key,
+            "prompt_bytes": sent_text.len(), "original_prompt_bytes": text.len(),
+            "reference_cache_hit": reference_hit,
+            "transport": if cfg!(target_env = "ohos") { "embedded" } else if self.stdio_transport { "stdio" } else { "websocket" }
+        }));
         self.post(OutboundCommand::StartTurn(TurnStartParams {
             session_id: key,
             turn_id,
             input: vec![InputItem::Text {
-                text: text.to_owned(),
+                text: sent_text,
             }],
             // 2026-07 protocol catch-up: attachments, topic routing, prompt
             // rewrite, per-turn reasoning effort, and live-video capture are
@@ -726,6 +876,7 @@ impl Agent for OctosUiAgent {
         let Some(key) = self.prompt_sessions.get(&prompt_id).cloned() else {
             return;
         };
+        self.app_prompt_cache.complete(&turn_id, false, None);
         self.post(OutboundCommand::InterruptTurn(TurnInterruptParams {
             session_id: key,
             turn_id,
@@ -882,5 +1033,108 @@ impl ApprovalHandle {
                 outcome,
             });
         });
+    }
+}
+
+#[cfg(test)]
+mod generation_terminal_tests {
+    use super::*;
+    use octos_core::ui_protocol::{EnvelopeV2, EnvelopeV2Notification, TurnTerminalOutcome, TurnCompletedEvent};
+
+    fn agent() -> OctosUiAgent {
+        let (cmd_tx, _) = tokio::sync::mpsc::channel(1);
+        let (_, evt_rx) = tokio::sync::mpsc::channel(1);
+        OctosUiAgent {
+            _runtime: tokio::runtime::Builder::new_current_thread().build().unwrap(),
+            cmd_tx, evt_rx, session_keys: HashMap::new(), session_ids: HashMap::new(),
+            ready_sessions: Default::default(), turn_ids: HashMap::new(),
+            prompt_ids: HashMap::new(), prompt_sessions: HashMap::new(),
+            generation_started: HashMap::new(), connection_state: ConnectionState::Idle,
+            app_prompt_cache: Default::default(),
+            capabilities: None, workspace_cwd: None, fallback_profile: "_main".into(),
+            thinking: false, stdio_transport: true,
+        }
+    }
+
+    fn terminal(turn: &TurnId, outcome: TurnTerminalOutcome) -> UiNotification {
+        UiNotification::EnvelopeV2(EnvelopeV2Notification {
+            session_id: SessionKey("_main:test".into()), topic: None,
+            envelope: EnvelopeV2 {
+                thread_id: "shared-thread".into(), seq: 1, cursor: None,
+                turn_id: turn.0.to_string(), client_message_id: None,
+                payload: PayloadV2::TurnTerminal { outcome, error: None, token_usage: None },
+            },
+        })
+    }
+
+    #[test]
+    fn l0_migration_first_reference_survives_startup_but_not_reconnect_or_resume() {
+        let mut agent = agent();
+        let key = SessionKey("_main:test".into());
+        let session = SessionId::new();
+        agent.session_ids.insert(key.clone(), session);
+        agent.session_keys.insert(session, key.clone());
+        let prompt = crate::l0_prompt_all("Convert 20 degrees Celsius to Fahrenheit.");
+        let first = TurnId::new();
+        assert!(!agent.app_prompt_cache.prepare(&key, &first, &prompt, false).1);
+        agent.translate(TransportEvent::ConnectionState(ConnectionState::Dialing));
+        agent.translate(TransportEvent::ConnectionState(ConnectionState::Handshaking));
+        let opened = serde_json::from_value(serde_json::json!({"opened":{"session_id":key}})).unwrap();
+        agent.translate(TransportEvent::RpcResult(LifecycleResult::SessionOpen(opened)));
+        agent.translate(TransportEvent::ConnectionState(ConnectionState::Live));
+        agent.app_prompt_cache.context(&key, 1, true);
+        agent.app_prompt_cache.window(&key, 262_144);
+        agent.app_prompt_cache.complete(&first, true, Some(694));
+        let next = crate::l0_prompt_all("Compare my saved cities.");
+        let (sent, hit) = agent.app_prompt_cache.prepare(&key, &TurnId::new(), &next, true);
+        assert!(hit, "the first successfully accepted reference must be reusable");
+        assert!(sent.len() < 1_000);
+
+        let mut cx = Cx::new(Box::new(|_, _| {}));
+        agent.resume_session(&mut cx, &key.0);
+        let resumed = TurnId::new();
+        assert!(!agent.app_prompt_cache.prepare(&key, &resumed, &next, true).1);
+        agent.app_prompt_cache.context(&key, 1, true);
+        agent.app_prompt_cache.window(&key, 262_144);
+        agent.app_prompt_cache.complete(&resumed, true, Some(400));
+        assert!(agent.app_prompt_cache.prepare(&key, &TurnId::new(), &next, true).1);
+        agent.translate(TransportEvent::ConnectionState(ConnectionState::Reconnecting { attempt: 1 }));
+        assert!(!agent.app_prompt_cache.prepare(&key, &TurnId::new(), &next, true).1);
+    }
+
+    fn track(agent: &mut OctosUiAgent) -> (TurnId, PromptId) {
+        let turn = TurnId::new();
+        let prompt = PromptId::new();
+        agent.prompt_ids.insert(turn.clone(), prompt);
+        agent.turn_ids.insert(prompt, turn.clone());
+        agent.prompt_sessions.insert(prompt, SessionKey("_main:test".into()));
+        agent.generation_started.insert(turn.clone(), (std::time::Instant::now(), false));
+        (turn, prompt)
+    }
+
+    #[test]
+    fn v2_completes_exact_turn_once_and_ignores_background_terminal() {
+        let mut agent = agent();
+        let (turn, prompt) = track(&mut agent);
+        assert!(agent.translate_notification(terminal(&TurnId::new(), TurnTerminalOutcome::Completed)).is_empty());
+        assert!(agent.prompt_ids.contains_key(&turn));
+        let events = agent.translate_notification(terminal(&turn, TurnTerminalOutcome::Completed));
+        assert!(matches!(events.as_slice(), [AgentEvent::TurnComplete { prompt_id, .. }] if *prompt_id == prompt));
+        assert!(agent.prompt_ids.is_empty() && agent.turn_ids.is_empty()
+            && agent.prompt_sessions.is_empty() && agent.generation_started.is_empty());
+        assert!(agent.translate_notification(terminal(&turn, TurnTerminalOutcome::Completed)).is_empty());
+        assert!(agent.translate_notification(UiNotification::TurnCompleted(TurnCompletedEvent {
+            session_id: SessionKey("_main:test".into()), topic: None, turn_id: turn,
+            cursor: None, tokens_in: None, tokens_out: None, session_result: None,
+        })).is_empty());
+    }
+
+    #[test]
+    fn v2_failure_ends_loading_as_an_error() {
+        let mut agent = agent();
+        let (turn, prompt) = track(&mut agent);
+        let events = agent.translate_notification(terminal(&turn, TurnTerminalOutcome::Errored));
+        assert!(matches!(events.as_slice(), [AgentEvent::PromptError { prompt_id, .. }] if *prompt_id == prompt));
+        assert!(agent.prompt_ids.is_empty() && agent.generation_started.is_empty());
     }
 }

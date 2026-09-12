@@ -1,0 +1,23 @@
+use mod.research
+use mod.std.assert
+
+// The caller supplies an already resolved symbol and an explicit session.
+let quote_task = research.quote(request.instrument)
+let baseline_task = research.baseline(request.instrument)
+let news_task = research.headlines(request.instrument)
+let quote = quote_task.await()
+let baseline = baseline_task.await()
+let news = try news_task.await() catch nil
+assert(quote.symbol == baseline.symbol)
+assert(quote.currency == baseline.currency)
+assert(baseline.price > 0)
+let change = (quote.price / baseline.price - 1) * 100
+let status = "ready"
+if news == nil {
+    status = "partial"
+}
+{
+    schema_id: "stock.v1"
+    status: status
+    data: {quote: quote, baseline: baseline, return_pct: change, headlines: news}
+}

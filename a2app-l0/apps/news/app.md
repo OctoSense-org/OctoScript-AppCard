@@ -40,6 +40,9 @@ Two complementary guards, feed and detail.
 - The rest as rows in `for s, i in feed key s.id` — the key is the story id, so a
   refreshed feed keeps each row's identity.
 - Points and comments carry `suffix:` from `copy` — "412 pts", not "412".
+- On phone layouts, give the author a full-width byline and place points and
+  comments in a separate two-item row. Four metadata cells in one row wrap
+  usernames and the word "comments" into unreadable fragments.
 
 ## DETAIL view
 

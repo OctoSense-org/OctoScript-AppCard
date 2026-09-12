@@ -1,0 +1,121 @@
+# ledger stock-01@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy heading_text { class: user-copy, en: "Portfolio" }
+copy subtitle_text { class: user-copy, en: "Design fixture · Prices are illustrative" }
+copy balance_label_text { class: user-copy, en: "TOTAL VALUE" }
+copy balance_text { class: user-copy, en: "$42,860.24" }
+copy gain_text { class: user-copy, en: "+$842.16  (2.01%) today" }
+copy watchlist_title_text { class: user-copy, en: "Watchlist" }
+copy quote_0_symbol_text { class: user-copy, en: "AAPL" }
+copy quote_0_name_text { class: user-copy, en: "Apple" }
+copy quote_0_price_text { class: user-copy, en: "182.40" }
+copy quote_0_change_text { class: user-copy, en: "+1.24%" }
+copy quote_1_symbol_text { class: user-copy, en: "NVDA" }
+copy quote_1_name_text { class: user-copy, en: "NVIDIA" }
+copy quote_1_price_text { class: user-copy, en: "124.80" }
+copy quote_1_change_text { class: user-copy, en: "+2.16%" }
+copy primary_label_text { class: user-copy, en: "View watchlist" }
+state primary_control_enabled { shape: bool, initial: true }
+component Surface43df73841e6b(instance: text) {
+  view Kit(component: "Surface43df73841e6b", instance: instance) { slot }
+}
+component Text59d189a0fcc8(instance: text, text: text) {
+  view Kit(component: "Text59d189a0fcc8", instance: instance, text: text)
+}
+component Text33d1ab28d05f(instance: text, text: text) {
+  view Kit(component: "Text33d1ab28d05f", instance: instance, text: text)
+}
+component Surface702fd23a41d2(instance: text) {
+  view Kit(component: "Surface702fd23a41d2", instance: instance) { slot }
+}
+component Textb6e065c033fb(instance: text, text: text) {
+  view Kit(component: "Textb6e065c033fb", instance: instance, text: text)
+}
+component Text0bebdc694dd2(instance: text, text: text) {
+  view Kit(component: "Text0bebdc694dd2", instance: instance, text: text)
+}
+component Texte074dc9b78ff(instance: text, text: text) {
+  view Kit(component: "Texte074dc9b78ff", instance: instance, text: text)
+}
+component Stockplot7c91b8e0daf8(instance: text) {
+  view Kit(component: "Stockplot7c91b8e0daf8", instance: instance)
+}
+component Text66f61941a318(instance: text, text: text) {
+  view Kit(component: "Text66f61941a318", instance: instance, text: text)
+}
+component Surface10b568c9dd91(instance: text) {
+  view Kit(component: "Surface10b568c9dd91", instance: instance) { slot }
+}
+component Textde947513d46a(instance: text, text: text) {
+  view Kit(component: "Textde947513d46a", instance: instance, text: text)
+}
+component Textb22ffbcbffcf(instance: text, text: text) {
+  view Kit(component: "Textb22ffbcbffcf", instance: instance, text: text)
+}
+component Text664f1c64139a(instance: text, text: text) {
+  view Kit(component: "Text664f1c64139a", instance: instance, text: text)
+}
+component Textc6bccece6795(instance: text, text: text) {
+  view Kit(component: "Textc6bccece6795", instance: instance, text: text)
+}
+component Surface5e2a0b17cc38(instance: text) {
+  view Kit(component: "Surface5e2a0b17cc38", instance: instance) { slot }
+}
+component Textceb776335f7b(instance: text, text: text) {
+  view Kit(component: "Textceb776335f7b", instance: instance, text: text)
+}
+component Text49b92aa3d4aa(instance: text, text: text) {
+  view Kit(component: "Text49b92aa3d4aa", instance: instance, text: text)
+}
+component Textb03f3c6b0773(instance: text, text: text) {
+  view Kit(component: "Textb03f3c6b0773", instance: instance, text: text)
+}
+component Text896aec9484ff(instance: text, text: text) {
+  view Kit(component: "Text896aec9484ff", instance: instance, text: text)
+}
+component KitButtone3f1fa815770(instance: text) {
+  view Kit(component: "KitButtone3f1fa815770", instance: instance) { slot }
+}
+component Surface84b260bd3798(instance: text) {
+  view Kit(component: "Surface84b260bd3798", instance: instance) { slot }
+}
+component Texta2918047e68a(instance: text, text: text) {
+  view Kit(component: "Texta2918047e68a", instance: instance, text: text)
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+
+view root Surface43df73841e6b(instance: "page") {
+  Text59d189a0fcc8(instance: "heading", text: copy.heading_text)
+  Text33d1ab28d05f(instance: "subtitle", text: copy.subtitle_text)
+  Surface702fd23a41d2(instance: "portfolio") {
+    Textb6e065c033fb(instance: "balance_label", text: copy.balance_label_text)
+    Text0bebdc694dd2(instance: "balance", text: copy.balance_text)
+    Texte074dc9b78ff(instance: "gain", text: copy.gain_text)
+    Stockplot7c91b8e0daf8(instance: "portfolio_chart")
+  }
+  Text66f61941a318(instance: "watchlist_title", text: copy.watchlist_title_text)
+  Surface10b568c9dd91(instance: "quote_0") {
+    Textde947513d46a(instance: "quote_0_symbol", text: copy.quote_0_symbol_text)
+    Textb22ffbcbffcf(instance: "quote_0_name", text: copy.quote_0_name_text)
+    Text664f1c64139a(instance: "quote_0_price", text: copy.quote_0_price_text)
+    Textc6bccece6795(instance: "quote_0_change", text: copy.quote_0_change_text)
+  }
+  Surface5e2a0b17cc38(instance: "quote_1") {
+    Textceb776335f7b(instance: "quote_1_symbol", text: copy.quote_1_symbol_text)
+    Text49b92aa3d4aa(instance: "quote_1_name", text: copy.quote_1_name_text)
+    Textb03f3c6b0773(instance: "quote_1_price", text: copy.quote_1_price_text)
+    Text896aec9484ff(instance: "quote_1_change", text: copy.quote_1_change_text)
+  }
+  KitButtone3f1fa815770(instance: "primary") {
+    Surface84b260bd3798(instance: "primary_surface") {
+
+    }
+    Texta2918047e68a(instance: "primary_label", text: copy.primary_label_text)
+    NativeButton02f1d1bd99b4(instance: "primary_control", enabled: primary_control_enabled)
+  }
+}

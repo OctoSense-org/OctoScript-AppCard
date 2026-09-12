@@ -1,0 +1,157 @@
+# ledger weather-06@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy heading_text { class: user-copy, en: "Your cities" }
+copy subtitle_text { class: user-copy, en: "Monday, September 7" }
+copy location_text { class: user-copy, en: "Cupertino" }
+copy condition_text { class: user-copy, en: "Partly cloudy" }
+copy temperature_number_text { class: user-copy, en: "24" }
+copy temperature_degree_text { class: user-copy, en: "°" }
+copy city_name_0_text { class: user-copy, en: "San Francisco" }
+copy city_note_0_text { class: user-copy, en: "Coastal clouds" }
+copy city_temp_0_number_text { class: user-copy, en: "19" }
+copy city_temp_0_degree_text { class: user-copy, en: "°" }
+copy city_name_1_text { class: user-copy, en: "Tokyo" }
+copy city_note_1_text { class: user-copy, en: "Light rain" }
+copy city_temp_1_number_text { class: user-copy, en: "28" }
+copy city_temp_1_degree_text { class: user-copy, en: "°" }
+copy city_name_2_text { class: user-copy, en: "Copenhagen" }
+copy city_note_2_text { class: user-copy, en: "Clear skies" }
+copy city_temp_2_number_text { class: user-copy, en: "16" }
+copy city_temp_2_degree_text { class: user-copy, en: "°" }
+copy primary_label_text { class: user-copy, en: "Add a city" }
+state primary_control_enabled { shape: bool, initial: true }
+component Surface717531e2ec70(instance: text) {
+  view Kit(component: "Surface717531e2ec70", instance: instance) { slot }
+}
+component Text0aa383469df1(instance: text, text: text) {
+  view Kit(component: "Text0aa383469df1", instance: instance, text: text)
+}
+component Text3f87663941dd(instance: text, text: text) {
+  view Kit(component: "Text3f87663941dd", instance: instance, text: text)
+}
+component Surface6572711f38ec(instance: text) {
+  view Kit(component: "Surface6572711f38ec", instance: instance) { slot }
+}
+component Texte28a4c1285ba(instance: text, text: text) {
+  view Kit(component: "Texte28a4c1285ba", instance: instance, text: text)
+}
+component Textc6e5d8650331(instance: text, text: text) {
+  view Kit(component: "Textc6e5d8650331", instance: instance, text: text)
+}
+component Group3d2637879433(instance: text) {
+  view Kit(component: "Group3d2637879433", instance: instance) { slot }
+}
+component Text332e0ce2a8aa(instance: text, text: text) {
+  view Kit(component: "Text332e0ce2a8aa", instance: instance, text: text)
+}
+component Textdfab05df9eab(instance: text, text: text) {
+  view Kit(component: "Textdfab05df9eab", instance: instance, text: text)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Surface3ed62c2c253c(instance: text) {
+  view Kit(component: "Surface3ed62c2c253c", instance: instance) { slot }
+}
+component Text8e94ff2c0475(instance: text, text: text) {
+  view Kit(component: "Text8e94ff2c0475", instance: instance, text: text)
+}
+component Text9cf75b34b69e(instance: text, text: text) {
+  view Kit(component: "Text9cf75b34b69e", instance: instance, text: text)
+}
+component Text37aaf59a78b5(instance: text, text: text) {
+  view Kit(component: "Text37aaf59a78b5", instance: instance, text: text)
+}
+component Text4a636cdc1019(instance: text, text: text) {
+  view Kit(component: "Text4a636cdc1019", instance: instance, text: text)
+}
+component Surfaced79bcc37acef(instance: text) {
+  view Kit(component: "Surfaced79bcc37acef", instance: instance) { slot }
+}
+component Text5578a5868342(instance: text, text: text) {
+  view Kit(component: "Text5578a5868342", instance: instance, text: text)
+}
+component Text6d03b597ca0c(instance: text, text: text) {
+  view Kit(component: "Text6d03b597ca0c", instance: instance, text: text)
+}
+component Text862f5b670fba(instance: text, text: text) {
+  view Kit(component: "Text862f5b670fba", instance: instance, text: text)
+}
+component Texte88e72dd4cbd(instance: text, text: text) {
+  view Kit(component: "Texte88e72dd4cbd", instance: instance, text: text)
+}
+component Surfacee0394e0ee265(instance: text) {
+  view Kit(component: "Surfacee0394e0ee265", instance: instance) { slot }
+}
+component Text20e912c7f1d4(instance: text, text: text) {
+  view Kit(component: "Text20e912c7f1d4", instance: instance, text: text)
+}
+component Text6428d4009efa(instance: text, text: text) {
+  view Kit(component: "Text6428d4009efa", instance: instance, text: text)
+}
+component Text8c8b9f39c832(instance: text, text: text) {
+  view Kit(component: "Text8c8b9f39c832", instance: instance, text: text)
+}
+component Text21074d13481a(instance: text, text: text) {
+  view Kit(component: "Text21074d13481a", instance: instance, text: text)
+}
+component KitButtone3f1fa815770(instance: text) {
+  view Kit(component: "KitButtone3f1fa815770", instance: instance) { slot }
+}
+component Surface5af9aa1410f3(instance: text) {
+  view Kit(component: "Surface5af9aa1410f3", instance: instance) { slot }
+}
+component Text05b7c41a83d8(instance: text, text: text) {
+  view Kit(component: "Text05b7c41a83d8", instance: instance, text: text)
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+
+view root Surface717531e2ec70(instance: "page") {
+  Text0aa383469df1(instance: "heading", text: copy.heading_text)
+  Text3f87663941dd(instance: "subtitle", text: copy.subtitle_text)
+  Surface6572711f38ec(instance: "featured") {
+    Texte28a4c1285ba(instance: "location", text: copy.location_text)
+    Textc6e5d8650331(instance: "condition", text: copy.condition_text)
+    Group3d2637879433(instance: "temperature") {
+      Text332e0ce2a8aa(instance: "temperature_number", text: copy.temperature_number_text)
+      Textdfab05df9eab(instance: "temperature_degree", text: copy.temperature_degree_text)
+    }
+    Vectore0a378fde04f(instance: "weather_symbol")
+  }
+  Surface3ed62c2c253c(instance: "city_0") {
+    Text8e94ff2c0475(instance: "city_name_0", text: copy.city_name_0_text)
+    Text9cf75b34b69e(instance: "city_note_0", text: copy.city_note_0_text)
+    Group3d2637879433(instance: "city_temp_0") {
+      Text37aaf59a78b5(instance: "city_temp_0_number", text: copy.city_temp_0_number_text)
+      Text4a636cdc1019(instance: "city_temp_0_degree", text: copy.city_temp_0_degree_text)
+    }
+  }
+  Surfaced79bcc37acef(instance: "city_1") {
+    Text5578a5868342(instance: "city_name_1", text: copy.city_name_1_text)
+    Text6d03b597ca0c(instance: "city_note_1", text: copy.city_note_1_text)
+    Group3d2637879433(instance: "city_temp_1") {
+      Text862f5b670fba(instance: "city_temp_1_number", text: copy.city_temp_1_number_text)
+      Texte88e72dd4cbd(instance: "city_temp_1_degree", text: copy.city_temp_1_degree_text)
+    }
+  }
+  Surfacee0394e0ee265(instance: "city_2") {
+    Text20e912c7f1d4(instance: "city_name_2", text: copy.city_name_2_text)
+    Text6428d4009efa(instance: "city_note_2", text: copy.city_note_2_text)
+    Group3d2637879433(instance: "city_temp_2") {
+      Text8c8b9f39c832(instance: "city_temp_2_number", text: copy.city_temp_2_number_text)
+      Text21074d13481a(instance: "city_temp_2_degree", text: copy.city_temp_2_degree_text)
+    }
+  }
+  KitButtone3f1fa815770(instance: "primary") {
+    Surface5af9aa1410f3(instance: "primary_surface") {
+
+    }
+    Text05b7c41a83d8(instance: "primary_label", text: copy.primary_label_text)
+    NativeButton02f1d1bd99b4(instance: "primary_control", enabled: primary_control_enabled)
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "id": "192716ba84c4505b3c5c1cd96e58a623be293c0aad25a785898cff9ee717510b",
+  "status": "verified",
+  "changes": [
+    {
+      "category": "data",
+      "element": "temperature_curve",
+      "file": "semantic-map.json",
+      "reason": "Bind the explicitly smoothed source measurements; original measurement remains archived"
+    },
+    {
+      "category": "semantic",
+      "element": "temperature_curve",
+      "file": "semantic-map.json",
+      "reason": "Source stroke is about six physical pixels"
+    }
+  ],
+  "acceptance": "requires compile, fresh Studio capture and all design gates",
+  "verification": {
+    "round": "008",
+    "accepted": true,
+    "reference_sha256": "d91b83bac0ffde1209da12ccc0dcb0b7c7ff537cc7049e3a1ff03eb9cfafe777",
+    "native_sha256": "9ab1e9b7351b79cb39cc013ccf02d7aefe89e52ebe4fe555972808459416219f"
+  }
+}

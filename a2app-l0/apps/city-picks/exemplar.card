@@ -1,4 +1,4 @@
-# level: L1
+# level: L0
 # model: city-picks
 
 copy title { class: user-copy, en: "Where to go" }
@@ -6,7 +6,7 @@ copy blurb { class: user-copy, en: "Your saved cities, and how each one feels ri
 copy add   { class: user-copy, en: "Add a city" }
 
 source env.locale sys.locale()
-source picks     sys.cities(fields: [name, temp, feels, humidity, wind, cond])
+source picks     sys.cities(fields: [name, temp, feels_delta, humidity, wind, cond], unit: state.units)
 
 state units { shape: enum[c, f], initial: env.locale.temp_unit }
 state draft { shape: text, initial: "" }
@@ -28,7 +28,7 @@ view root Surface(pad: .page) {
           }
           WeatherIcon(cond: c.cond, size: .row)
           TextValue(value: c.temp, unit: units)
-          TextCaption(value: c.feels - c.temp, unit: units, glyph: "≈")
+          TextCaption(value: c.feels_delta, unit: units, glyph: "≈")
         }
         Rule()
       }

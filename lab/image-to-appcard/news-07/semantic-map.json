@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.1.0",
+  "reference_sha256": "7fbd6294cc5b463850cd844f06996b463480ae96f36e73a06c41b1a9c2fb1dbe",
+  "contract_sha256": "27e7c62e0cb41d157d6785826ff5980ddaaee57f6c49f62f971b8c9d361dd06b",
+  "classification_scope": "Reviewed original reference regions and authored intent; approximate plot measurements are explicitly marked.",
+  "elements": [
+    {
+      "id": "waveform",
+      "role": "waveform",
+      "basis": "Measured amplitude envelope from the artwork waveform; no original audio was supplied.",
+      "confidence": 1.0,
+      "decision": "reviewed",
+      "data": {
+        "path": "data/waveform.json",
+        "sha256": "66a8f171c48c203c0c918ad844e4f43d7b1e7f0a0bce5fec923f181001a220f2",
+        "origin": "measured_image",
+        "approximate": true,
+        "x_key": "x",
+        "y_keys": [
+          "amplitude"
+        ],
+        "units": {
+          "x": "normalized sample position",
+          "y": "normalized amplitude"
+        },
+        "domain": {
+          "x": [
+            0,
+            1
+          ],
+          "y": [
+            -1,
+            1
+          ]
+        }
+      },
+      "plot": {
+        "colors": [
+          "#8056b2"
+        ],
+        "line_width": 2.1,
+        "mode": "waveform"
+      }
+    },
+    {
+      "id": "page",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "heading",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "subtitle",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "episode",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "episode_tag",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "episode_title",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "episode_meta",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "play",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "play_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "play_label",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "play_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "up_next",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "next",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "next_tag",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "next_title",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "next_title2",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "next_meta",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "queue_note",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary_label",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    }
+  ]
+}

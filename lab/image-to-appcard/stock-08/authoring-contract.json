@@ -1,0 +1,373 @@
+{
+  "schema_version": 1,
+  "id": "stock-08",
+  "app": "stock",
+  "number": 8,
+  "title": "Compare",
+  "structure": "Two-security comparison: paired quote cards, dual line chart and metric grid.",
+  "artboard": [
+    406,
+    776
+  ],
+  "font_family": "DM Sans",
+  "palette": {
+    "name": "Clay",
+    "page": "F4EEE8",
+    "panel": "FFFCF8",
+    "ink": "42352D",
+    "muted": "988679",
+    "tint": "E9D6C7",
+    "accent": "996343"
+  },
+  "content_source": "deterministic design fixture",
+  "tree": {
+    "t": "stack",
+    "id": "page",
+    "x": 0,
+    "y": 0,
+    "w": 406,
+    "h": 776,
+    "variant": "surface",
+    "bg": 4294242024,
+    "c": [
+      {
+        "t": "text",
+        "id": "heading",
+        "text": "Compare",
+        "x": 24,
+        "y": 32,
+        "w": 290,
+        "h": 39.0,
+        "size": 30,
+        "weight": 700,
+        "line_height": 39.0,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/camo/DMSans-Bold.ttf",
+        "color": 4282529069
+      },
+      {
+        "t": "text",
+        "id": "subtitle",
+        "text": "Design fixture \u00b7 Prices are illustrative",
+        "x": 24,
+        "y": 76,
+        "w": 350,
+        "h": 16.9,
+        "size": 13,
+        "weight": 400,
+        "line_height": 16.9,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/camo/DMSans-Regular.ttf",
+        "color": 4288185977
+      },
+      {
+        "t": "stack",
+        "id": "compare_0",
+        "x": 24,
+        "y": 127,
+        "w": 171,
+        "h": 142,
+        "variant": "surface",
+        "bg": 4293514951,
+        "radius": 20,
+        "c": [
+          {
+            "t": "text",
+            "id": "symbol_0",
+            "text": "AAPL",
+            "x": 40,
+            "y": 145,
+            "w": 139,
+            "h": 24.7,
+            "size": 19,
+            "weight": 700,
+            "line_height": 24.7,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/camo/DMSans-Bold.ttf",
+            "color": 4282529069
+          },
+          {
+            "t": "text",
+            "id": "price_0",
+            "text": "$182.40",
+            "x": 40,
+            "y": 187,
+            "w": 139,
+            "h": 33.8,
+            "size": 26,
+            "weight": 700,
+            "line_height": 33.8,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/camo/DMSans-Bold.ttf",
+            "color": 4282529069
+          },
+          {
+            "t": "text",
+            "id": "change_0",
+            "text": "+1.24%",
+            "x": 40,
+            "y": 235,
+            "w": 139,
+            "h": 15.6,
+            "size": 12,
+            "weight": 500,
+            "line_height": 15.6,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/camo/DMSans-Medium.ttf",
+            "color": 4288242499
+          }
+        ]
+      },
+      {
+        "t": "stack",
+        "id": "compare_1",
+        "x": 211,
+        "y": 127,
+        "w": 171,
+        "h": 142,
+        "variant": "surface",
+        "bg": 4294966520,
+        "radius": 20,
+        "c": [
+          {
+            "t": "text",
+            "id": "symbol_1",
+            "text": "NVDA",
+            "x": 227,
+            "y": 145,
+            "w": 139,
+            "h": 24.7,
+            "size": 19,
+            "weight": 700,
+            "line_height": 24.7,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/camo/DMSans-Bold.ttf",
+            "color": 4282529069
+          },
+          {
+            "t": "text",
+            "id": "price_1",
+            "text": "$124.80",
+            "x": 227,
+            "y": 187,
+            "w": 139,
+            "h": 33.8,
+            "size": 26,
+            "weight": 700,
+            "line_height": 33.8,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/camo/DMSans-Bold.ttf",
+            "color": 4282529069
+          },
+          {
+            "t": "text",
+            "id": "change_1",
+            "text": "+2.16%",
+            "x": 227,
+            "y": 235,
+            "w": 139,
+            "h": 15.6,
+            "size": 12,
+            "weight": 500,
+            "line_height": 15.6,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/camo/DMSans-Medium.ttf",
+            "color": 4288242499
+          }
+        ]
+      },
+      {
+        "t": "text",
+        "id": "performance_title",
+        "text": "Relative performance",
+        "x": 24,
+        "y": 302,
+        "w": 250,
+        "h": 26.0,
+        "size": 20,
+        "weight": 700,
+        "line_height": 26.0,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/camo/DMSans-Bold.ttf",
+        "color": 4282529069
+      },
+      {
+        "t": "stack",
+        "id": "comparison",
+        "x": 24,
+        "y": 348,
+        "w": 358,
+        "h": 204,
+        "variant": "surface",
+        "bg": 4294966520,
+        "radius": 20,
+        "c": [
+          {
+            "t": "svg",
+            "id": "comparison_chart",
+            "x": 44,
+            "y": 370,
+            "w": 318,
+            "h": 158,
+            "src": "http://127.0.0.1:8170/ux-images/stock-08/assets/comparison_chart.svg"
+          }
+        ]
+      },
+      {
+        "t": "stack",
+        "id": "apple_return",
+        "x": 24,
+        "y": 584,
+        "w": 171,
+        "h": 92,
+        "variant": "surface",
+        "bg": 4294966520,
+        "radius": 20,
+        "c": [
+          {
+            "t": "text",
+            "id": "apple_return_label",
+            "text": "Apple / 1 month",
+            "x": 40,
+            "y": 598,
+            "w": 139,
+            "h": 15.6,
+            "size": 12,
+            "weight": 500,
+            "line_height": 15.6,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/camo/DMSans-Medium.ttf",
+            "color": 4288185977
+          },
+          {
+            "t": "text",
+            "id": "apple_return_value",
+            "text": "+4.2%",
+            "x": 40,
+            "y": 623,
+            "w": 139,
+            "h": 32.5,
+            "size": 25,
+            "weight": 700,
+            "line_height": 32.5,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/camo/DMSans-Bold.ttf",
+            "color": 4282529069
+          }
+        ]
+      },
+      {
+        "t": "stack",
+        "id": "nvidia_return",
+        "x": 211,
+        "y": 584,
+        "w": 171,
+        "h": 92,
+        "variant": "surface",
+        "bg": 4294966520,
+        "radius": 20,
+        "c": [
+          {
+            "t": "text",
+            "id": "nvidia_return_label",
+            "text": "NVIDIA / 1 month",
+            "x": 227,
+            "y": 598,
+            "w": 139,
+            "h": 15.6,
+            "size": 12,
+            "weight": 500,
+            "line_height": 15.6,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/camo/DMSans-Medium.ttf",
+            "color": 4288185977
+          },
+          {
+            "t": "text",
+            "id": "nvidia_return_value",
+            "text": "+8.6%",
+            "x": 227,
+            "y": 623,
+            "w": 139,
+            "h": 32.5,
+            "size": 25,
+            "weight": 700,
+            "line_height": 32.5,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/camo/DMSans-Bold.ttf",
+            "color": 4282529069
+          }
+        ]
+      },
+      {
+        "t": "stack",
+        "id": "primary",
+        "x": 24,
+        "y": 708,
+        "w": 358,
+        "h": 44,
+        "c": [
+          {
+            "t": "stack",
+            "id": "primary_surface",
+            "x": 24,
+            "y": 708,
+            "w": 358,
+            "h": 44,
+            "variant": "surface",
+            "bg": 4288242499,
+            "radius": 14,
+            "c": []
+          },
+          {
+            "t": "text",
+            "id": "primary_label",
+            "text": "View watchlist",
+            "x": 32,
+            "y": 720.0,
+            "w": 342,
+            "h": 20,
+            "size": 14,
+            "weight": 500,
+            "line_height": 18.2,
+            "alignx": 0.5,
+            "variant": "single_line",
+            "font_src": "self:resources/camo/DMSans-Medium.ttf",
+            "color": 4294967295
+          },
+          {
+            "t": "button",
+            "id": "primary_control",
+            "x": 24,
+            "y": 708,
+            "w": 358,
+            "h": 44,
+            "enabled": 1
+          }
+        ],
+        "kit": "{\"widget\":\"KitButton\",\"bindings\":{\"control\":[2],\"label\":[1]}}"
+      }
+    ]
+  },
+  "graphics": {
+    "comparison_chart": {
+      "kind": "compare",
+      "ink": "#996343",
+      "sun": "#E8BD63",
+      "cloud": "#B6CCC1"
+    }
+  }
+}

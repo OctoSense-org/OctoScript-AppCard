@@ -1,0 +1,134 @@
+# ledger stock-03@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy heading_text { class: user-copy, en: "Market tiles" }
+copy subtitle_text { class: user-copy, en: "Design fixture · Prices are illustrative" }
+copy symbol_0_text { class: user-copy, en: "AAPL" }
+copy price_0_text { class: user-copy, en: "$182.40" }
+copy gain_0_text { class: user-copy, en: "+1.24%" }
+copy symbol_1_text { class: user-copy, en: "NVDA" }
+copy price_1_text { class: user-copy, en: "$124.80" }
+copy gain_1_text { class: user-copy, en: "+2.16%" }
+copy symbol_2_text { class: user-copy, en: "MSFT" }
+copy price_2_text { class: user-copy, en: "$416.20" }
+copy gain_2_text { class: user-copy, en: "+0.83%" }
+copy symbol_3_text { class: user-copy, en: "GOOGL" }
+copy price_3_text { class: user-copy, en: "$165.30" }
+copy gain_3_text { class: user-copy, en: "+0.62%" }
+copy note_text { class: user-copy, en: "Four companies. One clear view." }
+copy primary_label_text { class: user-copy, en: "View watchlist" }
+state primary_control_enabled { shape: bool, initial: true }
+component Surfacecfbcf5e3f1cb(instance: text) {
+  view Kit(component: "Surfacecfbcf5e3f1cb", instance: instance) { slot }
+}
+component Textce6f225d4577(instance: text, text: text) {
+  view Kit(component: "Textce6f225d4577", instance: instance, text: text)
+}
+component Text25fbbd660390(instance: text, text: text) {
+  view Kit(component: "Text25fbbd660390", instance: instance, text: text)
+}
+component Surface59e03268e948(instance: text) {
+  view Kit(component: "Surface59e03268e948", instance: instance) { slot }
+}
+component Text3f313f550baa(instance: text, text: text) {
+  view Kit(component: "Text3f313f550baa", instance: instance, text: text)
+}
+component Text3ab3dbd9c4cd(instance: text, text: text) {
+  view Kit(component: "Text3ab3dbd9c4cd", instance: instance, text: text)
+}
+component Stockplot7c91b8e0daf8(instance: text) {
+  view Kit(component: "Stockplot7c91b8e0daf8", instance: instance)
+}
+component Texte74044148511(instance: text, text: text) {
+  view Kit(component: "Texte74044148511", instance: instance, text: text)
+}
+component Surface17ee07e86a3d(instance: text) {
+  view Kit(component: "Surface17ee07e86a3d", instance: instance) { slot }
+}
+component Textd4e5737135f8(instance: text, text: text) {
+  view Kit(component: "Textd4e5737135f8", instance: instance, text: text)
+}
+component Textecdcc073cdd9(instance: text, text: text) {
+  view Kit(component: "Textecdcc073cdd9", instance: instance, text: text)
+}
+component Text11b2e1a4c0c0(instance: text, text: text) {
+  view Kit(component: "Text11b2e1a4c0c0", instance: instance, text: text)
+}
+component Surfaced288dcab6bd4(instance: text) {
+  view Kit(component: "Surfaced288dcab6bd4", instance: instance) { slot }
+}
+component Text43064bd7822e(instance: text, text: text) {
+  view Kit(component: "Text43064bd7822e", instance: instance, text: text)
+}
+component Text461891540fed(instance: text, text: text) {
+  view Kit(component: "Text461891540fed", instance: instance, text: text)
+}
+component Text52965d88b5f8(instance: text, text: text) {
+  view Kit(component: "Text52965d88b5f8", instance: instance, text: text)
+}
+component Surface79fae56a0fc3(instance: text) {
+  view Kit(component: "Surface79fae56a0fc3", instance: instance) { slot }
+}
+component Text1cade56f44f4(instance: text, text: text) {
+  view Kit(component: "Text1cade56f44f4", instance: instance, text: text)
+}
+component Text2205f9971521(instance: text, text: text) {
+  view Kit(component: "Text2205f9971521", instance: instance, text: text)
+}
+component Text3c3e6b3c37cf(instance: text, text: text) {
+  view Kit(component: "Text3c3e6b3c37cf", instance: instance, text: text)
+}
+component Text4075369783c0(instance: text, text: text) {
+  view Kit(component: "Text4075369783c0", instance: instance, text: text)
+}
+component KitButtone3f1fa815770(instance: text) {
+  view Kit(component: "KitButtone3f1fa815770", instance: instance) { slot }
+}
+component Surface095215a93cb1(instance: text) {
+  view Kit(component: "Surface095215a93cb1", instance: instance) { slot }
+}
+component Textac27ac5bcdf0(instance: text, text: text) {
+  view Kit(component: "Textac27ac5bcdf0", instance: instance, text: text)
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+
+view root Surfacecfbcf5e3f1cb(instance: "page") {
+  Textce6f225d4577(instance: "heading", text: copy.heading_text)
+  Text25fbbd660390(instance: "subtitle", text: copy.subtitle_text)
+  Surface59e03268e948(instance: "tile_0") {
+    Text3f313f550baa(instance: "symbol_0", text: copy.symbol_0_text)
+    Text3ab3dbd9c4cd(instance: "price_0", text: copy.price_0_text)
+    Stockplot7c91b8e0daf8(instance: "chart_0")
+    Texte74044148511(instance: "gain_0", text: copy.gain_0_text)
+  }
+  Surface17ee07e86a3d(instance: "tile_1") {
+    Textd4e5737135f8(instance: "symbol_1", text: copy.symbol_1_text)
+    Textecdcc073cdd9(instance: "price_1", text: copy.price_1_text)
+    Stockplot7c91b8e0daf8(instance: "chart_1")
+    Text11b2e1a4c0c0(instance: "gain_1", text: copy.gain_1_text)
+  }
+  Surfaced288dcab6bd4(instance: "tile_2") {
+    Text43064bd7822e(instance: "symbol_2", text: copy.symbol_2_text)
+    Text461891540fed(instance: "price_2", text: copy.price_2_text)
+    Stockplot7c91b8e0daf8(instance: "chart_2")
+    Text52965d88b5f8(instance: "gain_2", text: copy.gain_2_text)
+  }
+  Surface79fae56a0fc3(instance: "tile_3") {
+    Text1cade56f44f4(instance: "symbol_3", text: copy.symbol_3_text)
+    Text2205f9971521(instance: "price_3", text: copy.price_3_text)
+    Stockplot7c91b8e0daf8(instance: "chart_3")
+    Text3c3e6b3c37cf(instance: "gain_3", text: copy.gain_3_text)
+  }
+  Text4075369783c0(instance: "note", text: copy.note_text)
+  KitButtone3f1fa815770(instance: "primary") {
+    Surface095215a93cb1(instance: "primary_surface") {
+
+    }
+    Textac27ac5bcdf0(instance: "primary_label", text: copy.primary_label_text)
+    NativeButton02f1d1bd99b4(instance: "primary_control", enabled: primary_control_enabled)
+  }
+}

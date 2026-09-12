@@ -14,6 +14,8 @@ pub mod jsonrpc;
 mod proto;
 pub mod rest;
 pub mod stdio;
+#[cfg(target_env = "ohos")]
+pub mod embedded;
 pub mod ws;
 
 /// Install a logcat backend for the real `log` facade on Android. The app

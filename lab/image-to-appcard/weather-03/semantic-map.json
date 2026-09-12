@@ -1,0 +1,354 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.1.0",
+  "reference_sha256": "127779bf4fc91966693bbd39e63f88d7ea66617d94e65dbaf618dd375150dca6",
+  "contract_sha256": "fd6955b55d1df1bd27cd9df5a1785c182d988ba12466f56272861c5f0ba8453e",
+  "classification_scope": "Reviewed original reference regions and authored intent; approximate plot measurements are explicitly marked.",
+  "elements": [
+    {
+      "id": "temperature_chart",
+      "role": "chart.line",
+      "basis": "Numeric series digitized from the original trend; approximate design measurements, not market data.",
+      "confidence": 1.0,
+      "decision": "reviewed",
+      "data": {
+        "path": "data/temperature_chart.json",
+        "sha256": "7cc2fd9c393e77b24597d8b323ec4188d40e27b2e54f6cb00b56e1b7e6b3a08c",
+        "origin": "measured_image",
+        "approximate": true,
+        "x_key": "x",
+        "y_keys": [
+          "y0"
+        ],
+        "units": {
+          "x": "normalized image plot position",
+          "y": "normalized image plot height"
+        },
+        "domain": {
+          "x": [
+            0,
+            1
+          ],
+          "y": [
+            0,
+            1
+          ]
+        }
+      },
+      "plot": {
+        "colors": [
+          "#155fee"
+        ],
+        "fills": [
+          "#6ea0ef70"
+        ],
+        "line_width": 2.25,
+        "gradient_fill": true,
+        "markers": [
+          {
+            "x": 0.09593023255813954,
+            "y": 0.7846153846153846,
+            "color": "#ffffff",
+            "radius": 4.2
+          },
+          {
+            "x": 0.09593023255813954,
+            "y": 0.7846153846153846,
+            "color": "#155fee",
+            "radius": 3.25
+          },
+          {
+            "x": 0.36627906976744184,
+            "y": 0.9576923076923077,
+            "color": "#ffffff",
+            "radius": 4.2
+          },
+          {
+            "x": 0.36627906976744184,
+            "y": 0.9576923076923077,
+            "color": "#155fee",
+            "radius": 3.25
+          },
+          {
+            "x": 0.6482558139534884,
+            "y": 0.676923076923077,
+            "color": "#ffffff",
+            "radius": 4.2
+          },
+          {
+            "x": 0.6482558139534884,
+            "y": 0.676923076923077,
+            "color": "#155fee",
+            "radius": 3.25
+          },
+          {
+            "x": 0.9156976744186046,
+            "y": 0.3602564102564103,
+            "color": "#ffffff",
+            "radius": 4.2
+          },
+          {
+            "x": 0.9156976744186046,
+            "y": 0.3602564102564103,
+            "color": "#155fee",
+            "radius": 3.25
+          }
+        ],
+        "guides": [
+          {
+            "x": 0.09593023255813954,
+            "y0": 0,
+            "y1": 0.7846153846153846,
+            "color": "#c6d4e8",
+            "width": 0.7
+          },
+          {
+            "x": 0.36627906976744184,
+            "y0": 0,
+            "y1": 0.9576923076923077,
+            "color": "#c6d4e8",
+            "width": 0.7
+          },
+          {
+            "x": 0.6482558139534884,
+            "y0": 0,
+            "y1": 0.676923076923077,
+            "color": "#c6d4e8",
+            "width": 0.7
+          },
+          {
+            "x": 0.9156976744186046,
+            "y0": 0,
+            "y1": 0.3602564102564103,
+            "color": "#c6d4e8",
+            "width": 0.7
+          }
+        ]
+      }
+    },
+    {
+      "id": "page",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "heading",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "subtitle",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "current",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "temperature",
+      "role": "layout",
+      "basis": "Native number and independently sized degree Labels composed as a text group.",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "condition",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "location",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "hourly_title",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "hourly_title_detail",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "timeline",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "hour_0",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "hour_1",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "hour_2",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "hour_3",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "humidity",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "humidity_label",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "humidity_value",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "wind",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "wind_label",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "wind_value",
+      "role": "layout",
+      "basis": "Native value and independently sized unit Labels.",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary_label",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "chart_annotation_0",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "chart_annotation_1",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "chart_annotation_2",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "chart_annotation_3",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "temperature_number",
+      "role": "text",
+      "basis": "Reviewed part of 24\u00b0; independent native font size for the degree symbol.",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "temperature_degree",
+      "role": "text",
+      "basis": "Reviewed part of 24\u00b0; independent native font size for the degree symbol.",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "wind_value_number",
+      "role": "text",
+      "basis": "Reviewed numeric value and smaller unit composed with independent native Labels.",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "wind_value_unit",
+      "role": "text",
+      "basis": "Reviewed numeric value and smaller unit composed with independent native Labels.",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    }
+  ]
+}

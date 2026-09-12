@@ -32,3 +32,9 @@ workspace = true
 # device (the app shell's `log::` macros are makepad's shim, not this facade).
 [target.'cfg(target_os = "android")'.dependencies]
 android_logger = "0.14"
+
+# HarmonyOS denies exec from HAP native libraries. Link the canonical core
+# into the app and carry exactly the same OUP frames through an in-memory pipe.
+[target.'cfg(target_env = "ohos")'.dependencies]
+octos-cli = { path = "../../../octos/crates/octos-cli", default-features = false, features = ["api", "git", "ast"] }
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }

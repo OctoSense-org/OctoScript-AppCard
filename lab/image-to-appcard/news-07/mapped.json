@@ -1,0 +1,514 @@
+{
+  "schema_version": 1,
+  "reference_sha256": "7fbd6294cc5b463850cd844f06996b463480ae96f36e73a06c41b1a9c2fb1dbe",
+  "tree": {
+    "t": "stack",
+    "id": "page",
+    "x": 0,
+    "y": 0,
+    "w": 406,
+    "h": 776,
+    "variant": "surface",
+    "bg": 4294242043,
+    "c": [
+      {
+        "t": "text",
+        "id": "heading",
+        "text": "Listen today",
+        "x": 25.158186098633916,
+        "y": 32.90657439446367,
+        "w": 230.05054304137275,
+        "h": 43.38177623990773,
+        "size": 40.8788027061992,
+        "weight": 700,
+        "line_height": 43.38177623990773,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/ux/Roboto-Bold.ttf",
+        "color": 4281012801,
+        "tracking": 0.21819313089671316,
+        "font_asc": -0.12880926302022322,
+        "font_desc": -0.018163393229776836
+      },
+      {
+        "t": "text",
+        "id": "subtitle",
+        "text": "Independent stories. Fresh perspectives.",
+        "x": 26.437065857102205,
+        "y": 85.26643598615917,
+        "w": 270.33958103638366,
+        "h": 19.66320645905421,
+        "size": 16.433528088188023,
+        "weight": 500,
+        "line_height": 19.66320645905421,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/ux/Roboto-Medium.ttf",
+        "color": 4286081679,
+        "tracking": -0.7787348026143683,
+        "font_asc": -0.056031963365242965,
+        "font_desc": -0.08068678663475698
+      },
+      {
+        "t": "stack",
+        "id": "episode",
+        "x": 25.0,
+        "y": 124.0,
+        "w": 355.0,
+        "h": 320.0,
+        "variant": "surface",
+        "bg": 4293517047,
+        "radius": 21.55,
+        "c": [
+          {
+            "t": "text",
+            "id": "episode_tag",
+            "text": "THE DAILY AUDIO",
+            "x": 45.38838554538795,
+            "y": 144.78662053056516,
+            "w": 119.04079382579933,
+            "h": 13.845444059976932,
+            "size": 13.478254969807994,
+            "weight": 700,
+            "line_height": 13.845444059976932,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/ux/Roboto-Bold.ttf",
+            "color": 4286146452,
+            "tracking": 0.45375854244063873,
+            "font_asc": -0.05864408827319589,
+            "font_desc": 0.08598783827319598
+          },
+          {
+            "t": "stockplot",
+            "id": "waveform",
+            "x": 44,
+            "y": 175,
+            "w": 316,
+            "h": 96,
+            "src": "http://127.0.0.1:8170/ux-images/news-07/assets/waveform.svg"
+          },
+          {
+            "t": "text",
+            "id": "episode_title",
+            "text": "The world, in focus.",
+            "x": 44.971225028313896,
+            "y": 292.02076124567475,
+            "w": 301.2023896037832,
+            "h": 36.22145328719723,
+            "size": 34.31593152999476,
+            "weight": 700,
+            "line_height": 36.22145328719723,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/ux/Roboto-Bold.ttf",
+            "color": 4281012801,
+            "tracking": -0.21144311933903737,
+            "font_asc": -0.10919850142960696,
+            "font_desc": 0.0071477201796068535
+          },
+          {
+            "t": "text",
+            "id": "episode_meta",
+            "text": "A 12-minute morning briefing",
+            "x": 44.98817763937385,
+            "y": 339.9054209919262,
+            "w": 189.31863285556778,
+            "h": 19.215686274509803,
+            "size": 15.706514864010119,
+            "weight": 400,
+            "line_height": 19.215686274509803,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/ux/Roboto-Regular.ttf",
+            "color": 4286015120,
+            "tracking": -0.6226190984455999,
+            "font_asc": -0.04014477287371132,
+            "font_desc": -0.09169116462628873
+          },
+          {
+            "t": "stack",
+            "id": "play",
+            "x": 44.0,
+            "y": 375.0,
+            "w": 180.0,
+            "h": 47.0,
+            "c": [
+              {
+                "t": "stack",
+                "id": "play_surface",
+                "x": 44.0,
+                "y": 375.0,
+                "w": 180.0,
+                "h": 47.0,
+                "variant": "surface",
+                "bg": 4285418410,
+                "radius": 12.12,
+                "c": [],
+                "bg2": 4285484203
+              },
+              {
+                "t": "text",
+                "id": "play_label",
+                "text": "Play episode",
+                "x": 83.9639256434295,
+                "y": 389.5801614763552,
+                "w": 102.92613009922822,
+                "h": 21.90080738177624,
+                "size": 18.581273957363273,
+                "weight": 400,
+                "line_height": 21.90080738177624,
+                "alignx": 0,
+                "variant": "single_line",
+                "font_src": "self:resources/ux/Roboto-Regular.ttf",
+                "color": 4294572284,
+                "tracking": -0.3575634060461668,
+                "font_asc": -0.07009912864449097,
+                "font_desc": -0.07687352760550908
+              },
+              {
+                "t": "button",
+                "id": "play_control",
+                "x": 44.0,
+                "y": 375.0,
+                "w": 180.0,
+                "h": 47.0,
+                "enabled": 1
+              }
+            ],
+            "kit": "{\"widget\":\"KitButton\",\"bindings\":{\"control\":[2],\"label\":[1]}}"
+          }
+        ],
+        "bg2": 4293517047
+      },
+      {
+        "t": "text",
+        "id": "up_next",
+        "text": "Up next",
+        "x": 25.407744719962647,
+        "y": 470.5813148788927,
+        "w": 103.14875397685519,
+        "h": 32.193771626297575,
+        "size": 30.844468103983672,
+        "weight": 500,
+        "line_height": 32.193771626297575,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/ux/Roboto-Medium.ttf",
+        "color": 4280947264,
+        "tracking": -0.5033764772661206,
+        "font_asc": -0.15195542617820323,
+        "font_desc": -0.023825823821796766
+      },
+      {
+        "t": "stack",
+        "id": "next",
+        "x": 25.0,
+        "y": 509.0,
+        "w": 355.0,
+        "h": 136.0,
+        "variant": "surface",
+        "bg": 4294901502,
+        "radius": 20.77,
+        "c": [
+          {
+            "t": "text",
+            "id": "next_tag",
+            "text": "SCIENCE",
+            "x": 46.536231969801655,
+            "y": 528.3114186851211,
+            "w": 56.37265711135612,
+            "h": 13.397923875432525,
+            "size": 12.8656070166349,
+            "weight": 500,
+            "line_height": 13.397923875432525,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/ux/Roboto-Medium.ttf",
+            "color": 4286278801,
+            "tracking": 0.21766620490171107,
+            "font_asc": -0.05157803295287189,
+            "font_desc": 0.07892178295287183
+          },
+          {
+            "t": "text",
+            "id": "next_title",
+            "text": "The next chapter",
+            "x": 46.413044506449005,
+            "y": 549.7923875432526,
+            "w": 195.58544652701212,
+            "h": 29.508650519031143,
+            "size": 26.763174315049067,
+            "weight": 500,
+            "line_height": 29.508650519031143,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/ux/Roboto-Medium.ttf",
+            "color": 4281078594,
+            "tracking": -0.6022544790791813,
+            "font_asc": -0.10300482399620181,
+            "font_desc": -0.03371392600379819
+          },
+          {
+            "t": "text",
+            "id": "next_title2",
+            "text": "of clean energy",
+            "x": 46.461225157014695,
+            "y": 580.6712802768166,
+            "w": 174.54685777287762,
+            "h": 28.61361014994233,
+            "size": 25.280177325517496,
+            "weight": 500,
+            "line_height": 28.61361014994233,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/ux/Roboto-Medium.ttf",
+            "color": 4281078594,
+            "tracking": -0.14163901227346035,
+            "font_asc": -0.0883670996368322,
+            "font_desc": -0.0483516503631678
+          },
+          {
+            "t": "text",
+            "id": "next_meta",
+            "text": "4 min read",
+            "x": 46.650506710022874,
+            "y": 615.5778546712803,
+            "w": 62.63947078280044,
+            "h": 14.292964244521338,
+            "size": 13.5475519105268,
+            "weight": 400,
+            "line_height": 14.292964244521338,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/ux/Roboto-Regular.ttf",
+            "color": 4286279313,
+            "tracking": -0.42438959288296096,
+            "font_asc": -0.030106226888166776,
+            "font_desc": 0.08674685188816672
+          }
+        ],
+        "bg2": 4294901502
+      },
+      {
+        "t": "text",
+        "id": "queue_note",
+        "text": "New episodes every weekday.",
+        "x": 27.38330370544346,
+        "y": 668.8327566320646,
+        "w": 191.10915104740903,
+        "h": 18.768166089965398,
+        "size": 15.3295510148247,
+        "weight": 400,
+        "line_height": 18.768166089965398,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/ux/Roboto-Regular.ttf",
+        "color": 4286147471,
+        "tracking": -0.5436968006213039,
+        "font_asc": -0.04726740972059518,
+        "font_desc": -0.09970524652940493
+      },
+      {
+        "t": "stack",
+        "id": "primary",
+        "x": 25.0,
+        "y": 698.0,
+        "w": 355.0,
+        "h": 49.0,
+        "c": [
+          {
+            "t": "stack",
+            "id": "primary_surface",
+            "x": 25.0,
+            "y": 698.0,
+            "w": 355.0,
+            "h": 49.0,
+            "variant": "surface",
+            "bg": 4285418410,
+            "radius": 12.79,
+            "c": [],
+            "bg2": 4285483946
+          },
+          {
+            "t": "text",
+            "id": "primary_label",
+            "text": "Your reading list",
+            "x": 138.1841633773215,
+            "y": 713.1372549019608,
+            "w": 129.78390297684675,
+            "h": 21.453287197231834,
+            "size": 18.20903320424391,
+            "weight": 400,
+            "line_height": 21.453287197231834,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/ux/Roboto-Regular.ttf",
+            "color": 4294638076,
+            "tracking": -0.30834267798497983,
+            "font_asc": -0.06789877980025771,
+            "font_desc": -0.07419106394974234
+          },
+          {
+            "t": "button",
+            "id": "primary_control",
+            "x": 25.0,
+            "y": 698.0,
+            "w": 355.0,
+            "h": 49.0,
+            "enabled": 1
+          }
+        ],
+        "kit": "{\"widget\":\"KitButton\",\"bindings\":{\"control\":[2],\"label\":[1]}}"
+      }
+    ],
+    "bg2": 4294242043
+  },
+  "changes": [
+    {
+      "id": "page",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "episode",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "waveform",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "play",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "play_surface",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "play_control",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "next",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "primary",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "primary_surface",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "primary_control",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "heading",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.054521130065880684
+    },
+    {
+      "id": "subtitle",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.07036140675761497
+    },
+    {
+      "id": "episode_tag",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": 0.012907372228585168
+    },
+    {
+      "id": "episode_title",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.0797140016267838
+    },
+    {
+      "id": "episode_meta",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.06330248843053041
+    },
+    {
+      "id": "play_label",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.06583916642297907
+    },
+    {
+      "id": "up_next",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.07031828933924891
+    },
+    {
+      "id": "next_tag",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.013549994885142958
+    },
+    {
+      "id": "next_title",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.08026863444087448
+    },
+    {
+      "id": "next_title2",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.05604462559911353
+    },
+    {
+      "id": "next_meta",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.07419597221625082
+    },
+    {
+      "id": "queue_note",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.0731701393776662
+    },
+    {
+      "id": "primary_label",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.04569010633656458
+    }
+  ],
+  "limits": [
+    "Measured fixed artboard; not a responsive production application."
+  ],
+  "feedback_repairs": [
+    {
+      "id": "heading",
+      "from_round": "001",
+      "ink_width_delta": -3.158,
+      "tracking_adjustment": 0.28709090909090906
+    },
+    {
+      "id": "queue_note",
+      "from_round": "001",
+      "ink_width_delta": -3.109,
+      "tracking_adjustment": 0.11957692307692308
+    }
+  ],
+  "font_repair": {
+    "method": "reference glyph silhouette fit; native verification required",
+    "family": "Roboto",
+    "family_errors": {
+      "Inter": 0.4710560466839485,
+      "Roboto": 0.45903965409600445,
+      "DMSans": 0.48038736910584706,
+      "RobotoCondensed": 0.5373485088520256
+    }
+  }
+}

@@ -74,10 +74,7 @@ const L0_APPS: &[(&str, &str, &str)] = &[
      include_str!("../../../a2app-l0/apps/chart/exemplar.card")),
     ("youtube", include_str!("../../../a2app-l0/apps/youtube/app.md"),
      include_str!("../../../a2app-l0/apps/youtube/exemplar.card")),
-    // Ported from the pre-L0 tree on main. L1, and only just: it computes one
-    // value from numbers it already declared. Its keypad did not survive — digit
-    // entry is arithmetic in a transition, which L0 has no form for — so the
-    // amount comes from the request and three chips adjust it.
+    // Conversion coefficients live in sys.convert; the card declares the pair.
     ("convert", include_str!("../../../a2app-l0/apps/convert/app.md"),
      include_str!("../../../a2app-l0/apps/convert/exemplar.card")),
     // Ported from main. A feed card — the shape L0 renders best: it names the
@@ -93,15 +90,14 @@ const L0_APPS: &[(&str, &str, &str)] = &[
     // on before realize, using the same call the tile beside them displays.
     ("weather-activity", include_str!("../../../a2app-l0/apps/weather-activity/app.md"),
      include_str!("../../../a2app-l0/apps/weather-activity/exemplar.card")),
-    // COMPOSED, and the first app above L0. `city-picks` compares the user's
-    // saved cities, which needs one arithmetic expression — how much warmer it
-    // feels than it is — and that is L1. Everything else about it is L0.
+    // sys.cities supplies the feels-like difference in the selected unit.
     ("city-picks", include_str!("../../../a2app-l0/apps/city-picks/app.md"),
      include_str!("../../../a2app-l0/apps/city-picks/exemplar.card")),
 ];
 
-/// NO-ROUTER MODE: one self-routing generation prompt carrying EVERY baked
-/// L0 app's requirements + exemplar. The model does the AMA's picking and the
+/// NO-ROUTER MODE: one self-routing generation prompt carrying every baked
+/// L0 app card. Per-app prose specifications remain developer documentation.
+/// The model does the AMA's picking and the
 /// app agent's writing in the SAME turn — no routing round-trip. The prompt is
 /// big (~25k tokens) but BYTE-STABLE across queries (only the trailing user
 /// request changes), so the server's prefix cache absorbs it after the first
@@ -119,15 +115,12 @@ colour."
         None => String::new(),
     };
     let mut sections = String::new();
-    for (domain, spec, exemplar) in L0_APPS {
-        let level_name = match l0_level_for(domain) {
-            Some(splash_ui_l0::Level::L1) => "L1",
-            _ => "L0",
-        };
+    for (domain, _, exemplar) in L0_APPS {
         sections.push_str(&format!(
-            "\n===== APP `{domain}` — write {level_name} =====\n\
-[REQUIREMENTS]\n{spec}\n[A CARD THAT MEETS THEM]\n{exemplar}\n"
+            "\n===== APP `{domain}` — write L0 =====\n\
+[APP CARD]\n{exemplar}\n"
         ));
+        sections.push_str(&app::l0_page_recipes::prompt_reference(domain));
     }
     format!(
         "You ARE the app agent and you OWN the whole flow: PICK the ONE app that \
@@ -153,15 +146,14 @@ park cupertino'; a clear street address stays as-is), and put the origin/destina
 into the card's OWN STATE as the initial queries so it opens on that route, not an \
 empty search box. If NO app below answers the request, reply with ONE short \
 plain-text sentence saying what is missing — no card.\n\n\
-Write the LEVEL the chosen app's section header names. L0: no arithmetic, no string \
-building, no `if`, no `let`, no functions — everything you would reach for those \
-with has a declared form. L1 (ONLY where the header says L1): additionally ONE \
-arithmetic expression over values the card already declared — an expression made \
-only of literals is REFUSED, there is no grouping and no unary minus.\n\n\
+Write an L0 card. No arithmetic, no string building, no `if`, no `let`, no \
+functions. Declare computed values through catalogued runtime capabilities; \
+the card only binds their results. Preserve the selected card's sources, state, \
+events and required views while adapting it to the request.\n\n\
 NEVER write a fact. Not a temperature, a price, a headline, a venue or a distance. \
 Every one comes from a declared `source`. NEVER write a colour, a font size or a \
 pixel dimension. You say what a thing IS; a theme decides what it looks \
-like.{theme_hint}\n\n\
+like.\n\n\
 Emit EXACTLY ONE ```runl0 fenced block as your ENTIRE answer — the complete card \
 for the ONE app you picked, no prose before or after, never truncated. A card that \
 names anything outside the catalog is REFUSED and the reasons are shown instead of \
@@ -170,7 +162,7 @@ your card.\n\n\
 ===== LANGUAGE =====\n{L0_LANGUAGE}\n\
 ===== CATALOG =====\n{L0_CATALOG}\n\
 {sections}\
-===== END REFERENCE =====\n\nUser request: {intent}"
+===== END REFERENCE =====\n\n{theme_hint}\nUser request: {intent}"
     )
 }
 
@@ -243,30 +235,10 @@ fn l0_spec_and_exemplar(domain: &str) -> Option<(String, &'static str)> {
 }
 
 fn l0_prompt_for(domain: &str, intent: &str) -> Option<String> {
-    let (spec, exemplar) = l0_spec_and_exemplar(domain)?;
-    // The level comes from the EXEMPLAR, judged by the same checker that will
-    // judge what the model writes — not from a fourth list to keep in sync.
-    //
-    // "There is no arithmetic" is L0's rule. Sending it to an app whose spec
-    // asks for one expression tells the model to disobey the spec shipped in
-    // the same prompt, and it has no way to know which to believe.
-    let level = l0_level_for(domain)?;
-    let (level_name, expression_rule) = match level {
-        splash_ui_l0::Level::L1 => (
-            "L1",
-            "This app is L1, so it declares `# level: L1` and may use ONE thing L0 \
-cannot: arithmetic over values it already declared. Everything else is L0's — no string \
-building, no `if`, no `let`, no functions. An expression must READ something: a \
-coefficient is fine, but an expression made only of literals states a fact rather than \
-computing one and is REFUSED. There is no grouping and no unary minus, so precedence is \
-fixed. Do not reach for L1 anywhere the spec does not ask for it.",
-        ),
-        _ => (
-            "L0",
-            "There is no arithmetic, no string building, no `if`, no `let`, no functions. \
-Everything you would reach for those with has a declared form.",
-        ),
-    };
+    let (_, exemplar) = l0_spec_and_exemplar(domain)?;
+    let layouts = app::l0_page_recipes::prompt_reference(domain);
+    let level_name = "L0";
+    let expression_rule = "There is no arithmetic, no string building, no `if`, no `let`, no functions. Declare computed values through catalogued runtime capabilities and bind their results. Preserve the supplied card's sources, state, events and views.";
     // The request named a LOOK. A card may not describe one, but it may declare
     // which catalogued mood it is in, and the kit answers that with a palette. Told
     // to the agent explicitly because the alternative — hoping it infers `theme`
@@ -291,16 +263,16 @@ Every one comes from a declared `source`. A card with a number typed into it is 
 the moment the world changes, and nothing downstream can tell it from a card that is \
 right.\n\n\
 NEVER write a colour, a font size or a pixel dimension. You say what a thing IS; a \
-theme decides what it looks like.{theme_hint}\n\n\
+theme decides what it looks like.\n\n\
 Emit EXACTLY ONE ```runl0 fenced block as your ENTIRE answer — the complete card, no \
 prose before or after, never truncated. A card that names anything outside the catalog \
 is REFUSED and the reasons are shown instead of your card.\n\n\
 ===== FRAMEWORK =====\n{L0_FRAMEWORK}\n\
 ===== LANGUAGE =====\n{L0_LANGUAGE}\n\
 ===== CATALOG =====\n{L0_CATALOG}\n\
-===== REQUIREMENTS: {domain} =====\n{spec}\n\
-===== A CARD THAT MEETS THEM =====\n{exemplar}\n\
-===== END REFERENCE =====\n\nUser request: {intent}"
+===== APP CARD: {domain} =====\n{exemplar}\n\
+{layouts}\n\
+===== END REFERENCE =====\n\n{theme_hint}\nUser request: {intent}"
     ))
 }
 
@@ -356,8 +328,23 @@ const APP_SPLASH_ROUTER: &str = "You ARE the app agent and you OWN the entire fl
 /// missed one is silent: the card renders in the default and looks correct.
 fn detect_theme(intent: &str) -> Option<&'static str> {
     let q = intent.to_lowercase();
+    // Match the complete kit ID before generic mood words, including compound
+    // names such as camo_light. Do not confuse ticker substrings with kits.
+    let words: Vec<_> = q.split(|c: char| !c.is_alphanumeric() && c != '_').collect();
+    for theme in ["taskplan_light", "atro_light", "camo_light", "atro", "camo"] {
+        if words.contains(&theme) {
+            return splash_ui_l0::catalog::theme(theme);
+        }
+    }
+    if words.contains(&"taskplan") {
+        return splash_ui_l0::catalog::theme("taskplan_light");
+    }
     let has = |ss: &[&str]| ss.iter().any(|s| q.contains(s));
-    let name = if has(&["glass", "vibrant", "gradient", "\u{6bdb}\u{73bb}\u{7483}", "\u{73bb}\u{7483}"]) {
+    let name = if words.contains(&"vibrant") {
+        "vibrant"
+    } else if words.contains(&"minimal") {
+        "minimal"
+    } else if has(&["glass", "gradient", "\u{6bdb}\u{73bb}\u{7483}", "\u{73bb}\u{7483}"]) {
         "glass"
     } else if has(&[
         "minimal", "\u{7b80}\u{7ea6}", "\u{6d45}\u{8272}", "light mode", "light theme", "light style", "clean",
@@ -1345,6 +1332,11 @@ fn neutralize_bare_view(body: &str) -> String {
 /// authored before this rule — and an LLM that reproduces them verbatim — still
 /// carry the old fit, so enforce it at render time rather than trusting the DSL.
 fn force_fullbleed_image_fit(body: &str) -> String {
+    if body.starts_with("// REALIZED from an L0 ledger") && body.contains("kit_content_page := ") {
+        // The native kit page measures its content; its Fill backgrounds follow
+        // that height. A legacy fixed image height would override the measurement.
+        return body.to_string();
+    }
     if !body.contains("Image{") {
         return body.to_string();
     }
@@ -1497,7 +1489,13 @@ fn pin_fullbleed_root_height(body: &str) -> String {
         .map(|r| root_open + 1 + r)
         .unwrap_or(body.len());
     let attrs = &body[root_open + 1..attr_end];
-    let fixed = format!("height: {FULLBLEED_FALLBACK_HEIGHT}");
+    // The seed-render harness treats the card as THE SCREEN: a Fill root
+    // means "the design frame", not the chat feed's tall fullbleed canvas.
+    let pin_h = std::env::var("MAKEPAD_SEED_L0_FILL_HEIGHT")
+        .ok()
+        .and_then(|v| v.parse::<u32>().ok())
+        .unwrap_or(FULLBLEED_FALLBACK_HEIGHT);
+    let fixed = format!("height: {pin_h}");
     let new_attrs = if attrs.contains("height: Fill") {
         attrs.replacen("height: Fill", &fixed, 1)
     } else if attrs.contains("height:Fill") {
@@ -1854,7 +1852,14 @@ fn strip_line_comments(body: &str) -> String {
 /// Recurses (bounded by `MAX_CARD_EMBED_DEPTH`) so a card may embed another;
 /// `next_inst` threads a globally-unique instance counter across all levels.
 fn expand_card_embeds(body: &str, depth: u8, next_inst: &mut u32) -> String {
-    if depth >= MAX_CARD_EMBED_DEPTH || !body.contains("Card{") {
+    // Native classes such as TaskplanProjectCard are not legacy Card embeds.
+    // Leave their body untouched: stripping its L0 marker changes Splash's
+    // evaluation mode and prevents the widget tree from being attached.
+    let has_embed = body.match_indices("Card{").any(|(i, _)| {
+        i == 0 || !body.as_bytes()[i - 1].is_ascii_alphanumeric()
+            && body.as_bytes()[i - 1] != b'_'
+    });
+    if depth >= MAX_CARD_EMBED_DEPTH || !has_embed {
         return body.to_string();
     }
     // Comments can mention `Card{` (e.g. a component's own usage doc) — strip
@@ -2274,11 +2279,21 @@ fn resolve_a2app_card(cx: &mut Cx, text: &str, item_id: usize, state: &CardState
 /// layout. Instead, cut the text at the open fence and show a small building
 /// note; the card renders exactly once when the closing fence arrives.
 fn defer_unclosed_runsplash(text: &str) -> std::borrow::Cow<'_, str> {
+    defer_unclosed_card_fence(text, "```runsplash")
+}
+
+// Remend closes Markdown fences for display. Defer L0 before that pass, or
+// every partial ledger looks complete and gets parsed/validated on the UI thread.
+fn defer_unclosed_runl0(text: &str) -> std::borrow::Cow<'_, str> {
+    defer_unclosed_card_fence(text, "```runl0")
+}
+
+fn defer_unclosed_card_fence<'a>(text: &'a str, marker: &str) -> std::borrow::Cow<'a, str> {
     use std::borrow::Cow;
-    let Some(start) = text.rfind("```runsplash") else {
+    let Some(start) = text.rfind(marker) else {
         return Cow::Borrowed(text);
     };
-    let after = &text[start + "```runsplash".len()..];
+    let after = &text[start + marker.len()..];
     let closed = match after.find('\n') {
         // Fence body present — closed iff a terminating ``` follows.
         Some(nl) => after[nl + 1..].contains("```"),
@@ -2290,6 +2305,25 @@ fn defer_unclosed_runsplash(text: &str) -> std::borrow::Cow<'_, str> {
     } else {
         Cow::Owned(format!("{}\u{1F6E0} Building app UI\u{2026}", &text[..start]))
     }
+}
+
+#[test]
+fn generation_stream_defers_every_partial_l0_before_markdown_repair() {
+    let card = "```runl0\nview root Col { Text(\"Weather\") }\n```";
+    for end in "```runl0".len()..card.len() {
+        let deferred = defer_unclosed_runl0(&card[..end]);
+        let display = streaming_display_with_latex_autowrap_remend(
+            &deferred,
+            SanitizeOptions { trim_unclosed_fence: false, ..Default::default() },
+        );
+        assert!(!display.contains("```runl0"), "partial ledger reached the renderer at {end}");
+    }
+    assert_eq!(defer_unclosed_runl0(card), card);
+    assert_eq!(defer_unclosed_runl0("ordinary prose"), "ordinary prose");
+    let next = format!("{card}\n```runl0\nview root");
+    let deferred = defer_unclosed_runl0(&next);
+    assert!(deferred.starts_with(card));
+    assert_eq!(deferred.matches("```runl0").count(), 1);
 }
 
 /// A semantic plan is not user-facing source code. While its fence is still
@@ -4253,6 +4287,29 @@ script_mod! {
                                 }
                                 octo := OctoThinking {}
                             }
+
+                            reader_overlay := SolidView {
+                                width: Fill height: Fill flow: Down
+                                visible: false show_bg: true
+                                draw_bg +: { color: #x101418FF }
+                                reader_toolbar := SolidView {
+                                    width: Fill height: 56 flow: Right spacing: 12
+                                    show_bg: true
+                                    draw_bg +: { color: #x101418FF }
+                                    padding: Inset{left: 12 right: 12 top: 6 bottom: 6}
+                                    align: Align{y: 0.5}
+                                    reader_back := Button { text: "‹ Back" width: 84 height: 44 }
+                                    reader_title := Label {
+                                        width: Fill height: Fit text: "Article"
+                                        max_lines: 1 text_overflow: TextOverflow.Ellipsis
+                                        draw_text +: {
+                                            color: #xFFFFFFFF
+                                            text_style +: { font_size: 12 }
+                                        }
+                                    }
+                                }
+                                reader_web := WebCard { width: Fill height: Fill }
+                            }
                         }
 
                         // W05 — typed approval cards. The pane hides itself
@@ -4590,12 +4647,15 @@ fn glass_opacity_values(slider: f64) -> GlassOpacity {
     }
 }
 
-fn should_start_window_drag(abs: DVec2, size: DVec2) -> bool {
+fn should_start_window_drag(abs: DVec2, size: DVec2, toolbar: Option<Rect>) -> bool {
     const RESIZE_EDGE_MARGIN: f64 = 10.0;
     const DRAG_STRIP_HEIGHT: f64 = 52.0;
     const RIGHT_TOOLBAR_WIDTH: f64 = 260.0;
 
-    abs.y > RESIZE_EDGE_MARGIN
+    // Full-screen cards and the reader occupy this strip when the app toolbar
+    // is hidden. Their controls must receive clicks instead of dragging Cocoa.
+    toolbar.is_some_and(|rect| rect.contains(abs))
+        && abs.y > RESIZE_EDGE_MARGIN
         && abs.y < DRAG_STRIP_HEIGHT
         && abs.x > RESIZE_EDGE_MARGIN
         && abs.x < size.x - RESIZE_EDGE_MARGIN
@@ -4847,6 +4907,7 @@ impl Widget for MermaidSvgView {
                 other => other,
             },
             metrics: walk.metrics,
+            ..walk
         };
         let rect = cx.walk_turtle(walk);
         self.last_rect = rect;
@@ -5268,7 +5329,8 @@ impl Widget for ChatList {
                             // Gate order: hold back an unclosed block, THEN
                             // neutralize EVERY closed-but-forbidden one before it
                             // reaches the Splash renderer (net-write exfil).
-                            let deferred_plan = defer_unclosed_runplan(&data.streaming_text);
+                            let deferred_l0 = defer_unclosed_runl0(&data.streaming_text);
+                            let deferred_plan = defer_unclosed_runplan(&deferred_l0);
                             let materialized_plan =
                                 materialize_runplan_for_display(&deferred_plan);
                             let deferred = defer_unclosed_runsplash(&materialized_plan);
@@ -5423,10 +5485,13 @@ impl Widget for ChatList {
                             // ticks its own values, and the route it draws is already
                             // there. Until then it re-resolves like any other card.
                             let has_route = rendered.contains("nav_polyline: \"")
-                                && !rendered.contains("nav_polyline: \"\"");
+                                && !rendered.contains("nav_polyline: \"\"")
+                                && !rendered.contains("nav_polyline: \"—\"")
+                                && !rendered.contains("nav_polyline: \"n/a\"");
                             self.driving_card = rendered.contains("nav_mode: \"follow")
                                 && rendered.contains("fn tick()")
-                                && has_route;
+                                && has_route
+                                && makepad_widgets::makepad_draw::makepad_platform::gps::last_gps_fix().is_some();
                             log!(
                                 "[l0] resolve took {} ms",
                                 resolve_began.elapsed().as_millis()
@@ -5436,6 +5501,9 @@ impl Widget for ChatList {
                             // resolution can itself start a fetch and bump it,
                             // and caching the pre-resolve value would re-resolve
                             // every frame forever.
+                            // The draw has already consumed this epoch. The poll
+                            // must not invalidate the same result a second time.
+                            self.last_fetch_epoch = cx.script_data_fetch_epoch();
                             self.rendered_cache = Some((
                                 item_id,
                                 msg.text.clone(),
@@ -5568,6 +5636,8 @@ std::thread_local! {
 pub struct App {
     #[live]
     ui: WidgetRef,
+    #[rust]
+    reader_url: String,
     /// Auto-dismiss timer for the toast strip (compaction / memory-saved /
     /// warnings). Empty when no toast is showing.
     #[rust]
@@ -5819,6 +5889,7 @@ impl App {
         // A non-web app taking the screen must not leave a web card's native
         // WebView overlay floating above its Splash card.
         if app_id != "web" && app_id != "youtube" {
+            self.close_reader(cx);
             cx.system_browser(web_card_browser_id()).detach();
         }
         // youtube WAS served here as a complete hand-authored HTML app, with
@@ -6039,6 +6110,7 @@ impl App {
     /// silent in M1. W04 follow-up #5 — `/api/version` probe runs
     /// off-thread so we don't stall the caller.
     fn connect_transport(&mut self, cx: &mut Cx) {
+        if std::env::var_os("MAKEPAD_L0_REVIEW").is_some() { return; }
         let transport_config = Self::placeholder_transport_config();
         log::info!(
             "connect transport: base_url={} profile_id={}",
@@ -6048,7 +6120,12 @@ impl App {
         // hydrates over the WS (`session/list`) once `session/open` lands
         // (see `OctosUiAgent`'s `CapabilityNegotiated` arm). Only the public
         // version probe stays on REST.
-        Self::probe_version(Self::build_rest_client(&transport_config));
+        #[cfg(not(target_env = "ohos"))]
+        if transport_config.stdio.is_none() {
+            Self::probe_version(Self::build_rest_client(&transport_config));
+        }
+        #[cfg(target_env = "ohos")]
+        log::info!("native core version={}", octos_app_transport::embedded::CORE_VERSION);
         // Reflect the signed-in identity in the top bar: the Profile pill
         // previously shipped its "(no profile)" stub forever.
         let pid_str = transport_config.profile_id.0.clone();
@@ -6149,6 +6226,36 @@ impl App {
     /// deferred — call sites also live in `handle_actions` and a rename
     /// would balloon the diff. The doc comment carries the new semantics.
     fn placeholder_transport_config() -> TransportConfig {
+        // Desktop mobile testing uses the same local-core OUP connection as
+        // Android. It needs neither an HTTP server nor a desktop bearer.
+        #[cfg(not(mobile))]
+        if let Some(stdio) = Self::stdio_spawn() {
+            return TransportConfig {
+                base_url: url::Url::parse("http://127.0.0.1").unwrap(),
+                bearer: SecretString::new(String::new()),
+                profile_id: TransportProfileId::new("_main"),
+                cursor: None,
+                cursor_file: Self::cursor_file_path(),
+                requested_capabilities: Capabilities::requested(),
+                workspace_cwd: None,
+                stdio: Some(stdio),
+            };
+        }
+        // An in-process core needs no HTTP bearer. In particular, Linux
+        // keyctl is blocked by the HarmonyOS app sandbox: do not ask a desktop
+        // keyring backend for a token this transport never uses.
+        #[cfg(target_env = "ohos")]
+        return TransportConfig {
+            base_url: url::Url::parse("http://127.0.0.1").unwrap(),
+            bearer: SecretString::new(String::new()),
+            profile_id: TransportProfileId::new("_main"),
+            cursor: None,
+            cursor_file: Self::cursor_file_path(),
+            requested_capabilities: Capabilities::requested(),
+            workspace_cwd: None,
+            stdio: None,
+        };
+
         // 1. server.json — happy path on a configured machine.
         if let Some(cfg) = crate::app::login::load_server_config() {
             if let Ok(base_url) = url::Url::parse(&cfg.server_url) {
@@ -6209,6 +6316,9 @@ impl App {
     /// re-spawn / app restart — under the app's HOME, next to the saved cards.
     /// `None` (no HOME) falls back to in-memory cursors.
     fn cursor_file_path() -> Option<std::path::PathBuf> {
+        if std::env::var_os("OCTOS_APP_CONFIG_DIR").is_some() {
+            return crate::app::login::config_dir().map(|dir| dir.join("cursors.json"));
+        }
         std::env::var("HOME")
             .ok()
             .map(|h| std::path::PathBuf::from(h).join("a2app-cursors.json"))
@@ -6437,7 +6547,7 @@ impl App {
     /// OpenHarmony are both Linux-kernel platforms that mount `/proc`, and
     /// neither hands the app its lib dir directly (the bundle path carries an
     /// install-specific prefix), so this is identical on both.
-    #[cfg(mobile)]
+    #[cfg(target_os = "android")]
     fn native_lib_dir() -> Option<std::path::PathBuf> {
         let maps = std::fs::read_to_string("/proc/self/maps").ok()?;
         for line in maps.lines() {
@@ -6450,104 +6560,39 @@ impl App {
         None
     }
 
-    /// The app-private read/write root inside the OpenHarmony sandbox.
+    /// HarmonyOS links the core into libmakepad; exec from HAP libs is denied.
     #[cfg(target_env = "ohos")]
-    fn ohos_home() -> std::path::PathBuf {
-        std::path::PathBuf::from("/data/storage/el2/base/files/octos-home")
-    }
-
-    /// Bundled kernel path, if present. Mirrors the Android layout: the binary
-    /// ships as `liboctos.so` in the native lib dir, with a staged copy under
-    /// HOME as the fallback.
-    #[cfg(target_env = "ohos")]
-    fn find_embedded_kernel(
-        lib_dir: &std::path::Path,
-        home: &std::path::Path,
-    ) -> Option<std::path::PathBuf> {
-        [lib_dir.join("liboctos.so"), home.join(".bin/liboctos.so")]
-            .into_iter()
-            .find(|p| p.exists())
-    }
-
-    /// Whether the bundled kernel is present AND actually executable here.
-    ///
-    /// Unlike Android — where exec from `nativeLibraryDir` is a documented,
-    /// relied-upon capability — it is not established that an OpenHarmony HAP
-    /// may exec out of its bundle libs dir. Claiming an embedded kernel we
-    /// cannot launch would be worse than not having one: `stdio.is_some()` also
-    /// selects the `_main` profile id, so a kernel that fails to spawn would
-    /// leave the app talking to a remote server under a profile that server has
-    /// never heard of. So probe with a real `--version` exec and believe the
-    /// result rather than the file's mode bits.
-    #[cfg(target_env = "ohos")]
-    fn ohos_kernel_is_executable(program: &std::path::Path) -> bool {
-        match std::process::Command::new(program).arg("--version").output() {
-            Ok(out) if out.status.success() => true,
-            Ok(out) => {
-                log::warn!(
-                    "stdio: {} exited {} on --version probe; using WebSocket transport",
-                    program.display(),
-                    out.status
-                );
-                false
-            }
-            Err(e) => {
-                log::warn!(
-                    "stdio: cannot exec {} ({e}); using WebSocket transport",
-                    program.display()
-                );
-                false
-            }
-        }
-    }
+    fn has_embedded_kernel() -> bool { true }
 
     #[cfg(target_env = "ohos")]
-    fn has_embedded_kernel() -> bool {
-        let home = Self::ohos_home();
-        Self::native_lib_dir()
-            .and_then(|lib_dir| Self::find_embedded_kernel(&lib_dir, &home))
-            .is_some_and(|p| Self::ohos_kernel_is_executable(&p))
-    }
-
-    #[cfg(target_env = "ohos")]
-    fn stdio_spawn() -> Option<StdioSpawn> {
-        let lib_dir = Self::native_lib_dir()?;
-        let home = Self::ohos_home();
-        let program = Self::find_embedded_kernel(&lib_dir, &home).or_else(|| {
-            log::warn!(
-                "stdio: bundled octos not found under {}; using WebSocket transport",
-                lib_dir.display()
-            );
-            None
-        })?;
-        if !Self::ohos_kernel_is_executable(&program) {
-            return None;
-        }
-        // Create HOME before spawning: `Command::spawn` chdir's into `cwd`
-        // before exec, so a missing dir fails the spawn with ENOENT even though
-        // the binary is fine (same trap as the Android path).
-        if let Err(e) = std::fs::create_dir_all(&home) {
-            log::warn!("stdio: could not create HOME {}: {e}", home.display());
-        }
-        log::info!("stdio: octos={} HOME={}", program.display(), home.display());
-        let a2app = home.join("a2app").to_string_lossy().into_owned();
-        let env = vec![
-            ("HOME".to_owned(), home.to_string_lossy().into_owned()),
-            ("OCTOS_SKILLS_PATH".to_owned(), a2app),
-            ("RUST_LOG".to_owned(), "info".to_owned()),
-        ];
-        Some(StdioSpawn {
-            program,
-            args: vec!["serve".to_owned(), "--stdio".to_owned()],
-            env,
-            cwd: Some(home),
-        })
-    }
+    fn stdio_spawn() -> Option<StdioSpawn> { None }
 
     #[cfg(not(mobile))]
     fn stdio_spawn() -> Option<StdioSpawn> {
-        // Desktop dev keeps the WebSocket transport (talk to `octos serve`).
-        None
+        // Explicit opt-in leaves the normal desktop server connection intact.
+        let program = std::path::PathBuf::from(std::env::var_os("OCTOS_APP_CORE_BIN")?);
+        let data = std::path::PathBuf::from(std::env::var_os("OCTOS_APP_CORE_DIR")?);
+        if !program.is_file() {
+            log::error!("Configured local Octos core binary is missing");
+            return None;
+        }
+        let workspace = data.join("workspace");
+        if let Err(error) = std::fs::create_dir_all(&workspace) {
+            log::error!("Cannot create local Octos workspace: {error}");
+            return None;
+        }
+        Some(StdioSpawn {
+            program,
+            args: vec!["serve".into(), "--stdio".into(), "--data-dir".into(),
+                data.to_string_lossy().into_owned(), "--config".into(),
+                data.join("config.json").to_string_lossy().into_owned()],
+            env: vec![
+                ("OCTOS_HOME".into(), data.to_string_lossy().into_owned()),
+                ("OCTOS_OMIT_WORKSPACE_HINT".into(), "1".into()),
+                ("RUST_LOG".into(), "info".into()),
+            ],
+            cwd: Some(workspace),
+        })
     }
 
     /// Locate the app's nativeLibraryDir by scanning `/proc/self/maps` for our
@@ -6656,7 +6701,29 @@ impl App {
         }
     }
 
+    fn close_reader(&mut self, cx: &mut Cx) {
+        app::l0_card::close_reader();
+        self.ui.web_card(cx, ids!(reader_web)).detach(cx);
+        self.reader_url.clear();
+        self.ui.view(cx, ids!(reader_overlay)).set_visible(cx, false);
+        self.ui.redraw(cx);
+    }
+
+    fn sync_reader(&mut self, cx: &mut Cx) {
+        let url = app::l0_card::reader_url();
+        if !app::l0_card::L0_READER_OPEN.load(std::sync::atomic::Ordering::Relaxed) {
+            if !self.reader_url.is_empty() { self.close_reader(cx); }
+            return;
+        }
+        if url.is_empty() || self.reader_url == url { return; }
+        self.reader_url = url.clone();
+        self.ui.web_card(cx, ids!(reader_web)).navigate(cx, &url);
+        self.ui.view(cx, ids!(reader_overlay)).set_visible(cx, true);
+        self.ui.redraw(cx);
+    }
+
     fn clear_chat(&mut self, cx: &mut Cx) {
+        self.close_reader(cx);
         // A previous web app card floats as a native overlay — hide it with the
         // chat it belonged to.
         cx.system_browser(web_card_browser_id()).detach();
@@ -6893,6 +6960,7 @@ impl App {
         if self.agent.is_none() {
             return;
         }
+        self.close_reader(cx);
         // Snapshot the app we're leaving so switching back restores its card.
         if !self.apps.is_empty() {
             let prev = self.foreground;
@@ -6936,6 +7004,7 @@ impl App {
             self.sync_app_tabs(cx);
             return;
         }
+        self.close_reader(cx);
         // Snapshot the app we're leaving, then enter and restore app `i`.
         let prev = self.foreground;
         self.snapshot_into(prev);
@@ -6991,7 +7060,9 @@ impl App {
     /// moved. Returns whether the gesture was consumed. The redraw is the same
     /// rewrite the notify path does: replace lowered DSL, bump the generation.
     fn l0_gesture(&mut self, cx: &mut Cx, event: &str) -> bool {
-        let Some((item, body)) = app::l0_card::gesture(cx, event) else {
+        let render_body = CHAT_DATA.read().ok().and_then(|chat| chat.messages.last()
+            .map(|msg| !msg.text.contains("```runl0"))).unwrap_or(true);
+        let Some((item, body)) = app::l0_card::gesture(cx, event, render_body) else {
             return false;
         };
         if let Ok(mut chat) = CHAT_DATA.write() {
@@ -7060,6 +7131,36 @@ impl App {
     }
 
     fn submit_prompt(&mut self, cx: &mut Cx, text: String) {
+        // A visible live news ledger keeps typed queries inside its workflow.
+        // Do this before requiring a chat session or creating a model turn.
+        let news_item = CHAT_DATA.read().ok().and_then(|chat| {
+            if chat.is_streaming { return None; }
+            chat.messages.last().filter(|msg| msg.text.contains("```runl0"))
+                .map(|_| chat.messages.len() - 1)
+        });
+        if let Some(item) = news_item {
+            match app::l0_card::submit_news_query(cx, item, &text) {
+                Ok(true) => {
+                    self.close_reader(cx);
+                    self.composer_shown = false;
+                    self.sync_composer(cx);
+                    CHAT_GENERATION.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+                    cx.redraw_all();
+                    log::info!("[news] composer query dispatched to item {item}");
+                    return;
+                }
+                Err(why) => {
+                    log::warn!("[news] composer query refused: {why}");
+                    if let Ok(mut state) = APP_STATE.write() {
+                        state.toasts.push(octos_app_store::toasts::Toast::new(
+                            octos_app_store::toasts::ToastKind::Error, why));
+                    }
+                    self.sync_toasts(cx);
+                    return;
+                }
+                Ok(false) => {}
+            }
+        }
         // The youtube live-id cache used to be warmed here, on EVERY submit, so a
         // routed youtube intent could inject ground-truth ids into its generation
         // prompt. That prompt is gone (the L0 card searches instead), and the only
@@ -7073,6 +7174,8 @@ impl App {
         if self.agent.is_none() || self.fg_session().is_none() {
             return;
         }
+
+        self.close_reader(cx);
 
         // Reject a new submit while ANY turn is in flight — the AMA routing
         // turn (singleton `ama_prompt`/`ama_text`/`pending_intent`) OR the
@@ -8061,6 +8164,22 @@ impl MatchEvent for App {
             self.sync_composer(cx);
         }
 
+        if self.ui.button(cx, ids!(reader_back)).clicked(actions) {
+            self.close_reader(cx);
+        }
+
+        for action in actions {
+            if let Some(state) = action.downcast_ref::<makepad_widgets::makepad_platform::event::NativeSystemBrowserNavigation>() {
+                if !self.reader_url.is_empty() && state.browser_id == web_card_browser_id().0.get_value() {
+                    let title = if state.error.is_some() { "Page couldn't load" }
+                        else if state.loading { "Loading…" }
+                        else if state.title.is_empty() { "Article" }
+                        else { &state.title };
+                    self.ui.label(cx, ids!(reader_title)).set_text(cx, title);
+                }
+            }
+        }
+
         // Markdown link click — dispatch through robius-open for cross-platform
         // coverage (macOS/Linux/Windows/iOS/Android/WASM). Desktop requires a
         // modifier (Cmd on macOS, Cmd/Ctrl elsewhere) so plain clicks stay
@@ -8131,7 +8250,10 @@ impl MatchEvent for App {
                     }
                     // A keystroke's state is applied NOW; its re-render is coalesced.
                     let is_keystroke = target.contains("\"c\":1");
-                    match app::l0_card::tap(cx, card_id.unwrap_or(0), l0_key, l0_event, l0_value) {
+                    let is_ledger = CHAT_DATA.read().ok().and_then(|chat| chat.messages.get(card_id.unwrap_or(0))
+                        .map(|msg| msg.text.contains("```runl0"))).unwrap_or(false);
+                    let dispatch = if is_ledger { app::l0_card::tap_deferred } else { app::l0_card::tap };
+                    match dispatch(cx, card_id.unwrap_or(0), l0_key, l0_event, l0_value) {
                         Ok(Some((item, body))) if is_keystroke => {
                             let _ = (item, body);
                             L0_TYPING_PENDING.store(true, std::sync::atomic::Ordering::Relaxed);
@@ -8255,7 +8377,8 @@ impl MatchEvent for App {
                             target_arch = "wasm32"
                         )))]
                         {
-                            modifiers.logo || modifiers.control
+                            std::env::var_os("MAKEPAD_MOBILE_PREVIEW").is_some()
+                                || modifiers.logo || modifiers.control
                         }
                     };
                     if should_open {
@@ -8940,6 +9063,10 @@ impl MatchEvent for App {
                 let _ = std::fs::create_dir_all(&dir);
                 std::env::set_var("HOME", &dir);
                 log::info!("mobile: HOME={dir}");
+                #[cfg(target_env = "ohos")]
+                {
+                    std::env::set_var("OCTOS_OMIT_WORKSPACE_HINT", "1");
+                }
             }
         }
 
@@ -8982,6 +9109,22 @@ impl MatchEvent for App {
             std::env::remove_var("MAKEPAD_PROVISION_CONFIG");
         }
 
+
+        // A deployment may explicitly request re-admission after changing the
+        // runtime bundle. Preserve previous receipts before opening any cards.
+        // A stale receipt still fails closed during normal app launches.
+        if let Ok(migration) = std::env::var("MAKEPAD_REAPPROVE_CARDS") {
+            std::env::remove_var("MAKEPAD_REAPPROVE_CARDS");
+            let result = crate::app::login::config_dir()
+                .ok_or_else(|| "card approval directory unavailable".to_owned())
+                .and_then(|dir| crate::app::l0_approval_store::archive_for_reapproval(
+                    &dir.join("l0-approvals"), &migration));
+            if let Err(error) = result {
+                log::error!("Explicit card reapproval failed: {error}");
+                return;
+            }
+            log::info!("Explicit card reapproval migration {migration}: old receipts preserved; normal policy admission required");
+        }
 
         // Construct the OctosUiAgent up-front so the chat surface has
         // somewhere to send a prompt (config/token state as currently on
@@ -9027,12 +9170,14 @@ impl MatchEvent for App {
         #[cfg(mobile)]
         let authed = Self::has_embedded_kernel() || self.boot_is_authed();
         #[cfg(not(mobile))]
-        let authed = self.boot_is_authed();
+        let authed = Self::stdio_spawn().is_some() || self.boot_is_authed();
         self.show_login(cx, false);
         // W04 / M2 — make sure the chat_screen / content_screen pair
         // matches the boot navigation state (defaults to Home → Chat).
         self.show_screen_for_nav(cx);
-        if authed {
+        if std::env::var_os("MAKEPAD_L0_REVIEW").is_some() {
+            // Offline native review uses only the seeded ledger below.
+        } else if authed {
             // Open the first session immediately so the composer is live.
             self.clear_chat(cx);
             self.fire_auto_prompt(cx);
@@ -9079,8 +9224,12 @@ impl MatchEvent for App {
         // device knows what card produced it or what a tap would mean.
         if let Ok(card_path) = std::env::var("MAKEPAD_SEED_L0_FILE") {
             let data_path = std::env::var("MAKEPAD_SEED_L0_DATA").unwrap_or_default();
-            let card = std::fs::read_to_string(&card_path);
-            let blob = std::fs::read_to_string(&data_path);
+            let builtin = card_path.strip_prefix("builtin:");
+            let card = if let Some(name) = builtin {
+                bundled_l0_source(name)
+            } else { std::fs::read_to_string(&card_path) };
+            let blob = if builtin.is_some() && data_path.is_empty() { Ok("{}".to_string()) }
+                else { std::fs::read_to_string(&data_path) };
             match (card, blob) {
                 (Ok(source), Ok(raw)) => {
                     let data: serde_json::Value =
@@ -9208,7 +9357,7 @@ impl MatchEvent for App {
         // by the path a real one does and bumps the same epoch. Nothing in the
         // language, the kit or the widgets knows the difference — which is the
         // point: it tests the real chain rather than a parallel one.
-        if let Ok(track_path) = std::env::var("MAKEPAD_FAKE_GPS_FILE") {
+        if let Some(track_path) = std::env::var("MAKEPAD_FAKE_GPS_FILE").ok().filter(|p| !p.is_empty()) {
             match std::fs::read_to_string(&track_path) {
                 Ok(text) => {
                     let track: Vec<(f64, f64)> = text
@@ -9258,6 +9407,7 @@ impl MatchEvent for App {
 
 impl AppMain for App {
     fn script_mod(vm: &mut ScriptVm) -> ScriptValue {
+        vm.cx_mut().lock_script_sources();
         // NOTE: `agent.notify(...)` for A2App/Splash button callbacks is
         // registered inside `makepad_widgets::script_mod` so it reaches the
         // isolated Splash VMs too (see aichat/widgets/src/lib.rs).
@@ -9298,27 +9448,15 @@ impl AppMain for App {
     }
 
     fn handle_event(&mut self, cx: &mut Cx, event: &Event) {
-        // The L0 reader overlay (a card wrote a page to `sys.link`). The spawn
-        // happened in l0_card::tap, where no widget area exists — the native
-        // view is positioned HERE, once, to the full window, on the first
-        // event after it. System back closes the reader instead of the app;
-        // `handled` is how the platform is told the press was consumed.
+        self.sync_reader(cx);
         if app::l0_card::L0_READER_OPEN.load(std::sync::atomic::Ordering::Relaxed) {
-            if let Event::BackPressed { handled } = event {
-                cx.system_browser(web_card_browser_id()).detach();
-                makepad_widgets::splash::set_link("");
-                app::l0_card::L0_READER_OPEN
-                    .store(false, std::sync::atomic::Ordering::Relaxed);
-                handled.set(true);
-            } else if !app::l0_card::L0_READER_PLACED
-                .swap(true, std::sync::atomic::Ordering::Relaxed)
-            {
-                // The Window WidgetRef's own area is a zero rect (measured);
-                // the chat list is the drawn region the card occupies, which
-                // is exactly what the reader should cover.
-                let over = self.ui.widget(cx, ids!(chat_list)).area();
-                log::info!("[l0] reader placed over {:?}", over.rect(cx));
-                cx.system_browser(web_card_browser_id()).update(over, true);
+            match event {
+                Event::BackPressed { handled } => {
+                    self.close_reader(cx);
+                    handled.set(true);
+                }
+                Event::KeyDown(key) if key.key_code == KeyCode::Escape => self.close_reader(cx),
+                _ => {}
             }
         } else if let Event::BackPressed { handled } = event {
             // No reader up: offer the press to the latest card as its own
@@ -9663,7 +9801,9 @@ impl AppMain for App {
         if let Event::WindowDragQuery(dq) = event {
             if Some(dq.window_id) == self.ui.window(cx, ids!(main_window)).window_id() {
                 let size = self.ui.window(cx, ids!(main_window)).get_inner_size(cx);
-                if should_start_window_drag(dq.abs, size) {
+                let toolbar = self.ui.view(cx, ids!(top_bar));
+                let drag_area = toolbar.visible().then(|| toolbar.area().rect(cx));
+                if should_start_window_drag(dq.abs, size, drag_area) {
                     dq.response.set(WindowDragQueryResponse::Caption);
                     cx.set_cursor(MouseCursor::Default);
                 }
@@ -10499,6 +10639,32 @@ impl AppMain for App {
     }
 }
 
+/// Review selector `weather@atro_light/dashboard` selects theme and named views.
+fn bundled_l0_source(selector: &str) -> std::io::Result<String> {
+    let (selector, layout) = selector.split_once('/').unwrap_or((selector, ""));
+    let (name, theme) = selector.split_once('@').unwrap_or((selector, ""));
+    let source = L0_APPS.iter().find(|(key, _, _)| *key == name)
+        .map(|(_, _, source)| *source)
+        .ok_or_else(|| std::io::Error::new(std::io::ErrorKind::NotFound, "unknown bundled L0 card"))?;
+    let source = app::l0_page_recipes::apply(name, layout, source)
+        .map_err(|message| std::io::Error::new(std::io::ErrorKind::InvalidInput, message))?;
+    if theme.is_empty() { return Ok(source) }
+    if !splash_ui_l0::catalog::THEMES.contains(&theme) {
+        return Err(std::io::Error::new(std::io::ErrorKind::InvalidInput, "unknown review theme"));
+    }
+    let mut replaced = false;
+    let mut result = String::new();
+    for line in source.split_inclusive('\n') {
+        if let Some(rest) = line.trim_start().strip_prefix("theme ") {
+            let end = rest.find(char::is_whitespace).unwrap_or(rest.len());
+            result.push_str(&format!("theme {theme}{}", &rest[end..]));
+            replaced = true;
+        } else { result.push_str(line) }
+    }
+    if !replaced { result.insert_str(0, &format!("theme {theme}\n")) }
+    Ok(result)
+}
+
 #[cfg(test)]
 mod tests {
     use makepad_widgets::DVec2;
@@ -10514,6 +10680,17 @@ mod tests {
         FULLBLEED_FALLBACK_HEIGHT, MAX_GLASS_OPACITY, MIN_GLASS_OPACITY,
     };
     use std::collections::BTreeMap;
+
+    #[test]
+    fn bundled_theme_changes_only_the_theme_declaration() {
+        let original = super::bundled_l0_source("weather").unwrap();
+        for theme in ["atro", "atro_light", "camo", "taskplan_light"] {
+            assert_eq!(super::bundled_l0_source(&format!("weather@{theme}")).unwrap(),
+                       original.replacen("theme atro_light", &format!("theme {theme}"), 1));
+        }
+        assert!(super::bundled_l0_source("weather@unknown").is_err());
+        assert!(super::bundled_l0_source("unknown@atro").is_err());
+    }
 
     // ── Phase 1: Card{} composition ─────────────────────────────────────────
     fn expand(body: &str) -> String {
@@ -10598,6 +10775,19 @@ mod tests {
         // `MyCard{` / `ScoreCard{` must not be mistaken for a Card{} embed.
         let src = "ScoreCard{ width: Fill }";
         assert_eq!(expand(src), src);
+    }
+
+    #[test]
+    fn kit_project_card_preserves_ledger_evaluation_marker() {
+        let src = "// REALIZED from an L0 ledger — do not edit.\nlet title = \"News\"\nView{ card := TaskplanProjectCard{ title := Label{text: title} } }\nfn tick() {}";
+        assert_eq!(expand(src), src);
+    }
+
+    #[test]
+    fn kit_content_page_keeps_measured_background_height() {
+        let src = "// REALIZED from an L0 ledger — do not edit.\nkit_content_page := RoundedView{ height: Fit flow: Overlay Image{ height: Fill fit: ImageFit.CropToFill } View{ height: Fit } }";
+        assert_eq!(super::force_fullbleed_image_fit(src), src);
+        assert_eq!(pin_fullbleed_root_height(src), src);
     }
 
     #[test]
@@ -10872,19 +11062,51 @@ mod tests {
     #[test]
     fn aichat_drag_strip_preserves_resize_edges() {
         let size = DVec2 { x: 900.0, y: 700.0 };
+        let toolbar = Some(makepad_widgets::Rect {
+            pos: DVec2 { x: 0.0, y: 0.0 },
+            size: DVec2 { x: 900.0, y: 40.0 },
+        });
         assert!(should_start_window_drag(
             DVec2 { x: 120.0, y: 24.0 },
-            size
+            size,
+            toolbar
         ));
-        assert!(!should_start_window_drag(DVec2 { x: 4.0, y: 24.0 }, size));
-        assert!(!should_start_window_drag(DVec2 { x: 120.0, y: 4.0 }, size));
+        assert!(!should_start_window_drag(DVec2 { x: 4.0, y: 24.0 }, size, toolbar));
+        assert!(!should_start_window_drag(DVec2 { x: 120.0, y: 4.0 }, size, toolbar));
         assert!(!should_start_window_drag(
             DVec2 { x: 880.0, y: 24.0 },
-            size
+            size,
+            toolbar
         ));
         assert!(!should_start_window_drag(
             DVec2 { x: 700.0, y: 24.0 },
-            size
+            size,
+            toolbar
+        ));
+        assert!(!should_start_window_drag(
+            DVec2 { x: 120.0, y: 48.0 },
+            size,
+            toolbar
+        ));
+    }
+
+    #[test]
+    fn news_back_click_is_not_a_window_drag_without_the_app_toolbar() {
+        let back_button_center = DVec2 { x: 58.0, y: 31.0 };
+        for size in [
+            DVec2 { x: 440.0, y: 841.0 },
+            DVec2 { x: 900.0, y: 700.0 },
+        ] {
+            assert!(!should_start_window_drag(back_button_center, size, None));
+        }
+        // A visible toolbar elsewhere also must not claim the reader's button.
+        assert!(!should_start_window_drag(
+            back_button_center,
+            DVec2 { x: 900.0, y: 700.0 },
+            Some(makepad_widgets::Rect {
+                pos: DVec2 { x: 240.0, y: 3.0 },
+                size: DVec2 { x: 650.0, y: 40.0 },
+            })
         ));
     }
 
@@ -11007,6 +11229,32 @@ mod tests {
         }
     }
 
+    #[test]
+    fn context_changes_preserve_the_complete_reference_prefix() {
+        let requests = [
+            "Weather Tokyo, morning, taskplan_light",
+            "Stock AAPL, nighttime, atro",
+            "News for a Camo reader, camo_light",
+        ];
+        let reference = |s: String| s.split("===== END REFERENCE =====").next().unwrap().to_owned();
+        let expected = reference(super::l0_prompt_all(requests[0]));
+        for request in requests {
+            assert_eq!(reference(super::l0_prompt_all(request)), expected);
+        }
+        for domain in ["weather", "stock", "news"] {
+            let expected = reference(super::l0_prompt_for(domain, requests[0]).unwrap());
+            for request in requests {
+                assert_eq!(reference(super::l0_prompt_for(domain, request).unwrap()), expected);
+            }
+        }
+        for theme in splash_ui_l0::catalog::THEMES {
+            let request = format!("weather Tokyo, {theme} theme");
+            assert_eq!(super::detect_theme(&request), Some(*theme));
+        }
+        assert_eq!(super::detect_theme("weather Tokyo with light rain"), None);
+        assert_eq!(super::detect_theme("news about CAMOUFLAGE"), None);
+    }
+
     /// Every exemplar is a card the checker accepts, at the level it declares.
     ///
     /// `L0_APPS` documented this and nothing enforced it, so an exemplar could
@@ -11014,11 +11262,9 @@ mod tests {
     /// refused for copying. The exemplar is the single strongest instruction in
     /// the prompt — it is a worked answer — so a broken one is worse than none.
     ///
-    /// The level is asserted as DECLARED rather than as L0: `city-picks` is L1
-    /// on purpose, and pinning every app to L0 would have made adding it look
-    /// like a regression.
+    /// Every registered app stays L0; computations belong to runtime sources.
     #[test]
-    fn every_exemplar_is_a_card_the_checker_accepts() {
+    fn l0_migration_every_registered_card_is_l0() {
         for (domain, _, exemplar) in super::L0_APPS {
             let report = splash_ui_l0::check_ui_l0_named(domain, exemplar);
             assert!(
@@ -11031,6 +11277,7 @@ mod tests {
                 .find_map(|l| l.trim().strip_prefix("# level:"))
                 .map(|l| l.trim().to_owned())
                 .unwrap_or_else(|| "L0".to_owned());
+            assert_eq!(report.level, splash_ui_l0::Level::L0, "{domain} must stay L0");
             let got = format!("{:?}", report.level);
             assert_eq!(
                 got, declared,
@@ -11097,7 +11344,7 @@ mod tests {
     ///
     /// Registration is the source of truth, because that is what routing reads.
     #[test]
-    fn the_baked_manual_names_every_registered_app() {
+    fn l0_migration_manual_matches_registered_cards() {
         for (domain, _, _) in super::L0_APPS {
             assert!(
                 super::L0_FRAMEWORK.contains(&format!("**{domain}**")),
@@ -11105,31 +11352,8 @@ mod tests {
                  route to — an agent sent there has no entry to follow"
             );
         }
-        // And the level claim, from the exemplars rather than from a fourth list.
-        let above_l0: Vec<&str> = super::L0_APPS
-            .iter()
-            .filter(|(_, _, ex)| {
-                ex.lines()
-                    .any(|l| l.trim().starts_with("# level:") && !l.contains("L0"))
-            })
-            .map(|(d, _, _)| *d)
-            .collect();
-        for d in &above_l0 {
-            assert!(
-                super::L0_FRAMEWORK.contains(d),
-                "`{d}` is above L0 and the manual never mentions it"
-            );
-        }
-        // The manual states the COUNT in prose, so the count has to be right.
-        let claim = match above_l0.len() {
-            1 => "**One app is above L0",
-            2 => "**Two apps are above L0",
-            n => panic!("{n} apps are above L0 and the manual has no phrasing for that"),
-        };
-        assert!(
-            super::L0_FRAMEWORK.contains(claim),
-            "the manual miscounts the apps above L0: {above_l0:?}"
-        );
+        assert!(super::L0_FRAMEWORK.contains("All registered app cards are L0"));
+        assert!(!super::L0_FRAMEWORK.contains("# level: L1"));
     }
 
     /// An L0 app refuses a card that declares a wider grammar.
@@ -11141,7 +11365,7 @@ mod tests {
     /// the whole point of raising a level was decorative in the one direction that
     /// matters.
     #[test]
-    fn a_card_wider_than_its_app_is_refused() {
+    fn l0_migration_every_app_refuses_l1() {
         let l1 = splash_ui_l0::check_ui_l0_named(
             "probe",
             "# level: L1\n\
@@ -11159,17 +11383,8 @@ mod tests {
             "the refusal must be actionable: {refusal}"
         );
 
-        // And the same card is accepted by an app that IS approved for L1, or the
-        // rule would just be "never L1".
-        let l1_app = super::L0_APPS
-            .iter()
-            .map(|(d, _, _)| *d)
-            .find(|d| super::l0_level_for(d) == Some(splash_ui_l0::Level::L1));
-        if let Some(d) = l1_app {
-            assert!(
-                super::l0_level_refusal(d, &l1).is_none(),
-                "{d} is approved for L1 and must accept an L1 card"
-            );
+        for (domain, _, _) in super::L0_APPS {
+            assert!(super::l0_level_refusal(domain, &l1).is_some(), "{domain} must refuse L1");
         }
 
         // An L0 card is never refused by this rule, at any app.
@@ -11186,21 +11401,19 @@ mod tests {
         }
     }
 
-    /// An L1 app must not be told there is no arithmetic.
-    ///
-    /// The prompt carried L0's rule for every app while the spec beside it asked
-    /// `city-picks` for one expression — two instructions in one prompt, in
-    /// direct contradiction, with nothing telling the model which wins.
     #[test]
-    fn the_prompt_states_the_rule_for_the_apps_own_level() {
-        let l0 = super::l0_prompt_for("weather", "weather in kyoto").expect("weather has a spec");
-        assert!(l0.contains("Write an L0 CARD"), "an L0 app is told L0");
-        assert!(l0.contains("There is no arithmetic"), "and gets L0's rule");
-
-        let l1 = super::l0_prompt_for("city-picks", "compare my cities").expect("city-picks has a spec");
-        assert!(l1.contains("Write an L1 CARD"), "an L1 app is told L1");
-        assert!(!l1.contains("There is no arithmetic"), "and is NOT told L0's rule:\n{l1}");
-        assert!(l1.contains("must READ something"), "it gets L1's rule instead");
+    fn l0_migration_prompts_include_cards_without_prose_specs_or_l1_rules() {
+        let all = super::l0_prompt_all("convert 20 c to f");
+        assert!(!all.contains("write L1"));
+        assert!(!all.contains("[REQUIREMENTS]"));
+        for (domain, spec, card) in super::L0_APPS {
+            let prompt = super::l0_prompt_for(domain, "show this app").unwrap();
+            assert!(prompt.contains("Write an L0 CARD"), "{domain}");
+            assert!(prompt.contains("There is no arithmetic"), "{domain}");
+            assert!(prompt.contains(card) && all.contains(card), "{domain} retains its app card");
+            assert!(!prompt.contains(spec) && !all.contains(spec), "{domain} prose is not injected");
+            assert!(!prompt.contains("Write an L1 CARD"));
+        }
     }
 
     /// The two syntax classes live generation actually shipped as blank

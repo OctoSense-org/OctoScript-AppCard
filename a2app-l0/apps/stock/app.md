@@ -77,9 +77,11 @@ series and the widget gets it.
 ## DETAIL view
 
 - A back affordance carrying `on_tap: back`.
-- The company name and the current price as the `TextHero` — the one number the
-  screen exists to show.
-- Change and percent change beside it, both tinted by `quote.change`.
+- The company name as `TextTitle`. Give the current price its own full-width
+  `TextHero`, or use `TextStat` when price and change share a row or a tile.
+  Never squeeze a hero-sized currency value into a half-width row: the dollar
+  sign and cents must stay on the same line as the amount.
+- Change and percent change beside or below it, both tinted by `quote.change`.
 - `StockPlot(symbol: selected, range: range)`.
 - A `Row` of five `Chip`s — `1D 1W 1M 6M 1Y` — each with
   `on_tap: set_range, value: .<token>` and `active: range == .<token>`.

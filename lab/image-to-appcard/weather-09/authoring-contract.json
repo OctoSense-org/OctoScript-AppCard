@@ -1,0 +1,495 @@
+{
+  "schema_version": 1,
+  "id": "weather-09",
+  "app": "weather",
+  "number": 9,
+  "title": "Plan your week",
+  "structure": "Weekly planner: compact current weather followed by a long five-day forecast list.",
+  "artboard": [
+    406,
+    776
+  ],
+  "font_family": "DM Sans",
+  "palette": {
+    "name": "Mint",
+    "page": "EDF6F1",
+    "panel": "FFFFFF",
+    "ink": "173E34",
+    "muted": "77968C",
+    "tint": "D5EDE1",
+    "accent": "22785D"
+  },
+  "content_source": "deterministic design fixture",
+  "tree": {
+    "t": "stack",
+    "id": "page",
+    "x": 0,
+    "y": 0,
+    "w": 406,
+    "h": 776,
+    "variant": "surface",
+    "bg": 4293785329,
+    "c": [
+      {
+        "t": "text",
+        "id": "heading",
+        "text": "Plan your week",
+        "x": 24,
+        "y": 32,
+        "w": 290,
+        "h": 39.0,
+        "size": 30,
+        "weight": 700,
+        "line_height": 39.0,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/camo/DMSans-Bold.ttf",
+        "color": 4279713332
+      },
+      {
+        "t": "text",
+        "id": "subtitle",
+        "text": "Monday, September 7",
+        "x": 24,
+        "y": 76,
+        "w": 350,
+        "h": 16.9,
+        "size": 13,
+        "weight": 400,
+        "line_height": 16.9,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/camo/DMSans-Regular.ttf",
+        "color": 4286027404
+      },
+      {
+        "t": "text",
+        "id": "location",
+        "text": "Cupertino",
+        "x": 24,
+        "y": 120,
+        "w": 250,
+        "h": 20.8,
+        "size": 16,
+        "weight": 700,
+        "line_height": 20.8,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/camo/DMSans-Bold.ttf",
+        "color": 4279713332
+      },
+      {
+        "t": "text",
+        "id": "temperature",
+        "text": "24\u00b0",
+        "x": 277,
+        "y": 110,
+        "w": 105,
+        "h": 62.4,
+        "size": 48,
+        "weight": 500,
+        "line_height": 62.4,
+        "alignx": 1,
+        "variant": "single_line",
+        "font_src": "self:resources/camo/DMSans-Medium.ttf",
+        "color": 4279713332
+      },
+      {
+        "t": "text",
+        "id": "forecast_title",
+        "text": "Five-day outlook",
+        "x": 24,
+        "y": 181,
+        "w": 250,
+        "h": 26.0,
+        "size": 20,
+        "weight": 700,
+        "line_height": 26.0,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/camo/DMSans-Bold.ttf",
+        "color": 4279713332
+      },
+      {
+        "t": "stack",
+        "id": "forecast",
+        "x": 24,
+        "y": 227,
+        "w": 358,
+        "h": 320,
+        "variant": "surface",
+        "bg": 4294967295,
+        "radius": 20,
+        "c": [
+          {
+            "t": "stack",
+            "id": "day_0",
+            "x": 24,
+            "y": 227,
+            "w": 358,
+            "h": 64,
+            "c": [
+              {
+                "t": "text",
+                "id": "day_label_0",
+                "text": "Monday",
+                "x": 42,
+                "y": 247,
+                "w": 120,
+                "h": 18.2,
+                "size": 14,
+                "weight": 500,
+                "line_height": 18.2,
+                "alignx": 0,
+                "variant": "single_line",
+                "font_src": "self:resources/camo/DMSans-Medium.ttf",
+                "color": 4279713332
+              },
+              {
+                "t": "svg",
+                "id": "day_icon_0",
+                "x": 208,
+                "y": 243,
+                "w": 34,
+                "h": 28,
+                "src": "http://127.0.0.1:8170/ux-images/weather-09/assets/day_icon_0.svg"
+              },
+              {
+                "t": "text",
+                "id": "day_temp_0",
+                "text": "24\u00b0",
+                "x": 290,
+                "y": 244,
+                "w": 70,
+                "h": 27.3,
+                "size": 21,
+                "weight": 700,
+                "line_height": 27.3,
+                "alignx": 1,
+                "variant": "single_line",
+                "font_src": "self:resources/camo/DMSans-Bold.ttf",
+                "color": 4279713332
+              }
+            ]
+          },
+          {
+            "t": "stack",
+            "id": "day_1",
+            "x": 24,
+            "y": 291,
+            "w": 358,
+            "h": 64,
+            "c": [
+              {
+                "t": "text",
+                "id": "day_label_1",
+                "text": "Tuesday",
+                "x": 42,
+                "y": 311,
+                "w": 120,
+                "h": 18.2,
+                "size": 14,
+                "weight": 500,
+                "line_height": 18.2,
+                "alignx": 0,
+                "variant": "single_line",
+                "font_src": "self:resources/camo/DMSans-Medium.ttf",
+                "color": 4279713332
+              },
+              {
+                "t": "svg",
+                "id": "day_icon_1",
+                "x": 208,
+                "y": 307,
+                "w": 34,
+                "h": 28,
+                "src": "http://127.0.0.1:8170/ux-images/weather-09/assets/day_icon_1.svg"
+              },
+              {
+                "t": "text",
+                "id": "day_temp_1",
+                "text": "25\u00b0",
+                "x": 290,
+                "y": 308,
+                "w": 70,
+                "h": 27.3,
+                "size": 21,
+                "weight": 700,
+                "line_height": 27.3,
+                "alignx": 1,
+                "variant": "single_line",
+                "font_src": "self:resources/camo/DMSans-Bold.ttf",
+                "color": 4279713332
+              }
+            ]
+          },
+          {
+            "t": "stack",
+            "id": "day_2",
+            "x": 24,
+            "y": 355,
+            "w": 358,
+            "h": 64,
+            "c": [
+              {
+                "t": "text",
+                "id": "day_label_2",
+                "text": "Wednesday",
+                "x": 42,
+                "y": 375,
+                "w": 120,
+                "h": 18.2,
+                "size": 14,
+                "weight": 500,
+                "line_height": 18.2,
+                "alignx": 0,
+                "variant": "single_line",
+                "font_src": "self:resources/camo/DMSans-Medium.ttf",
+                "color": 4279713332
+              },
+              {
+                "t": "svg",
+                "id": "day_icon_2",
+                "x": 208,
+                "y": 371,
+                "w": 34,
+                "h": 28,
+                "src": "http://127.0.0.1:8170/ux-images/weather-09/assets/day_icon_2.svg"
+              },
+              {
+                "t": "text",
+                "id": "day_temp_2",
+                "text": "23\u00b0",
+                "x": 290,
+                "y": 372,
+                "w": 70,
+                "h": 27.3,
+                "size": 21,
+                "weight": 700,
+                "line_height": 27.3,
+                "alignx": 1,
+                "variant": "single_line",
+                "font_src": "self:resources/camo/DMSans-Bold.ttf",
+                "color": 4279713332
+              }
+            ]
+          },
+          {
+            "t": "stack",
+            "id": "day_3",
+            "x": 24,
+            "y": 419,
+            "w": 358,
+            "h": 64,
+            "c": [
+              {
+                "t": "text",
+                "id": "day_label_3",
+                "text": "Thursday",
+                "x": 42,
+                "y": 439,
+                "w": 120,
+                "h": 18.2,
+                "size": 14,
+                "weight": 500,
+                "line_height": 18.2,
+                "alignx": 0,
+                "variant": "single_line",
+                "font_src": "self:resources/camo/DMSans-Medium.ttf",
+                "color": 4279713332
+              },
+              {
+                "t": "svg",
+                "id": "day_icon_3",
+                "x": 208,
+                "y": 435,
+                "w": 34,
+                "h": 28,
+                "src": "http://127.0.0.1:8170/ux-images/weather-09/assets/day_icon_3.svg"
+              },
+              {
+                "t": "text",
+                "id": "day_temp_3",
+                "text": "22\u00b0",
+                "x": 290,
+                "y": 436,
+                "w": 70,
+                "h": 27.3,
+                "size": 21,
+                "weight": 700,
+                "line_height": 27.3,
+                "alignx": 1,
+                "variant": "single_line",
+                "font_src": "self:resources/camo/DMSans-Bold.ttf",
+                "color": 4279713332
+              }
+            ]
+          },
+          {
+            "t": "stack",
+            "id": "day_4",
+            "x": 24,
+            "y": 483,
+            "w": 358,
+            "h": 64,
+            "c": [
+              {
+                "t": "text",
+                "id": "day_label_4",
+                "text": "Friday",
+                "x": 42,
+                "y": 503,
+                "w": 120,
+                "h": 18.2,
+                "size": 14,
+                "weight": 500,
+                "line_height": 18.2,
+                "alignx": 0,
+                "variant": "single_line",
+                "font_src": "self:resources/camo/DMSans-Medium.ttf",
+                "color": 4279713332
+              },
+              {
+                "t": "svg",
+                "id": "day_icon_4",
+                "x": 208,
+                "y": 499,
+                "w": 34,
+                "h": 28,
+                "src": "http://127.0.0.1:8170/ux-images/weather-09/assets/day_icon_4.svg"
+              },
+              {
+                "t": "text",
+                "id": "day_temp_4",
+                "text": "24\u00b0",
+                "x": 290,
+                "y": 500,
+                "w": 70,
+                "h": 27.3,
+                "size": 21,
+                "weight": 700,
+                "line_height": 27.3,
+                "alignx": 1,
+                "variant": "single_line",
+                "font_src": "self:resources/camo/DMSans-Bold.ttf",
+                "color": 4279713332
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "t": "text",
+        "id": "note",
+        "text": "Best day outside: Tuesday",
+        "x": 24,
+        "y": 592,
+        "w": 358,
+        "h": 23.4,
+        "size": 18,
+        "weight": 700,
+        "line_height": 23.4,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/camo/DMSans-Bold.ttf",
+        "color": 4279713332
+      },
+      {
+        "t": "text",
+        "id": "note_detail",
+        "text": "Low wind and long sunny intervals.",
+        "x": 24,
+        "y": 627,
+        "w": 358,
+        "h": 16.9,
+        "size": 13,
+        "weight": 400,
+        "line_height": 16.9,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/camo/DMSans-Regular.ttf",
+        "color": 4286027404
+      },
+      {
+        "t": "stack",
+        "id": "primary",
+        "x": 24,
+        "y": 708,
+        "w": 358,
+        "h": 44,
+        "c": [
+          {
+            "t": "stack",
+            "id": "primary_surface",
+            "x": 24,
+            "y": 708,
+            "w": 358,
+            "h": 44,
+            "variant": "surface",
+            "bg": 4280449117,
+            "radius": 14,
+            "c": []
+          },
+          {
+            "t": "text",
+            "id": "primary_label",
+            "text": "My cities",
+            "x": 32,
+            "y": 720.0,
+            "w": 342,
+            "h": 20,
+            "size": 14,
+            "weight": 500,
+            "line_height": 18.2,
+            "alignx": 0.5,
+            "variant": "single_line",
+            "font_src": "self:resources/camo/DMSans-Medium.ttf",
+            "color": 4294967295
+          },
+          {
+            "t": "button",
+            "id": "primary_control",
+            "x": 24,
+            "y": 708,
+            "w": 358,
+            "h": 44,
+            "enabled": 1
+          }
+        ],
+        "kit": "{\"widget\":\"KitButton\",\"bindings\":{\"control\":[2],\"label\":[1]}}"
+      }
+    ]
+  },
+  "graphics": {
+    "day_icon_0": {
+      "kind": "cloud",
+      "ink": "#22785D",
+      "sun": "#E8BD63",
+      "cloud": "#B6CCC1"
+    },
+    "day_icon_1": {
+      "kind": "sun",
+      "ink": "#22785D",
+      "sun": "#E8BD63",
+      "cloud": "#B6CCC1"
+    },
+    "day_icon_2": {
+      "kind": "cloud",
+      "ink": "#22785D",
+      "sun": "#E8BD63",
+      "cloud": "#B6CCC1"
+    },
+    "day_icon_3": {
+      "kind": "sun",
+      "ink": "#22785D",
+      "sun": "#E8BD63",
+      "cloud": "#B6CCC1"
+    },
+    "day_icon_4": {
+      "kind": "sun",
+      "ink": "#22785D",
+      "sun": "#E8BD63",
+      "cloud": "#B6CCC1"
+    }
+  }
+}

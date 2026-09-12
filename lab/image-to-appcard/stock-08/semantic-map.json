@@ -1,0 +1,355 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.1.0",
+  "reference_sha256": "f964c2cc99ad386265ebfb93a8f2408b027dbe451ea980fd5cf9bb3e2568a8b5",
+  "contract_sha256": "9ef0824f2600041dc2df7be006e558a5ff5719cd95cc027b76dff27030d217fd",
+  "classification_scope": "Reviewed original reference regions and authored intent; approximate plot measurements are explicitly marked.",
+  "elements": [
+    {
+      "id": "comparison_chart",
+      "role": "chart.line",
+      "basis": "Numeric series digitized from the original trend; approximate design measurements, not market data.",
+      "confidence": 1.0,
+      "decision": "reviewed",
+      "data": {
+        "path": "data/comparison_chart.json",
+        "sha256": "869f248fc2492e45db6caa2235eb2d7241423bcfbf8c4b956fdd3a91835246f1",
+        "origin": "measured_image",
+        "approximate": true,
+        "x_key": "x",
+        "y_keys": [
+          "y0",
+          "y1"
+        ],
+        "units": {
+          "x": "normalized image plot position",
+          "y": "normalized image plot height"
+        },
+        "domain": {
+          "x": [
+            0,
+            1
+          ],
+          "y": [
+            0,
+            1
+          ]
+        }
+      },
+      "plot": {
+        "colors": [
+          "#a24723",
+          "#efbe9e"
+        ],
+        "fills": [],
+        "line_width": 1.3,
+        "gradient_fill": false,
+        "horizontal": [
+          {
+            "value": 1.0,
+            "color": "#cbbcaf",
+            "width": 0.5,
+            "dotted": true
+          },
+          {
+            "value": 0.7541899441340782,
+            "color": "#cbbcaf",
+            "width": 0.5,
+            "dotted": true
+          },
+          {
+            "value": 0.4972067039106145,
+            "color": "#ad9282",
+            "width": 0.7,
+            "dotted": false
+          },
+          {
+            "value": 0.25139664804469275,
+            "color": "#cbbcaf",
+            "width": 0.5,
+            "dotted": true
+          },
+          {
+            "value": 0.005586592178770999,
+            "color": "#ad9282",
+            "width": 0.7,
+            "dotted": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "page",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "heading",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "subtitle",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "compare_0",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "symbol_0",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "price_0",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "change_0",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "compare_1",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "symbol_1",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "price_1",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "change_1",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "performance_title",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "comparison",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "apple_return",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "apple_return_label",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "apple_return_value",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "nvidia_return",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "nvidia_return_label",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "nvidia_return_value",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary_label",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "chart_annotation_0",
+      "role": "layout",
+      "basis": "Chart legend composition: native line-color swatch and company Label.",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "chart_annotation_1",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "chart_annotation_2",
+      "role": "layout",
+      "basis": "Chart legend composition: native line-color swatch and company Label.",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "chart_annotation_3",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "chart_annotation_4",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "chart_annotation_5",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "chart_annotation_6",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "chart_annotation_7",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "chart_annotation_8",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "chart_annotation_9",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "chart_annotation_10",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "chart_annotation_11",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "chart_legend_line_0",
+      "role": "layout",
+      "basis": "Reviewed original legend associated with the plotted numeric series.",
+      "confidence": 1,
+      "decision": "reviewed"
+    },
+    {
+      "id": "chart_legend_label_0",
+      "role": "text",
+      "basis": "Reviewed original legend associated with the plotted numeric series.",
+      "confidence": 1,
+      "decision": "reviewed"
+    },
+    {
+      "id": "chart_legend_line_1",
+      "role": "layout",
+      "basis": "Reviewed original legend associated with the plotted numeric series.",
+      "confidence": 1,
+      "decision": "reviewed"
+    },
+    {
+      "id": "chart_legend_label_1",
+      "role": "text",
+      "basis": "Reviewed original legend associated with the plotted numeric series.",
+      "confidence": 1,
+      "decision": "reviewed"
+    }
+  ]
+}

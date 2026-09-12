@@ -1,0 +1,122 @@
+# ledger news-10@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy heading_text { class: user-copy, en: "The business brief" }
+copy subtitle_text { class: user-copy, en: "Independent stories. Fresh perspectives." }
+copy lead_tag_text { class: user-copy, en: "THE BIG PICTURE" }
+copy lead_title_text { class: user-copy, en: "A new season" }
+copy lead_title2_text { class: user-copy, en: "for small business" }
+copy lead_meta_text { class: user-copy, en: "Analysis · 7 min read" }
+copy markets_label_text { class: user-copy, en: "Markets" }
+copy markets_value_text { class: user-copy, en: "In focus" }
+copy ideas_label_text { class: user-copy, en: "Ideas" }
+copy ideas_value_text { class: user-copy, en: "What is next" }
+copy latest_tag_text { class: user-copy, en: "TECHNOLOGY" }
+copy latest_title_text { class: user-copy, en: "Better tools for" }
+copy latest_title2_text { class: user-copy, en: "everyday creativity" }
+copy latest_meta_text { class: user-copy, en: "4 min read" }
+copy primary_label_text { class: user-copy, en: "Your reading list" }
+state primary_control_enabled { shape: bool, initial: true }
+component Surface018f6e0508da(instance: text) {
+  view Kit(component: "Surface018f6e0508da", instance: instance) { slot }
+}
+component Text72e066a32c81(instance: text, text: text) {
+  view Kit(component: "Text72e066a32c81", instance: instance, text: text)
+}
+component Text50400317da45(instance: text, text: text) {
+  view Kit(component: "Text50400317da45", instance: instance, text: text)
+}
+component Surface28abcbffb5f1(instance: text) {
+  view Kit(component: "Surface28abcbffb5f1", instance: instance) { slot }
+}
+component Text24620d41f810(instance: text, text: text) {
+  view Kit(component: "Text24620d41f810", instance: instance, text: text)
+}
+component Text091aeb7e9b84(instance: text, text: text) {
+  view Kit(component: "Text091aeb7e9b84", instance: instance, text: text)
+}
+component Text26ebbfd5693c(instance: text, text: text) {
+  view Kit(component: "Text26ebbfd5693c", instance: instance, text: text)
+}
+component Text8dc2aa2a1827(instance: text, text: text) {
+  view Kit(component: "Text8dc2aa2a1827", instance: instance, text: text)
+}
+component Surfacee03b236c948a(instance: text) {
+  view Kit(component: "Surfacee03b236c948a", instance: instance) { slot }
+}
+component Text4251814d2023(instance: text, text: text) {
+  view Kit(component: "Text4251814d2023", instance: instance, text: text)
+}
+component Textcf1abc8021d6(instance: text, text: text) {
+  view Kit(component: "Textcf1abc8021d6", instance: instance, text: text)
+}
+component Surface4599264f21e0(instance: text) {
+  view Kit(component: "Surface4599264f21e0", instance: instance) { slot }
+}
+component Text9b4e07816563(instance: text, text: text) {
+  view Kit(component: "Text9b4e07816563", instance: instance, text: text)
+}
+component Text7b9116b2f3f2(instance: text, text: text) {
+  view Kit(component: "Text7b9116b2f3f2", instance: instance, text: text)
+}
+component Surface9b7bdfc748a0(instance: text) {
+  view Kit(component: "Surface9b7bdfc748a0", instance: instance) { slot }
+}
+component Text12dcfbebfec5(instance: text, text: text) {
+  view Kit(component: "Text12dcfbebfec5", instance: instance, text: text)
+}
+component Textdaa59cfb1391(instance: text, text: text) {
+  view Kit(component: "Textdaa59cfb1391", instance: instance, text: text)
+}
+component Text53451613ac24(instance: text, text: text) {
+  view Kit(component: "Text53451613ac24", instance: instance, text: text)
+}
+component Textcd343f099e7d(instance: text, text: text) {
+  view Kit(component: "Textcd343f099e7d", instance: instance, text: text)
+}
+component KitButtone3f1fa815770(instance: text) {
+  view Kit(component: "KitButtone3f1fa815770", instance: instance) { slot }
+}
+component Surfaceda98fb1d22f0(instance: text) {
+  view Kit(component: "Surfaceda98fb1d22f0", instance: instance) { slot }
+}
+component Text5ebfb0eb1590(instance: text, text: text) {
+  view Kit(component: "Text5ebfb0eb1590", instance: instance, text: text)
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+
+view root Surface018f6e0508da(instance: "page") {
+  Text72e066a32c81(instance: "heading", text: copy.heading_text)
+  Text50400317da45(instance: "subtitle", text: copy.subtitle_text)
+  Surface28abcbffb5f1(instance: "briefing") {
+    Text24620d41f810(instance: "lead_tag", text: copy.lead_tag_text)
+    Text091aeb7e9b84(instance: "lead_title", text: copy.lead_title_text)
+    Text26ebbfd5693c(instance: "lead_title2", text: copy.lead_title2_text)
+    Text8dc2aa2a1827(instance: "lead_meta", text: copy.lead_meta_text)
+  }
+  Surfacee03b236c948a(instance: "markets") {
+    Text4251814d2023(instance: "markets_label", text: copy.markets_label_text)
+    Textcf1abc8021d6(instance: "markets_value", text: copy.markets_value_text)
+  }
+  Surface4599264f21e0(instance: "ideas") {
+    Text9b4e07816563(instance: "ideas_label", text: copy.ideas_label_text)
+    Text7b9116b2f3f2(instance: "ideas_value", text: copy.ideas_value_text)
+  }
+  Surface9b7bdfc748a0(instance: "latest") {
+    Text12dcfbebfec5(instance: "latest_tag", text: copy.latest_tag_text)
+    Textdaa59cfb1391(instance: "latest_title", text: copy.latest_title_text)
+    Text53451613ac24(instance: "latest_title2", text: copy.latest_title2_text)
+    Textcd343f099e7d(instance: "latest_meta", text: copy.latest_meta_text)
+  }
+  KitButtone3f1fa815770(instance: "primary") {
+    Surfaceda98fb1d22f0(instance: "primary_surface") {
+
+    }
+    Text5ebfb0eb1590(instance: "primary_label", text: copy.primary_label_text)
+    NativeButton02f1d1bd99b4(instance: "primary_control", enabled: primary_control_enabled)
+  }
+}
