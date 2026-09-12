@@ -7,7 +7,7 @@ the map app, current as of the `nav-planner-search-legs` ship.
 
 **Status:** shipped for review ·
 [makepad#15](https://github.com/octos-org/makepad/pull/15) (map widget) +
-[octos-one#28](https://github.com/octos-org/octos-one/pull/28) (nav card) ·
+[Octoscript-AppCard#28](https://github.com/OctoSense-org/Octoscript-AppCard/pull/28) (nav card) ·
 33 host tests green · verified on OnePlus 6 / 6T.
 
 **Verification pass (2026-07-24):** every screen exercised on device (OnePlus 6T) — routing,

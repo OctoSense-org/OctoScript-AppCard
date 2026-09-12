@@ -1,0 +1,27 @@
+{
+  "scope": "Manual review of all 20 native Plan screenshots, all tab transitions, and source/answer records; this is not exhaustive fact checking or a production acceptance gate.",
+  "baseline_findings": {
+    "02": "Called a 30% rain forecast dry; limited place query omitted parks.",
+    "07": "Recommended outdoor running from weather despite unhealthy forecast AQI. Fixed with an explicit indoor-plan rule.",
+    "08": "Reversed Saturday/Sunday rain and described equal forecast AQI values as different. Host comparisons corrected the rerun.",
+    "10": "Prioritized the wetter day without a clear tradeoff.",
+    "11": "Called the hotter city more comfortable and overstated outdoor suitability; rerun includes heat and unhealthy-air constraints.",
+    "13": "A title called 31% rain lower than 30%; daylight title/body reasoning conflicted. Rerun uses host-computed daylight duration and rain comparisons.",
+    "14": "Described a 32 C daily high as mild/comfortable. Rerun calls for heat planning.",
+    "19": "Inferred greater volatility from a single-session move and suggested market concerns without supporting evidence. Still needs stronger semantic constraints."
+  },
+  "template_needs_content_review": {
+    "09": "Packing prose labels the rounded low-to-high temperature range as highs. It should distinguish overnight lows from daily highs.",
+    "10": "Calls 2026-09-13 Saturday and 2026-09-12 Friday. The numeric preferred date is Sunday; weekday names in the title and summary are wrong.",
+    "17": "Third pick calls a single-session move momentum/weakness despite the explicit limitation. No news was retrieved in this run.",
+    "19": "Infers research priority from one-session resilience and states both companies benefit from a market forecast without direct company evidence."
+  },
+  "remaining_product_limits": [
+    "This experiment binds a completed snapshot; it does not add arbitrary intent search or incremental publication to the normal Octos composer.",
+    "The L0 source contract and widget vocabulary are intentionally bounded; the study does not test unrestricted app generation with the normal large reference prefix.",
+    "The small OpenStreetMap query is biased toward some map object types and sometimes returns only museums. Lack of a park result does not mean no park exists.",
+    "News source reliability is insufficient for a production watchlist. This experiment uses indexed excerpts, not the separate full-article news pipeline.",
+    "Some titles, source labels and metrics remain English in Chinese compositions. Cards are vertically dense and later recommendations require scrolling.",
+    "A valid layout, valid source ID and deterministic tool schedule do not prove the prose follows the evidence."
+  ]
+}

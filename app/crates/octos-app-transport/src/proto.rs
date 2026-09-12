@@ -370,7 +370,10 @@ async fn handle_notification(
         }
     };
     if is_ephemeral_method(method) {
-        try_emit(events, TransportEvent::EphemeralNotification { payload });
+        // These are text deltas, not replaceable status snapshots. A fast
+        // cached response can outpace mobile rendering. Apply backpressure
+        // instead of dropping bytes and corrupting the generated card.
+        let _ = events.send(TransportEvent::EphemeralNotification { payload }).await;
         return;
     }
     let cursor = params
@@ -397,5 +400,31 @@ mod tests {
     fn ephemeral_helper_only_message_delta() {
         assert!(is_ephemeral_method(methods::MESSAGE_DELTA));
         assert!(!is_ephemeral_method(methods::TOOL_STARTED));
+    }
+
+    #[tokio::test]
+    async fn slow_consumer_receives_every_text_fragment_in_order() {
+        let (tx, mut rx) = mpsc::channel(1);
+        let producer = tokio::spawn(async move {
+            let mut shared = SharedState::new(None, None);
+            for text in ["<card>", "東京", "</card>"] {
+                handle_notification(methods::MESSAGE_DELTA, serde_json::json!({
+                    "session_id": "_main:test", "turn_id": "00000000-0000-7000-8000-000000000001",
+                    "text": text
+                }), &mut shared, &tx).await;
+            }
+        });
+        // Deliberately let the producer fill the single-slot queue.
+        tokio::task::yield_now().await;
+        let mut text = String::new();
+        while let Some(event) = rx.recv().await {
+            match event {
+                TransportEvent::EphemeralNotification { payload: UiNotification::MessageDelta(delta) } => text.push_str(&delta.text),
+                other => panic!("unexpected event: {other:?}"),
+            }
+            tokio::task::yield_now().await;
+        }
+        producer.await.unwrap();
+        assert_eq!(text, "<card>東京</card>");
     }
 }

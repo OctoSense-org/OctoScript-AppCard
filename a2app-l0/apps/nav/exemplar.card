@@ -3,7 +3,7 @@
 
 source here sys.gps()
 
-source found sys.search(query: state.query, count: 5, fields: [name, label, query, lat, lon])
+source found sys.search(query: state.query, count: 5, fields: [id, name, label, query, lat, lon])
 
 source origin_place sys.search(query: state.origin, count: 1, fields: [id, name, lat, lon])
 source dest_place   sys.search(query: state.dest,   count: 1, fields: [id, name, lat, lon])
@@ -14,9 +14,20 @@ source trip_here sys.route(from_lat: state.from_lat, from_lon: state.from_lon,
                            to_lat: dest_place.0.lat, to_lon: dest_place.0.lon,
                            mode: state.mode, fields: [duration, distance])
 
+source trip_here_via sys.route(from_lat: state.from_lat, from_lon: state.from_lon,
+                           to_lat: dest_place.0.lat, to_lon: dest_place.0.lon,
+                           mode: state.mode, via: [stop_place.0.lat, stop_place.0.lon],
+                          fields: [duration, distance])
+
 source step_here sys.step(from_lat: state.from_lat, from_lon: state.from_lon,
                           to_lat:   dest_place.0.lat, to_lon: dest_place.0.lon,
                           at_lat:   here.lat,         at_lon: here.lon,
+                          fields: [instruction, remaining, eta])
+
+source step_here_via sys.step(from_lat: state.from_lat, from_lon: state.from_lon,
+                          to_lat:   dest_place.0.lat, to_lon: dest_place.0.lon,
+                          at_lat:   here.lat,         at_lon: here.lon,
+                          via: [stop_place.0.lat, stop_place.0.lon],
                           fields: [instruction, remaining, eta])
 
 source trip sys.route(from_lat: origin_place.0.lat, from_lon: origin_place.0.lon,
@@ -31,6 +42,9 @@ source trip_via sys.route(from_lat: origin_place.0.lat, from_lon: origin_place.0
 source leg_a sys.route(from_lat: origin_place.0.lat, from_lon: origin_place.0.lon,
                        to_lat:   stop_place.0.lat,   to_lon:   stop_place.0.lon,
                        mode: state.mode, fields: [duration, distance])
+source leg_here_a sys.route(from_lat: state.from_lat, from_lon: state.from_lon,
+                       to_lat:   stop_place.0.lat,   to_lon:   stop_place.0.lon,
+                       mode: state.mode, fields: [duration, distance])
 source leg_b sys.route(from_lat: stop_place.0.lat, from_lon: stop_place.0.lon,
                        to_lat:   dest_place.0.lat, to_lon:   dest_place.0.lon,
                        mode: state.mode, fields: [duration, distance])
@@ -39,6 +53,12 @@ source step sys.step(from_lat: origin_place.0.lat, from_lon: origin_place.0.lon,
                      to_lat:   dest_place.0.lat,   to_lon:   dest_place.0.lon,
                      at_lat:   here.lat,           at_lon:   here.lon,
                      fields: [instruction, remaining, eta])
+
+source step_via sys.step(from_lat: origin_place.0.lat, from_lon: origin_place.0.lon,
+                     to_lat:   dest_place.0.lat,   to_lon:   dest_place.0.lon,
+                     at_lat:   here.lat,           at_lon:   here.lon,
+                     via: [stop_place.0.lat, stop_place.0.lon],
+                          fields: [instruction, remaining, eta])
 source env.locale sys.locale()
 
 state origin { shape: text, initial: "" }        # empty ⇒ start from the device
@@ -86,7 +106,7 @@ state stop_row { shape: enum[hidden, shown], initial: .hidden }
 event edit_origin { editing: set(.origin), query: clear }
 event edit_dest   { editing: set(.dest), query: clear }
 event set_origin  { origin: set($value), query: clear, editing: set(.none) }
-event set_dest    { dest: set($value), query: set($value), editing: set(.none) }
+event set_dest    { dest: set($value), query: clear, editing: set(.none) }
 event typing      { query: set($value) }
 event choose_dest { dest: set($value), query: clear, editing: set(.none) }
 event choose_origin { origin: set($value), query: clear, editing: set(.none) }
@@ -112,6 +132,8 @@ copy here_now { class: vocabulary, en: "Starting from…" }
 copy cur_loc  { class: vocabulary, en: "Current location", zh: "当前位置" }
 copy away     { class: vocabulary, en: "away" }
 copy seeking  { class: vocabulary, en: "Finding a route…" }
+copy gps_wait { class: vocabulary, en: "Waiting for location…" }
+copy route_error { class: vocabulary, en: "No route found. Check the places and try again." }
 copy start    { class: vocabulary, en: "Go" }
 copy stop     { class: vocabulary, en: "End" }
 copy begin    { class: vocabulary, en: "Start" }
@@ -181,9 +203,11 @@ view root Surface {
           }
         }
         when editing != .stop {
-          Row(align: .center, gap: 10, on_tap: edit_stop, value: "1") {
-            TextCaption(text: copy.via_lbl, width: .label)
-            TextRow(text: stop, width: .fill)
+          Row(align: .center, gap: 10) {
+            Row(align: .center, gap: 10, width: .fill, on_tap: edit_stop, value: "1") {
+              TextCaption(text: copy.via_lbl, width: .label)
+              TextRow(text: stop, width: .fill)
+            }
             Chip(text: copy.remove, on_tap: drop_stop)
           }
         }
@@ -227,15 +251,15 @@ view root Surface {
     }
 
     when editing == .origin {
-      for f, i in found key f.label { Hit(f: f, pick: choose_origin) }
+      for f, i in found key f.id { Hit(f: f, pick: choose_origin) }
     }
     when editing == .stop {
-      for f, i in found key f.label { Hit(f: f, pick: choose_stop) }
+      for f, i in found key f.id { Hit(f: f, pick: choose_stop) }
     }
     when editing != .origin {
     when editing != .stop {
     when query != "" {
-      for f, i in found key f.label { Hit(f: f, pick: choose_dest) }
+      for f, i in found key f.id { Hit(f: f, pick: choose_dest) }
     }
     }
     }
@@ -244,6 +268,7 @@ view root Surface {
       when stop == "" {
         when origin != "" {
           when trip.$state == .pending { TextBody(text: copy.seeking) }
+          when trip.$state == .failed { TextBody(text: copy.route_error) }
           when trip.$state == .ready {
             Col(align: .center) {
               Row(align: .center, width: .fit) {
@@ -253,7 +278,9 @@ view root Surface {
           }
         }
         when origin == "" {
-          when trip_here.$state == .pending { TextBody(text: copy.seeking) }
+          when here.ok == 0 { TextBody(text: copy.gps_wait) }
+          when here.ok == 1 { when trip_here.$state == .pending { TextBody(text: copy.seeking) }
+          when trip_here.$state == .failed { TextBody(text: copy.route_error) } }
           when trip_here.$state == .ready {
             Col(align: .center) {
               Row(align: .center, width: .fit) {
@@ -267,13 +294,15 @@ view root Surface {
             summary: trip)
         }
         when origin == "" {
-          Map(mode: .plan, from_lat: from_lat, from_lon: from_lon, to: dest_place,
-              zoom: 16, controls: .all)
+          when here.ok == 1 { Map(mode: .plan, from_lat: from_lat, from_lon: from_lon, to: dest_place,
+              zoom: 16, controls: .all, summary: trip_here) }
         }
       }
 
       when stop != "" {
+        when origin != "" {
         when trip_via.$state == .pending { TextBody(text: copy.seeking) }
+          when trip_via.$state == .failed { TextBody(text: copy.route_error) }
         when trip_via.$state == .ready {
           Row(align: .center, gap: 12) {
             TextValue(value: trip_via.duration)
@@ -290,14 +319,41 @@ view root Surface {
         }
         Map(mode: .plan, from: origin_place, to: dest_place, via: stop_place, zoom: 16,
             controls: .all, summary: trip_via)
+        }
+        when origin == "" {
+        when here.ok == 0 { TextBody(text: copy.gps_wait) }
+          when here.ok == 1 { when trip_here_via.$state == .pending { TextBody(text: copy.seeking) }
+          when trip_here_via.$state == .failed { TextBody(text: copy.route_error) } }
+        when trip_here_via.$state == .ready {
+          Row(align: .center, gap: 12) {
+            TextValue(value: trip_here_via.duration)
+            TextCaption(value: trip_here_via.distance, suffix: copy.away)
+            Chip(text: copy.start, on_tap: go)
+          }
+          Row(align: .center, gap: 8) {
+            TextCaption(value: leg_here_a.duration)
+            TextCaption(value: leg_here_a.distance)
+            TextCaption(text: copy.via_lbl, width: .label)
+            TextCaption(value: leg_b.duration)
+            TextCaption(value: leg_b.distance)
+          }
+        }
+        when here.ok == 1 { Map(mode: .plan, from_lat: from_lat, from_lon: from_lon, to: dest_place, via: stop_place, zoom: 16,
+            controls: .all, summary: trip_here_via) }
+        }
       }
     }
   }
 
   when screen == .drive {
     Panel(dock: .top) {
-      when origin != "" { TextBody(text: step.instruction, width: .fill) }
-      when origin == "" { TextBody(text: step_here.instruction, width: .fill) }
+      when here.ok == 0 { TextBody(text: copy.gps_wait, width: .fill) }
+      when here.ok == 1 {
+      when stop == "" { when origin != "" { TextBody(text: step.instruction, width: .fill) } }
+      when stop != "" { when origin != "" { TextBody(text: step_via.instruction, width: .fill) } }
+      when stop == "" { when origin == "" { TextBody(text: step_here.instruction, width: .fill) } }
+      when stop != "" { when origin == "" { TextBody(text: step_here_via.instruction, width: .fill) } }
+      }
     }
 
     Panel(dock: .right) {
@@ -306,14 +362,19 @@ view root Surface {
     }
 
     Panel(dock: .bottom) {
-      when origin != "" { TextHero(value: step.eta, unit: .duration) }
-      when origin == "" { TextHero(value: step_here.eta, unit: .duration) }
-      when origin != "" { TextCaption(value: step.remaining) }
-      when origin == "" { TextCaption(value: step_here.remaining) }
+      when stop == "" { when origin != "" { TextHero(value: step.eta, unit: .duration) } }
+      when stop != "" { when origin != "" { TextHero(value: step_via.eta, unit: .duration) } }
+      when stop == "" { when origin == "" { TextHero(value: step_here.eta, unit: .duration) } }
+      when stop != "" { when origin == "" { TextHero(value: step_here_via.eta, unit: .duration) } }
+      when stop == "" { when origin != "" { TextCaption(value: step.remaining) } }
+      when stop != "" { when origin != "" { TextCaption(value: step_via.remaining) } }
+      when stop == "" { when origin == "" { TextCaption(value: step_here.remaining) } }
+      when stop != "" { when origin == "" { TextCaption(value: step_here_via.remaining) } }
       Reveal {
         Chip(text: copy.stop, on_tap: go, tone: .danger)
       }
     }
+    when stop == "" {
     when origin != "" {
       Map(mode: .drive, from: origin_place, to: dest_place, at: here,
           view: view, zoom: 15, controls: .all)
@@ -321,6 +382,17 @@ view root Surface {
     when origin == "" {
       Map(mode: .drive, from_lat: from_lat, from_lon: from_lon, to: dest_place,
           at: here, view: view, zoom: 15, controls: .all)
+    }
+    }
+    when stop != "" {
+    when origin != "" {
+      Map(mode: .drive, from: origin_place, to: dest_place, via: stop_place, at: here,
+          view: view, zoom: 15, controls: .all)
+    }
+    when origin == "" {
+      Map(mode: .drive, from_lat: from_lat, from_lon: from_lon, to: dest_place, via: stop_place,
+          at: here, view: view, zoom: 15, controls: .all)
+    }
     }
   }
 }

@@ -1,0 +1,26 @@
+use mod.research
+use mod.std.array
+use mod.std.assert
+
+// Discovery is a real dependency. Fetch only the bounded IDs it returns.
+let found = research.search(request.search).await()
+assert(array.len(found.items) <= 3)
+let tasks = []
+for item in found.items {
+    array.push(tasks, research.article({id: item.id}))
+}
+let articles = []
+let missing = 0
+for task in tasks {
+    let article = try task.await() catch nil
+    if article == nil {
+        missing = missing + 1
+    } else {
+        array.push(articles, article)
+    }
+}
+let status = "ready"
+if missing > 0 {
+    status = "partial"
+}
+{schema_id: "news.v1", status: status, data: {articles: articles, missing: missing, discovery: found.source}}
