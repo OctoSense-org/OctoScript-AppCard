@@ -828,7 +828,6 @@ mod kit_palette {
         n.children.iter().find_map(|c| find(c, k))
     }
 
-    #[test]
     /// The theme's texture reaches the tree, so the backend can draw it.
     ///
     /// Between the axis fragment and the emitted DSL sit two decoders and a kit
@@ -854,6 +853,7 @@ mod kit_palette {
         );
     }
 
+    #[test]
     fn a_filled_role_reaches_the_tree_with_its_fill() {
         const CARD: &str = concat!(
             "copy g { class: vocabulary, en: \"Go\" }\n",

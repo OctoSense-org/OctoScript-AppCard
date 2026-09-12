@@ -423,7 +423,7 @@ fn render_through_kit(
     );
     let root = report.complete_root()?;
     let realized_elapsed = started.elapsed();
-    let src = format!("{}\n{}", kit_for(source), splash_ui_l0::kit::lower(&root));
+    let src = format!("{}\n{}", kit_for(source), splash_ui_l0::kit::lower(root));
     // With capabilities: the kit lowers a source this backend can answer into a
     // `sys.*` call, and on a bare VM that call is undefined — the concatenation
     // around it yields `$[Error:WrongValue]`, which then draws as the price.
@@ -1176,7 +1176,7 @@ fn tap_inner(
         let src = format!(
             "{}\n{}",
             kit_for(&session.source),
-            splash_ui_l0::kit::lower(&root)
+            splash_ui_l0::kit::lower(root)
         );
         let tree = super::l0_eval::build_with_capabilities(cx, &src)
             .ok_or_else(|| "the lowered card failed evaluation or exceeded rendering limits".to_owned())?;
@@ -1445,10 +1445,7 @@ mod tests {
         // carries an argb literal.
         let ink = |s: &str| {
             s.lines()
-                .filter(|l| {
-                    l.trim_start().starts_with("let l0_text") && l.contains("argb(")
-                })
-                .last()
+                .rfind(|l| l.trim_start().starts_with("let l0_text") && l.contains("argb("))
                 .unwrap_or_default()
                 .to_owned()
         };
