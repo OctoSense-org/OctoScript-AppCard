@@ -41,7 +41,7 @@ git submodule update --init octos
 ```
 
 (`aichat/` and `makepad/` are git submodules pinned to exact commits in the
-[`octos-org/makepad`](https://github.com/octos-org/makepad) fork — referenced deps,
+[`octos-org/makepad`](https://github.com/OctoSense-org/makepad) fork — referenced deps,
 not vendored. **Bumping the `makepad` pin means reinstalling `cargo-makepad`**
 (next step) so the packaged Java matches the pinned aichat JNI — otherwise the app
 panics at boot naming the missing JNI method.)

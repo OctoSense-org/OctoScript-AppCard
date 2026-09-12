@@ -14,7 +14,7 @@ recommendation.
 |---|---|
 | **Date** | 2026-07-28 |
 | **octos-one** | branch `nav-decompose`, head `7613544` |
-| **ymote/Splash** | `github.com/ymote/Splash`, branch `main`, head `623d57c` |
+| **ymote/Splash** | `github.com/OctoSense-org/Octoscript`, branch `main`, head `623d57c` |
 | **Scope** | `splash-workflow` · `splash-capabilities` · `splash-protocol` · `splash-sandbox` |
 | **Companion** | architecture map artifact (DOT ▸ agents ▸ splash-workflow) |
 
@@ -41,7 +41,7 @@ write to an external system — a new problem appears that the current runtime d
 not solve: **if the phone crashes or the network blips mid-effect, a retry can do
 the thing twice.**
 
-`splash-workflow` (a crate in the new [ymote/Splash](https://github.com/ymote/Splash)
+`splash-workflow` (a crate in the new [ymote/Splash](https://github.com/OctoSense-org/Octoscript)
 VM) is the layer built for exactly that. This note records what it guarantees,
 proves it with a runnable test, and draws out the consequence for how cards are
 allowed to touch the outside world.
