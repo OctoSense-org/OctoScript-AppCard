@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "reference_sha256": "aff6947f3e0b8656111c6ef8ac222f99a65b319ec97859753278d23433c595a7",
+  "native_sha256": "e8a9418cc9ea34c8ae8f30c6f223a860d1ad613bff00c2f0064ca29d15bdab71",
+  "reviewer": "Codex \u2014 source/native screenshot review",
+  "reviewed_at": "2026-09-08T00:02:05.275724+00:00",
+  "verdict": "pass",
+  "criteria": {
+    "typography": true,
+    "colors": true,
+    "imagery": true,
+    "effects": true
+  },
+  "findings": [
+    {
+      "area": "screen composition",
+      "status": "verified after repair",
+      "detail": "Used a real DonutChart with 64/28/8 values, explicit inner radius and slice gaps; removed unwanted native center text/legend and matched three color swatches."
+    },
+    {
+      "area": "font and effects fidelity",
+      "status": "accepted approximation",
+      "detail": "Bundled font faces approximate the generated glyphs. Fine image grain, lighting and stroke rendering are not pixel-identical."
+    }
+  ],
+  "scope": "Native design prototype at 406 \u00d7 776 logical pixels, captured at 2\u00d7 in desktop Studio. No claim of exact generated-font identity, responsive phone layout, live feeds or complete app navigation.",
+  "build_id": [
+    53
+  ],
+  "round": "007",
+  "visual_evidence": {
+    "reviewed_round": "006",
+    "reviewed_build_id": [
+      52
+    ],
+    "current_capture_pixels_identical_to_reviewed": true
+  },
+  "user_design_preference": "not reviewed by user in this QA receipt"
+}

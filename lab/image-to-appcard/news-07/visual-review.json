@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "reference_sha256": "7fbd6294cc5b463850cd844f06996b463480ae96f36e73a06c41b1a9c2fb1dbe",
+  "native_sha256": "a1c383472e67ec29bfced29ccb74cb25bd22dc1cb8f9f93f3c866ef1d68c5aa2",
+  "reviewer": "Codex \u2014 source/native screenshot review",
+  "reviewed_at": "2026-09-08T00:02:04.651116+00:00",
+  "verdict": "pass",
+  "criteria": {
+    "typography": true,
+    "colors": true,
+    "imagery": true,
+    "effects": true
+  },
+  "findings": [
+    {
+      "area": "screen composition",
+      "status": "verified after repair",
+      "detail": "Mapped the waveform to numeric amplitudes in a native plot; reviewed the envelope, episode controls and next-story card. Native stroke caps and source texture are approximate."
+    },
+    {
+      "area": "font and effects fidelity",
+      "status": "accepted approximation",
+      "detail": "Bundled font faces approximate the generated glyphs. Fine image grain, lighting and stroke rendering are not pixel-identical."
+    }
+  ],
+  "scope": "Native design prototype at 406 \u00d7 776 logical pixels, captured at 2\u00d7 in desktop Studio. No claim of exact generated-font identity, responsive phone layout, live feeds or complete app navigation.",
+  "build_id": [
+    53
+  ],
+  "round": "005",
+  "visual_evidence": {
+    "reviewed_round": "004",
+    "reviewed_build_id": [
+      52
+    ],
+    "current_capture_pixels_identical_to_reviewed": true
+  },
+  "user_design_preference": "not reviewed by user in this QA receipt"
+}

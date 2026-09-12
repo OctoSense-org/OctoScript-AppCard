@@ -1,0 +1,316 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.1.0",
+  "reference_sha256": "0f9087a1f6987c679b2f82bfe364d311f25b26d72eb4146d1cd9136c2ca33943",
+  "contract_sha256": "5ed9a36cd8576cfcc9992d5b546e74a8ef74cc5cf51dc30187de90a6a6f64a11",
+  "classification_scope": "Reviewed original reference regions and authored intent; approximate plot measurements are explicitly marked.",
+  "elements": [
+    {
+      "id": "price_chart",
+      "role": "chart.line",
+      "basis": "Numeric series digitized from the original trend; approximate design measurements, not market data.",
+      "confidence": 1.0,
+      "decision": "reviewed",
+      "data": {
+        "path": "data/price_chart.json",
+        "sha256": "3a72ae40d47bbe91f18b72780ca4f98dd9ea7485f71c7d17cf74187cce4a73d4",
+        "origin": "measured_image",
+        "approximate": true,
+        "x_key": "x",
+        "y_keys": [
+          "y0"
+        ],
+        "units": {
+          "x": "normalized image plot position",
+          "y": "normalized image plot height"
+        },
+        "domain": {
+          "x": [
+            0,
+            1
+          ],
+          "y": [
+            0,
+            1
+          ]
+        }
+      },
+      "plot": {
+        "colors": [
+          "#c74714"
+        ],
+        "fills": [
+          "#f0b67c65"
+        ],
+        "line_width": 1.3,
+        "gradient_fill": true,
+        "horizontal": [
+          {
+            "value": 0.44499999999999995,
+            "color": "#bba088",
+            "width": 0.6,
+            "dotted": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "period_0",
+      "role": "text",
+      "basis": "Native label owned by the adjacent chart-range control.",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "range_control_0",
+      "role": "range_option",
+      "basis": "Reviewed 1D/1W/1M/1Y native selector; changes the plot viewport over the measured fixture.",
+      "confidence": 1.0,
+      "decision": "reviewed",
+      "behavior": {
+        "event": "click",
+        "target": "price_chart",
+        "property": "viewport",
+        "value": [
+          0,
+          1
+        ],
+        "indicator": "range_indicator",
+        "indicator_bounds": [
+          53.0,
+          542,
+          22,
+          2
+        ],
+        "label": "period_0",
+        "active_color": "#c74714",
+        "inactive_color": "#795c50"
+      }
+    },
+    {
+      "id": "period_1",
+      "role": "text",
+      "basis": "Native label owned by the adjacent chart-range control.",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "range_control_1",
+      "role": "range_option",
+      "basis": "Reviewed 1D/1W/1M/1Y native selector; changes the plot viewport over the measured fixture.",
+      "confidence": 1.0,
+      "decision": "reviewed",
+      "behavior": {
+        "event": "click",
+        "target": "price_chart",
+        "property": "viewport",
+        "value": [
+          0.15,
+          0.9
+        ],
+        "indicator": "range_indicator",
+        "indicator_bounds": [
+          144.5,
+          542,
+          22,
+          2
+        ],
+        "label": "period_1",
+        "active_color": "#c74714",
+        "inactive_color": "#795c50"
+      }
+    },
+    {
+      "id": "period_2",
+      "role": "text",
+      "basis": "Native label owned by the adjacent chart-range control.",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "range_control_2",
+      "role": "range_option",
+      "basis": "Reviewed 1D/1W/1M/1Y native selector; changes the plot viewport over the measured fixture.",
+      "confidence": 1.0,
+      "decision": "reviewed",
+      "behavior": {
+        "event": "click",
+        "target": "price_chart",
+        "property": "viewport",
+        "value": [
+          0.3,
+          0.85
+        ],
+        "indicator": "range_indicator",
+        "indicator_bounds": [
+          236.0,
+          542,
+          22,
+          2
+        ],
+        "label": "period_2",
+        "active_color": "#c74714",
+        "inactive_color": "#795c50"
+      }
+    },
+    {
+      "id": "period_3",
+      "role": "text",
+      "basis": "Native label owned by the adjacent chart-range control.",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "range_control_3",
+      "role": "range_option",
+      "basis": "Reviewed 1D/1W/1M/1Y native selector; changes the plot viewport over the measured fixture.",
+      "confidence": 1.0,
+      "decision": "reviewed",
+      "behavior": {
+        "event": "click",
+        "target": "price_chart",
+        "property": "viewport",
+        "value": [
+          0.5,
+          0.8
+        ],
+        "indicator": "range_indicator",
+        "indicator_bounds": [
+          327.5,
+          542,
+          22,
+          2
+        ],
+        "label": "period_3",
+        "active_color": "#c74714",
+        "inactive_color": "#795c50"
+      }
+    },
+    {
+      "id": "page",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "heading",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "subtitle",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "symbol",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "price",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "gain",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "chart_panel",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "open",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "open_label",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "open_value",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "volume",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "volume_label",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "volume_value",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary_label",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "range_indicator",
+      "role": "layout",
+      "confidence": 1,
+      "decision": "reviewed",
+      "basis": "Native selection indicator controlled by range buttons."
+    }
+  ]
+}

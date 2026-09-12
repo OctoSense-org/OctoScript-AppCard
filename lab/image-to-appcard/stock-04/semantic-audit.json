@@ -1,0 +1,335 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.1.0",
+  "policy_sha256": "d502a7c4f7dcc52ada37cfbbaf6bd9289afdcab90e30c504de96e8f8f39ff153",
+  "evaluator_sha256": "2c7c0d4d9a950fd0597baf49187f32e600f04cd29c85ca42f2fc47c57d57e4bc",
+  "manifest_sha256": "d97d387b860982333af5874a4d06eff0dd32b0c42aa6fbbc9505df394ad5821a",
+  "reference_sha256": "0f9087a1f6987c679b2f82bfe364d311f25b26d72eb4146d1cd9136c2ca33943",
+  "id": "stock-04",
+  "round": "009",
+  "phase": "inspection",
+  "pass": true,
+  "errors": [],
+  "elements": [
+    {
+      "id": "price_chart",
+      "role": "chart.line",
+      "basis": "Numeric series digitized from the original trend; approximate design measurements, not market data.",
+      "expected_widgets": [
+        "LineChart",
+        "LinePlot",
+        "D3LineChart"
+      ],
+      "actual_widget": "LinePlot",
+      "issues": [],
+      "repair": "Bind explicit numeric series to a native line chart. SVG paths and raster crops cannot substitute for a chart."
+    },
+    {
+      "id": "period_0",
+      "role": "text",
+      "basis": "Native label owned by the adjacent chart-range control.",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "range_control_0",
+      "role": "range_option",
+      "basis": "Reviewed 1D/1W/1M/1Y native selector; changes the plot viewport over the measured fixture.",
+      "expected_widgets": [
+        "RadioButton",
+        "Button"
+      ],
+      "actual_widget": "Button",
+      "issues": [],
+      "repair": "Replace the static range label with a native selector; bind selection to the chart and verify the resulting data change."
+    },
+    {
+      "id": "period_1",
+      "role": "text",
+      "basis": "Native label owned by the adjacent chart-range control.",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "range_control_1",
+      "role": "range_option",
+      "basis": "Reviewed 1D/1W/1M/1Y native selector; changes the plot viewport over the measured fixture.",
+      "expected_widgets": [
+        "RadioButton",
+        "Button"
+      ],
+      "actual_widget": "Button",
+      "issues": [],
+      "repair": "Replace the static range label with a native selector; bind selection to the chart and verify the resulting data change."
+    },
+    {
+      "id": "period_2",
+      "role": "text",
+      "basis": "Native label owned by the adjacent chart-range control.",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "range_control_2",
+      "role": "range_option",
+      "basis": "Reviewed 1D/1W/1M/1Y native selector; changes the plot viewport over the measured fixture.",
+      "expected_widgets": [
+        "RadioButton",
+        "Button"
+      ],
+      "actual_widget": "Button",
+      "issues": [],
+      "repair": "Replace the static range label with a native selector; bind selection to the chart and verify the resulting data change."
+    },
+    {
+      "id": "period_3",
+      "role": "text",
+      "basis": "Native label owned by the adjacent chart-range control.",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "range_control_3",
+      "role": "range_option",
+      "basis": "Reviewed 1D/1W/1M/1Y native selector; changes the plot viewport over the measured fixture.",
+      "expected_widgets": [
+        "RadioButton",
+        "Button"
+      ],
+      "actual_widget": "Button",
+      "issues": [],
+      "repair": "Replace the static range label with a native selector; bind selection to the chart and verify the resulting data change."
+    },
+    {
+      "id": "page",
+      "role": "layout",
+      "basis": "authored stack node",
+      "expected_widgets": [
+        "View"
+      ],
+      "actual_widget": "View",
+      "issues": [],
+      "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+    },
+    {
+      "id": "heading",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "subtitle",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "symbol",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "price",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "gain",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "chart_panel",
+      "role": "layout",
+      "basis": "authored stack node",
+      "expected_widgets": [
+        "View"
+      ],
+      "actual_widget": "View",
+      "issues": [],
+      "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+    },
+    {
+      "id": "open",
+      "role": "layout",
+      "basis": "authored stack node",
+      "expected_widgets": [
+        "View"
+      ],
+      "actual_widget": "View",
+      "issues": [],
+      "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+    },
+    {
+      "id": "open_label",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "open_value",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "volume",
+      "role": "layout",
+      "basis": "authored stack node",
+      "expected_widgets": [
+        "View"
+      ],
+      "actual_widget": "View",
+      "issues": [],
+      "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+    },
+    {
+      "id": "volume_label",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "volume_value",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "primary",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "expected_widgets": [
+        "Button",
+        "KitButton"
+      ],
+      "actual_widget": "KitButton",
+      "issues": [],
+      "repair": "Use a native control and verify its declared action."
+    },
+    {
+      "id": "primary_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "expected_widgets": [
+        "View"
+      ],
+      "actual_widget": "View",
+      "issues": [],
+      "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+    },
+    {
+      "id": "primary_label",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": "Label",
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "primary_control",
+      "role": "button",
+      "basis": "authored button node",
+      "expected_widgets": [
+        "Button",
+        "KitButton"
+      ],
+      "actual_widget": "Button",
+      "issues": [],
+      "repair": "Use a native control and verify its declared action."
+    },
+    {
+      "id": "range_indicator",
+      "role": "layout",
+      "basis": "Native selection indicator controlled by range buttons.",
+      "expected_widgets": [
+        "View"
+      ],
+      "actual_widget": "View",
+      "issues": [],
+      "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+    }
+  ],
+  "scope": "Semantic mapping checks only; geometry, visual fidelity and complete app workflows remain separate."
+}

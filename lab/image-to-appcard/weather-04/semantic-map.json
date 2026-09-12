@@ -1,0 +1,376 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.1.0",
+  "reference_sha256": "a7c5a773b95cf7b380380d0c4e06d897df620bebfb46a7e59f772abdfebf7e36",
+  "contract_sha256": "47a721254c6dcc20c28db1be8b248ec393eabf52989ccb5c09f650060acbf38a",
+  "classification_scope": "Reviewed original reference regions and authored intent; approximate plot measurements are explicitly marked.",
+  "elements": [
+    {
+      "id": "weather_symbol",
+      "role": "icon",
+      "basis": "Reviewed isolated source artwork; no UI text, controls or quantitative chart are included.",
+      "confidence": 1.0,
+      "decision": "reviewed",
+      "asset": {
+        "path": "repaired-assets/weather_symbol.svg",
+        "sha256": "ffdd5d124941252f78533cc28ecfe2297077f548c6657da4b326bee4daf57ac6",
+        "reference_sha256": "a7c5a773b95cf7b380380d0c4e06d897df620bebfb46a7e59f772abdfebf7e36",
+        "method": "reference_svg",
+        "crop_pixels": [
+          145,
+          639,
+          295,
+          241
+        ],
+        "contains_ui": false,
+        "fit": "contain",
+        "clip": true,
+        "notes": "Reference-colored vector contours; native SVG paths, no embedded bitmap/text."
+      }
+    },
+    {
+      "id": "day_icon_0",
+      "role": "icon",
+      "basis": "Reviewed isolated source artwork; no UI text, controls or quantitative chart are included.",
+      "confidence": 1.0,
+      "decision": "reviewed",
+      "asset": {
+        "path": "repaired-assets/day_icon_0.svg",
+        "sha256": "97452f6f5244356be163182b1cb5ea9cf93f5eced6ea30b29bf6934671a9bd22",
+        "reference_sha256": "a7c5a773b95cf7b380380d0c4e06d897df620bebfb46a7e59f772abdfebf7e36",
+        "method": "reference_svg",
+        "crop_pixels": [
+          90,
+          1221,
+          139,
+          156
+        ],
+        "contains_ui": false,
+        "fit": "contain",
+        "clip": true,
+        "notes": "Reference-colored vector contours; native SVG paths, no embedded bitmap/text."
+      }
+    },
+    {
+      "id": "day_icon_1",
+      "role": "icon",
+      "basis": "Reviewed isolated source artwork; no UI text, controls or quantitative chart are included.",
+      "confidence": 1.0,
+      "decision": "reviewed",
+      "asset": {
+        "path": "repaired-assets/day_icon_1.svg",
+        "sha256": "563a205d0624fab3f1a5c9c9643f7ad377e02cb9cdf7a37e0332c7c29ef64e8a",
+        "reference_sha256": "a7c5a773b95cf7b380380d0c4e06d897df620bebfb46a7e59f772abdfebf7e36",
+        "method": "reference_svg",
+        "crop_pixels": [
+          287,
+          1221,
+          139,
+          156
+        ],
+        "contains_ui": false,
+        "fit": "contain",
+        "clip": true,
+        "notes": "Reference-colored vector contours; native SVG paths, no embedded bitmap/text."
+      }
+    },
+    {
+      "id": "day_icon_2",
+      "role": "icon",
+      "basis": "Reviewed isolated source artwork; no UI text, controls or quantitative chart are included.",
+      "confidence": 1.0,
+      "decision": "reviewed",
+      "asset": {
+        "path": "repaired-assets/day_icon_2.svg",
+        "sha256": "d9d81fd414a56276293a4b137e4e86ee1c80287ae3c7f4a535c590d14109a985",
+        "reference_sha256": "a7c5a773b95cf7b380380d0c4e06d897df620bebfb46a7e59f772abdfebf7e36",
+        "method": "reference_svg",
+        "crop_pixels": [
+          481,
+          1221,
+          139,
+          156
+        ],
+        "contains_ui": false,
+        "fit": "contain",
+        "clip": true,
+        "notes": "Reference-colored vector contours; native SVG paths, no embedded bitmap/text."
+      }
+    },
+    {
+      "id": "day_icon_3",
+      "role": "icon",
+      "basis": "Reviewed isolated source artwork; no UI text, controls or quantitative chart are included.",
+      "confidence": 1.0,
+      "decision": "reviewed",
+      "asset": {
+        "path": "repaired-assets/day_icon_3.svg",
+        "sha256": "23ceb25ceba4fc38b95f7b0383cafd3744e304bc5a6885c14f6aa722517ed6a1",
+        "reference_sha256": "a7c5a773b95cf7b380380d0c4e06d897df620bebfb46a7e59f772abdfebf7e36",
+        "method": "reference_svg",
+        "crop_pixels": [
+          678,
+          1221,
+          139,
+          156
+        ],
+        "contains_ui": false,
+        "fit": "contain",
+        "clip": true,
+        "notes": "Reference-colored vector contours; native SVG paths, no embedded bitmap/text."
+      }
+    },
+    {
+      "id": "page",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "heading",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "subtitle",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "current",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "location",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "temperature",
+      "role": "layout",
+      "basis": "Native number and independently sized degree Labels composed as a text group.",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "condition",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "humidity",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "humidity_label",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "humidity_value",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "wind",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "wind_label",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "wind_value",
+      "role": "layout",
+      "basis": "Native value and independently sized unit Labels.",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "forecast_title",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "forecast",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "day_0",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "day_label_0",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "day_temp_0",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "day_1",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "day_label_1",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "day_temp_1",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "day_2",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "day_label_2",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "day_temp_2",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "day_3",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "day_label_3",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "day_temp_3",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "note",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary_label",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "primary_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "temperature_number",
+      "role": "text",
+      "basis": "Reviewed part of 24\u00b0; independent native font size for the degree symbol.",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "temperature_degree",
+      "role": "text",
+      "basis": "Reviewed part of 24\u00b0; independent native font size for the degree symbol.",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "wind_value_number",
+      "role": "text",
+      "basis": "Reviewed numeric value and smaller unit composed with independent native Labels.",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "wind_value_unit",
+      "role": "text",
+      "basis": "Reviewed numeric value and smaller unit composed with independent native Labels.",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    }
+  ]
+}

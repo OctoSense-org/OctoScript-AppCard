@@ -1,0 +1,21 @@
+Use case: ui-mockup
+Asset type: a shippable, flat mobile weather application screen, rendered straight on.
+Primary request: design one beautifully restrained weather page that can be composed from native UI widgets. Produce the finished UI image, not a specification sheet.
+Canvas: exact portrait aspect ratio 406:776. Intended logical artboard 406 by 776 points; export at 2x or greater with the same aspect ratio. Edge-to-edge flat image. No phone frame, bezel, status bar, mockup scene, perspective, annotations, dimension labels, or external margins.
+
+Visual direction: quiet contemporary product design, warm off-white, deep forest ink, pale sage surfaces, a restrained warm yellow sun. Generous but purposeful space, crisp native-looking typography, gentle 24-point corners on main cards, subtle shadows only. Use real plain text; no text as decorative shapes.
+
+Typography: use DM Sans throughout, matching DM Sans Regular, Medium and Bold. City title 28 logical points Bold, section titles 18 Bold, temperature 76 Medium, stat values 28 Bold, body 14 Regular, labels 12 Medium. No substituted serif, script or condensed type. Text is left aligned unless a forecast cell explicitly centers it. Use consistent baselines and normal DM Sans letter spacing. Line heights: city 36, section 24, hero temperature 92, body 20, small labels 16. All text below is exact, including capitalization and degree marks.
+Palette: page #F5F6F0; primary ink #19372D; secondary ink #6B7C72; hero card #E3EDE3; smaller cards #FFFFFF; outlines #DEE5DC; accent #285F49; sun #EFC563; clouds #C9D8CC. Use opaque surfaces, no glass, no photography, no texture.
+
+Layout in logical points (the layout is part of the design):
+- Page side margins 24. All full-width sections are 358 wide. Major sections align to x=24 and x=382. An 8-point spacing rhythm, with the explicit positions below controlling the composition.
+- Header: city title "Cupertino" at x=24, y=36, width=270, height=36. Subtitle "Monday, September 7" at x=24, y=78, height=20. A native-looking 48 by 40 rounded outlined button at x=334, y=40, showing "°C" centered. Button radius 14, white surface, deep green text.
+- Hero: rounded pale sage card at x=24, y=120, width=358, height=220, radius=24. Inside it, small label "CURRENT WEATHER" at x=44, y=139. Huge "24°" at x=44, y=161, width=175, height=92. Condition "Partly cloudy" at x=44, y=263, height=20. Secondary line "H 27° · L 17°" at x=44, y=292, height=18. On the right, center a simple flat sun-behind-cloud icon in an 88 by 88 box at x=267, y=191; ochre sun disk, soft sage cloud, clean vector geometry. Do not overlap any text.
+- Forecast heading: "This week" at x=24, y=363, height=24. Right aligned secondary label "4-day outlook" ending at x=382 on the same baseline.
+- Forecast container: white rounded card at x=24, y=403, width=358, height=108, radius=20. Four evenly distributed columns, centered at x=69, 158, 248, 337. Each column shows a day label at y=416, a simple 24-point native-style weather symbol at y=443, then a temperature at y=479. The four columns read exactly: "Now" / partly-cloudy icon / "24°"; "Tue" / sunny icon / "25°"; "Wed" / cloudy icon / "23°"; "Thu" / partly-cloudy icon / "22°". Day labels 12 Medium, temperatures 16 Bold.
+- Details heading: "Details" at x=24, y=535, height=24.
+- Two white metric cards, both y=575, width=171, height=100, radius=20. Left card x=24: label "Humidity" at x=44,y=591, value "64%" at x=44,y=621. Right card x=211: label "Wind" at x=231,y=591, value "12 km/h" at x=231,y=621. Labels 12 Medium, values 28 Bold. No extra icons in these two cards.
+- Bottom full-width native button: x=24,y=711,width=358,height=44,radius=16, solid deep green #285F49. Center the exact text "My cities" in white DM Sans Medium, 14 points. Leave 21 points below the button to the artboard edge.
+
+Content is a deterministic design fixture for implementation comparison, not a claim about current weather. Render only the specified screen and exact specified text. Keep every element fully inside the artboard. The button and the temperature unit control must look operable, with generous native touch targets. Never include explanatory notes, font names, coordinate numbers, rulers, code, arrows, or more screens in the output.

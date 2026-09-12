@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "findings": [
+    {
+      "area": "typography",
+      "status": "open",
+      "detail": "Small text and button label are too light; x-axis 1 has a different weight. Use consistent reviewed native faces."
+    },
+    {
+      "area": "imagery",
+      "status": "open",
+      "detail": "Source curve needs denoising of approximate numerical samples to remove pixel quantization."
+    }
+  ],
+  "evidence": {
+    "rounds/001/gate.json": "6e019ff38b6bf5ff23fe292fb3e922563e7beb4b6744145b6cc3e5f88ee13212",
+    "reference.png": "d91b83bac0ffde1209da12ccc0dcb0b7c7ff537cc7049e3a1ff03eb9cfafe777"
+  },
+  "inputs": {
+    "font-decisions.json": null
+  },
+  "operations": [
+    {
+      "op": "document",
+      "file": "font-decisions.json",
+      "category": "typography",
+      "element": "all_secondary_text",
+      "reason": "Source-reviewed font decisions used by the standard font fitting stage",
+      "after": {
+        "elements": {
+          "label_0": {
+            "family": "Roboto",
+            "weight": 500,
+            "reason": "Reviewed source has thicker condensed grotesque strokes than the first native Inter fit"
+          },
+          "label_2": {
+            "family": "Roboto",
+            "weight": 400,
+            "reason": "Reviewed source has thicker condensed grotesque strokes than the first native Inter fit"
+          },
+          "label_4": {
+            "family": "Roboto",
+            "weight": 400,
+            "reason": "Reviewed source has thicker condensed grotesque strokes than the first native Inter fit"
+          },
+          "label_22": {
+            "family": "Roboto",
+            "weight": 500,
+            "reason": "Reviewed source has thicker condensed grotesque strokes than the first native Inter fit"
+          },
+          "label_5": {
+            "family": "Roboto",
+            "weight": 500,
+            "reason": "Reviewed source has thicker condensed grotesque strokes than the first native Inter fit"
+          },
+          "label_6": {
+            "family": "Roboto",
+            "weight": 400,
+            "reason": "Reviewed source has thicker condensed grotesque strokes than the first native Inter fit"
+          },
+          "label_7": {
+            "family": "Roboto",
+            "weight": 400,
+            "reason": "Reviewed source has thicker condensed grotesque strokes than the first native Inter fit"
+          },
+          "label_8": {
+            "family": "Roboto",
+            "weight": 400,
+            "reason": "Reviewed source has thicker condensed grotesque strokes than the first native Inter fit"
+          },
+          "label_9": {
+            "family": "Roboto",
+            "weight": 400,
+            "reason": "Reviewed source has thicker condensed grotesque strokes than the first native Inter fit"
+          },
+          "label_10": {
+            "family": "Roboto",
+            "weight": 400,
+            "reason": "Reviewed source has thicker condensed grotesque strokes than the first native Inter fit"
+          },
+          "label_11": {
+            "family": "Roboto",
+            "weight": 400,
+            "reason": "Reviewed source has thicker condensed grotesque strokes than the first native Inter fit"
+          },
+          "label_12": {
+            "family": "Roboto",
+            "weight": 400,
+            "reason": "Reviewed source has thicker condensed grotesque strokes than the first native Inter fit"
+          },
+          "label_13": {
+            "family": "Roboto",
+            "weight": 400,
+            "reason": "Reviewed source has thicker condensed grotesque strokes than the first native Inter fit"
+          },
+          "label_14": {
+            "family": "Roboto",
+            "weight": 400,
+            "reason": "Reviewed source has thicker condensed grotesque strokes than the first native Inter fit"
+          },
+          "label_15": {
+            "family": "Roboto",
+            "weight": 400,
+            "reason": "Reviewed source has thicker condensed grotesque strokes than the first native Inter fit"
+          },
+          "label_16": {
+            "family": "Roboto",
+            "weight": 400,
+            "reason": "Reviewed source has thicker condensed grotesque strokes than the first native Inter fit"
+          },
+          "label_17": {
+            "family": "Roboto",
+            "weight": 400,
+            "reason": "Reviewed source has thicker condensed grotesque strokes than the first native Inter fit"
+          },
+          "label_18": {
+            "family": "Roboto",
+            "weight": 400,
+            "reason": "Reviewed source has thicker condensed grotesque strokes than the first native Inter fit"
+          },
+          "label_19": {
+            "family": "Roboto",
+            "weight": 400,
+            "reason": "Reviewed source has thicker condensed grotesque strokes than the first native Inter fit"
+          },
+          "label_20": {
+            "family": "Roboto",
+            "weight": 400,
+            "reason": "Reviewed source has thicker condensed grotesque strokes than the first native Inter fit"
+          },
+          "label_21": {
+            "family": "Roboto",
+            "weight": 400,
+            "reason": "Reviewed source has thicker condensed grotesque strokes than the first native Inter fit"
+          },
+          "primary_label": {
+            "family": "Roboto",
+            "weight": 500,
+            "reason": "Reviewed source has thicker condensed grotesque strokes than the first native Inter fit"
+          }
+        }
+      }
+    }
+  ]
+}

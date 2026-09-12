@@ -1,0 +1,39 @@
+{
+  "reference_sha256": "d91b83bac0ffde1209da12ccc0dcb0b7c7ff537cc7049e3a1ff03eb9cfafe777",
+  "native_sha256": "9ab1e9b7351b79cb39cc013ccf02d7aefe89e52ebe4fe555972808459416219f",
+  "reviewer": "Codex direct source/native visual inspection",
+  "verdict": "pass",
+  "criteria": {
+    "typography": true,
+    "colors": true,
+    "imagery": true,
+    "effects": true
+  },
+  "findings": [
+    {
+      "area": "typography",
+      "status": "resolved",
+      "detail": "Consistent native text faces and weights; exact strings include all extra source axes and separate native degree glyph."
+    },
+    {
+      "area": "imagery",
+      "status": "resolved",
+      "detail": "Original botanical crop matches the isolated illustration. Temperature curve is a native LinePlot bound to 316 explicitly approximate Celsius samples with mild numeric smoothing."
+    },
+    {
+      "area": "effects",
+      "status": "accepted_limitation",
+      "detail": "Source has subtle paper grain and soft tonal variation; native page and card use flat measured colors. Fixed-artboard prototype review, no claim of exact raster equality or phone/responsive validation."
+    }
+  ],
+  "runtime_regression": {
+    "reviewed_at": "2026-09-08T09:44:12.254854+00:00",
+    "round": "006",
+    "build_id": [
+      22
+    ],
+    "basis": "Personally compared all seven current source/native pairs. Native numerical charts retain source trends, selected points, area shading, legends and axes; typography, cards, controls and the original botanical crop remain consistent. Approximate curve sampling, small font rasterization differences and flatter source gradients/paper grain remain accepted prototype limitations documented in the individual findings.",
+    "sheet": "lab/beauty_core/qa-work/old-kit-migration/image-review/build-22/4bc6d46b36/001.png",
+    "sheet_sha256": "691cf6f6a3dea9a2a0f2f1ff4174a011c51f78be1a78c64ec44c7bdc5226528f"
+  }
+}
