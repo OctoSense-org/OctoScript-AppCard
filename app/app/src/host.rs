@@ -145,6 +145,17 @@ impl AppShell {
 impl Widget for AppShell {
     fn handle_event(&mut self, cx: &mut Cx, event: &Event, _scope: &mut Scope) {
         self.ensure_started(cx);
+        // The shell delivers the app's ONE `Startup` itself (above). A host
+        // that mounts the shell while its own startup is still being
+        // dispatched — OctoSense's `--test-action launch-appcard` runs inside
+        // the WM's `handle_startup`, and the same `Event::Startup` then walks
+        // the tree into this widget — must not start the app twice: a second
+        // `handle_startup` rebuilds the agent, and the first kernel child
+        // (`kill_on_drop`) dies under the sessions just created on it, so
+        // every submit after that is "transport task gone".
+        if matches!(event, Event::Startup) {
+            return;
+        }
         if let Some(app) = self.app.as_mut() {
             <App as AppMain>::handle_event(app, cx, event);
         }
