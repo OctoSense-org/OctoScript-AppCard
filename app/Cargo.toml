@@ -19,8 +19,10 @@ octos-app-store     = { path = "crates/octos-app-store" }
 octos-app-transport = { path = "crates/octos-app-transport" }
 octos-app-render    = { path = "crates/octos-app-render" }
 
-# Octos protocol types — path dep during dev; pinned to git tag for releases.
-octos-core = { path = "../octos/crates/octos-core" }
+# Octos protocol types: a git dep at the `octos` submodule's commit (the crate
+# inherits from its own workspace, which cargo reads out of the checkout), so
+# `octos-app` resolves from a foreign workspace; patched to the submodule below.
+octos-core = { git = "https://github.com/octos-org/octos.git", rev = "deb433e9a452c03d8fe7f4f6a26b42785c47ced7" }
 
 # Async / wire
 tokio              = { version = "1", features = ["rt", "macros", "net", "time", "sync"] }
@@ -45,6 +47,26 @@ log      = "0.4"
 # Mirrors aichat's own [patch] block at ~/home/aichat/Cargo.toml.
 [patch."https://github.com/ZhangHanDong/makepad.git"]
 makepad-widgets = { path = "../aichat/widgets" }
+
+# The app crate names its framework deps by git (pinned to the commits the
+# submodules are checked out at) so that a foreign workspace can consume
+# `octos-app` with git alone. Here, in the dev workspace, every one of those
+# is redirected to the submodule so a local edit of the fork / Octoscript /
+# octos is what builds, exactly as with the old path deps. Keep the pins and
+# the submodule commits in step.
+[patch."https://github.com/OctoSense-org/makepad.git"]
+makepad-widgets     = { path = "../aichat/widgets" }
+makepad-code-editor = { path = "../aichat/code_editor" }
+makepad-ai          = { path = "../aichat/libs/makepad_ai" }
+
+[patch."https://github.com/OctoSense-org/Octoscript.git"]
+octoscript-ui-l0 = { path = "../Octoscript/crates/octoscript-ui-l0" }
+
+[patch."https://github.com/OctoSense-org/Octoscript-Makepad.git"]
+octoscript-node = { path = "../Octoscript-Makepad/crates/octoscript-node" }
+
+[patch."https://github.com/octos-org/octos.git"]
+octos-core = { path = "../octos/crates/octos-core" }
 
 [patch.crates-io]
 mmap-rs = { path = "../octos/vendor/mmap-rs" }
