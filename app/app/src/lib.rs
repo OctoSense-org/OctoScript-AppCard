@@ -2696,7 +2696,28 @@ render.\n\nUser request: {request}",
 #[allow(dead_code)]
 pub mod entry {
     use super::*;
-    app_main!(App);
+    // The faces the L0 kit names by file (`crate_resource(
+    // "makepad_widgets:resources/<face>.ttf")`, see `l0_widgets::text_style`).
+    // The package carries only what the binary's manifest lists, and a face
+    // the package lacks draws NOTHING — measured on Android: a weather card
+    // with its city, hero temperature and every row label missing. A host
+    // that mounts the app lists the same faces in its own `app_main!`.
+    app_main!(
+        App,
+        font_set: International,
+        font_assets: [
+            "makepad_widgets/resources/Roboto-Thin.ttf",
+            "makepad_widgets/resources/Roboto-Light.ttf",
+            "makepad_widgets/resources/Roboto-Regular.ttf",
+            "makepad_widgets/resources/Roboto-Medium.ttf",
+            "makepad_widgets/resources/Roboto-Bold.ttf",
+            "makepad_widgets/resources/Montserrat-Regular.ttf",
+            "makepad_widgets/resources/Montserrat-Medium.ttf",
+            "makepad_widgets/resources/Montserrat-SemiBold.ttf",
+            "makepad_widgets/resources/Serif-Regular.ttf",
+            "makepad_widgets/resources/Serif-Bold.ttf",
+        ]
+    );
 }
 
 /// Resolve a font file path for `role`, cfg-selected per platform. On Android we
