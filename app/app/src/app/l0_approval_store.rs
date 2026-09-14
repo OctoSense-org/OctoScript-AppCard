@@ -29,7 +29,20 @@ pub fn require(directory: &Path, source: &str, runtime: &str, kit: &str) -> Resu
     let publication_lock = fs::OpenOptions::new().read(true).write(true).create(true)
         .truncate(false).open(directory.join(".publication-lock"))
         .map_err(|e| format!("open card approval lock: {e}"))?;
-    publication_lock.lock().map_err(|e| format!("lock card approval: {e}"))?;
+    // Threads and isolates of THIS process (a host mounts several instances
+    // of the app) serialize on a mutex; other processes on the file lock.
+    // Rust's `File::lock` is `Unsupported` on Android (std has no flock
+    // there), where an app is one process per install anyway — the mutex
+    // is then the whole story. Measured on the phone: every L0 card was
+    // refused with `lock card approval: lock() not supported` and drew
+    // nothing; the standalone APK hits the same line.
+    static PUBLICATION: std::sync::Mutex<()> = std::sync::Mutex::new(());
+    let _publication = PUBLICATION.lock().unwrap_or_else(|poisoned| poisoned.into_inner());
+    match publication_lock.lock() {
+        Ok(()) => {},
+        Err(e) if e.kind() == ErrorKind::Unsupported => {},
+        Err(e) => return Err(format!("lock card approval: {e}")),
+    }
     let path = directory.join(format!("{}.json", ArtifactApproval::source_key(source)));
     let read = || -> Result<ArtifactApproval, String> {
         let raw = fs::read(&path).map_err(|e| format!("read card approval: {e}"))?;
