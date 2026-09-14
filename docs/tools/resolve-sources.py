@@ -2,7 +2,7 @@
 """
 Fulfil an L0 card's source plan with live data.
 
-This is the HOST half of the split. splash-core reads the card and says what it
+This is the HOST half of the split. octoscript-core reads the card and says what it
 needs — helper, arguments, and an order that satisfies dependencies. It never
 fetches anything, because only a host knows what answers `sys.weather`. That
 separation is what lets realization run against an empty host surface.
@@ -21,13 +21,13 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-SPLASH = Path(__file__).resolve().parents[3] / "Splash"
+SPLASH = Path(__file__).resolve().parents[2] / "Octoscript"
 
 
 def plan(card_path):
-    """Ask splash-core what this card needs, in resolution order."""
+    """Ask octoscript-core what this card needs, in resolution order."""
     out = subprocess.run(
-        ["cargo", "run", "-q", "-p", "splash-core", "--example", "source_plan",
+        ["cargo", "run", "-q", "-p", "octoscript-core", "--example", "source_plan",
          "--", str(card_path)],
         cwd=SPLASH, capture_output=True, text=True,
     )

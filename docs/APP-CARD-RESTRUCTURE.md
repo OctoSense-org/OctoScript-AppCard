@@ -136,7 +136,7 @@ a2app/apps/*/app.md            authoring contract — emits CANONICAL nodes
         ▼  LLM
 card .splash  (plain data)
         │
-        ▼  splash-core (ymote/Splash) — VM + bounds + capability host
+        ▼  octoscript-core (ymote/Splash) — VM + bounds + capability host
 node tree   { kind: String, attrs: [(String, Val)], children }
         │
         ├──► splash-makepad      ──► makepad widgets      (phone today)
@@ -162,7 +162,7 @@ Four things belong to the **shared** layer and must be versioned as one contract
 
 ### Use a generic attribute bag, not a fixed struct
 
-`splash-render`'s `Attrs` is ~30 fixed fields. That was already tight for octos-one
+`octoscript-render`'s `Attrs` is ~30 fixed fields. That was already tight for octos-one
 and it did not survive contact with 43 Material components. The catalog uses
 `Vec<(String, Val)>` against a declared ~56-name vocabulary and it scaled without
 a Rust change per attribute. Adopt that shape in the shared core.
@@ -193,10 +193,10 @@ structural path as the fallback.
 
 ### 4b. The security model only unlocks *after* the dialect moves
 
-`splash_core::Runtime::eval` rejects non-canonical syntax; `eval_vm_compatibility`
+`octoscript_core::Runtime::eval` rejects non-canonical syntax; `eval_vm_compatibility`
 is documented *"must not receive LLM-generated or otherwise untrusted source."*
 octos-one's cards are **both** makepad-dialect and LLM-generated, so today there
-is no legal `Runtime` path for them — only the raw `splash_core::vm` re-export,
+is no legal `Runtime` path for them — only the raw `octoscript_core::vm` re-export,
 which carries provenance but no capability model.
 
 Canonical plain-data cards are accepted by `Runtime::eval`. **That is the payoff**:
@@ -204,12 +204,12 @@ Canonical plain-data cards are accepted by `Runtime::eval`. **That is the payoff
 `sys.*` stops being ambient. It is also why the dialect migration is a hard
 prerequisite for the capability work rather than a parallel track.
 
-### 4c. Live-host semantics are not in `splash-render`
+### 4c. Live-host semantics are not in `octoscript-render`
 
 The `Splash` widget also implements per-card isolate VMs (`splash.rs:2103`),
 incremental streaming evaluation as the LLM emits (`:2256`), a 1M instruction
 limit, scoped `ui` handles, eager widget-tree registration (`:2429`), `fn tick()`
-(`:2597`) and animation pumping. `splash-render::build` creates a fresh VM and
+(`:2597`) and animation pumping. `octoscript-render::build` creates a fresh VM and
 calls `eval` once. **Inventory these before the cutover** — they are not covered
 by the node contract and they are the part an earlier draft wrongly called "the
 easy part."

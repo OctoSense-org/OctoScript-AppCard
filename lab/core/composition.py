@@ -51,7 +51,7 @@ def describe(kit):
         'kit': kit['name'],
         'input_format': kit.get('input_format', 'l0'),
         'native_widgets_first':kit.get('native_widgets_first',False),
-        'composition_path': 'L0 components → registered theme tokens → splash-widgets native components' if promoted else 'splash_makepad::design' if measured else 'L0 component lowering',
+        'composition_path': 'L0 components → registered theme tokens → octoscript-widgets native components' if promoted else 'splash_makepad::design' if measured else 'L0 component lowering',
         'layout': 'fixed Sketch coordinates / absolute positions' if measured else 'component-defined layout',
         'graphics': ('Native surfaces and tessellated SVG first; bitmap fallbacks listed per source element'
                      if kit.get('native_widgets_first') else

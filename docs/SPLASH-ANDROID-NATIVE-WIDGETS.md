@@ -189,11 +189,11 @@ queue stopped being serviced."*
 ## 5. Design B — serialize once, build in Java *(recommended)*
 
 ```
-Splash DSL ─► splash-render ─► UiNode tree ─► flat buffer ─► ONE JNI call ─► Java builder ─► Views
+Splash DSL ─► octoscript-render ─► UiNode tree ─► flat buffer ─► ONE JNI call ─► Java builder ─► Views
              (VM, renderer-free)  (shared)     (Rust)                        (UI thread)
 ```
 
-`splash-render`'s `UiNode` is a plain, backend-agnostic tree with a closed
+`octoscript-render`'s `UiNode` is a plain, backend-agnostic tree with a closed
 attribute set, so it is *shaped* for serialization — but **it derives neither
 `Serialize` nor `Deserialize` today** (`node.rs:137`), and an earlier draft's
 "serializes trivially" overstated that into something that already exists. It
@@ -241,7 +241,7 @@ a 3 000× reduction in boundary traffic is not a compromise.
 
 ## 6. The widget mapping — and the build-system wall behind it
 
-`splash-render`'s 23 `NodeKind`s against Android:
+`octoscript-render`'s 23 `NodeKind`s against Android:
 
 | NodeKind | Android widget | in `android.jar`? |
 |---|---|---|
@@ -506,7 +506,7 @@ not a rebuild.
 documented as a makepad widget name (`node.rs:84`). Use **structural path plus an
 optional explicit `key`**: the path handles the common case, and `key` is what
 conditionals and list rows need in order not to be destroyed and rebuilt on every
-re-eval. Adding `key` to `Attrs` is a small change to `splash-render` that the
+re-eval. Adding `key` to `Attrs` is a small change to `octoscript-render` that the
 ArkUI backend wants anyway.
 
 **Encoding:** a flat binary op buffer in a `NewDirectByteBuffer`, with strings in
@@ -534,7 +534,7 @@ Android views over the GL surface, and that mechanism is proven in production:
 `Spawn`/`Update`/`Detach`/`Close` lifecycle (`web_card.rs`, `cx_api.rs:390-425`).
 
 **Step 1 — one hosted native node.** Add `{t:"native", widget:"…"}` to
-`splash-render` and render it exactly like `WebCard`: makepad reserves the rect,
+`octoscript-render` and render it exactly like `WebCard`: makepad reserves the rect,
 one Android `View` sits in it. No reconciler, no op protocol, no diffing.
 
 Start with the widgets where native genuinely beats makepad, which is a much
@@ -603,11 +603,11 @@ OpenHarmony sibling exists and ships.
 **The stack, with no makepad renderer anywhere:**
 
 ```
-.splash ─► splash-core (VM) ─► splash-render ─► splash-android-view ─► Java builder ─► android.widget.*
+.splash ─► octoscript-core (VM) ─► octoscript-render ─► splash-android-view ─► Java builder ─► android.widget.*
            vendored makepad-script  UiNode        op buffer              SparseArray<View>
 ```
 
-`splash-render` depends on `makepad-script` and nothing else — "renderer-free by
+`octoscript-render` depends on `makepad-script` and nothing else — "renderer-free by
 construction", per its own crate doc — and `makepad-script`'s own dependencies are
 `error_log`, `math`, `live_id`, `script-derive`, `smallvec`, `regex`, `html`. No
 `makepad-platform`, no `makepad-draw`, no `makepad-widgets`. So "without makepad"
@@ -684,7 +684,7 @@ candidates do not survive contact with §2 and §6:
 > makepad's architecture assumes a single window and surface. **Speculative** —
 > do not plan on it without a spike.
 
-### What has to change in `splash-render` either way
+### What has to change in `octoscript-render` either way
 
 Small, well-scoped, and useful to the ArkUI backend too:
 
@@ -706,7 +706,7 @@ did. Probe source: `scratchpad/sap/` — `rust/src/lib.rs`, `java/dev/splash/pro
 
 ```
 CARD (.splash, with a fn + a while-loop)
-  -> splash-render 0.1.0  (real crate, path dep on ~/Splash-Makepad)
+  -> octoscript-render 0.1.0  (real crate, path dep on ~/Splash-Makepad)
   -> makepad-script e1c2164b  (the VM, upstream makepad dev)
   -> UiNode tree
   -> flat binary buffer  -> ONE JNI call (direct ByteBuffer)
@@ -720,8 +720,8 @@ No makepad-platform, no makepad-draw, no makepad-widgets, no GL surface, no
 
 | claim | result |
 |---|---|
-| `splash-render` cross-compiles to `aarch64-linux-android` | ✅ clean, 8.35 s |
-| the VM evaluates Splash DSL **on device** | ✅ `splash-render OK: 23 nodes, root=Scroll` |
+| `octoscript-render` cross-compiles to `aarch64-linux-android` | ✅ clean, 8.35 s |
+| the VM evaluates Splash DSL **on device** | ✅ `octoscript-render OK: 23 nodes, root=Scroll` |
 | the tree is *computed*, not a literal | ✅ the `while` loop's "computed row 0/1/2" rendered |
 | every node becomes a real `android.widget.*` | ✅ `built ok=23 failed=0` |
 | one JNI crossing carries the whole tree | ✅ direct `ByteBuffer`, 240-byte string blob |

@@ -48,7 +48,7 @@ capture. Merely sending RunViewResize does not guarantee that allocation.
 
 ```sh
 bash tools/beauty-studio.sh /path/to/target/release/makepad-studio \
-  --remote --mounts=splashref:/absolute/path/to/splash-makepad \
+  --remote --mounts=splashref:/absolute/path/to/Octoscript-Makepad \
   --bind=127.0.0.1:8002
 
 lab/sketch-to-appcard/.venv/bin/python lab/core/studio_bridge.py \

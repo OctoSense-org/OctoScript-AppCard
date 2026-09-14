@@ -17,8 +17,8 @@ F=/tmp/mb_findings.txt
 echo "FINDINGS (mechanical):" >> "$F"
 
 run_translate() { # $1 = shim body
-  { echo 'let st = { route: "mb", dark: 1 }'; echo "fn sget(k, d) { $1 return d }"; echo 'fn N(k, d) { return sget(k, d) }'; cat "$SM/components/material/screens/kit.splash" "$R"; } > /tmp/mb_eval.splash
-  (cd "$SM" && cargo run -q -p splash-makepad --example translate -- /tmp/mb_eval.splash 2>/dev/null)
+  { echo 'let st = { route: "mb", dark: 1 }'; echo "fn sget(k, d) { $1 return d }"; echo 'fn N(k, d) { return sget(k, d) }'; cat "$SM/components/material/screens/kit.octoscript" "$R"; } > /tmp/mb_eval.splash
+  (cd "$SM" && cargo run -q -p octoscript-makepad --example translate -- /tmp/mb_eval.splash 2>/dev/null)
 }
 
 # 1 · default: Browse, all 8, no detail
@@ -26,9 +26,9 @@ T=$(run_translate "")
 E=$(echo "$T" | grep -oE '"message":"[^"]+"' | sort -u | head -5)
 if [ -n "$E" ]; then
   echo "- translate(default): SYNTAX ERRORS (line numbers are within YOUR card file, 1-based):" >> "$F"
-  (cd "$SM" && cargo run -q -p splash-makepad --example translate -- /tmp/mb_eval.splash 2>&1) | python3 -c "
+  (cd "$SM" && cargo run -q -p octoscript-makepad --example translate -- /tmp/mb_eval.splash 2>&1) | python3 -c "
 import sys, json, pathlib
-kit_len = len(pathlib.Path('$SM/components/material/screens/kit.splash').read_text().splitlines())
+kit_len = len(pathlib.Path('$SM/components/material/screens/kit.octoscript').read_text().splitlines())
 card = pathlib.Path('$R').read_text().splitlines()
 seen = set()
 for raw in sys.stdin:
@@ -84,7 +84,7 @@ echo "- empty watchlist: invitation caption present: $W4" >> "$F"
 # render host steals foreground from octos, and a PAUSED octos freezes the
 # whole dev loop: measured, the heartbeat jumped 13s -> 1260s on re-resume.
 [ "${FINAL:-0}" != "1" ] && { echo "" >> "$F"; echo "When every line above matches the mission, say DONE and emit the final card." >> "$F"; cat "$F"; exit 0; }
-{ cat "$SM/components/material/screens/kit.splash"; echo 'fn N(k, d) { return sget(k, d) }'; cat "$R"; } > /tmp/mb_device.splash
+{ cat "$SM/components/material/screens/kit.octoscript"; echo 'fn N(k, d) { return sget(k, d) }'; cat "$R"; } > /tmp/mb_device.splash
 "$ADB" -s $D push /tmp/mb_device.splash /data/local/tmp/flutter_samples.splash >/dev/null 2>&1
 "$ADB" -s $D shell am force-stop dev.makepad.flutter_samples
 "$ADB" -s $D shell monkey -p dev.makepad.flutter_samples -c android.intent.category.LAUNCHER 1 >/dev/null 2>&1
