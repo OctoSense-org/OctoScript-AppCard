@@ -87,15 +87,15 @@ crates/splash-oh/              cdylib   the bridge — napi-ohos
 deveco/                                 the ArkTS shell
 ```
 
-### It uses `splash-core` two different ways, deliberately
+### It uses `octoscript-core` two different ways, deliberately
 
 | caller | entry point | why |
 |---|---|---|
-| **trusted app DSL** (`dsl.rs`) | `splash_core::vm` — the raw `ScriptVm` | full VM speed, host globals via `set_injected_global`; `splash_core::check_syntax` used **only** to turn "evaluated to nil" into a real diagnostic |
-| **untrusted page script** (`bridge.rs:1537`) | `splash_core::Runtime` with tightened `ExecutionLimits` | a web page is the least-trusted thing in the process; bounded source / heap / instructions / deadline, fresh `Runtime` per call |
+| **trusted app DSL** (`dsl.rs`) | `octoscript_core::vm` — the raw `ScriptVm` | full VM speed, host globals via `set_injected_global`; `octoscript_core::check_syntax` used **only** to turn "evaluated to nil" into a real diagnostic |
+| **untrusted page script** (`bridge.rs:1537`) | `octoscript_core::Runtime` with tightened `ExecutionLimits` | a web page is the least-trusted thing in the process; bounded source / heap / instructions / deadline, fresh `Runtime` per call |
 
-`splash-core` re-exports the VM verbatim (`pub use makepad_script as vm;`), so
-`dsl.rs` imports it as `use splash_core::vm as makepad_script` — *"what changes
+`octoscript-core` re-exports the VM verbatim (`pub use makepad_script as vm;`), so
+`dsl.rs` imports it as `use octoscript_core::vm as makepad_script` — *"what changes
 is provenance, not API."*
 
 ### The DSL is plain data, not makepad widget syntax
@@ -147,7 +147,7 @@ the DSL walker has **no** `"web"` case. Web slots are built by Rust app builders
 pipeline this migration would otherwise have to build:
 
 ```
-Splash DSL ──► splash-render ──► UiNode tree ──► splash-makepad ──► makepad dialect string
+Splash DSL ──► octoscript-render ──► UiNode tree ──► splash-makepad ──► makepad dialect string
 {t:"column"}    (VM, renderer-free)  (backend-agnostic)   (pure translation)   View{…}/Label{…}
                                                                                     │
                                                           makepad `Splash`.set_text() ▼ native widgets
@@ -155,9 +155,9 @@ Splash DSL ──► splash-render ──► UiNode tree ──► splash-makepa
 
 | crate | lines | what |
 |---|---|---|
-| `splash-render` | 392 | DSL → `UiNode`; **the only** makepad-script dependency in the render path |
+| `octoscript-render` | 392 | DSL → `UiNode`; **the only** makepad-script dependency in the render path |
 | `splash-makepad` | 327 | `to_makepad_ui(&UiNode) -> String`; pure, unit-tested, needs no makepad-platform |
-| `splash-widgets` | 181 | M3 native-control variants as external `script_mod!` — **fork-free theming** |
+| `octoscript-widgets` | 181 | M3 native-control variants as external `script_mod!` — **fork-free theming** |
 | `apps/kit-host` | 163 | desktop shell, builds against **upstream** makepad |
 | `components/material/catalog.splash` | 825 | ~35 M3 components, pure data, hot-reloadable |
 
@@ -178,9 +178,9 @@ octos-one has already proven (WebView, EditText/IME, video texture, camera).
 
 Two things it is *not* yet, and both matter:
 
-1. **`splash-render` does not depend on `splash-core`.** It pins
+1. **`octoscript-render` does not depend on `octoscript-core`.** It pins
    `makepad-script = { git = "makepad/makepad", branch = "dev" }` directly.
-   Splash-OH goes through `splash-core`; Splash-Makepad does not. Converging
+   Splash-OH goes through `octoscript-core`; Splash-Makepad does not. Converging
    that is step one of "migrate to ymote/Splash".
 2. **`UiNode`'s attribute set is small and closed** — no gradients, no per-corner
    radius, no font-family selection, no custom shader widgets. octos-one cards
@@ -241,7 +241,7 @@ Three ways to pay it:
 
 - **(a) Rewrite the specs** to emit plain-data DSL. Cleanest end state, largest
   one-time cost, and every generated card must be re-validated.
-- **(b) Add a makepad-syntax frontend to `splash-render`** that lowers
+- **(b) Add a makepad-syntax frontend to `octoscript-render`** that lowers
   `SolidView{…}` into `UiNode`. Cards and prompts survive untouched; you carry a
   compatibility layer. Cheapest to reach parity.
 - **(c) Hybrid** — new apps in plain-data, existing cards keep the makepad path
@@ -261,25 +261,25 @@ intended destination in a comment:
 > *"ymote/Splash `mod.tool` would formalize this with per-card leases + audit;
 > until then it's a curated static allowlist plus an SSRF guard."*
 
-**But that destination is not `splash-core`.** Its own crate doc is explicit:
+**But that destination is not `octoscript-core`.** Its own crate doc is explicit:
 
 > *"This crate masks the vendored VM down to the standalone Splash source
 > surface, then owns runtime limits and diagnostic capture. **Effectful APIs
 > belong to a separate host crate** and must be explicitly installed by trusted
 > Rust code."*
 
-The lease/audit machinery lives in **`splash-capabilities` — 10 354 lines** of
+The lease/audit machinery lives in **`octoscript-capabilities` — 10 354 lines** of
 tool catalog, policy, lease lifecycle and audit views. Adopting it is not
 flipping a switch on a crate we were already taking; it is taking a second, much
 larger crate and adopting its whole model. The audit view is also bounded
 in-memory by default — a *durable* journal is optional host work on top, not
 something inherited.
 
-### Gap 3b — **the blocker**: there is no legal `splash-core` entry point for today's cards
+### Gap 3b — **the blocker**: there is no legal `octoscript-core` entry point for today's cards
 
 This is the finding that reorders the plan, and it is load-bearing.
 
-`splash_core::Runtime::eval` runs `check_syntax` first and returns
+`octoscript_core::Runtime::eval` runs `check_syntax` first and returns
 `RuntimeError::SyntaxRejected` for anything outside canonical Splash. octos-one's
 cards are makepad widget dialect, so they fail it. The compatibility door exists
 — and is nailed shut for exactly our use case:
@@ -296,7 +296,7 @@ pub fn eval_vm_compatibility(&mut self, source: &str) -> Result<Evaluation, Runt
 octos-one's cards are **both** makepad-dialect (so `eval` refuses them) **and**
 LLM-generated (so `eval_vm_compatibility` forbids them). There is no valid
 `Runtime` path for them at all. The only thing that works today is what
-Splash-OH actually does: the **raw** `splash_core::vm` re-export — which carries
+Splash-OH actually does: the **raw** `octoscript_core::vm` re-export — which carries
 the VM's provenance and `check_syntax` diagnostics but **none** of the security
 profile, and no capability model whatsoever.
 
@@ -330,9 +330,9 @@ can ever resolve. It is a design item, not a hook.
 2. Rebase `aichat/platform/script` onto the Splash-pinned rev, or accept
    Splash's tree as the source of truth and re-apply octos-one's deltas on top.
    Pick **one** canonical VM.
-3. Repoint `Splash-Makepad`'s `splash-render` from
-   `makepad-script { git = makepad/makepad }` to `splash-core { git = ymote/Splash }`,
-   importing the VM as `splash_core::vm` exactly as `Splash-OH/dsl.rs` does.
+3. Repoint `Splash-Makepad`'s `octoscript-render` from
+   `makepad-script { git = makepad/makepad }` to `octoscript-core { git = ymote/Splash }`,
+   importing the VM as `octoscript_core::vm` exactly as `Splash-OH/dsl.rs` does.
    Adopt `check_syntax` for diagnostics at the same time.
 
 *Exit test:* all four weather exemplars, the nav card, and
@@ -351,7 +351,7 @@ components/                     .splash component libraries (shared with Splash-
 ```
 
 - **`splash-android-native`** — pure translation only: `UiNode` → makepad
-  dialect. It may depend on `splash-render` + `splash-makepad` and nothing else.
+  dialect. It may depend on `octoscript-render` + `splash-makepad` and nothing else.
   **It cannot own `Splash.set_text()` or custom-widget resolution**, as an
   earlier draft claimed: whatever calls `set_text` must depend on
   `makepad-widgets`, initialise widget modules, own card state and perform the
@@ -404,7 +404,7 @@ through `cargo-makepad android`, with one webview slot live in the tree.
 
 ### Phase 2 — migrate the dialect *(moved ahead of capabilities — see Gap 3b)*
 
-1. Build the makepad-syntax frontend for `splash-render` (Gap 2, option b) so
+1. Build the makepad-syntax frontend for `octoscript-render` (Gap 2, option b) so
    existing cards render unchanged through the new pipeline.
 2. Add the custom-widget escape hatch and register `MapView`, `WeatherIcon`,
    `GradientYView`, `CircleView`, `Card`, glass panels (Gap 4).
@@ -422,7 +422,7 @@ interaction assertions each `lint.json` already encodes.
 
 ### Phase 3 — port the capabilities *(only now legal)*
 
-Once cards are canonical Splash, `Runtime`/`splash-capabilities` becomes
+Once cards are canonical Splash, `Runtime`/`octoscript-capabilities` becomes
 reachable:
 
 1. Move the 31 `sys.*` helpers **and `agent.notify`** out of
@@ -437,7 +437,7 @@ reachable:
    and matches textual private-host patterns, with no resolve-and-bind, so it
    does not stop DNS rebinding. It needs its own threat model and adversarial
    tests, which are not in this plan.
-4. Route untrusted page scripts through `splash_core::Runtime` with limits
+4. Route untrusted page scripts through `octoscript_core::Runtime` with limits
    calibrated to the real workload — copy `bridge.rs:1537-1564`.
 
 *Exit gate:* a card calling an undeclared tool is **refused**, and the refusal is
@@ -456,7 +456,7 @@ Replace `aichat/widgets/src/splash.rs`'s module registration with a dependency o
 > VMs** (`splash.rs:2103`), **incremental streaming evaluation** as the LLM emits
 > (`:2256`), a 1 M instruction limit, scoped `ui` handles, eager widget-tree
 > registration (`:2429`), **`fn tick()` callbacks** (`:2597`), animation pumping,
-> and async-data re-evaluation. `splash-render::build` does none of it — it
+> and async-data re-evaluation. `octoscript-render::build` does none of it — it
 > creates a fresh raw VM and calls `eval` once.
 >
 > The nav card depends on this concretely: it uses in-place `ui.*.set_*` updates
@@ -495,7 +495,7 @@ Estimating before the gates below are met would be inventing numbers.
 | 0 — VM convergence | **high** — a missed patch is a silently-vanishing card |
 | 1 — `Splash-Android` | medium |
 | 2 — dialect | **high** — it is now a prerequisite, not background work |
-| 3 — capabilities | medium-high — `splash-capabilities` is 10 354 lines, and `agent.notify` is a protocol port |
+| 3 — capabilities | medium-high — `octoscript-capabilities` is 10 354 lines, and `agent.notify` is a protocol port |
 | 4 — cutover | **high, not low** — it removes the code that implements streaming, isolation and event behaviour |
 
 **Three failure modes worth naming up front.** They are the ones that produce a

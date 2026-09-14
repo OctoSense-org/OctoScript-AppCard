@@ -10,7 +10,7 @@ pub const LAYOUTS: &[(&str, &str)] = &[
 
 fn recipe(app: &str, layout: &str) -> Option<(&'static str, &'static str)> {
     macro_rules! page { ($path:literal) => { include_str!(concat!(
-        "../../../../splash-makepad/components/l0/pages/", $path, ".l0")) }; }
+        "../../../../Octoscript-Makepad/components/l0/pages/", $path, ".l0")) }; }
     Some(match (app, layout) {
         ("weather", "dashboard") => ("", page!("weather/dashboard")),
         ("weather", "forecast") => ("", page!("weather/forecast")),
@@ -84,10 +84,10 @@ mod tests {
         let source = "source movers sys.movers(count: 1, fields: [ticker])\n\
             state range { shape: enum[d1, m1], initial: .d1 }\n\
             view root Surface { StockPlot(symbol: movers.0.ticker, range: range) }\n";
-        let report = splash_ui_l0::realize(source, &serde_json::json!({
+        let report = octoscript_ui_l0::realize(source, &serde_json::json!({
             "movers": [{"ticker": "BLTE"}], "range": "d1"
-        }), splash_ui_l0::RealizeLimits::default());
-        let lowered = splash_ui_l0::kit::lower(report.complete_root().unwrap());
+        }), octoscript_ui_l0::RealizeLimits::default());
+        let lowered = octoscript_ui_l0::kit::lower(report.complete_root().unwrap());
         assert!(lowered.contains("l0_stockplot(sys.movers(0, \"symbol\", \"\"), \"d1\")"), "{lowered}");
         assert!(!lowered.contains("sys.num("), "a ticker must never be coerced to a number");
     }
@@ -97,12 +97,12 @@ mod tests {
         for &(app, layout) in LAYOUTS {
             let original = crate::L0_APPS.iter().find(|(name, _, _)| *name == app).unwrap().2;
             let source = apply(app, layout, original).unwrap();
-            let report = splash_ui_l0::check_ui_l0_named(app, &source);
+            let report = octoscript_ui_l0::check_ui_l0_named(app, &source);
             assert!(report.diagnostics.is_empty(), "{app}/{layout}: {:#?}", report.diagnostics);
             for (_, declaration) in declarations(original).into_iter().filter(|(name, body)| name.is_empty() && !body.starts_with('#')) {
                 assert!(source.contains(declaration), "{app}/{layout} changed app logic: {declaration}");
             }
-            assert_eq!(splash_ui_l0::state_initials(original), splash_ui_l0::state_initials(&source));
+            assert_eq!(octoscript_ui_l0::state_initials(original), octoscript_ui_l0::state_initials(&source));
         }
         assert!(apply("weather", "tiles", "").is_err());
         assert_eq!(apply("weather", "", "original").unwrap(), "original");

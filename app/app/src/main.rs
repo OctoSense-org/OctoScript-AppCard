@@ -181,12 +181,12 @@ your card.\n\n\
 /// what came back, so a card that declared `# level: L1` for an L0 app was accepted
 /// and drawn. `valid` does not carry it: an L1 card with no diagnostics is valid at
 /// L1, which is exactly the case that needed catching.
-fn l0_level_for(domain: &str) -> Option<splash_ui_l0::Level> {
+fn l0_level_for(domain: &str) -> Option<octoscript_ui_l0::Level> {
     // The same resolution the prompt uses, so a composed app is approved for the
     // level its stand-in exemplar demonstrates rather than for nothing. Approving
     // it for nothing would have let `l0_level_refusal` pass anything through.
     let (_, exemplar) = l0_spec_and_exemplar(domain)?;
-    Some(splash_ui_l0::check_ui_l0_named(domain, exemplar).level)
+    Some(octoscript_ui_l0::check_ui_l0_named(domain, exemplar).level)
 }
 
 /// Is `card` wider than `domain` is approved for? The refusal, if so.
@@ -194,12 +194,12 @@ fn l0_level_for(domain: &str) -> Option<splash_ui_l0::Level> {
 /// Reported as a repair reason rather than a render-time error, because this is
 /// where a second attempt is still possible — the same place a checker diagnostic
 /// goes.
-fn l0_level_refusal(domain: &str, report: &splash_ui_l0::UiL0Report) -> Option<String> {
+fn l0_level_refusal(domain: &str, report: &octoscript_ui_l0::UiL0Report) -> Option<String> {
     let approved = l0_level_for(domain)?;
-    let rank = |l: splash_ui_l0::Level| match l {
-        splash_ui_l0::Level::L0 => 0,
-        splash_ui_l0::Level::L1 => 1,
-        splash_ui_l0::Level::L2 => 2,
+    let rank = |l: octoscript_ui_l0::Level| match l {
+        octoscript_ui_l0::Level::L0 => 0,
+        octoscript_ui_l0::Level::L1 => 1,
+        octoscript_ui_l0::Level::L2 => 2,
     };
     (rank(report.level) > rank(approved)).then(|| {
         format!(
@@ -333,11 +333,11 @@ fn detect_theme(intent: &str) -> Option<&'static str> {
     let words: Vec<_> = q.split(|c: char| !c.is_alphanumeric() && c != '_').collect();
     for theme in ["taskplan_light", "atro_light", "camo_light", "atro", "camo"] {
         if words.contains(&theme) {
-            return splash_ui_l0::catalog::theme(theme);
+            return octoscript_ui_l0::catalog::theme(theme);
         }
     }
     if words.contains(&"taskplan") {
-        return splash_ui_l0::catalog::theme("taskplan_light");
+        return octoscript_ui_l0::catalog::theme("taskplan_light");
     }
     let has = |ss: &[&str]| ss.iter().any(|s| q.contains(s));
     let name = if words.contains(&"vibrant") {
@@ -359,7 +359,7 @@ fn detect_theme(intent: &str) -> Option<&'static str> {
     };
     // Never offer a mood the language does not admit: the card would be refused
     // for a word this function chose.
-    splash_ui_l0::catalog::theme(name)
+    octoscript_ui_l0::catalog::theme(name)
 }
 
 /// Live channels the youtube agent can offer instantly. (handle, label)
@@ -5425,7 +5425,7 @@ impl Widget for ChatList {
                         // value store → initial while the RENDERER resolves store →
                         // data → initial, so a host-seeded `screen: "drive"` was
                         // cycled from the declared `.plan` and advanced to `.drive` —
-                        // the screen it was already on. Fixed in `splash-ui-l0`.
+                        // the screen it was already on. Fixed in `octoscript-ui-l0`.
                         let epoch = if self.driving_card {
                             0
                         } else if L0_TYPING_PENDING.load(std::sync::atomic::Ordering::Relaxed) {
@@ -9234,7 +9234,7 @@ impl MatchEvent for App {
                 (Ok(source), Ok(raw)) => {
                     let data: serde_json::Value =
                         serde_json::from_str(&raw).unwrap_or(serde_json::Value::Null);
-                    let store = splash_ui_l0::InstanceStore::default();
+                    let store = octoscript_ui_l0::InstanceStore::default();
                     // Realize once to CHECK it, and report the reason if it
                     // fails — a seeded card that cannot realize must say so
                     // rather than leave a blank screen.
@@ -10084,7 +10084,7 @@ impl AppMain for App {
                                 // non-converging spin.
                                 #[cfg(target_os = "android")]
                                 if self.dev_round < 8 {
-                                    let store = splash_ui_l0::InstanceStore::default();
+                                    let store = octoscript_ui_l0::InstanceStore::default();
                                     let data = serde_json::json!({});
                                     let critic = match crate::app::l0_card::render(cx, card, &data, &store) {
                                         Err(e) => Some(format!(
@@ -10392,7 +10392,7 @@ impl AppMain for App {
                                             for piece in app::l0_card::split_l0_blocks(&text) {
                                                 if let app::l0_card::Piece::Ledger(src) = piece {
                                                     let report =
-                                                        splash_ui_l0::check_ui_l0_named("card", src);
+                                                        octoscript_ui_l0::check_ui_l0_named("card", src);
                                                     if !report.valid {
                                                         why.extend(
                                                             report.diagnostics.iter().map(|d| {
@@ -10649,7 +10649,7 @@ fn bundled_l0_source(selector: &str) -> std::io::Result<String> {
     let source = app::l0_page_recipes::apply(name, layout, source)
         .map_err(|message| std::io::Error::new(std::io::ErrorKind::InvalidInput, message))?;
     if theme.is_empty() { return Ok(source) }
-    if !splash_ui_l0::catalog::THEMES.contains(&theme) {
+    if !octoscript_ui_l0::catalog::THEMES.contains(&theme) {
         return Err(std::io::Error::new(std::io::ErrorKind::InvalidInput, "unknown review theme"));
     }
     let mut replaced = false;
@@ -11199,7 +11199,7 @@ mod tests {
 
     /// The language reference names exactly the themes the checker admits.
     ///
-    /// The closed set lives in `splash_ui_l0::catalog::THEMES` and the agents
+    /// The closed set lives in `octoscript_ui_l0::catalog::THEMES` and the agents
     /// only ever learn it from the baked `framework/l0.md`. Those are in
     /// different repositories; this binary is the one place both are visible. A
     /// theme documented but not admitted gets cards REFUSED for following the
@@ -11207,7 +11207,7 @@ mod tests {
     /// for — both silent.
     #[test]
     fn the_language_reference_lists_every_admitted_theme() {
-        for theme in splash_ui_l0::catalog::THEMES {
+        for theme in octoscript_ui_l0::catalog::THEMES {
             assert!(
                 super::L0_LANGUAGE.contains(&format!("`{theme}`")),
                 "the checker admits theme {theme:?} and framework/l0.md never names it"
@@ -11222,7 +11222,7 @@ mod tests {
                     continue; // `theme <mood>` — the placeholder, not a name
                 }
                 assert!(
-                    splash_ui_l0::catalog::theme(named).is_some(),
+                    octoscript_ui_l0::catalog::theme(named).is_some(),
                     "framework/l0.md shows `theme {named}`, which the checker refuses"
                 );
             }
@@ -11247,7 +11247,7 @@ mod tests {
                 assert_eq!(reference(super::l0_prompt_for(domain, request).unwrap()), expected);
             }
         }
-        for theme in splash_ui_l0::catalog::THEMES {
+        for theme in octoscript_ui_l0::catalog::THEMES {
             let request = format!("weather Tokyo, {theme} theme");
             assert_eq!(super::detect_theme(&request), Some(*theme));
         }
@@ -11266,7 +11266,7 @@ mod tests {
     #[test]
     fn l0_migration_every_registered_card_is_l0() {
         for (domain, _, exemplar) in super::L0_APPS {
-            let report = splash_ui_l0::check_ui_l0_named(domain, exemplar);
+            let report = octoscript_ui_l0::check_ui_l0_named(domain, exemplar);
             assert!(
                 report.valid,
                 "{domain}'s exemplar must be valid: {:#?}",
@@ -11277,7 +11277,7 @@ mod tests {
                 .find_map(|l| l.trim().strip_prefix("# level:"))
                 .map(|l| l.trim().to_owned())
                 .unwrap_or_else(|| "L0".to_owned());
-            assert_eq!(report.level, splash_ui_l0::Level::L0, "{domain} must stay L0");
+            assert_eq!(report.level, octoscript_ui_l0::Level::L0, "{domain} must stay L0");
             let got = format!("{:?}", report.level);
             assert_eq!(
                 got, declared,
@@ -11305,8 +11305,8 @@ mod tests {
             .find(|(d, _, _)| *d == "weather-activity")
             .expect("weather-activity is registered");
 
-        let store = splash_ui_l0::InstanceStore::default();
-        let guards = splash_ui_l0::guard_bindings(exemplar, &serde_json::json!({}), &store);
+        let store = octoscript_ui_l0::InstanceStore::default();
+        let guards = octoscript_ui_l0::guard_bindings(exemplar, &serde_json::json!({}), &store);
 
         let mut branched: Vec<String> = guards
             .iter()
@@ -11323,7 +11323,7 @@ mod tests {
         // translate is the original bug wearing a fetch policy.
         for g in &guards {
             assert!(
-                splash_ui_l0::makepad::vm_call(&g.binding).is_some(),
+                octoscript_ui_l0::makepad::vm_call(&g.binding).is_some(),
                 "nothing answers {}.{} — the guard would be false either way",
                 g.source,
                 g.field
@@ -11366,7 +11366,7 @@ mod tests {
     /// matters.
     #[test]
     fn l0_migration_every_app_refuses_l1() {
-        let l1 = splash_ui_l0::check_ui_l0_named(
+        let l1 = octoscript_ui_l0::check_ui_l0_named(
             "probe",
             "# level: L1\n\
              source w sys.weather(lat: 1, lon: 2, fields: [temp])\n\
@@ -11388,7 +11388,7 @@ mod tests {
         }
 
         // An L0 card is never refused by this rule, at any app.
-        let l0 = splash_ui_l0::check_ui_l0_named(
+        let l0 = octoscript_ui_l0::check_ui_l0_named(
             "probe",
             "source w sys.weather(lat: 1, lon: 2, fields: [temp])\n\
              view root Surface { TextHero(value: w.temp) }\n",
@@ -11606,7 +11606,7 @@ mod tests {
                 !t.is_empty() && !t.starts_with('#')
             })
             .count();
-        // 250, and the SAME number `splash-ui-l0`'s `the_nav_trip_planner_is_
+        // 250, and the SAME number `octoscript-ui-l0`'s `the_nav_trip_planner_is_
         // expressible_at_l0` asserts. Two copies of one rule, in two repositories,
         // and this one was missed every time the other moved — which is how the
         // exemplar came to be 100 lines behind the fixture without any test saying
@@ -11623,7 +11623,7 @@ mod tests {
              this is {code} lines of declarations"
         );
         assert!(
-            splash_ui_l0::check_ui_l0_named("nav", exemplar).valid,
+            octoscript_ui_l0::check_ui_l0_named("nav", exemplar).valid,
             "and it must be a card the checker admits"
         );
         // The map guard is MANDATORY — an unguarded map centres on -9999 and

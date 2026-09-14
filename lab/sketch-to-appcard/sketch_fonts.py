@@ -17,7 +17,7 @@ from core import kitconf
 
 
 STYLES={300:'Light',400:'Regular',500:'Medium',600:'SemiBold',700:'Bold'}
-RESOURCE=kitconf.HERE.parents[1]/'splash-makepad/apps/kit-host/resources/atro'
+RESOURCE=kitconf.HERE.parents[1]/'Octoscript-Makepad/apps/kit-host/resources/atro'
 
 
 def sha(path):

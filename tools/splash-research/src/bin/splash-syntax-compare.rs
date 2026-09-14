@@ -1,7 +1,7 @@
 //! Effect-free comparison of canonical workflow syntax and the inherited parser.
 //! The compatibility column is not a full Makepad UI runtime test.
 use serde_json::json;
-use splash_core::{check_syntax, check_vm_compatibility, Runtime};
+use octoscript_core::{check_syntax, check_vm_compatibility, Runtime};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cases = [

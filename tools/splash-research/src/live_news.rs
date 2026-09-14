@@ -6,7 +6,7 @@ use futures::{stream, StreamExt};
 use scraper::{Html, Selector};
 use serde_json::{json, Value};
 use sha2::{Digest, Sha256};
-use splash_capabilities::{
+use octoscript_capabilities::{
     CapabilityModule, CapabilityRuntime, JsonToolContract, ToolMetadata, ToolPolicy,
 };
 use std::{
