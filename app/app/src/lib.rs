@@ -5280,6 +5280,10 @@ pub struct ChatList {
     /// live source.
     #[rust]
     epoch_frame: NextFrame,
+    /// Last-logged (message count, streaming): the draw line is logged once
+    /// per change of the conversation's shape, not per frame.
+    #[rust]
+    diag_last: Option<(usize, bool)>,
 }
 
 impl Widget for ChatList {
@@ -5293,6 +5297,12 @@ impl Widget for ChatList {
             self.animating_msg = None;
         }
         let data = CHAT_DATA.read().unwrap();
+        // Logged once per change of the conversation's shape, not per frame:
+        // enough to see whether the newest item is reached after a turn.
+        let diag = self.diag_last != Some((data.messages.len(), data.is_streaming));
+        if diag {
+            self.diag_last = Some((data.messages.len(), data.is_streaming));
+        }
 
         while let Some(item) = self.view.draw_walk(cx, scope, walk).step() {
             if let Some(mut list) = item.as_portal_list().borrow_mut() {
@@ -5315,11 +5325,35 @@ impl Widget for ChatList {
                 list.set_tail_range(false);
                 // Pin to the card's top ONLY the first frame it appears (id changes) so
                 // the user's drag-scroll position survives the every-frame redraws.
-                if items_len > 0 && self.pinned_id != Some(newest) {
+                //
+                // …and again whenever the list's first item has fallen BELOW
+                // the range. The range starts at the newest item, so a
+                // `first_id` under it is never a scroll position the user
+                // chose — it is the PortalList's fill-upward pass having
+                // walked into a collapsed earlier item: with a short item at
+                // the top (the streaming "…" placeholder, aligned to the
+                // bottom of an unfilled viewport), the list draws the item
+                // above it to fill the gap, finds a zero-height hidden view
+                // and adopts it as `first_id`. The next frame then starts at
+                // that hidden item, draws nothing, and stops — the list ends
+                // at the first item that draws nothing — so the completed
+                // card that just replaced the placeholder is never visited.
+                // Measured hosted in OctoSense (desktop and Android): the
+                // kernel's weather card was stored as message 1, every draw
+                // after the turn visited only the collapsed message 0, and
+                // the screen stayed the empty panel.
+                let stale_first = items_len > 0 && list.first_id() < newest;
+                if items_len > 0 && (self.pinned_id != Some(newest) || stale_first) {
                     list.set_first_id_and_scroll(newest, 0.0);
                     self.pinned_id = Some(newest);
                 }
-
+                if diag {
+                    log!(
+                        "[l0] chat_list draw: msgs={msg_count} streaming={} newest={newest} first_id={} stale_first={stale_first}",
+                        data.is_streaming,
+                        list.first_id()
+                    );
+                }
                 while let Some(item_id) = list.next_visible_item(cx) {
                     // Weather app: show ONLY the newest card full-screen (the
                     // streaming item while generating, else the last message).
@@ -6876,14 +6910,23 @@ impl App {
             // none is given — the mission BAKED INTO THE APK, so the loop
             // self-starts on a normal launch with NO adb and NO host. Both land
             // it at an app-writable path the per-round regeneration re-reads.
+            //
+            // The BAKED-IN mission is the standalone APK's own dev loop: it
+            // spends a ~25k-token LLM turn per launch, every launch, and its
+            // reply lands in the shared `CHAT_DATA` as the newest item. A host
+            // that embeds this app as a library (`default-features = false`,
+            // no `standalone`) gets neither — nor does a standalone build
+            // launched with `OCTOS_APP_DEVGOAL=0`. An explicit
+            // `MAKEPAD_DEV_GOAL_FILE` still runs anywhere.
             #[cfg(target_os = "android")]
             let mission: Option<(String, String)> = match std::env::var("MAKEPAD_DEV_GOAL_FILE") {
                 Ok(p) => std::fs::read_to_string(&p).ok().map(|g| (g, p)),
-                Err(_) => {
+                Err(_) if Self::bundled_mission_enabled() => {
                     let p = "/data/data/dev.makepad.octos_app/files/dev_goal.txt".to_owned();
                     let _ = std::fs::write(&p, BUNDLED_MISSION);
                     Some((BUNDLED_MISSION.to_owned(), p))
                 }
+                Err(_) => None,
             };
             #[cfg(not(target_os = "android"))]
             let mission: Option<(String, String)> = std::env::var("MAKEPAD_DEV_GOAL_FILE")
@@ -6944,6 +6987,15 @@ impl App {
         self.update_empty_state_visibility(cx);
         self.sync_app_tabs(cx);
         self.ui.redraw(cx);
+    }
+
+    /// Whether the mission baked into the binary auto-starts on launch:
+    /// only the standalone app, and only unless `OCTOS_APP_DEVGOAL=0`.
+    /// A hosted build (no `standalone` feature) never runs it.
+    #[cfg(target_os = "android")]
+    fn bundled_mission_enabled() -> bool {
+        cfg!(feature = "standalone")
+            && std::env::var("OCTOS_APP_DEVGOAL").map(|v| v != "0").unwrap_or(true)
     }
 
     /// Wipe the shared conversation surface (`CHAT_DATA`). Shared by
@@ -10419,6 +10471,12 @@ impl AppMain for App {
                                     }
                                     } // end else (safe card path)
                                 }
+                                // An L0 ledger is a card too: the post-turn
+                                // scroll-into-view and repaint burst below are
+                                // for it as much as for a `runsplash` body.
+                                if text.contains("```runl0") {
+                                    rendered_card = true;
+                                }
                                 // An L0 card is checked HERE, where a repair turn
                                 // is still possible.
                                 //
@@ -10538,7 +10596,12 @@ impl AppMain for App {
                                     role: ChatRole::Assistant,
                                     text: stored,
                                 });
+                                log!(
+                                    "[l0] stored assistant message {} (card={rendered_card})",
+                                    data.messages.len() - 1
+                                );
                             } else {
+                                log!("[l0] reply not stored: it is not safe to store");
                                 self.ui.label(cx, ids!(status_label)).set_text(
                                     cx,
                                     "Error: incomplete diagram response discarded; retry",
