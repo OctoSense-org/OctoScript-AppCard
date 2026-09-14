@@ -27,7 +27,7 @@ from core import semantic_interactions
 
 HERE = pathlib.Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
-MOUNT = ROOT / 'splash-makepad'
+MOUNT = ROOT / 'Octoscript-Makepad'
 _file_digests = {}
 
 
@@ -65,7 +65,7 @@ def shared_inputs(kit):
              if name and (MOUNT/'components/l0/native'/name/'kit.json').is_file()]
     return [MOUNT/'target/release/beauty-host', MOUNT/'makepad.splash',
             *sorted(p for p in (MOUNT/'apps/kit-host/resources').rglob('*') if p.is_file()),
-            *sorted((MOUNT/'components/l0').glob('*.splash')),
+            *sorted((MOUNT/'components/l0').glob('*.octoscript')),
             *(packs if kit.get('input_format')=='l0-kit' else []),
             *sorted(p for p in pathlib.Path(kit['img_dir']).rglob('*') if p.is_file()),
             *sorted(pathlib.Path(p).expanduser() for p in kit.get('font_files',{}).values()),

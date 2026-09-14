@@ -6,7 +6,7 @@ import argparse
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-NATIVE = ROOT / 'splash-makepad/components/l0/native'
+NATIVE = ROOT / 'Octoscript-Makepad/components/l0/native'
 THEMES = ('atro','atro_light','camo','camo_light','taskplan_light')
 
 

@@ -52,48 +52,48 @@ pub fn close_reader() {
 /// look without the card ever naming one. It has to be a PREFIX: a function body
 /// resolves a name at its declaration point, so a palette appended after the kit
 /// would not reach the roles that read it.
-const KIT_BODY: &str = include_str!("../../../../splash-makepad/components/l0/_kit.splash");
+const KIT_BODY: &str = include_str!("../../../../Octoscript-Makepad/components/l0/_kit.octoscript");
 
 /// The base theme: every knob and every colour.
 const PALETTE_BASE: &str =
-    include_str!("../../../../splash-makepad/components/l0/_palette_dark.splash");
+    include_str!("../../../../Octoscript-Makepad/components/l0/_palette_dark.octoscript");
 /// Every SIZE, computed from the knobs — concatenated AFTER the mood's delta so a
 /// mood can move a knob (`let` evaluates at its own line, so deriving in the base
 /// would leave a delta's `radius_factor` with nothing left to change).
 const PALETTE_DERIVE: &str =
-    include_str!("../../../../splash-makepad/components/l0/_derive.splash");
+    include_str!("../../../../Octoscript-Makepad/components/l0/_derive.octoscript");
 /// Colour derived from seeds, the way sizes always were — rebinds the surface
 /// tokens only when a fragment set `seed_on`, so the shipped moods are
 /// byte-identical. Spliced after the axes (whose ground fragments supply the
 /// seeds) and before the env override (which must still win for measurement).
 const PALETTE_DERIVE_COLOR: &str =
-    include_str!("../../../../splash-makepad/components/l0/_derive_color.splash");
+    include_str!("../../../../Octoscript-Makepad/components/l0/_derive_color.octoscript");
 
 /// Each mood the L0 catalog admits, and the DELTA that answers it. `dark` is the
-/// base, so its delta is empty. The names are `splash_ui_l0::catalog::THEMES`;
+/// base, so its delta is empty. The names are `octoscript_ui_l0::catalog::THEMES`;
 /// `l0_themes_are_all_answered` pins the two together, because a mood with no
 /// entry here renders in the base and looks correct.
 const PALETTES: &[(&str, &str)] = &[
     ("dark", ""),
-    ("light", include_str!("../../../../splash-makepad/components/l0/_palette_light.splash")),
-    ("glass", include_str!("../../../../splash-makepad/components/l0/_palette_glass.splash")),
-    ("photo", include_str!("../../../../splash-makepad/components/l0/_palette_photo.splash")),
-    ("vibrant", include_str!("../../../../splash-makepad/components/l0/_palette_vibrant.splash")),
-    ("minimal", include_str!("../../../../splash-makepad/components/l0/_palette_minimal.splash")),
+    ("light", include_str!("../../../../Octoscript-Makepad/components/l0/_palette_light.octoscript")),
+    ("glass", include_str!("../../../../Octoscript-Makepad/components/l0/_palette_glass.octoscript")),
+    ("photo", include_str!("../../../../Octoscript-Makepad/components/l0/_palette_photo.octoscript")),
+    ("vibrant", include_str!("../../../../Octoscript-Makepad/components/l0/_palette_vibrant.octoscript")),
+    ("minimal", include_str!("../../../../Octoscript-Makepad/components/l0/_palette_minimal.octoscript")),
     // Theme packs — kits imported whole (palette + scale + family + depth).
-    ("atro", include_str!("../../../../splash-makepad/components/l0/_palette_atro.splash")),
-    ("atro_light", include_str!("../../../../splash-makepad/components/l0/_palette_atro_light.splash")),
-    ("camo", include_str!("../../../../splash-makepad/components/l0/_palette_camo.splash")),
-    ("camo_light", include_str!("../../../../splash-makepad/components/l0/_palette_camo_light.splash")),
-    ("taskplan_light", include_str!("../../../../splash-makepad/components/l0/_palette_taskplan_light.splash")),
+    ("atro", include_str!("../../../../Octoscript-Makepad/components/l0/_palette_atro.octoscript")),
+    ("atro_light", include_str!("../../../../Octoscript-Makepad/components/l0/_palette_atro_light.octoscript")),
+    ("camo", include_str!("../../../../Octoscript-Makepad/components/l0/_palette_camo.octoscript")),
+    ("camo_light", include_str!("../../../../Octoscript-Makepad/components/l0/_palette_camo_light.octoscript")),
+    ("taskplan_light", include_str!("../../../../Octoscript-Makepad/components/l0/_palette_taskplan_light.octoscript")),
 ];
 
 /// One `accent: .<hue>` delta, for one mood.
 macro_rules! accent {
     ($hue:literal, $mood:literal) => {
         ($hue, $mood, include_str!(concat!(
-            "../../../../splash-makepad/components/l0/_axis_accent_",
-            $hue, "_", $mood, ".splash")))
+            "../../../../Octoscript-Makepad/components/l0/_axis_accent_",
+            $hue, "_", $mood, ".octoscript")))
     };
 }
 
@@ -101,8 +101,8 @@ macro_rules! accent {
 macro_rules! axis {
     ($axis:literal, $value:literal) => {
         ($axis, $value, include_str!(concat!(
-            "../../../../splash-makepad/components/l0/_axis_",
-            $axis, "_", $value, ".splash")))
+            "../../../../Octoscript-Makepad/components/l0/_axis_",
+            $axis, "_", $value, ".octoscript")))
     };
 }
 
@@ -234,7 +234,7 @@ const ACCENTS: &[(&str, &str, &str)] = &[
 /// The kit as this host assembles it for `source`: base, the card's declared
 /// mood, the derivation, then the body — in that order.
 fn kit_for(source: &str) -> String {
-    let theme = splash_ui_l0::card_theme(source);
+    let theme = octoscript_ui_l0::card_theme(source);
     let (mood, delta) = theme
         .as_deref()
         .and_then(|t| PALETTES.iter().find(|(n, _)| *n == t))
@@ -257,7 +257,7 @@ fn kit_for(source: &str) -> String {
     // `.neutral` resolves to nothing on purpose: it is the identity, so a card
     // naming it and a card naming no accent have to render identically.
     let mut axes = String::new();
-    let mut declared = splash_ui_l0::card_theme_axes(source);
+    let mut declared = octoscript_ui_l0::card_theme_axes(source);
     // A `feel:` expands into axis defaults FIRST, so the card's explicit axes
     // splice after and win. The card keeps carrying the user's word; what the
     // word means can improve without touching any card.
@@ -325,7 +325,7 @@ fn kit_for(source: &str) -> String {
     // Preserve the requested light kit on photo pages. An opaque wash in that
     // kit's page colors protects dark text over arbitrary imagery; replacing
     // the entire palette with `photo` discarded fonts, accents and surfaces.
-    let photo_wash = if splash_ui_l0::card_root_role(source).as_deref() == Some("Photo")
+    let photo_wash = if octoscript_ui_l0::card_root_role(source).as_deref() == Some("Photo")
         && matches!(mood, "light" | "atro_light" | "camo_light" | "taskplan_light") {
         "let l0_scrim_top = l0_base\nlet l0_scrim = l0_base_2\n"
     } else { "" };
@@ -356,7 +356,7 @@ fn render_through_kit(
     cx: &mut makepad_widgets::Cx,
     source: &str,
     data: &serde_json::Value,
-    store: &splash_ui_l0::InstanceStore,
+    store: &octoscript_ui_l0::InstanceStore,
 ) -> Result<String, String> {
     let started = std::time::Instant::now();
     super::l0_approval::require(source, &kit_for(source))?;
@@ -366,7 +366,7 @@ fn render_through_kit(
     // And so do FETCHED lists. A `for` iterates the data, so a list's length has to
     // be in it — the one thing a live call cannot supply, because length is
     // structural. This is the narrow half of §5.9 the results panel needs.
-    let plan = splash_ui_l0::source_plan(source);
+    let plan = octoscript_ui_l0::source_plan(source);
     for request in &plan.requests {
         // A declared PREFERENCE source is seeded from the store, with a host
         // default for anything unset — measured: an empty capture into an enum
@@ -377,7 +377,7 @@ fn render_through_kit(
         if request.helper == "sys.prefs" {
             let prefs = super::user_store::get().prefs;
             let mut obj = serde_json::Map::new();
-            for field in splash_ui_l0::catalog::answers("sys.prefs").unwrap_or(&[]) {
+            for field in octoscript_ui_l0::catalog::answers("sys.prefs").unwrap_or(&[]) {
                 let stored = prefs.get(*field).cloned();
                 let value = stored.unwrap_or_else(|| match *field {
                     "mode" => "drive".to_owned(),
@@ -415,15 +415,15 @@ fn render_through_kit(
     }
     let sources_elapsed = started.elapsed();
     let data = &data;
-    let report = splash_ui_l0::realize_with_state(
+    let report = octoscript_ui_l0::realize_with_state(
         source,
         data,
         store,
-        splash_ui_l0::RealizeLimits::default(),
+        octoscript_ui_l0::RealizeLimits::default(),
     );
     let root = report.complete_root()?;
     let realized_elapsed = started.elapsed();
-    let src = format!("{}\n{}", kit_for(source), splash_ui_l0::kit::lower(root));
+    let src = format!("{}\n{}", kit_for(source), octoscript_ui_l0::kit::lower(root));
     // With capabilities: the kit lowers a source this backend can answer into a
     // `sys.*` call, and on a bare VM that call is undefined — the concatenation
     // around it yields `$[Error:WrongValue]`, which then draws as the price.
@@ -445,7 +445,7 @@ fn render_through_kit(
 /// The store is what makes a tap local: it holds the cells a transition writes,
 /// keyed by instance, and outlives the tree that is rebuilt around it.
 pub struct L0Session {
-    approval: splash_ui_l0::approval::ArtifactApproval,
+    approval: octoscript_ui_l0::approval::ArtifactApproval,
     /// The L0 ledger source — re-realized on every dispatch.
     pub source: String,
     /// Host-supplied data. Static for the skeleton; §5.9 invalidation and
@@ -454,7 +454,7 @@ pub struct L0Session {
     /// The source rows and lifecycle that produced the current tap targets.
     dispatch_data: serde_json::Value,
     /// Live cells. Survives the rebuild — which is the point.
-    pub store: splash_ui_l0::InstanceStore,
+    pub store: octoscript_ui_l0::InstanceStore,
     /// Which chat message holds the rendered card, so a redraw replaces the
     /// right one rather than appending a second copy per tap.
     pub item: usize,
@@ -483,7 +483,7 @@ pub fn render(
     cx: &mut makepad_widgets::Cx,
     source: &str,
     data: &serde_json::Value,
-    store: &splash_ui_l0::InstanceStore,
+    store: &octoscript_ui_l0::InstanceStore,
 ) -> Result<String, String> {
     render_through_kit(cx, source, data, store)
 }
@@ -524,18 +524,18 @@ fn eval_text(cx: &mut makepad_widgets::Cx, expr: &str) -> Option<String> {
 fn fetched_rows(
     cx: &mut makepad_widgets::Cx,
     source: &str,
-    request: &splash_ui_l0::SourceRequest,
+    request: &octoscript_ui_l0::SourceRequest,
     data: &serde_json::Value,
-    store: &splash_ui_l0::InstanceStore,
+    store: &octoscript_ui_l0::InstanceStore,
 ) -> Option<Vec<serde_json::Value>> {
     if request.helper == "sys.news_digest" {
-        let initials = splash_ui_l0::state_initials(source);
+        let initials = octoscript_ui_l0::state_initials(source);
         let resolve = |name: &str, default: &str| -> String {
             match request.args.iter().find(|(n, _)| n == name).map(|(_, a)| a) {
-                Some(splash_ui_l0::SourceArg::Text(t)) => t.clone(),
-                Some(splash_ui_l0::SourceArg::Path(p)) => {
+                Some(octoscript_ui_l0::SourceArg::Text(t)) => t.clone(),
+                Some(octoscript_ui_l0::SourceArg::Path(p)) => {
                     let key = p.strip_prefix("state.").unwrap_or(p);
-                    store.get(splash_ui_l0::CARD_STATE_KEY, key).or_else(|| data.get(key))
+                    store.get(octoscript_ui_l0::CARD_STATE_KEY, key).or_else(|| data.get(key))
                         .or_else(|| initials.get(key)).and_then(|v| v.as_str()).unwrap_or(default).to_owned()
                 }
                 _ => default.to_owned(),
@@ -546,7 +546,7 @@ fn fetched_rows(
         let count = eval_text(cx, &format!("sys.news_digest({query:?}, {language:?}, \"count\")"))?
             .parse::<usize>().ok()?;
         let cap = request.args.iter().find(|(n, _)| n == "count")
-            .and_then(|(_, a)| match a { splash_ui_l0::SourceArg::Number(n) => Some(*n as usize), _ => None }).unwrap_or(3);
+            .and_then(|(_, a)| match a { octoscript_ui_l0::SourceArg::Number(n) => Some(*n as usize), _ => None }).unwrap_or(3);
         let mut rows = Vec::new();
         for i in 0..count.min(cap).min(3) {
             let id = eval_text(cx, &format!("sys.news_digest({query:?}, {language:?}, \"items.{i}.id\")"))?;
@@ -561,11 +561,11 @@ fn fetched_rows(
     // legend colours the same way, so row 0's numbers and the first line are
     // the same country.
     if request.helper == "sys.indicator" {
-        let initials = splash_ui_l0::state_initials(source);
+        let initials = octoscript_ui_l0::state_initials(source);
         let text_arg = |name: &str| -> String {
             match request.args.iter().find(|(n, _)| n == name).map(|(_, a)| a) {
-                Some(splash_ui_l0::SourceArg::Text(t)) => t.clone(),
-                Some(splash_ui_l0::SourceArg::Path(p)) => {
+                Some(octoscript_ui_l0::SourceArg::Text(t)) => t.clone(),
+                Some(octoscript_ui_l0::SourceArg::Path(p)) => {
                     let key = p.strip_prefix("state.").unwrap_or(p);
                     // Store, then seed data, then the card's DECLARED initial.
                     // The third is what this source lives on: a card that has
@@ -574,7 +574,7 @@ fn fetched_rows(
                     // request went out with an empty country list and the rows
                     // came back empty while the chart drew fine (measured).
                     store
-                        .get(splash_ui_l0::CARD_STATE_KEY, key)
+                        .get(octoscript_ui_l0::CARD_STATE_KEY, key)
                         .cloned()
                         .or_else(|| data.get(key).cloned())
                         .or_else(|| initials.get(key).cloned())
@@ -584,7 +584,7 @@ fn fetched_rows(
                         })
                         .unwrap_or_default()
                 }
-                Some(splash_ui_l0::SourceArg::Number(n)) => format!("{n}"),
+                Some(octoscript_ui_l0::SourceArg::Number(n)) => format!("{n}"),
                 _ => String::new(),
             }
         };
@@ -633,9 +633,9 @@ fn fetched_rows(
         _ => return None,
     };
     let query = match request.args.iter().find(|(n, _)| n == "query")?.1.clone() {
-        splash_ui_l0::SourceArg::Text(t) => t,
+        octoscript_ui_l0::SourceArg::Text(t) => t,
         // A path is card state — the search box's own value.
-        splash_ui_l0::SourceArg::Path(p) => {
+        octoscript_ui_l0::SourceArg::Path(p) => {
             let name = p.strip_prefix("state.").unwrap_or(&p);
             // Through the CONSTANT. I wrote `"root"` here from memory and it is
             // `"@card"`, so every lookup missed the store, fell through to the blob's
@@ -647,11 +647,11 @@ fn fetched_rows(
             // resolved (realize DOES apply initials) over a list it could not
             // fetch — the two halves of one card disagreeing.
             store
-                .get(splash_ui_l0::CARD_STATE_KEY, name)
+                .get(octoscript_ui_l0::CARD_STATE_KEY, name)
                 .or_else(|| data.get(name))
                 .and_then(|v| v.as_str().map(str::to_owned))
                 .or_else(|| {
-                    splash_ui_l0::state_initials(source)
+                    octoscript_ui_l0::state_initials(source)
                         .get(name)
                         .and_then(|v| v.as_str().map(str::to_owned))
                 })
@@ -669,7 +669,7 @@ fn fetched_rows(
         .iter()
         .find(|(n, _)| n == "count")
         .and_then(|(_, a)| match a {
-            splash_ui_l0::SourceArg::Number(n) => Some(*n as usize),
+            octoscript_ui_l0::SourceArg::Number(n) => Some(*n as usize),
             _ => None,
         })
         .unwrap_or(0);
@@ -719,7 +719,7 @@ fn fetched_rows(
 /// fields that have to be answered early, and every other value stays lazy.
 fn fetched_scalars(
     cx: &mut makepad_widgets::Cx,
-    request: &splash_ui_l0::SourceRequest,
+    request: &octoscript_ui_l0::SourceRequest,
 ) -> Option<serde_json::Value> {
     if request.helper != "sys.gps" {
         return None;
@@ -732,8 +732,8 @@ fn fetched_scalars(
         return None;
     }
     let mut out = serde_json::Map::new();
-    for field in splash_ui_l0::catalog::answers(&request.helper)? {
-        let binding = splash_ui_l0::SourceBinding {
+    for field in octoscript_ui_l0::catalog::answers(&request.helper)? {
+        let binding = octoscript_ui_l0::SourceBinding {
             helper: request.helper.clone(),
             args: Vec::new(),
             // `sys.gps` takes none, so none of them is a nested call.
@@ -742,7 +742,7 @@ fn fetched_scalars(
         };
         // Through the BACKEND's own translation, so the host cannot drift from the
         // call the lowering would have emitted for the same field.
-        let Some(call) = splash_ui_l0::makepad::vm_call(&binding) else {
+        let Some(call) = octoscript_ui_l0::makepad::vm_call(&binding) else {
             continue;
         };
         let Some(text) = eval_text(cx, &call) else {
@@ -779,9 +779,9 @@ fn resolve_guards(
     cx: &mut makepad_widgets::Cx,
     source: &str,
     data: &mut serde_json::Value,
-    store: &splash_ui_l0::InstanceStore,
+    store: &octoscript_ui_l0::InstanceStore,
 ) {
-    for guard in splash_ui_l0::guard_bindings(source, data, store) {
+    for guard in octoscript_ui_l0::guard_bindings(source, data, store) {
         // Already answered — `sys.gps` arrives through `fetched_scalars`, and a
         // seeded blob may carry the field outright. Asking again would overwrite
         // a value the rest of the card is already reading.
@@ -792,7 +792,7 @@ fn resolve_guards(
         {
             continue;
         }
-        let Some(call) = splash_ui_l0::makepad::vm_call(&guard.binding) else {
+        let Some(call) = octoscript_ui_l0::makepad::vm_call(&guard.binding) else {
             continue;
         };
         let Some(text) = eval_text(cx, &call) else {
@@ -829,9 +829,9 @@ fn resolve_guards(
 fn with_durable(
     source: &str,
     data: &serde_json::Value,
-    store: &splash_ui_l0::InstanceStore,
+    store: &octoscript_ui_l0::InstanceStore,
 ) -> serde_json::Value {
-    let plan = splash_ui_l0::source_plan(source);
+    let plan = octoscript_ui_l0::source_plan(source);
     let mut out = data.clone();
     for request in &plan.requests {
         let Some(collection) = request.helper.strip_prefix("sys.") else {
@@ -840,7 +840,7 @@ fn with_durable(
         // Any capability the profile says is writable is backed by the store,
         // so this follows the catalog rather than naming collections here — a
         // list hardcoded in the host is one that forgets the next capability.
-        if splash_ui_l0::catalog::mutable(&request.helper).is_none() {
+        if octoscript_ui_l0::catalog::mutable(&request.helper).is_none() {
             continue;
         }
         // Preferences are mutable but KEYED, not a row list — they are seeded
@@ -858,11 +858,11 @@ fn with_durable(
         // corner was simply empty).
         if let Some((_, arg)) = request.args.iter().find(|(n, _)| n == "ticker") {
             let ticker = match arg {
-                splash_ui_l0::SourceArg::Text(t) => Some(t.clone()),
-                splash_ui_l0::SourceArg::Path(p) => {
+                octoscript_ui_l0::SourceArg::Text(t) => Some(t.clone()),
+                octoscript_ui_l0::SourceArg::Path(p) => {
                     let name = p.strip_prefix("state.").unwrap_or(p);
                     store
-                        .get(splash_ui_l0::CARD_STATE_KEY, name)
+                        .get(octoscript_ui_l0::CARD_STATE_KEY, name)
                         .cloned()
                         .or_else(|| data.get(name).cloned())
                         .and_then(|v| v.as_str().map(str::to_owned))
@@ -969,7 +969,7 @@ pub fn begin(source: String, data: serde_json::Value, item: usize) {
                 source,
                 dispatch_data: data.clone(),
                 data,
-                store: splash_ui_l0::InstanceStore::default(),
+                store: octoscript_ui_l0::InstanceStore::default(),
                 item,
             },
         );
@@ -1006,15 +1006,15 @@ pub fn tap_deferred(
 /// and the same admission/state checks used for a physical field submission.
 pub fn submit_news_query(cx: &mut makepad_widgets::Cx, item: usize, value: &str) -> Result<bool, String> {
     let is_news = SESSIONS.read().ok().and_then(|map| map.get(&item).map(|session|
-        splash_ui_l0::source_plan(&session.source).requests.iter().any(|s| s.helper == "sys.news_digest")
+        octoscript_ui_l0::source_plan(&session.source).requests.iter().any(|s| s.helper == "sys.news_digest")
     )).unwrap_or(false);
     if !is_news { return Ok(false); }
     if value.trim().is_empty() || value.chars().count() > 160 {
         return Err("News search needs 1–160 characters".into());
     }
     fn control(item: usize, prop: &str, event: &str) -> Option<String> {
-        fn find(node: &splash_ui_l0::UiNode, prop: &str, event: &str) -> Option<String> {
-            if node.args.iter().any(|(p, v)| p == prop && matches!(v, splash_ui_l0::NodeValue::Event(e) if e == event)) {
+        fn find(node: &octoscript_ui_l0::UiNode, prop: &str, event: &str) -> Option<String> {
+            if node.args.iter().any(|(p, v)| p == prop && matches!(v, octoscript_ui_l0::NodeValue::Event(e) if e == event)) {
                 return Some(node.key.clone());
             }
             node.children.iter().find_map(|child| find(child, prop, event))
@@ -1022,7 +1022,7 @@ pub fn submit_news_query(cx: &mut makepad_widgets::Cx, item: usize, value: &str)
         let map = SESSIONS.read().ok()?;
         let session = map.get(&item)?;
         let data = with_durable(&session.source, &session.dispatch_data, &session.store);
-        let report = splash_ui_l0::realize_with_state(&session.source, &data, &session.store, splash_ui_l0::RealizeLimits::default());
+        let report = octoscript_ui_l0::realize_with_state(&session.source, &data, &session.store, octoscript_ui_l0::RealizeLimits::default());
         find(report.complete_root().ok()?, prop, event)
     }
     if control(item, "on_commit", "search").is_none() {
@@ -1047,11 +1047,11 @@ pub fn gesture(cx: &mut makepad_widgets::Cx, event: &str, render_body: bool) -> 
 /// Restore scalar types lost by the native button's string transport. The
 /// current realized control owns its numeric/boolean value; a text field's
 /// user input stays text, including numeric-looking strings.
-fn tap_payload(root: &splash_ui_l0::UiNode, key: &str, text: &str) -> Option<serde_json::Value> {
+fn tap_payload(root: &octoscript_ui_l0::UiNode, key: &str, text: &str) -> Option<serde_json::Value> {
     if root.key == key {
         return Some(match root.args.iter().find(|(name, _)| name == "value").map(|(_, value)| value) {
-            Some(splash_ui_l0::NodeValue::Number(number)) => serde_json::json!(number),
-            Some(splash_ui_l0::NodeValue::Bool(value)) => serde_json::json!(value),
+            Some(octoscript_ui_l0::NodeValue::Number(number)) => serde_json::json!(number),
+            Some(octoscript_ui_l0::NodeValue::Bool(value)) => serde_json::json!(value),
             _ => serde_json::Value::String(text.to_owned()),
         });
     }
@@ -1082,21 +1082,21 @@ fn tap_inner(
     // in the card and instead REPORTS a write the host owes its store. The bool
     // form cannot express that, so a tap on a watchlist row would have applied
     // and done nothing.
-    let realized = splash_ui_l0::realize_with_state(&session.source, &dispatch_data, &session.store, splash_ui_l0::RealizeLimits::default());
+    let realized = octoscript_ui_l0::realize_with_state(&session.source, &dispatch_data, &session.store, octoscript_ui_l0::RealizeLimits::default());
     let root = realized.complete_root()?;
-    let origin = splash_ui_l0::event_payload_origin(root, key, event);
+    let origin = octoscript_ui_l0::event_payload_origin(root, key, event);
     // System gestures carry no user-authored value. A stale or invented widget
     // route cannot upgrade a payload to user input.
     if origin.is_none() && !require_change { return Ok(None); }
     let payload = tap_payload(root, key, value);
-    let outcome = splash_ui_l0::dispatch_reporting_with_origin(
+    let outcome = octoscript_ui_l0::dispatch_reporting_with_origin(
         &session.source,
         &mut session.store,
         key,
         event,
         payload.as_ref(),
         &dispatch_data,
-        origin.unwrap_or(splash_ui_l0::ValueOrigin::Authored),
+        origin.unwrap_or(octoscript_ui_l0::ValueOrigin::Authored),
     );
     for write in &outcome.writes {
         // A sys.link write is not a store write at all: the card asked the
@@ -1165,18 +1165,18 @@ fn tap_inner(
     // The store may have just grown by this very tap, so the durable rows are
     // merged AFTER the write rather than from the session's original blob.
     let tapped_data = with_durable(&session.source, &session.dispatch_data, &session.store);
-    let report = splash_ui_l0::realize_with_state(
+    let report = octoscript_ui_l0::realize_with_state(
         &session.source,
         &tapped_data,
         &session.store,
-        splash_ui_l0::RealizeLimits::default(),
+        octoscript_ui_l0::RealizeLimits::default(),
     );
     let root = report.complete_root()?;
     let body = if render_body {
         let src = format!(
             "{}\n{}",
             kit_for(&session.source),
-            splash_ui_l0::kit::lower(root)
+            octoscript_ui_l0::kit::lower(root)
         );
         let tree = super::l0_eval::build_with_capabilities(cx, &src)
             .ok_or_else(|| "the lowered card failed evaluation or exceeded rendering limits".to_owned())?;
@@ -1190,23 +1190,23 @@ fn tap_inner(
 
 /// §1.1's branch point, adopted here.
 ///
-/// `splash-node` carries the `UiNode` model the profile names as the point where
-/// one card reaches three backends. Taking `splash-render` instead fails on
+/// `octoscript-node` carries the `UiNode` model the profile names as the point where
+/// one card reaches three backends. Taking `octoscript-render` instead fails on
 /// `makepad-error-log v1.0.0` existing at two paths — the same collision that
-/// forced `splash-ui-l0` out of `splash-core` — so the model had to be split
+/// forced `octoscript-ui-l0` out of `octoscript-core` — so the model had to be split
 /// from its evaluator before this app could hold it at all.
 ///
 /// Nothing renders through it yet. What it establishes is that it CAN: the
 /// evaluator and the widget mapping are the remaining work, and neither is
 /// blocked on a lockfile any more.
 #[allow(unused_imports)]
-pub use splash_node::{Attrs, NodeKind, UiNode};
+pub use octoscript_node::{Attrs, NodeKind, UiNode};
 
 #[cfg(test)]
 mod exemplar_drift {
     //! The exemplar the MODEL is shown must be the card the TESTS check.
     //!
-    //! `nav.card` lives in `splash-ui-l0`'s fixtures, where every profile test
+    //! `nav.card` lives in `octoscript-ui-l0`'s fixtures, where every profile test
     //! exercises it, and `exemplar.card` is compiled into this app as what the model
     //! is given to write from. They are the same card in two repositories, and they
     //! silently diverged: a day of work — a route badge, search-as-you-type, a 2D/3D
@@ -1220,7 +1220,7 @@ mod exemplar_drift {
     //! finds out.
     const EXEMPLAR: &str = include_str!("../../../../a2app-l0/apps/nav/exemplar.card");
     const FIXTURE: &str =
-        include_str!("../../../../splash/crates/splash-ui-l0/tests/fixtures/nav.card");
+        include_str!("../../../../Octoscript/crates/octoscript-ui-l0/tests/fixtures/nav.card");
 
     #[test]
     fn the_nav_exemplar_is_the_card_the_profile_tests_check() {
@@ -1239,16 +1239,16 @@ mod tests {
     #[test]
     fn l0_migration_numeric_presets_keep_their_type_and_declared_value() {
         let source = include_str!("../../../../a2app-l0/apps/convert/exemplar.card");
-        let mut store = splash_ui_l0::InstanceStore::default();
+        let mut store = octoscript_ui_l0::InstanceStore::default();
         let data = serde_json::json!({});
         for (index, amount) in [(1, 10), (2, 100)] {
-            let report = splash_ui_l0::realize_with_state(source, &data, &store, Default::default());
+            let report = octoscript_ui_l0::realize_with_state(source, &data, &store, Default::default());
             let root = report.complete_root().unwrap();
             let key = format!("root/presets#0/presets/Chip#{index}");
             let payload = super::tap_payload(root, &key, "999").unwrap();
             assert_eq!(payload.as_f64(), Some(amount as f64), "the realized control owns its value");
-            let origin = splash_ui_l0::event_payload_origin(root, &key, "set_amount").unwrap();
-            let outcome = splash_ui_l0::dispatch_reporting_with_origin(
+            let origin = octoscript_ui_l0::event_payload_origin(root, &key, "set_amount").unwrap();
+            let outcome = octoscript_ui_l0::dispatch_reporting_with_origin(
                 source, &mut store, &key, "set_amount", Some(&payload), &data, origin,
             );
             assert!(outcome.applied);
@@ -1256,7 +1256,7 @@ mod tests {
             assert_eq!(outcome.stale, ["conversion"]);
         }
         let source = "state draft { shape: text, initial: \"\" }\nevent edit { draft: set($value) }\nview root Field(text: draft, on_commit: edit)";
-        let report = splash_ui_l0::realize(source, &data, Default::default());
+        let report = octoscript_ui_l0::realize(source, &data, Default::default());
         let root = report.complete_root().unwrap();
         assert_eq!(super::tap_payload(root, "root", "010"), Some(serde_json::json!("010")));
         assert_eq!(super::tap_payload(root, "missing", "10"), None);
@@ -1304,7 +1304,7 @@ mod tests {
     /// correct — the §1.1 failure, reached by adding one string to a list.
     #[test]
     fn l0_themes_are_all_answered() {
-        for theme in splash_ui_l0::catalog::THEMES {
+        for theme in octoscript_ui_l0::catalog::THEMES {
             assert!(
                 super::PALETTES.iter().any(|(n, _)| n == theme),
                 "the catalog admits theme {theme:?} and this kit has no palette for it"
@@ -1312,7 +1312,7 @@ mod tests {
         }
         for (name, src) in super::PALETTES {
             assert!(
-                splash_ui_l0::catalog::theme(name).is_some(),
+                octoscript_ui_l0::catalog::theme(name).is_some(),
                 "this kit ships a palette for {name:?}, which the catalog does not admit"
             );
             // The DELTA may be empty (dark is the base). What must hold is that
@@ -1342,7 +1342,7 @@ mod tests {
     /// failure again, this time reached by writing a file nobody loads.
     #[test]
     fn l0_theme_axes_are_all_answered() {
-        for (axis, values) in splash_ui_l0::catalog::AXES {
+        for (axis, values) in octoscript_ui_l0::catalog::AXES {
             for value in *values {
                 // The identities resolve to no fragment on purpose. `none` is
                 // one only for `texture` — `radius: .none` is a real value
@@ -1401,7 +1401,7 @@ mod tests {
                     "feel {feel:?} resolves to {axis}: .{value}, which has no delta"
                 );
                 assert!(
-                    splash_ui_l0::catalog::axis(axis)
+                    octoscript_ui_l0::catalog::axis(axis)
                         .is_some_and(|vs| vs.contains(value)),
                     "feel {feel:?} references {axis}: .{value}, not in the catalog"
                 );
@@ -1409,7 +1409,7 @@ mod tests {
         }
         for (axis, value, _) in super::SCALAR_AXES {
             assert!(
-                splash_ui_l0::catalog::axis(axis).is_some_and(|vs| vs.contains(value)),
+                octoscript_ui_l0::catalog::axis(axis).is_some_and(|vs| vs.contains(value)),
                 "this kit ships {axis}: .{value}, which the catalog does not admit"
             );
         }
@@ -1564,7 +1564,7 @@ pub enum Piece<'a> {
 /// Split out because rendering needs the app's `Cx` — the capabilities at the
 /// end of the pipeline downcast the VM host to one — and a unit test has no
 /// `Cx` to give. This half is this module's own logic and is testable; the other
-/// half is covered by `splash-ui-l0`'s lowering tests and by the device harness.
+/// half is covered by `octoscript-ui-l0`'s lowering tests and by the device harness.
 pub fn split_l0_blocks(text: &str) -> Vec<Piece<'_>> {
     const FENCE: &str = "```runl0";
     let mut out = Vec::new();
@@ -1673,21 +1673,21 @@ fn live_source_status(ledger: &str) -> serde_json::Value {
 }
 
 /// A call that exercises this binding's fetch, whatever field it happens to name.
-fn probe_call(binding: &splash_ui_l0::SourceBinding) -> Option<String> {
+fn probe_call(binding: &octoscript_ui_l0::SourceBinding) -> Option<String> {
     if !binding.field.is_empty() {
-        return splash_ui_l0::makepad::vm_call(binding);
+        return octoscript_ui_l0::makepad::vm_call(binding);
     }
-    for field in splash_ui_l0::catalog::answers(&binding.helper)? {
+    for field in octoscript_ui_l0::catalog::answers(&binding.helper)? {
         // Both shapes. A LIST source is addressed by row — `sys.places` answers
         // `0.name` and nothing at all for a bare `name` — so trying only the bare
         // field meant no list source could be probed, which is precisely the set
         // that gates its rows on `$state` and needs probing most.
         for field in [(*field).to_owned(), format!("0.{field}")] {
-            let probe = splash_ui_l0::SourceBinding {
+            let probe = octoscript_ui_l0::SourceBinding {
                 field,
                 ..binding.clone()
             };
-            if let Some(call) = splash_ui_l0::makepad::vm_call(&probe) {
+            if let Some(call) = octoscript_ui_l0::makepad::vm_call(&probe) {
                 return Some(call);
             }
         }
@@ -1713,7 +1713,7 @@ fn observe_source_states(
     cx: &mut makepad_widgets::Cx,
     ledger: &str,
     data: &serde_json::Value,
-    store: &splash_ui_l0::InstanceStore,
+    store: &octoscript_ui_l0::InstanceStore,
 ) {
     // PER SOURCE, never per helper. This used to walk the realized tree for
     // bindings, take the worst state per HELPER, and stamp it onto every source
@@ -1731,7 +1731,7 @@ fn observe_source_states(
     // for an absent status is `.pending` — the honest reading for a question
     // that has not been asked.
     let mut states: BTreeMap<String, String> = BTreeMap::new();
-    for probe in splash_ui_l0::source_state_bindings(ledger, data, store) {
+    for probe in octoscript_ui_l0::source_state_bindings(ledger, data, store) {
         let Some(call) = probe_call(&probe.binding) else {
             continue;
         };
@@ -1778,7 +1778,7 @@ fn render_capturing(
     cx: &mut makepad_widgets::Cx,
     source: &str,
     data: &serde_json::Value,
-    store: &splash_ui_l0::InstanceStore,
+    store: &octoscript_ui_l0::InstanceStore,
     item: usize,
 ) -> Result<String, String> {
     let dsl = render_through_kit(cx, source, data, store)?;
@@ -1803,12 +1803,12 @@ fn render_capturing(
             for (path, value) in captured {
                 if session
                     .store
-                    .get(splash_ui_l0::CARD_STATE_KEY, &path)
+                    .get(octoscript_ui_l0::CARD_STATE_KEY, &path)
                     .is_none()
                 {
                     session
                         .store
-                        .set_cell_with_origin(splash_ui_l0::CARD_STATE_KEY, &path, value, splash_ui_l0::ValueOrigin::Source);
+                        .set_cell_with_origin(octoscript_ui_l0::CARD_STATE_KEY, &path, value, octoscript_ui_l0::ValueOrigin::Source);
                 }
             }
         }
@@ -1820,16 +1820,16 @@ thread_local! {
     // One bounded entry per UI thread. Validation is pure over source; data
     // updates still realize normally below. Streaming redraws must not reparse
     // and log the identical incomplete card sixty times a second.
-    static LAST_CARD_CHECK: std::cell::RefCell<Option<(String, splash_ui_l0::UiL0Report)>> = const { std::cell::RefCell::new(None) };
+    static LAST_CARD_CHECK: std::cell::RefCell<Option<(String, octoscript_ui_l0::UiL0Report)>> = const { std::cell::RefCell::new(None) };
 }
 
-fn checked_card(source: &str) -> (splash_ui_l0::UiL0Report, bool) {
+fn checked_card(source: &str) -> (octoscript_ui_l0::UiL0Report, bool) {
     LAST_CARD_CHECK.with(|cache| {
         let mut cache = cache.borrow_mut();
         if let Some((previous, report)) = cache.as_ref() {
             if previous == source { return (report.clone(), false); }
         }
-        let report = splash_ui_l0::check_ui_l0_named("card", source);
+        let report = octoscript_ui_l0::check_ui_l0_named("card", source);
         *cache = Some((source.to_owned(), report.clone()));
         (report, true)
     })
@@ -1939,7 +1939,7 @@ fn render_ledger(cx: &mut makepad_widgets::Cx, source: &str, item: usize) -> Str
     let (mut data, store) = existing.unwrap_or_else(|| {
         (
             live_source_status(source),
-            splash_ui_l0::InstanceStore::default(),
+            octoscript_ui_l0::InstanceStore::default(),
         )
     });
     // REFRESHED, not carried. A session's data blob is created once and reused, so
@@ -2040,7 +2040,7 @@ mod resolve_tests {
     /// WHAT THIS CANNOT CHECK. Rendering needs the app's `Cx`, because the
     /// capabilities at the end of the pipeline downcast the VM host to one — a
     /// bare host panics, which is exactly how the stock card took the app down.
-    /// So the scan is tested here, the lowering in `splash-ui-l0`, and the
+    /// So the scan is tested here, the lowering in `octoscript-ui-l0`, and the
     /// rendering on a phone.
     #[test]
     fn a_ledger_is_separated_from_its_prose() {
@@ -2128,7 +2128,7 @@ mod resolve_tests {
 mod capability_bridge {
     const BACKEND: &str = include_str!("../../../../aichat/widgets/src/splash.rs");
     const LOWERING: &str =
-        include_str!("../../../../splash/crates/splash-ui-l0/src/lib.rs");
+        include_str!("../../../../Octoscript/crates/octoscript-ui-l0/src/lib.rs");
 
     fn between(hay: &str, open: &str, close: char) -> std::collections::BTreeSet<String> {
         let mut out = std::collections::BTreeSet::new();
@@ -2187,7 +2187,7 @@ mod capability_bridge {
 mod component_closure {
     #[test]
     fn a_card_cannot_reference_a_component_it_does_not_declare() {
-        let report = splash_ui_l0::check_ui_l0_named(
+        let report = octoscript_ui_l0::check_ui_l0_named(
             "probe",
             "source w sys.weather(lat: 1, lon: 2, fields: [temp])\n\
              view root Surface { NotDeclared(x: w.temp) }\n",
@@ -2211,7 +2211,7 @@ mod component_closure {
     #[test]
     fn every_exemplar_closes_over_only_itself() {
         for (domain, _, exemplar) in crate::L0_APPS {
-            let report = splash_ui_l0::check_ui_l0_named(domain, exemplar);
+            let report = octoscript_ui_l0::check_ui_l0_named(domain, exemplar);
             for (name, _) in &report.closure {
                 assert!(
                     exemplar.contains(&format!("component {name}")),

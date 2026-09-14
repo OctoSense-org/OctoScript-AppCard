@@ -1,4 +1,4 @@
-use splash_ui_l0::approval::ArtifactApproval;
+use octoscript_ui_l0::approval::ArtifactApproval;
 
 pub fn require(source: &str, kit: &str) -> Result<ArtifactApproval, String> {
     let directory = match std::env::var_os("OCTOS_L0_APPROVAL_DIR") {

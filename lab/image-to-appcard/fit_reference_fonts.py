@@ -12,7 +12,7 @@ from catalogue import HERE,walk
 from observe import metrics
 from compile import ROOT
 
-FONT_ROOT=ROOT/'splash-makepad/apps/kit-host/resources'
+FONT_ROOT=ROOT/'Octoscript-Makepad/apps/kit-host/resources'
 
 def candidates():
     result=[]

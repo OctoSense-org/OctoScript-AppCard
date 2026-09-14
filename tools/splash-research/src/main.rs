@@ -6,12 +6,12 @@ mod news_query;
 
 use futures::{stream::FuturesUnordered, StreamExt};
 use serde_json::{json, Value};
-use splash_capabilities::{
+use octoscript_capabilities::{
     CapabilityModule, CapabilityRuntime, JsonToolContract, ToolError, ToolMetadata, ToolPolicy,
 };
-use splash_core::ExecutionLimits;
+use octoscript_core::ExecutionLimits;
 #[cfg(test)]
-use splash_schema::JsonSchema;
+use octoscript_schema::JsonSchema;
 use std::{
     collections::BTreeMap,
     time::{Duration, Instant},

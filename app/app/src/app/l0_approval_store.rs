@@ -1,6 +1,6 @@
 //! Host-owned durable approvals. Existing approvals are never silently repinned.
 
-use splash_ui_l0::approval::ArtifactApproval;
+use octoscript_ui_l0::approval::ArtifactApproval;
 use std::{fs, io::{ErrorKind, Write}, path::Path};
 
 /// Explicit host deployment action. The renderer never invokes this path.
