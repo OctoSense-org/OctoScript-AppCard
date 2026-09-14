@@ -9,6 +9,9 @@ description = "Native Makepad-Splash desktop client for the Octos agentic OS"
 [[bin]]
 name = "octos-app"
 path = "src/main.rs"
+# The desktop binary is the standalone entry; a host build (no default
+# features) has no entry point and no binary.
+required-features = ["standalone"]
 
 # Android: `cargo makepad android build` compiles the app as a cdylib
 # (`cargo rustc --lib --crate-type=cdylib`); `app_main!` emits the JNI
@@ -17,14 +20,24 @@ path = "src/main.rs"
 # can't inherit `workspace.package` fields or `workspace = true` deps).
 [lib]
 name = "octos_app"
-path = "src/main.rs"
+path = "src/lib.rs"
+
+[features]
+default = ["standalone"]
+# The entry points (`fn main` / the Android JNI family via `app_main!`) and the
+# dev monitor. A host that mounts the app as a widget (`octos_app::AppShell`)
+# builds with `default-features = false` and brings its own.
+standalone = []
 
 [dependencies]
 # Makepad — path-deps to the aichat fork in ../../aichat (sibling repo).
 # Same set as aichat/examples/aichat.
-makepad-widgets     = { path = "../../aichat/widgets", features = ["maps", "pdf"] }
-makepad-code-editor = { path = "../../aichat/code_editor" }
-makepad-ai          = { path = "../../aichat/libs/makepad_ai" }
+# Git deps pinned to the fork rev the `aichat` submodule is checked out at,
+# so a foreign workspace can take this crate by git alone; this workspace
+# `[patch]`es the same URL back to the submodule paths (app/Cargo.toml).
+makepad-widgets     = { git = "https://github.com/OctoSense-org/makepad.git", rev = "ad8f3729d2c24ba5a3bda5c8865a2b8366480147", features = ["maps", "pdf"] }
+makepad-code-editor = { git = "https://github.com/OctoSense-org/makepad.git", rev = "ad8f3729d2c24ba5a3bda5c8865a2b8366480147" }
+makepad-ai          = { git = "https://github.com/OctoSense-org/makepad.git", rev = "ad8f3729d2c24ba5a3bda5c8865a2b8366480147" }
 
 # Inline-renderer kits (git deps — same as aichat).
 streaming-markdown-kit = { git = "https://github.com/Project-Robius-China/streaming-markdown-kit.git", branch = "main", features = ["mermaid"] }
@@ -85,13 +98,13 @@ keyring = { workspace = true }
 # on octoscript-core, whose vendored makepad lineage collides with this app's in the
 # lockfile (same package name+version at two paths is fatal). That collision is
 # why the crate was extracted.
-octoscript-ui-l0 = { path = "../../Octoscript/crates/octoscript-ui-l0" }
+octoscript-ui-l0 = { git = "https://github.com/OctoSense-org/Octoscript.git", rev = "e500e8da618729a64f47869dd0d1069d7ca18c34" }
 
 # The Splash UI node model — §1.1's branch point, where one card reaches three
 # backends. Depends on nothing, which is what makes it adoptable here: taking
 # `octoscript-render` instead fails on `makepad-error-log v1.0.0` existing at two
 # paths, the same collision that forced `octoscript-ui-l0` out of `octoscript-core`.
-octoscript-node = { path = "../../Octoscript-Makepad/crates/octoscript-node" }
+octoscript-node = { git = "https://github.com/OctoSense-org/Octoscript-Makepad.git", rev = "1a060aaef5c89839536b5c70eafff92028b6f028" }
 
 [build-dependencies]
 blake3 = "1.8"
