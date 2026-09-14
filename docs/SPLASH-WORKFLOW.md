@@ -23,7 +23,7 @@ recommendation.
 | **Date** | 2026-07-28 |
 | **octos-one** | branch `nav-decompose`, head `7613544` |
 | **ymote/Splash** | `github.com/OctoSense-org/Octoscript`, branch `main`, head `623d57c` |
-| **Scope** | `splash-workflow` · `splash-capabilities` · `splash-protocol` · `splash-sandbox` |
+| **Scope** | `splash-workflow` · `octoscript-capabilities` · `splash-protocol` · `splash-sandbox` |
 | **Companion** | architecture map artifact (DOT ▸ agents ▸ splash-workflow) |
 
 Line numbers below are anchors against ymote/Splash @ `623d57c`. They drift with
@@ -207,7 +207,7 @@ be conflated:
 
 | layer | crate | responsibility |
 |---|---|---|
-| grant model | `splash-capabilities` | which tool, how many calls, what resources (deny-by-default) |
+| grant model | `octoscript-capabilities` | which tool, how many calls, what resources (deny-by-default) |
 | authority + durability | `splash-workflow` | exactly-once, ledger, leases, rollback (§3–4) |
 | **OS containment** | `splash-sandbox` | the actual mount policy / executable mediation / egress (Linux bubblewrap + landlock, etc.) |
 

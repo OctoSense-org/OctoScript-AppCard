@@ -75,7 +75,7 @@ def seed_ledger(card, data):
     """Push the L0 ledger and its data, launch against them, wait for load."""
     remote_card = f"{H.CARDS}/tap.card"
     remote_data = f"{H.CARDS}/tap.json"
-    H.adb("push", str(H.SPLASH / "crates/splash-ui-l0/tests/fixtures" / card), remote_card)
+    H.adb("push", str(H.SPLASH / "crates/octoscript-ui-l0/tests/fixtures" / card), remote_card)
     H.adb("push", str(Path(__file__).parent / "data" / data), remote_data)
 
     H.adb("shell", "am", "force-stop", H.PKG)

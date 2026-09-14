@@ -17,7 +17,7 @@ _spec = importlib.util.spec_from_file_location("h", Path(__file__).parent / "dev
 H = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(H)
 
-FIXTURES = H.SPLASH / "crates/splash-ui-l0/tests/fixtures"
+FIXTURES = H.SPLASH / "crates/octoscript-ui-l0/tests/fixtures"
 CASES = [("weather", None, None), ("news", None, None),
          ("stock", None, None), ("stock-detail", "open_quote", "NVDA")]
 

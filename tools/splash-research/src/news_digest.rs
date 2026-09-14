@@ -2,10 +2,10 @@
 use crate::{schema, Case, Result};
 use serde_json::{json, Value};
 use sha2::{Digest, Sha256};
-use splash_capabilities::{
+use octoscript_capabilities::{
     CapabilityModule, CapabilityRuntime, JsonToolContract, ToolMetadata, ToolPolicy,
 };
-use splash_schema::JsonSchema;
+use octoscript_schema::JsonSchema;
 use std::{
     collections::BTreeSet,
     time::{Duration, Instant},

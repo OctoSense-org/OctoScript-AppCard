@@ -74,7 +74,7 @@ def compile_page(directory):
                         'text':node.get('text'),'enabled':node.get('enabled'),
                         'font':rawstyle.get('font_src'),'size':rawstyle.get('size')})
         if node.get('font_src'):
-            font=ROOT/'splash-makepad/apps/kit-host'/node['font_src'].removeprefix('self:')
+            font=ROOT/'Octoscript-Makepad/apps/kit-host'/node['font_src'].removeprefix('self:')
             if not font.is_file():raise ValueError(f'Missing exact font: {font}')
             fonts[node['font_src']]=digest(font.read_bytes())
         result='  '*depth+component+'('+', '.join(use)+')'

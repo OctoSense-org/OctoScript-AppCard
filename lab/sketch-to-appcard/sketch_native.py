@@ -1365,7 +1365,7 @@ def main():
             spaces=n.get('control',{}).get('leading_spaces',0)
             if spaces:
                 from fontTools.ttLib import TTFont
-                resource=kitconf.HERE.parents[1]/'splash-makepad/apps/kit-host/resources'/node['font_src'].split('resources/',1)[1]
+                resource=kitconf.HERE.parents[1]/'Octoscript-Makepad/apps/kit-host/resources'/node['font_src'].split('resources/',1)[1]
                 with TTFont(resource) as font:
                     advance=font['hmtx'].metrics[font.getBestCmap()[32]][0]/font['head'].unitsPerEm
                 node['padleft']=spaces*(advance*node['size']+node.get('tracking',0))
