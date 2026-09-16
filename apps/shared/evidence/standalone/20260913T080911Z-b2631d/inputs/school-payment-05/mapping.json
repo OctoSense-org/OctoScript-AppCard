@@ -1,0 +1,334 @@
+{
+  "schema_version": 1,
+  "elements": [
+    {
+      "source_id": "payment_card",
+      "native_id": "beauty_0",
+      "parent": null,
+      "kind": "stack",
+      "component": "Surface2b3abcfed7b9",
+      "semantic_role": "card",
+      "bounds": [
+        0.0,
+        0.0,
+        278.75728155339806,
+        302.86601941747574
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "pay_fee",
+      "native_id": "beauty_0_0",
+      "parent": "payment_card",
+      "kind": "stack",
+      "component": "KitButton5dc7ea8cd583",
+      "semantic_role": "button",
+      "bounds": [
+        18.081553398058254,
+        206.431067961165,
+        162.73398058252428,
+        48.21747572815534
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "pay_fee_surface",
+      "native_id": "beauty_0_0_0",
+      "parent": "pay_fee",
+      "kind": "stack",
+      "component": "Surfacec5f1075421c6",
+      "semantic_role": "layout",
+      "bounds": [
+        18.081553398058254,
+        206.431067961165,
+        162.73398058252428,
+        48.21747572815534
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "pay_fee_control",
+      "native_id": "beauty_0_0_1",
+      "parent": "pay_fee",
+      "kind": "button",
+      "component": "NativeButton02f1d1bd99b4",
+      "semantic_role": "button",
+      "bounds": [
+        18.081553398058254,
+        206.431067961165,
+        162.73398058252428,
+        48.21747572815534
+      ],
+      "text": null,
+      "enabled": 1,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "pay_fee_label",
+      "native_id": "beauty_0_0_2",
+      "parent": "pay_fee",
+      "kind": "text",
+      "component": "Texta60c2417ddb6",
+      "semantic_role": "text",
+      "bounds": [
+        50.49498820652283,
+        219.87410924538813,
+        100.94174757281554,
+        22.838189276213853
+      ],
+      "text": "\u652f\u4ed8 \u00a5120",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 20.44665985117278
+    },
+    {
+      "source_id": "cancel_payment",
+      "native_id": "beauty_0_1",
+      "parent": "payment_card",
+      "kind": "stack",
+      "component": "KitButton5dc7ea8cd583",
+      "semantic_role": "button",
+      "bounds": [
+        191.3631067961165,
+        206.431067961165,
+        70.81941747572816,
+        48.21747572815534
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "cancel_payment_surface",
+      "native_id": "beauty_0_1_0",
+      "parent": "cancel_payment",
+      "kind": "stack",
+      "component": "Surface000cb4ff87e0",
+      "semantic_role": "layout",
+      "bounds": [
+        191.3631067961165,
+        206.431067961165,
+        70.81941747572816,
+        48.21747572815534
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "cancel_payment_control",
+      "native_id": "beauty_0_1_1",
+      "parent": "cancel_payment",
+      "kind": "button",
+      "component": "NativeButton02f1d1bd99b4",
+      "semantic_role": "button",
+      "bounds": [
+        191.3631067961165,
+        206.431067961165,
+        70.81941747572816,
+        48.21747572815534
+      ],
+      "text": null,
+      "enabled": 1,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "cancel_payment_label",
+      "native_id": "beauty_0_1_2",
+      "parent": "cancel_payment",
+      "kind": "text",
+      "component": "Text989a67a88d45",
+      "semantic_role": "text",
+      "bounds": [
+        205.77512875334543,
+        220.3319167649007,
+        43.68349514563107,
+        21.922574237188662
+      ],
+      "text": "\u64a4\u9500",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 19.29232964175314
+    },
+    {
+      "source_id": "view_payment",
+      "native_id": "beauty_0_2",
+      "parent": "payment_card",
+      "kind": "stack",
+      "component": "KitButton5dc7ea8cd583",
+      "semantic_role": "button",
+      "bounds": [
+        18.081553398058254,
+        262.1825242718446,
+        244.10097087378642,
+        33.1495145631068
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "view_payment_surface",
+      "native_id": "beauty_0_2_0",
+      "parent": "view_payment",
+      "kind": "stack",
+      "component": "Group3d2637879433",
+      "semantic_role": "layout",
+      "bounds": [
+        18.081553398058254,
+        262.1825242718446,
+        244.10097087378642,
+        33.1495145631068
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "view_payment_control",
+      "native_id": "beauty_0_2_1",
+      "parent": "view_payment",
+      "kind": "button",
+      "component": "NativeButton02f1d1bd99b4",
+      "semantic_role": "button",
+      "bounds": [
+        18.081553398058254,
+        262.1825242718446,
+        244.10097087378642,
+        33.1495145631068
+      ],
+      "text": null,
+      "enabled": 1,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "copy_32",
+      "native_id": "beauty_0_2_2",
+      "parent": "view_payment",
+      "kind": "text",
+      "component": "Textca4df51f5930",
+      "semantic_role": "text",
+      "bounds": [
+        101.80841099903444,
+        267.6053341333609,
+        79.84660194174758,
+        20.79709872356947
+      ],
+      "text": "\u67e5\u770b\u8d39\u7528",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 18.15902564710213
+    },
+    {
+      "source_id": "wallet_icon_2",
+      "native_id": "beauty_0_3",
+      "parent": "payment_card",
+      "kind": "svg",
+      "component": "Vectore0a378fde04f",
+      "semantic_role": "icon",
+      "bounds": [
+        19.588349514563113,
+        22.601941747572766,
+        36.16310679611651,
+        31.642718446601943
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "copy_28",
+      "native_id": "beauty_0_4",
+      "parent": "payment_card",
+      "kind": "text",
+      "component": "Textecc64b37286f",
+      "semantic_role": "text",
+      "bounds": [
+        69.921399539894,
+        29.875365849832917,
+        116.7833216885516,
+        19.00126684684126
+      ],
+      "text": "\u652f\u4ed8 \u00b7 \u5f85\u786e\u8ba4",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 16.229282560592782
+    },
+    {
+      "source_id": "copy_29",
+      "native_id": "beauty_0_5",
+      "parent": "payment_card",
+      "kind": "text",
+      "component": "Text749f3efede0e",
+      "semantic_role": "text",
+      "bounds": [
+        16.378989517419164,
+        73.40604660416756,
+        158.21668874010408,
+        23.079140694371834
+      ],
+      "text": "\u5b66\u6821\u6d3b\u52a8\u6750\u6599\u8d39",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 20.51520504771165
+    },
+    {
+      "source_id": "copy_30",
+      "native_id": "beauty_0_6",
+      "parent": "payment_card",
+      "kind": "text",
+      "component": "Textd5c059268011",
+      "semantic_role": "text",
+      "bounds": [
+        16.565942449167515,
+        113.43071851308554,
+        97.64432618358292,
+        34.4754730311137
+      ],
+      "text": "\u00a5120",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 40.15213838091397
+    },
+    {
+      "source_id": "copy_31",
+      "native_id": "beauty_0_7",
+      "parent": "payment_card",
+      "kind": "text",
+      "component": "Text7e5e2dac26e0",
+      "semantic_role": "text",
+      "bounds": [
+        16.570357512520907,
+        162.02907214597906,
+        150.64514126742367,
+        19.934026946649848
+      ],
+      "text": "\u6536\u6b3e\u65b9\uff1a\u5317\u8fb0\u5c0f\u5b66",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 17.041740049892887
+    }
+  ],
+  "fonts": {
+    "self:resources/service/NotoSansSC-Regular.ttf": "62513a5d6706afa489edfd29e1c860d076a3d36f0ba865fa917ebb79a96dfef8"
+  },
+  "contract_sha256": "0219db68f94c2f5981c4c4e76544f218a6aecbd34231821dd38c6b27534b7bfb",
+  "mapping_basis": "mapped.json"
+}

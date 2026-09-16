@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "id": "calendar_undone-09",
+  "app": "service",
+  "number": 9,
+  "title": "撤销日历分支 · calendar",
+  "structure": "Native service-owned cards reconstructed from reviewed storyboard",
+  "artboard": [
+    364.25390625,
+    196.14042126379138
+  ],
+  "font_family": "Noto Sans SC",
+  "palette": {
+    "name": "Fresh",
+    "page": "#f0f5f2",
+    "panel": "#fcfdfb",
+    "ink": "#31413c",
+    "accent": "#608570"
+  },
+  "content_source": "Fictional service scenario from source/flow.json",
+  "graphics": {},
+  "tree": {
+    "t": "stack",
+    "id": "calendar_undone",
+    "x": 0.0,
+    "y": 0.0,
+    "w": 364.25390625,
+    "h": 196.14042126379138,
+    "c": [
+      {
+        "t": "stack",
+        "id": "restore_calendar",
+        "x": 80.1669921875,
+        "y": 128.42527582748244,
+        "w": 181.3486328125,
+        "h": 48.2567703109328,
+        "c": [
+          {
+            "t": "stack",
+            "id": "restore_calendar_surface",
+            "x": 80.1669921875,
+            "y": 128.42527582748244,
+            "w": 181.3486328125,
+            "h": 48.2567703109328,
+            "c": [],
+            "variant": "surface",
+            "bg": 4294770171,
+            "radius": 15.56640625,
+            "border": 0.65,
+            "bordercolor": 4291548878
+          },
+          {
+            "t": "button",
+            "id": "restore_calendar_control",
+            "x": 80.1669921875,
+            "y": 128.42527582748244,
+            "w": 181.3486328125,
+            "h": 48.2567703109328,
+            "enabled": 1
+          },
+          {
+            "t": "text",
+            "id": "text_36",
+            "text": "重新加入",
+            "x": 124.88337436074434,
+            "y": 142.29415568003287,
+            "w": 85.57417477843913,
+            "h": 22.172745022777203,
+            "size": 19.87380685250452,
+            "weight": 400,
+            "line_height": 22.172745022777203,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+            "color": 4284515696,
+            "tracking": 0.09649122807017818,
+            "font_asc": -0.22066160528945222,
+            "font_desc": 0.11166160528945232
+          }
+        ],
+        "kit": "{\"widget\":\"KitButton\",\"bindings\":{\"control\":[1],\"label\":[2]}}"
+      },
+      {
+        "t": "svg",
+        "id": "calendar_icon_2",
+        "x": 17.9013671875,
+        "y": 21.015045135406183,
+        "w": 35.0244140625,
+        "h": 36.581745235707125,
+        "src": ""
+      },
+      {
+        "t": "text",
+        "id": "text_34",
+        "text": "日历记录已撤销",
+        "x": 63.74183556905163,
+        "y": 30.059357938997437,
+        "w": 150.68208684178998,
+        "h": 22.52977981086041,
+        "size": 20.26886954882714,
+        "weight": 400,
+        "line_height": 22.52977981086041,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+        "color": 4281418044,
+        "tracking": 0.5166666666666657,
+        "font_asc": -0.2217270261647596,
+        "font_desc": 0.1147270261647596
+      },
+      {
+        "t": "text",
+        "id": "text_35",
+        "text": "安装预约仍然有效",
+        "x": 20.721247558870232,
+        "y": 73.21253263390957,
+        "w": 143.0553763404198,
+        "h": 20.0,
+        "size": 17.163172042552475,
+        "weight": 400,
+        "line_height": 20.0,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+        "color": 4281418044,
+        "tracking": 0,
+        "font_asc": -0.2027544598777351,
+        "font_desc": 0.09375445987773523
+      }
+    ],
+    "variant": "surface",
+    "bg": 4294770171,
+    "radius": 24.90625
+  },
+  "standalone_service_card": true
+}

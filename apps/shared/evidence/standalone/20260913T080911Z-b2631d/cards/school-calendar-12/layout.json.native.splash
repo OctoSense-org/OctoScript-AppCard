@@ -1,0 +1,77 @@
+use mod.prelude.widgets.*
+return View{width:Fill height:Fill flow:Overlay beauty_0 := DesignSurface {
+width: 263.54718 height: 159.59245
+abs_pos: vec2(0, 0)
+draw_bg.radius: 14.641509 draw_bg.ellipse: 0 draw_bg.border_width: 0.4 draw_bg.border_position: 0 draw_bg.border_color: #e2e8e3ff
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfcff
+beauty_0_0 := KitButton {
+contract: "{\"bindings\":{\"control\":\"beauty_0_0_1\",\"label\":\"beauty_0_0_2\"},\"widget\":\"KitButton\"}" glass: false
+width: 237.19246 height: 33.675472
+abs_pos: vec2(11.713207547169816, 114.20377358490566)
+flow: Overlay padding: 0 clip_x: false clip_y: false
+beauty_0_0_0 := DesignSurface {
+width: 237.19246 height: 33.675472
+abs_pos: vec2(11.713207547169816, 114.20377358490566)
+draw_bg.radius: 5.8566036 draw_bg.ellipse: 0 draw_bg.border_width: 0.7 draw_bg.border_position: 0 draw_bg.border_color: #a8bfb1ff
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #f9fcf9ff
+}
+beauty_0_0_1 := DesignNativeButton {
+width: 237.19246 height: 33.675472
+abs_pos: vec2(11.713207547169816, 114.20377358490566)
+enabled: true
+}
+beauty_0_0_2 := Label {
+width: 72.893936 height: 18.933132
+abs_pos: vec2(89.13572017797154, 122.09645262377404)
+clip_x: false clip_y: false
+padding: 0 text: "查看日程" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.1965162 desc: 0.0825162 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 12.147343 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #477d64ff
+}
+}
+beauty_0_1 := Svg {
+width: 33.675472 height: 33.675472
+abs_pos: vec2(11.713207547169816, 10.249056603773568)
+animating: false draw_svg.svg: http_resource("http://127.0.0.1:8170/ux-images/school-calendar-12/assets/calendar_icon_1-d1ce6830d285.svg") draw_svg.preserve_viewbox: true draw_svg.preserve_aspect: false
+}
+beauty_0_2 := Label {
+width: 106.001595 height: 17.916788
+abs_pos: vec2(53.96318226026975, 15.71731167522097)
+clip_x: false clip_y: false
+padding: 0 text: "日历 · 已更新" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.18306704 desc: 0.074067034 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 11.283882 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #477d64ff
+}
+beauty_0_3 := Label {
+width: 91.361565 height: 19.563038
+abs_pos: vec2(56.122062117629014, 46.382928576393795)
+clip_x: false clip_y: false
+padding: 0 text: "秋季科学日" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.19148605 desc: 0.08748605 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 12.550836 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #33413cff
+}
+beauty_0_4 := Label {
+width: 153.82376 height: 16.771513
+abs_pos: vec2(55.96373402349704, 70.20046073553925)
+clip_x: false clip_y: false
+padding: 0 text: "9月25日 14:00–16:00" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.23707248 desc: 0.07107249 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 11.035294 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #33413cff
+}
+beauty_0_5 := Label {
+width: 139.10925 height: 16.387264
+abs_pos: vec2(56.16117484566911, 90.29610630289153)
+clip_x: false clip_y: false
+padding: 0 text: "北辰小学 · 科学教室" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.15887704 desc: 0.05087705 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 9.9256935 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #33413cff
+}
+}
+}

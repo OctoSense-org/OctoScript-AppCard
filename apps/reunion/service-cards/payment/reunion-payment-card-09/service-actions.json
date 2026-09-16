@@ -1,0 +1,40 @@
+{
+  "frame_id": 9,
+  "controls": {
+    "pay_contribution": {
+      "event": "payment.pay",
+      "enabled": true,
+      "source_bounds": [
+        25,
+        248,
+        97,
+        34
+      ],
+      "ocr_ids": [
+        46
+      ],
+      "textIds": [
+        "text_46"
+      ]
+    },
+    "cancel_payment": {
+      "event": "payment.cancel",
+      "enabled": true,
+      "source_bounds": [
+        126,
+        248,
+        92,
+        34
+      ],
+      "ocr_ids": [
+        47
+      ],
+      "textIds": [
+        "text_47"
+      ]
+    }
+  },
+  "source": "reunion",
+  "simulation": true,
+  "owner": "payment"
+}

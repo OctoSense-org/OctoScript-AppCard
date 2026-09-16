@@ -1,0 +1,63 @@
+# ledger reunion-confirmed-card-07@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy text_118_text { class: user-copy, en: "查看聚会" }
+copy text_113_text { class: user-copy, en: "聚会 · 已确认" }
+copy text_114_text { class: user-copy, en: "十年同窗 再聚一堂" }
+copy text_115_text { class: user-copy, en: "周六 10月24日 18:30" }
+copy text_116_text { class: user-copy, en: "木光餐厅 · 桂花路8号" }
+copy text_117_text { class: user-copy, en: "来自王宁的最新确认" }
+state view_reunion_control_enabled { shape: bool, initial: true }
+component Surfacec68b2b978c4e(instance: text) {
+  view Kit(component: "Surfacec68b2b978c4e", instance: instance) { slot }
+}
+component KitButton3f1620e22939(instance: text) {
+  view Kit(component: "KitButton3f1620e22939", instance: instance) { slot }
+}
+component Surface592192b269fb(instance: text) {
+  view Kit(component: "Surface592192b269fb", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Texte9c797e6c6fb(instance: text, text: text) {
+  view Kit(component: "Texte9c797e6c6fb", instance: instance, text: text)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Text7c9a2142cdfe(instance: text, text: text) {
+  view Kit(component: "Text7c9a2142cdfe", instance: instance, text: text)
+}
+component Textcdd32720d9e7(instance: text, text: text) {
+  view Kit(component: "Textcdd32720d9e7", instance: instance, text: text)
+}
+component Textd0f3fac3f89e(instance: text, text: text) {
+  view Kit(component: "Textd0f3fac3f89e", instance: instance, text: text)
+}
+component Text187ebcbe81b2(instance: text, text: text) {
+  view Kit(component: "Text187ebcbe81b2", instance: instance, text: text)
+}
+component Text386dd3d208c3(instance: text, text: text) {
+  view Kit(component: "Text386dd3d208c3", instance: instance, text: text)
+}
+
+view root Surfacec68b2b978c4e(instance: "confirmed_card") {
+  KitButton3f1620e22939(instance: "view_reunion") {
+    Surface592192b269fb(instance: "view_reunion_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "view_reunion_control", enabled: view_reunion_control_enabled)
+    Texte9c797e6c6fb(instance: "text_118", text: copy.text_118_text)
+  }
+  Vectore0a378fde04f(instance: "calendar_icon_0")
+  Vectore0a378fde04f(instance: "pin_icon_1")
+  Vectore0a378fde04f(instance: "pin_icon_2")
+  Text7c9a2142cdfe(instance: "text_113", text: copy.text_113_text)
+  Textcdd32720d9e7(instance: "text_114", text: copy.text_114_text)
+  Textd0f3fac3f89e(instance: "text_115", text: copy.text_115_text)
+  Text187ebcbe81b2(instance: "text_116", text: copy.text_116_text)
+  Text386dd3d208c3(instance: "text_117", text: copy.text_117_text)
+}

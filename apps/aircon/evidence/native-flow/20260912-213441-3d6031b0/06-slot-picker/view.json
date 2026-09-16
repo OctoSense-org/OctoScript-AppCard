@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "simulation": true,
+  "revision": 5,
+  "frame_id": 6,
+  "surface": "desktop",
+  "app_route": null,
+  "cards": [
+    {
+      "id": "installation:booking-aircon-001",
+      "owner_app": "installation",
+      "entity_id": "booking-aircon-001",
+      "title": "选择安装时间",
+      "body_action": {
+        "action": "navigation.open_app",
+        "label": "打开应用",
+        "actor": "user",
+        "enabled": true,
+        "payload": {
+          "app": "installation"
+        }
+      },
+      "data": {
+        "id": "booking-aircon-001",
+        "technician": "王师傅",
+        "provider": "安装服务团队",
+        "days": [
+          {
+            "date": "2026-09-19",
+            "label": "周六 9月19日"
+          },
+          {
+            "date": "2026-09-20",
+            "label": "周日 9月20日"
+          }
+        ],
+        "slots": [
+          {
+            "id": "morning",
+            "label": "09:00–11:00",
+            "starts_at": "2026-09-19T09:00:00+08:00",
+            "ends_at": "2026-09-19T11:00:00+08:00",
+            "enabled": false,
+            "conflict_event_ids": [
+              "calendar-project-meeting"
+            ],
+            "reason": "项目例会",
+            "selected": false
+          },
+          {
+            "id": "afternoon",
+            "label": "14:00–16:00",
+            "starts_at": "2026-09-19T14:00:00+08:00",
+            "ends_at": "2026-09-19T16:00:00+08:00",
+            "enabled": true,
+            "conflict_event_ids": [],
+            "reason": "",
+            "selected": false
+          }
+        ],
+        "status": "available",
+        "selected_slot_id": null,
+        "booked_slot_id": null,
+        "selected_day": "2026-09-19",
+        "booked_day": null,
+        "version": 0
+      },
+      "actions": [
+        {
+          "action": "installation.choose_day",
+          "label": "周六 9月19日",
+          "actor": "user",
+          "enabled": true,
+          "payload": {
+            "date": "2026-09-19"
+          }
+        },
+        {
+          "action": "installation.choose_day",
+          "label": "周日 9月20日",
+          "actor": "user",
+          "enabled": true,
+          "payload": {
+            "date": "2026-09-20"
+          }
+        },
+        {
+          "action": "installation.choose_slot",
+          "label": "09:00–11:00",
+          "actor": "user",
+          "enabled": false,
+          "payload": {
+            "slot_id": "morning"
+          }
+        },
+        {
+          "action": "installation.choose_slot",
+          "label": "14:00–16:00",
+          "actor": "user",
+          "enabled": true,
+          "payload": {
+            "slot_id": "afternoon"
+          }
+        },
+        {
+          "action": "installation.close_slots",
+          "label": "取消",
+          "actor": "user",
+          "enabled": true,
+          "payload": {}
+        },
+        {
+          "action": "installation.confirm",
+          "label": "确认预约",
+          "actor": "user",
+          "enabled": false,
+          "payload": {}
+        }
+      ]
+    }
+  ],
+  "slots": [
+    {
+      "id": "morning",
+      "label": "09:00–11:00",
+      "starts_at": "2026-09-19T09:00:00+08:00",
+      "ends_at": "2026-09-19T11:00:00+08:00",
+      "enabled": false,
+      "conflict_event_ids": [
+        "calendar-project-meeting"
+      ],
+      "reason": "项目例会",
+      "selected": false
+    },
+    {
+      "id": "afternoon",
+      "label": "14:00–16:00",
+      "starts_at": "2026-09-19T14:00:00+08:00",
+      "ends_at": "2026-09-19T16:00:00+08:00",
+      "enabled": true,
+      "conflict_event_ids": [],
+      "reason": "",
+      "selected": false
+    }
+  ],
+  "order": {
+    "id": "order-aircon-001",
+    "product": "1.5匹变频空调",
+    "amount_minor": 279900,
+    "currency": "CNY",
+    "status": "paid_demo"
+  },
+  "bindings": {
+    "selected_slot_id": null,
+    "booking_status": "available",
+    "calendar_status": "not_added",
+    "payment_status": "not_due",
+    "can_confirm_booking": false,
+    "can_pay": false
+  }
+}

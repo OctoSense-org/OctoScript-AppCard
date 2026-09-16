@@ -5,6 +5,7 @@ import hashlib
 import json
 import subprocess
 
+from core.native_paths import repository
 from core import kitconf
 from core.promote_l0 import PACKS, definition, parse_design, walk
 
@@ -17,7 +18,7 @@ def evaluate(kit):
     audit.unlink(missing_ok=True)
     command=['cargo','run','--release','-q','-p','splash-makepad','--example','kit_audit','--',
              str(kit['cards_dir']),str(kitconf.HERE/kit['source_designs_dir']),str(PACKS.parent),str(audit)]
-    result=subprocess.run(command,cwd=kitconf.HERE.parents[1]/'splash-makepad',capture_output=True,text=True)
+    result=subprocess.run(command,cwd=repository('splash-makepad'),capture_output=True,text=True)
     (out/'kit-tree-audit.log').write_text(result.stdout+result.stderr)
     audits={r['screen']:r for r in json.loads(audit.read_text()).get('screens',[])} if audit.exists() else {}
     rows=[]

@@ -10,9 +10,9 @@ import numpy as np
 from PIL import Image,ImageDraw,ImageFont
 from catalogue import HERE,walk
 from observe import metrics
-from compile import ROOT
+from compile import ROOT,repository
 
-FONT_ROOT=ROOT/'splash-makepad/apps/kit-host/resources'
+FONT_ROOT=repository('splash-makepad')/'apps/kit-host/resources'
 
 def candidates():
     result=[]

@@ -1,0 +1,3126 @@
+{
+  "schema_version": 1,
+  "kind": "measured-native-service-card-annotations",
+  "source_atlas": "~/home/Octosense-website/output/imagegen/aircon-fresh-v2/atlas.png",
+  "source_atlas_sha256": "168eb235aefdd446b1f9941b15107d7b6ca2a1ff88ec5d437801d2ea2ee0abf5",
+  "source_ocr": "~/home/Octosense-website/output/imagegen/aircon-fresh-v2/atlas.ocr.json",
+  "measurement_method": "All five actual source images visually inspected using view_image; card/control/decorations rectangles measured in source pixels, Chinese OCR bounds transformed from atlas by subtracting each actual crop origin. Colors sampled using Pillow. Bounds are manual visual measurements, typically within 2–4 source pixels.",
+  "rules": [
+    "Every label/button/status/timeline/service icon and desktop icon must be a native Makepad component or drawing",
+    "Only the technician portrait in frame 10 may be a bitmap asset; no UI screenshot underlay",
+    "Raw OCR observations retained with stable atlas indices; known glyph artifacts explicitly corrected or excluded",
+    "Native component implementation can normalize source-generation spacing/icons, but preserve service ownership and separate actions"
+  ],
+  "frames": [
+    {
+      "surfaces": [
+        {
+          "id": "installation_booking",
+          "owner": "installation",
+          "rect": [
+            28,
+            148,
+            572,
+            360
+          ],
+          "radius_px": 28,
+          "fill": "#fcfcfc",
+          "shadow": {
+            "offset": [
+              0,
+              5
+            ],
+            "blur_px": 15,
+            "rgba": "#3d59650d"
+          },
+          "body_action": "open_installation_app"
+        },
+        {
+          "id": "calendar_updated",
+          "owner": "calendar",
+          "rect": [
+            28,
+            525,
+            572,
+            339
+          ],
+          "radius_px": 28,
+          "fill": "#fcfcfc",
+          "shadow": {
+            "offset": [
+              0,
+              5
+            ],
+            "blur_px": 15,
+            "rgba": "#3d59650d"
+          },
+          "body_action": "open_calendar_app"
+        }
+      ],
+      "controls": [
+        {
+          "id": "reschedule",
+          "label": "改约",
+          "rect": [
+            59,
+            416,
+            212,
+            63
+          ],
+          "radius_px": 15,
+          "style": "outline",
+          "fill": "#f8f9f6",
+          "stroke": "#b9c7bc",
+          "text_color": "#355c45",
+          "stroke_width_px": 1,
+          "action": "open_slot_picker",
+          "card": "installation_booking",
+          "effect": null
+        },
+        {
+          "id": "cancel_booking",
+          "label": "取消预约",
+          "rect": [
+            333,
+            416,
+            209,
+            63
+          ],
+          "radius_px": 15,
+          "style": "outline",
+          "fill": "#f8f9f6",
+          "stroke": "#b9c7bc",
+          "text_color": "#355c45",
+          "stroke_width_px": 1,
+          "action": "cancel_booking",
+          "card": "installation_booking",
+          "effect": "Cancel installation reservation; this is distinct from removing a calendar event"
+        },
+        {
+          "id": "acknowledge_calendar",
+          "label": "确认",
+          "rect": [
+            56,
+            775,
+            212,
+            63
+          ],
+          "radius_px": 15,
+          "style": "outline",
+          "fill": "#f8f9f6",
+          "stroke": "#b9c7bc",
+          "text_color": "#355c45",
+          "stroke_width_px": 1,
+          "action": "acknowledge_calendar",
+          "card": "calendar_updated",
+          "effect": "Acknowledge an event already written into the family calendar; do not create another event"
+        },
+        {
+          "id": "undo_calendar",
+          "label": "撤销日程",
+          "rect": [
+            333,
+            775,
+            209,
+            63
+          ],
+          "radius_px": 15,
+          "style": "outline",
+          "fill": "#f8f9f6",
+          "stroke": "#b9c7bc",
+          "text_color": "#355c45",
+          "stroke_width_px": 1,
+          "action": "undo_calendar",
+          "card": "calendar_updated",
+          "effect": "Remove only the calendar event; preserve the confirmed installation booking"
+        }
+      ],
+      "icons": [
+        {
+          "id": "installation_icon",
+          "kind": "wrench",
+          "rect": [
+            61,
+            177,
+            44,
+            46
+          ],
+          "native_required": true,
+          "fill": "#678071",
+          "stroke": "#496659",
+          "stroke_width_px": 1.5,
+          "card": "installation_booking"
+        },
+        {
+          "id": "booking_success",
+          "kind": "circle_check",
+          "rect": [
+            529,
+            184,
+            32,
+            33
+          ],
+          "native_required": true,
+          "fill": "#658460",
+          "stroke": "#496659",
+          "stroke_width_px": 1.5,
+          "card": "installation_booking"
+        },
+        {
+          "id": "calendar_icon",
+          "kind": "calendar",
+          "rect": [
+            58,
+            548,
+            44,
+            47
+          ],
+          "native_required": true,
+          "fill": "#678071",
+          "stroke": "#496659",
+          "stroke_width_px": 1.5,
+          "card": "calendar_updated"
+        }
+      ],
+      "decorations": [],
+      "illustrations": [],
+      "source_links": [],
+      "notes": [
+        "Calendar service has already updated the event before confirmation. Calendar confirmation acknowledges this update.",
+        "Keep two independent card owners and action scopes."
+      ],
+      "id": 8,
+      "slug": "booked",
+      "source_image": "~/home/Octosense-website/output/imagegen/aircon-fresh-v2/frames/08-booked.png",
+      "source_image_sha256": "3455eb7ffe783bfdf5083b319c676c3394616e84880b0f6711e86543ec709473",
+      "source_size": [
+        638,
+        1024
+      ],
+      "atlas_crop": [
+        1713,
+        1253,
+        638,
+        1024
+      ],
+      "coordinate_system": "source-frame pixels, origin top-left, rect=[x,y,width,height]",
+      "fit_406x776": {
+        "scale": 0.63636364,
+        "offset": [
+          -0.0,
+          62.18182
+        ],
+        "rule": "Apply one uniform scale and the same offset to all boxes; preserve source aspect ratio"
+      },
+      "text_observations": [
+        {
+          "id": "text_176",
+          "ocr_index": 176,
+          "ocr_text": "9月18日 周五",
+          "text": "9月18日 周五",
+          "rect": [
+            29.23,
+            27.77,
+            145.67,
+            30.47
+          ],
+          "ocr_confidence": 0.5,
+          "native_required": true,
+          "role": "desktop_date",
+          "color": "#252925"
+        },
+        {
+          "id": "text_177",
+          "ocr_index": 177,
+          "ocr_text": "15:28",
+          "text": "15:28",
+          "rect": [
+            29.26,
+            78.0,
+            120.5,
+            45.37
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "desktop_clock",
+          "color": "#252925"
+        },
+        {
+          "id": "text_178",
+          "ocr_index": 178,
+          "ocr_text": "人 安装服务•预约成功",
+          "text": "安装服务 · 预约成功",
+          "rect": [
+            124,
+            186,
+            252,
+            33
+          ],
+          "ocr_confidence": 0.30000001192092896,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "installation_booking",
+          "reason": "OCR merged a wrench icon with the header; icon is a separate native drawing"
+        },
+        {
+          "id": "text_179",
+          "ocr_index": 179,
+          "ocr_text": "王师傅",
+          "text": "王师傅",
+          "rect": [
+            59.38,
+            253.98,
+            80.33,
+            30.14
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "installation_booking"
+        },
+        {
+          "id": "text_180",
+          "ocr_index": 180,
+          "ocr_text": "周六 9月19日 14:00-16:00",
+          "text": "周六 9月19日 14:00-16:00",
+          "rect": [
+            59.38,
+            304.0,
+            321.34,
+            30.35
+          ],
+          "ocr_confidence": 0.5,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "installation_booking"
+        },
+        {
+          "id": "text_181",
+          "ocr_index": 181,
+          "ocr_text": "家•海棠路18号",
+          "text": "家•海棠路18号",
+          "rect": [
+            54.36,
+            354.0,
+            180.75,
+            26.0
+          ],
+          "ocr_confidence": 0.5,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "installation_booking"
+        },
+        {
+          "id": "text_182",
+          "ocr_index": 182,
+          "ocr_text": "改约",
+          "text": "改约",
+          "rect": [
+            129.68,
+            434.81,
+            60.25,
+            25.19
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "button_label",
+          "color": "#355c45",
+          "card": "installation_booking",
+          "control_id": "reschedule"
+        },
+        {
+          "id": "text_183",
+          "ocr_index": 183,
+          "ocr_text": "取消预约",
+          "text": "取消预约",
+          "rect": [
+            375.7,
+            429.79,
+            115.48,
+            35.21
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "button_label",
+          "color": "#355c45",
+          "card": "installation_booking",
+          "control_id": "cancel_booking"
+        },
+        {
+          "id": "text_184",
+          "ocr_index": 184,
+          "ocr_text": "日历•已更新",
+          "text": "日历•已更新",
+          "rect": [
+            119.44,
+            559.34,
+            156.04,
+            32.26
+          ],
+          "ocr_confidence": 0.30000001192092896,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "calendar_updated"
+        },
+        {
+          "id": "text_185",
+          "ocr_index": 185,
+          "ocr_text": "空调安装",
+          "text": "空调安装",
+          "rect": [
+            44.25,
+            620.45,
+            130.68,
+            40.64
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "calendar_updated"
+        },
+        {
+          "id": "text_186",
+          "ocr_index": 186,
+          "ocr_text": "9月19日 14:00-16:00",
+          "text": "9月19日 14:00-16:00",
+          "rect": [
+            49.34,
+            670.91,
+            251.05,
+            30.14
+          ],
+          "ocr_confidence": 0.5,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "calendar_updated"
+        },
+        {
+          "id": "text_187",
+          "ocr_index": 187,
+          "ocr_text": "已加入家庭日历",
+          "text": "已加入家庭日历",
+          "rect": [
+            49.34,
+            716.0,
+            170.71,
+            25.23
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "calendar_updated"
+        },
+        {
+          "id": "text_188",
+          "ocr_index": 188,
+          "ocr_text": "确认",
+          "text": "确认",
+          "rect": [
+            124.66,
+            791.0,
+            60.25,
+            31.0
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "button_label",
+          "color": "#355c45",
+          "card": "calendar_updated",
+          "control_id": "acknowledge_calendar"
+        },
+        {
+          "id": "text_189",
+          "ocr_index": 189,
+          "ocr_text": "撤销日程",
+          "text": "撤销日程",
+          "rect": [
+            375.37,
+            790.24,
+            106.11,
+            32.59
+          ],
+          "ocr_confidence": 0.5,
+          "native_required": true,
+          "role": "button_label",
+          "color": "#355c45",
+          "card": "calendar_updated",
+          "control_id": "undo_calendar"
+        },
+        {
+          "id": "text_190",
+          "ocr_index": 190,
+          "ocr_text": "邮件",
+          "text": "邮件",
+          "rect": [
+            59.38,
+            982.0,
+            50.21,
+            25.47
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "dock_label",
+          "color": "#252925"
+        },
+        {
+          "id": "text_191",
+          "ocr_index": 191,
+          "ocr_text": "18",
+          "text": "18",
+          "rect": [
+            194.95,
+            927.0,
+            45.19,
+            30.23
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "dock_label",
+          "color": "#252925"
+        },
+        {
+          "id": "text_192",
+          "ocr_index": 192,
+          "ocr_text": "日历",
+          "text": "日历",
+          "rect": [
+            194.95,
+            982.0,
+            50.21,
+            25.47
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "dock_label",
+          "color": "#252925"
+        },
+        {
+          "id": "text_193",
+          "ocr_index": 193,
+          "ocr_text": "购物",
+          "text": "购物",
+          "rect": [
+            335.54,
+            982.0,
+            55.23,
+            30.49
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "dock_label",
+          "color": "#252925"
+        },
+        {
+          "id": "text_214",
+          "ocr_index": 214,
+          "ocr_text": "支付",
+          "text": "支付",
+          "rect": [
+            486.16,
+            982.0,
+            50.21,
+            30.49
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "dock_label",
+          "color": "#252925"
+        }
+      ],
+      "dock": {
+        "surface": {
+          "rect": [
+            13,
+            882,
+            584,
+            141
+          ],
+          "radius_px": 40,
+          "fill": "#f6f9f680"
+        },
+        "items": [
+          {
+            "id": "dock_mail",
+            "icon": "envelope",
+            "rect": [
+              41,
+              896,
+              89,
+              82
+            ],
+            "action": "open_mail_app",
+            "native_required": true,
+            "container_radius_px": 24,
+            "container_fill": "#fcfcfb",
+            "icon_stroke": "#586b62",
+            "stroke_width_px": 1.5,
+            "label": "邮件",
+            "calendar_day": 18
+          },
+          {
+            "id": "dock_calendar",
+            "icon": "calendar",
+            "rect": [
+              175,
+              896,
+              96,
+              82
+            ],
+            "action": "open_calendar_app",
+            "native_required": true,
+            "container_radius_px": 24,
+            "container_fill": "#fcfcfb",
+            "icon_stroke": "#586b62",
+            "stroke_width_px": 1.5,
+            "label": "日历",
+            "calendar_day": 18
+          },
+          {
+            "id": "dock_shopping",
+            "icon": "shopping_bag",
+            "rect": [
+              317,
+              896,
+              98,
+              84
+            ],
+            "action": "open_shopping_app",
+            "native_required": true,
+            "container_radius_px": 24,
+            "container_fill": "#fcfcfb",
+            "icon_stroke": "#586b62",
+            "stroke_width_px": 1.5,
+            "label": "购物",
+            "calendar_day": 18
+          },
+          {
+            "id": "dock_payment",
+            "icon": "payment_card",
+            "rect": [
+              464,
+              896,
+              95,
+              84
+            ],
+            "action": "open_payment_app",
+            "native_required": true,
+            "container_radius_px": 24,
+            "container_fill": "#fcfcfb",
+            "icon_stroke": "#586b62",
+            "stroke_width_px": 1.5,
+            "label": "支付",
+            "calendar_day": 18
+          }
+        ]
+      },
+      "background": {
+        "native_required": true,
+        "base": "#f2f6f3",
+        "gradient_to": "#e9f1f5",
+        "direction": "top-left to bottom-right",
+        "note": "Approximate very soft ivory/sage/mist wallpaper with native gradient and translucent polygons; never use the full screen image as a texture"
+      },
+      "sampled_colors": [
+        {
+          "point": [
+            314,
+            160
+          ],
+          "rgb_hex": "#fdfcfc",
+          "role": "card_surface"
+        },
+        {
+          "point": [
+            314,
+            537
+          ],
+          "rgb_hex": "#fcfbfb",
+          "role": "card_surface"
+        }
+      ]
+    },
+    {
+      "surfaces": [
+        {
+          "id": "installation_booking",
+          "owner": "installation",
+          "rect": [
+            18,
+            128,
+            467,
+            334
+          ],
+          "radius_px": 26,
+          "fill": "#fcfcfc",
+          "shadow": {
+            "offset": [
+              0,
+              5
+            ],
+            "blur_px": 15,
+            "rgba": "#3d59650d"
+          },
+          "body_action": "open_installation_app"
+        },
+        {
+          "id": "calendar_undone",
+          "owner": "calendar",
+          "rect": [
+            18,
+            487,
+            468,
+            252
+          ],
+          "radius_px": 26,
+          "fill": "#fcfcfc",
+          "shadow": {
+            "offset": [
+              0,
+              5
+            ],
+            "blur_px": 15,
+            "rgba": "#3d59650d"
+          },
+          "body_action": "open_calendar_app"
+        }
+      ],
+      "controls": [
+        {
+          "id": "reschedule",
+          "label": "改约",
+          "rect": [
+            46,
+            374,
+            180,
+            63
+          ],
+          "radius_px": 15,
+          "style": "outline",
+          "fill": "#f8f9f6",
+          "stroke": "#b9c7bc",
+          "text_color": "#355c45",
+          "stroke_width_px": 1,
+          "action": "open_slot_picker",
+          "card": "installation_booking",
+          "effect": null
+        },
+        {
+          "id": "cancel_booking",
+          "label": "取消预约",
+          "rect": [
+            271,
+            374,
+            177,
+            63
+          ],
+          "radius_px": 15,
+          "style": "outline",
+          "fill": "#f8f9f6",
+          "stroke": "#b9c7bc",
+          "text_color": "#355c45",
+          "stroke_width_px": 1,
+          "action": "cancel_booking",
+          "card": "installation_booking",
+          "effect": null
+        },
+        {
+          "id": "restore_calendar",
+          "label": "重新加入",
+          "rect": [
+            121,
+            652,
+            233,
+            62
+          ],
+          "radius_px": 15,
+          "style": "outline",
+          "fill": "#f8f9f6",
+          "stroke": "#b9c7bc",
+          "text_color": "#355c45",
+          "stroke_width_px": 1,
+          "action": "restore_calendar",
+          "card": "calendar_undone",
+          "effect": "Restore the existing booking’s calendar event exactly once; do not create another installation booking"
+        }
+      ],
+      "icons": [
+        {
+          "id": "installation_icon",
+          "kind": "wrench",
+          "rect": [
+            47,
+            152,
+            39,
+            39
+          ],
+          "native_required": true,
+          "fill": "#b99c7a",
+          "stroke": "#496659",
+          "stroke_width_px": 1.5,
+          "card": "installation_booking"
+        },
+        {
+          "id": "booking_success",
+          "kind": "circle_check",
+          "rect": [
+            429,
+            155,
+            29,
+            32
+          ],
+          "native_required": true,
+          "fill": "#63876e",
+          "stroke": "#496659",
+          "stroke_width_px": 1.5,
+          "card": "installation_booking"
+        },
+        {
+          "id": "calendar_icon",
+          "kind": "calendar",
+          "rect": [
+            41,
+            514,
+            45,
+            47
+          ],
+          "native_required": true,
+          "fill": "#678071",
+          "stroke": "#496659",
+          "stroke_width_px": 1.5,
+          "card": "calendar_undone"
+        }
+      ],
+      "decorations": [],
+      "illustrations": [],
+      "source_links": [],
+      "notes": [
+        "Calendar removal must leave installation_booking status confirmed.",
+        "Source wrench is warm tan on this frame rather than sage. Preserve measurement; parent may normalize icon tint for a coherent component."
+      ],
+      "id": 9,
+      "slug": "calendar-undone",
+      "source_image": "~/home/Octosense-website/output/imagegen/aircon-fresh-v2/frames/09-calendar-undone.png",
+      "source_image_sha256": "8fd6bdaf2da8e01708da40811653978d243ca551d365af9b85519e212952f53a",
+      "source_size": [
+        512,
+        997
+      ],
+      "atlas_crop": [
+        45,
+        2365,
+        512,
+        997
+      ],
+      "coordinate_system": "source-frame pixels, origin top-left, rect=[x,y,width,height]",
+      "fit_406x776": {
+        "scale": 0.77833501,
+        "offset": [
+          3.74624,
+          -0.0
+        ],
+        "rule": "Apply one uniform scale and the same offset to all boxes; preserve source aspect ratio"
+      },
+      "text_observations": [
+        {
+          "id": "text_27",
+          "ocr_index": 27,
+          "ocr_text": "15:29",
+          "text": "15:29",
+          "rect": [
+            20.27,
+            66.0,
+            110.46,
+            40.44
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "desktop_clock",
+          "color": "#252925"
+        },
+        {
+          "id": "text_28",
+          "ocr_index": 28,
+          "ocr_text": "安装服务•预约成功",
+          "text": "安装服务•预约成功",
+          "rect": [
+            110.65,
+            156.67,
+            230.96,
+            30.33
+          ],
+          "ocr_confidence": 0.5,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "installation_booking"
+        },
+        {
+          "id": "text_29",
+          "ocr_index": 29,
+          "ocr_text": "王师傅",
+          "text": "王师傅",
+          "rect": [
+            45.38,
+            216.95,
+            80.33,
+            30.14
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "installation_booking"
+        },
+        {
+          "id": "text_30",
+          "ocr_index": 30,
+          "ocr_text": "周六9月19日 14:00-16:00",
+          "text": "周六9月19日 14:00-16:00",
+          "rect": [
+            45.38,
+            267.0,
+            296.23,
+            25.3
+          ],
+          "ocr_confidence": 0.5,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "installation_booking"
+        },
+        {
+          "id": "text_31",
+          "ocr_index": 31,
+          "ocr_text": "家•海棠路18号",
+          "text": "家•海棠路18号",
+          "rect": [
+            45.38,
+            312.0,
+            165.69,
+            26.0
+          ],
+          "ocr_confidence": 0.30000001192092896,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "installation_booking"
+        },
+        {
+          "id": "text_32",
+          "ocr_index": 32,
+          "ocr_text": "改约",
+          "text": "改约",
+          "rect": [
+            110.65,
+            392.77,
+            50.21,
+            30.23
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "button_label",
+          "color": "#355c45",
+          "card": "installation_booking",
+          "control_id": "reschedule"
+        },
+        {
+          "id": "text_33",
+          "ocr_index": 33,
+          "ocr_text": "取消预约",
+          "text": "取消预约",
+          "rect": [
+            306.04,
+            391.27,
+            101.28,
+            33.13
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "button_label",
+          "color": "#355c45",
+          "card": "installation_booking",
+          "control_id": "cancel_booking"
+        },
+        {
+          "id": "text_34",
+          "ocr_index": 34,
+          "ocr_text": "日历记录已撤销",
+          "text": "日历记录已撤销",
+          "rect": [
+            100.61,
+            523.0,
+            190.79,
+            31.0
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "calendar_undone"
+        },
+        {
+          "id": "text_35",
+          "ocr_index": 35,
+          "ocr_text": "安装预约仍然有效",
+          "text": "安装预约仍然有效",
+          "rect": [
+            40.36,
+            578.63,
+            185.77,
+            30.37
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "calendar_undone"
+        },
+        {
+          "id": "text_36",
+          "ocr_index": 36,
+          "ocr_text": "重新加入",
+          "text": "重新加入",
+          "rect": [
+            175.92,
+            669.0,
+            105.44,
+            30.19
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "button_label",
+          "color": "#355c45",
+          "card": "calendar_undone",
+          "control_id": "restore_calendar"
+        },
+        {
+          "id": "text_37",
+          "ocr_index": 37,
+          "ocr_text": "18",
+          "text": "18",
+          "rect": [
+            155.84,
+            885.0,
+            50.21,
+            40.23
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "dock_label",
+          "color": "#252925"
+        },
+        {
+          "id": "text_38",
+          "ocr_index": 38,
+          "ocr_text": "邮件",
+          "text": "邮件",
+          "rect": [
+            45.38,
+            945.0,
+            50.21,
+            25.44
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "dock_label",
+          "color": "#252925"
+        },
+        {
+          "id": "text_39",
+          "ocr_index": 39,
+          "ocr_text": "日历",
+          "text": "日历",
+          "rect": [
+            160.86,
+            945.0,
+            45.19,
+            25.44
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "dock_label",
+          "color": "#252925"
+        },
+        {
+          "id": "text_40",
+          "ocr_index": 40,
+          "ocr_text": ".|",
+          "text": ".|",
+          "rect": [
+            411.9,
+            885.05,
+            35.15,
+            35.16
+          ],
+          "ocr_confidence": 0.30000001192092896,
+          "native_required": true,
+          "role": "dock_label",
+          "color": "#252925",
+          "exclude_from_native_text": true,
+          "reason": "Wallet/payment dock icon misrecognized as text"
+        },
+        {
+          "id": "text_41",
+          "ocr_index": 41,
+          "ocr_text": "购物",
+          "text": "购物",
+          "rect": [
+            286.38,
+            945.0,
+            45.19,
+            25.44
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "dock_label",
+          "color": "#252925"
+        },
+        {
+          "id": "text_42",
+          "ocr_index": 42,
+          "ocr_text": "支付",
+          "text": "支付",
+          "rect": [
+            406.88,
+            945.0,
+            45.19,
+            25.44
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "dock_label",
+          "color": "#252925"
+        },
+        {
+          "id": "desktop_date",
+          "text": "9月18日 周五",
+          "rect": [
+            29,
+            30,
+            125,
+            23
+          ],
+          "role": "desktop_date",
+          "provenance": "manual visual observation; atlas OCR omitted this line",
+          "native_required": true
+        }
+      ],
+      "dock": {
+        "surface": {
+          "rect": [
+            14,
+            845,
+            484,
+            151
+          ],
+          "radius_px": 40,
+          "fill": "#f6f9f680"
+        },
+        "items": [
+          {
+            "id": "dock_mail",
+            "icon": "envelope",
+            "rect": [
+              29,
+              859,
+              81,
+              82
+            ],
+            "action": "open_mail_app",
+            "native_required": true,
+            "container_radius_px": 24,
+            "container_fill": "#fcfcfb",
+            "icon_stroke": "#586b62",
+            "stroke_width_px": 1.5,
+            "label": "邮件",
+            "calendar_day": 18
+          },
+          {
+            "id": "dock_calendar",
+            "icon": "calendar",
+            "rect": [
+              145,
+              859,
+              85,
+              83
+            ],
+            "action": "open_calendar_app",
+            "native_required": true,
+            "container_radius_px": 24,
+            "container_fill": "#fcfcfb",
+            "icon_stroke": "#586b62",
+            "stroke_width_px": 1.5,
+            "label": "日历",
+            "calendar_day": 18
+          },
+          {
+            "id": "dock_shopping",
+            "icon": "shopping_bag",
+            "rect": [
+              270,
+              859,
+              86,
+              83
+            ],
+            "action": "open_shopping_app",
+            "native_required": true,
+            "container_radius_px": 24,
+            "container_fill": "#fcfcfb",
+            "icon_stroke": "#586b62",
+            "stroke_width_px": 1.5,
+            "label": "购物",
+            "calendar_day": 18
+          },
+          {
+            "id": "dock_payment",
+            "icon": "payment_card",
+            "rect": [
+              391,
+              859,
+              80,
+              83
+            ],
+            "action": "open_payment_app",
+            "native_required": true,
+            "container_radius_px": 24,
+            "container_fill": "#fcfcfb",
+            "icon_stroke": "#586b62",
+            "stroke_width_px": 1.5,
+            "label": "支付",
+            "calendar_day": 18
+          }
+        ]
+      },
+      "background": {
+        "native_required": true,
+        "base": "#f2f6f3",
+        "gradient_to": "#e9f1f5",
+        "direction": "top-left to bottom-right",
+        "note": "Approximate very soft ivory/sage/mist wallpaper with native gradient and translucent polygons; never use the full screen image as a texture"
+      },
+      "sampled_colors": [
+        {
+          "point": [
+            251,
+            140
+          ],
+          "rgb_hex": "#fcfbfc",
+          "role": "card_surface"
+        },
+        {
+          "point": [
+            252,
+            499
+          ],
+          "rgb_hex": "#fcfcfc",
+          "role": "card_surface"
+        }
+      ]
+    },
+    {
+      "surfaces": [
+        {
+          "id": "installation_arriving",
+          "owner": "installation",
+          "rect": [
+            21,
+            128,
+            478,
+            631
+          ],
+          "radius_px": 28,
+          "fill": "#fcfcfc",
+          "shadow": {
+            "offset": [
+              0,
+              5
+            ],
+            "blur_px": 15,
+            "rgba": "#3d59650d"
+          },
+          "body_action": "open_installation_app"
+        }
+      ],
+      "controls": [
+        {
+          "id": "contact_technician",
+          "label": "联系师傅",
+          "rect": [
+            49,
+            668,
+            193,
+            63
+          ],
+          "radius_px": 15,
+          "style": "filled",
+          "fill": "#5f816b",
+          "stroke": "#416a53",
+          "text_color": "#ffffff",
+          "stroke_width_px": 1,
+          "action": "show_technician_contact",
+          "card": "installation_arriving",
+          "effect": null
+        },
+        {
+          "id": "view_booking",
+          "label": "查看预约",
+          "rect": [
+            276,
+            667,
+            188,
+            64
+          ],
+          "radius_px": 15,
+          "style": "outline",
+          "fill": "#f8f9f6",
+          "stroke": "#b9c7bc",
+          "text_color": "#355c45",
+          "stroke_width_px": 1,
+          "action": "open_booking_details",
+          "card": "installation_arriving",
+          "effect": null
+        }
+      ],
+      "icons": [
+        {
+          "id": "installation_icon",
+          "kind": "wrench",
+          "rect": [
+            51,
+            152,
+            39,
+            40
+          ],
+          "native_required": true,
+          "fill": "#b99c7a",
+          "stroke": "#496659",
+          "stroke_width_px": 1.5,
+          "card": "installation_arriving"
+        }
+      ],
+      "decorations": [
+        {
+          "id": "timeline_done_segment",
+          "kind": "line",
+          "points": [
+            [
+              102,
+              529
+            ],
+            [
+              238,
+              529
+            ]
+          ],
+          "stroke": "#446a53",
+          "stroke_width_px": 3
+        },
+        {
+          "id": "timeline_pending_segment",
+          "kind": "line",
+          "points": [
+            [
+              261,
+              529
+            ],
+            [
+              403,
+              529
+            ]
+          ],
+          "stroke": "#d6d8d6",
+          "stroke_width_px": 3
+        },
+        {
+          "id": "timeline_booked",
+          "kind": "ellipse",
+          "rect": [
+            79,
+            518,
+            21,
+            23
+          ],
+          "fill": "#537755",
+          "stroke": "#365b3b",
+          "stroke_width_px": 1
+        },
+        {
+          "id": "timeline_active_ring",
+          "kind": "ellipse",
+          "rect": [
+            236,
+            516,
+            26,
+            27
+          ],
+          "fill": "#fcfcfc",
+          "stroke": "#345d44",
+          "stroke_width_px": 1.3
+        },
+        {
+          "id": "timeline_active_dot",
+          "kind": "ellipse",
+          "rect": [
+            240,
+            520,
+            18,
+            19
+          ],
+          "fill": "#42674f",
+          "stroke": null
+        },
+        {
+          "id": "timeline_complete_pending",
+          "kind": "ellipse",
+          "rect": [
+            402,
+            517,
+            23,
+            25
+          ],
+          "fill": "#fcfcfc",
+          "stroke": "#c3c6c4",
+          "stroke_width_px": 2
+        }
+      ],
+      "illustrations": [
+        {
+          "id": "technician_portrait",
+          "kind": "photo",
+          "rect": [
+            48,
+            303,
+            159,
+            175
+          ],
+          "clip": "ellipse",
+          "allowed_bitmap": true,
+          "contains_ui_text": false,
+          "rationale": "Generated fictional technician portrait only; surrounding identity, booking text and timeline stay native"
+        }
+      ],
+      "source_links": [],
+      "notes": [
+        "The technician portrait is the only permissible image bitmap in frames 08–12.",
+        "Contact control should open native contact information in the demo; do not launch a real call without a real integration."
+      ],
+      "id": 10,
+      "slug": "technician-arriving",
+      "source_image": "~/home/Octosense-website/output/imagegen/aircon-fresh-v2/frames/10-technician-arriving.png",
+      "source_image_sha256": "3c8a90ed0ba2069f3dfd52f4f22ed4bb741def39ab00941f496b74ece62de0a5",
+      "source_size": [
+        521,
+        997
+      ],
+      "atlas_crop": [
+        596,
+        2365,
+        521,
+        997
+      ],
+      "coordinate_system": "source-frame pixels, origin top-left, rect=[x,y,width,height]",
+      "fit_406x776": {
+        "scale": 0.77833501,
+        "offset": [
+          0.24373,
+          -0.0
+        ],
+        "rule": "Apply one uniform scale and the same offset to all boxes; preserve source aspect ratio"
+      },
+      "text_observations": [
+        {
+          "id": "text_84",
+          "ocr_index": 84,
+          "ocr_text": "9月19日 周六",
+          "text": "9月19日 周六",
+          "rect": [
+            26.59,
+            26.0,
+            135.56,
+            25.19
+          ],
+          "ocr_confidence": 0.30000001192092896,
+          "native_required": true,
+          "role": "desktop_date",
+          "color": "#252925"
+        },
+        {
+          "id": "text_85",
+          "ocr_index": 85,
+          "ocr_text": "13:40",
+          "text": "13:40",
+          "rect": [
+            31.62,
+            66.0,
+            105.44,
+            35.42
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "desktop_clock",
+          "color": "#252925"
+        },
+        {
+          "id": "text_86",
+          "ocr_index": 86,
+          "ocr_text": "安装服务•师傅在路上",
+          "text": "安装服务•师傅在路上",
+          "rect": [
+            106.93,
+            156.67,
+            256.07,
+            30.33
+          ],
+          "ocr_confidence": 0.5,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "installation_arriving"
+        },
+        {
+          "id": "text_87",
+          "ocr_index": 87,
+          "ocr_text": "约20分钟后到达",
+          "text": "约20分钟后到达",
+          "rect": [
+            41.66,
+            221.98,
+            291.21,
+            45.21
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "installation_arriving"
+        },
+        {
+          "id": "text_88",
+          "ocr_index": 88,
+          "ocr_text": "王师傅",
+          "text": "王师傅",
+          "rect": [
+            237.47,
+            332.0,
+            80.33,
+            31.0
+          ],
+          "ocr_confidence": 0.5,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "installation_arriving"
+        },
+        {
+          "id": "text_89",
+          "ocr_index": 89,
+          "ocr_text": "今天 14:00-16:00",
+          "text": "今天 14:00-16:00",
+          "rect": [
+            237.47,
+            382.72,
+            195.82,
+            25.28
+          ],
+          "ocr_confidence": 0.5,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "installation_arriving"
+        },
+        {
+          "id": "text_90",
+          "ocr_index": 90,
+          "ocr_text": "家•海棠路18号",
+          "text": "家•海棠路18号",
+          "rect": [
+            232.45,
+            427.93,
+            170.71,
+            30.14
+          ],
+          "ocr_confidence": 0.30000001192092896,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "installation_arriving"
+        },
+        {
+          "id": "text_91",
+          "ocr_index": 91,
+          "ocr_text": "预约成功",
+          "text": "预约成功",
+          "rect": [
+            46.68,
+            558.53,
+            95.4,
+            30.47
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "installation_arriving"
+        },
+        {
+          "id": "text_92",
+          "ocr_index": 92,
+          "ocr_text": "◎",
+          "text": "◎",
+          "rect": [
+            232.45,
+            518.35,
+            30.13,
+            25.12
+          ],
+          "ocr_confidence": 0.30000001192092896,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "installation_arriving",
+          "exclude_from_native_text": true,
+          "reason": "Active progress ring is a native timeline decoration, not the text glyph ◎"
+        },
+        {
+          "id": "text_93",
+          "ocr_index": 93,
+          "ocr_text": "正在前往",
+          "text": "正在前往",
+          "rect": [
+            207.28,
+            558.32,
+            90.52,
+            30.57
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "installation_arriving"
+        },
+        {
+          "id": "text_94",
+          "ocr_index": 94,
+          "ocr_text": "安装完成",
+          "text": "安装完成",
+          "rect": [
+            368.02,
+            558.53,
+            95.4,
+            30.47
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "installation_arriving"
+        },
+        {
+          "id": "text_95",
+          "ocr_index": 95,
+          "ocr_text": "联系师傅",
+          "text": "联系师傅",
+          "rect": [
+            91.51,
+            682.82,
+            106.15,
+            32.73
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "button_label",
+          "color": "#ffffff",
+          "card": "installation_arriving",
+          "control_id": "contact_technician"
+        },
+        {
+          "id": "text_96",
+          "ocr_index": 96,
+          "ocr_text": "查看预约",
+          "text": "查看预约",
+          "rect": [
+            317.69,
+            683.73,
+            100.65,
+            30.92
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "button_label",
+          "color": "#355c45",
+          "card": "installation_arriving",
+          "control_id": "view_booking"
+        },
+        {
+          "id": "text_97",
+          "ocr_index": 97,
+          "ocr_text": "邮件",
+          "text": "邮件",
+          "rect": [
+            41.66,
+            950.0,
+            50.21,
+            25.47
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "dock_label",
+          "color": "#252925"
+        },
+        {
+          "id": "text_98",
+          "ocr_index": 98,
+          "ocr_text": "19",
+          "text": "19",
+          "rect": [
+            157.14,
+            885.0,
+            50.21,
+            40.23
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "dock_label",
+          "color": "#252925"
+        },
+        {
+          "id": "text_99",
+          "ocr_index": 99,
+          "ocr_text": "日历",
+          "text": "日历",
+          "rect": [
+            162.16,
+            950.0,
+            45.19,
+            25.47
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "dock_label",
+          "color": "#252925"
+        },
+        {
+          "id": "text_100",
+          "ocr_index": 100,
+          "ocr_text": "购物",
+          "text": "购物",
+          "rect": [
+            292.7,
+            950.0,
+            40.17,
+            25.47
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "dock_label",
+          "color": "#252925"
+        },
+        {
+          "id": "text_101",
+          "ocr_index": 101,
+          "ocr_text": "支付",
+          "text": "支付",
+          "rect": [
+            413.21,
+            950.0,
+            50.21,
+            25.47
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "dock_label",
+          "color": "#252925"
+        }
+      ],
+      "dock": {
+        "surface": {
+          "rect": [
+            8,
+            844,
+            500,
+            152
+          ],
+          "radius_px": 40,
+          "fill": "#f6f9f680"
+        },
+        "items": [
+          {
+            "id": "dock_mail",
+            "icon": "envelope",
+            "rect": [
+              26,
+              861,
+              82,
+              84
+            ],
+            "action": "open_mail_app",
+            "native_required": true,
+            "container_radius_px": 24,
+            "container_fill": "#fcfcfb",
+            "icon_stroke": "#586b62",
+            "stroke_width_px": 1.5,
+            "label": "邮件",
+            "calendar_day": 19
+          },
+          {
+            "id": "dock_calendar",
+            "icon": "calendar",
+            "rect": [
+              145,
+              861,
+              86,
+              84
+            ],
+            "action": "open_calendar_app",
+            "native_required": true,
+            "container_radius_px": 24,
+            "container_fill": "#fcfcfb",
+            "icon_stroke": "#586b62",
+            "stroke_width_px": 1.5,
+            "label": "日历",
+            "calendar_day": 19
+          },
+          {
+            "id": "dock_shopping",
+            "icon": "shopping_bag",
+            "rect": [
+              272,
+              861,
+              86,
+              84
+            ],
+            "action": "open_shopping_app",
+            "native_required": true,
+            "container_radius_px": 24,
+            "container_fill": "#fcfcfb",
+            "icon_stroke": "#586b62",
+            "stroke_width_px": 1.5,
+            "label": "购物",
+            "calendar_day": 19
+          },
+          {
+            "id": "dock_payment",
+            "icon": "payment_card",
+            "rect": [
+              399,
+              861,
+              84,
+              84
+            ],
+            "action": "open_payment_app",
+            "native_required": true,
+            "container_radius_px": 24,
+            "container_fill": "#fcfcfb",
+            "icon_stroke": "#586b62",
+            "stroke_width_px": 1.5,
+            "label": "支付",
+            "calendar_day": 19
+          }
+        ]
+      },
+      "background": {
+        "native_required": true,
+        "base": "#f2f6f3",
+        "gradient_to": "#e9f1f5",
+        "direction": "top-left to bottom-right",
+        "note": "Approximate very soft ivory/sage/mist wallpaper with native gradient and translucent polygons; never use the full screen image as a texture"
+      },
+      "sampled_colors": [
+        {
+          "point": [
+            260,
+            140
+          ],
+          "rgb_hex": "#fbfbfa",
+          "role": "card_surface"
+        }
+      ]
+    },
+    {
+      "surfaces": [
+        {
+          "id": "payment_due",
+          "owner": "payment",
+          "rect": [
+            18,
+            126,
+            459,
+            459
+          ],
+          "radius_px": 26,
+          "fill": "#fcfcfc",
+          "shadow": {
+            "offset": [
+              0,
+              5
+            ],
+            "blur_px": 15,
+            "rgba": "#3d59650d"
+          },
+          "body_action": "open_payment_app"
+        },
+        {
+          "id": "installation_complete",
+          "owner": "installation",
+          "rect": [
+            18,
+            603,
+            459,
+            220
+          ],
+          "radius_px": 26,
+          "fill": "#fcfcfc",
+          "shadow": {
+            "offset": [
+              0,
+              5
+            ],
+            "blur_px": 15,
+            "rgba": "#3d59650d"
+          },
+          "body_action": "open_installation_app"
+        }
+      ],
+      "controls": [
+        {
+          "id": "pay_materials",
+          "label": "支付 ¥130",
+          "rect": [
+            42,
+            502,
+            217,
+            59
+          ],
+          "radius_px": 15,
+          "style": "filled",
+          "fill": "#5f816b",
+          "stroke": "#416a53",
+          "text_color": "#ffffff",
+          "stroke_width_px": 1,
+          "action": "pay_materials",
+          "card": "payment_due",
+          "effect": "Only an explicit payment action changes payment status; keep the service order paid amount at 130 CNY"
+        },
+        {
+          "id": "withdraw_payment_request",
+          "label": "撤销",
+          "rect": [
+            285,
+            501,
+            169,
+            59
+          ],
+          "radius_px": 15,
+          "style": "outline",
+          "fill": "#f8f9f6",
+          "stroke": "#b9c7bc",
+          "text_color": "#355c45",
+          "stroke_width_px": 1,
+          "action": "withdraw_payment_request",
+          "card": "payment_due",
+          "effect": "Withdraw/dismiss the unpaid payment request; this is not a refund and does not cancel completed installation"
+        },
+        {
+          "id": "report_installation_issue",
+          "label": "反馈问题",
+          "rect": [
+            130,
+            735,
+            228,
+            58
+          ],
+          "radius_px": 15,
+          "style": "outline",
+          "fill": "#f8f9f6",
+          "stroke": "#b9c7bc",
+          "text_color": "#355c45",
+          "stroke_width_px": 1,
+          "action": "open_service_feedback",
+          "card": "installation_complete",
+          "effect": null
+        }
+      ],
+      "icons": [
+        {
+          "id": "payment_icon",
+          "kind": "wallet",
+          "rect": [
+            48,
+            149,
+            44,
+            41
+          ],
+          "native_required": true,
+          "fill": "#678071",
+          "stroke": "#496659",
+          "stroke_width_px": 1.5,
+          "card": "payment_due"
+        },
+        {
+          "id": "installation_icon",
+          "kind": "wrench",
+          "rect": [
+            44,
+            630,
+            38,
+            41
+          ],
+          "native_required": true,
+          "fill": "#b99c7a",
+          "stroke": "#496659",
+          "stroke_width_px": 1.5,
+          "card": "installation_complete"
+        }
+      ],
+      "decorations": [
+        {
+          "id": "materials_divider",
+          "kind": "line",
+          "points": [
+            [
+              47,
+              341
+            ],
+            [
+              447,
+              341
+            ]
+          ],
+          "stroke": "#dcdede",
+          "stroke_width_px": 1
+        }
+      ],
+      "illustrations": [],
+      "source_links": [
+        {
+          "id": "payment_source_service_order",
+          "label": "安装服务单",
+          "rect": [
+            45,
+            451,
+            121,
+            33
+          ],
+          "owner": "installation",
+          "action": "open_service_order",
+          "card": "payment_due",
+          "note": "Visible source text can act as a native source link; do not rasterize it"
+        }
+      ],
+      "notes": [
+        "Two service cards: payment request and completed installation. Keep their actions and lifecycle independent.",
+        "Payment receiver name must be the unbranded 安装服务团队."
+      ],
+      "id": 11,
+      "slug": "payment-due",
+      "source_image": "~/home/Octosense-website/output/imagegen/aircon-fresh-v2/frames/11-payment-due.png",
+      "source_image_sha256": "fdfadec75b88a77464209366654d1f89f93c678bdc72eafd3b22f0a687ec6ed6",
+      "source_size": [
+        515,
+        998
+      ],
+      "atlas_crop": [
+        1155,
+        2365,
+        515,
+        998
+      ],
+      "coordinate_system": "source-frame pixels, origin top-left, rect=[x,y,width,height]",
+      "fit_406x776": {
+        "scale": 0.77755511,
+        "offset": [
+          2.77956,
+          0.0
+        ],
+        "rule": "Apply one uniform scale and the same offset to all boxes; preserve source aspect ratio"
+      },
+      "text_observations": [
+        {
+          "id": "text_139",
+          "ocr_index": 139,
+          "ocr_text": "9月19日 周六",
+          "text": "9月19日 周六",
+          "rect": [
+            29.94,
+            31.0,
+            130.54,
+            25.21
+          ],
+          "ocr_confidence": 0.5,
+          "native_required": true,
+          "role": "desktop_date",
+          "color": "#252925"
+        },
+        {
+          "id": "text_140",
+          "ocr_index": 140,
+          "ocr_text": "16:10",
+          "text": "16:10",
+          "rect": [
+            24.92,
+            71.0,
+            110.46,
+            35.44
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "desktop_clock",
+          "color": "#252925"
+        },
+        {
+          "id": "text_141",
+          "ocr_index": 141,
+          "ocr_text": "支付•待付款",
+          "text": "支付•待付款",
+          "rect": [
+            105.19,
+            156.37,
+            155.77,
+            30.75
+          ],
+          "ocr_confidence": 0.5,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "payment_due"
+        },
+        {
+          "id": "text_142",
+          "ocr_index": 142,
+          "ocr_text": "空调安装材料费",
+          "text": "空调安装材料费",
+          "rect": [
+            39.98,
+            216.95,
+            225.94,
+            40.19
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "payment_due"
+        },
+        {
+          "id": "text_143",
+          "ocr_index": 143,
+          "ocr_text": "¥130",
+          "text": "¥130",
+          "rect": [
+            39.98,
+            277.0,
+            145.61,
+            50.47
+          ],
+          "ocr_confidence": 0.5,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "payment_due"
+        },
+        {
+          "id": "text_144",
+          "ocr_index": 144,
+          "ocr_text": "加长铜管 2米",
+          "text": "加长铜管 2米",
+          "rect": [
+            44.79,
+            356.57,
+            141.01,
+            32.21
+          ],
+          "ocr_confidence": 0.30000001192092896,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "payment_due"
+        },
+        {
+          "id": "text_145",
+          "ocr_index": 145,
+          "ocr_text": "收款方：安装竅务团队",
+          "text": "收款方：安装服务团队",
+          "rect": [
+            39.98,
+            412.86,
+            235.98,
+            30.14
+          ],
+          "ocr_confidence": 0.5,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "payment_due",
+          "reason": "Generated/OCR character 竅 is a corrupted 服务 label; correction agrees with the approved fixture"
+        },
+        {
+          "id": "text_146",
+          "ocr_index": 146,
+          "ocr_text": "安装服务单",
+          "text": "安装服务单",
+          "rect": [
+            45.0,
+            453.0,
+            115.48,
+            30.19
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "source_link",
+          "color": "#252925",
+          "card": "payment_due",
+          "control_id": "payment_source_service_order"
+        },
+        {
+          "id": "text_147",
+          "ocr_index": 147,
+          "ocr_text": "¥130",
+          "text": "¥130",
+          "rect": [
+            381.4,
+            362.63,
+            65.27,
+            25.37
+          ],
+          "ocr_confidence": 0.5,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "payment_due"
+        },
+        {
+          "id": "text_148",
+          "ocr_index": 148,
+          "ocr_text": "支付 ¥130",
+          "text": "支付 ¥130",
+          "rect": [
+            85.17,
+            518.0,
+            120.5,
+            30.49
+          ],
+          "ocr_confidence": 0.30000001192092896,
+          "native_required": true,
+          "role": "button_label",
+          "color": "#ffffff",
+          "card": "payment_due",
+          "control_id": "pay_materials"
+        },
+        {
+          "id": "text_149",
+          "ocr_index": 149,
+          "ocr_text": "撤销",
+          "text": "撤销",
+          "rect": [
+            336.21,
+            518.0,
+            55.23,
+            30.49
+          ],
+          "ocr_confidence": 0.5,
+          "native_required": true,
+          "role": "button_label",
+          "color": "#355c45",
+          "card": "payment_due",
+          "control_id": "withdraw_payment_request"
+        },
+        {
+          "id": "text_150",
+          "ocr_index": 150,
+          "ocr_text": "安装服务•安装已完成",
+          "text": "安装服务•安装已完成",
+          "rect": [
+            105.25,
+            638.91,
+            256.07,
+            25.12
+          ],
+          "ocr_confidence": 0.5,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "installation_complete"
+        },
+        {
+          "id": "text_151",
+          "ocr_index": 151,
+          "ocr_text": "家•海棠路18号",
+          "text": "家•海棠路18号",
+          "rect": [
+            39.98,
+            689.0,
+            170.71,
+            25.26
+          ],
+          "ocr_confidence": 0.5,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "installation_complete"
+        },
+        {
+          "id": "text_152",
+          "ocr_index": 152,
+          "ocr_text": "反馈问题",
+          "text": "反馈问题",
+          "rect": [
+            185.41,
+            753.7,
+            105.78,
+            26.6
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "button_label",
+          "color": "#355c45",
+          "card": "installation_complete",
+          "control_id": "report_installation_issue"
+        },
+        {
+          "id": "text_153",
+          "ocr_index": 153,
+          "ocr_text": "19",
+          "text": "19",
+          "rect": [
+            155.46,
+            890.0,
+            50.21,
+            40.26
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "dock_label",
+          "color": "#252925"
+        },
+        {
+          "id": "text_154",
+          "ocr_index": 154,
+          "ocr_text": "邮件",
+          "text": "邮件",
+          "rect": [
+            45.0,
+            950.0,
+            50.21,
+            25.47
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "dock_label",
+          "color": "#252925"
+        },
+        {
+          "id": "text_155",
+          "ocr_index": 155,
+          "ocr_text": "日历",
+          "text": "日历",
+          "rect": [
+            160.48,
+            950.0,
+            45.19,
+            25.47
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "dock_label",
+          "color": "#252925"
+        },
+        {
+          "id": "text_156",
+          "ocr_index": 156,
+          "ocr_text": "口：",
+          "text": "口：",
+          "rect": [
+            291.03,
+            890.07,
+            40.17,
+            40.19
+          ],
+          "ocr_confidence": 0.30000001192092896,
+          "native_required": true,
+          "role": "dock_label",
+          "color": "#252925",
+          "exclude_from_native_text": true,
+          "reason": "Shopping dock bag outline misrecognized as text"
+        },
+        {
+          "id": "text_157",
+          "ocr_index": 157,
+          "ocr_text": "购物",
+          "text": "购物",
+          "rect": [
+            286.0,
+            950.0,
+            50.21,
+            25.47
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "dock_label",
+          "color": "#252925"
+        },
+        {
+          "id": "text_158",
+          "ocr_index": 158,
+          "ocr_text": "支付",
+          "text": "支付",
+          "rect": [
+            411.53,
+            950.0,
+            45.19,
+            25.47
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "dock_label",
+          "color": "#252925"
+        }
+      ],
+      "dock": {
+        "surface": {
+          "rect": [
+            13,
+            847,
+            487,
+            149
+          ],
+          "radius_px": 40,
+          "fill": "#f6f9f680"
+        },
+        "items": [
+          {
+            "id": "dock_mail",
+            "icon": "envelope",
+            "rect": [
+              29,
+              865,
+              80,
+              80
+            ],
+            "action": "open_mail_app",
+            "native_required": true,
+            "container_radius_px": 24,
+            "container_fill": "#fcfcfb",
+            "icon_stroke": "#586b62",
+            "stroke_width_px": 1.5,
+            "label": "邮件",
+            "calendar_day": 19
+          },
+          {
+            "id": "dock_calendar",
+            "icon": "calendar",
+            "rect": [
+              147,
+              865,
+              84,
+              80
+            ],
+            "action": "open_calendar_app",
+            "native_required": true,
+            "container_radius_px": 24,
+            "container_fill": "#fcfcfb",
+            "icon_stroke": "#586b62",
+            "stroke_width_px": 1.5,
+            "label": "日历",
+            "calendar_day": 19
+          },
+          {
+            "id": "dock_shopping",
+            "icon": "shopping_bag",
+            "rect": [
+              273,
+              865,
+              84,
+              80
+            ],
+            "action": "open_shopping_app",
+            "native_required": true,
+            "container_radius_px": 24,
+            "container_fill": "#fcfcfb",
+            "icon_stroke": "#586b62",
+            "stroke_width_px": 1.5,
+            "label": "购物",
+            "calendar_day": 19
+          },
+          {
+            "id": "dock_payment",
+            "icon": "payment_card",
+            "rect": [
+              396,
+              865,
+              81,
+              80
+            ],
+            "action": "open_payment_app",
+            "native_required": true,
+            "container_radius_px": 24,
+            "container_fill": "#fcfcfb",
+            "icon_stroke": "#586b62",
+            "stroke_width_px": 1.5,
+            "label": "支付",
+            "calendar_day": 19
+          }
+        ]
+      },
+      "background": {
+        "native_required": true,
+        "base": "#f2f6f3",
+        "gradient_to": "#e9f1f5",
+        "direction": "top-left to bottom-right",
+        "note": "Approximate very soft ivory/sage/mist wallpaper with native gradient and translucent polygons; never use the full screen image as a texture"
+      },
+      "sampled_colors": [
+        {
+          "point": [
+            247,
+            138
+          ],
+          "rgb_hex": "#fbfcfc",
+          "role": "card_surface"
+        },
+        {
+          "point": [
+            247,
+            615
+          ],
+          "rgb_hex": "#fbfafa",
+          "role": "card_surface"
+        }
+      ]
+    },
+    {
+      "surfaces": [
+        {
+          "id": "payment_complete",
+          "owner": "payment",
+          "rect": [
+            22,
+            128,
+            564,
+            466
+          ],
+          "radius_px": 28,
+          "fill": "#fcfcfc",
+          "shadow": {
+            "offset": [
+              0,
+              5
+            ],
+            "blur_px": 15,
+            "rgba": "#3d59650d"
+          },
+          "body_action": "open_payment_app"
+        },
+        {
+          "id": "installation_complete",
+          "owner": "installation",
+          "rect": [
+            21,
+            610,
+            565,
+            222
+          ],
+          "radius_px": 28,
+          "fill": "#fcfcfc",
+          "shadow": {
+            "offset": [
+              0,
+              5
+            ],
+            "blur_px": 15,
+            "rgba": "#3d59650d"
+          },
+          "body_action": "open_installation_app"
+        }
+      ],
+      "controls": [
+        {
+          "id": "view_payment_receipt",
+          "label": "查看凭证",
+          "rect": [
+            55,
+            513,
+            333,
+            60
+          ],
+          "radius_px": 15,
+          "style": "outline",
+          "fill": "#f8f9f6",
+          "stroke": "#b9c7bc",
+          "text_color": "#355c45",
+          "stroke_width_px": 1,
+          "action": "open_payment_receipt",
+          "card": "payment_complete",
+          "effect": null
+        },
+        {
+          "id": "view_service_order",
+          "label": "查看服务单",
+          "rect": [
+            142,
+            748,
+            249,
+            59
+          ],
+          "radius_px": 15,
+          "style": "outline",
+          "fill": "#f8f9f6",
+          "stroke": "#b9c7bc",
+          "text_color": "#355c45",
+          "stroke_width_px": 1,
+          "action": "open_service_order",
+          "card": "installation_complete",
+          "effect": null
+        }
+      ],
+      "icons": [
+        {
+          "id": "payment_icon",
+          "kind": "wallet",
+          "rect": [
+            52,
+            154,
+            48,
+            43
+          ],
+          "native_required": true,
+          "fill": "#678071",
+          "stroke": "#496659",
+          "stroke_width_px": 1.5,
+          "card": "payment_complete"
+        },
+        {
+          "id": "payment_success",
+          "kind": "circle_check",
+          "rect": [
+            500,
+            162,
+            33,
+            34
+          ],
+          "native_required": true,
+          "fill": "#63876b",
+          "stroke": "#496659",
+          "stroke_width_px": 1.5,
+          "card": "payment_complete"
+        },
+        {
+          "id": "installation_icon",
+          "kind": "wrench",
+          "rect": [
+            52,
+            641,
+            41,
+            40
+          ],
+          "native_required": true,
+          "fill": "#b99c7a",
+          "stroke": "#496659",
+          "stroke_width_px": 1.5,
+          "card": "installation_complete"
+        }
+      ],
+      "decorations": [
+        {
+          "id": "materials_divider",
+          "kind": "line",
+          "points": [
+            [
+              53,
+              354
+            ],
+            [
+              543,
+              354
+            ]
+          ],
+          "stroke": "#dcdede",
+          "stroke_width_px": 1
+        }
+      ],
+      "illustrations": [],
+      "source_links": [
+        {
+          "id": "payment_source_service_order",
+          "label": "安装服务单",
+          "rect": [
+            51,
+            463,
+            124,
+            33
+          ],
+          "owner": "installation",
+          "action": "open_service_order",
+          "card": "payment_complete"
+        }
+      ],
+      "notes": [
+        "Payment status already paid; receipt is read-only and must not submit another payment.",
+        "Keep this wide atlas-column crop at its measured aspect ratio; do not stretch to match narrower frames."
+      ],
+      "id": 12,
+      "slug": "payment-complete",
+      "source_image": "~/home/Octosense-website/output/imagegen/aircon-fresh-v2/frames/12-payment-complete.png",
+      "source_image_sha256": "4f2afd764cd03e62c3836a19d2511ce4252d20f343a4a0a16e6d49d3fcbf4057",
+      "source_size": [
+        638,
+        1001
+      ],
+      "atlas_crop": [
+        1711,
+        2364,
+        638,
+        1001
+      ],
+      "coordinate_system": "source-frame pixels, origin top-left, rect=[x,y,width,height]",
+      "fit_406x776": {
+        "scale": 0.63636364,
+        "offset": [
+          -0.0,
+          69.5
+        ],
+        "rule": "Apply one uniform scale and the same offset to all boxes; preserve source aspect ratio"
+      },
+      "text_observations": [
+        {
+          "id": "text_195",
+          "ocr_index": 195,
+          "ocr_text": "9月19日 周六",
+          "text": "9月19日 周六",
+          "rect": [
+            31.26,
+            32.0,
+            130.54,
+            25.21
+          ],
+          "ocr_confidence": 0.5,
+          "native_required": true,
+          "role": "desktop_date",
+          "color": "#252925"
+        },
+        {
+          "id": "text_196",
+          "ocr_index": 196,
+          "ocr_text": "16:12",
+          "text": "16:12",
+          "rect": [
+            31.16,
+            72.0,
+            110.66,
+            40.75
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "desktop_clock",
+          "color": "#252925"
+        },
+        {
+          "id": "text_197",
+          "ocr_index": 197,
+          "ocr_text": "支付•已完成",
+          "text": "支付•已完成",
+          "rect": [
+            116.49,
+            162.04,
+            160.91,
+            31.46
+          ],
+          "ocr_confidence": 0.5,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "payment_complete"
+        },
+        {
+          "id": "text_198",
+          "ocr_index": 198,
+          "ocr_text": "空调安装材料费",
+          "text": "空调安装材料费",
+          "rect": [
+            51.34,
+            222.98,
+            225.94,
+            35.16
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "payment_complete"
+        },
+        {
+          "id": "text_199",
+          "ocr_index": 199,
+          "ocr_text": "¥130",
+          "text": "¥130",
+          "rect": [
+            45.7,
+            281.38,
+            146.86,
+            53.99
+          ],
+          "ocr_confidence": 0.5,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "payment_complete"
+        },
+        {
+          "id": "text_200",
+          "ocr_index": 200,
+          "ocr_text": "已支付",
+          "text": "已支付",
+          "rect": [
+            232.1,
+            298.0,
+            80.33,
+            30.47
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "payment_complete"
+        },
+        {
+          "id": "text_201",
+          "ocr_index": 201,
+          "ocr_text": "加长铜管 2米",
+          "text": "加长铜管 2米",
+          "rect": [
+            51.27,
+            373.31,
+            155.79,
+            30.86
+          ],
+          "ocr_confidence": 0.5,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "payment_complete"
+        },
+        {
+          "id": "text_202",
+          "ocr_index": 202,
+          "ocr_text": "收款方：安装裳务团队",
+          "text": "收款方：安装服务团队",
+          "rect": [
+            51.34,
+            423.91,
+            241.0,
+            30.14
+          ],
+          "ocr_confidence": 0.5,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "payment_complete",
+          "reason": "Generated/OCR character 裳 is a corrupted 服务 label; correction agrees with the approved fixture"
+        },
+        {
+          "id": "text_203",
+          "ocr_index": 203,
+          "ocr_text": "安装服务单",
+          "text": "安装服务单",
+          "rect": [
+            50.93,
+            462.35,
+            121.33,
+            33.63
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "source_link",
+          "color": "#252925",
+          "card": "payment_complete",
+          "control_id": "payment_source_service_order"
+        },
+        {
+          "id": "text_204",
+          "ocr_index": 204,
+          "ocr_text": "查看凭证",
+          "text": "查看凭证",
+          "rect": [
+            161.74,
+            529.16,
+            110.59,
+            30.62
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "button_label",
+          "color": "#355c45",
+          "card": "payment_complete",
+          "control_id": "view_payment_receipt"
+        },
+        {
+          "id": "text_205",
+          "ocr_index": 205,
+          "ocr_text": "安装服务•安装已完成",
+          "text": "安装服务•安装已完成",
+          "rect": [
+            116.62,
+            644.93,
+            281.17,
+            30.14
+          ],
+          "ocr_confidence": 0.5,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "installation_complete"
+        },
+        {
+          "id": "text_206",
+          "ocr_index": 206,
+          "ocr_text": "家．海棠路18号",
+          "text": "家．海棠路18号",
+          "rect": [
+            46.32,
+            695.0,
+            180.75,
+            30.3
+          ],
+          "ocr_confidence": 0.5,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "installation_complete"
+        },
+        {
+          "id": "text_207",
+          "ocr_index": 207,
+          "ocr_text": "查看服务单",
+          "text": "查看服务单",
+          "rect": [
+            191.86,
+            765.2,
+            130.68,
+            30.72
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "button_label",
+          "color": "#355c45",
+          "card": "installation_complete",
+          "control_id": "view_service_order"
+        },
+        {
+          "id": "text_208",
+          "ocr_index": 208,
+          "ocr_text": "19",
+          "text": "19",
+          "rect": [
+            186.91,
+            896.0,
+            55.23,
+            35.26
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "dock_label",
+          "color": "#252925"
+        },
+        {
+          "id": "text_209",
+          "ocr_index": 209,
+          "ocr_text": "邮件",
+          "text": "邮件",
+          "rect": [
+            56.36,
+            956.0,
+            50.21,
+            25.49
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "dock_label",
+          "color": "#252925"
+        },
+        {
+          "id": "text_210",
+          "ocr_index": 210,
+          "ocr_text": "日历",
+          "text": "日历",
+          "rect": [
+            191.93,
+            951.0,
+            50.21,
+            30.49
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "dock_label",
+          "color": "#252925"
+        },
+        {
+          "id": "text_211",
+          "ocr_index": 211,
+          "ocr_text": "购物",
+          "text": "购物",
+          "rect": [
+            337.54,
+            951.0,
+            50.21,
+            30.49
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "dock_label",
+          "color": "#252925"
+        },
+        {
+          "id": "text_215",
+          "ocr_index": 215,
+          "ocr_text": "¥130",
+          "text": "¥130",
+          "rect": [
+            468.08,
+            373.67,
+            70.29,
+            30.33
+          ],
+          "ocr_confidence": 0.5,
+          "native_required": true,
+          "role": "label",
+          "color": "#252925",
+          "card": "payment_complete"
+        },
+        {
+          "id": "text_216",
+          "ocr_index": 216,
+          "ocr_text": "支付",
+          "text": "支付",
+          "rect": [
+            483.14,
+            951.0,
+            50.21,
+            30.49
+          ],
+          "ocr_confidence": 1,
+          "native_required": true,
+          "role": "dock_label",
+          "color": "#252925"
+        }
+      ],
+      "dock": {
+        "surface": {
+          "rect": [
+            13,
+            850,
+            584,
+            150
+          ],
+          "radius_px": 40,
+          "fill": "#f6f9f680"
+        },
+        "items": [
+          {
+            "id": "dock_mail",
+            "icon": "envelope",
+            "rect": [
+              36,
+              867,
+              91,
+              81
+            ],
+            "action": "open_mail_app",
+            "native_required": true,
+            "container_radius_px": 24,
+            "container_fill": "#fcfcfb",
+            "icon_stroke": "#586b62",
+            "stroke_width_px": 1.5,
+            "label": "邮件",
+            "calendar_day": 19
+          },
+          {
+            "id": "dock_calendar",
+            "icon": "calendar",
+            "rect": [
+              173,
+              867,
+              98,
+              81
+            ],
+            "action": "open_calendar_app",
+            "native_required": true,
+            "container_radius_px": 24,
+            "container_fill": "#fcfcfb",
+            "icon_stroke": "#586b62",
+            "stroke_width_px": 1.5,
+            "label": "日历",
+            "calendar_day": 19
+          },
+          {
+            "id": "dock_shopping",
+            "icon": "shopping_bag",
+            "rect": [
+              320,
+              867,
+              94,
+              81
+            ],
+            "action": "open_shopping_app",
+            "native_required": true,
+            "container_radius_px": 24,
+            "container_fill": "#fcfcfb",
+            "icon_stroke": "#586b62",
+            "stroke_width_px": 1.5,
+            "label": "购物",
+            "calendar_day": 19
+          },
+          {
+            "id": "dock_payment",
+            "icon": "payment_card",
+            "rect": [
+              466,
+              867,
+              92,
+              81
+            ],
+            "action": "open_payment_app",
+            "native_required": true,
+            "container_radius_px": 24,
+            "container_fill": "#fcfcfb",
+            "icon_stroke": "#586b62",
+            "stroke_width_px": 1.5,
+            "label": "支付",
+            "calendar_day": 19
+          }
+        ]
+      },
+      "background": {
+        "native_required": true,
+        "base": "#f2f6f3",
+        "gradient_to": "#e9f1f5",
+        "direction": "top-left to bottom-right",
+        "note": "Approximate very soft ivory/sage/mist wallpaper with native gradient and translucent polygons; never use the full screen image as a texture"
+      },
+      "sampled_colors": [
+        {
+          "point": [
+            304,
+            140
+          ],
+          "rgb_hex": "#fcfbfc",
+          "role": "card_surface"
+        },
+        {
+          "point": [
+            303,
+            622
+          ],
+          "rgb_hex": "#fbfcfc",
+          "role": "card_surface"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+# ledger reunion-poll-card-03@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy text_106_text { class: user-copy, en: "选择时间" }
+copy text_107_text { class: user-copy, en: "查看邀请" }
+copy text_102_text { class: user-copy, en: "聚会 · 时间投票" }
+copy text_103_text { class: user-copy, en: "十年同窗 再聚一堂" }
+copy text_104_text { class: user-copy, en: "王宁邀请你选择时间" }
+copy text_105_text { class: user-copy, en: "3个时段 · 18位同学" }
+state choose_time_control_enabled { shape: bool, initial: true }
+state view_invite_control_enabled { shape: bool, initial: true }
+component Surfacec68b2b978c4e(instance: text) {
+  view Kit(component: "Surfacec68b2b978c4e", instance: instance) { slot }
+}
+component KitButton3f1620e22939(instance: text) {
+  view Kit(component: "KitButton3f1620e22939", instance: instance) { slot }
+}
+component Surface592192b269fb(instance: text) {
+  view Kit(component: "Surface592192b269fb", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Textec6aab563a94(instance: text, text: text) {
+  view Kit(component: "Textec6aab563a94", instance: instance, text: text)
+}
+component Surface02d4c6df0c63(instance: text) {
+  view Kit(component: "Surface02d4c6df0c63", instance: instance) { slot }
+}
+component Text0e23b833aaf8(instance: text, text: text) {
+  view Kit(component: "Text0e23b833aaf8", instance: instance, text: text)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Textf3f03d03f95e(instance: text, text: text) {
+  view Kit(component: "Textf3f03d03f95e", instance: instance, text: text)
+}
+component Text52da346e7640(instance: text, text: text) {
+  view Kit(component: "Text52da346e7640", instance: instance, text: text)
+}
+component Textda6cfc8e13ca(instance: text, text: text) {
+  view Kit(component: "Textda6cfc8e13ca", instance: instance, text: text)
+}
+component Text2a903245b785(instance: text, text: text) {
+  view Kit(component: "Text2a903245b785", instance: instance, text: text)
+}
+
+view root Surfacec68b2b978c4e(instance: "poll_card") {
+  KitButton3f1620e22939(instance: "choose_time") {
+    Surface592192b269fb(instance: "choose_time_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "choose_time_control", enabled: choose_time_control_enabled)
+    Textec6aab563a94(instance: "text_106", text: copy.text_106_text)
+  }
+  KitButton3f1620e22939(instance: "view_invite") {
+    Surface02d4c6df0c63(instance: "view_invite_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "view_invite_control", enabled: view_invite_control_enabled)
+    Text0e23b833aaf8(instance: "text_107", text: copy.text_107_text)
+  }
+  Vectore0a378fde04f(instance: "calendar_icon_0")
+  Textf3f03d03f95e(instance: "text_102", text: copy.text_102_text)
+  Text52da346e7640(instance: "text_103", text: copy.text_103_text)
+  Textda6cfc8e13ca(instance: "text_104", text: copy.text_104_text)
+  Text2a903245b785(instance: "text_105", text: copy.text_105_text)
+}

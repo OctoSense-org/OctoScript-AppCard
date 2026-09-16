@@ -1,0 +1,22 @@
+{
+  "id": "school-08",
+  "reference_sha256": "6a396cf0da8686a143fd0e2e09c5e28819e1f3862fd7038de5e58f5bfd2780fd",
+  "round": "001",
+  "native_findings": [],
+  "image_findings": [
+    "missing observed reference measurements"
+  ],
+  "text_differences": [],
+  "visual_findings": [],
+  "visual_review_current": false,
+  "visual_verdict": null,
+  "semantic_findings": [],
+  "semantic_repairs": [],
+  "rules": [
+    "Preserve real native Labels and controls.",
+    "Never replace a page with its screenshot.",
+    "Follow MAPPING-RULES.md: data graphics require native data-bound widgets; artwork requires asset provenance.",
+    "Repair mapped.json or native vector assets; recapture through Studio.",
+    "Do not widen tolerances to manufacture a pass."
+  ]
+}

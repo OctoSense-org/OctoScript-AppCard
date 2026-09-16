@@ -1,0 +1,32 @@
+# ledger reunion-confirmed-summary-11@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy text_140_text { class: user-copy, en: "聚会 · 已确认" }
+copy text_141_text { class: user-copy, en: "周六 10月24日 18:30" }
+copy text_142_text { class: user-copy, en: "木光餐厅 · 桂花路8号" }
+component Surfacec68b2b978c4e(instance: text) {
+  view Kit(component: "Surfacec68b2b978c4e", instance: instance) { slot }
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Text88dcc330b769(instance: text, text: text) {
+  view Kit(component: "Text88dcc330b769", instance: instance, text: text)
+}
+component Texte063ec963743(instance: text, text: text) {
+  view Kit(component: "Texte063ec963743", instance: instance, text: text)
+}
+component Text13bed7c521e0(instance: text, text: text) {
+  view Kit(component: "Text13bed7c521e0", instance: instance, text: text)
+}
+
+view root Surfacec68b2b978c4e(instance: "confirmed_summary") {
+  Vectore0a378fde04f(instance: "calendar_icon_1")
+  Vectore0a378fde04f(instance: "pin_icon_2")
+  Vectore0a378fde04f(instance: "pin_icon_3")
+  Text88dcc330b769(instance: "text_140", text: copy.text_140_text)
+  Texte063ec963743(instance: "text_141", text: copy.text_141_text)
+  Text13bed7c521e0(instance: "text_142", text: copy.text_142_text)
+}

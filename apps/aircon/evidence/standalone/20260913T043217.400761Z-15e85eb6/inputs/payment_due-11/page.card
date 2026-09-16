@@ -1,0 +1,102 @@
+# ledger payment_due-11@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy text_146_text { class: user-copy, en: "安装服务单" }
+copy text_148_text { class: user-copy, en: "支付 ¥130" }
+copy text_149_text { class: user-copy, en: "撤销" }
+copy text_141_text { class: user-copy, en: "支付 · 待付款" }
+copy text_142_text { class: user-copy, en: "空调安装材料费" }
+copy text_143_text { class: user-copy, en: "¥130" }
+copy text_144_text { class: user-copy, en: "加长铜管 2米" }
+copy text_145_text { class: user-copy, en: "收款方：安装服务团队" }
+copy text_147_text { class: user-copy, en: "¥130" }
+state source_service_order_control_enabled { shape: bool, initial: true }
+state pay_materials_control_enabled { shape: bool, initial: true }
+state withdraw_payment_request_control_enabled { shape: bool, initial: true }
+component Surface85929981c7b2(instance: text) {
+  view Kit(component: "Surface85929981c7b2", instance: instance) { slot }
+}
+component Surface3c3bbeb094ae(instance: text) {
+  view Kit(component: "Surface3c3bbeb094ae", instance: instance) { slot }
+}
+component KitButton5dc7ea8cd583(instance: text) {
+  view Kit(component: "KitButton5dc7ea8cd583", instance: instance) { slot }
+}
+component Group3d2637879433(instance: text) {
+  view Kit(component: "Group3d2637879433", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Text86f857bd5c5d(instance: text, text: text) {
+  view Kit(component: "Text86f857bd5c5d", instance: instance, text: text)
+}
+component Surface1d6468c66d39(instance: text) {
+  view Kit(component: "Surface1d6468c66d39", instance: instance) { slot }
+}
+component Text56d065845e41(instance: text, text: text) {
+  view Kit(component: "Text56d065845e41", instance: instance, text: text)
+}
+component Surface1657f9595e09(instance: text) {
+  view Kit(component: "Surface1657f9595e09", instance: instance) { slot }
+}
+component Textda073818d511(instance: text, text: text) {
+  view Kit(component: "Textda073818d511", instance: instance, text: text)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Textb06ed5c021bf(instance: text, text: text) {
+  view Kit(component: "Textb06ed5c021bf", instance: instance, text: text)
+}
+component Textf7e5566bc69d(instance: text, text: text) {
+  view Kit(component: "Textf7e5566bc69d", instance: instance, text: text)
+}
+component Text656e73f61909(instance: text, text: text) {
+  view Kit(component: "Text656e73f61909", instance: instance, text: text)
+}
+component Text6661e061f3e9(instance: text, text: text) {
+  view Kit(component: "Text6661e061f3e9", instance: instance, text: text)
+}
+component Texte7909b84222a(instance: text, text: text) {
+  view Kit(component: "Texte7909b84222a", instance: instance, text: text)
+}
+component Text63ed28162106(instance: text, text: text) {
+  view Kit(component: "Text63ed28162106", instance: instance, text: text)
+}
+
+view root Surface85929981c7b2(instance: "payment_due") {
+  Surface3c3bbeb094ae(instance: "divider_0") {
+
+  }
+  KitButton5dc7ea8cd583(instance: "source_service_order") {
+    Group3d2637879433(instance: "source_service_order_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "source_service_order_control", enabled: source_service_order_control_enabled)
+    Text86f857bd5c5d(instance: "text_146", text: copy.text_146_text)
+  }
+  KitButton5dc7ea8cd583(instance: "pay_materials") {
+    Surface1d6468c66d39(instance: "pay_materials_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "pay_materials_control", enabled: pay_materials_control_enabled)
+    Text56d065845e41(instance: "text_148", text: copy.text_148_text)
+  }
+  KitButton5dc7ea8cd583(instance: "withdraw_payment_request") {
+    Surface1657f9595e09(instance: "withdraw_payment_request_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "withdraw_payment_request_control", enabled: withdraw_payment_request_control_enabled)
+    Textda073818d511(instance: "text_149", text: copy.text_149_text)
+  }
+  Vectore0a378fde04f(instance: "wallet_icon_0")
+  Textb06ed5c021bf(instance: "text_141", text: copy.text_141_text)
+  Textf7e5566bc69d(instance: "text_142", text: copy.text_142_text)
+  Text656e73f61909(instance: "text_143", text: copy.text_143_text)
+  Text6661e061f3e9(instance: "text_144", text: copy.text_144_text)
+  Texte7909b84222a(instance: "text_145", text: copy.text_145_text)
+  Text63ed28162106(instance: "text_147", text: copy.text_147_text)
+}

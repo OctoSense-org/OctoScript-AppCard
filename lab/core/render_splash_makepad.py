@@ -21,13 +21,14 @@ import uuid
 import urllib.request
 from urllib.parse import urlparse
 
+from core.native_paths import repository
 from core import kitconf
 from core import gate_structure
 from core import semantic_interactions
 
 HERE = pathlib.Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
-MOUNT = ROOT / 'splash-makepad'
+MOUNT = repository('splash-makepad')
 _file_digests = {}
 
 

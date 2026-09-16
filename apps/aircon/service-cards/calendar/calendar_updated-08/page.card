@@ -1,0 +1,68 @@
+# ledger calendar_updated-08@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy text_188_text { class: user-copy, en: "确认" }
+copy text_189_text { class: user-copy, en: "撤销日程" }
+copy text_184_text { class: user-copy, en: "日历 · 已更新" }
+copy text_185_text { class: user-copy, en: "空调安装" }
+copy text_186_text { class: user-copy, en: "9月19日 14:00-16:00" }
+copy text_187_text { class: user-copy, en: "已加入家庭日历" }
+state acknowledge_calendar_control_enabled { shape: bool, initial: true }
+state undo_calendar_control_enabled { shape: bool, initial: true }
+component Surface0a1823aa4964(instance: text) {
+  view Kit(component: "Surface0a1823aa4964", instance: instance) { slot }
+}
+component KitButton5dc7ea8cd583(instance: text) {
+  view Kit(component: "KitButton5dc7ea8cd583", instance: instance) { slot }
+}
+component Surfaced8d7ceb3e964(instance: text) {
+  view Kit(component: "Surfaced8d7ceb3e964", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Text2554711f6e44(instance: text, text: text) {
+  view Kit(component: "Text2554711f6e44", instance: instance, text: text)
+}
+component Text66e5e90446b2(instance: text, text: text) {
+  view Kit(component: "Text66e5e90446b2", instance: instance, text: text)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Text568ec8635973(instance: text, text: text) {
+  view Kit(component: "Text568ec8635973", instance: instance, text: text)
+}
+component Text78fec43fcd63(instance: text, text: text) {
+  view Kit(component: "Text78fec43fcd63", instance: instance, text: text)
+}
+component Texta3756216121e(instance: text, text: text) {
+  view Kit(component: "Texta3756216121e", instance: instance, text: text)
+}
+component Text0942565713b3(instance: text, text: text) {
+  view Kit(component: "Text0942565713b3", instance: instance, text: text)
+}
+
+view root Surface0a1823aa4964(instance: "calendar_updated") {
+  KitButton5dc7ea8cd583(instance: "acknowledge_calendar") {
+    Surfaced8d7ceb3e964(instance: "acknowledge_calendar_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "acknowledge_calendar_control", enabled: acknowledge_calendar_control_enabled)
+    Text2554711f6e44(instance: "text_188", text: copy.text_188_text)
+  }
+  KitButton5dc7ea8cd583(instance: "undo_calendar") {
+    Surfaced8d7ceb3e964(instance: "undo_calendar_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "undo_calendar_control", enabled: undo_calendar_control_enabled)
+    Text66e5e90446b2(instance: "text_189", text: copy.text_189_text)
+  }
+  Vectore0a378fde04f(instance: "calendar_icon_2")
+  Text568ec8635973(instance: "text_184", text: copy.text_184_text)
+  Text78fec43fcd63(instance: "text_185", text: copy.text_185_text)
+  Texta3756216121e(instance: "text_186", text: copy.text_186_text)
+  Text0942565713b3(instance: "text_187", text: copy.text_187_text)
+}

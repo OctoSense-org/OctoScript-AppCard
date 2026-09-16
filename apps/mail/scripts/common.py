@@ -6,6 +6,9 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 PIPELINE = Path(os.environ.get('OCTOS_APPCARD_PIPELINE', ROOT.parents[1])).resolve()
 IMAGE = PIPELINE / 'lab/image-to-appcard'
-NATIVE_ROOT = Path(os.environ.get('OCTOS_MAIL_NATIVE_ROOT', ROOT / 'runtime/native')).resolve()
+sys.path.insert(0, str(PIPELINE / 'lab'))
+from core.native_paths import WORKSPACE
+NATIVE_ROOT = Path(os.environ.get('OCTOS_MAIL_NATIVE_ROOT', WORKSPACE / '.appcard-native/mail')).resolve()
+os.environ.setdefault('OCTOS_APPCARD_NATIVE_ROOT', str(NATIVE_ROOT))
 sys.path.insert(0, str(IMAGE))
 sys.path.insert(0, str(ROOT / 'service'))

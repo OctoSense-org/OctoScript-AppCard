@@ -1,0 +1,33 @@
+{
+  "pass": true,
+  "controls": [
+    {
+      "id": "keep_booking_control",
+      "expected_action_owner": "beauty_0_0_2_3",
+      "pass": true,
+      "events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_0_2_3"
+        }
+      ],
+      "scope": "native KitButton activation; no production navigation or data feeds"
+    },
+    {
+      "id": "select_new_time_control",
+      "expected_action_owner": "beauty_0_0_2_4",
+      "pass": true,
+      "events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_0_2_4"
+        }
+      ],
+      "scope": "native KitButton activation; no production navigation or data feeds"
+    }
+  ]
+}

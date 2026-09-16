@@ -1,0 +1,107 @@
+diff --git a/apps/kit-host/src/beauty.rs b/apps/kit-host/src/beauty.rs
+index ef3c677..1a84a2b 100644
+--- a/apps/kit-host/src/beauty.rs
++++ b/apps/kit-host/src/beauty.rs
+@@ -104,8 +104,11 @@ impl App {
+             splash_makepad::to_makepad_l0_ui(&tree)
+         };
+         let code = format!(
+-            "use mod.prelude.widgets.*\nlet root = View{{width:Fill height:Fill flow:Overlay {ui}}}\nroot"
++            "use mod.prelude.widgets.*\nreturn View{{width:Fill height:Fill flow:Overlay {ui}}}"
+         );
++        if let Some(layout) = r["layout"].as_str() {
++            let _ = std::fs::write(format!("{layout}.native.splash"), &code);
++        }
+         let sm = ScriptMod {
+             cargo_manifest_path: env!("CARGO_MANIFEST_DIR").into(),
+             module_path: module_path!().into(),
+@@ -118,7 +121,8 @@ impl App {
+         let view = cx.with_vm(|vm| {
+             let value = vm
+                 .eval_checked(sm, 2_000_000)
+-                .ok_or("native VM rejected the widget tree")?;
++                .ok_or_else(|| format!("native VM rejected the widget tree; consumed={}; captured={:?}",
++                    vm.last_limit_consumed(), vm.bx.captured_errors))?;
+             Ok::<_, String>(View::script_from_value(vm, value))
+         })?;
+         let width = r["width"].as_f64().ok_or("missing width")?;
+@@ -148,7 +152,11 @@ impl App {
+             splash_widgets::kit::retire_overlay(cx,&widget);
+             let list=widget.borrow::<DesignOverlay>().and_then(|v|v.draw_list.as_ref().map(|l|l.id()))
+                 .or_else(||widget.borrow::<DesignGlassSvg>().and_then(|v|v.draw_list.as_ref().map(|l|l.id())));
+-            if let Some(id)=list {cx.draw_lists[id].clear_draw_items(cx.redraw_id);}
++            if let Some(id)=list {
++                let recording_gen=cx.next_uniform_gen();
++                let uniforms_gen=cx.next_uniform_gen();
++                cx.draw_lists[id].clear_draw_items(cx.redraw_id,recording_gen,uniforms_gen);
++            }
+             let mut children=Vec::new();
+             widget.children(&mut |_,child|children.push(child));
+             for child in children {retire_overlay(cx,child);}
+diff --git a/crates/makepad-plot/src/chart_paint.rs b/crates/makepad-plot/src/chart_paint.rs
+index fbed021..f4b2d32 100644
+--- a/crates/makepad-plot/src/chart_paint.rs
++++ b/crates/makepad-plot/src/chart_paint.rs
+@@ -27,7 +27,7 @@ impl ChartPaint {
+ 
+     pub fn apply(&self, draw: &mut DrawVector, x: f32, y: f32, w: f32, h: f32) {
+         let stops: Vec<_> = self.stops.iter().map(|&(offset,c)| GradientStop {
+-            offset, color:[c.x*c.w,c.y*c.w,c.z*c.w,c.w], straight_rgb:Some([c.x,c.y,c.z]),
++            offset, color:[c.x*c.w,c.y*c.w,c.z*c.w,c.w],
+         }).collect();
+         draw.cur_gradient_row_v=draw.add_gradient_row(&stops);
+         if self.radial {
+diff --git a/crates/makepad-plot/src/plot_view.rs b/crates/makepad-plot/src/plot_view.rs
+index 046193b..700c126 100644
+--- a/crates/makepad-plot/src/plot_view.rs
++++ b/crates/makepad-plot/src/plot_view.rs
+@@ -276,6 +276,7 @@ impl PlotView {
+                 height: Size::Fixed(self.rect.size.y),
+                 margin: Inset::default(),
+                 metrics: Metrics::default(),
++                ..Walk::default()
+             },
+             Layout {
+                 clip_x: self.clip_plot,
+@@ -748,8 +749,8 @@ impl PlotView {
+         let top=self.plot_rect.pos.y as f32;
+         let bottom=(self.plot_rect.pos.y+self.plot_rect.size.y) as f32;
+         let stops=vec![
+-            GradientStop{offset:0.,color:[color.x*color.w,color.y*color.w,color.z*color.w,color.w],straight_rgb:None},
+-            GradientStop{offset:1.,color:[0.;4],straight_rgb:None},
++            GradientStop{offset:0.,color:[color.x*color.w,color.y*color.w,color.z*color.w,color.w]},
++            GradientStop{offset:1.,color:[0.;4]},
+         ];
+         self.draw_vector.cur_gradient_row_v=self.draw_vector.add_gradient_row(&stops);
+         self.draw_vector.set_paint(VectorPaint::linear_gradient(0.,top,0.,bottom,stops));
+diff --git a/crates/splash-render/src/eval.rs b/crates/splash-render/src/eval.rs
+index 92cb0d2..a555e69 100644
+--- a/crates/splash-render/src/eval.rs
++++ b/crates/splash-render/src/eval.rs
+@@ -17,11 +17,9 @@ use splash_node::{Attrs, NodeKind, UiNode};
+ /// Returns `None` for evaluation errors, exhausted execution/tree budgets or any
+ /// malformed node. A failed child invalidates the entire tree.
+ pub fn build(src: &str, register: impl FnOnce(&mut ScriptVm)) -> Option<UiNode> {
+-    let mut std_slot = 0;
+-    let mut host = 0;
++    let mut host = ScriptVmHost::new((), ());
+     let vm = &mut ScriptVm {
+         host: &mut host,
+-        std: &mut std_slot,
+         bx: Box::new(ScriptVmBase::new()),
+     };
+ 
+diff --git a/makepad.splash b/makepad.splash
+index 2059dbd..d43abd4 100644
+--- a/makepad.splash
++++ b/makepad.splash
+@@ -9,7 +9,8 @@ hub.set_run_items([
+         on_run: fn(id) {
+             hub.run(
+                 {"STUDIO_HOST": hub.studio_local_host() "STUDIO_BUILD": id.to_string()
+-                 "STUDIO_CRATE": "kit-host" "BEAUTY_REQUEST": "../lab/ux-image/current-request.json"},
++                 "STUDIO_CRATE": "kit-host" "BEAUTY_REQUEST": "../lab/image-to-appcard/current-request.json"
++                 "CARGO_PROFILE_RELEASE_LTO": "false"},
+                 "cargo",
+                 ["run" "-p" "kit-host" "--bin" "beauty-host" "--release" "--message-format=json"
+                  "--" "--message-format=json" "--stdin-loop"]

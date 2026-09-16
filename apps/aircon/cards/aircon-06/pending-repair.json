@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "id": "ae93ff9f55ab399241eab7e760029dbefbfde87002aa1e8339b8adaf99ddf9d9",
+  "status": "applied",
+  "changes": [
+    {
+      "category": "typography",
+      "element": "native-text-labels",
+      "file": "mapped.json",
+      "reason": "Measured uniform size and origin refinements; preserve all native labels/buttons and exact approved text"
+    },
+    {
+      "category": "asset",
+      "element": "dock_mail",
+      "file": "assets/dock_mail.svg",
+      "reason": "Reviewed Studio dock symbol is about 1.5 times the source size; expand internal viewBox 1.5 times while keeping the measured native component rectangle"
+    },
+    {
+      "category": "asset",
+      "element": "dock_bag",
+      "file": "assets/dock_bag.svg",
+      "reason": "Reviewed Studio dock symbol is about 1.5 times the source size; expand internal viewBox 1.5 times while keeping the measured native component rectangle"
+    },
+    {
+      "category": "asset",
+      "element": "dock_wallet",
+      "file": "assets/dock_wallet.svg",
+      "reason": "Reviewed Studio dock symbol is about 1.5 times the source size; expand internal viewBox 1.5 times while keeping the measured native component rectangle"
+    },
+    {
+      "category": "semantic",
+      "element": "reviewed-native-vector-assets",
+      "file": "semantic-map.json",
+      "reason": "Bind the reviewed SVG refinements to their exact new asset hashes"
+    }
+  ],
+  "acceptance": "requires compile, fresh Studio capture and all design gates"
+}

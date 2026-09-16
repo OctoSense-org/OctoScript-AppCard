@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "reference_sha256": "08cc547fb999e0347c7304f65f64002a8e9ddfdda124feb36b07f5553b2cab60",
+  "tree": {
+    "t": "stack",
+    "id": "payment_card",
+    "x": 0.0,
+    "y": 0.0,
+    "w": 263.5471698113207,
+    "h": 131.77358490566036,
+    "c": [
+      {
+        "t": "stack",
+        "id": "view_receipt",
+        "x": 11.713207547169816,
+        "y": 84.92075471698121,
+        "w": 237.19245283018867,
+        "h": 35.13962264150943,
+        "c": [
+          {
+            "t": "stack",
+            "id": "view_receipt_surface",
+            "x": 11.713207547169816,
+            "y": 84.92075471698121,
+            "w": 237.19245283018867,
+            "h": 35.13962264150943,
+            "c": [],
+            "variant": "surface",
+            "bg": 4294573305,
+            "radius": 5.856603773584905,
+            "border": 0.7,
+            "bordercolor": 4289249201
+          },
+          {
+            "t": "button",
+            "id": "view_receipt_control",
+            "x": 11.713207547169816,
+            "y": 84.92075471698121,
+            "w": 237.19245283018867,
+            "h": 35.13962264150943,
+            "enabled": 1
+          },
+          {
+            "t": "text",
+            "id": "copy_219",
+            "text": "查看凭证",
+            "x": 89.10487553748379,
+            "y": 93.6185938689843,
+            "w": 76.57256719522485,
+            "h": 19.75719750393094,
+            "size": 17.05324405187331,
+            "weight": 400,
+            "tracking": 0,
+            "line_height": 19.75719750393094,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+            "color": 4282875236,
+            "font_asc": -0.2007202616747692,
+            "font_desc": 0.08872026167476924
+          }
+        ],
+        "kit": "{\"widget\":\"KitButton\",\"bindings\":{\"control\":[1],\"label\":[2]}}"
+      },
+      {
+        "t": "svg",
+        "id": "check_icon_2",
+        "x": 11.713207547169816,
+        "y": 11.713207547169816,
+        "w": 32.21132075471698,
+        "h": 32.21132075471698,
+        "src": ""
+      },
+      {
+        "t": "text",
+        "id": "copy_217",
+        "text": "支付 · 已完成",
+        "x": 55.94303054168037,
+        "y": 16.941665171806108,
+        "w": 109.91689156383337,
+        "h": 18.294071818931204,
+        "size": 15.271444250994877,
+        "weight": 400,
+        "tracking": 0,
+        "line_height": 18.294071818931204,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+        "color": 4282875236,
+        "font_asc": -0.18003661715756136,
+        "font_desc": 0.07003661715756143
+      },
+      {
+        "t": "text",
+        "id": "copy_218",
+        "text": "¥120 已支付",
+        "x": 56.076470401528184,
+        "y": 51.25356624865384,
+        "w": 124.39474117230542,
+        "h": 22.94619687181866,
+        "size": 20.563889513551366,
+        "weight": 400,
+        "tracking": 0,
+        "line_height": 22.94619687181866,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+        "color": 4281549116,
+        "font_asc": -0.22274213452265323,
+        "font_desc": 0.10940880118931981
+      }
+    ],
+    "variant": "surface",
+    "bg": 4294770172,
+    "radius": 14.641509433962263,
+    "border": 0.4,
+    "bordercolor": 4293060835
+  },
+  "changes": [
+    {
+      "source": "cards/school-12/mapped.json",
+      "source_sha256": "f37b4e503f9f1637e13f91ab0548db1c488c8788643f18498815d61d3882ba50",
+      "operation": "Extract native subtree and translate origin",
+      "source_root": "payment_card",
+      "translation": [
+        -74.15471698113208,
+        -471.45660377358485
+      ]
+    }
+  ]
+}

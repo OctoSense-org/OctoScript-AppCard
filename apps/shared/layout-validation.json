@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "layout": "repository-root/apps/<name>",
+  "apps": [
+    "aircon",
+    "mail",
+    "school",
+    "health",
+    "reunion"
+  ],
+  "shared": "apps/shared",
+  "checks": {
+    "python_service_tests": 68,
+    "javascript_service_tests": 57,
+    "website_import_tests": 15,
+    "flow_plans": 5,
+    "aircon_standalone_input_checks": 14,
+    "aircon_bundle_scenes": 12,
+    "website_import_scenes": 48,
+    "website_import_destination": "temporary local directory; not deployed",
+    "mail_native_completion": {
+      "directory": "evidence/completion-20260916T004735Z",
+      "passed": true,
+      "build_id": "native-23481a9ac95f4878a9d041b9c13576a9",
+      "native_pid": 68220,
+      "hidden": true,
+      "instrument": "Makepad built-in HTTP; no Studio",
+      "checks": [
+        "Legacy cached attachment downloaded through IMAP BODY.PEEK, private file bytes verified, native Open dispatches viewer",
+        "Read/unread, star/unstar, archive/restore, move and failed sync Retry reach IMAP STORE",
+        "Gmail folders open through IMAP BODY.PEEK and deduplicate the existing POP message",
+        "Reply sends through a real local TLS SMTP socket with threading headers and Sent record",
+        "Compose validates recipients, saves/reopens draft, reports rejection, retries definitive failure and removes sent draft",
+        "Ambiguous delivery disables Send; Check Sent reconciles success without duplicate submission",
+        "Native outgoing host/port/security settings save and Test Outgoing & Sync verifies SMTP NOOP and IMAP folders"
+      ],
+      "smtp_messages_in_local_fixture": 3,
+      "external_messages_sent": 0,
+      "imap_fixture_store_commands": 10,
+      "attachment_viewer": "File extracted and checked; OS viewer launch intercepted in hidden test",
+      "native_exited": true
+    },
+    "flow_pipeline_tests": 47,
+    "semantic_tests": 20,
+    "wasm_dependency_preparation": "passed with canonical external directory names and locked patches",
+    "wasm_host_cargo_metadata": "passed offline",
+    "native_fixture_wait": "In-process controller polling continues while waiting for a remount; the subsequent hidden completion run passed."
+  },
+  "limits": [
+    "Historical native and visual evidence retains original paths; this move does not renew its acceptance.",
+    "Shared native repositories retain their pre-existing local changes.",
+    "No live email was sent by relocation verification.",
+    "The broader image suite ran 45 tests: 35 passed; 10 could not run because historical weather-01, stock-04 and news-09 capture-round fixtures are absent. Those inputs were not part of this move."
+  ],
+  "shared_native_repositories": {
+    "workspace": "../octosense-org",
+    "directories": [
+      "makepad",
+      "octoscript",
+      "octoscript-makepad"
+    ],
+    "independent_git_repositories": true,
+    "mail_isolated_sources": "../octosense-org/.appcard-native/mail"
+  }
+}

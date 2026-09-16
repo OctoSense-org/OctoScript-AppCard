@@ -1,0 +1,46 @@
+# ledger school-payment-12@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy copy_219_text { class: user-copy, en: "查看凭证" }
+copy copy_217_text { class: user-copy, en: "支付 · 已完成" }
+copy copy_218_text { class: user-copy, en: "¥120 已支付" }
+state view_receipt_control_enabled { shape: bool, initial: true }
+component Surface649e6645fbe8(instance: text) {
+  view Kit(component: "Surface649e6645fbe8", instance: instance) { slot }
+}
+component KitButton5dc7ea8cd583(instance: text) {
+  view Kit(component: "KitButton5dc7ea8cd583", instance: instance) { slot }
+}
+component Surface5ed0a01ed1e3(instance: text) {
+  view Kit(component: "Surface5ed0a01ed1e3", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Textd1fedce512de(instance: text, text: text) {
+  view Kit(component: "Textd1fedce512de", instance: instance, text: text)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Textfb0e49b43f31(instance: text, text: text) {
+  view Kit(component: "Textfb0e49b43f31", instance: instance, text: text)
+}
+component Textbef0bca471a8(instance: text, text: text) {
+  view Kit(component: "Textbef0bca471a8", instance: instance, text: text)
+}
+
+view root Surface649e6645fbe8(instance: "payment_card") {
+  KitButton5dc7ea8cd583(instance: "view_receipt") {
+    Surface5ed0a01ed1e3(instance: "view_receipt_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "view_receipt_control", enabled: view_receipt_control_enabled)
+    Textd1fedce512de(instance: "copy_219", text: copy.copy_219_text)
+  }
+  Vectore0a378fde04f(instance: "check_icon_2")
+  Textfb0e49b43f31(instance: "copy_217", text: copy.copy_217_text)
+  Textbef0bca471a8(instance: "copy_218", text: copy.copy_218_text)
+}

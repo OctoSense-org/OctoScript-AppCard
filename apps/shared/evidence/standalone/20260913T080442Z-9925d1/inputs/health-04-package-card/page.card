@@ -1,0 +1,132 @@
+# ledger health-04-package-card@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy basic_name_text { class: user-copy, en: "基础套餐" }
+copy basic_note_text { class: user-copy, en: "已包含" }
+copy dental_name_text { class: user-copy, en: "牙科检查" }
+copy dental_note_text { class: user-copy, en: "可选" }
+copy vision_name_text { class: user-copy, en: "视力检查" }
+copy vision_note_text { class: user-copy, en: "可选" }
+copy cancel_items_text_text { class: user-copy, en: "取消" }
+copy choose_time_text_text { class: user-copy, en: "选择时间" }
+copy title_text { class: user-copy, en: "选择体检项目" }
+copy choice_note_text { class: user-copy, en: "用户自主选择" }
+state basic_package_control_enabled { shape: bool, initial: false }
+state toggle_dental_control_enabled { shape: bool, initial: true }
+state toggle_vision_control_enabled { shape: bool, initial: true }
+state cancel_items_control_enabled { shape: bool, initial: true }
+state choose_time_control_enabled { shape: bool, initial: true }
+component Surface5259d30211c6(instance: text) {
+  view Kit(component: "Surface5259d30211c6", instance: instance) { slot }
+}
+component KitButton870a84d356fb(instance: text) {
+  view Kit(component: "KitButton870a84d356fb", instance: instance) { slot }
+}
+component Surfacef38cb6e126ad(instance: text) {
+  view Kit(component: "Surfacef38cb6e126ad", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Surface32c9a9465702(instance: text) {
+  view Kit(component: "Surface32c9a9465702", instance: instance) { slot }
+}
+component Text867bd2ee8b53(instance: text, text: text) {
+  view Kit(component: "Text867bd2ee8b53", instance: instance, text: text)
+}
+component Text450003657ae3(instance: text, text: text) {
+  view Kit(component: "Text450003657ae3", instance: instance, text: text)
+}
+component Surfacea0d7a1bbfcf0(instance: text) {
+  view Kit(component: "Surfacea0d7a1bbfcf0", instance: instance) { slot }
+}
+component Text2e14fe6c5d82(instance: text, text: text) {
+  view Kit(component: "Text2e14fe6c5d82", instance: instance, text: text)
+}
+component Text14c8ba77cdcf(instance: text, text: text) {
+  view Kit(component: "Text14c8ba77cdcf", instance: instance, text: text)
+}
+component Text0b3abb1faa7a(instance: text, text: text) {
+  view Kit(component: "Text0b3abb1faa7a", instance: instance, text: text)
+}
+component Text28ef40607c92(instance: text, text: text) {
+  view Kit(component: "Text28ef40607c92", instance: instance, text: text)
+}
+component KitButton5dc7ea8cd583(instance: text) {
+  view Kit(component: "KitButton5dc7ea8cd583", instance: instance) { slot }
+}
+component Text8bc8200cab3e(instance: text, text: text) {
+  view Kit(component: "Text8bc8200cab3e", instance: instance, text: text)
+}
+component Surface93a316bf76d8(instance: text) {
+  view Kit(component: "Surface93a316bf76d8", instance: instance) { slot }
+}
+component Text994465358474(instance: text, text: text) {
+  view Kit(component: "Text994465358474", instance: instance, text: text)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Text45b537a71efb(instance: text, text: text) {
+  view Kit(component: "Text45b537a71efb", instance: instance, text: text)
+}
+component Text08366a0f7c5a(instance: text, text: text) {
+  view Kit(component: "Text08366a0f7c5a", instance: instance, text: text)
+}
+
+view root Surface5259d30211c6(instance: "package_card") {
+  KitButton870a84d356fb(instance: "basic_package") {
+    Surfacef38cb6e126ad(instance: "basic_package_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "basic_package_control", enabled: basic_package_control_enabled)
+    Surface32c9a9465702(instance: "basic_checkbox") {
+
+    }
+    Text867bd2ee8b53(instance: "basic_name", text: copy.basic_name_text)
+    Text450003657ae3(instance: "basic_note", text: copy.basic_note_text)
+  }
+  KitButton870a84d356fb(instance: "toggle_dental") {
+    Surfacef38cb6e126ad(instance: "toggle_dental_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "toggle_dental_control", enabled: toggle_dental_control_enabled)
+    Surfacea0d7a1bbfcf0(instance: "dental_checkbox") {
+
+    }
+    Text2e14fe6c5d82(instance: "dental_name", text: copy.dental_name_text)
+    Text14c8ba77cdcf(instance: "dental_note", text: copy.dental_note_text)
+  }
+  KitButton870a84d356fb(instance: "toggle_vision") {
+    Surfacef38cb6e126ad(instance: "toggle_vision_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "toggle_vision_control", enabled: toggle_vision_control_enabled)
+    Surfacea0d7a1bbfcf0(instance: "vision_checkbox") {
+
+    }
+    Text0b3abb1faa7a(instance: "vision_name", text: copy.vision_name_text)
+    Text28ef40607c92(instance: "vision_note", text: copy.vision_note_text)
+  }
+  KitButton5dc7ea8cd583(instance: "cancel_items") {
+    Surfacef38cb6e126ad(instance: "cancel_items_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "cancel_items_control", enabled: cancel_items_control_enabled)
+    Text8bc8200cab3e(instance: "cancel_items_text", text: copy.cancel_items_text_text)
+  }
+  KitButton5dc7ea8cd583(instance: "choose_time") {
+    Surface93a316bf76d8(instance: "choose_time_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "choose_time_control", enabled: choose_time_control_enabled)
+    Text994465358474(instance: "choose_time_text", text: copy.choose_time_text_text)
+  }
+  Vectore0a378fde04f(instance: "clinic_icon_0")
+  Vectore0a378fde04f(instance: "tooth_icon_1")
+  Vectore0a378fde04f(instance: "eye_icon_2")
+  Text45b537a71efb(instance: "title", text: copy.title_text)
+  Text08366a0f7c5a(instance: "choice_note", text: copy.choice_note_text)
+}

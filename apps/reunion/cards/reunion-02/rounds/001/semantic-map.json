@@ -1,0 +1,310 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.1.0",
+  "contract_sha256": "f1bf5539d93440255f080ce6a6f88c10f7499c837a397ed9fbaa1ae0cab01270",
+  "reference_sha256": "cc7ba1dddc2fec80795f6233cec20d3494968ca1b68c584f63ddf1afb66faaa1",
+  "classification_scope": "Authored intent and explicit review candidates; no claim of automatic visual recognition.",
+  "elements": [
+    {
+      "id": "page",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "screen",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "invitation",
+      "role": "card",
+      "basis": "Explicit event-specific service composition with native children",
+      "confidence": 1,
+      "decision": "reviewed"
+    },
+    {
+      "id": "calendar_icon_1",
+      "role": "icon",
+      "basis": "Reviewed artwork-only source region or native vector icon",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/calendar_icon_1.svg",
+        "sha256": "267a117ea0a845aaab47937fbf902f76e448fe8840980d1602126f726e265098",
+        "method": "reference_svg",
+        "reference_sha256": "cc7ba1dddc2fec80795f6233cec20d3494968ca1b68c584f63ddf1afb66faaa1",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native SVG reconstruction of a reviewed line symbol; no embedded raster or text"
+      }
+    },
+    {
+      "id": "calendar_icon_2",
+      "role": "icon",
+      "basis": "Reviewed artwork-only source region or native vector icon",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/calendar_icon_2.svg",
+        "sha256": "267a117ea0a845aaab47937fbf902f76e448fe8840980d1602126f726e265098",
+        "method": "reference_svg",
+        "reference_sha256": "cc7ba1dddc2fec80795f6233cec20d3494968ca1b68c584f63ddf1afb66faaa1",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native SVG reconstruction of a reviewed line symbol; no embedded raster or text"
+      }
+    },
+    {
+      "id": "calendar_icon_3",
+      "role": "icon",
+      "basis": "Reviewed artwork-only source region or native vector icon",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/calendar_icon_3.svg",
+        "sha256": "267a117ea0a845aaab47937fbf902f76e448fe8840980d1602126f726e265098",
+        "method": "reference_svg",
+        "reference_sha256": "cc7ba1dddc2fec80795f6233cec20d3494968ca1b68c584f63ddf1afb66faaa1",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native SVG reconstruction of a reviewed line symbol; no embedded raster or text"
+      }
+    },
+    {
+      "id": "calendar_icon_4",
+      "role": "icon",
+      "basis": "Reviewed artwork-only source region or native vector icon",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/calendar_icon_4.svg",
+        "sha256": "267a117ea0a845aaab47937fbf902f76e448fe8840980d1602126f726e265098",
+        "method": "reference_svg",
+        "reference_sha256": "cc7ba1dddc2fec80795f6233cec20d3494968ca1b68c584f63ddf1afb66faaa1",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native SVG reconstruction of a reviewed line symbol; no embedded raster or text"
+      }
+    },
+    {
+      "id": "text_61",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_62",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_63",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_64",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_65",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "invitation_message",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "organizer_avatar",
+      "role": "photo",
+      "basis": "Reviewed artwork-only source region or native vector icon",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/organizer_avatar.png",
+        "sha256": "53612e957295f0a7813e85a1705342cf42a1e4e4bae15beaab272b58012b8307",
+        "method": "source_crop",
+        "reference_sha256": "cc7ba1dddc2fec80795f6233cec20d3494968ca1b68c584f63ddf1afb66faaa1",
+        "crop_pixels": [
+          23,
+          233,
+          126,
+          126
+        ],
+        "contains_ui": false,
+        "fit": "contain",
+        "clip": true,
+        "notes": "Reviewed text-free venue photography or contact avatar only, cropped from original generated artwork"
+      }
+    },
+    {
+      "id": "venue_photo",
+      "role": "photo",
+      "basis": "Reviewed artwork-only source region or native vector icon",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/venue_photo.png",
+        "sha256": "baf62e354e3b10ef79e55891051c1dc0fa82b630b122726501e06a23c971219e",
+        "method": "source_crop",
+        "reference_sha256": "cc7ba1dddc2fec80795f6233cec20d3494968ca1b68c584f63ddf1afb66faaa1",
+        "crop_pixels": [
+          146,
+          410,
+          626,
+          403
+        ],
+        "contains_ui": false,
+        "fit": "contain",
+        "clip": true,
+        "notes": "Reviewed text-free venue photography or contact avatar only, cropped from original generated artwork"
+      }
+    },
+    {
+      "id": "back_messages",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "back_messages_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "back_messages_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "open_poll",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "open_poll_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "open_poll_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_66",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "group_info",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "group_info_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "group_info_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_67",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "back_icon_0",
+      "role": "icon",
+      "basis": "Reviewed artwork-only source region or native vector icon",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/back_icon_0.svg",
+        "sha256": "50ab5c7ac439e2ec3cf9c8fa99d327a907fa39d2910cd0a648214845de3efe4e",
+        "method": "reference_svg",
+        "reference_sha256": "cc7ba1dddc2fec80795f6233cec20d3494968ca1b68c584f63ddf1afb66faaa1",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native SVG reconstruction of a reviewed line symbol; no embedded raster or text"
+      }
+    },
+    {
+      "id": "text_54",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_56",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_57",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_58",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_59",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    }
+  ]
+}

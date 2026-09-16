@@ -4,6 +4,7 @@ import hashlib
 import json
 import subprocess
 from common import ROOT, PIPELINE, NATIVE_ROOT
+from core.native_paths import WORKSPACE, repository, adapt_cargo_paths
 
 
 def git(directory,*args,check=True):
@@ -12,15 +13,16 @@ def git(directory,*args,check=True):
 
 def main():
     source=ROOT/'native-support';manifest=json.loads((source/'manifest.json').read_text())
-    if NATIVE_ROOT in (PIPELINE,ROOT):raise SystemExit('Choose a separate OCTOS_MAIL_NATIVE_ROOT; shared checkouts are not modified.')
+    if NATIVE_ROOT in (PIPELINE,ROOT,WORKSPACE) or NATIVE_ROOT.is_relative_to(PIPELINE):
+        raise SystemExit('Choose an isolated OCTOS_MAIL_NATIVE_ROOT outside AppCards and the shared repository roots.')
     NATIVE_ROOT.mkdir(parents=True,exist_ok=True)
     for name,spec in manifest['repositories'].items():
-        directory=NATIVE_ROOT/name
+        directory=repository(name, NATIVE_ROOT)
         if not (directory/'.git').exists():
             if directory.exists() and any(directory.iterdir()):raise SystemExit(f'{directory} is not an empty native checkout.')
             directory.mkdir(exist_ok=True)
             git(directory,'init','--quiet');git(directory,'remote','add','origin',spec['url'])
-            local=PIPELINE/name
+            local=repository(name, WORKSPACE)
             available=local.exists() and git(local,'cat-file','-e',spec['revision']+'^{commit}',check=False).returncode==0
             fetch_source=str(local) if available else 'origin'
             git(directory,'fetch','--quiet','--no-tags','--depth','1',fetch_source,spec['revision'])
@@ -36,7 +38,8 @@ def main():
             for filename,digest in spec['files_after'].items():
                 if hashlib.sha256((directory/filename).read_bytes()).hexdigest()!=digest:
                     raise SystemExit(f'{name}/{filename} differs from the supported source. Local edits were preserved.')
-        print(f'{name}: {spec["revision"][:12]} ready',flush=True)
+        adapt_cargo_paths(directory)
+        print(f'{directory.name}: {spec["revision"][:12]} ready',flush=True)
     receipt={'manifest_sha256':hashlib.sha256((source/'manifest.json').read_bytes()).hexdigest()}
     (NATIVE_ROOT/'ready.json').write_text(json.dumps(receipt,indent=2)+'\n')
 

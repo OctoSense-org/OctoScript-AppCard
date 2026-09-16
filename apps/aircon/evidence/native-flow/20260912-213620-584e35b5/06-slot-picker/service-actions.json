@@ -1,0 +1,84 @@
+{
+  "frame_id": 6,
+  "controls": {
+    "close": {
+      "event": "installation.close_slots",
+      "ocr_ids": [],
+      "source_bounds": [
+        427,
+        165,
+        54,
+        54
+      ],
+      "enabled": true
+    },
+    "saturday": {
+      "event": "installation.choose_day",
+      "ocr_ids": [
+        69
+      ],
+      "source_bounds": [
+        43,
+        287,
+        206,
+        61
+      ],
+      "enabled": true
+    },
+    "sunday": {
+      "event": "installation.choose_day",
+      "ocr_ids": [
+        70
+      ],
+      "source_bounds": [
+        274,
+        287,
+        197,
+        61
+      ],
+      "enabled": true
+    },
+    "conflict_slot": {
+      "event": "installation.choose_slot",
+      "ocr_ids": [
+        71,
+        72
+      ],
+      "source_bounds": [
+        43,
+        374,
+        430,
+        120
+      ],
+      "enabled": false
+    },
+    "afternoon": {
+      "event": "installation.choose_slot",
+      "ocr_ids": [
+        73,
+        74
+      ],
+      "source_bounds": [
+        43,
+        509,
+        430,
+        121
+      ],
+      "enabled": true
+    },
+    "confirm_booking": {
+      "event": "installation.confirm",
+      "ocr_ids": [
+        77
+      ],
+      "source_bounds": [
+        42,
+        789,
+        429,
+        71
+      ],
+      "enabled": false
+    }
+  },
+  "source": "choose-slot"
+}

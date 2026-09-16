@@ -1,0 +1,635 @@
+{
+  "id": "health-05",
+  "reference_sha256": "aa08d79d89018fde6067326ec560516461f6173d57345c0fb7915461e4c57ef9",
+  "round": "001",
+  "native_findings": [],
+  "image_findings": [
+    "saturday_name: text ink position",
+    "saturday_name: text ink dimensions",
+    "saturday_name: text color",
+    "saturday_date: text ink position",
+    "saturday_date: text ink dimensions",
+    "saturday_date: text color",
+    "sunday_name: text ink dimensions",
+    "sunday_name: text color",
+    "sunday_date: text ink position",
+    "sunday_date: text ink dimensions",
+    "sunday_date: text color",
+    "morning_time: native OCR text differs",
+    "morning_time: reference OCR text differs",
+    "morning_time: text color",
+    "morning_note: text color",
+    "afternoon_time: native OCR text differs",
+    "afternoon_time: reference OCR text differs",
+    "afternoon_time: text color",
+    "afternoon_note: text ink dimensions",
+    "afternoon_note: text color",
+    "confirm_booking_text: text ink dimensions",
+    "return_items_text: text ink dimensions",
+    "return_items_text: text color",
+    "title: text ink position",
+    "title: text ink dimensions",
+    "title: text color",
+    "dock_health: text ink position",
+    "dock_health: text ink dimensions",
+    "dock_health: text color",
+    "dock_calendar: text ink position",
+    "dock_calendar: text ink dimensions",
+    "dock_calendar: text color",
+    "dock_mail: text ink position",
+    "dock_mail: text ink dimensions",
+    "dock_mail: text color",
+    "status_time: text ink position",
+    "status_time: text ink dimensions",
+    "status_time: text color",
+    "status_date: reference OCR text differs",
+    "status_date: text ink position",
+    "status_date: text ink dimensions",
+    "status_date: text color",
+    "1 extra reference text observations need classification"
+  ],
+  "text_differences": [
+    {
+      "id": "saturday_name",
+      "reference": [
+        113.0,
+        195.0,
+        37.5,
+        18.5
+      ],
+      "native": [
+        108.0,
+        194.0,
+        46.0,
+        22.0
+      ],
+      "delta": [
+        -5.0,
+        -1.0,
+        8.5,
+        3.5
+      ],
+      "reference_color": [
+        221,
+        233,
+        225
+      ],
+      "native_color": [
+        255,
+        255,
+        255
+      ],
+      "issues": [
+        "text ink position",
+        "text ink dimensions",
+        "text color"
+      ]
+    },
+    {
+      "id": "saturday_date",
+      "reference": [
+        92.0,
+        226.0,
+        78.5,
+        17.5
+      ],
+      "native": [
+        86.0,
+        226.5,
+        86.5,
+        19.0
+      ],
+      "delta": [
+        -6.0,
+        0.5,
+        8.0,
+        1.5
+      ],
+      "reference_color": [
+        226,
+        237,
+        230
+      ],
+      "native_color": [
+        255,
+        255,
+        255
+      ],
+      "issues": [
+        "text ink position",
+        "text ink dimensions",
+        "text color"
+      ]
+    },
+    {
+      "id": "sunday_name",
+      "reference": [
+        263.0,
+        195.0,
+        34.5,
+        18.0
+      ],
+      "native": [
+        262.5,
+        194.0,
+        39.0,
+        19.0
+      ],
+      "delta": [
+        -0.5,
+        -1.0,
+        4.5,
+        1.0
+      ],
+      "reference_color": [
+        83,
+        88,
+        99
+      ],
+      "native_color": [
+        38,
+        52,
+        46
+      ],
+      "issues": [
+        "text ink dimensions",
+        "text color"
+      ]
+    },
+    {
+      "id": "sunday_date",
+      "reference": [
+        241.5,
+        226.0,
+        78.5,
+        18.0
+      ],
+      "native": [
+        237.0,
+        224.5,
+        86.5,
+        19.0
+      ],
+      "delta": [
+        -4.5,
+        -1.5,
+        8.0,
+        1.0
+      ],
+      "reference_color": [
+        65,
+        69,
+        79
+      ],
+      "native_color": [
+        38,
+        52,
+        46
+      ],
+      "issues": [
+        "text ink position",
+        "text ink dimensions",
+        "text color"
+      ]
+    },
+    {
+      "id": "morning_time",
+      "reference": [
+        124.0,
+        301.0,
+        129.0,
+        16.5
+      ],
+      "native": [
+        122.0,
+        300.5,
+        130.0,
+        18.0
+      ],
+      "delta": [
+        -2.0,
+        -0.5,
+        1.0,
+        1.5
+      ],
+      "reference_color": [
+        168,
+        171,
+        178
+      ],
+      "native_color": [
+        38,
+        52,
+        46
+      ],
+      "issues": [
+        "native OCR text differs",
+        "reference OCR text differs",
+        "text color"
+      ]
+    },
+    {
+      "id": "morning_note",
+      "reference": [
+        124.0,
+        331.0,
+        132.5,
+        19.0
+      ],
+      "native": [
+        126.0,
+        331.0,
+        132.5,
+        17.5
+      ],
+      "delta": [
+        2.0,
+        0.0,
+        0.0,
+        -1.5
+      ],
+      "reference_color": [
+        232,
+        195,
+        145
+      ],
+      "native_color": [
+        191,
+        145,
+        74
+      ],
+      "issues": [
+        "text color"
+      ]
+    },
+    {
+      "id": "afternoon_time",
+      "reference": [
+        124.0,
+        395.5,
+        128.5,
+        16.0
+      ],
+      "native": [
+        122.0,
+        394.0,
+        130.0,
+        18.0
+      ],
+      "delta": [
+        -2.0,
+        -1.5,
+        1.5,
+        2.0
+      ],
+      "reference_color": [
+        61,
+        67,
+        77
+      ],
+      "native_color": [
+        38,
+        52,
+        46
+      ],
+      "issues": [
+        "native OCR text differs",
+        "reference OCR text differs",
+        "text color"
+      ]
+    },
+    {
+      "id": "afternoon_note",
+      "reference": [
+        126.0,
+        426.0,
+        71.5,
+        18.0
+      ],
+      "native": [
+        125.5,
+        424.0,
+        75.5,
+        18.5
+      ],
+      "delta": [
+        -0.5,
+        -2.0,
+        4.0,
+        0.5
+      ],
+      "reference_color": [
+        129,
+        161,
+        142
+      ],
+      "native_color": [
+        92,
+        128,
+        105
+      ],
+      "issues": [
+        "text ink dimensions",
+        "text color"
+      ]
+    },
+    {
+      "id": "confirm_booking_text",
+      "reference": [
+        164.0,
+        506.0,
+        79.0,
+        19.5
+      ],
+      "native": [
+        162.0,
+        505.5,
+        86.0,
+        20.5
+      ],
+      "delta": [
+        -2.0,
+        -0.5,
+        7.0,
+        1.0
+      ],
+      "reference_color": [
+        239,
+        240,
+        242
+      ],
+      "native_color": [
+        255,
+        255,
+        255
+      ],
+      "issues": [
+        "text ink dimensions"
+      ]
+    },
+    {
+      "id": "return_items_text",
+      "reference": [
+        165.0,
+        575.5,
+        75.0,
+        18.5
+      ],
+      "native": [
+        165.5,
+        575.0,
+        78.5,
+        18.5
+      ],
+      "delta": [
+        0.5,
+        -0.5,
+        3.5,
+        0.0
+      ],
+      "reference_color": [
+        84,
+        88,
+        96
+      ],
+      "native_color": [
+        38,
+        52,
+        46
+      ],
+      "issues": [
+        "text ink dimensions",
+        "text color"
+      ]
+    },
+    {
+      "id": "title",
+      "reference": [
+        63.0,
+        132.5,
+        146.5,
+        23.0
+      ],
+      "native": [
+        57.5,
+        133.5,
+        154.5,
+        24.0
+      ],
+      "delta": [
+        -5.5,
+        1.0,
+        8.0,
+        1.0
+      ],
+      "reference_color": [
+        19,
+        21,
+        26
+      ],
+      "native_color": [
+        38,
+        52,
+        46
+      ],
+      "issues": [
+        "text ink position",
+        "text ink dimensions",
+        "text color"
+      ]
+    },
+    {
+      "id": "dock_health",
+      "reference": [
+        101.5,
+        747.0,
+        25.0,
+        12.5
+      ],
+      "native": [
+        94.0,
+        743.0,
+        36.0,
+        17.0
+      ],
+      "delta": [
+        -7.5,
+        -4.0,
+        11.0,
+        4.5
+      ],
+      "reference_color": [
+        68,
+        83,
+        80
+      ],
+      "native_color": [
+        38,
+        52,
+        46
+      ],
+      "issues": [
+        "text ink position",
+        "text ink dimensions",
+        "text color"
+      ]
+    },
+    {
+      "id": "dock_calendar",
+      "reference": [
+        191.0,
+        747.0,
+        24.0,
+        13.0
+      ],
+      "native": [
+        183.5,
+        743.0,
+        36.0,
+        17.5
+      ],
+      "delta": [
+        -7.5,
+        -4.0,
+        12.0,
+        4.5
+      ],
+      "reference_color": [
+        97,
+        111,
+        103
+      ],
+      "native_color": [
+        38,
+        52,
+        46
+      ],
+      "issues": [
+        "text ink position",
+        "text ink dimensions",
+        "text color"
+      ]
+    },
+    {
+      "id": "dock_mail",
+      "reference": [
+        280.0,
+        747.0,
+        24.0,
+        12.5
+      ],
+      "native": [
+        274.0,
+        743.0,
+        36.5,
+        17.5
+      ],
+      "delta": [
+        -6.0,
+        -4.0,
+        12.5,
+        5.0
+      ],
+      "reference_color": [
+        98,
+        110,
+        104
+      ],
+      "native_color": [
+        38,
+        52,
+        46
+      ],
+      "issues": [
+        "text ink position",
+        "text ink dimensions",
+        "text color"
+      ]
+    },
+    {
+      "id": "status_time",
+      "reference": [
+        54.5,
+        23.0,
+        52.0,
+        16.0
+      ],
+      "native": [
+        50.5,
+        21.5,
+        60.5,
+        19.0
+      ],
+      "delta": [
+        -4.0,
+        -1.5,
+        8.5,
+        3.0
+      ],
+      "reference_color": [
+        10,
+        16,
+        19
+      ],
+      "native_color": [
+        38,
+        52,
+        46
+      ],
+      "issues": [
+        "text ink position",
+        "text ink dimensions",
+        "text color"
+      ]
+    },
+    {
+      "id": "status_date",
+      "reference": [
+        54.0,
+        51.5,
+        98.0,
+        14.0
+      ],
+      "native": [
+        50.5,
+        50.5,
+        104.0,
+        14.5
+      ],
+      "delta": [
+        -3.5,
+        -1.0,
+        6.0,
+        0.5
+      ],
+      "reference_color": [
+        97,
+        113,
+        113
+      ],
+      "native_color": [
+        38,
+        52,
+        46
+      ],
+      "issues": [
+        "reference OCR text differs",
+        "text ink position",
+        "text ink dimensions",
+        "text color"
+      ]
+    }
+  ],
+  "visual_findings": [],
+  "visual_review_current": false,
+  "visual_verdict": null,
+  "semantic_findings": [],
+  "semantic_repairs": [],
+  "rules": [
+    "Preserve real native Labels and controls.",
+    "Never replace a page with its screenshot.",
+    "Follow MAPPING-RULES.md: data graphics require native data-bound widgets; artwork requires asset provenance.",
+    "Repair mapped.json or native vector assets; recapture through Studio.",
+    "Do not widen tolerances to manufacture a pass."
+  ]
+}

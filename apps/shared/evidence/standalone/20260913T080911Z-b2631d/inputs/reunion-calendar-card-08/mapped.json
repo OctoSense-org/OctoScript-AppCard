@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "reference_sha256": "9c6a14e773bc2b5c1397f4cae19c63f37040b312bd7b39f3fad39cc7a24b283c",
+  "tree": {
+    "t": "stack",
+    "id": "calendar_card",
+    "x": 0.0,
+    "y": 0.0,
+    "w": 362.11316872427983,
+    "h": 243.64731182795697,
+    "variant": "surface",
+    "bg": 4294770171,
+    "radius": 20.02469135802469,
+    "c": [
+      {
+        "t": "stack",
+        "id": "restore_calendar",
+        "x": 31.705761316872426,
+        "y": 166.88172043010752,
+        "w": 298.701646090535,
+        "h": 50.064516129032256,
+        "variant": "surface",
+        "bg": 4294770171,
+        "radius": 0.0,
+        "c": [
+          {
+            "t": "stack",
+            "id": "restore_calendar_surface",
+            "x": 31.705761316872426,
+            "y": 166.88172043010752,
+            "w": 298.701646090535,
+            "h": 50.064516129032256,
+            "variant": "surface",
+            "bg": 4294770171,
+            "radius": 11.681069958847736,
+            "c": [],
+            "border": 0.65,
+            "bordercolor": 4289314224
+          },
+          {
+            "t": "button",
+            "id": "restore_calendar_control",
+            "x": 31.705761316872426,
+            "y": 166.88172043010752,
+            "w": 298.701646090535,
+            "h": 50.064516129032256,
+            "enabled": 1
+          },
+          {
+            "t": "text",
+            "id": "text_179",
+            "text": "重新加入",
+            "x": 137.13187784695333,
+            "y": 187.4573030650597,
+            "w": 90.1954873689965,
+            "h": 23.93270645408044,
+            "size": 21.548871842249124,
+            "weight": 400,
+            "line_height": 23.93270645408044,
+            "variant": "single_line",
+            "alignx": 0,
+            "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+            "color": 4281418044,
+            "tracking": 0,
+            "font_asc": -0.2231877166173144,
+            "font_desc": 0.1141877166173143
+          }
+        ],
+        "kit": "{\"widget\":\"KitButton\",\"bindings\":{\"control\":[1],\"label\":[2]}}"
+      },
+      {
+        "t": "svg",
+        "id": "calendar_icon_3",
+        "x": 28.36831275720165,
+        "y": 16.688172043010752,
+        "w": 36.711934156378604,
+        "h": 38.38279569892473,
+        "src": ""
+      },
+      {
+        "t": "svg",
+        "id": "calendar_icon_4",
+        "x": 28.36831275720165,
+        "y": 120.15483870967739,
+        "w": 23.362139917695472,
+        "h": 25.032258064516128,
+        "src": ""
+      },
+      {
+        "t": "text",
+        "id": "text_176",
+        "text": "日历记录已撤销",
+        "x": 87.37044281991254,
+        "y": 40.06838266544787,
+        "w": 147.2927758669484,
+        "h": 23.01699839719929,
+        "size": 20.4703965524212,
+        "weight": 400,
+        "line_height": 23.01699839719929,
+        "variant": "single_line",
+        "alignx": 0,
+        "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+        "color": 4281418044,
+        "tracking": 0,
+        "font_asc": -0.21529793571031508,
+        "font_desc": 0.10829793571031515
+      },
+      {
+        "t": "text",
+        "id": "text_177",
+        "text": "报名仍然有效",
+        "x": 86.70534629037247,
+        "y": 70.8002726859342,
+        "w": 129.3956339670347,
+        "h": 23.457222537218218,
+        "size": 20.899272327839117,
+        "weight": 400,
+        "line_height": 23.457222537218218,
+        "variant": "single_line",
+        "alignx": 0,
+        "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+        "color": 4281418044,
+        "tracking": 0,
+        "font_asc": -0.21630288822372645,
+        "font_desc": 0.10930288822372652
+      },
+      {
+        "t": "text",
+        "id": "text_178",
+        "text": "周六 10月24日 18:30",
+        "x": 72.09236806698233,
+        "y": 118.44667954067904,
+        "w": 195.41635739810607,
+        "h": 23.23352227401873,
+        "size": 20.883303229119143,
+        "weight": 400,
+        "line_height": 23.23352227401873,
+        "variant": "single_line",
+        "alignx": 0,
+        "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+        "color": 4281418044,
+        "tracking": 0,
+        "font_asc": -0.22922971030697614,
+        "font_desc": 0.10622971030697625
+      }
+    ]
+  },
+  "changes": [
+    {
+      "source": "cards/reunion-08/mapped.json",
+      "source_sha256": "dc398929f0b4bc5451b18e75ce0b7064744ec72c95cc3bcda9eabb0513c600f4",
+      "operation": "Extract native subtree and translate origin",
+      "source_root": "calendar_card",
+      "translation": [
+        -23.362139917695472,
+        -405.52258064516127
+      ]
+    }
+  ]
+}

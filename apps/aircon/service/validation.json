@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "passed": true,
+  "tests_run": 38,
+  "failures": 0,
+  "errors": 0,
+  "checked_at": "2026-09-13T04:36:37.343279+00:00",
+  "scope": [
+    "deterministic local service reducer",
+    "native KitAction adapter and nonce/ownership checks using simulated protocol files",
+    "all 12 generated L0 card/data/kit/mapping artifacts",
+    "dynamic Sunday selection, calendar acknowledgement, cancelled payment, dismissal, internal route header bindings",
+    "Message IDs remain separate from calendar entity IDs; exact undo/restore/cancel replay and reused message ID rejection",
+    "Letterboxed receipt route uses two visible, separated native headings"
+  ],
+  "native_studio_input_validated": false,
+  "native_studio_screenshots_validated": false,
+  "command": "python3 -m unittest -v test_controller.py test_native_adapter.py test_render_runtime.py",
+  "details": "Ran 38 tests in 1.894s\nOK\n",
+  "source_files": {
+    "service/controller.py": "a1cb2d0ad6fe34df33bf18443109ac618e1811f9ccfc2121d4c2e81842df81cc",
+    "service/test_render_runtime.py": "30178995df305e139fb552171454d416a5bef204dcd969cdddb44f44ec654fd2",
+    "service/test_native_adapter.py": "9caeb40b32cbceeccacacc1838ce1db12b62819757d4c71f2bb82c501a0fa124",
+    "service/test_controller.py": "58cedcbb364bb1b61f6ea4d47376d18d31e37d6ba3cbdfb55813ed82410998bd",
+    "runtime/render_runtime.py": "4989d83b952f6ab4883729b73054bc9357b5a3b7b1b3303f273f90d59aa69f0d",
+    "runtime/run-demo.py": "4ea3d44bf8a700bb3bd1a0c043478b00e3c0143282e54a74922136df61ae7082",
+    "runtime/service_session.py": "8f161bfa2dc9197afff122550710def5330bfe028074778f33088d809fce3379",
+    "service/fixture.json": "f36cf76940663138751e1ff180e67ded8aae26262b678dd75ff5204d5715d87b"
+  },
+  "regression": {
+    "failure_evidence": "evidence/native-flow/20260912-213053-becdeb45",
+    "root_cause": "calendar.undo and installation.cancel shadowed the incoming event ID with the calendar entity ID before recording processed_events",
+    "reproduced_before_fix": {
+      "tests": 4,
+      "failures": 4
+    },
+    "fixed_by": "Use message_id for transport deduplication and calendar_event_id for calendar entities; preserve stable calendar event identity",
+    "failed_native_evidence_modified": false
+  }
+}

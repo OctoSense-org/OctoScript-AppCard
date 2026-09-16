@@ -1,0 +1,46 @@
+# ledger installation_complete-12@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy text_207_text { class: user-copy, en: "查看服务单" }
+copy text_205_text { class: user-copy, en: "安装服务 · 安装已完成" }
+copy text_206_text { class: user-copy, en: "家．海棠路18号" }
+state view_service_order_control_enabled { shape: bool, initial: true }
+component Surface0a1823aa4964(instance: text) {
+  view Kit(component: "Surface0a1823aa4964", instance: instance) { slot }
+}
+component KitButton5dc7ea8cd583(instance: text) {
+  view Kit(component: "KitButton5dc7ea8cd583", instance: instance) { slot }
+}
+component Surfaced8d7ceb3e964(instance: text) {
+  view Kit(component: "Surfaced8d7ceb3e964", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Textb6b2783eb24c(instance: text, text: text) {
+  view Kit(component: "Textb6b2783eb24c", instance: instance, text: text)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Text774996725762(instance: text, text: text) {
+  view Kit(component: "Text774996725762", instance: instance, text: text)
+}
+component Textad00f81b31b7(instance: text, text: text) {
+  view Kit(component: "Textad00f81b31b7", instance: instance, text: text)
+}
+
+view root Surface0a1823aa4964(instance: "installation_complete") {
+  KitButton5dc7ea8cd583(instance: "view_service_order") {
+    Surfaced8d7ceb3e964(instance: "view_service_order_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "view_service_order_control", enabled: view_service_order_control_enabled)
+    Textb6b2783eb24c(instance: "text_207", text: copy.text_207_text)
+  }
+  Vectore0a378fde04f(instance: "wrench_icon_2")
+  Text774996725762(instance: "text_205", text: copy.text_205_text)
+  Textad00f81b31b7(instance: "text_206", text: copy.text_206_text)
+}

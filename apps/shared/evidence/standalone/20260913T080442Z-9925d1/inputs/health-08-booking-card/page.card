@@ -1,0 +1,63 @@
+# ledger health-08-booking-card@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy view_booking_text_text { class: user-copy, en: "查看预约" }
+copy booking_title_text { class: user-copy, en: "健康 · 预约有效" }
+copy appointment_title_text { class: user-copy, en: "年度体检" }
+copy package_summary_text { class: user-copy, en: "基础套餐" }
+copy appointment_time_text { class: user-copy, en: "周六 10月24日 14:00–15:00" }
+copy provider_name_text { class: user-copy, en: "安心体检中心" }
+state view_booking_control_enabled { shape: bool, initial: true }
+component Surface5259d30211c6(instance: text) {
+  view Kit(component: "Surface5259d30211c6", instance: instance) { slot }
+}
+component KitButton5dc7ea8cd583(instance: text) {
+  view Kit(component: "KitButton5dc7ea8cd583", instance: instance) { slot }
+}
+component Surface93a316bf76d8(instance: text) {
+  view Kit(component: "Surface93a316bf76d8", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Text6a66596b0169(instance: text, text: text) {
+  view Kit(component: "Text6a66596b0169", instance: instance, text: text)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Text5084deffd86a(instance: text, text: text) {
+  view Kit(component: "Text5084deffd86a", instance: instance, text: text)
+}
+component Text6ea112e2b37d(instance: text, text: text) {
+  view Kit(component: "Text6ea112e2b37d", instance: instance, text: text)
+}
+component Text3eac51169dc9(instance: text, text: text) {
+  view Kit(component: "Text3eac51169dc9", instance: instance, text: text)
+}
+component Textcf83ca8899de(instance: text, text: text) {
+  view Kit(component: "Textcf83ca8899de", instance: instance, text: text)
+}
+component Text67d881f5f9ce(instance: text, text: text) {
+  view Kit(component: "Text67d881f5f9ce", instance: instance, text: text)
+}
+
+view root Surface5259d30211c6(instance: "booking_card") {
+  KitButton5dc7ea8cd583(instance: "view_booking") {
+    Surface93a316bf76d8(instance: "view_booking_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "view_booking_control", enabled: view_booking_control_enabled)
+    Text6a66596b0169(instance: "view_booking_text", text: copy.view_booking_text_text)
+  }
+  Vectore0a378fde04f(instance: "heart_icon_0")
+  Vectore0a378fde04f(instance: "calendar_icon_1")
+  Vectore0a378fde04f(instance: "location_icon_2")
+  Text5084deffd86a(instance: "booking_title", text: copy.booking_title_text)
+  Text6ea112e2b37d(instance: "appointment_title", text: copy.appointment_title_text)
+  Text3eac51169dc9(instance: "package_summary", text: copy.package_summary_text)
+  Textcf83ca8899de(instance: "appointment_time", text: copy.appointment_time_text)
+  Text67d881f5f9ce(instance: "provider_name", text: copy.provider_name_text)
+}

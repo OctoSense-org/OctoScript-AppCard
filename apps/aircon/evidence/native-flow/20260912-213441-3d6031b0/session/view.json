@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "simulation": true,
+  "revision": 16,
+  "frame_id": 12,
+  "surface": "app",
+  "app_route": {
+    "app": "payment",
+    "page": "receipt"
+  },
+  "cards": [
+    {
+      "id": "payment:invoice-materials-aircon-001",
+      "owner_app": "payment",
+      "entity_id": "invoice-materials-aircon-001",
+      "title": "付款完成",
+      "body_action": {
+        "action": "navigation.open_app",
+        "label": "打开应用",
+        "actor": "user",
+        "enabled": true,
+        "payload": {
+          "app": "payment"
+        }
+      },
+      "data": {
+        "id": "invoice-materials-aircon-001",
+        "description": "加长铜管 2米",
+        "amount_minor": 13000,
+        "currency": "CNY",
+        "payee": "安装服务团队",
+        "status": "paid",
+        "receipt": {
+          "id": "receipt-invoice-materials-aircon-001",
+          "amount_minor": 13000,
+          "currency": "CNY",
+          "payee": "安装服务团队",
+          "simulation": true
+        }
+      },
+      "actions": []
+    },
+    {
+      "id": "installation:booking-aircon-001",
+      "owner_app": "installation",
+      "entity_id": "booking-aircon-001",
+      "title": "安装服务已完成",
+      "body_action": {
+        "action": "navigation.open_app",
+        "label": "打开应用",
+        "actor": "user",
+        "enabled": true,
+        "payload": {
+          "app": "installation"
+        }
+      },
+      "data": {
+        "id": "booking-aircon-001",
+        "technician": "王师傅",
+        "provider": "安装服务团队",
+        "days": [
+          {
+            "date": "2026-09-19",
+            "label": "周六 9月19日"
+          },
+          {
+            "date": "2026-09-20",
+            "label": "周日 9月20日"
+          }
+        ],
+        "slots": [
+          {
+            "id": "morning",
+            "label": "09:00–11:00",
+            "starts_at": "2026-09-19T09:00:00+08:00",
+            "ends_at": "2026-09-19T11:00:00+08:00"
+          },
+          {
+            "id": "afternoon",
+            "label": "14:00–16:00",
+            "starts_at": "2026-09-19T14:00:00+08:00",
+            "ends_at": "2026-09-19T16:00:00+08:00"
+          }
+        ],
+        "status": "completed",
+        "selected_slot_id": "afternoon",
+        "booked_slot_id": "afternoon",
+        "selected_day": "2026-09-19",
+        "booked_day": "2026-09-19",
+        "version": 1
+      },
+      "actions": []
+    }
+  ],
+  "slots": [
+    {
+      "id": "morning",
+      "label": "09:00–11:00",
+      "starts_at": "2026-09-19T09:00:00+08:00",
+      "ends_at": "2026-09-19T11:00:00+08:00",
+      "enabled": false,
+      "conflict_event_ids": [
+        "calendar-project-meeting"
+      ],
+      "reason": "项目例会",
+      "selected": false
+    },
+    {
+      "id": "afternoon",
+      "label": "14:00–16:00",
+      "starts_at": "2026-09-19T14:00:00+08:00",
+      "ends_at": "2026-09-19T16:00:00+08:00",
+      "enabled": true,
+      "conflict_event_ids": [],
+      "reason": "",
+      "selected": true
+    }
+  ],
+  "order": {
+    "id": "order-aircon-001",
+    "product": "1.5匹变频空调",
+    "amount_minor": 279900,
+    "currency": "CNY",
+    "status": "paid_demo"
+  },
+  "bindings": {
+    "selected_slot_id": "afternoon",
+    "booking_status": "completed",
+    "calendar_status": "added",
+    "payment_status": "paid",
+    "can_confirm_booking": true,
+    "can_pay": false
+  }
+}

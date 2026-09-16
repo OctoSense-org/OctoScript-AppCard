@@ -51,7 +51,7 @@ def launch_native(app,hidden=False):
         env.pop(key,None)
     if hidden:env['MAKEPAD_HIDE_WINDOWS']='1'
     else:env.pop('MAKEPAD_HIDE_WINDOWS',None)
-    workspace=NATIVE_ROOT/'splash-makepad'
+    workspace=NATIVE_ROOT/'octoscript-makepad'
     with (logs/'build.log').open('a') as log:
         subprocess.run(['cargo','build','--release','-p','kit-host','--bin','beauty-host'],cwd=workspace,env=env,stdout=log,stderr=log,check=True)
     if not listening(8170):

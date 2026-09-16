@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "simulation": true,
+  "revision": 8,
+  "frame_id": 8,
+  "surface": "desktop",
+  "app_route": null,
+  "cards": [
+    {
+      "id": "installation:booking-aircon-001",
+      "owner_app": "installation",
+      "entity_id": "booking-aircon-001",
+      "title": "安装预约已确认",
+      "body_action": {
+        "action": "navigation.open_app",
+        "label": "打开应用",
+        "actor": "user",
+        "enabled": true,
+        "payload": {
+          "app": "installation"
+        }
+      },
+      "data": {
+        "id": "booking-aircon-001",
+        "technician": "王师傅",
+        "provider": "安装服务团队",
+        "days": [
+          {
+            "date": "2026-09-19",
+            "label": "周六 9月19日"
+          },
+          {
+            "date": "2026-09-20",
+            "label": "周日 9月20日"
+          }
+        ],
+        "slots": [
+          {
+            "id": "morning",
+            "label": "09:00–11:00",
+            "starts_at": "2026-09-19T09:00:00+08:00",
+            "ends_at": "2026-09-19T11:00:00+08:00"
+          },
+          {
+            "id": "afternoon",
+            "label": "14:00–16:00",
+            "starts_at": "2026-09-19T14:00:00+08:00",
+            "ends_at": "2026-09-19T16:00:00+08:00"
+          }
+        ],
+        "status": "booked",
+        "selected_slot_id": "afternoon",
+        "booked_slot_id": "afternoon",
+        "selected_day": "2026-09-19",
+        "booked_day": "2026-09-19",
+        "version": 1,
+        "slot": {
+          "id": "afternoon",
+          "label": "14:00–16:00",
+          "starts_at": "2026-09-19T14:00:00+08:00",
+          "ends_at": "2026-09-19T16:00:00+08:00"
+        }
+      },
+      "actions": [
+        {
+          "action": "installation.reschedule",
+          "label": "改约",
+          "actor": "user",
+          "enabled": true,
+          "payload": {}
+        },
+        {
+          "action": "installation.cancel",
+          "label": "取消预约",
+          "actor": "user",
+          "enabled": true,
+          "payload": {}
+        }
+      ]
+    },
+    {
+      "id": "calendar:calendar-installation-aircon-001",
+      "owner_app": "calendar",
+      "entity_id": "calendar-installation-aircon-001",
+      "title": "日历已经更新",
+      "body_action": {
+        "action": "navigation.open_app",
+        "label": "打开应用",
+        "actor": "user",
+        "enabled": true,
+        "payload": {
+          "app": "calendar"
+        }
+      },
+      "data": {
+        "status": "added",
+        "event": {
+          "id": "calendar-installation-aircon-001",
+          "title": "空调上门安装",
+          "starts_at": "2026-09-19T14:00:00+08:00",
+          "ends_at": "2026-09-19T16:00:00+08:00",
+          "source_app": "installation",
+          "source_entity_id": "booking-aircon-001",
+          "booking_version": 1
+        },
+        "booking_still_valid": true
+      },
+      "actions": [
+        {
+          "action": "calendar.acknowledge",
+          "label": "已确认",
+          "actor": "user",
+          "enabled": false,
+          "payload": {}
+        },
+        {
+          "action": "calendar.undo",
+          "label": "撤销日程",
+          "actor": "user",
+          "enabled": true,
+          "payload": {}
+        }
+      ]
+    }
+  ],
+  "slots": [
+    {
+      "id": "morning",
+      "label": "09:00–11:00",
+      "starts_at": "2026-09-19T09:00:00+08:00",
+      "ends_at": "2026-09-19T11:00:00+08:00",
+      "enabled": false,
+      "conflict_event_ids": [
+        "calendar-project-meeting"
+      ],
+      "reason": "项目例会",
+      "selected": false
+    },
+    {
+      "id": "afternoon",
+      "label": "14:00–16:00",
+      "starts_at": "2026-09-19T14:00:00+08:00",
+      "ends_at": "2026-09-19T16:00:00+08:00",
+      "enabled": true,
+      "conflict_event_ids": [],
+      "reason": "",
+      "selected": true
+    }
+  ],
+  "order": {
+    "id": "order-aircon-001",
+    "product": "1.5匹变频空调",
+    "amount_minor": 279900,
+    "currency": "CNY",
+    "status": "paid_demo"
+  },
+  "bindings": {
+    "selected_slot_id": "afternoon",
+    "booking_status": "booked",
+    "calendar_status": "added",
+    "payment_status": "not_due",
+    "can_confirm_booking": true,
+    "can_pay": false
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "buttons": [
+    {
+      "source_id": "return_booking_control",
+      "native_id": "beauty_0_2_1",
+      "kit_action_id": "beauty_0_2",
+      "enabled": true,
+      "passed": true,
+      "activated_events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_2"
+        }
+      ],
+      "evidence": "controls/01-return_booking_control"
+    },
+    {
+      "source_id": "cancel_booking_control",
+      "native_id": "beauty_0_3_1",
+      "kit_action_id": "beauty_0_3",
+      "enabled": true,
+      "passed": true,
+      "activated_events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_3"
+        }
+      ],
+      "evidence": "controls/02-cancel_booking_control"
+    }
+  ],
+  "fixture_state": "unchanged; KitAction is observed without a reducer or external service"
+}

@@ -18,11 +18,11 @@ lab/image-to-appcard/.venv/bin/python apps/mail/scripts/setup_native.py
 bash 'apps/mail/Run Mail.command'
 ```
 
-The setup command creates pinned native checkouts under ignored
-`apps/mail/runtime/native/` and applies the hash-verified compatibility patches
+The setup command creates pinned native checkouts outside AppCards, under
+`octosense-org/.appcard-native/mail/` and applies the hash-verified compatibility patches
 in [native-support/](native-support/README.md). It fetches commits from existing
-local submodules when available, otherwise from the declared GitHub repos.
-It preserves the shared submodules. The launcher builds a release `beauty-host`
+shared repositories when available, otherwise from the declared GitHub repos.
+It preserves the shared repositories. The launcher builds a release `beauty-host`
 and starts it directly with `--remote`; it does not use Makepad Studio.
 
 A fresh checkout starts with fictional sample mail. Open **Mailboxes → Settings**,
@@ -41,7 +41,8 @@ From `apps/mail/`:
 `--headless` hides the native macOS window while retaining Metal and WKWebView;
 it still requires a macOS graphical session. Close an existing owned instance
 before changing launch mode. `OCTOS_APPCARD_PIPELINE` overrides the repository
-root, `OCTOS_MAIL_NATIVE_ROOT` overrides the isolated dependency directory,
+root, `OCTOSENSE_WORKSPACE` selects the shared organization workspace,
+`OCTOS_MAIL_NATIVE_ROOT` overrides the isolated dependency directory,
 and `OCTOS_MAIL_PYTHON` overrides the launcher's Python executable.
 
 ## Mail features
@@ -103,6 +104,7 @@ After setup, from `apps/mail/`:
 ```sh
 APP_PYTHON=../../lab/image-to-appcard/.venv/bin/python
 "$APP_PYTHON" scripts/author.py review
+OCTOS_APPCARD_NATIVE_ROOT="$("$APP_PYTHON" -c 'import sys; sys.path.insert(0,"scripts"); from common import NATIVE_ROOT; print(NATIVE_ROOT)')" \
 "$APP_PYTHON" ../../lab/image-to-appcard-flow/flow.py run \
   --project . --manifest image-to-appcard-flow.json \
   --stages semantic,compile,bundle,service-test

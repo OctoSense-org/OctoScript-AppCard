@@ -1,0 +1,614 @@
+{
+  "schema_version": 1,
+  "id": "aircon-fresh-v2",
+  "title": "空调到家 · 清新设计",
+  "locale": "zh-CN",
+  "kind": "image-storyboard-prototype",
+  "status": "redesigned-and-cropped",
+  "generation": {
+    "provider": "OpenAI Image API",
+    "model": "gpt-image-2",
+    "mode": "skill-cli-edit",
+    "size": "2400x3456",
+    "quality": "high",
+    "n": 1,
+    "output_format": "png",
+    "input_reference_count": 1
+  },
+  "atlas": "atlas.png",
+  "grid": {
+    "columns": 4,
+    "rows": 3,
+    "logical_screen": [
+      406,
+      776
+    ]
+  },
+  "fixture": {
+    "product": "1.5匹变频空调",
+    "price_cny": 2799,
+    "delivery": "2026-09-18T14:00:00+08:00/2026-09-18T16:00:00+08:00",
+    "installation": "2026-09-19T14:00:00+08:00/2026-09-19T16:00:00+08:00",
+    "technician": "王师傅",
+    "materials": "加长铜管 2米",
+    "materials_price_cny": 130,
+    "service_provider": "安装服务团队"
+  },
+  "autoplay": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    10,
+    11,
+    12
+  ],
+  "states": [
+    {
+      "id": 1,
+      "slug": "product",
+      "title": "好物详情",
+      "surface": "购物应用",
+      "description": "查看空调规格、配送和安装服务",
+      "image": "frames/01-product.png",
+      "authoring_crop": [
+        64,
+        72,
+        544,
+        1040
+      ],
+      "next": 2,
+      "branch": false,
+      "actions": [
+        {
+          "label": "立即购买",
+          "target": 2,
+          "kind": "navigate",
+          "hotspot": [
+            0.32385,
+            0.90727,
+            0.31407,
+            0.05923
+          ],
+          "hotspot_basis": "Chinese OCR text bounds with touch padding, reviewed on actual crop"
+        }
+      ],
+      "crop": [
+        45,
+        82,
+        512,
+        1084
+      ],
+      "image_size": [
+        512,
+        1084
+      ],
+      "sha256": "21b3c6848bab2ddb30d287a918810262903fcf9363e569c4f432363d3e243519"
+    },
+    {
+      "id": 2,
+      "slug": "order",
+      "title": "订单详情",
+      "surface": "购物应用",
+      "description": "演示订单已完成付款，查看配送安排",
+      "image": "frames/02-order.png",
+      "authoring_crop": [
+        640,
+        72,
+        544,
+        1040
+      ],
+      "next": 3,
+      "branch": false,
+      "actions": [
+        {
+          "label": "返回桌面",
+          "target": 3,
+          "kind": "navigate"
+        }
+      ],
+      "crop": [
+        598,
+        82,
+        517,
+        1084
+      ],
+      "image_size": [
+        517,
+        1084
+      ],
+      "sha256": "c84a5f0fb053316ad04aef9f73ac8c05becb96b49437934a60f773504def42b9"
+    },
+    {
+      "id": 3,
+      "slug": "order-card",
+      "title": "桌面订单卡",
+      "surface": "系统桌面",
+      "description": "订单应用在桌面显示订单状态",
+      "image": "frames/03-order-card.png",
+      "authoring_crop": [
+        1216,
+        72,
+        544,
+        1040
+      ],
+      "next": 4,
+      "branch": false,
+      "actions": [
+        {
+          "label": "查看订单",
+          "target": 2,
+          "kind": "navigate",
+          "hotspot": [
+            0.14572,
+            0.60949,
+            0.27809,
+            0.05381
+          ],
+          "hotspot_basis": "Chinese OCR text bounds with touch padding, reviewed on actual crop"
+        },
+        {
+          "label": "模拟物流更新",
+          "target": 4,
+          "kind": "external-event"
+        }
+      ],
+      "crop": [
+        1154,
+        82,
+        523,
+        1087
+      ],
+      "image_size": [
+        523,
+        1087
+      ],
+      "sha256": "2f1eb89103fdb330694d24e1267d90192c354234233e06d4bd8e97b6b3b64557"
+    },
+    {
+      "id": 4,
+      "slug": "delivery",
+      "title": "物流更新",
+      "surface": "系统桌面",
+      "description": "物流应用更新预计送达时间",
+      "image": "frames/04-delivery.png",
+      "authoring_crop": [
+        1792,
+        72,
+        544,
+        1040
+      ],
+      "next": 5,
+      "branch": false,
+      "actions": [
+        {
+          "label": "模拟商品送达",
+          "target": 5,
+          "kind": "external-event"
+        }
+      ],
+      "crop": [
+        1716,
+        82,
+        637,
+        1086
+      ],
+      "image_size": [
+        637,
+        1086
+      ],
+      "sha256": "2371cedeef1ba4e18c00d684f41cda90c994c69bb56007aa6289f32e2a25adb3"
+    },
+    {
+      "id": 5,
+      "slug": "installation-offer",
+      "title": "预约安装",
+      "surface": "系统桌面",
+      "description": "商品送达，安装服务提供预约入口",
+      "image": "frames/05-installation-offer.png",
+      "authoring_crop": [
+        64,
+        1216,
+        544,
+        1040
+      ],
+      "next": 6,
+      "branch": false,
+      "actions": [
+        {
+          "label": "选择时间",
+          "target": 6,
+          "kind": "navigate",
+          "hotspot": [
+            0.11821,
+            0.71988,
+            0.31348,
+            0.06706
+          ],
+          "hotspot_basis": "Chinese OCR text bounds with touch padding, reviewed on actual crop"
+        },
+        {
+          "label": "暂不预约",
+          "target": 3,
+          "kind": "navigate",
+          "hotspot": [
+            0.54969,
+            0.72478,
+            0.27425,
+            0.05724
+          ],
+          "hotspot_basis": "Chinese OCR text bounds with touch padding, reviewed on actual crop"
+        }
+      ],
+      "crop": [
+        45,
+        1255,
+        512,
+        1021
+      ],
+      "image_size": [
+        512,
+        1021
+      ],
+      "sha256": "21fdb4a2b5e70f6df347a2cbb049968dc5bfbecfe5e9ee639821ba1a20297077"
+    },
+    {
+      "id": 6,
+      "slug": "choose-slot",
+      "title": "展开时段",
+      "surface": "系统桌面",
+      "description": "安装服务时段与个人日历关联，等待选择",
+      "image": "frames/06-choose-slot.png",
+      "authoring_crop": [
+        640,
+        1216,
+        544,
+        1040
+      ],
+      "next": 7,
+      "branch": false,
+      "actions": [
+        {
+          "label": "选择 14:00–16:00",
+          "target": 7,
+          "kind": "select",
+          "hotspot": [
+            0.08851,
+            0.51417,
+            0.42699,
+            0.05222
+          ],
+          "hotspot_basis": "Chinese OCR text bounds with touch padding, reviewed on actual crop"
+        },
+        {
+          "label": "收起",
+          "target": 5,
+          "kind": "navigate",
+          "hotspot": [
+            0.82,
+            0.13,
+            0.12,
+            0.11
+          ]
+        }
+      ],
+      "crop": [
+        597,
+        1253,
+        517,
+        1023
+      ],
+      "image_size": [
+        517,
+        1023
+      ],
+      "sha256": "c545bb246214257a32df8ff9860de32b91fdbf432a39992dc388cc86bd98d276"
+    },
+    {
+      "id": 7,
+      "slug": "selected-slot",
+      "title": "选中时段",
+      "surface": "系统桌面",
+      "description": "选中下午时段，尚未提交预约",
+      "image": "frames/07-selected-slot.png",
+      "authoring_crop": [
+        1216,
+        1216,
+        544,
+        1040
+      ],
+      "next": 8,
+      "branch": false,
+      "actions": [
+        {
+          "label": "确认预约",
+          "target": 8,
+          "kind": "submit",
+          "effect": "demo service accepts the selected installation slot; calendar event is added",
+          "hotspot": [
+            0.54188,
+            0.77377,
+            0.30011,
+            0.06363
+          ],
+          "hotspot_basis": "Chinese OCR text bounds with touch padding, reviewed on actual crop"
+        },
+        {
+          "label": "取消",
+          "target": 5,
+          "kind": "navigate",
+          "hotspot": [
+            0.16587,
+            0.77472,
+            0.18313,
+            0.05715
+          ],
+          "hotspot_basis": "Chinese OCR text bounds with touch padding, reviewed on actual crop"
+        }
+      ],
+      "crop": [
+        1154,
+        1253,
+        520,
+        1023
+      ],
+      "image_size": [
+        520,
+        1023
+      ],
+      "sha256": "00618068c676e89471e36f4755a70f7998d2e94edb354bb1d50a7946748545de"
+    },
+    {
+      "id": 8,
+      "slug": "booked",
+      "title": "预约与日历",
+      "surface": "系统桌面",
+      "description": "服务方确认预约，日历已经更新",
+      "image": "frames/08-booked.png",
+      "authoring_crop": [
+        1792,
+        1216,
+        544,
+        1040
+      ],
+      "next": 10,
+      "branch": false,
+      "actions": [
+        {
+          "label": "撤销日程",
+          "target": 9,
+          "kind": "undo",
+          "effect": "remove only the calendar event; the installation reservation remains booked",
+          "hotspot": [
+            0.557,
+            0.75805,
+            0.22902,
+            0.05917
+          ],
+          "hotspot_basis": "Chinese OCR text bounds with touch padding, reviewed on actual crop"
+        },
+        {
+          "label": "改约",
+          "target": 6,
+          "kind": "navigate",
+          "hotspot": [
+            0.17191,
+            0.41095,
+            0.15713,
+            0.05194
+          ],
+          "hotspot_basis": "Chinese OCR text bounds with touch padding, reviewed on actual crop"
+        },
+        {
+          "label": "模拟师傅出发",
+          "target": 10,
+          "kind": "external-event"
+        }
+      ],
+      "crop": [
+        1713,
+        1253,
+        638,
+        1024
+      ],
+      "image_size": [
+        638,
+        1024
+      ],
+      "sha256": "3455eb7ffe783bfdf5083b319c676c3394616e84880b0f6711e86543ec709473"
+    },
+    {
+      "id": 9,
+      "slug": "calendar-undone",
+      "title": "撤销日历分支",
+      "surface": "系统桌面",
+      "description": "只撤销日历记录，安装预约仍然有效",
+      "image": "frames/09-calendar-undone.png",
+      "authoring_crop": [
+        64,
+        2360,
+        544,
+        1040
+      ],
+      "next": null,
+      "branch": true,
+      "actions": [
+        {
+          "label": "重新加入日历",
+          "target": 8,
+          "kind": "restore",
+          "effect": "restore only the calendar event without booking the installation again",
+          "hotspot": [
+            0.30453,
+            0.65697,
+            0.28406,
+            0.05836
+          ],
+          "hotspot_basis": "Chinese OCR text bounds with touch padding, reviewed on actual crop"
+        },
+        {
+          "label": "返回主线",
+          "target": 8,
+          "kind": "navigate"
+        }
+      ],
+      "crop": [
+        45,
+        2365,
+        512,
+        997
+      ],
+      "image_size": [
+        512,
+        997
+      ],
+      "sha256": "8fd6bdaf2da8e01708da40811653978d243ca551d365af9b85519e212952f53a"
+    },
+    {
+      "id": 10,
+      "slug": "technician-arriving",
+      "title": "师傅即将到达",
+      "surface": "系统桌面",
+      "description": "安装服务回传师傅的到达进度",
+      "image": "frames/10-technician-arriving.png",
+      "authoring_crop": [
+        640,
+        2360,
+        544,
+        1040
+      ],
+      "next": 11,
+      "branch": false,
+      "actions": [
+        {
+          "label": "模拟安装完成",
+          "target": 11,
+          "kind": "external-event"
+        }
+      ],
+      "crop": [
+        596,
+        2365,
+        521,
+        997
+      ],
+      "image_size": [
+        521,
+        997
+      ],
+      "sha256": "3c8a90ed0ba2069f3dfd52f4f22ed4bb741def39ab00941f496b74ece62de0a5"
+    },
+    {
+      "id": 11,
+      "slug": "payment-due",
+      "title": "材料费待支付",
+      "surface": "系统桌面",
+      "description": "根据安装服务单呈现支付卡，尚未扣款",
+      "image": "frames/11-payment-due.png",
+      "authoring_crop": [
+        1216,
+        2360,
+        544,
+        1040
+      ],
+      "next": 12,
+      "branch": false,
+      "actions": [
+        {
+          "label": "支付 ¥130",
+          "target": 12,
+          "kind": "demo-payment",
+          "effect": "simulate a successful payment receipt without calling a payment service",
+          "hotspot": [
+            0.12654,
+            0.50501,
+            0.31165,
+            0.05861
+          ],
+          "hotspot_basis": "Chinese OCR text bounds with touch padding, reviewed on actual crop"
+        }
+      ],
+      "crop": [
+        1155,
+        2365,
+        515,
+        998
+      ],
+      "image_size": [
+        515,
+        998
+      ],
+      "sha256": "fdfadec75b88a77464209366654d1f89f93c678bdc72eafd3b22f0a687ec6ed6"
+    },
+    {
+      "id": 12,
+      "slug": "payment-complete",
+      "title": "付款完成",
+      "surface": "系统桌面",
+      "description": "支付和安装服务分别显示完成记录",
+      "image": "frames/12-payment-complete.png",
+      "authoring_crop": [
+        1792,
+        2360,
+        544,
+        1040
+      ],
+      "next": null,
+      "branch": false,
+      "actions": [
+        {
+          "label": "重新体验",
+          "target": 1,
+          "kind": "reset"
+        }
+      ],
+      "crop": [
+        1711,
+        2364,
+        638,
+        1001
+      ],
+      "image_size": [
+        638,
+        1001
+      ],
+      "sha256": "4f2afd764cd03e62c3836a19d2511ce4252d20f343a4a0a16e6d49d3fcbf4057"
+    }
+  ],
+  "limitations": [
+    "Image hotspot preview uses predefined rendered states",
+    "External events and payment are simulated",
+    "Makepad component reconstruction and native validation are not part of this image artifact"
+  ],
+  "atlas_sha256": "168eb235aefdd446b1f9941b15107d7b6ca2a1ff88ec5d437801d2ea2ee0abf5",
+  "crop_basis": "Measured screen borders in the actual edited atlas; original pixels preserved without resizing",
+  "visual_theme": {
+    "name": "fresh",
+    "background": "warm ivory",
+    "accent": "sage green",
+    "secondary": "mist blue",
+    "retailer_branding": false
+  },
+  "review_findings": [
+    {
+      "severity": "accepted-for-preview",
+      "finding": "Retailer names and logos removed; shopping, payment, cards, icons and imagery restyled to a muted fresh palette."
+    },
+    {
+      "severity": "accepted-for-preview",
+      "finding": "Chinese OCR reviewed across 217 text observations; no source retailer name detected."
+    },
+    {
+      "severity": "repair",
+      "finding": "The generated fourth column remains wider than the others; crops preserve actual image proportions."
+    },
+    {
+      "severity": "repair",
+      "finding": "Screen 04 dock calendar still displays 17 while the desktop date is September 18."
+    }
+  ]
+}
