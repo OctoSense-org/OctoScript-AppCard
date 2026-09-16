@@ -83,8 +83,7 @@ if(hash(path.join(dist,'octosense-wizard.wasm'))!==build.wasm_sha256)throw Error
     }
     if(args.activate){
       await click(args.activate);
-      const activated=await page.evaluate(sourceId=>window.__octosense.events.some(e=>e.type==='octosense:action'&&e.id==='portable-smoke'&&e.generation===1&&e.sourceId===sourceId),args['expected-action']);
-      if(!activated)throw Error('Native KitAction did not match expected source ID');
+      await page.waitForFunction(sourceId=>window.__octosense.events.some(e=>e.type==='octosense:action'&&e.id==='portable-smoke'&&e.generation===1&&e.sourceId===sourceId),args['expected-action'],{timeout:5000});
     }
     const rejected=[];
     for(const src of ['https://foreign.example/card/assets/asset.svg',`${assetBase}../outside/assets/asset.svg`,`${assetBase}%2e%2e/outside/assets/asset.svg`]){
@@ -111,6 +110,6 @@ if(hash(path.join(dist,'octosense-wizard.wasm'))!==build.wasm_sha256)throw Error
       activated:args['expected-action']||null,disabledBlocked:args.disabled||null,rejectedAssets:rejected,
       fixture_sources:Object.fromEntries(inputs.map(name=>[name,hash(path.join(card,name))]))});
     console.log(JSON.stringify({passed:true,evidence:output,build_id:build.build_id}));
-  }catch(error){save('error.json',{passed:false,error:String(error),build_id:build.build_id});throw error;}
+  }catch(error){save('events-on-error.json',await page.evaluate(()=>window.__octosense?.events||[]).catch(()=>[]));save('error.json',{passed:false,error:String(error),build_id:build.build_id});throw error;}
   finally{clearTimeout(timeout);save('console.json',logs);await browser.close();}
 })().catch(error=>{console.error(error);process.exitCode=1;});

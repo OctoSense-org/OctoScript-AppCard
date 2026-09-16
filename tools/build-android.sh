@@ -34,6 +34,9 @@ KERNEL_BIN="$ROOT/octos/target/$TARGET/$PROFILE/octos"
 # absolute path into an uncommitted .cargo/config.toml, which is exactly what
 # made the build unreproducible on any other machine.
 OCTOSENSE_WORKSPACE="$(PYTHONPATH="$ROOT/lab" python3 -c 'from core.native_paths import WORKSPACE; print(WORKSPACE)')"
+python3 "$ROOT/tools/setup-native.py" --root "$OCTOSENSE_WORKSPACE" --check
+CARGO_MAKEPAD="$OCTOSENSE_WORKSPACE/makepad/target/release/cargo-makepad"
+[[ -x "$CARGO_MAKEPAD" ]] || { echo "error: build cargo-makepad --release in the locked makepad checkout first" >&2; exit 1; }
 NDK_ROOT="$(find "$OCTOSENSE_WORKSPACE/makepad/tools/cargo_makepad" -maxdepth 3 -type d -name ndk 2>/dev/null | head -1)"
 if [[ -z "$NDK_ROOT" ]]; then
   echo "error: no NDK under makepad/tools/cargo_makepad — run 'cargo makepad android install-toolchain'" >&2
@@ -81,10 +84,10 @@ if [[ -n "${EXTRA_NATIVE_LIBS:-}" ]]; then
 fi
 # The PGO profdata rustflag in makepad's config is a path relative to the repo
 # root, so it has to be made absolute from app/'s cwd.
-export RUSTFLAGS="${RUSTFLAGS:--Cprofile-use=$ROOT/aichat/libs/box3d/box3d.profdata}"
+export RUSTFLAGS="${RUSTFLAGS:--Cprofile-use=$OCTOSENSE_WORKSPACE/makepad/libs/box3d/box3d.profdata}"
 
 cd "$ROOT/app"
 # Android renders through the Vulkan backend (like the OpenHarmony build): the
 # map's compact vertex formats only exist there. `MAKEPAD=gles` forces OpenGL.
 export MAKEPAD="${MAKEPAD:-vulkan}"
-exec cargo makepad android "$ACTION" -p octos-app --release
+exec "$CARGO_MAKEPAD" makepad android "$ACTION" -p octos-app --release

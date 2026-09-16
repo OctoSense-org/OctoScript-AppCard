@@ -1,7 +1,12 @@
 use std::env;
 
 fn main() {
-    pin_splash_runtime();
+    let workspace = env::var_os("OCTOSENSE_WORKSPACE").map(std::path::PathBuf::from)
+        .unwrap_or_else(|| std::path::PathBuf::from(env::var_os("CARGO_MANIFEST_DIR").unwrap()).join("../../.."))
+        .canonicalize().expect("Run tools/setup-native.py to prepare the sibling framework");
+    println!("cargo:rerun-if-env-changed=OCTOSENSE_WORKSPACE");
+    println!("cargo:rustc-env=OCTOSENSE_WORKSPACE={}", workspace.display());
+    pin_splash_runtime(&workspace);
     // `mobile` — Android and OpenHarmony share a phone-shaped shell: a native
     // composer overlay instead of a docked one, a soft keyboard, a sandboxed
     // per-app HOME, and no desktop window chrome. Gate that shared behaviour on
@@ -21,7 +26,7 @@ fn main() {
 
 // Pin source contents, resources and lockfiles, including local path patches.
 // A Git revision alone misses the working-tree fixes that this app is running.
-fn pin_splash_runtime() {
+fn pin_splash_runtime(workspace: &std::path::Path) {
     use std::{fs, path::{Path, PathBuf}};
     fn collect(path: &Path, files: &mut Vec<PathBuf>) {
         if path.is_dir() {
@@ -36,15 +41,18 @@ fn pin_splash_runtime() {
     }
     let root = PathBuf::from(env::var("CARGO_MANIFEST_DIR").unwrap()).join("../..").canonicalize().unwrap();
     let mut files = Vec::new();
-    for path in ["aichat", "app/app/src", "app/app/resources", "../octoscript/crates/octoscript-ui-l0", "../octoscript-makepad/crates/octoscript-node",
+    for path in ["app/app/src", "app/app/resources",
         "app/crates", "octos/crates/octos-core", "app/Cargo.toml", "app/Cargo.lock", "app/app/Cargo.toml", "app/app/build.rs", "app/.cargo"] {
         collect(&root.join(path), &mut files);
+    }
+    for path in ["makepad", "octoscript/crates/octoscript-ui-l0", "octoscript-makepad/crates/octoscript-node", "octoscript-makepad/components"] {
+        collect(&workspace.join(path), &mut files);
     }
     files.sort();
     let mut hash = blake3::Hasher::new();
     for path in files {
         println!("cargo:rerun-if-changed={}", path.display());
-        let name = path.strip_prefix(&root).unwrap().to_string_lossy();
+        let name = path.strip_prefix(workspace).or_else(|_| path.strip_prefix(&root)).unwrap_or(&path).to_string_lossy();
         let bytes = fs::read(&path).expect("read pinned runtime file");
         hash.update(&(name.len() as u64).to_le_bytes());
         hash.update(name.as_bytes());

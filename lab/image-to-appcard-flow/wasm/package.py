@@ -137,7 +137,7 @@ def package_runtime(host: Path, dist: Path, project: Path, dependencies: dict, r
     licenses = dist / "licenses"
     licenses.mkdir(exist_ok=True)
     shutil.copy2(dependencies["makepad"] / "LICENSE", licenses / "Makepad-MIT.txt")
-    shutil.copy2(dependencies["splash"] / "LICENSE", licenses / "Splash-MIT.txt")
+    shutil.copy2(dependencies["octoscript"] / "LICENSE", licenses / "Octoscript-MIT.txt")
     shutil.copy2(project / "fonts/OFL.txt", licenses / "NotoSansSC-OFL.txt")
     notices = [font_notices(dependencies["makepad"] / "widgets/resources" / name) for name in sorted(FALLBACK_FONTS)]
     (licenses / "Bundled-fonts.txt").write_text("\n\n".join(notices) + "\n\n" + (project / "fonts/OFL.txt").read_text())
@@ -145,8 +145,8 @@ def package_runtime(host: Path, dist: Path, project: Path, dependencies: dict, r
         "# Third-party notices\n\n"
         "Makepad widgets, renderer and browser loader use the pinned Makepad source. "
         "Its MIT license and copyright are in `licenses/Makepad-MIT.txt`.\n\n"
-        "Splash / splash-ui-l0 use the pinned Splash source; its distributed MIT text is in `licenses/Splash-MIT.txt`. "
-        "Splash-Makepad declares MIT OR Apache-2.0 in its README License section; this package selects MIT.\n\n"
+        "Octoscript / octoscript-ui-l0 use the unified runtime source; its distributed MIT text is in `licenses/Octoscript-MIT.txt`. "
+        "Octoscript-Makepad declares MIT OR Apache-2.0 in its README License section; this package selects MIT.\n\n"
         "The complete Noto Sans SC Regular font is embedded in WASM. Its SIL OFL is in `licenses/NotoSansSC-OFL.txt`. "
         "Fallback font metadata and OFL text are retained in `licenses/Bundled-fonts.txt`.\n\n"
         "Card artwork comes from the supplied project; its file hashes and source paths are recorded in `build.json`. "

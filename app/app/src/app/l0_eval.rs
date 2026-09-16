@@ -474,14 +474,14 @@ mod tests {
     fn kit() -> String {
         format!(
             "{}\n{}\n{}",
-            include_str!("../../../../../octoscript-makepad/components/l0/_palette_dark.octoscript"),
-            include_str!("../../../../../octoscript-makepad/components/l0/_derive.octoscript"),
-            include_str!("../../../../../octoscript-makepad/components/l0/_kit.octoscript"),
+            include_str!(concat!(env!("OCTOSENSE_WORKSPACE"), "/octoscript-makepad/components/l0/_palette_dark.octoscript")),
+            include_str!(concat!(env!("OCTOSENSE_WORKSPACE"), "/octoscript-makepad/components/l0/_derive.octoscript")),
+            include_str!(concat!(env!("OCTOSENSE_WORKSPACE"), "/octoscript-makepad/components/l0/_kit.octoscript")),
         )
     }
-    const NEWS: &str = include_str!("../../../../../octoscript/crates/octoscript-ui-l0/tests/fixtures/news.card");
-    const STOCK: &str = include_str!("../../../../../octoscript/crates/octoscript-ui-l0/tests/fixtures/stock.card");
-    const WEATHER: &str = include_str!("../../../../../octoscript/crates/octoscript-ui-l0/tests/fixtures/weather.card");
+    const NEWS: &str = include_str!(concat!(env!("OCTOSENSE_WORKSPACE"), "/octoscript/crates/octoscript-ui-l0/tests/fixtures/news.card"));
+    const STOCK: &str = include_str!(concat!(env!("OCTOSENSE_WORKSPACE"), "/octoscript/crates/octoscript-ui-l0/tests/fixtures/stock.card"));
+    const WEATHER: &str = include_str!(concat!(env!("OCTOSENSE_WORKSPACE"), "/octoscript/crates/octoscript-ui-l0/tests/fixtures/weather.card"));
 
     fn build_card(card: &str, data: serde_json::Value) -> octoscript_node::UiNode {
         let report = realize(card, &data, RealizeLimits::default());
@@ -570,7 +570,7 @@ mod tests {
     /// The counts both evaluators must agree on, read from the file that owns
     /// them rather than copied into a literal.
     const CONFORMANCE: &str =
-        include_str!("../../../../../octoscript-makepad/components/l0/conformance.txt");
+        include_str!(concat!(env!("OCTOSENSE_WORKSPACE"), "/octoscript-makepad/components/l0/conformance.txt"));
 
     fn expected(card: &str) -> usize {
         CONFORMANCE
@@ -756,9 +756,7 @@ mod nav_dsl {
     //! a running app with no rebuild.
     use octoscript_ui_l0::{kit, realize, RealizeLimits};
 
-    const NAV: &str = include_str!(
-        "../../../../../octoscript/crates/octoscript-ui-l0/tests/fixtures/nav.card"
-    );
+    const NAV: &str = include_str!(concat!(env!("OCTOSENSE_WORKSPACE"), "/octoscript/crates/octoscript-ui-l0/tests/fixtures/nav.card"));
     fn kit() -> String { super::super::l0_card::kit_src() }
 
     fn data(screen: &str) -> serde_json::Value {

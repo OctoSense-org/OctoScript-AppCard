@@ -21,7 +21,8 @@ from publish import publish_package
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parents[1]))
-from core.native_paths import repository, adapt_cargo_paths, cargo_paths, WORKSPACE as NATIVE_WORKSPACE
+from core.native_paths import repository, WORKSPACE as NATIVE_WORKSPACE
+from core.native_runtime import runtime_tool, verify as verify_runtime
 
 
 def sha(path: Path) -> str:
@@ -32,76 +33,11 @@ def git(repo: Path, *args: str) -> bytes:
     return subprocess.check_output(["git", "-C", str(repo), *args])
 
 
-def check_dependency(repo: Path, spec: dict) -> dict:
-    revision = git(repo, "rev-parse", "HEAD").decode().strip()
-    if revision != spec["revision"]:
-        raise RuntimeError(f"{repo.name}: revision {revision} differs from locked {spec['revision']}")
-    manifest_changes = {}
-    for name in git(repo, "diff", "--name-only", "HEAD").decode().splitlines():
-        if name.endswith('Cargo.toml') and name not in spec['modified_sources']:
-            original = git(repo, 'show', 'HEAD:' + name).decode()
-            if (repo / name).read_text() != cargo_paths(original):
-                raise RuntimeError(f'{repo.name}/{name}: unexpected manifest edit')
-            manifest_changes[name] = sha(repo / name)
-    patch = git(repo, "diff", "HEAD", "--binary", "--full-index", "--no-ext-diff", '--', '.',
-                *(':(exclude)' + name for name in manifest_changes))
-    if hashlib.sha256(patch).hexdigest() != spec["patch_sha256"]:
-        raise RuntimeError(f"{repo.name}: tracked changes differ from the recorded compatibility patch")
-    for name, expected in spec["modified_sources"].items():
-        if sha(repo / name) != expected:
-            raise RuntimeError(f"{repo.name}/{name}: modified source hash mismatch")
-    untracked = git(repo, "ls-files", "--others", "--exclude-standard").decode().splitlines()
-    # Existing native kit-host font copies are outside the browser dependency graph.
-    unexpected = [p for p in untracked if not (
-        p == 'LICENSE-APACHE' or repo.name in ("splash-makepad", "octoscript-makepad") and re.fullmatch(
-            r"apps/kit-host/resources/service/(NotoSansSC-(Regular|Medium|Bold)\.ttf|OFL\.txt)", p))]
-    if unexpected:
-        raise RuntimeError(f"{repo.name}: unrecorded source files: {unexpected}")
-    return {"revision": revision, "patch_sha256": spec["patch_sha256"],
-            "modified_sources": spec["modified_sources"], "directory_path_adaptations": manifest_changes,
-            "ignored_native_resource_files": untracked}
-
-
-def prepare_dependencies(workspace: Path, scratch: Path, mode: str, lock: dict) -> tuple[dict, dict]:
-    dependencies, evidence = {}, {}
-    for name, spec in lock["dependencies"].items():
-        patch = HERE / spec["patch"]
-        if sha(patch) != spec["patch_sha256"]:
-            raise RuntimeError(f"Bundled patch was modified without updating dependency lock: {name}")
-        source = repository(name, workspace)
-        if mode == "existing":
-            repo = source
-        else:
-            repo = repository(name, scratch / "dependencies")
-            if not repo.exists():
-                repo.parent.mkdir(parents=True, exist_ok=True)
-                if (source / ".git").exists():
-                    # A normal local clone of a shallow/promisor submodule can ask
-                    # upload-pack for unrelated absent history. Borrow its local
-                    # object database and checkout only the locked commit instead.
-                    subprocess.run(["git", "init", "--quiet", str(repo)], check=True)
-                    common = Path(git(source, "rev-parse", "--path-format=absolute", "--git-common-dir").decode().strip())
-                    alternate = repo / ".git/objects/info/alternates"
-                    alternate.write_text(str(common / "objects") + "\n")
-                    if (common / "shallow").is_file():
-                        shutil.copy2(common / "shallow", repo / ".git/shallow")
-                    subprocess.run(["git", "-C", str(repo), "remote", "add", "origin", spec["origin"]], check=True)
-                    for key, value in (("remote.origin.promisor", "true"), ("remote.origin.partialclonefilter", "blob:none")):
-                        subprocess.run(["git", "-C", str(repo), "config", key, value], check=True)
-                else:
-                    subprocess.run(["git", "clone", "--filter=blob:none", "--no-checkout", spec["origin"], str(repo)], check=True)
-                if subprocess.run(["git", "-C", str(repo), "cat-file", "-e", spec["revision"] + "^{commit}"],
-                                  stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode:
-                    subprocess.run(["git", "-C", str(repo), "fetch", "--depth=1", "origin", spec["revision"]], check=True)
-                subprocess.run(["git", "-C", str(repo), "checkout", "--detach", spec["revision"]], check=True)
-                if patch.stat().st_size:
-                    subprocess.run(["git", "-C", str(repo), "apply", "--check", str(patch)], check=True)
-                    subprocess.run(["git", "-C", str(repo), "apply", str(patch)], check=True)
-        if mode != 'existing':
-            adapt_cargo_paths(repo)
-        evidence[name] = check_dependency(repo, spec)
-        dependencies[name] = repo
-    return dependencies, evidence
+def prepare_dependencies(workspace: Path, scratch: Path, mode: str) -> tuple[dict, dict]:
+    from core.native_runtime import prepare, verify, dependencies
+    root = workspace if mode == "existing" else scratch / "dependencies"
+    receipt = verify(root) if mode == "existing" else prepare(root, cache=workspace)
+    return dependencies(root), receipt
 
 
 def checked_inputs(project: Path) -> tuple[dict[str, Path], dict[str, str]]:
@@ -145,13 +81,16 @@ def run(args: argparse.Namespace) -> dict:
                "dependency_mode": args.dependency_mode, "pipeline_sources": capture_sources()}
     (run_dir / "receipt.json").write_text(json.dumps(receipt, indent=2) + "\n")
     try:
-        lock = json.loads((HERE / "dependencies.lock.json").read_text())
         fonts, receipt["project_inputs"] = checked_inputs(project)
-        dependencies, receipt["dependencies"] = prepare_dependencies(workspace, scratch, args.dependency_mode, lock)
+        dependencies, receipt["runtime"] = prepare_dependencies(workspace, scratch, args.dependency_mode)
+        receipt["dependencies"] = {**receipt["runtime"]["repositories"], "octoscript-makepad": receipt["runtime"]["runtime"]}
         host = scratch / "host"
         host.mkdir(exist_ok=True)
         shutil.copytree(HERE / "template", host, dirs_exist_ok=True)
         (host / "Cargo.toml").write_text(cargo_manifest(dependencies))
+        runtime_root = dependencies["octoscript-makepad"].parent
+        (host / ".cargo").mkdir(exist_ok=True)
+        (host / ".cargo/config.toml").write_text(runtime_tool(runtime_root).cargo_config(runtime_root))
         resources = host / "resources/service"
         resources.mkdir(parents=True, exist_ok=True)
         for name, path in fonts.items():
@@ -187,7 +126,7 @@ def run(args: argparse.Namespace) -> dict:
             with (run_dir / "compiler-build.log").open("w") as log:
                 subprocess.run(["cargo", "build", "--manifest-path", str(dependencies["makepad"] / "Cargo.toml"),
                                 "-p", "cargo-makepad", "--release", "--locked", "--target-dir", str(tool_target)],
-                               stdout=log, stderr=subprocess.STDOUT, check=True)
+                               cwd=dependencies["makepad"], stdout=log, stderr=subprocess.STDOUT, check=True)
             tool = tool_target / "release/cargo-makepad"
         receipt["cargo_makepad_sha256"] = sha(tool)
         command = [str(tool), "wasm", "--no-threads", "build", "-p", PACKAGE, "--release", "--locked"]
@@ -199,9 +138,9 @@ def run(args: argparse.Namespace) -> dict:
             subprocess.run(command, cwd=host, env=env, stdout=log, stderr=subprocess.STDOUT, check=True)
         if sha(host / "Cargo.lock") != receipt["generated_sources"]["Cargo.lock"]:
             raise RuntimeError("Cargo.lock changed despite locked compilation")
-        for name, repo in dependencies.items():
-            if check_dependency(repo, lock["dependencies"][name]) != receipt["dependencies"][name]:
-                raise RuntimeError(f"Dependency source changed while building: {name}")
+        receipt["cargo_sources"] = runtime_tool(runtime_root).verify_cargo(runtime_root, host / "Cargo.toml")
+        if verify_runtime(runtime_root) != receipt["runtime"]:
+            raise RuntimeError("Unified runtime source changed while building")
         if capture_sources() != receipt["pipeline_sources"]:
             raise RuntimeError("Pipeline sources changed while building; retry from a stable source snapshot")
         receipt["status"] = "compiled"

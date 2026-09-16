@@ -1,0 +1,94 @@
+{
+  "runtime": {
+    "schema_version": 1,
+    "url": "https://github.com/OctoSense-org/Octoscript-Makepad.git",
+    "revision": "9d637915a3433fe6652f308a5828d94c3645bb34"
+  },
+  "sources": {
+    "makepad": "8d6bfb6644c91c562ddc33bb2e1678b2cf438513",
+    "octoscript": "11c8f6fddf65357af21a995e64da771fd9237044",
+    "octoscript-makepad": "9d637915a3433fe6652f308a5828d94c3645bb34"
+  },
+  "validation": {
+    "framework_tests": 72,
+    "core_tests": 139,
+    "capability_tests": 127,
+    "mail_service_tests": 30,
+    "pipeline_tests": 47,
+    "wasm_publishing_tests": 3,
+    "runtime_guard_tests": 4,
+    "native_mail_completion": {
+      "directory": "evidence/completion-20260916T022952Z",
+      "passed": true,
+      "build_id": "native-6068f67a5a324b9aac3fd8333ff5a41c",
+      "native_pid": 10495,
+      "hidden": true,
+      "instrument": "Makepad built-in HTTP; no Studio",
+      "checks": [
+        "Legacy cached attachment downloaded through IMAP BODY.PEEK, private file bytes verified, native Open dispatches viewer",
+        "Read/unread, star/unstar, archive/restore, move and failed sync Retry reach IMAP STORE",
+        "Gmail folders open through IMAP BODY.PEEK and deduplicate the existing POP message",
+        "Reply sends through a real local TLS SMTP socket with threading headers and Sent record",
+        "Compose validates recipients, saves/reopens draft, reports rejection, retries definitive failure and removes sent draft",
+        "Ambiguous delivery disables Send; Check Sent reconciles success without duplicate submission",
+        "Native outgoing host/port/security settings save and Test Outgoing & Sync verifies SMTP NOOP and IMAP folders"
+      ],
+      "smtp_messages_in_local_fixture": 3,
+      "external_messages_sent": 0,
+      "imap_fixture_store_commands": 10,
+      "attachment_viewer": "File extracted and checked; OS viewer launch intercepted in hidden test",
+      "native_exited": true
+    },
+    "native_mail_reader": {
+      "directory": "evidence/runtime-20260916T023703Z",
+      "passed": true,
+      "checks": [
+        "Native WKWebView renders formatted full HTML, blocks mail scripts and scrolls to the end",
+        "Leaving the reader disposes its native WebView",
+        "A 150-message inbox scrolls beyond the initial window while mounting at most 60 rows",
+        "The fixed subject search finds and opens a message beyond the initial list window",
+        "The full plain-text reader scrolls vertically without pagination"
+      ],
+      "runtime": {
+        "schema_version": 1,
+        "runtime": {
+          "url": "https://github.com/OctoSense-org/Octoscript-Makepad.git",
+          "revision": "9d637915a3433fe6652f308a5828d94c3645bb34"
+        },
+        "repositories": {
+          "makepad": {
+            "url": "https://github.com/OctoSense-org/makepad.git",
+            "revision": "8d6bfb6644c91c562ddc33bb2e1678b2cf438513"
+          },
+          "octoscript": {
+            "url": "https://github.com/OctoSense-org/Octoscript.git",
+            "revision": "11c8f6fddf65357af21a995e64da771fd9237044"
+          }
+        },
+        "manifest_sha256": "d7af51306b937cbe801ae6724741eb190cbc8b42c0d070ec7ec88a83c73ba2bd"
+      },
+      "native_pid": 11476,
+      "hidden": true,
+      "instrument": "Makepad HTTP /event; no Studio"
+    },
+    "app_clippy": "passed; all targets, own crates, deny warnings",
+    "cargo_graphs": "shared source verified for AppCards, Aircon, Android prototype/research, OctoSense, OctoSense-mobile, Android catalog/probe, OH and framework",
+    "wasm": {
+      "build_id": "20260916T023724Z-dda6295f",
+      "sha256": "9f1a11487aa24c801b38649d0a47f3cb24c84081b9e5034e82027b92fc57f4a3",
+      "browser": "Chromium native widget mount, action dispatch and resource policy passed"
+    },
+    "limitations": [
+      "Android/OpenHarmony checks run on macOS host; device SDKs unavailable",
+      "Existing target-specific WASM and OH warnings remain",
+      "Protocol tests use local TLS fixtures; no external emails sent"
+    ],
+    "isolated_wasm": {
+      "fresh_sources": true,
+      "locked_compiler_build": true,
+      "build_id": "20260916T023758Z-5028fc6e",
+      "sha256": "a858180fde2ed176bc4bfc65bb7c3f2180dc991598870f32523c2fb846d95bb7",
+      "browser": "Chromium mount, expected action and resource policy passed"
+    }
+  }
+}

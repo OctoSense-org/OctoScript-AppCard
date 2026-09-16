@@ -26,18 +26,17 @@ jobs:
           path: octosense-org/Octosense-Service-AppCards
           submodules: recursive
 
-      # Independent sibling repositories, pinned to the app's git dependencies.
-      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
         with:
-          repository: OctoSense-org/Octoscript
-          ref: e500e8da618729a64f47869dd0d1069d7ca18c34
-          path: octosense-org/octoscript
+          python-version: '3.12'
 
-      - uses: actions/checkout@v6
-        with:
-          repository: OctoSense-org/Octoscript-Makepad
-          ref: 78f90f6e9e5e3b9fe4b5f5b0618fa4e93db30860
-          path: octosense-org/octoscript-makepad
+      - name: Prepare the shared Octoscript-Makepad runtime
+        working-directory: octosense-org/Octosense-Service-AppCards
+        run: python tools/setup-native.py --root ../
+
+      - name: Runtime setup safeguards
+        working-directory: octosense-org/Octosense-Service-AppCards
+        run: PYTHONPATH=lab python -m unittest core.test_native_runtime
 
       - uses: dtolnay/rust-toolchain@stable
         with:
@@ -52,9 +51,13 @@ jobs:
           workspaces: octosense-org/Octosense-Service-AppCards/app
 
       # -p + --no-deps scopes the lint gate to this repo's own crates:
-      # aichat/makepad are pinned third-party trees whose warnings are not
+      # Makepad is the source locked by Octoscript-Makepad; its warnings are not
       # ours to gate (71 at last count), but they are still fully compiled
       # here — so this step is also the compile check for the whole app.
-      - name: Clippy (own crates; makepad/aichat compile but don't lint)
+      - name: Clippy (own crates; shared runtime compiles)
         working-directory: octosense-org/Octosense-Service-AppCards/app
         run: cargo clippy -p octos-app -p octos-app-store -p octos-app-transport -p octos-app-render --all-targets --no-deps -- -D warnings
+
+      - name: Verify one Makepad source in the app dependency graph
+        working-directory: octosense-org/Octosense-Service-AppCards
+        run: python tools/setup-native.py --check --root ../ --cargo-manifest app/Cargo.toml
