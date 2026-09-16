@@ -1,0 +1,123 @@
+use mod.prelude.widgets.*
+return View{width:Fill height:Fill flow:Overlay beauty_0 := DesignSurface {
+width: 331.27484 height: 313.1228
+abs_pos: vec2(0, 0)
+draw_bg.radius: 18.152046 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfbff
+beauty_0_0 := KitButton {
+contract: "{\"bindings\":{\"control\":\"beauty_0_0_1\",\"label\":\"beauty_0_0_2\"},\"widget\":\"KitButton\"}" glass: false
+width: 139.1657 height: 55.96881
+abs_pos: vec2(22.690058479532162, 237.48927875243663)
+flow: Overlay padding: 0 clip_x: false clip_y: false
+beauty_0_0_0 := DesignSurface {
+width: 139.1657 height: 55.96881
+abs_pos: vec2(22.690058479532162, 237.48927875243663)
+draw_bg.radius: 12.101364 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #eff2efff
+}
+beauty_0_0_1 := DesignNativeButton {
+width: 139.1657 height: 55.96881
+abs_pos: vec2(22.690058479532162, 237.48927875243663)
+enabled: true
+}
+beauty_0_0_2 := Label {
+width: 88.69421 height: 23.585535
+abs_pos: vec2(47.89608306882252, 253.39063330055603)
+clip_x: false clip_y: false
+padding: 0 text: "修改预约" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.22454253 desc: 0.109542534 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 15.880163 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #26342eff
+}
+}
+beauty_0_1 := KitButton {
+contract: "{\"bindings\":{\"control\":\"beauty_0_1_1\",\"label\":\"beauty_0_1_2\"},\"widget\":\"KitButton\"}" glass: false
+width: 139.1657 height: 55.96881
+abs_pos: vec2(170.9317738791423, 237.48927875243663)
+flow: Overlay padding: 0 clip_x: false clip_y: false
+beauty_0_1_0 := DesignSurface {
+width: 139.1657 height: 55.96881
+abs_pos: vec2(170.9317738791423, 237.48927875243663)
+draw_bg.radius: 12.101364 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #5c8069ff
+}
+beauty_0_1_1 := DesignNativeButton {
+width: 139.1657 height: 55.96881
+abs_pos: vec2(170.9317738791423, 237.48927875243663)
+enabled: true
+}
+beauty_0_1_2 := Label {
+width: 85.511375 height: 22.788372
+abs_pos: vec2(198.41376340112737, 253.6881390404489)
+clip_x: false clip_y: false
+padding: 0 text: "查看预约" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.22185418 desc: 0.10785419 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 15.283382 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #ffffffff
+}
+}
+beauty_0_2 := Svg {
+width: 31.766083 height: 31.766083
+abs_pos: vec2(25.715399610136444, 21.177387914230025)
+animating: false draw_svg.svg: http_resource("http://127.0.0.1:8170/ux-images/health-07-booking-card/assets/heart_icon_0-2b22eedb8ac2.svg") draw_svg.preserve_viewbox: true draw_svg.preserve_aspect: false
+}
+beauty_0_3 := Svg {
+width: 21.177387 height: 21.177387
+abs_pos: vec2(27.22807017543859, 152.7797270955166)
+animating: false draw_svg.svg: http_resource("http://127.0.0.1:8170/ux-images/health-07-booking-card/assets/calendar_icon_1-eb7e019ef611.svg") draw_svg.preserve_viewbox: true draw_svg.preserve_aspect: false
+}
+beauty_0_4 := Svg {
+width: 21.177387 height: 24.202728
+abs_pos: vec2(27.22807017543859, 187.57115009746587)
+animating: false draw_svg.svg: http_resource("http://127.0.0.1:8170/ux-images/health-07-booking-card/assets/location_icon_2-8d619793a1ef.svg") draw_svg.preserve_viewbox: true draw_svg.preserve_aspect: false
+}
+beauty_0_5 := Label {
+width: 142.41144 height: 21.412933
+abs_pos: vec2(65.5981404299932, 26.10661435517575)
+clip_x: false clip_y: false
+padding: 0 text: "健康 · 预约成功" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.20237884 desc: 0.09337884 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 13.937779 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #26342eff
+}
+beauty_0_6 := Label {
+width: 110.586365 height: 28.70139
+abs_pos: vec2(21.78779098043362, 78.1816500850601)
+clip_x: false clip_y: false
+padding: 0 text: "年度体检" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.2379435 desc: 0.1329435 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 19.984943 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #26342eff
+}
+beauty_0_7 := Label {
+width: 99.05932 height: 25.863642
+abs_pos: vec2(25.90566543930285, 114.12458252910103)
+clip_x: false clip_y: false
+padding: 0 text: "基础套餐" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.23584202 desc: 0.12384202 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 17.823622 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #26342eff
+}
+beauty_0_8 := Label {
+width: 251.03894 height: 22.649414
+abs_pos: vec2(60.97310201990231, 153.09027869030638)
+clip_x: false clip_y: false
+padding: 0 text: "周六 10月24日 14:00–15:00" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.22623014 desc: 0.10323014 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 15.186819 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #26342eff
+}
+beauty_0_9 := Label {
+width: 124.90419 height: 22.659546
+abs_pos: vec2(57.579482410159315, 189.046308867697)
+clip_x: false clip_y: false
+padding: 0 text: "安心体检中心" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.21374786 desc: 0.10974786 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 15.113024 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #26342eff
+}
+}
+}

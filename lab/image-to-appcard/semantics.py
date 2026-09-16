@@ -17,7 +17,7 @@ sys.path.insert(0,str(HERE.parent))
 from core.policy import POLICY_PATH,POLICY,numeric,local_asset,data_issues,asset_issues,runtime_data_issues
 # This compiler's implemented adapters. A policy candidate is not automatically
 # a working runtime adapter; new native chart lowering must be added explicitly.
-IMPLEMENTED_KINDS = {'stack', 'text', 'button', 'svg', 'image', 'stockplot', 'progress'}
+IMPLEMENTED_KINDS = {'stack', 'text', 'button', 'input', 'svg', 'image', 'stockplot', 'progress', 'web'}
 
 
 def sha(path):
@@ -55,9 +55,11 @@ def classify(node, contract):
         widget = json.loads(node['kit']).get('widget')
         if widget == 'KitButton':
             return 'button', 'authored KitButton composition', 1.0
+        if widget == 'KitFormField':
+            return 'input', 'authored KitFormField with native TextInput binding', 1.0
         return 'unknown', 'unclassified kit component: ' + str(widget), 0.0
     roles = {'stack': 'layout', 'text': 'text', 'button': 'button',
-             'input': 'input', 'radio': 'toggle', 'checkbox': 'toggle'}
+             'input': 'input', 'radio': 'toggle', 'checkbox': 'toggle', 'web': 'webview'}
     role = roles.get(node['t'], 'unknown')
     return role, 'authored ' + node['t'] + ' node', 1.0 if role != 'unknown' else 0.0
 
@@ -112,7 +114,10 @@ complex illustrations as separate assets, or clearly bounded artwork-only region
 with no overlaid UI text. Do not invent missing numerical values from a mockup.
 
 After generation, measure the actual reference. Requested layout is not measured
-evidence. Inspect through Studio and run semantic, geometry and visual gates.
+evidence. Inspect through Makepad's built-in HTTP instrument with a standalone
+release binary; hidden windows support automated tests. See
+`lab/core/NATIVE-INSTRUMENT.md`. Run semantic, geometry and visual checks;
+legacy Studio capture/gate adapters require their own evidence schema.
 
 ```json
 ''' + json.dumps(rows, indent=2) + '\n```\n'

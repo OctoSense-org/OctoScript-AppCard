@@ -1,0 +1,75 @@
+{
+  "frame_id": 6,
+  "controls": {
+    "conflict_slot": {
+      "event": "health.conflict_slot",
+      "source_bounds": [
+        22,
+        187,
+        192,
+        57
+      ],
+      "enabled": false,
+      "text_ids": [
+        "morning_time",
+        "morning_note"
+      ],
+      "ocr_ids": [
+        63,
+        64
+      ]
+    },
+    "afternoon": {
+      "event": "health.afternoon",
+      "source_bounds": [
+        22,
+        250,
+        192,
+        56
+      ],
+      "enabled": true,
+      "text_ids": [
+        "afternoon_time",
+        "afternoon_note"
+      ],
+      "ocr_ids": [
+        65,
+        66
+      ]
+    },
+    "confirm_booking": {
+      "event": "health.confirm_booking",
+      "source_bounds": [
+        22,
+        321,
+        192,
+        38
+      ],
+      "enabled": true,
+      "text_ids": [
+        "confirm_booking_text"
+      ],
+      "ocr_ids": [
+        67
+      ]
+    },
+    "cancel_selection": {
+      "event": "health.cancel_selection",
+      "source_bounds": [
+        22,
+        368,
+        192,
+        38
+      ],
+      "enabled": true,
+      "text_ids": [
+        "cancel_selection_text"
+      ],
+      "ocr_ids": [
+        68
+      ]
+    }
+  },
+  "source": "health-06",
+  "simulation": true
+}

@@ -1,0 +1,424 @@
+{
+  "schema_version": 1,
+  "elements": [
+    {
+      "source_id": "edit_card",
+      "native_id": "beauty_0",
+      "parent": null,
+      "kind": "stack",
+      "component": "Surface5259d30211c6",
+      "semantic_role": "card",
+      "bounds": [
+        0.0,
+        0.0,
+        331.27485380116957,
+        550.6120857699805
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "current_summary",
+      "native_id": "beauty_0_0",
+      "parent": "edit_card",
+      "kind": "stack",
+      "component": "Surfacef37d7030b284",
+      "semantic_role": "card",
+      "bounds": [
+        19.664717348927866,
+        69.58284600389862,
+        291.94541910331384,
+        96.81091617933723
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "current_label",
+      "native_id": "beauty_0_0_0",
+      "parent": "current_summary",
+      "kind": "text",
+      "component": "Text79b8e34e932e",
+      "semantic_role": "text",
+      "bounds": [
+        27.46618384710618,
+        84.24055435713561,
+        94.58133224863978,
+        24.969578415560107
+      ],
+      "text": "\u5f53\u524d\u9884\u7ea6",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 22.645333062159946
+    },
+    {
+      "source_id": "current_day",
+      "native_id": "beauty_0_0_1",
+      "parent": "current_summary",
+      "kind": "text",
+      "component": "Text694b5f40f3be",
+      "semantic_role": "text",
+      "bounds": [
+        32.99871509015561,
+        125.27752561280087,
+        133.8059649779244,
+        22.552342294330902
+      ],
+      "text": "\u5468\u516d 10\u670824\u65e5",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 20.14369413065245
+    },
+    {
+      "source_id": "current_time",
+      "native_id": "beauty_0_0_2",
+      "parent": "current_summary",
+      "kind": "text",
+      "component": "Text00dbab3e704f",
+      "semantic_role": "text",
+      "bounds": [
+        157.28565113465055,
+        126.92465354892678,
+        138.20688260255497,
+        22.41341719004686
+      ],
+      "text": "14:00\u201315:00",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 24.260101699666482
+    },
+    {
+      "source_id": "draft_day_surface",
+      "native_id": "beauty_0_1",
+      "parent": "edit_card",
+      "kind": "stack",
+      "component": "Surfacef37d7030b284",
+      "semantic_role": "card",
+      "bounds": [
+        18.152046783625728,
+        222.3625730994152,
+        137.65302144249512,
+        80.17153996101364
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "draft_weekday",
+      "native_id": "beauty_0_1_0",
+      "parent": "draft_day_surface",
+      "kind": "text",
+      "component": "Text2656f5d21548",
+      "semantic_role": "text",
+      "bounds": [
+        68.93495797661635,
+        235.31702066562715,
+        43.94507411179961,
+        21.53588753508003
+      ],
+      "text": "\u5468\u65e5",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 19.972537055899807
+    },
+    {
+      "source_id": "draft_date",
+      "native_id": "beauty_0_1_1",
+      "parent": "draft_day_surface",
+      "kind": "text",
+      "component": "Texte2d6368806cb",
+      "semantic_role": "text",
+      "bounds": [
+        42.52827353806484,
+        265.3707818763995,
+        95.80248311755065,
+        22.88259605356255
+      ],
+      "text": "10\u670825\u65e5",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 21.754142918850867
+    },
+    {
+      "source_id": "new_slot_surface",
+      "native_id": "beauty_0_2",
+      "parent": "edit_card",
+      "kind": "stack",
+      "component": "Surfacef37d7030b284",
+      "semantic_role": "card",
+      "bounds": [
+        19.664717348927866,
+        316.14814814814815,
+        291.94541910331384,
+        86.22222222222221
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "draft_radio",
+      "native_id": "beauty_0_2_0",
+      "parent": "new_slot_surface",
+      "kind": "stack",
+      "component": "Surface35427e5b4fa0",
+      "semantic_role": "layout",
+      "bounds": [
+        36.304093567251456,
+        346.401559454191,
+        24.202729044834307,
+        24.202729044834307
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "draft_time",
+      "native_id": "beauty_0_2_1",
+      "parent": "new_slot_surface",
+      "kind": "text",
+      "component": "Textbdcc84801def",
+      "semantic_role": "text",
+      "bounds": [
+        74.72889375674903,
+        332.61901532410025,
+        132.95054312433612,
+        21.692238292004898
+      ],
+      "text": "10:00\u201311:00",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 23.309931873524242
+    },
+    {
+      "source_id": "draft_availability",
+      "native_id": "beauty_0_2_2",
+      "parent": "new_slot_surface",
+      "kind": "text",
+      "component": "Texta738e8d3b924",
+      "semantic_role": "text",
+      "bounds": [
+        76.4910186933391,
+        362.0051749446126,
+        88.79778382061231,
+        23.609487508516594
+      ],
+      "text": "\u65e5\u5386\u7a7a\u95f2",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 21.199445955153077
+    },
+    {
+      "source_id": "keep_booking",
+      "native_id": "beauty_0_3",
+      "parent": "edit_card",
+      "kind": "stack",
+      "component": "KitButton5dc7ea8cd583",
+      "semantic_role": "button",
+      "bounds": [
+        19.664717348927866,
+        473.4658869395712,
+        139.16569200779728,
+        58.994152046783626
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "keep_booking_surface",
+      "native_id": "beauty_0_3_0",
+      "parent": "keep_booking",
+      "kind": "stack",
+      "component": "Surfacef38cb6e126ad",
+      "semantic_role": "layout",
+      "bounds": [
+        19.664717348927866,
+        473.4658869395712,
+        139.16569200779728,
+        58.994152046783626
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "keep_booking_control",
+      "native_id": "beauty_0_3_1",
+      "parent": "keep_booking",
+      "kind": "button",
+      "component": "NativeButton02f1d1bd99b4",
+      "semantic_role": "button",
+      "bounds": [
+        19.664717348927866,
+        473.4658869395712,
+        139.16569200779728,
+        58.994152046783626
+      ],
+      "text": null,
+      "enabled": 1,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "keep_booking_text",
+      "native_id": "beauty_0_3_2",
+      "parent": "keep_booking",
+      "kind": "text",
+      "component": "Textc1d4ef435454",
+      "semantic_role": "text",
+      "bounds": [
+        36.7181871143698,
+        487.8365323950783,
+        110.42477198584567,
+        23.5821580453956
+      ],
+      "text": "\u4fdd\u7559\u539f\u9884\u7ea6",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 21.284954397169134
+    },
+    {
+      "source_id": "select_new_time",
+      "native_id": "beauty_0_4",
+      "parent": "edit_card",
+      "kind": "stack",
+      "component": "KitButton5dc7ea8cd583",
+      "semantic_role": "button",
+      "bounds": [
+        169.41910331384014,
+        473.4658869395712,
+        140.6783625730994,
+        58.994152046783626
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "select_new_time_surface",
+      "native_id": "beauty_0_4_0",
+      "parent": "select_new_time",
+      "kind": "stack",
+      "component": "Surface93a316bf76d8",
+      "semantic_role": "layout",
+      "bounds": [
+        169.41910331384014,
+        473.4658869395712,
+        140.6783625730994,
+        58.994152046783626
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "select_new_time_control",
+      "native_id": "beauty_0_4_1",
+      "parent": "select_new_time",
+      "kind": "button",
+      "component": "NativeButton02f1d1bd99b4",
+      "semantic_role": "button",
+      "bounds": [
+        169.41910331384014,
+        473.4658869395712,
+        140.6783625730994,
+        58.994152046783626
+      ],
+      "text": null,
+      "enabled": 1,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "select_new_time_text",
+      "native_id": "beauty_0_4_2",
+      "parent": "select_new_time",
+      "kind": "text",
+      "component": "Textd0fd380ec319",
+      "semantic_role": "text",
+      "bounds": [
+        186.97808166243578,
+        489.47278724998694,
+        111.4753832045556,
+        23.904440969483694
+      ],
+      "text": "\u9009\u62e9\u65b0\u65f6\u95f4",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 21.49507664091112
+    },
+    {
+      "source_id": "title",
+      "native_id": "beauty_0_5",
+      "parent": "edit_card",
+      "kind": "text",
+      "component": "Text7241d7202700",
+      "semantic_role": "text",
+      "bounds": [
+        15.079202158621612,
+        26.502929386524002,
+        114.60583289800036,
+        29.57759885766258
+      ],
+      "text": "\u4fee\u6539\u9884\u7ea6",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 27.65145822450009
+    },
+    {
+      "source_id": "draft_label",
+      "native_id": "beauty_0_6",
+      "parent": "edit_card",
+      "kind": "text",
+      "component": "Text8998d2b817dc",
+      "semantic_role": "text",
+      "bounds": [
+        14.77487450754559,
+        185.27447312899372,
+        71.55752263962954,
+        24.8077169730059
+      ],
+      "text": "\u65b0\u65f6\u95f4",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 22.519174213209848
+    },
+    {
+      "source_id": "draft_note",
+      "native_id": "beauty_0_7",
+      "parent": "edit_card",
+      "kind": "text",
+      "component": "Textd142d39c4ab8",
+      "semantic_role": "text",
+      "bounds": [
+        18.642593887219917,
+        424.44501831860464,
+        189.32163310195506,
+        21.216379715171627
+      ],
+      "text": "\u786e\u8ba4\u4fee\u6539\u524d\u4fdd\u7559\u539f\u9884\u7ea6",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 18.532163310195507
+    }
+  ],
+  "fonts": {
+    "self:resources/service/NotoSansSC-Regular.ttf": "62513a5d6706afa489edfd29e1c860d076a3d36f0ba865fa917ebb79a96dfef8"
+  },
+  "contract_sha256": "cfbe4b6da20cd828798d33f3565a748fefa239ac0264ad213d4dfa0b42f7b200",
+  "mapping_basis": "mapped.json"
+}

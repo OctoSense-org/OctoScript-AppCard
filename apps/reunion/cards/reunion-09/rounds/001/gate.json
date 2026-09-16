@@ -1,0 +1,1379 @@
+{
+  "schema_version": 1,
+  "id": "reunion-09",
+  "round": "001",
+  "build_id": [
+    1
+  ],
+  "tolerances": {
+    "native_geometry_px": 1.0,
+    "image_position_px": 3.0,
+    "image_dimension_px": 3.0,
+    "text_ink_position_px": 3.0,
+    "text_ink_dimension_px": 3.0,
+    "clipping_px": 1.0,
+    "color_channel": 16
+  },
+  "native_structure_pass": true,
+  "image_structure_pass": false,
+  "semantic_mapping_pass": true,
+  "semantic_errors": [],
+  "semantic_mapping": {
+    "schema_version": 1,
+    "policy_version": "1.1.0",
+    "policy_sha256": "d502a7c4f7dcc52ada37cfbbaf6bd9289afdcab90e30c504de96e8f8f39ff153",
+    "evaluator_sha256": "35d4dfa6e986e0f4c6acbf9cd7e10a7c148e30fe3f9e31be930d53b15eeef9d3",
+    "manifest_sha256": "3a29939b2966ed01e675ea5e53f06744e7203d8cd7797e6e03482bc283576038",
+    "reference_sha256": "b48d6d27efc8b83d1f9e168c3c6ac70e368bd875c82d119e8fa2c25f072cc508",
+    "id": "reunion-09",
+    "round": "001",
+    "phase": "inspection",
+    "pass": true,
+    "errors": [],
+    "elements": [
+      {
+        "id": "page",
+        "role": "layout",
+        "basis": "authored stack node",
+        "expected_widgets": [
+          "View"
+        ],
+        "actual_widget": "View",
+        "issues": [],
+        "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+      },
+      {
+        "id": "screen",
+        "role": "layout",
+        "basis": "authored stack node",
+        "expected_widgets": [
+          "View"
+        ],
+        "actual_widget": "View",
+        "issues": [],
+        "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+      },
+      {
+        "id": "payment_card",
+        "role": "card",
+        "basis": "Explicit event-specific service composition with native children",
+        "expected_widgets": [
+          "View",
+          "TaskplanProjectCard",
+          "CamoTrackRow"
+        ],
+        "actual_widget": "View",
+        "issues": [],
+        "repair": "Reuse the matching kit component, or compose and name a new reusable component from native children."
+      },
+      {
+        "id": "pay_contribution",
+        "role": "button",
+        "basis": "authored KitButton composition",
+        "expected_widgets": [
+          "Button",
+          "KitButton"
+        ],
+        "actual_widget": "KitButton",
+        "issues": [],
+        "repair": "Use a native control and verify its declared action."
+      },
+      {
+        "id": "pay_contribution_surface",
+        "role": "layout",
+        "basis": "authored stack node",
+        "expected_widgets": [
+          "View"
+        ],
+        "actual_widget": "View",
+        "issues": [],
+        "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+      },
+      {
+        "id": "pay_contribution_control",
+        "role": "button",
+        "basis": "authored button node",
+        "expected_widgets": [
+          "Button",
+          "KitButton"
+        ],
+        "actual_widget": "Button",
+        "issues": [],
+        "repair": "Use a native control and verify its declared action."
+      },
+      {
+        "id": "text_46",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "cancel_payment",
+        "role": "button",
+        "basis": "authored KitButton composition",
+        "expected_widgets": [
+          "Button",
+          "KitButton"
+        ],
+        "actual_widget": "KitButton",
+        "issues": [],
+        "repair": "Use a native control and verify its declared action."
+      },
+      {
+        "id": "cancel_payment_surface",
+        "role": "layout",
+        "basis": "authored stack node",
+        "expected_widgets": [
+          "View"
+        ],
+        "actual_widget": "View",
+        "issues": [],
+        "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+      },
+      {
+        "id": "cancel_payment_control",
+        "role": "button",
+        "basis": "authored button node",
+        "expected_widgets": [
+          "Button",
+          "KitButton"
+        ],
+        "actual_widget": "Button",
+        "issues": [],
+        "repair": "Use a native control and verify its declared action."
+      },
+      {
+        "id": "text_47",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "wallet_icon_0",
+        "role": "icon",
+        "basis": "Reviewed artwork-only source region or native vector icon",
+        "expected_widgets": [
+          "Svg",
+          "Icon",
+          "Image"
+        ],
+        "actual_widget": "Svg",
+        "issues": [],
+        "repair": "Use a matching kit icon or reference-derived SVG. A source crop requires a recorded visual feature that cannot be reproduced faithfully with the available vector renderer."
+      },
+      {
+        "id": "text_36",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "text_37",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "text_38",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "text_39",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "text_40",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "text_41",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "text_42",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "text_43",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "text_44",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "text_45",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "rsvp_summary",
+        "role": "card",
+        "basis": "Explicit event-specific service composition with native children",
+        "expected_widgets": [
+          "View",
+          "TaskplanProjectCard",
+          "CamoTrackRow"
+        ],
+        "actual_widget": "View",
+        "issues": [],
+        "repair": "Reuse the matching kit component, or compose and name a new reusable component from native children."
+      },
+      {
+        "id": "view_reunion",
+        "role": "button",
+        "basis": "authored KitButton composition",
+        "expected_widgets": [
+          "Button",
+          "KitButton"
+        ],
+        "actual_widget": "KitButton",
+        "issues": [],
+        "repair": "Use a native control and verify its declared action."
+      },
+      {
+        "id": "view_reunion_surface",
+        "role": "layout",
+        "basis": "authored stack node",
+        "expected_widgets": [
+          "View"
+        ],
+        "actual_widget": "View",
+        "issues": [],
+        "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+      },
+      {
+        "id": "view_reunion_control",
+        "role": "button",
+        "basis": "authored button node",
+        "expected_widgets": [
+          "Button",
+          "KitButton"
+        ],
+        "actual_widget": "Button",
+        "issues": [],
+        "repair": "Use a native control and verify its declared action."
+      },
+      {
+        "id": "group_icon_1",
+        "role": "icon",
+        "basis": "Reviewed artwork-only source region or native vector icon",
+        "expected_widgets": [
+          "Svg",
+          "Icon",
+          "Image"
+        ],
+        "actual_widget": "Svg",
+        "issues": [],
+        "repair": "Use a matching kit icon or reference-derived SVG. A source crop requires a recorded visual feature that cannot be reproduced faithfully with the available vector renderer."
+      },
+      {
+        "id": "text_48",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "text_49",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "dock",
+        "role": "layout",
+        "basis": "authored stack node",
+        "expected_widgets": [
+          "View"
+        ],
+        "actual_widget": "View",
+        "issues": [],
+        "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+      },
+      {
+        "id": "dock_message",
+        "role": "icon",
+        "basis": "Reviewed artwork-only source region or native vector icon",
+        "expected_widgets": [
+          "Svg",
+          "Icon",
+          "Image"
+        ],
+        "actual_widget": "Svg",
+        "issues": [],
+        "repair": "Use a matching kit icon or reference-derived SVG. A source crop requires a recorded visual feature that cannot be reproduced faithfully with the available vector renderer."
+      },
+      {
+        "id": "dock_calendar",
+        "role": "icon",
+        "basis": "Reviewed artwork-only source region or native vector icon",
+        "expected_widgets": [
+          "Svg",
+          "Icon",
+          "Image"
+        ],
+        "actual_widget": "Svg",
+        "issues": [],
+        "repair": "Use a matching kit icon or reference-derived SVG. A source crop requires a recorded visual feature that cannot be reproduced faithfully with the available vector renderer."
+      },
+      {
+        "id": "dock_group",
+        "role": "icon",
+        "basis": "Reviewed artwork-only source region or native vector icon",
+        "expected_widgets": [
+          "Svg",
+          "Icon",
+          "Image"
+        ],
+        "actual_widget": "Svg",
+        "issues": [],
+        "repair": "Use a matching kit icon or reference-derived SVG. A source crop requires a recorded visual feature that cannot be reproduced faithfully with the available vector renderer."
+      },
+      {
+        "id": "dock_wallet",
+        "role": "icon",
+        "basis": "Reviewed artwork-only source region or native vector icon",
+        "expected_widgets": [
+          "Svg",
+          "Icon",
+          "Image"
+        ],
+        "actual_widget": "Svg",
+        "issues": [],
+        "repair": "Use a matching kit icon or reference-derived SVG. A source crop requires a recorded visual feature that cannot be reproduced faithfully with the available vector renderer."
+      },
+      {
+        "id": "text_34",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "text_50",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "text_51",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "text_52",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "dock_calendar_label",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      }
+    ],
+    "scope": "Semantic mapping checks only; geometry, visual fidelity and complete app workflows remain separate."
+  },
+  "accepted": false,
+  "visual_review": {
+    "status": "awaiting reference image"
+  },
+  "native_errors": [],
+  "image_errors": [
+    "missing observed reference measurements"
+  ],
+  "elements": [
+    {
+      "id": "page",
+      "native_id": "beauty_0",
+      "expected_bounds": [
+        0,
+        0,
+        406,
+        776
+      ],
+      "actual_bounds": [
+        0.0,
+        0.0,
+        406.0,
+        776.0
+      ],
+      "parent": "host",
+      "widget_type": "View",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "screen",
+      "native_id": "beauty_0_0",
+      "expected_bounds": [
+        0.0,
+        2.0,
+        406.0,
+        771.5
+      ],
+      "actual_bounds": [
+        0.0,
+        2.0,
+        406.0,
+        771.5
+      ],
+      "parent": "beauty_0",
+      "widget_type": "View",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "payment_card",
+      "native_id": "beauty_0_0_0",
+      "expected_bounds": [
+        21.991666666666667,
+        59.52412280701754,
+        365.4,
+        441.58223684210526
+      ],
+      "actual_bounds": [
+        21.991666793823242,
+        59.52412414550781,
+        365.3999938964844,
+        441.5822448730469
+      ],
+      "parent": "beauty_0_0",
+      "widget_type": "View",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "pay_contribution",
+      "native_id": "beauty_0_0_0_0",
+      "expected_bounds": [
+        42.291666666666664,
+        421.5877192982456,
+        164.09166666666667,
+        57.52412280701754
+      ],
+      "actual_bounds": [
+        42.29166793823242,
+        421.58770751953125,
+        164.09165954589844,
+        57.52412414550781
+      ],
+      "parent": "beauty_0_0_0",
+      "widget_type": "KitButton",
+      "visible": true,
+      "text": "\u652f\u4ed8 \u00a5180",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "pay_contribution_surface",
+      "native_id": "beauty_0_0_0_0_0",
+      "expected_bounds": [
+        42.291666666666664,
+        421.5877192982456,
+        164.09166666666667,
+        57.52412280701754
+      ],
+      "actual_bounds": [
+        42.29166793823242,
+        421.58770751953125,
+        164.09165954589844,
+        57.52412414550781
+      ],
+      "parent": "beauty_0_0_0_0",
+      "widget_type": "View",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "pay_contribution_control",
+      "native_id": "beauty_0_0_0_0_1",
+      "expected_bounds": [
+        42.291666666666664,
+        421.5877192982456,
+        164.09166666666667,
+        57.52412280701754
+      ],
+      "actual_bounds": [
+        42.29166793823242,
+        421.58770751953125,
+        164.09165954589844,
+        57.52412414550781
+      ],
+      "parent": "beauty_0_0_0_0",
+      "widget_type": "Button",
+      "visible": true,
+      "text": "",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_46",
+      "native_id": "beauty_0_0_0_0_2",
+      "expected_bounds": [
+        74.35030898280647,
+        438.42083282550203,
+        105.90398628821885,
+        25.12680903845161
+      ],
+      "actual_bounds": [
+        74.35031127929688,
+        438.42083740234375,
+        105.903984,
+        25.126808
+      ],
+      "parent": "beauty_0_0_0_0",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "\u652f\u4ed8 \u00a5180",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "cancel_payment",
+      "native_id": "beauty_0_0_0_1",
+      "expected_bounds": [
+        213.15,
+        421.5877192982456,
+        155.63333333333333,
+        57.52412280701754
+      ],
+      "actual_bounds": [
+        213.14999389648438,
+        421.58770751953125,
+        155.63333129882812,
+        57.52412414550781
+      ],
+      "parent": "beauty_0_0_0",
+      "widget_type": "KitButton",
+      "visible": true,
+      "text": "\u53d6\u6d88\u652f\u4ed8",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "cancel_payment_surface",
+      "native_id": "beauty_0_0_0_1_0",
+      "expected_bounds": [
+        213.15,
+        421.5877192982456,
+        155.63333333333333,
+        57.52412280701754
+      ],
+      "actual_bounds": [
+        213.14999389648438,
+        421.58770751953125,
+        155.63333129882812,
+        57.52412414550781
+      ],
+      "parent": "beauty_0_0_0_1",
+      "widget_type": "View",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "cancel_payment_control",
+      "native_id": "beauty_0_0_0_1_1",
+      "expected_bounds": [
+        213.15,
+        421.5877192982456,
+        155.63333333333333,
+        57.52412280701754
+      ],
+      "actual_bounds": [
+        213.14999389648438,
+        421.58770751953125,
+        155.63333129882812,
+        57.52412414550781
+      ],
+      "parent": "beauty_0_0_0_1",
+      "widget_type": "Button",
+      "visible": true,
+      "text": "",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_47",
+      "native_id": "beauty_0_0_0_1_2",
+      "expected_bounds": [
+        251.8623776291056,
+        439.80832040242547,
+        83.58873028481705,
+        22.35183472484073
+      ],
+      "actual_bounds": [
+        251.8623809814453,
+        439.8083190917969,
+        83.58873,
+        22.351835
+      ],
+      "parent": "beauty_0_0_0_1",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "\u53d6\u6d88\u652f\u4ed8",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "wallet_icon_0",
+      "native_id": "beauty_0_0_0_2",
+      "expected_bounds": [
+        49.05833333333333,
+        81.51864035087719,
+        42.291666666666664,
+        42.297149122807014
+      ],
+      "actual_bounds": [
+        49.05833435058594,
+        81.51863861083984,
+        42.29166793823242,
+        42.297149658203125
+      ],
+      "parent": "beauty_0_0_0",
+      "widget_type": "Svg",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_36",
+      "native_id": "beauty_0_0_0_3",
+      "expected_bounds": [
+        107.78473048299325,
+        90.42625408296993,
+        127.36253676693565,
+        21.6268637109083
+      ],
+      "actual_bounds": [
+        107.78472900390625,
+        90.42625427246094,
+        127.36253,
+        21.626863
+      ],
+      "parent": "beauty_0_0_0",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "\u652f\u4ed8 \u00b7 \u5f85\u4ed8\u6b3e",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_37",
+      "native_id": "beauty_0_0_0_4",
+      "expected_bounds": [
+        41.07147591167387,
+        140.79743157565605,
+        161.00339042856032,
+        24.419139004490045
+      ],
+      "actual_bounds": [
+        41.071475982666016,
+        140.79742431640625,
+        161.00339,
+        24.41914
+      ],
+      "parent": "beauty_0_0_0",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "2016\u5c4a\u540c\u5b66\u805a\u4f1a",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_38",
+      "native_id": "beauty_0_0_0_5",
+      "expected_bounds": [
+        40.02290724925648,
+        184.1197647958004,
+        146.14690855373829,
+        52.59887549202133
+      ],
+      "actual_bounds": [
+        40.02290725708008,
+        184.11976623535156,
+        146.14691,
+        52.598877
+      ],
+      "parent": "beauty_0_0_0",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "\u00a5180",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_39",
+      "native_id": "beauty_0_0_0_6",
+      "expected_bounds": [
+        44.31896643685673,
+        259.39060942153554,
+        68.94963911608976,
+        23.93953920863955
+      ],
+      "actual_bounds": [
+        44.318965911865234,
+        259.3905944824219,
+        68.94964,
+        23.939539
+      ],
+      "parent": "beauty_0_0_0",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "\u6536\u6b3e\u4eba",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_40",
+      "native_id": "beauty_0_0_0_7",
+      "expected_bounds": [
+        41.20813036328508,
+        297.5482139096078,
+        49.82313667348572,
+        25.39940482651783
+      ],
+      "actual_bounds": [
+        41.2081298828125,
+        297.5482177734375,
+        49.823135,
+        25.399405
+      ],
+      "parent": "beauty_0_0_0",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "\u7528\u9014",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_41",
+      "native_id": "beauty_0_0_0_8",
+      "expected_bounds": [
+        44.74175530503284,
+        331.71281679907537,
+        46.755014955585295,
+        23.56041934218027
+      ],
+      "actual_bounds": [
+        44.741756439208984,
+        331.71282958984375,
+        46.755016,
+        23.56042
+      ],
+      "parent": "beauty_0_0_0",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "\u6d3b\u52a8",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_42",
+      "native_id": "beauty_0_0_0_9",
+      "expected_bounds": [
+        129.4725384320336,
+        262.3859642948999,
+        51.23757812108305,
+        25.7292859356982
+      ],
+      "actual_bounds": [
+        129.4725341796875,
+        262.3859558105469,
+        51.23758,
+        25.729286
+      ],
+      "parent": "beauty_0_0_0",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "\u738b\u5b81",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_43",
+      "native_id": "beauty_0_0_0_10",
+      "expected_bounds": [
+        137.150526726779,
+        297.1959386301147,
+        83.99809030720265,
+        22.599555996424613
+      ],
+      "actual_bounds": [
+        137.15052795410156,
+        297.1959533691406,
+        83.99809,
+        22.599556
+      ],
+      "parent": "beauty_0_0_0",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "\u805a\u4f1a\u9910\u8d39",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_44",
+      "native_id": "beauty_0_0_0_11",
+      "expected_bounds": [
+        137.4390116424871,
+        332.3064909190292,
+        186.85296446207417,
+        22.37307225284424
+      ],
+      "actual_bounds": [
+        137.4390106201172,
+        332.3064880371094,
+        186.85297,
+        22.373072
+      ],
+      "parent": "beauty_0_0_0",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "\u5468\u516d 10\u670824\u65e5 18:30",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_45",
+      "native_id": "beauty_0_0_0_12",
+      "expected_bounds": [
+        43.73525869988529,
+        378.24318326150654,
+        176.9889772865227,
+        22.941146305638433
+      ],
+      "actual_bounds": [
+        43.735260009765625,
+        378.2431945800781,
+        176.98898,
+        22.941147
+      ],
+      "parent": "beauty_0_0_0",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "\u5df2\u62a5\u540d \u00b7 \u6728\u5149\u9910\u5385",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "rsvp_summary",
+      "native_id": "beauty_0_0_1",
+      "expected_bounds": [
+        21.991666666666667,
+        516.3333333333333,
+        365.4,
+        108.28070175438596
+      ],
+      "actual_bounds": [
+        21.991666793823242,
+        516.3333129882812,
+        365.3999938964844,
+        108.28070068359375
+      ],
+      "parent": "beauty_0_0",
+      "widget_type": "View",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "view_reunion",
+      "native_id": "beauty_0_0_1_0",
+      "expected_bounds": [
+        21.991666666666667,
+        516.3333333333333,
+        365.4,
+        108.28070175438596
+      ],
+      "actual_bounds": [
+        21.991666793823242,
+        516.3333129882812,
+        365.3999938964844,
+        108.28070068359375
+      ],
+      "parent": "beauty_0_0_1",
+      "widget_type": "KitButton",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "view_reunion_surface",
+      "native_id": "beauty_0_0_1_0_0",
+      "expected_bounds": [
+        21.991666666666667,
+        516.3333333333333,
+        365.4,
+        108.28070175438596
+      ],
+      "actual_bounds": [
+        21.991666793823242,
+        516.3333129882812,
+        365.3999938964844,
+        108.28070068359375
+      ],
+      "parent": "beauty_0_0_1_0",
+      "widget_type": "View",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "view_reunion_control",
+      "native_id": "beauty_0_0_1_0_1",
+      "expected_bounds": [
+        21.991666666666667,
+        516.3333333333333,
+        365.4,
+        108.28070175438596
+      ],
+      "actual_bounds": [
+        21.991666793823242,
+        516.3333129882812,
+        365.3999938964844,
+        108.28070068359375
+      ],
+      "parent": "beauty_0_0_1_0",
+      "widget_type": "Button",
+      "visible": true,
+      "text": "",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "group_icon_1",
+      "native_id": "beauty_0_0_1_1",
+      "expected_bounds": [
+        47.36666666666667,
+        540.0197368421052,
+        42.291666666666664,
+        42.297149122807014
+      ],
+      "actual_bounds": [
+        47.36666488647461,
+        540.0197143554688,
+        42.29166793823242,
+        42.297149658203125
+      ],
+      "parent": "beauty_0_0_1",
+      "widget_type": "Svg",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_48",
+      "native_id": "beauty_0_0_1_2",
+      "expected_bounds": [
+        115.25625377610459,
+        543.4062166123795,
+        142.1398836085282,
+        22.412073058108117
+      ],
+      "actual_bounds": [
+        115.25625610351562,
+        543.4061889648438,
+        142.13988,
+        22.412073
+      ],
+      "parent": "beauty_0_0_1",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "\u805a\u4f1a\u62a5\u540d\u4ecd\u6709\u6548",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_49",
+      "native_id": "beauty_0_0_1_3",
+      "expected_bounds": [
+        115.62194230088794,
+        577.7500598628898,
+        182.46468139039922,
+        20.686447710002327
+      ],
+      "actual_bounds": [
+        115.62194061279297,
+        577.7500610351562,
+        182.46468,
+        20.686447
+      ],
+      "parent": "beauty_0_0_1",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "\u4f60\u5df2\u786e\u8ba4\u53c2\u52a0\u672c\u6b21\u805a\u4f1a",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "dock",
+      "native_id": "beauty_0_0_2",
+      "expected_bounds": [
+        0.0,
+        661.8355263157895,
+        406.0,
+        111.66447368421052
+      ],
+      "actual_bounds": [
+        0.0,
+        661.8355102539062,
+        406.0,
+        111.66447448730469
+      ],
+      "parent": "beauty_0_0",
+      "widget_type": "View",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "dock_message",
+      "native_id": "beauty_0_0_2_0",
+      "expected_bounds": [
+        33.833333333333336,
+        677.0625,
+        37.21666666666667,
+        38.91337719298245
+      ],
+      "actual_bounds": [
+        33.83333206176758,
+        677.0625,
+        37.21666717529297,
+        38.91337585449219
+      ],
+      "parent": "beauty_0_0_2",
+      "widget_type": "Svg",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "dock_calendar",
+      "native_id": "beauty_0_0_2_1",
+      "expected_bounds": [
+        133.07777777777775,
+        677.0625,
+        37.21666666666667,
+        38.91337719298245
+      ],
+      "actual_bounds": [
+        133.07777404785156,
+        677.0625,
+        37.21666717529297,
+        38.91337585449219
+      ],
+      "parent": "beauty_0_0_2",
+      "widget_type": "Svg",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "dock_group",
+      "native_id": "beauty_0_0_2_2",
+      "expected_bounds": [
+        232.3222222222222,
+        677.0625,
+        37.21666666666667,
+        38.91337719298245
+      ],
+      "actual_bounds": [
+        232.3222198486328,
+        677.0625,
+        37.21666717529297,
+        38.91337585449219
+      ],
+      "parent": "beauty_0_0_2",
+      "widget_type": "Svg",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "dock_wallet",
+      "native_id": "beauty_0_0_2_3",
+      "expected_bounds": [
+        331.56666666666666,
+        677.0625,
+        37.21666666666667,
+        38.91337719298245
+      ],
+      "actual_bounds": [
+        331.5666809082031,
+        677.0625,
+        37.21666717529297,
+        38.91337585449219
+      ],
+      "parent": "beauty_0_0_2",
+      "widget_type": "Svg",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_34",
+      "native_id": "beauty_0_0_3",
+      "expected_bounds": [
+        32.78040869972714,
+        15.74599849909887,
+        54.08132187635281,
+        19.21686281191024
+      ],
+      "actual_bounds": [
+        32.7804069519043,
+        15.74599838256836,
+        54.08132,
+        19.216864
+      ],
+      "parent": "beauty_0_0",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "10:12",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_50",
+      "native_id": "beauty_0_0_4",
+      "expected_bounds": [
+        33.8077366810607,
+        728.6837000703765,
+        42.786668920525734,
+        22.035801048044465
+      ],
+      "actual_bounds": [
+        33.807735443115234,
+        728.6837158203125,
+        42.78667,
+        22.0358
+      ],
+      "parent": "beauty_0_0",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "\u6d88\u606f",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_51",
+      "native_id": "beauty_0_0_5",
+      "expected_bounds": [
+        229.92270221617846,
+        728.7911676487948,
+        42.324444368623084,
+        21.820866631409732
+      ],
+      "actual_bounds": [
+        229.92269897460938,
+        728.7911376953125,
+        42.324444,
+        21.820868
+      ],
+      "parent": "beauty_0_0",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "\u805a\u4f1a",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_52",
+      "native_id": "beauty_0_0_6",
+      "expected_bounds": [
+        329.7152414825664,
+        728.8189748134939,
+        42.56422191420363,
+        21.765251561809805
+      ],
+      "actual_bounds": [
+        329.7152404785156,
+        728.8189697265625,
+        42.56422,
+        21.765251
+      ],
+      "parent": "beauty_0_0",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "\u652f\u4ed8",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "dock_calendar_label",
+      "native_id": "beauty_0_0_7",
+      "expected_bounds": [
+        129.94311594202898,
+        728.5419908466819,
+        46.028985507246375,
+        22.240579710144928
+      ],
+      "actual_bounds": [
+        129.943115234375,
+        728.5419921875,
+        46.028984,
+        22.24058
+      ],
+      "parent": "beauty_0_0",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "\u65e5\u5386",
+      "enabled": true,
+      "issues": []
+    }
+  ],
+  "text_differences": [],
+  "geometry_differences": [],
+  "relations": [],
+  "interaction_scope": "native activation and declared fixture state/data probes; no live feeds or complete app navigation"
+}

@@ -8,11 +8,11 @@ fn packs() -> &'static BTreeMap<&'static str, Value> {
     static PACKS: OnceLock<BTreeMap<&'static str, Value>> = OnceLock::new();
     PACKS.get_or_init(|| {
         [
-            ("atro", include_str!("../../../../Octoscript-Makepad/components/l0/native/atro/tokens.json")),
-            ("atro_light", include_str!("../../../../Octoscript-Makepad/components/l0/native/atro_light/tokens.json")),
-            ("camo", include_str!("../../../../Octoscript-Makepad/components/l0/native/camo/tokens.json")),
-            ("camo_light", include_str!("../../../../Octoscript-Makepad/components/l0/native/camo_light/tokens.json")),
-            ("taskplan_light", include_str!("../../../../Octoscript-Makepad/components/l0/native/taskplan_light/tokens.json")),
+            ("atro", include_str!("../../../../../octoscript-makepad/components/l0/native/atro/tokens.json")),
+            ("atro_light", include_str!("../../../../../octoscript-makepad/components/l0/native/atro_light/tokens.json")),
+            ("camo", include_str!("../../../../../octoscript-makepad/components/l0/native/camo/tokens.json")),
+            ("camo_light", include_str!("../../../../../octoscript-makepad/components/l0/native/camo_light/tokens.json")),
+            ("taskplan_light", include_str!("../../../../../octoscript-makepad/components/l0/native/taskplan_light/tokens.json")),
         ].into_iter().map(|(name, json)| (name, serde_json::from_str(json).expect("bundled theme tokens"))).collect()
     })
 }

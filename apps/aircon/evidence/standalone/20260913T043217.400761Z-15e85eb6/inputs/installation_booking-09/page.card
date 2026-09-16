@@ -1,0 +1,69 @@
+# ledger installation_booking-09@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy text_32_text { class: user-copy, en: "改约" }
+copy text_33_text { class: user-copy, en: "取消预约" }
+copy text_28_text { class: user-copy, en: "安装服务 · 预约成功" }
+copy text_29_text { class: user-copy, en: "王师傅" }
+copy text_30_text { class: user-copy, en: "周六 9月19日 14:00-16:00" }
+copy text_31_text { class: user-copy, en: "家 · 海棠路18号" }
+state reschedule_control_enabled { shape: bool, initial: true }
+state cancel_booking_control_enabled { shape: bool, initial: true }
+component Surfacee37cf994f662(instance: text) {
+  view Kit(component: "Surfacee37cf994f662", instance: instance) { slot }
+}
+component KitButton5dc7ea8cd583(instance: text) {
+  view Kit(component: "KitButton5dc7ea8cd583", instance: instance) { slot }
+}
+component Surface077e2e7d76af(instance: text) {
+  view Kit(component: "Surface077e2e7d76af", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Text13b52d27b23d(instance: text, text: text) {
+  view Kit(component: "Text13b52d27b23d", instance: instance, text: text)
+}
+component Text69cd6e68191e(instance: text, text: text) {
+  view Kit(component: "Text69cd6e68191e", instance: instance, text: text)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Texta15dda2b06cb(instance: text, text: text) {
+  view Kit(component: "Texta15dda2b06cb", instance: instance, text: text)
+}
+component Textd6cfeab186ed(instance: text, text: text) {
+  view Kit(component: "Textd6cfeab186ed", instance: instance, text: text)
+}
+component Textaa7f1be2a524(instance: text, text: text) {
+  view Kit(component: "Textaa7f1be2a524", instance: instance, text: text)
+}
+component Text212610f75e76(instance: text, text: text) {
+  view Kit(component: "Text212610f75e76", instance: instance, text: text)
+}
+
+view root Surfacee37cf994f662(instance: "installation_booking") {
+  KitButton5dc7ea8cd583(instance: "reschedule") {
+    Surface077e2e7d76af(instance: "reschedule_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "reschedule_control", enabled: reschedule_control_enabled)
+    Text13b52d27b23d(instance: "text_32", text: copy.text_32_text)
+  }
+  KitButton5dc7ea8cd583(instance: "cancel_booking") {
+    Surface077e2e7d76af(instance: "cancel_booking_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "cancel_booking_control", enabled: cancel_booking_control_enabled)
+    Text69cd6e68191e(instance: "text_33", text: copy.text_33_text)
+  }
+  Vectore0a378fde04f(instance: "wrench_icon_0")
+  Vectore0a378fde04f(instance: "check_icon_1")
+  Texta15dda2b06cb(instance: "text_28", text: copy.text_28_text)
+  Textd6cfeab186ed(instance: "text_29", text: copy.text_29_text)
+  Textaa7f1be2a524(instance: "text_30", text: copy.text_30_text)
+  Text212610f75e76(instance: "text_31", text: copy.text_31_text)
+}

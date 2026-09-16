@@ -5,8 +5,9 @@ import json
 import argparse
 from pathlib import Path
 
+from core.native_paths import repository
 ROOT = Path(__file__).resolve().parents[2]
-NATIVE = ROOT / 'Octoscript-Makepad/components/l0/native'
+NATIVE = repository('splash-makepad') / 'components/l0/native'
 THEMES = ('atro','atro_light','camo','camo_light','taskplan_light')
 
 

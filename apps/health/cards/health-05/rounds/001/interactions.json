@@ -1,0 +1,79 @@
+{
+  "pass": true,
+  "controls": [
+    {
+      "id": "saturday_control",
+      "expected_action_owner": "beauty_0_0_2_0",
+      "pass": true,
+      "events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_0_2_0"
+        }
+      ],
+      "scope": "native KitButton activation; no production navigation or data feeds"
+    },
+    {
+      "id": "sunday_control",
+      "expected_action_owner": "beauty_0_0_2_1",
+      "pass": true,
+      "events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_0_2_1"
+        }
+      ],
+      "scope": "native KitButton activation; no production navigation or data feeds"
+    },
+    {
+      "id": "conflict_slot_control",
+      "pass": true,
+      "enabled": false,
+      "events": [],
+      "query_evidence": "conflict_slot_control-disabled-query.json",
+      "snapshot_evidence": "conflict_slot_control-disabled-snapshot.json",
+      "scope": "native disabled Button ignores actual Studio click"
+    },
+    {
+      "id": "afternoon_control",
+      "expected_action_owner": "beauty_0_0_2_3",
+      "pass": true,
+      "events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_0_2_3"
+        }
+      ],
+      "scope": "native KitButton activation; no production navigation or data feeds"
+    },
+    {
+      "id": "confirm_booking_control",
+      "pass": true,
+      "enabled": false,
+      "events": [],
+      "query_evidence": "confirm_booking_control-disabled-query.json",
+      "snapshot_evidence": "confirm_booking_control-disabled-snapshot.json",
+      "scope": "native disabled Button ignores actual Studio click"
+    },
+    {
+      "id": "return_items_control",
+      "expected_action_owner": "beauty_0_0_2_5",
+      "pass": true,
+      "events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_0_2_5"
+        }
+      ],
+      "scope": "native KitButton activation; no production navigation or data feeds"
+    }
+  ]
+}

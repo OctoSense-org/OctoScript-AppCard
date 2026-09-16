@@ -1,0 +1,234 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.1.0",
+  "contract_sha256": "bfe7221e067ecdaddf20b32faa56817a8a8239f379d10c2ddddbcda2e9863bb0",
+  "reference_sha256": "da3f995d3b49d7eb37463d7c27707265e57fcce00fdd44b33b8b019274b5a745",
+  "classification_scope": "Authored intent and explicit review candidates; no claim of automatic visual recognition.",
+  "elements": [
+    {
+      "id": "page",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "screen",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "wallpaper_upper",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "wallpaper_lower",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "appointment_card",
+      "role": "card",
+      "basis": "Explicit measured service composition ownership",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "choose_items",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "choose_items_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "choose_items_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "choose_items_text",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "defer",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "defer_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "defer_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "defer_text",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "heart_icon_0",
+      "role": "icon",
+      "basis": "Explicit inspected source region or traced vector symbol",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/heart_icon_0.svg",
+        "sha256": "2b22eedb8ac2a5c9900ec3322b642276bd7df7d765b7a57cdbd7a3cdf2b74bc3",
+        "method": "reference_svg",
+        "reference_sha256": "da3f995d3b49d7eb37463d7c27707265e57fcce00fdd44b33b8b019274b5a745",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector tracing of visible source symbol; shape approximation, no raster or text"
+      }
+    },
+    {
+      "id": "card_status",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "appointment_title",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "appointment_note",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "provider_name",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "dock",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "dock_icon_heart",
+      "role": "icon",
+      "basis": "Explicit inspected source region or traced vector symbol",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/dock_icon_heart.svg",
+        "sha256": "2b22eedb8ac2a5c9900ec3322b642276bd7df7d765b7a57cdbd7a3cdf2b74bc3",
+        "method": "reference_svg",
+        "reference_sha256": "da3f995d3b49d7eb37463d7c27707265e57fcce00fdd44b33b8b019274b5a745",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector tracing of visible source symbol; shape approximation, no raster or text"
+      }
+    },
+    {
+      "id": "dock_icon_calendar",
+      "role": "icon",
+      "basis": "Explicit inspected source region or traced vector symbol",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/dock_icon_calendar.svg",
+        "sha256": "eb7e019ef6117f168130e94bb240953b38c1f8fd95434029322b0c38ad998550",
+        "method": "reference_svg",
+        "reference_sha256": "da3f995d3b49d7eb37463d7c27707265e57fcce00fdd44b33b8b019274b5a745",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector tracing of visible source symbol; shape approximation, no raster or text"
+      }
+    },
+    {
+      "id": "dock_icon_mail",
+      "role": "icon",
+      "basis": "Explicit inspected source region or traced vector symbol",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/dock_icon_mail.svg",
+        "sha256": "15d753dccafef2720d25c32622d763eec99dd814785def83c52611c446bd8d9f",
+        "method": "reference_svg",
+        "reference_sha256": "da3f995d3b49d7eb37463d7c27707265e57fcce00fdd44b33b8b019274b5a745",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector tracing of visible source symbol; shape approximation, no raster or text"
+      }
+    },
+    {
+      "id": "dock_health",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "dock_calendar",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "dock_mail",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "status_time",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "status_date",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    }
+  ]
+}

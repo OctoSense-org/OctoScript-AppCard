@@ -10,7 +10,7 @@ pub const LAYOUTS: &[(&str, &str)] = &[
 
 fn recipe(app: &str, layout: &str) -> Option<(&'static str, &'static str)> {
     macro_rules! page { ($path:literal) => { include_str!(concat!(
-        "../../../../Octoscript-Makepad/components/l0/pages/", $path, ".l0")) }; }
+        "../../../../../octoscript-makepad/components/l0/pages/", $path, ".l0")) }; }
     Some(match (app, layout) {
         ("weather", "dashboard") => ("", page!("weather/dashboard")),
         ("weather", "forecast") => ("", page!("weather/forecast")),

@@ -1,0 +1,76 @@
+# ledger school-calendar-03@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy copy_126_text { class: user-copy, en: "确认" }
+copy copy_127_text { class: user-copy, en: "撤销日程" }
+copy copy_121_text { class: user-copy, en: "日历 · 已更新" }
+copy copy_122_text { class: user-copy, en: "秋季科学日" }
+copy copy_123_text { class: user-copy, en: "9月25日 14:00–16:00" }
+copy copy_124_text { class: user-copy, en: "北辰小学 · 科学教室" }
+copy copy_125_text { class: user-copy, en: "来自林老师邮件" }
+state ack_calendar_control_enabled { shape: bool, initial: true }
+state undo_calendar_control_enabled { shape: bool, initial: true }
+component Surface3a19b3b3e5d4(instance: text) {
+  view Kit(component: "Surface3a19b3b3e5d4", instance: instance) { slot }
+}
+component KitButton5dc7ea8cd583(instance: text) {
+  view Kit(component: "KitButton5dc7ea8cd583", instance: instance) { slot }
+}
+component Surface7efed7aa2ad9(instance: text) {
+  view Kit(component: "Surface7efed7aa2ad9", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Text59a39a31515d(instance: text, text: text) {
+  view Kit(component: "Text59a39a31515d", instance: instance, text: text)
+}
+component Surfacee3d98541ac37(instance: text) {
+  view Kit(component: "Surfacee3d98541ac37", instance: instance) { slot }
+}
+component Text33f9a7ad8882(instance: text, text: text) {
+  view Kit(component: "Text33f9a7ad8882", instance: instance, text: text)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Text89aaee065d89(instance: text, text: text) {
+  view Kit(component: "Text89aaee065d89", instance: instance, text: text)
+}
+component Text543c2ac26089(instance: text, text: text) {
+  view Kit(component: "Text543c2ac26089", instance: instance, text: text)
+}
+component Text765cbd1be204(instance: text, text: text) {
+  view Kit(component: "Text765cbd1be204", instance: instance, text: text)
+}
+component Text75ff859a2527(instance: text, text: text) {
+  view Kit(component: "Text75ff859a2527", instance: instance, text: text)
+}
+component Text363abe024242(instance: text, text: text) {
+  view Kit(component: "Text363abe024242", instance: instance, text: text)
+}
+
+view root Surface3a19b3b3e5d4(instance: "calendar_card") {
+  KitButton5dc7ea8cd583(instance: "ack_calendar") {
+    Surface7efed7aa2ad9(instance: "ack_calendar_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "ack_calendar_control", enabled: ack_calendar_control_enabled)
+    Text59a39a31515d(instance: "copy_126", text: copy.copy_126_text)
+  }
+  KitButton5dc7ea8cd583(instance: "undo_calendar") {
+    Surfacee3d98541ac37(instance: "undo_calendar_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "undo_calendar_control", enabled: undo_calendar_control_enabled)
+    Text33f9a7ad8882(instance: "copy_127", text: copy.copy_127_text)
+  }
+  Vectore0a378fde04f(instance: "calendar_icon_0")
+  Text89aaee065d89(instance: "copy_121", text: copy.copy_121_text)
+  Text543c2ac26089(instance: "copy_122", text: copy.copy_122_text)
+  Text765cbd1be204(instance: "copy_123", text: copy.copy_123_text)
+  Text75ff859a2527(instance: "copy_124", text: copy.copy_124_text)
+  Text363abe024242(instance: "copy_125", text: copy.copy_125_text)
+}

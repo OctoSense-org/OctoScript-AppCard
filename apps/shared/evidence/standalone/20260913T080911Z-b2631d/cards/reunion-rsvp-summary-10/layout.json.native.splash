@@ -1,0 +1,52 @@
+use mod.prelude.widgets.*
+return View{width:Fill height:Fill flow:Overlay beauty_0 := DesignSurface {
+width: 359.40985 height: 106.52631
+abs_pos: vec2(0, 0)
+draw_bg.radius: 19.967213 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfbff
+beauty_0_0 := KitButton {
+contract: "{\"bindings\":{\"control\":\"beauty_0_0_1\"},\"widget\":\"KitButton\"}" glass: false
+width: 359.40985 height: 106.52631
+abs_pos: vec2(0, 0)
+draw_bg.radius: 0 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfbff
+beauty_0_0_0 := DesignSurface {
+width: 359.40985 height: 106.52631
+abs_pos: vec2(0, 0)
+draw_bg.radius: 0 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #00000000
+}
+beauty_0_0_1 := DesignNativeButton {
+width: 359.40985 height: 106.52631
+abs_pos: vec2(0, 0)
+enabled: true
+}
+}
+beauty_0_1 := Svg {
+width: 41.598362 height: 41.611843
+abs_pos: vec2(23.295081967213115, 23.3026315789474)
+animating: false draw_svg.svg: http_resource("http://127.0.0.1:8170/ux-images/reunion-rsvp-summary-10/assets/group_icon_1-a863d3bd8d66.svg") draw_svg.preserve_viewbox: true draw_svg.preserve_aspect: false
+}
+beauty_0_2 := Label {
+width: 147.21991 height: 23.089169
+abs_pos: vec2(84.99655894689343, 29.629449638346046)
+clip_x: false clip_y: false
+padding: 0 text: "聚会报名仍有效" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.21924824 desc: 0.100248225 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 15.344991 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+beauty_0_3 := Label {
+width: 186.85316 height: 21.096771
+abs_pos: vec2(85.37917663888555, 63.53278232991204)
+clip_x: false clip_y: false
+padding: 0 text: "你已确认参加本次聚会" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.20562261 desc: 0.08862262 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 13.713987 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+}
+}

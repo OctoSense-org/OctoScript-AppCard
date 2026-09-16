@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "url": "https://octosense.org/wasm/service-cards/",
+  "renderer": "Makepad/WASM",
+  "widgets": 56,
+  "disabledBlocked": true,
+  "confirmationActivated": true,
+  "photoRendered": true,
+  "enabledOverrideActivated": true,
+  "rejectedAssets": [
+    {
+      "src": "https://foreign.example/wasm/service-cards/card-assets/aircon-07/assets/icon.svg",
+      "rejected": true,
+      "error": "Error: Card artwork must stay inside the iframe same-origin card-assets directory"
+    },
+    {
+      "src": "https://octosense-org.github.io/wasm/service-cards/card-assets/aircon-07/assets/icon.svg",
+      "rejected": true,
+      "error": "Error: Card artwork must stay inside the iframe same-origin card-assets directory"
+    },
+    {
+      "src": "https://octosense.org/outside/aircon-07/assets/icon.svg",
+      "rejected": true,
+      "error": "Error: Card artwork must stay inside the iframe same-origin card-assets directory"
+    },
+    {
+      "src": "https://octosense.org/wasm/service-cards/card-assets/../outside/assets/icon.svg",
+      "rejected": true,
+      "error": "Error: Card artwork must stay inside the iframe same-origin card-assets directory"
+    },
+    {
+      "src": "https://octosense.org/wasm/service-cards/card-assets/%2e%2e/outside/assets/icon.svg",
+      "rejected": true,
+      "error": "Error: Card artwork must stay inside the iframe same-origin card-assets directory"
+    }
+  ],
+  "build": "9fa202972d4e85ab67507b0f8f41718655c198d59b62b34b75cfeee9a6e502f0"
+}

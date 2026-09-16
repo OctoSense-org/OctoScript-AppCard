@@ -134,8 +134,9 @@ def stage_doctor(kit):
             or kit.get('visual_review', 'external') == 'claude_cli'):
         check("claude CLI (legacy author/reviewer)", shutil.which("claude"))
     root = HERE.parents[1]
-    for rel in ("Octoscript", "Octoscript-Makepad", "makepad"):
-        check(rel, (root / rel).is_dir())
+    from core.native_paths import repository
+    for rel in ("splash", "splash-makepad", "makepad"):
+        check(str(repository(rel)), repository(rel).is_dir())
     if "desktop" in rails:
         check("python Quartz", _try_import("Quartz"))
         check("desktop binary", (root / "app/target/release/octos-app").is_file())

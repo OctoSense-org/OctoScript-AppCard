@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "verified_at": "2026-09-13T08:19:36.791516+00:00",
+  "flows": [
+    "school",
+    "health",
+    "reunion"
+  ],
+  "scenes": 36,
+  "standalone_cards": 40,
+  "standalone_buttons": 77,
+  "service_tests": 36,
+  "sync_tests": 14,
+  "browser_cases": {
+    "full_suite": 10,
+    "school_spacing_repair": 2,
+    "static_site_and_guides": 12
+  },
+  "local_preview": "http://127.0.0.1:4324/",
+  "native_scene_structure_passed": 36,
+  "semantic_mapping_passed": 36,
+  "strict_image_acceptance_passed": 0,
+  "visual_status": "Draft references; strict image and visual approval remain unaccepted",
+  "generation": {
+    "provider": "built-in image generation tool",
+    "model": "not exposed",
+    "one_call_per_flow": true,
+    "requested_size": [
+      2400,
+      3456
+    ],
+    "actual_sizes": {
+      "school": [
+        907,
+        1733
+      ],
+      "health": [
+        962,
+        1635
+      ],
+      "reunion": [
+        1045,
+        1505
+      ]
+    }
+  },
+  "package_build_sha256": "68a2f34865bd5725270579c7bc740d9816cad242341bf193edc6c35faa831c46",
+  "evidence": {
+    "artifacts/flows/browser-final.log": "afa4523c5d4279d5add99b494f00d4fab067cb73e120878eae4f7c1d67b19707",
+    "artifacts/flows/browser-spacing-repair.log": "ddebf403edfc8f94a543909722aecd522197f62f662a5c5468fa22968310fd47",
+    "artifacts/flows/sync-tests-final.log": "d07e95caefae5fa35c175368ed5dc22663bc2fbaffc19835574fbae82800ddf4",
+    "/Users/ychen/home/Octosense-Service-AppCards/flows/service-tests-release.log": "c3c23d12c348f07fb0c46ded9816aef84d202c643fe1a0d83e3e0db7e7b854ac",
+    "/Users/ychen/home/Octosense-Service-AppCards/flows/evidence/standalone-verification.json": "1d76ec2eaddb81ce39a9c6bd422f82ee987953328bf65abb47397c706ee45de2",
+    "/Users/ychen/home/Octosense-Service-AppCards/flows/school/source/atlas.png": "935e7b456ba3860b51607260d44775e9726e47340905b553fb807a6a2b075ceb",
+    "/Users/ychen/home/Octosense-Service-AppCards/flows/school/source/prompt.txt": "f7780bf773ac614b8d417bfe0c889451136a471b75b9b9329302786d0897ae7e",
+    "/Users/ychen/home/Octosense-Service-AppCards/flows/school/pipeline-output/gate-review.json": "9351e8a399056067b53b5920f465a45f1a5a2441ce4469fa16cffb894f9a27ff",
+    "/Users/ychen/home/Octosense-Service-AppCards/flows/health/source/atlas.png": "59c15a4cc3be3302fb376f993278fa5d1fa65c68f79c23ad2e1ec561779dafc6",
+    "/Users/ychen/home/Octosense-Service-AppCards/flows/health/source/prompt.txt": "cbdd26d8eb0e578030d763d0f5cd8bcff5a3f97c936989a068b557b2a6138162",
+    "/Users/ychen/home/Octosense-Service-AppCards/flows/health/pipeline-output/gate-review.json": "ae3522bae52171ced15a70d3414930d90c12549dac6fedefd4e877afda94ecd1",
+    "/Users/ychen/home/Octosense-Service-AppCards/flows/reunion/source/atlas.png": "e535ecd55c1eababf124ff9ed34f6f72260df4eb4ab1a312215369c04073895f",
+    "/Users/ychen/home/Octosense-Service-AppCards/flows/reunion/source/prompt.txt": "78ddd414642755778cee29812aea9386f3f21f0126cce20ae0d9c6a7269546d8",
+    "/Users/ychen/home/Octosense-Service-AppCards/flows/reunion/pipeline-output/gate-review.json": "78e4ce2bc1d619109a0349952921baad85a7b4672bd84c6a4522475507b7c9c5"
+  }
+}

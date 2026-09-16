@@ -1,0 +1,300 @@
+use mod.prelude.widgets.*
+return View{width:Fill height:Fill flow:Overlay beauty_0 := DesignSurface {
+width: 406 height: 776
+abs_pos: vec2(0, 0)
+draw_bg.radius: 0 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #f0f5f2ff
+beauty_0_0 := DesignSurface {
+width: 406 height: 692
+abs_pos: vec2(0, 42)
+draw_bg.radius: 0 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #f1f6f3ff
+beauty_0_0_0 := DesignSurface {
+width: 364.57144 height: 384.23206
+abs_pos: vec2(17.846153846153847, 187.28176795580112)
+draw_bg.radius: 20.395605 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfbff
+beauty_0_0_0_0 := DesignSurface {
+width: 251.75824 height: 1.9116023
+abs_pos: vec2(67.56043956043956, 358.05156537753226)
+draw_bg.radius: 0 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #d5ddd7ff
+}
+beauty_0_0_0_1 := KitButton {
+contract: "{\"bindings\":{\"control\":\"beauty_0_0_0_1_1\",\"label\":\"beauty_0_0_0_1_2\"},\"widget\":\"KitButton\"}" glass: false
+width: 138.94505 height: 43.32965
+abs_pos: vec2(38.879120879120876, 503.33333333333337)
+flow: Overlay padding: 0 clip_x: false clip_y: false
+beauty_0_0_0_1_0 := DesignSurface {
+width: 138.94505 height: 43.32965
+abs_pos: vec2(38.879120879120876, 503.33333333333337)
+draw_bg.radius: 12.747252 draw_bg.ellipse: 0 draw_bg.border_width: 0.65 draw_bg.border_position: 0 draw_bg.border_color: #cbd6ceff
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfbff
+}
+beauty_0_0_0_1_1 := DesignNativeButton {
+width: 138.94505 height: 43.32965
+abs_pos: vec2(38.879120879120876, 503.33333333333337)
+enabled: true
+}
+beauty_0_0_0_1_2 := Label {
+width: 90.21949 height: 18.5
+abs_pos: vec2(65.60733494511243, 515.770501910413)
+clip_x: false clip_y: false
+padding: 0 text: "联系配送员" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.20676403 desc: 0.08676404 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 12.004799 line_spacing: 1 letter_spacing: 1.140625}
+draw_text.color: #608570ff
+}
+}
+beauty_0_0_0_2 := KitButton {
+contract: "{\"bindings\":{\"control\":\"beauty_0_0_0_2_1\",\"label\":\"beauty_0_0_0_2_2\"},\"widget\":\"KitButton\"}" glass: false
+width: 130.65935 height: 43.32965
+abs_pos: vec2(210.96703296703296, 503.33333333333337)
+flow: Overlay padding: 0 clip_x: false clip_y: false
+beauty_0_0_0_2_0 := DesignSurface {
+width: 130.65935 height: 43.32965
+abs_pos: vec2(210.96703296703296, 503.33333333333337)
+draw_bg.radius: 12.747252 draw_bg.ellipse: 0 draw_bg.border_width: 0.65 draw_bg.border_position: 0 draw_bg.border_color: #cbd6ceff
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfbff
+}
+beauty_0_0_0_2_1 := DesignNativeButton {
+width: 130.65935 height: 43.32965
+abs_pos: vec2(210.96703296703296, 503.33333333333337)
+enabled: true
+}
+beauty_0_0_0_2_2 := Label {
+width: 71.95173 height: 18.5
+abs_pos: vec2(241.45789794991273, 515.975466362635)
+clip_x: false clip_y: false
+padding: 0 text: "修改时间" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.20314223 desc: 0.08814223 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 11.733137 line_spacing: 1 letter_spacing: 1.25}
+draw_text.color: #608570ff
+}
+}
+beauty_0_0_0_3 := Svg {
+width: 36.967033 height: 26.76243
+abs_pos: vec2(36.967032967032964, 212.1325966850829)
+animating: false draw_svg.svg: http_resource("http://127.0.0.1:8170/ux-images/aircon-04/assets/truck_icon_0-fe8dbdcd8a05.svg") draw_svg.preserve_viewbox: true draw_svg.preserve_aspect: false
+}
+beauty_0_0_0_4 := Svg {
+width: 19.758242 height: 19.753223
+abs_pos: vec2(37.6043956043956, 428.78084714548805)
+animating: false draw_svg.svg: http_resource("http://127.0.0.1:8170/ux-images/aircon-04/assets/home_icon_1-35f5c9ea4be3.svg") draw_svg.preserve_viewbox: true draw_svg.preserve_aspect: false
+}
+beauty_0_0_0_5 := DesignSurface {
+width: 14.659341 height: 14.655617
+abs_pos: vec2(59.912087912087905, 351.6795580110497)
+draw_bg.radius: 7.3296704 draw_bg.ellipse: 0 draw_bg.border_width: 0.8 draw_bg.border_position: 0 draw_bg.border_color: #b8c5beff
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfbff
+}
+beauty_0_0_0_6 := DesignSurface {
+width: 18.483517 height: 18.47882
+abs_pos: vec2(182.9230769230769, 350.4051565377532)
+draw_bg.radius: 9.241758 draw_bg.ellipse: 0 draw_bg.border_width: 0.8 draw_bg.border_position: 0 draw_bg.border_color: #608570ff
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #608570ff
+}
+beauty_0_0_0_7 := DesignSurface {
+width: 14.659341 height: 14.655617
+abs_pos: vec2(312.30769230769226, 351.6795580110497)
+draw_bg.radius: 7.3296704 draw_bg.ellipse: 0 draw_bg.border_width: 0.8 draw_bg.border_position: 0 draw_bg.border_color: #b8c5beff
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfbff
+}
+beauty_0_0_0_8 := Label {
+width: 110.07349 height: 19.5
+abs_pos: vec2(89.64849936487842, 214.98118695648202)
+clip_x: false clip_y: false
+padding: 0 text: "物流 · 配送中" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.20037124 desc: 0.08737124 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 12.120831 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+beauty_0_0_0_9 := Label {
+width: 204.69876 height: 25
+abs_pos: vec2(40.39139027867892, 264.3022552801514)
+clip_x: false clip_y: false
+padding: 0 text: "周五 14:00-16:00" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.29712257 desc: 0.13112257 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 18.139969 line_spacing: 1 letter_spacing: 1.25}
+draw_text.color: #31413cff
+}
+beauty_0_0_0_10 := Label {
+width: 142.58574 height: 19
+abs_pos: vec2(38.91779244249657, 301.3671006791659)
+clip_x: false clip_y: false
+padding: 0 text: "空调正在送往你家" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.19832504 desc: 0.09232504 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 12.26292 line_spacing: 1 letter_spacing: 0.86160713}
+draw_text.color: #31413cff
+}
+beauty_0_0_0_11 := Label {
+width: 48.546276 height: 17
+abs_pos: vec2(47.69552190525411, 379.7550399311466)
+clip_x: false clip_y: false
+padding: 0 text: "已发货" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.19617213 desc: 0.086172126 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 10.782403 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+beauty_0_0_0_12 := Label {
+width: 50.868237 height: 17.5
+abs_pos: vec2(168.3206967059823, 379.20780486304994)
+clip_x: false clip_y: false
+padding: 0 text: "配送中" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.20146377 desc: 0.088463776 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 11.322322 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+beauty_0_0_0_13 := Label {
+width: 131.07518 height: 19.58596
+abs_pos: vec2(67.17218878026414, 427.9086768187458)
+clip_x: false clip_y: false
+padding: 0 text: "家 · 海棠路18号" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.1940468 desc: 0.0890468 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 12.610002 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+beauty_0_0_0_14 := Label {
+width: 97.525276 height: 17.67912
+abs_pos: vec2(38.93919294004609, 460.5248509364716)
+clip_x: false clip_y: false
+padding: 0 text: "来自购物订单" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.19484042 desc: 0.08384041 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 11.339366 line_spacing: 1 letter_spacing: 0.21724138}
+draw_text.color: #75837cff
+}
+beauty_0_0_0_15 := Label {
+width: 49.887997 height: 17.5
+abs_pos: vec2(296.81526191873087, 379.2911058416071)
+clip_x: false clip_y: false
+padding: 0 text: "已送达" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.20038049 desc: 0.0873805 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 11.087789 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+}
+beauty_0_0_1 := DesignSurface {
+width: 406 height: 100.67772
+abs_pos: vec2(0, 633.3222836095765)
+draw_bg.radius: 30.593407 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #f7faf7ff
+beauty_0_0_1_0 := DesignSurface {
+width: 72.25908 height: 72.24072
+abs_pos: vec2(25.988461538461536, 640.9432044198895)
+draw_bg.radius: 15.296703 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfbff
+}
+beauty_0_0_1_1 := Svg {
+width: 53.1382 height: 51.213097
+abs_pos: vec2(35.5489010989011, 653.0500184162063)
+animating: false draw_svg.svg: http_resource("http://127.0.0.1:8170/ux-images/aircon-04/assets/dock_mail-937198f71555.svg") draw_svg.preserve_viewbox: true draw_svg.preserve_aspect: false
+}
+beauty_0_0_1_2 := DesignSurface {
+width: 72.25908 height: 72.24072
+abs_pos: vec2(121.39846153846153, 640.9432044198895)
+draw_bg.radius: 15.296703 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfbff
+}
+beauty_0_0_1_3 := DesignSurface {
+width: 72.25908 height: 72.24072
+abs_pos: vec2(216.8084615384615, 640.9432044198895)
+draw_bg.radius: 15.296703 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfbff
+}
+beauty_0_0_1_4 := Svg {
+width: 53.1382 height: 51.213097
+abs_pos: vec2(226.36890109890106, 653.0500184162063)
+animating: false draw_svg.svg: http_resource("http://127.0.0.1:8170/ux-images/aircon-04/assets/dock_bag-f13ab07d80c7.svg") draw_svg.preserve_viewbox: true draw_svg.preserve_aspect: false
+}
+beauty_0_0_1_5 := DesignSurface {
+width: 72.25908 height: 72.24072
+abs_pos: vec2(312.2184615384615, 640.9432044198895)
+draw_bg.radius: 15.296703 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfbff
+}
+beauty_0_0_1_6 := Svg {
+width: 53.1382 height: 51.213097
+abs_pos: vec2(321.77890109890103, 653.0500184162063)
+animating: false draw_svg.svg: http_resource("http://127.0.0.1:8170/ux-images/aircon-04/assets/dock_wallet-ac8e97cf898c.svg") draw_svg.preserve_viewbox: true draw_svg.preserve_aspect: false
+}
+}
+beauty_0_0_2 := Label {
+width: 94.22202 height: 16.062649
+abs_pos: vec2(24.3171483743138, 65.90206368501089)
+clip_x: false clip_y: false
+padding: 0 text: "9月18日 周五" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.2431997 desc: 0.0771997 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 10.683735 line_spacing: 1 letter_spacing: 0.6825397}
+draw_text.color: #31413cff
+}
+beauty_0_0_3 := Label {
+width: 89.93502 height: 28
+abs_pos: vec2(20.85000626261639, 95.95406794149645)
+clip_x: false clip_y: false
+padding: 0 text: "14:20" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.35949728 desc: 0.22049727 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 24.01881 line_spacing: 1 letter_spacing: 1.1113636}
+draw_text.color: #31413cff
+}
+beauty_0_0_4 := Label {
+width: 35.890198 height: 17.5
+abs_pos: vec2(45.09057936442751, 704.435936575599)
+clip_x: false clip_y: false
+padding: 0 text: "邮件" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.20425537 desc: 0.09125537 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 11.190678 line_spacing: 1 letter_spacing: 0.5645161}
+draw_text.color: #31413cff
+}
+beauty_0_0_5 := Label {
+width: 40.395115 height: 28.820814
+abs_pos: vec2(125.85654037783272, 663.5159286861366)
+clip_x: false clip_y: false
+padding: 0 text: "18" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.3550028 desc: 0.2140028 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 24.591297 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+beauty_0_0_6 := Label {
+width: 33.3015 height: 16
+abs_pos: vec2(133.49300281851367, 705.2455597012912)
+clip_x: false clip_y: false
+padding: 0 text: "日历" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.2583176 desc: 0.10031759 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 10.492095 line_spacing: 1 letter_spacing: 0.22580644}
+draw_text.color: #31413cff
+}
+beauty_0_0_7 := Label {
+width: 33.476234 height: 17
+abs_pos: vec2(228.76489460254317, 705.0431759080776)
+clip_x: false clip_y: false
+padding: 0 text: "购物" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.21131182 desc: 0.09931181 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 10.646446 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+beauty_0_0_8 := Label {
+width: 35.112255 height: 17.5
+abs_pos: vec2(322.75975874358886, 704.5977145504949)
+clip_x: false clip_y: false
+padding: 0 text: "支付" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.2001305 desc: 0.08679718 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 10.898951 line_spacing: 1 letter_spacing: 0.5645161}
+draw_text.color: #31413cff
+}
+}
+}
+}

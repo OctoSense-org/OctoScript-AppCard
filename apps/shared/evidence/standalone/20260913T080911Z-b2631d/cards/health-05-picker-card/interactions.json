@@ -1,0 +1,88 @@
+{
+  "passed": true,
+  "buttons": [
+    {
+      "source_id": "saturday_control",
+      "native_id": "beauty_0_0_1",
+      "kit_action_id": "beauty_0_0",
+      "enabled": true,
+      "passed": true,
+      "activated_events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_0"
+        }
+      ],
+      "evidence": "controls/01-saturday_control"
+    },
+    {
+      "source_id": "sunday_control",
+      "native_id": "beauty_0_1_1",
+      "kit_action_id": "beauty_0_1",
+      "enabled": true,
+      "passed": true,
+      "activated_events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_1"
+        }
+      ],
+      "evidence": "controls/02-sunday_control"
+    },
+    {
+      "source_id": "conflict_slot_control",
+      "native_id": "beauty_0_2_1",
+      "kit_action_id": "beauty_0_2",
+      "enabled": false,
+      "passed": true,
+      "activated_events": [],
+      "evidence": "controls/03-conflict_slot_control"
+    },
+    {
+      "source_id": "afternoon_control",
+      "native_id": "beauty_0_3_1",
+      "kit_action_id": "beauty_0_3",
+      "enabled": true,
+      "passed": true,
+      "activated_events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_3"
+        }
+      ],
+      "evidence": "controls/04-afternoon_control"
+    },
+    {
+      "source_id": "confirm_booking_control",
+      "native_id": "beauty_0_4_1",
+      "kit_action_id": "beauty_0_4",
+      "enabled": false,
+      "passed": true,
+      "activated_events": [],
+      "evidence": "controls/05-confirm_booking_control"
+    },
+    {
+      "source_id": "return_items_control",
+      "native_id": "beauty_0_5_1",
+      "kit_action_id": "beauty_0_5",
+      "enabled": true,
+      "passed": true,
+      "activated_events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_5"
+        }
+      ],
+      "evidence": "controls/06-return_items_control"
+    }
+  ],
+  "fixture_state": "unchanged; KitAction is observed without a reducer or external service"
+}

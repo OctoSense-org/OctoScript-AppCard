@@ -1,0 +1,308 @@
+{
+  "event": {
+    "id": "native-verify-184023a97ca64ef3b643078e6095df16",
+    "action": "logistics.delivered",
+    "actor": "provider"
+  },
+  "before": {
+    "schema_version": 1,
+    "scenario": "aircon-fresh",
+    "simulation": true,
+    "revision": 3,
+    "fixture": {
+      "schema_version": 1,
+      "scenario": "aircon-fresh",
+      "locale": "zh-CN",
+      "timezone": "Asia/Shanghai",
+      "simulation": true,
+      "customer": {
+        "name": "Alex",
+        "address": "家 · 海棠路 18 号"
+      },
+      "order": {
+        "id": "order-aircon-001",
+        "product": "1.5匹变频空调",
+        "amount_minor": 279900,
+        "currency": "CNY"
+      },
+      "delivery": {
+        "id": "delivery-aircon-001",
+        "starts_at": "2026-09-18T14:00:00+08:00",
+        "ends_at": "2026-09-18T16:00:00+08:00",
+        "delivered_at": "2026-09-18T15:20:00+08:00"
+      },
+      "installation": {
+        "id": "booking-aircon-001",
+        "technician": "王师傅",
+        "provider": "安装服务团队",
+        "days": [
+          {
+            "date": "2026-09-19",
+            "label": "周六 9月19日"
+          },
+          {
+            "date": "2026-09-20",
+            "label": "周日 9月20日"
+          }
+        ],
+        "slots": [
+          {
+            "id": "morning",
+            "label": "09:00–11:00",
+            "starts_at": "2026-09-19T09:00:00+08:00",
+            "ends_at": "2026-09-19T11:00:00+08:00"
+          },
+          {
+            "id": "afternoon",
+            "label": "14:00–16:00",
+            "starts_at": "2026-09-19T14:00:00+08:00",
+            "ends_at": "2026-09-19T16:00:00+08:00"
+          }
+        ]
+      },
+      "calendar": {
+        "installation_event_id": "calendar-installation-aircon-001",
+        "existing_events": [
+          {
+            "id": "calendar-project-meeting",
+            "title": "项目例会",
+            "starts_at": "2026-09-19T09:00:00+08:00",
+            "ends_at": "2026-09-19T11:00:00+08:00"
+          }
+        ]
+      },
+      "payment": {
+        "id": "invoice-materials-aircon-001",
+        "description": "加长铜管 2米",
+        "amount_minor": 13000,
+        "currency": "CNY",
+        "payee": "安装服务团队"
+      },
+      "authorizations": {
+        "calendar_sync_from_confirmed_installation": true,
+        "automatic_payment": false
+      },
+      "source": {
+        "flow_id": "aircon-fresh-v2",
+        "atlas_sha256": "168eb235aefdd446b1f9941b15107d7b6ca2a1ff88ec5d437801d2ea2ee0abf5",
+        "source_frame_count": 12
+      }
+    },
+    "processed_events": {
+      "service-e77766a9badf47ffa64a13f00d88a5b3:0": "d5c6655a20b11685467e82c2bbbf37984769b3a7ade76a8de3a7c9ac41c6499d",
+      "service-4ba45e4f9706458087489c0b90de9b59:0": "7fa0a7c9de7b47b63ecb071572fada8b6bb98f13ca003bb820bba008243a4fdb",
+      "native-verify-05b89fcfbc0a4a0796190c6f87f0dde1": "9de801f6dd55602f1857591a8835305859cc76ff973e10002b1e8b0848dc1669"
+    },
+    "effects": [
+      {
+        "kind": "order.create_demo",
+        "entity_id": "order-aircon-001",
+        "simulation": true,
+        "amount_minor": 279900
+      },
+      {
+        "kind": "logistics.update",
+        "entity_id": "delivery-aircon-001",
+        "simulation": true,
+        "status": "out_for_delivery"
+      }
+    ],
+    "ui": {
+      "surface": "desktop",
+      "app": null,
+      "page": null,
+      "slot_picker": false,
+      "installation_deferred": false,
+      "dismissed_cards": []
+    },
+    "order": {
+      "id": "order-aircon-001",
+      "status": "paid_demo"
+    },
+    "delivery": {
+      "id": "delivery-aircon-001",
+      "status": "out_for_delivery"
+    },
+    "installation": {
+      "id": "booking-aircon-001",
+      "status": "not_available",
+      "selected_slot_id": null,
+      "booked_slot_id": null,
+      "selected_day": "2026-09-19",
+      "booked_day": null,
+      "version": 0
+    },
+    "calendar": {
+      "events": {
+        "calendar-project-meeting": {
+          "id": "calendar-project-meeting",
+          "title": "项目例会",
+          "starts_at": "2026-09-19T09:00:00+08:00",
+          "ends_at": "2026-09-19T11:00:00+08:00"
+        }
+      },
+      "installation_sync": "not_added",
+      "acknowledged": false
+    },
+    "payment": {
+      "id": "invoice-materials-aircon-001",
+      "status": "not_due",
+      "receipt": null
+    }
+  },
+  "after": {
+    "schema_version": 1,
+    "scenario": "aircon-fresh",
+    "simulation": true,
+    "revision": 4,
+    "fixture": {
+      "schema_version": 1,
+      "scenario": "aircon-fresh",
+      "locale": "zh-CN",
+      "timezone": "Asia/Shanghai",
+      "simulation": true,
+      "customer": {
+        "name": "Alex",
+        "address": "家 · 海棠路 18 号"
+      },
+      "order": {
+        "id": "order-aircon-001",
+        "product": "1.5匹变频空调",
+        "amount_minor": 279900,
+        "currency": "CNY"
+      },
+      "delivery": {
+        "id": "delivery-aircon-001",
+        "starts_at": "2026-09-18T14:00:00+08:00",
+        "ends_at": "2026-09-18T16:00:00+08:00",
+        "delivered_at": "2026-09-18T15:20:00+08:00"
+      },
+      "installation": {
+        "id": "booking-aircon-001",
+        "technician": "王师傅",
+        "provider": "安装服务团队",
+        "days": [
+          {
+            "date": "2026-09-19",
+            "label": "周六 9月19日"
+          },
+          {
+            "date": "2026-09-20",
+            "label": "周日 9月20日"
+          }
+        ],
+        "slots": [
+          {
+            "id": "morning",
+            "label": "09:00–11:00",
+            "starts_at": "2026-09-19T09:00:00+08:00",
+            "ends_at": "2026-09-19T11:00:00+08:00"
+          },
+          {
+            "id": "afternoon",
+            "label": "14:00–16:00",
+            "starts_at": "2026-09-19T14:00:00+08:00",
+            "ends_at": "2026-09-19T16:00:00+08:00"
+          }
+        ]
+      },
+      "calendar": {
+        "installation_event_id": "calendar-installation-aircon-001",
+        "existing_events": [
+          {
+            "id": "calendar-project-meeting",
+            "title": "项目例会",
+            "starts_at": "2026-09-19T09:00:00+08:00",
+            "ends_at": "2026-09-19T11:00:00+08:00"
+          }
+        ]
+      },
+      "payment": {
+        "id": "invoice-materials-aircon-001",
+        "description": "加长铜管 2米",
+        "amount_minor": 13000,
+        "currency": "CNY",
+        "payee": "安装服务团队"
+      },
+      "authorizations": {
+        "calendar_sync_from_confirmed_installation": true,
+        "automatic_payment": false
+      },
+      "source": {
+        "flow_id": "aircon-fresh-v2",
+        "atlas_sha256": "168eb235aefdd446b1f9941b15107d7b6ca2a1ff88ec5d437801d2ea2ee0abf5",
+        "source_frame_count": 12
+      }
+    },
+    "processed_events": {
+      "service-e77766a9badf47ffa64a13f00d88a5b3:0": "d5c6655a20b11685467e82c2bbbf37984769b3a7ade76a8de3a7c9ac41c6499d",
+      "service-4ba45e4f9706458087489c0b90de9b59:0": "7fa0a7c9de7b47b63ecb071572fada8b6bb98f13ca003bb820bba008243a4fdb",
+      "native-verify-05b89fcfbc0a4a0796190c6f87f0dde1": "9de801f6dd55602f1857591a8835305859cc76ff973e10002b1e8b0848dc1669",
+      "native-verify-184023a97ca64ef3b643078e6095df16": "bd89251f2e81369becba09871df98328b3f5cccc8ae2ed144de1d60bad7f1684"
+    },
+    "effects": [
+      {
+        "kind": "order.create_demo",
+        "entity_id": "order-aircon-001",
+        "simulation": true,
+        "amount_minor": 279900
+      },
+      {
+        "kind": "logistics.update",
+        "entity_id": "delivery-aircon-001",
+        "simulation": true,
+        "status": "out_for_delivery"
+      },
+      {
+        "kind": "logistics.update",
+        "entity_id": "delivery-aircon-001",
+        "simulation": true,
+        "status": "delivered"
+      }
+    ],
+    "ui": {
+      "surface": "desktop",
+      "app": null,
+      "page": null,
+      "slot_picker": false,
+      "installation_deferred": false,
+      "dismissed_cards": []
+    },
+    "order": {
+      "id": "order-aircon-001",
+      "status": "paid_demo"
+    },
+    "delivery": {
+      "id": "delivery-aircon-001",
+      "status": "delivered",
+      "delivered_at": "2026-09-18T15:20:00+08:00"
+    },
+    "installation": {
+      "id": "booking-aircon-001",
+      "status": "available",
+      "selected_slot_id": null,
+      "booked_slot_id": null,
+      "selected_day": "2026-09-19",
+      "booked_day": null,
+      "version": 0
+    },
+    "calendar": {
+      "events": {
+        "calendar-project-meeting": {
+          "id": "calendar-project-meeting",
+          "title": "项目例会",
+          "starts_at": "2026-09-19T09:00:00+08:00",
+          "ends_at": "2026-09-19T11:00:00+08:00"
+        }
+      },
+      "installation_sync": "not_added",
+      "acknowledged": false
+    },
+    "payment": {
+      "id": "invoice-materials-aircon-001",
+      "status": "not_due",
+      "receipt": null
+    }
+  },
+  "simulation": true
+}

@@ -1,0 +1,852 @@
+{
+  "schema_version": 1,
+  "id": "ios-mail-02",
+  "app": "mail",
+  "number": 1,
+  "title": "mailboxes",
+  "artboard": [
+    406,
+    776
+  ],
+  "palette": {
+    "name": "iOS Mail"
+  },
+  "graphics": {},
+  "tree": {
+    "t": "stack",
+    "id": "page",
+    "x": 0,
+    "y": 0,
+    "w": 406,
+    "h": 776,
+    "c": [
+      {
+        "t": "text",
+        "id": "clock",
+        "text": "9:41",
+        "x": 28,
+        "y": 12.76,
+        "w": 60,
+        "h": 18.48,
+        "size": 14,
+        "line_height": 18.48,
+        "weight": 600,
+        "color": 4280032286,
+        "font_src": "self:resources/ux/Inter-600.ttf",
+        "variant": "single_line",
+        "alignx": 0
+      },
+      {
+        "t": "text",
+        "id": "signal",
+        "text": "•••",
+        "x": 310,
+        "y": 13.08,
+        "w": 30,
+        "h": 15.84,
+        "size": 12,
+        "line_height": 15.84,
+        "weight": 600,
+        "color": 4280032286,
+        "font_src": "self:resources/ux/Inter-600.ttf",
+        "variant": "single_line",
+        "alignx": 0
+      },
+      {
+        "t": "stack",
+        "id": "battery",
+        "x": 354,
+        "y": 17,
+        "w": 23,
+        "h": 10,
+        "c": [],
+        "bg": 4280032286,
+        "variant": "surface",
+        "radius": 2
+      },
+      {
+        "t": "stack",
+        "id": "battery_tip",
+        "x": 378,
+        "y": 20,
+        "w": 2,
+        "h": 4,
+        "c": [],
+        "bg": 4287532691,
+        "variant": "surface",
+        "radius": 1
+      },
+      {
+        "t": "stack",
+        "id": "home_indicator",
+        "x": 137,
+        "y": 762,
+        "w": 132,
+        "h": 5,
+        "c": [],
+        "bg": 4280032286,
+        "variant": "surface",
+        "radius": 3
+      },
+      {
+        "t": "text",
+        "id": "heading",
+        "text": "Mailboxes",
+        "x": 22,
+        "y": 91.56,
+        "w": 364,
+        "h": 44.88,
+        "size": 34,
+        "line_height": 44.88,
+        "weight": 700,
+        "color": 4280032286,
+        "font_src": "self:resources/ux/Inter-700.ttf",
+        "variant": "single_line",
+        "alignx": 0
+      },
+      {
+        "t": "stack",
+        "id": "folders_surface",
+        "x": 20,
+        "y": 158,
+        "w": 366,
+        "h": 318,
+        "c": [],
+        "bg": 4294967295,
+        "variant": "surface",
+        "radius": 13
+      },
+      {
+        "t": "stack",
+        "id": "folder_0",
+        "x": 26,
+        "y": 159,
+        "w": 350,
+        "h": 52,
+        "c": [
+          {
+            "t": "button",
+            "id": "folder_0_control",
+            "x": 26,
+            "y": 159,
+            "w": 350,
+            "h": 52,
+            "enabled": true
+          },
+          {
+            "t": "svg",
+            "id": "folder_0_icon",
+            "x": 36,
+            "y": 173.0,
+            "w": 24,
+            "h": 24
+          },
+          {
+            "t": "text",
+            "id": "folder_0_label",
+            "text": "Sent",
+            "x": 66,
+            "y": 173.78,
+            "w": 306,
+            "h": 22.44,
+            "size": 17,
+            "line_height": 22.44,
+            "weight": 400,
+            "color": 4280032286,
+            "font_src": "self:resources/ux/Inter-400.ttf",
+            "variant": "single_line",
+            "alignx": 0
+          }
+        ],
+        "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+      },
+      {
+        "t": "text",
+        "id": "folder_count_0",
+        "text": "",
+        "x": 305,
+        "y": 174.44,
+        "w": 30,
+        "h": 21.12,
+        "size": 16,
+        "line_height": 21.12,
+        "weight": 400,
+        "color": 4287532691,
+        "font_src": "self:resources/ux/Inter-400.ttf",
+        "variant": "single_line",
+        "alignx": 1
+      },
+      {
+        "t": "svg",
+        "id": "folder_arrow_0",
+        "x": 350,
+        "y": 176,
+        "w": 7.65,
+        "h": 17
+      },
+      {
+        "t": "stack",
+        "id": "folder_line_0",
+        "x": 68,
+        "y": 211,
+        "w": 318,
+        "h": 0.65,
+        "c": [],
+        "bg": 4293059303,
+        "variant": "surface",
+        "radius": 0
+      },
+      {
+        "t": "stack",
+        "id": "folder_1",
+        "x": 26,
+        "y": 212,
+        "w": 350,
+        "h": 52,
+        "c": [
+          {
+            "t": "button",
+            "id": "folder_1_control",
+            "x": 26,
+            "y": 212,
+            "w": 350,
+            "h": 52,
+            "enabled": true
+          },
+          {
+            "t": "svg",
+            "id": "folder_1_icon",
+            "x": 36,
+            "y": 226.0,
+            "w": 24,
+            "h": 24
+          },
+          {
+            "t": "text",
+            "id": "folder_1_label",
+            "text": "Inbox",
+            "x": 66,
+            "y": 226.78,
+            "w": 306,
+            "h": 22.44,
+            "size": 17,
+            "line_height": 22.44,
+            "weight": 400,
+            "color": 4280032286,
+            "font_src": "self:resources/ux/Inter-400.ttf",
+            "variant": "single_line",
+            "alignx": 0
+          }
+        ],
+        "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+      },
+      {
+        "t": "text",
+        "id": "folder_count_1",
+        "text": "5",
+        "x": 305,
+        "y": 227.44,
+        "w": 30,
+        "h": 21.12,
+        "size": 16,
+        "line_height": 21.12,
+        "weight": 400,
+        "color": 4287532691,
+        "font_src": "self:resources/ux/Inter-400.ttf",
+        "variant": "single_line",
+        "alignx": 1
+      },
+      {
+        "t": "svg",
+        "id": "folder_arrow_1",
+        "x": 350,
+        "y": 229,
+        "w": 7.65,
+        "h": 17
+      },
+      {
+        "t": "stack",
+        "id": "folder_line_1",
+        "x": 68,
+        "y": 264,
+        "w": 318,
+        "h": 0.65,
+        "c": [],
+        "bg": 4293059303,
+        "variant": "surface",
+        "radius": 0
+      },
+      {
+        "t": "stack",
+        "id": "folder_2",
+        "x": 26,
+        "y": 265,
+        "w": 350,
+        "h": 52,
+        "c": [
+          {
+            "t": "button",
+            "id": "folder_2_control",
+            "x": 26,
+            "y": 265,
+            "w": 350,
+            "h": 52,
+            "enabled": true
+          },
+          {
+            "t": "svg",
+            "id": "folder_2_icon",
+            "x": 36,
+            "y": 279.0,
+            "w": 24,
+            "h": 24
+          },
+          {
+            "t": "text",
+            "id": "folder_2_label",
+            "text": "Unread",
+            "x": 66,
+            "y": 279.78,
+            "w": 306,
+            "h": 22.44,
+            "size": 17,
+            "line_height": 22.44,
+            "weight": 400,
+            "color": 4280032286,
+            "font_src": "self:resources/ux/Inter-400.ttf",
+            "variant": "single_line",
+            "alignx": 0
+          }
+        ],
+        "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+      },
+      {
+        "t": "text",
+        "id": "folder_count_2",
+        "text": "2",
+        "x": 305,
+        "y": 280.44,
+        "w": 30,
+        "h": 21.12,
+        "size": 16,
+        "line_height": 21.12,
+        "weight": 400,
+        "color": 4287532691,
+        "font_src": "self:resources/ux/Inter-400.ttf",
+        "variant": "single_line",
+        "alignx": 1
+      },
+      {
+        "t": "svg",
+        "id": "folder_arrow_2",
+        "x": 350,
+        "y": 282,
+        "w": 7.65,
+        "h": 17
+      },
+      {
+        "t": "stack",
+        "id": "folder_line_2",
+        "x": 68,
+        "y": 317,
+        "w": 318,
+        "h": 0.65,
+        "c": [],
+        "bg": 4293059303,
+        "variant": "surface",
+        "radius": 0
+      },
+      {
+        "t": "stack",
+        "id": "folder_3",
+        "x": 26,
+        "y": 318,
+        "w": 350,
+        "h": 52,
+        "c": [
+          {
+            "t": "button",
+            "id": "folder_3_control",
+            "x": 26,
+            "y": 318,
+            "w": 350,
+            "h": 52,
+            "enabled": true
+          },
+          {
+            "t": "svg",
+            "id": "folder_3_icon",
+            "x": 36,
+            "y": 332.0,
+            "w": 24,
+            "h": 24
+          },
+          {
+            "t": "text",
+            "id": "folder_3_label",
+            "text": "Flagged",
+            "x": 66,
+            "y": 332.78,
+            "w": 306,
+            "h": 22.44,
+            "size": 17,
+            "line_height": 22.44,
+            "weight": 400,
+            "color": 4280032286,
+            "font_src": "self:resources/ux/Inter-400.ttf",
+            "variant": "single_line",
+            "alignx": 0
+          }
+        ],
+        "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+      },
+      {
+        "t": "text",
+        "id": "folder_count_3",
+        "text": "1",
+        "x": 305,
+        "y": 333.44,
+        "w": 30,
+        "h": 21.12,
+        "size": 16,
+        "line_height": 21.12,
+        "weight": 400,
+        "color": 4287532691,
+        "font_src": "self:resources/ux/Inter-400.ttf",
+        "variant": "single_line",
+        "alignx": 1
+      },
+      {
+        "t": "svg",
+        "id": "folder_arrow_3",
+        "x": 350,
+        "y": 335,
+        "w": 7.65,
+        "h": 17
+      },
+      {
+        "t": "stack",
+        "id": "folder_line_3",
+        "x": 68,
+        "y": 370,
+        "w": 318,
+        "h": 0.65,
+        "c": [],
+        "bg": 4293059303,
+        "variant": "surface",
+        "radius": 0
+      },
+      {
+        "t": "stack",
+        "id": "folder_4",
+        "x": 26,
+        "y": 371,
+        "w": 350,
+        "h": 52,
+        "c": [
+          {
+            "t": "button",
+            "id": "folder_4_control",
+            "x": 26,
+            "y": 371,
+            "w": 350,
+            "h": 52,
+            "enabled": true
+          },
+          {
+            "t": "svg",
+            "id": "folder_4_icon",
+            "x": 36,
+            "y": 385.0,
+            "w": 24,
+            "h": 24
+          },
+          {
+            "t": "text",
+            "id": "folder_4_label",
+            "text": "Drafts",
+            "x": 66,
+            "y": 385.78,
+            "w": 306,
+            "h": 22.44,
+            "size": 17,
+            "line_height": 22.44,
+            "weight": 400,
+            "color": 4280032286,
+            "font_src": "self:resources/ux/Inter-400.ttf",
+            "variant": "single_line",
+            "alignx": 0
+          }
+        ],
+        "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+      },
+      {
+        "t": "text",
+        "id": "folder_count_4",
+        "text": "1",
+        "x": 305,
+        "y": 386.44,
+        "w": 30,
+        "h": 21.12,
+        "size": 16,
+        "line_height": 21.12,
+        "weight": 400,
+        "color": 4287532691,
+        "font_src": "self:resources/ux/Inter-400.ttf",
+        "variant": "single_line",
+        "alignx": 1
+      },
+      {
+        "t": "svg",
+        "id": "folder_arrow_4",
+        "x": 350,
+        "y": 388,
+        "w": 7.65,
+        "h": 17
+      },
+      {
+        "t": "stack",
+        "id": "folder_line_4",
+        "x": 68,
+        "y": 423,
+        "w": 318,
+        "h": 0.65,
+        "c": [],
+        "bg": 4293059303,
+        "variant": "surface",
+        "radius": 0
+      },
+      {
+        "t": "stack",
+        "id": "folder_5",
+        "x": 26,
+        "y": 424,
+        "w": 350,
+        "h": 52,
+        "c": [
+          {
+            "t": "button",
+            "id": "folder_5_control",
+            "x": 26,
+            "y": 424,
+            "w": 350,
+            "h": 52,
+            "enabled": true
+          },
+          {
+            "t": "svg",
+            "id": "folder_5_icon",
+            "x": 36,
+            "y": 438.0,
+            "w": 24,
+            "h": 24
+          },
+          {
+            "t": "text",
+            "id": "folder_5_label",
+            "text": "Archive",
+            "x": 66,
+            "y": 438.78,
+            "w": 306,
+            "h": 22.44,
+            "size": 17,
+            "line_height": 22.44,
+            "weight": 400,
+            "color": 4280032286,
+            "font_src": "self:resources/ux/Inter-400.ttf",
+            "variant": "single_line",
+            "alignx": 0
+          }
+        ],
+        "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+      },
+      {
+        "t": "text",
+        "id": "folder_count_5",
+        "text": "",
+        "x": 305,
+        "y": 439.44,
+        "w": 30,
+        "h": 21.12,
+        "size": 16,
+        "line_height": 21.12,
+        "weight": 400,
+        "color": 4287532691,
+        "font_src": "self:resources/ux/Inter-400.ttf",
+        "variant": "single_line",
+        "alignx": 1
+      },
+      {
+        "t": "svg",
+        "id": "folder_arrow_5",
+        "x": 350,
+        "y": 441,
+        "w": 7.65,
+        "h": 17
+      },
+      {
+        "t": "stack",
+        "id": "account_surface",
+        "x": 20,
+        "y": 496,
+        "w": 366,
+        "h": 76,
+        "c": [],
+        "bg": 4294967295,
+        "variant": "surface",
+        "radius": 13
+      },
+      {
+        "t": "stack",
+        "id": "account_open",
+        "x": 20,
+        "y": 496,
+        "w": 366,
+        "h": 76,
+        "c": [
+          {
+            "t": "button",
+            "id": "account_open_control",
+            "x": 20,
+            "y": 496,
+            "w": 366,
+            "h": 76,
+            "enabled": true
+          }
+        ],
+        "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+      },
+      {
+        "t": "svg",
+        "id": "gmail_icon",
+        "x": 34,
+        "y": 518,
+        "w": 30,
+        "h": 30
+      },
+      {
+        "t": "text",
+        "id": "account_name",
+        "text": "Gmail",
+        "x": 80,
+        "y": 506.28,
+        "w": 160,
+        "h": 22.44,
+        "size": 17,
+        "line_height": 22.44,
+        "weight": 600,
+        "color": 4280032286,
+        "font_src": "self:resources/ux/Inter-600.ttf",
+        "variant": "single_line",
+        "alignx": 0
+      },
+      {
+        "t": "text",
+        "id": "account_address",
+        "text": "you@gmail.com",
+        "x": 80,
+        "y": 535.08,
+        "w": 245,
+        "h": 15.84,
+        "size": 12,
+        "line_height": 15.84,
+        "weight": 400,
+        "color": 4287532691,
+        "font_src": "self:resources/ux/Inter-400.ttf",
+        "variant": "single_line",
+        "alignx": 0
+      },
+      {
+        "t": "text",
+        "id": "account_status",
+        "text": "Sample",
+        "x": 284,
+        "y": 514.58,
+        "w": 88,
+        "h": 15.84,
+        "size": 12,
+        "line_height": 15.84,
+        "weight": 400,
+        "color": 4281641043,
+        "font_src": "self:resources/ux/Inter-400.ttf",
+        "variant": "single_line",
+        "alignx": 1
+      },
+      {
+        "t": "stack",
+        "id": "settings",
+        "x": 20,
+        "y": 590,
+        "w": 366,
+        "h": 56,
+        "c": [
+          {
+            "t": "button",
+            "id": "settings_control",
+            "x": 20,
+            "y": 590,
+            "w": 366,
+            "h": 56,
+            "enabled": true
+          },
+          {
+            "t": "stack",
+            "id": "settings_surface",
+            "x": 20,
+            "y": 590,
+            "w": 366,
+            "h": 56,
+            "c": [],
+            "bg": 4294967295,
+            "variant": "surface",
+            "radius": 12
+          },
+          {
+            "t": "svg",
+            "id": "settings_icon",
+            "x": 30,
+            "y": 606.0,
+            "w": 24,
+            "h": 24
+          },
+          {
+            "t": "text",
+            "id": "settings_label",
+            "text": "Settings",
+            "x": 60,
+            "y": 606.78,
+            "w": 322,
+            "h": 22.44,
+            "size": 17,
+            "line_height": 22.44,
+            "weight": 400,
+            "color": 4280032286,
+            "font_src": "self:resources/ux/Inter-400.ttf",
+            "variant": "single_line",
+            "alignx": 0
+          }
+        ],
+        "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+      },
+      {
+        "t": "stack",
+        "id": "new_mail_card",
+        "x": 20,
+        "y": 659,
+        "w": 240,
+        "h": 40,
+        "c": [
+          {
+            "t": "button",
+            "id": "new_mail_card_control",
+            "x": 20,
+            "y": 659,
+            "w": 240,
+            "h": 40,
+            "enabled": true
+          },
+          {
+            "t": "svg",
+            "id": "new_mail_card_icon",
+            "x": 30,
+            "y": 667.0,
+            "w": 24,
+            "h": 24
+          },
+          {
+            "t": "text",
+            "id": "new_mail_card_label",
+            "text": "New Mail card",
+            "x": 60,
+            "y": 667.78,
+            "w": 196,
+            "h": 22.44,
+            "size": 17,
+            "line_height": 22.44,
+            "weight": 400,
+            "color": 4278221567,
+            "font_src": "self:resources/ux/Inter-400.ttf",
+            "variant": "single_line",
+            "alignx": 0
+          }
+        ],
+        "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+      },
+      {
+        "t": "stack",
+        "id": "gmail_folders",
+        "x": 20,
+        "y": 709,
+        "w": 280,
+        "h": 44,
+        "c": [
+          {
+            "t": "button",
+            "id": "gmail_folders_control",
+            "x": 20,
+            "y": 709,
+            "w": 280,
+            "h": 44,
+            "enabled": true
+          },
+          {
+            "t": "svg",
+            "id": "gmail_folders_icon",
+            "x": 30,
+            "y": 719.0,
+            "w": 24,
+            "h": 24
+          },
+          {
+            "t": "text",
+            "id": "gmail_folders_label",
+            "text": "Gmail folders",
+            "x": 60,
+            "y": 719.78,
+            "w": 236,
+            "h": 22.44,
+            "size": 17,
+            "line_height": 22.44,
+            "weight": 400,
+            "color": 4278221567,
+            "font_src": "self:resources/ux/Inter-400.ttf",
+            "variant": "single_line",
+            "alignx": 0
+          }
+        ],
+        "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+      },
+      {
+        "t": "stack",
+        "id": "compose",
+        "x": 338,
+        "y": 709,
+        "w": 48,
+        "h": 44,
+        "c": [
+          {
+            "t": "button",
+            "id": "compose_control",
+            "x": 338,
+            "y": 709,
+            "w": 48,
+            "h": 44,
+            "enabled": true
+          },
+          {
+            "t": "svg",
+            "id": "compose_icon",
+            "x": 350.0,
+            "y": 719.0,
+            "w": 24,
+            "h": 24
+          }
+        ],
+        "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+      }
+    ],
+    "bg": 4294111991,
+    "variant": "surface",
+    "radius": 0
+  }
+}

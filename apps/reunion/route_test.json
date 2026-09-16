@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "name": "All twelve states, calendar undo, payment cancel and immutable receipt",
+      "steps": [
+        {"control":"open_invite","frame":2,"assert":{"ui.surface":"app"}},
+        {"control":"open_poll","frame":3,"assert":{"ui.surface":"desktop"}},
+        {"control":"choose_time","frame":4},
+        {"control":"friday","disabled":true,"frame":4},
+        {"control":"confirm_attendance","disabled":true,"frame":4},
+        {"control":"saturday","frame":5,"assert":{"poll.selected":"saturday","reunion.rsvp":"invited"}},
+        {"control":"confirm_attendance","frame":6,"assert":{"reunion.rsvp":"confirmed","calendar.status":"absent"}},
+        {"update":true,"frame":7,"assert":{"reunion.confirmed":true,"calendar.status":"added","payment.status":"unrequested"}},
+        {"control":"ack_calendar","frame":7,"assert":{"calendar.acknowledged":true}},
+        {"control":"ack_calendar","disabled":true,"frame":7},
+        {"control":"undo_calendar","frame":8,"assert":{"calendar.status":"removed","reunion.rsvp":"confirmed"}},
+        {"control":"restore_calendar","frame":7,"assert":{"calendar.status":"added","calendar.event.id":"calendar-reunion-2016"}},
+        {"update":true,"frame":9,"assert":{"payment.status":"due","payment.amountMinor":18000}},
+        {"control":"cancel_payment","frame":10,"assert":{"payment.status":"cancelled","reunion.rsvp":"confirmed"}},
+        {"control":"reopen_payment","frame":9,"assert":{"payment.status":"due"}},
+        {"control":"pay_contribution","frame":11,"assert":{"payment.status":"paid","payment.receipt.id":"REU-20261024-001"}},
+        {"control":"view_reunion","frame":12,"assert":{"ui.surface":"app","payment.status":"paid"}},
+        {"control":"back_desktop","frame":11},
+        {"restart":true,"frame":1,"assert":{"payment.status":"unrequested","calendar.status":"absent"}}
+      ]
+    },
+    {
+      "name": "Sunday preference is resolved by a separate organizer update",
+      "steps": [
+        {"control":"open_invite","frame":2},
+        {"control":"group_info","frame":12,"assert":{"reunion.rsvp":"invited","payment.receipt":null}},
+        {"back":true,"frame":2},
+        {"control":"open_poll","frame":3},
+        {"control":"choose_time","frame":4},
+        {"control":"sunday","frame":5,"assert":{"poll.selected":"sunday"}},
+        {"control":"confirm_attendance","frame":6,"assert":{"reunion.preferredSlot":"sunday","calendar.event":null}},
+        {"update":true,"frame":7,"assert":{"reunion.preferredSlot":"sunday","reunion.confirmedSlot":"saturday","calendar.event.startsAt":"2026-10-24T18:30:00+08:00"}},
+        {"control":"undo_calendar","frame":8},
+        {"update":true,"frame":9,"assert":{"calendar.status":"removed","payment.status":"due"}},
+        {"control":"cancel_payment","frame":10,"assert":{"calendar.status":"removed","reunion.rsvp":"confirmed"}},
+        {"control":"view_reunion","frame":12,"assert":{"payment.receipt":null,"payment.status":"cancelled"}}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,712 @@
+{
+  "schema_version": 1,
+  "elements": [
+    {
+      "source_id": "page",
+      "native_id": "beauty_0",
+      "parent": null,
+      "kind": "stack",
+      "component": "Surface991755d1cfb2",
+      "semantic_role": "layout",
+      "bounds": [
+        0,
+        0,
+        406,
+        776
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "screen",
+      "native_id": "beauty_0_0",
+      "parent": "page",
+      "kind": "stack",
+      "component": "Surfacec61a27836ddc",
+      "semantic_role": "layout",
+      "bounds": [
+        0.0,
+        2.0,
+        406.0,
+        771.5
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "payment_card",
+      "native_id": "beauty_0_0_0",
+      "parent": "screen",
+      "kind": "stack",
+      "component": "Surface5aaf67947bfb",
+      "semantic_role": "card",
+      "bounds": [
+        21.991666666666667,
+        59.52412280701754,
+        365.4,
+        441.58223684210526
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "pay_contribution",
+      "native_id": "beauty_0_0_0_0",
+      "parent": "payment_card",
+      "kind": "stack",
+      "component": "KitButton3f1620e22939",
+      "semantic_role": "button",
+      "bounds": [
+        42.291666666666664,
+        421.5877192982456,
+        164.09166666666667,
+        57.52412280701754
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "pay_contribution_surface",
+      "native_id": "beauty_0_0_0_0_0",
+      "parent": "pay_contribution",
+      "kind": "stack",
+      "component": "Surfaceb786476b89e6",
+      "semantic_role": "layout",
+      "bounds": [
+        42.291666666666664,
+        421.5877192982456,
+        164.09166666666667,
+        57.52412280701754
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "pay_contribution_control",
+      "native_id": "beauty_0_0_0_0_1",
+      "parent": "pay_contribution",
+      "kind": "button",
+      "component": "NativeButton02f1d1bd99b4",
+      "semantic_role": "button",
+      "bounds": [
+        42.291666666666664,
+        421.5877192982456,
+        164.09166666666667,
+        57.52412280701754
+      ],
+      "text": null,
+      "enabled": 1,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "text_46",
+      "native_id": "beauty_0_0_0_0_2",
+      "parent": "pay_contribution",
+      "kind": "text",
+      "component": "Text43363c1fc75d",
+      "semantic_role": "text",
+      "bounds": [
+        74.35030898280647,
+        438.42083282550203,
+        105.90398628821885,
+        25.12680903845161
+      ],
+      "text": "\u652f\u4ed8 \u00a5180",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 22.930689983847625
+    },
+    {
+      "source_id": "cancel_payment",
+      "native_id": "beauty_0_0_0_1",
+      "parent": "payment_card",
+      "kind": "stack",
+      "component": "KitButton3f1620e22939",
+      "semantic_role": "button",
+      "bounds": [
+        213.15,
+        421.5877192982456,
+        155.63333333333333,
+        57.52412280701754
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "cancel_payment_surface",
+      "native_id": "beauty_0_0_0_1_0",
+      "parent": "cancel_payment",
+      "kind": "stack",
+      "component": "Surfacef8fdcabbea4d",
+      "semantic_role": "layout",
+      "bounds": [
+        213.15,
+        421.5877192982456,
+        155.63333333333333,
+        57.52412280701754
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "cancel_payment_control",
+      "native_id": "beauty_0_0_0_1_1",
+      "parent": "cancel_payment",
+      "kind": "button",
+      "component": "NativeButton02f1d1bd99b4",
+      "semantic_role": "button",
+      "bounds": [
+        213.15,
+        421.5877192982456,
+        155.63333333333333,
+        57.52412280701754
+      ],
+      "text": null,
+      "enabled": 1,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "text_47",
+      "native_id": "beauty_0_0_0_1_2",
+      "parent": "cancel_payment",
+      "kind": "text",
+      "component": "Texte551a58c66ce",
+      "semantic_role": "text",
+      "bounds": [
+        251.8623776291056,
+        439.80832040242547,
+        83.58873028481705,
+        22.35183472484073
+      ],
+      "text": "\u53d6\u6d88\u652f\u4ed8",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 19.89718257120426
+    },
+    {
+      "source_id": "wallet_icon_0",
+      "native_id": "beauty_0_0_0_2",
+      "parent": "payment_card",
+      "kind": "svg",
+      "component": "Vectore0a378fde04f",
+      "semantic_role": "icon",
+      "bounds": [
+        49.05833333333333,
+        81.51864035087719,
+        42.291666666666664,
+        42.297149122807014
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "text_36",
+      "native_id": "beauty_0_0_0_3",
+      "parent": "payment_card",
+      "kind": "text",
+      "component": "Textfa9d6413cbbc",
+      "semantic_role": "text",
+      "bounds": [
+        107.78473048299325,
+        90.42625408296993,
+        127.36253676693565,
+        21.6268637109083
+      ],
+      "text": "\u652f\u4ed8 \u00b7 \u5f85\u4ed8\u6b3e",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 19.13190706683245
+    },
+    {
+      "source_id": "text_37",
+      "native_id": "beauty_0_0_0_4",
+      "parent": "payment_card",
+      "kind": "text",
+      "component": "Texta73302b87c92",
+      "semantic_role": "text",
+      "bounds": [
+        41.07147591167387,
+        140.79743157565605,
+        161.00339042856032,
+        24.419139004490045
+      ],
+      "text": "2016\u5c4a\u540c\u5b66\u805a\u4f1a",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 21.745621943013894
+    },
+    {
+      "source_id": "text_38",
+      "native_id": "beauty_0_0_0_5",
+      "parent": "payment_card",
+      "kind": "text",
+      "component": "Texta14901519f2e",
+      "semantic_role": "text",
+      "bounds": [
+        40.02290724925648,
+        184.1197647958004,
+        146.14690855373829,
+        52.59887549202133
+      ],
+      "text": "\u00a5180",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 64.03013898817039
+    },
+    {
+      "source_id": "text_39",
+      "native_id": "beauty_0_0_0_6",
+      "parent": "payment_card",
+      "kind": "text",
+      "component": "Text5c910155d199",
+      "semantic_role": "text",
+      "bounds": [
+        44.31896643685673,
+        259.39060942153554,
+        68.94963911608976,
+        23.93953920863955
+      ],
+      "text": "\u6536\u6b3e\u4eba",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 21.64987970536325
+    },
+    {
+      "source_id": "text_40",
+      "native_id": "beauty_0_0_0_7",
+      "parent": "payment_card",
+      "kind": "text",
+      "component": "Text5f9aa504aec6",
+      "semantic_role": "text",
+      "bounds": [
+        41.20813036328508,
+        297.5482139096078,
+        49.82313667348572,
+        25.39940482651783
+      ],
+      "text": "\u7528\u9014",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 22.91156833674286
+    },
+    {
+      "source_id": "text_41",
+      "native_id": "beauty_0_0_0_8",
+      "parent": "payment_card",
+      "kind": "text",
+      "component": "Text57db74719f18",
+      "semantic_role": "text",
+      "bounds": [
+        44.74175530503284,
+        331.71281679907537,
+        46.755014955585295,
+        23.56041934218027
+      ],
+      "text": "\u6d3b\u52a8",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 21.377507477792648
+    },
+    {
+      "source_id": "text_42",
+      "native_id": "beauty_0_0_0_9",
+      "parent": "payment_card",
+      "kind": "text",
+      "component": "Text8c3af9d8a74c",
+      "semantic_role": "text",
+      "bounds": [
+        129.4725384320336,
+        262.3859642948999,
+        51.23757812108305,
+        25.7292859356982
+      ],
+      "text": "\u738b\u5b81",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 23.618789060541523
+    },
+    {
+      "source_id": "text_43",
+      "native_id": "beauty_0_0_0_10",
+      "parent": "payment_card",
+      "kind": "text",
+      "component": "Textaed44902ad68",
+      "semantic_role": "text",
+      "bounds": [
+        137.150526726779,
+        297.1959386301147,
+        83.99809030720265,
+        22.599555996424613
+      ],
+      "text": "\u805a\u4f1a\u9910\u8d39",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 19.99952257680066
+    },
+    {
+      "source_id": "text_44",
+      "native_id": "beauty_0_0_0_11",
+      "parent": "payment_card",
+      "kind": "text",
+      "component": "Text4a548110c450",
+      "semantic_role": "text",
+      "bounds": [
+        137.4390116424871,
+        332.3064909190292,
+        186.85296446207417,
+        22.37307225284424
+      ],
+      "text": "\u5468\u516d 10\u670824\u65e5 18:30",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 19.949046962914483
+    },
+    {
+      "source_id": "text_45",
+      "native_id": "beauty_0_0_0_12",
+      "parent": "payment_card",
+      "kind": "text",
+      "component": "Texta8c7897f5813",
+      "semantic_role": "text",
+      "bounds": [
+        43.73525869988529,
+        378.24318326150654,
+        176.9889772865227,
+        22.941146305638433
+      ],
+      "text": "\u5df2\u62a5\u540d \u00b7 \u6728\u5149\u9910\u5385",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 20.476914925014523
+    },
+    {
+      "source_id": "rsvp_summary",
+      "native_id": "beauty_0_0_1",
+      "parent": "screen",
+      "kind": "stack",
+      "component": "Surface5aaf67947bfb",
+      "semantic_role": "card",
+      "bounds": [
+        21.991666666666667,
+        516.3333333333333,
+        365.4,
+        108.28070175438596
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "view_reunion",
+      "native_id": "beauty_0_0_1_0",
+      "parent": "rsvp_summary",
+      "kind": "stack",
+      "component": "KitButtonc745f1e63f07",
+      "semantic_role": "button",
+      "bounds": [
+        21.991666666666667,
+        516.3333333333333,
+        365.4,
+        108.28070175438596
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "view_reunion_surface",
+      "native_id": "beauty_0_0_1_0_0",
+      "parent": "view_reunion",
+      "kind": "stack",
+      "component": "Surface1cc6a0b4e6b7",
+      "semantic_role": "layout",
+      "bounds": [
+        21.991666666666667,
+        516.3333333333333,
+        365.4,
+        108.28070175438596
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "view_reunion_control",
+      "native_id": "beauty_0_0_1_0_1",
+      "parent": "view_reunion",
+      "kind": "button",
+      "component": "NativeButton02f1d1bd99b4",
+      "semantic_role": "button",
+      "bounds": [
+        21.991666666666667,
+        516.3333333333333,
+        365.4,
+        108.28070175438596
+      ],
+      "text": null,
+      "enabled": 1,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "group_icon_1",
+      "native_id": "beauty_0_0_1_1",
+      "parent": "rsvp_summary",
+      "kind": "svg",
+      "component": "Vectore0a378fde04f",
+      "semantic_role": "icon",
+      "bounds": [
+        47.36666666666667,
+        540.0197368421052,
+        42.291666666666664,
+        42.297149122807014
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "text_48",
+      "native_id": "beauty_0_0_1_2",
+      "parent": "rsvp_summary",
+      "kind": "text",
+      "component": "Text613f11e396ba",
+      "semantic_role": "text",
+      "bounds": [
+        115.25625377610459,
+        543.4062166123795,
+        142.1398836085282,
+        22.412073058108117
+      ],
+      "text": "\u805a\u4f1a\u62a5\u540d\u4ecd\u6709\u6548",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 19.734269086932603
+    },
+    {
+      "source_id": "text_49",
+      "native_id": "beauty_0_0_1_3",
+      "parent": "rsvp_summary",
+      "kind": "text",
+      "component": "Textc9eed8aa6721",
+      "semantic_role": "text",
+      "bounds": [
+        115.62194230088794,
+        577.7500598628898,
+        182.46468139039922,
+        20.686447710002327
+      ],
+      "text": "\u4f60\u5df2\u786e\u8ba4\u53c2\u52a0\u672c\u6b21\u805a\u4f1a",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 17.84646813903992
+    },
+    {
+      "source_id": "dock",
+      "native_id": "beauty_0_0_2",
+      "parent": "screen",
+      "kind": "stack",
+      "component": "Surfacea1200c16ad2c",
+      "semantic_role": "layout",
+      "bounds": [
+        0.0,
+        661.8355263157895,
+        406.0,
+        111.66447368421052
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "dock_message",
+      "native_id": "beauty_0_0_2_0",
+      "parent": "dock",
+      "kind": "svg",
+      "component": "Vectore0a378fde04f",
+      "semantic_role": "icon",
+      "bounds": [
+        33.833333333333336,
+        677.0625,
+        37.21666666666667,
+        38.91337719298245
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "dock_calendar",
+      "native_id": "beauty_0_0_2_1",
+      "parent": "dock",
+      "kind": "svg",
+      "component": "Vectore0a378fde04f",
+      "semantic_role": "icon",
+      "bounds": [
+        133.07777777777775,
+        677.0625,
+        37.21666666666667,
+        38.91337719298245
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "dock_group",
+      "native_id": "beauty_0_0_2_2",
+      "parent": "dock",
+      "kind": "svg",
+      "component": "Vectore0a378fde04f",
+      "semantic_role": "icon",
+      "bounds": [
+        232.3222222222222,
+        677.0625,
+        37.21666666666667,
+        38.91337719298245
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "dock_wallet",
+      "native_id": "beauty_0_0_2_3",
+      "parent": "dock",
+      "kind": "svg",
+      "component": "Vectore0a378fde04f",
+      "semantic_role": "icon",
+      "bounds": [
+        331.56666666666666,
+        677.0625,
+        37.21666666666667,
+        38.91337719298245
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "text_34",
+      "native_id": "beauty_0_0_3",
+      "parent": "screen",
+      "kind": "text",
+      "component": "Text51915168f542",
+      "semantic_role": "text",
+      "bounds": [
+        32.78040869972714,
+        15.74599849909887,
+        54.08132187635281,
+        19.21686281191024
+      ],
+      "text": "10:12",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 20.04856760462482
+    },
+    {
+      "source_id": "text_50",
+      "native_id": "beauty_0_0_4",
+      "parent": "screen",
+      "kind": "text",
+      "component": "Text3b2440fef333",
+      "semantic_role": "text",
+      "bounds": [
+        33.8077366810607,
+        728.6837000703765,
+        42.786668920525734,
+        22.035801048044465
+      ],
+      "text": "\u6d88\u606f",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 19.393334460262867
+    },
+    {
+      "source_id": "text_51",
+      "native_id": "beauty_0_0_5",
+      "parent": "screen",
+      "kind": "text",
+      "component": "Textb3ac1c0fabf3",
+      "semantic_role": "text",
+      "bounds": [
+        229.92270221617846,
+        728.7911676487948,
+        42.324444368623084,
+        21.820866631409732
+      ],
+      "text": "\u805a\u4f1a",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 19.162222184311542
+    },
+    {
+      "source_id": "text_52",
+      "native_id": "beauty_0_0_6",
+      "parent": "screen",
+      "kind": "text",
+      "component": "Text7027784f8d5d",
+      "semantic_role": "text",
+      "bounds": [
+        329.7152414825664,
+        728.8189748134939,
+        42.56422191420363,
+        21.765251561809805
+      ],
+      "text": "\u652f\u4ed8",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 19.282110957101814
+    },
+    {
+      "source_id": "dock_calendar_label",
+      "native_id": "beauty_0_0_7",
+      "parent": "screen",
+      "kind": "text",
+      "component": "Text9a7cde1b7bb4",
+      "semantic_role": "text",
+      "bounds": [
+        129.94311594202898,
+        728.5419908466819,
+        46.028985507246375,
+        22.240579710144928
+      ],
+      "text": "\u65e5\u5386",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 21.014492753623188
+    }
+  ],
+  "fonts": {
+    "self:resources/service/NotoSansSC-Regular.ttf": "62513a5d6706afa489edfd29e1c860d076a3d36f0ba865fa917ebb79a96dfef8"
+  },
+  "contract_sha256": "15f9c1206fa0ab1ea3692ea865f2724afd6c1fffd37cf4cb4efdaaed3cf112f2",
+  "mapping_basis": "mapped.json"
+}

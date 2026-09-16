@@ -1,0 +1,41 @@
+# ledger reunion-rsvp-summary-10@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy text_92_text { class: user-copy, en: "聚会报名仍有效" }
+copy text_93_text { class: user-copy, en: "你已确认参加本次聚会" }
+state view_reunion_control_enabled { shape: bool, initial: true }
+component Surfacec68b2b978c4e(instance: text) {
+  view Kit(component: "Surfacec68b2b978c4e", instance: instance) { slot }
+}
+component KitButtonc745f1e63f07(instance: text) {
+  view Kit(component: "KitButtonc745f1e63f07", instance: instance) { slot }
+}
+component Surface1cc6a0b4e6b7(instance: text) {
+  view Kit(component: "Surface1cc6a0b4e6b7", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Text25f3e2ba2b6b(instance: text, text: text) {
+  view Kit(component: "Text25f3e2ba2b6b", instance: instance, text: text)
+}
+component Text4f571ac6c383(instance: text, text: text) {
+  view Kit(component: "Text4f571ac6c383", instance: instance, text: text)
+}
+
+view root Surfacec68b2b978c4e(instance: "rsvp_summary") {
+  KitButtonc745f1e63f07(instance: "view_reunion") {
+    Surface1cc6a0b4e6b7(instance: "view_reunion_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "view_reunion_control", enabled: view_reunion_control_enabled)
+  }
+  Vectore0a378fde04f(instance: "group_icon_1")
+  Text25f3e2ba2b6b(instance: "text_92", text: copy.text_92_text)
+  Text4f571ac6c383(instance: "text_93", text: copy.text_93_text)
+}

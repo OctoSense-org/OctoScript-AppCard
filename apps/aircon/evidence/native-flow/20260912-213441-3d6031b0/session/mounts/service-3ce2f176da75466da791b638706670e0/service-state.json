@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "scenario": "aircon-fresh",
+  "simulation": true,
+  "revision": 3,
+  "fixture": {
+    "schema_version": 1,
+    "scenario": "aircon-fresh",
+    "locale": "zh-CN",
+    "timezone": "Asia/Shanghai",
+    "simulation": true,
+    "customer": {
+      "name": "Alex",
+      "address": "家 · 海棠路 18 号"
+    },
+    "order": {
+      "id": "order-aircon-001",
+      "product": "1.5匹变频空调",
+      "amount_minor": 279900,
+      "currency": "CNY"
+    },
+    "delivery": {
+      "id": "delivery-aircon-001",
+      "starts_at": "2026-09-18T14:00:00+08:00",
+      "ends_at": "2026-09-18T16:00:00+08:00",
+      "delivered_at": "2026-09-18T15:20:00+08:00"
+    },
+    "installation": {
+      "id": "booking-aircon-001",
+      "technician": "王师傅",
+      "provider": "安装服务团队",
+      "days": [
+        {
+          "date": "2026-09-19",
+          "label": "周六 9月19日"
+        },
+        {
+          "date": "2026-09-20",
+          "label": "周日 9月20日"
+        }
+      ],
+      "slots": [
+        {
+          "id": "morning",
+          "label": "09:00–11:00",
+          "starts_at": "2026-09-19T09:00:00+08:00",
+          "ends_at": "2026-09-19T11:00:00+08:00"
+        },
+        {
+          "id": "afternoon",
+          "label": "14:00–16:00",
+          "starts_at": "2026-09-19T14:00:00+08:00",
+          "ends_at": "2026-09-19T16:00:00+08:00"
+        }
+      ]
+    },
+    "calendar": {
+      "installation_event_id": "calendar-installation-aircon-001",
+      "existing_events": [
+        {
+          "id": "calendar-project-meeting",
+          "title": "项目例会",
+          "starts_at": "2026-09-19T09:00:00+08:00",
+          "ends_at": "2026-09-19T11:00:00+08:00"
+        }
+      ]
+    },
+    "payment": {
+      "id": "invoice-materials-aircon-001",
+      "description": "加长铜管 2米",
+      "amount_minor": 13000,
+      "currency": "CNY",
+      "payee": "安装服务团队"
+    },
+    "authorizations": {
+      "calendar_sync_from_confirmed_installation": true,
+      "automatic_payment": false
+    },
+    "source": {
+      "flow_id": "aircon-fresh-v2",
+      "atlas_sha256": "168eb235aefdd446b1f9941b15107d7b6ca2a1ff88ec5d437801d2ea2ee0abf5",
+      "source_frame_count": 12
+    }
+  },
+  "processed_events": {
+    "service-7fa4f611651d462d87f18ae3a2da6048:0": "284c0f8540e8449767327e21c0807652d6c28e85d841dc45a57b4be2f4b5dc39",
+    "service-136cbcc41c244e6d8330cc0428d169c5:0": "decd1b70372dae5e413fbe5657710674ca6daf91c8d1eacc2e6c60c26d686921",
+    "native-verify-0d357f7df23541d192c9814051e71d54": "b547af42d3b3055d0aaa1b3db8721e77d170db885818b3a97266493684c22b1c"
+  },
+  "effects": [
+    {
+      "kind": "order.create_demo",
+      "entity_id": "order-aircon-001",
+      "simulation": true,
+      "amount_minor": 279900
+    },
+    {
+      "kind": "logistics.update",
+      "entity_id": "delivery-aircon-001",
+      "simulation": true,
+      "status": "out_for_delivery"
+    }
+  ],
+  "ui": {
+    "surface": "desktop",
+    "app": null,
+    "page": null,
+    "slot_picker": false,
+    "installation_deferred": false,
+    "dismissed_cards": []
+  },
+  "order": {
+    "id": "order-aircon-001",
+    "status": "paid_demo"
+  },
+  "delivery": {
+    "id": "delivery-aircon-001",
+    "status": "out_for_delivery"
+  },
+  "installation": {
+    "id": "booking-aircon-001",
+    "status": "not_available",
+    "selected_slot_id": null,
+    "booked_slot_id": null,
+    "selected_day": "2026-09-19",
+    "booked_day": null,
+    "version": 0
+  },
+  "calendar": {
+    "events": {
+      "calendar-project-meeting": {
+        "id": "calendar-project-meeting",
+        "title": "项目例会",
+        "starts_at": "2026-09-19T09:00:00+08:00",
+        "ends_at": "2026-09-19T11:00:00+08:00"
+      }
+    },
+    "installation_sync": "not_added",
+    "acknowledged": false
+  },
+  "payment": {
+    "id": "invoice-materials-aircon-001",
+    "status": "not_due",
+    "receipt": null
+  }
+}

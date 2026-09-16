@@ -1,0 +1,59 @@
+use mod.prelude.widgets.*
+return View{width:Fill height:Fill flow:Overlay beauty_0 := DesignSurface {
+width: 364.2539 height: 196.14043
+abs_pos: vec2(0, 0)
+draw_bg.radius: 24.90625 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfbff
+beauty_0_0 := KitButton {
+contract: "{\"bindings\":{\"control\":\"beauty_0_0_1\",\"label\":\"beauty_0_0_2\"},\"widget\":\"KitButton\"}" glass: false
+width: 181.34863 height: 48.25677
+abs_pos: vec2(80.1669921875, 128.42527582748244)
+flow: Overlay padding: 0 clip_x: false clip_y: false
+beauty_0_0_0 := DesignSurface {
+width: 181.34863 height: 48.25677
+abs_pos: vec2(80.1669921875, 128.42527582748244)
+draw_bg.radius: 15.566406 draw_bg.ellipse: 0 draw_bg.border_width: 0.65 draw_bg.border_position: 0 draw_bg.border_color: #cbd6ceff
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfbff
+}
+beauty_0_0_1 := DesignNativeButton {
+width: 181.34863 height: 48.25677
+abs_pos: vec2(80.1669921875, 128.42527582748244)
+enabled: true
+}
+beauty_0_0_2 := Label {
+width: 85.57417 height: 22.172745
+abs_pos: vec2(124.88337436074434, 142.29415568003287)
+clip_x: false clip_y: false
+padding: 0 text: "重新加入" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.22066161 desc: 0.111661606 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 14.9053545 line_spacing: 1 letter_spacing: 0.096491225}
+draw_text.color: #608570ff
+}
+}
+beauty_0_1 := Svg {
+width: 35.024414 height: 36.581745
+abs_pos: vec2(17.9013671875, 21.015045135406183)
+animating: false draw_svg.svg: http_resource("http://127.0.0.1:8170/ux-images/calendar_undone-09/assets/calendar_icon_2-ae776c61fe98.svg") draw_svg.preserve_viewbox: true draw_svg.preserve_aspect: false
+}
+beauty_0_2 := Label {
+width: 150.68208 height: 22.52978
+abs_pos: vec2(63.74183556905163, 30.059357938997437)
+clip_x: false clip_y: false
+padding: 0 text: "日历记录已撤销" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.22172703 desc: 0.11472703 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 15.201653 line_spacing: 1 letter_spacing: 0.51666665}
+draw_text.color: #31413cff
+}
+beauty_0_3 := Label {
+width: 143.05537 height: 20
+abs_pos: vec2(20.721247558870232, 73.21253263390957)
+clip_x: false clip_y: false
+padding: 0 text: "安装预约仍然有效" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.20275445 desc: 0.09375446 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 12.872379 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+}
+}

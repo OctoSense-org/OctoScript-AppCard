@@ -1,0 +1,170 @@
+# ledger ios-mail-04@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy clock_text { class: user-copy, en: "9:41" }
+copy signal_text { class: user-copy, en: "•••" }
+copy back_label_text { class: user-copy, en: "Cancel" }
+copy heading_text { class: user-copy, en: "Search" }
+copy search_field_input_text { class: user-copy, en: "design" }
+copy search_field_input_placeholder { class: user-copy, en: "Search subjects" }
+copy clear_search_label_text { class: user-copy, en: "×" }
+copy results_label_text { class: user-copy, en: "Results · 1 messages" }
+copy message_0_sender_text { class: user-copy, en: "Studio Team" }
+copy message_0_time_text { class: user-copy, en: "8:40 AM" }
+copy message_0_subject_text { class: user-copy, en: "September design review" }
+copy message_0_preview_text { class: user-copy, en: "The updated screens are ready for a look. Please…" }
+copy list_footer_text { class: user-copy, en: "All messages loaded" }
+copy sync_status_text { class: user-copy, en: "Sample mailbox" }
+copy message_count_text { class: user-copy, en: "1 messages" }
+state back_control_enabled { shape: bool, initial: true }
+state clear_search_control_enabled { shape: bool, initial: true }
+state message_0_open_control_enabled { shape: bool, initial: true }
+state tool_filter_control_enabled { shape: bool, initial: true }
+state tool_compose_control_enabled { shape: bool, initial: true }
+component Surfacef468f03a0025(instance: text) {
+  view Kit(component: "Surfacef468f03a0025", instance: instance) { slot }
+}
+component Texte27738bae55e(instance: text, text: text) {
+  view Kit(component: "Texte27738bae55e", instance: instance, text: text)
+}
+component Text4e382b71b3db(instance: text, text: text) {
+  view Kit(component: "Text4e382b71b3db", instance: instance, text: text)
+}
+component Surface52dca9ad1b08(instance: text) {
+  view Kit(component: "Surface52dca9ad1b08", instance: instance) { slot }
+}
+component Surface3c50a155d697(instance: text) {
+  view Kit(component: "Surface3c50a155d697", instance: instance) { slot }
+}
+component Surface9c73e63eadf8(instance: text) {
+  view Kit(component: "Surface9c73e63eadf8", instance: instance) { slot }
+}
+component KitButtonf171c73ac8d0(instance: text) {
+  view Kit(component: "KitButtonf171c73ac8d0", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Text0b8ec402e6c9(instance: text, text: text) {
+  view Kit(component: "Text0b8ec402e6c9", instance: instance, text: text)
+}
+component Texte6dc76ffcdef(instance: text, text: text) {
+  view Kit(component: "Texte6dc76ffcdef", instance: instance, text: text)
+}
+component Surface42153d7aea38(instance: text) {
+  view Kit(component: "Surface42153d7aea38", instance: instance) { slot }
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component KitFormFielde72fd31bc16b(instance: text) {
+  view Kit(component: "KitFormFielde72fd31bc16b", instance: instance) { slot }
+}
+component Input90b8a132a185(instance: text, text: text, placeholder: text) {
+  view Kit(component: "Input90b8a132a185", instance: instance, text: text, placeholder: placeholder)
+}
+component Text96e5b806edb2(instance: text, text: text) {
+  view Kit(component: "Text96e5b806edb2", instance: instance, text: text)
+}
+component Text150e1ab01758(instance: text, text: text) {
+  view Kit(component: "Text150e1ab01758", instance: instance, text: text)
+}
+component Group5fb60150eb73(instance: text) {
+  view Kit(component: "Group5fb60150eb73", instance: instance) { slot }
+}
+component Group3d2637879433(instance: text) {
+  view Kit(component: "Group3d2637879433", instance: instance) { slot }
+}
+component Surface088579b89d6f(instance: text) {
+  view Kit(component: "Surface088579b89d6f", instance: instance) { slot }
+}
+component Textd849a1e218e6(instance: text, text: text) {
+  view Kit(component: "Textd849a1e218e6", instance: instance, text: text)
+}
+component Textdae21c708525(instance: text, text: text) {
+  view Kit(component: "Textdae21c708525", instance: instance, text: text)
+}
+component Text9e4c4cc5f6c2(instance: text, text: text) {
+  view Kit(component: "Text9e4c4cc5f6c2", instance: instance, text: text)
+}
+component Surface1cb43409b0c6(instance: text) {
+  view Kit(component: "Surface1cb43409b0c6", instance: instance) { slot }
+}
+component Textcdc57a2d4bbd(instance: text, text: text) {
+  view Kit(component: "Textcdc57a2d4bbd", instance: instance, text: text)
+}
+component Textd3d93cd9d9db(instance: text, text: text) {
+  view Kit(component: "Textd3d93cd9d9db", instance: instance, text: text)
+}
+component Textd9e91cd8990b(instance: text, text: text) {
+  view Kit(component: "Textd9e91cd8990b", instance: instance, text: text)
+}
+
+view root Surfacef468f03a0025(instance: "page") {
+  Texte27738bae55e(instance: "clock", text: copy.clock_text)
+  Text4e382b71b3db(instance: "signal", text: copy.signal_text)
+  Surface52dca9ad1b08(instance: "battery") {
+
+  }
+  Surface3c50a155d697(instance: "battery_tip") {
+
+  }
+  Surface9c73e63eadf8(instance: "home_indicator") {
+
+  }
+  KitButtonf171c73ac8d0(instance: "back") {
+    NativeButton02f1d1bd99b4(instance: "back_control", enabled: back_control_enabled)
+    Text0b8ec402e6c9(instance: "back_label", text: copy.back_label_text)
+  }
+  Texte6dc76ffcdef(instance: "heading", text: copy.heading_text)
+  Surface42153d7aea38(instance: "search_surface") {
+
+  }
+  Vectore0a378fde04f(instance: "search_icon")
+  KitFormFielde72fd31bc16b(instance: "search_field") {
+    Input90b8a132a185(instance: "search_field_input", text: copy.search_field_input_text, placeholder: copy.search_field_input_placeholder)
+  }
+  KitButtonf171c73ac8d0(instance: "clear_search") {
+    NativeButton02f1d1bd99b4(instance: "clear_search_control", enabled: clear_search_control_enabled)
+    Text96e5b806edb2(instance: "clear_search_label", text: copy.clear_search_label_text)
+  }
+  Text150e1ab01758(instance: "results_label", text: copy.results_label_text)
+  Group5fb60150eb73(instance: "list_scroll") {
+    Group3d2637879433(instance: "list_content") {
+      Group3d2637879433(instance: "message_0") {
+        KitButtonf171c73ac8d0(instance: "message_0_open") {
+          NativeButton02f1d1bd99b4(instance: "message_0_open_control", enabled: message_0_open_control_enabled)
+        }
+        Surface088579b89d6f(instance: "message_0_unread") {
+
+        }
+        Textd849a1e218e6(instance: "message_0_sender", text: copy.message_0_sender_text)
+        Textdae21c708525(instance: "message_0_time", text: copy.message_0_time_text)
+        Text9e4c4cc5f6c2(instance: "message_0_subject", text: copy.message_0_subject_text)
+        Text150e1ab01758(instance: "message_0_preview", text: copy.message_0_preview_text)
+        Surface1cb43409b0c6(instance: "message_0_separator") {
+
+        }
+      }
+      Textcdc57a2d4bbd(instance: "list_footer", text: copy.list_footer_text)
+    }
+  }
+  Surfacef468f03a0025(instance: "toolbar_surface") {
+
+  }
+  Surface1cb43409b0c6(instance: "toolbar_separator") {
+
+  }
+  KitButtonf171c73ac8d0(instance: "tool_filter") {
+    NativeButton02f1d1bd99b4(instance: "tool_filter_control", enabled: tool_filter_control_enabled)
+    Vectore0a378fde04f(instance: "tool_filter_icon")
+  }
+  KitButtonf171c73ac8d0(instance: "tool_compose") {
+    NativeButton02f1d1bd99b4(instance: "tool_compose_control", enabled: tool_compose_control_enabled)
+    Vectore0a378fde04f(instance: "tool_compose_icon")
+  }
+  Textd3d93cd9d9db(instance: "sync_status", text: copy.sync_status_text)
+  Textd9e91cd8990b(instance: "message_count", text: copy.message_count_text)
+}

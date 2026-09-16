@@ -29,7 +29,7 @@ import numpy as np
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
-SPLASH = ROOT / "Octoscript"
+SPLASH = ROOT.parent / "octoscript"
 GOLDEN = Path(__file__).parent / "golden"
 ADB = Path.home() / "Library/Android/sdk/platform-tools/adb"
 DEVICE = "bf0a4730"  # OnePlus 6T

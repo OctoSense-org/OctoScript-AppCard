@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "reference_sha256": "d238040d3c36f554afa1ec7ea292554b9bf8bcd9f38a452a76ca0e9286b07df2",
+  "tree": {
+    "t": "stack",
+    "id": "rsvp_summary",
+    "x": 0.0,
+    "y": 0.0,
+    "w": 359.40983606557376,
+    "h": 106.52631578947368,
+    "variant": "surface",
+    "bg": 4294770171,
+    "radius": 19.9672131147541,
+    "c": [
+      {
+        "t": "stack",
+        "id": "view_reunion",
+        "x": 0.0,
+        "y": 0.0,
+        "w": 359.40983606557376,
+        "h": 106.52631578947368,
+        "variant": "surface",
+        "bg": 4294770171,
+        "radius": 0.0,
+        "c": [
+          {
+            "t": "stack",
+            "id": "view_reunion_surface",
+            "x": 0.0,
+            "y": 0.0,
+            "w": 359.40983606557376,
+            "h": 106.52631578947368,
+            "variant": "surface",
+            "bg": 0,
+            "radius": 0,
+            "c": []
+          },
+          {
+            "t": "button",
+            "id": "view_reunion_control",
+            "x": 0.0,
+            "y": 0.0,
+            "w": 359.40983606557376,
+            "h": 106.52631578947368,
+            "enabled": 1
+          }
+        ],
+        "kit": "{\"widget\":\"KitButton\",\"bindings\":{\"control\":[1]}}"
+      },
+      {
+        "t": "svg",
+        "id": "group_icon_1",
+        "x": 23.295081967213115,
+        "y": 23.3026315789474,
+        "w": 41.59836065573771,
+        "h": 41.61184210526316,
+        "src": ""
+      },
+      {
+        "t": "text",
+        "id": "text_92",
+        "text": "聚会报名仍有效",
+        "x": 84.99655894689343,
+        "y": 29.629449638346046,
+        "w": 147.2199107567807,
+        "h": 23.08916810515377,
+        "size": 20.459987250968673,
+        "weight": 400,
+        "line_height": 23.08916810515377,
+        "variant": "single_line",
+        "alignx": 0,
+        "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+        "color": 4281418044,
+        "tracking": 0,
+        "font_asc": -0.21924822843399805,
+        "font_desc": 0.1002482284339982
+      },
+      {
+        "t": "text",
+        "id": "text_93",
+        "text": "你已确认参加本次聚会",
+        "x": 85.37917663888555,
+        "y": 63.53278232991204,
+        "w": 186.85316194363875,
+        "h": 21.096770641730224,
+        "size": 18.285316194363876,
+        "weight": 400,
+        "line_height": 21.096770641730224,
+        "variant": "single_line",
+        "alignx": 0,
+        "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+        "color": 4281418044,
+        "tracking": 0,
+        "font_asc": -0.20562261878651755,
+        "font_desc": 0.08862261878651759
+      }
+    ]
+  },
+  "changes": [
+    {
+      "source": "cards/reunion-10/mapped.json",
+      "source_sha256": "114bb8af17c80f2ae6f41d5dfb577aafc186ae8daf41fb1df3fa74e4030065af",
+      "operation": "Extract native subtree and translate origin",
+      "source_root": "rsvp_summary",
+      "translation": [
+        -23.295081967213115,
+        -514.5
+      ]
+    }
+  ]
+}

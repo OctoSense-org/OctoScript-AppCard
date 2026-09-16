@@ -1,0 +1,89 @@
+# ledger aircon-01@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy text_9_text { class: user-copy, en: "立即购买" }
+copy text_1_text { class: user-copy, en: "9月17日 周四 09:41" }
+copy text_2_text { class: user-copy, en: "好物" }
+copy text_4_text { class: user-copy, en: "1.5匹变频空调" }
+copy text_5_text { class: user-copy, en: "¥2,799" }
+copy text_6_text { class: user-copy, en: "一级能效 · 冷暖两用 · 安静睡眠" }
+copy text_7_text { class: user-copy, en: "送货上门 · 专业安装" }
+copy text_8_text { class: user-copy, en: "周五 9月18日送达" }
+state buy_control_enabled { shape: bool, initial: true }
+component Surface991755d1cfb2(instance: text) {
+  view Kit(component: "Surface991755d1cfb2", instance: instance) { slot }
+}
+component Surface18f6d557518f(instance: text) {
+  view Kit(component: "Surface18f6d557518f", instance: instance) { slot }
+}
+component Imageec6f4cac3824(instance: text) {
+  view Kit(component: "Imageec6f4cac3824", instance: instance)
+}
+component Surface3c3bbeb094ae(instance: text) {
+  view Kit(component: "Surface3c3bbeb094ae", instance: instance) { slot }
+}
+component KitButton5dc7ea8cd583(instance: text) {
+  view Kit(component: "KitButton5dc7ea8cd583", instance: instance) { slot }
+}
+component Surface893d1174cca1(instance: text) {
+  view Kit(component: "Surface893d1174cca1", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Text00fa289e0923(instance: text, text: text) {
+  view Kit(component: "Text00fa289e0923", instance: instance, text: text)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Text97229257dda6(instance: text, text: text) {
+  view Kit(component: "Text97229257dda6", instance: instance, text: text)
+}
+component Text338ca01530f5(instance: text, text: text) {
+  view Kit(component: "Text338ca01530f5", instance: instance, text: text)
+}
+component Text9aeba59476e2(instance: text, text: text) {
+  view Kit(component: "Text9aeba59476e2", instance: instance, text: text)
+}
+component Text60746477d3df(instance: text, text: text) {
+  view Kit(component: "Text60746477d3df", instance: instance, text: text)
+}
+component Text33e331959b18(instance: text, text: text) {
+  view Kit(component: "Text33e331959b18", instance: instance, text: text)
+}
+component Text975130e08726(instance: text, text: text) {
+  view Kit(component: "Text975130e08726", instance: instance, text: text)
+}
+component Text2f3657cecffe(instance: text, text: text) {
+  view Kit(component: "Text2f3657cecffe", instance: instance, text: text)
+}
+
+view root Surface991755d1cfb2(instance: "page") {
+  Surface18f6d557518f(instance: "screen") {
+    Imageec6f4cac3824(instance: "product_photo")
+    Surface3c3bbeb094ae(instance: "divider_0") {
+
+    }
+    KitButton5dc7ea8cd583(instance: "buy") {
+      Surface893d1174cca1(instance: "buy_surface") {
+
+      }
+      NativeButton02f1d1bd99b4(instance: "buy_control", enabled: buy_control_enabled)
+      Text00fa289e0923(instance: "text_9", text: copy.text_9_text)
+    }
+    Vectore0a378fde04f(instance: "back_icon_0")
+    Vectore0a378fde04f(instance: "share_icon_1")
+    Vectore0a378fde04f(instance: "truck_icon_2")
+    Vectore0a378fde04f(instance: "calendar_icon_3")
+    Text97229257dda6(instance: "text_1", text: copy.text_1_text)
+    Text338ca01530f5(instance: "text_2", text: copy.text_2_text)
+    Text9aeba59476e2(instance: "text_4", text: copy.text_4_text)
+    Text60746477d3df(instance: "text_5", text: copy.text_5_text)
+    Text33e331959b18(instance: "text_6", text: copy.text_6_text)
+    Text975130e08726(instance: "text_7", text: copy.text_7_text)
+    Text2f3657cecffe(instance: "text_8", text: copy.text_8_text)
+  }
+}

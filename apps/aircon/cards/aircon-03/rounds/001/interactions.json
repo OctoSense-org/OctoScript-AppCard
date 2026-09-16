@@ -1,0 +1,33 @@
+{
+  "pass": true,
+  "controls": [
+    {
+      "id": "view_order_control",
+      "expected_action_owner": "beauty_0_0_0_1",
+      "pass": true,
+      "events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_0_0_1"
+        }
+      ],
+      "scope": "native KitButton activation; no production navigation or data feeds"
+    },
+    {
+      "id": "collapse_control",
+      "expected_action_owner": "beauty_0_0_0_2",
+      "pass": true,
+      "events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_0_0_2"
+        }
+      ],
+      "scope": "native KitButton activation; no production navigation or data feeds"
+    }
+  ]
+}

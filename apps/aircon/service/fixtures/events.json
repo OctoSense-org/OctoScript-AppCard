@@ -1,0 +1,80 @@
+[
+  {
+    "id": "demo-1",
+    "action": "order.purchase_demo",
+    "actor": "user",
+    "payload": {}
+  },
+  {
+    "id": "demo-2",
+    "action": "navigation.desktop",
+    "actor": "user",
+    "payload": {}
+  },
+  {
+    "id": "demo-3",
+    "action": "logistics.out_for_delivery",
+    "actor": "provider",
+    "payload": {}
+  },
+  {
+    "id": "demo-4",
+    "action": "logistics.delivered",
+    "actor": "provider",
+    "payload": {}
+  },
+  {
+    "id": "demo-5",
+    "action": "installation.open_slots",
+    "actor": "user",
+    "payload": {}
+  },
+  {
+    "id": "demo-6",
+    "action": "installation.choose_slot",
+    "actor": "user",
+    "payload": {
+      "slot_id": "afternoon"
+    }
+  },
+  {
+    "id": "demo-7",
+    "action": "installation.confirm",
+    "actor": "user",
+    "payload": {}
+  },
+  {
+    "id": "demo-8",
+    "action": "calendar.undo",
+    "actor": "user",
+    "payload": {}
+  },
+  {
+    "id": "demo-9",
+    "action": "calendar.restore",
+    "actor": "user",
+    "payload": {}
+  },
+  {
+    "id": "demo-10",
+    "action": "installation.technician_departed",
+    "actor": "provider",
+    "payload": {}
+  },
+  {
+    "id": "demo-11",
+    "action": "installation.completed",
+    "actor": "provider",
+    "payload": {}
+  },
+  {
+    "id": "demo-12",
+    "action": "payment.pay",
+    "actor": "user",
+    "payload": {
+      "invoice_id": "invoice-materials-aircon-001",
+      "amount_minor": 13000,
+      "currency": "CNY"
+    }
+  }
+]

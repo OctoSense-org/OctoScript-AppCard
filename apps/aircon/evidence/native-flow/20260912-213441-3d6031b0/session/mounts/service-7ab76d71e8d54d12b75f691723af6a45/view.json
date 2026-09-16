@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "simulation": true,
+  "revision": 2,
+  "frame_id": 3,
+  "surface": "desktop",
+  "app_route": null,
+  "cards": [
+    {
+      "id": "shopping:order-aircon-001",
+      "owner_app": "shopping",
+      "entity_id": "order-aircon-001",
+      "title": "空调已下单",
+      "body_action": {
+        "action": "navigation.open_app",
+        "label": "打开应用",
+        "actor": "user",
+        "enabled": true,
+        "payload": {
+          "app": "shopping"
+        }
+      },
+      "data": {
+        "id": "order-aircon-001",
+        "product": "1.5匹变频空调",
+        "amount_minor": 279900,
+        "currency": "CNY",
+        "status": "paid_demo"
+      },
+      "actions": [
+        {
+          "action": "navigation.open_app",
+          "label": "查看订单",
+          "actor": "user",
+          "enabled": true,
+          "payload": {
+            "app": "shopping"
+          }
+        }
+      ]
+    }
+  ],
+  "slots": [
+    {
+      "id": "morning",
+      "label": "09:00–11:00",
+      "starts_at": "2026-09-19T09:00:00+08:00",
+      "ends_at": "2026-09-19T11:00:00+08:00",
+      "enabled": false,
+      "conflict_event_ids": [
+        "calendar-project-meeting"
+      ],
+      "reason": "项目例会",
+      "selected": false
+    },
+    {
+      "id": "afternoon",
+      "label": "14:00–16:00",
+      "starts_at": "2026-09-19T14:00:00+08:00",
+      "ends_at": "2026-09-19T16:00:00+08:00",
+      "enabled": true,
+      "conflict_event_ids": [],
+      "reason": "",
+      "selected": false
+    }
+  ],
+  "order": {
+    "id": "order-aircon-001",
+    "product": "1.5匹变频空调",
+    "amount_minor": 279900,
+    "currency": "CNY",
+    "status": "paid_demo"
+  },
+  "bindings": {
+    "selected_slot_id": null,
+    "booking_status": "not_available",
+    "calendar_status": "not_added",
+    "payment_status": "not_due",
+    "can_confirm_booking": false,
+    "can_pay": false
+  }
+}

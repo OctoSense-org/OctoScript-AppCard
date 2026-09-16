@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "owner": "mail",
+  "controls": {
+    "back": {
+      "event": "navigate",
+      "payload": {
+        "screen": "mailboxes"
+      },
+      "enabled": true
+    },
+    "top_action": {
+      "event": "edit",
+      "payload": {},
+      "enabled": true
+    },
+    "search_field": {
+      "event": "search",
+      "payload": {},
+      "enabled": true,
+      "input": true
+    },
+    "all_mail": {
+      "event": "folder",
+      "payload": {
+        "folder": "inbox"
+      },
+      "enabled": true
+    },
+    "unread_mail": {
+      "event": "folder",
+      "payload": {
+        "folder": "unread"
+      },
+      "enabled": true
+    },
+    "message_0_open": {
+      "event": "open",
+      "payload": {
+        "id": "demo-0"
+      },
+      "enabled": true
+    },
+    "message_1_open": {
+      "event": "open",
+      "payload": {
+        "id": "demo-1"
+      },
+      "enabled": true
+    },
+    "message_2_open": {
+      "event": "open",
+      "payload": {
+        "id": "demo-2"
+      },
+      "enabled": true
+    },
+    "message_3_open": {
+      "event": "open",
+      "payload": {
+        "id": "demo-3"
+      },
+      "enabled": true
+    },
+    "message_4_open": {
+      "event": "open",
+      "payload": {
+        "id": "demo-4"
+      },
+      "enabled": true
+    },
+    "tool_filter": {
+      "event": "folder",
+      "payload": {
+        "folder": "unread"
+      },
+      "enabled": true
+    },
+    "tool_compose": {
+      "event": "compose",
+      "payload": {},
+      "enabled": true
+    }
+  }
+}

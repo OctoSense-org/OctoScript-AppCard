@@ -33,7 +33,8 @@ KERNEL_BIN="$ROOT/octos/target/$TARGET/$PROFILE/octos"
 # directory. Discover it rather than hardcoding: the earlier setup pinned an
 # absolute path into an uncommitted .cargo/config.toml, which is exactly what
 # made the build unreproducible on any other machine.
-NDK_ROOT="$(find "$ROOT/makepad/tools/cargo_makepad" -maxdepth 3 -type d -name ndk 2>/dev/null | head -1)"
+OCTOSENSE_WORKSPACE="$(PYTHONPATH="$ROOT/lab" python3 -c 'from core.native_paths import WORKSPACE; print(WORKSPACE)')"
+NDK_ROOT="$(find "$OCTOSENSE_WORKSPACE/makepad/tools/cargo_makepad" -maxdepth 3 -type d -name ndk 2>/dev/null | head -1)"
 if [[ -z "$NDK_ROOT" ]]; then
   echo "error: no NDK under makepad/tools/cargo_makepad — run 'cargo makepad android install-toolchain'" >&2
   exit 1

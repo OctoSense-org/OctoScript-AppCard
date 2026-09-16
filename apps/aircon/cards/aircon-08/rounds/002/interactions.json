@@ -1,0 +1,61 @@
+{
+  "pass": true,
+  "controls": [
+    {
+      "id": "reschedule_control",
+      "expected_action_owner": "beauty_0_0_0_0",
+      "pass": true,
+      "events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_0_0_0"
+        }
+      ],
+      "scope": "native KitButton activation; no production navigation or data feeds"
+    },
+    {
+      "id": "cancel_booking_control",
+      "expected_action_owner": "beauty_0_0_0_1",
+      "pass": true,
+      "events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_0_0_1"
+        }
+      ],
+      "scope": "native KitButton activation; no production navigation or data feeds"
+    },
+    {
+      "id": "acknowledge_calendar_control",
+      "expected_action_owner": "beauty_0_0_1_0",
+      "pass": true,
+      "events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_0_1_0"
+        }
+      ],
+      "scope": "native KitButton activation; no production navigation or data feeds"
+    },
+    {
+      "id": "undo_calendar_control",
+      "expected_action_owner": "beauty_0_0_1_1",
+      "pass": true,
+      "events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_0_1_1"
+        }
+      ],
+      "scope": "native KitButton activation; no production navigation or data feeds"
+    }
+  ]
+}

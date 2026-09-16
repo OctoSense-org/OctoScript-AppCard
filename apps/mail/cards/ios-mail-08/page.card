@@ -1,0 +1,143 @@
+# ledger ios-mail-08@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy clock_text { class: user-copy, en: "9:41" }
+copy signal_text { class: user-copy, en: "•••" }
+copy heading_text { class: user-copy, en: "Today" }
+copy card_service_text { class: user-copy, en: "Mail" }
+copy card_time_text { class: user-copy, en: "Just now" }
+copy card_title_text { class: user-copy, en: "2 new messages" }
+copy card_sender_0_text { class: user-copy, en: "Alex Morgan" }
+copy card_subject_0_text { class: user-copy, en: "Weekend plans" }
+copy card_sender_1_text { class: user-copy, en: "Studio Team" }
+copy card_subject_1_text { class: user-copy, en: "September design review" }
+copy card_open_label_text { class: user-copy, en: "Open Inbox" }
+copy card_dismiss_label_text { class: user-copy, en: "Dismiss" }
+copy card_source_text { class: user-copy, en: "Gmail" }
+copy open_mail_label_text { class: user-copy, en: "Open Mail" }
+state card_open_control_enabled { shape: bool, initial: true }
+state card_dismiss_control_enabled { shape: bool, initial: true }
+state open_mail_control_enabled { shape: bool, initial: true }
+component Surfaceb3bf053fa23f(instance: text) {
+  view Kit(component: "Surfaceb3bf053fa23f", instance: instance) { slot }
+}
+component Texte27738bae55e(instance: text, text: text) {
+  view Kit(component: "Texte27738bae55e", instance: instance, text: text)
+}
+component Text4e382b71b3db(instance: text, text: text) {
+  view Kit(component: "Text4e382b71b3db", instance: instance, text: text)
+}
+component Surface52dca9ad1b08(instance: text) {
+  view Kit(component: "Surface52dca9ad1b08", instance: instance) { slot }
+}
+component Surface3c50a155d697(instance: text) {
+  view Kit(component: "Surface3c50a155d697", instance: instance) { slot }
+}
+component Surface9c73e63eadf8(instance: text) {
+  view Kit(component: "Surface9c73e63eadf8", instance: instance) { slot }
+}
+component Texte6dc76ffcdef(instance: text, text: text) {
+  view Kit(component: "Texte6dc76ffcdef", instance: instance, text: text)
+}
+component Surfacea323a5eb37ba(instance: text) {
+  view Kit(component: "Surfacea323a5eb37ba", instance: instance) { slot }
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Textafe441c62801(instance: text, text: text) {
+  view Kit(component: "Textafe441c62801", instance: instance, text: text)
+}
+component Textdae21c708525(instance: text, text: text) {
+  view Kit(component: "Textdae21c708525", instance: instance, text: text)
+}
+component Textf3d50bdc8f74(instance: text, text: text) {
+  view Kit(component: "Textf3d50bdc8f74", instance: instance, text: text)
+}
+component Surface088579b89d6f(instance: text) {
+  view Kit(component: "Surface088579b89d6f", instance: instance) { slot }
+}
+component Textb9b17ab75a3f(instance: text, text: text) {
+  view Kit(component: "Textb9b17ab75a3f", instance: instance, text: text)
+}
+component Text88b3989bceb9(instance: text, text: text) {
+  view Kit(component: "Text88b3989bceb9", instance: instance, text: text)
+}
+component Surface1cb43409b0c6(instance: text) {
+  view Kit(component: "Surface1cb43409b0c6", instance: instance) { slot }
+}
+component KitButtonf171c73ac8d0(instance: text) {
+  view Kit(component: "KitButtonf171c73ac8d0", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Text0b8ec402e6c9(instance: text, text: text) {
+  view Kit(component: "Text0b8ec402e6c9", instance: instance, text: text)
+}
+component Text941b43984a70(instance: text, text: text) {
+  view Kit(component: "Text941b43984a70", instance: instance, text: text)
+}
+component Surfacef8cb67796d4c(instance: text) {
+  view Kit(component: "Surfacef8cb67796d4c", instance: instance) { slot }
+}
+component Textd691d2c11e59(instance: text, text: text) {
+  view Kit(component: "Textd691d2c11e59", instance: instance, text: text)
+}
+
+view root Surfaceb3bf053fa23f(instance: "page") {
+  Texte27738bae55e(instance: "clock", text: copy.clock_text)
+  Text4e382b71b3db(instance: "signal", text: copy.signal_text)
+  Surface52dca9ad1b08(instance: "battery") {
+
+  }
+  Surface3c50a155d697(instance: "battery_tip") {
+
+  }
+  Surface9c73e63eadf8(instance: "home_indicator") {
+
+  }
+  Texte6dc76ffcdef(instance: "heading", text: copy.heading_text)
+  Surfacea323a5eb37ba(instance: "new_mail_card") {
+    Vectore0a378fde04f(instance: "card_mail_icon")
+    Textafe441c62801(instance: "card_service", text: copy.card_service_text)
+    Textdae21c708525(instance: "card_time", text: copy.card_time_text)
+    Textf3d50bdc8f74(instance: "card_title", text: copy.card_title_text)
+    Surface088579b89d6f(instance: "card_dot_0") {
+
+    }
+    Textb9b17ab75a3f(instance: "card_sender_0", text: copy.card_sender_0_text)
+    Text88b3989bceb9(instance: "card_subject_0", text: copy.card_subject_0_text)
+    Surface088579b89d6f(instance: "card_dot_1") {
+
+    }
+    Textb9b17ab75a3f(instance: "card_sender_1", text: copy.card_sender_1_text)
+    Text88b3989bceb9(instance: "card_subject_1", text: copy.card_subject_1_text)
+    Surface1cb43409b0c6(instance: "card_rule") {
+
+    }
+    KitButtonf171c73ac8d0(instance: "card_open") {
+      NativeButton02f1d1bd99b4(instance: "card_open_control", enabled: card_open_control_enabled)
+      Text0b8ec402e6c9(instance: "card_open_label", text: copy.card_open_label_text)
+    }
+    KitButtonf171c73ac8d0(instance: "card_dismiss") {
+      NativeButton02f1d1bd99b4(instance: "card_dismiss_control", enabled: card_dismiss_control_enabled)
+      Text0b8ec402e6c9(instance: "card_dismiss_label", text: copy.card_dismiss_label_text)
+    }
+    Surface1cb43409b0c6(instance: "card_source_rule") {
+
+    }
+    Vectore0a378fde04f(instance: "card_source_icon")
+    Text941b43984a70(instance: "card_source", text: copy.card_source_text)
+  }
+  KitButtonf171c73ac8d0(instance: "open_mail") {
+    NativeButton02f1d1bd99b4(instance: "open_mail_control", enabled: open_mail_control_enabled)
+    Surfacef8cb67796d4c(instance: "open_mail_surface") {
+
+    }
+    Vectore0a378fde04f(instance: "open_mail_icon")
+    Textd691d2c11e59(instance: "open_mail_label", text: copy.open_mail_label_text)
+  }
+}

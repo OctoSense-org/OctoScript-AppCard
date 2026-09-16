@@ -3,6 +3,11 @@
   "version": "1.1.0",
   "minimum_confidence": 0.9,
   "roles": {
+    "webview": {
+      "native_types": ["Browser"],
+      "kinds": ["web"],
+      "repair": "Render HTML documents with the platform WebView backend; verify actual document loading, scrolling and overlay lifecycle."
+    },
     "layout": {
       "native_types": [
         "View"

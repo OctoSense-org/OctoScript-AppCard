@@ -1,0 +1,193 @@
+# ledger health-05@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy saturday_name_text { class: user-copy, en: "周六" }
+copy saturday_date_text { class: user-copy, en: "10月24日" }
+copy sunday_name_text { class: user-copy, en: "周日" }
+copy sunday_date_text { class: user-copy, en: "10月25日" }
+copy morning_time_text { class: user-copy, en: "09:00–10:00" }
+copy morning_note_text { class: user-copy, en: "与已有日程冲突" }
+copy afternoon_time_text { class: user-copy, en: "14:00–15:00" }
+copy afternoon_note_text { class: user-copy, en: "日历空闲" }
+copy confirm_booking_text_text { class: user-copy, en: "确认预约" }
+copy return_items_text_text { class: user-copy, en: "返回项目" }
+copy title_text { class: user-copy, en: "选择预约时间" }
+copy dock_health_text { class: user-copy, en: "健康" }
+copy dock_calendar_text { class: user-copy, en: "日历" }
+copy dock_mail_text { class: user-copy, en: "邮件" }
+copy status_time_text { class: user-copy, en: "09:41" }
+copy status_date_text { class: user-copy, en: "10月22日 周四" }
+state saturday_control_enabled { shape: bool, initial: true }
+state sunday_control_enabled { shape: bool, initial: true }
+state conflict_slot_control_enabled { shape: bool, initial: false }
+state afternoon_control_enabled { shape: bool, initial: true }
+state confirm_booking_control_enabled { shape: bool, initial: false }
+state return_items_control_enabled { shape: bool, initial: true }
+component Surface991755d1cfb2(instance: text) {
+  view Kit(component: "Surface991755d1cfb2", instance: instance) { slot }
+}
+component Surface0d652a35857b(instance: text) {
+  view Kit(component: "Surface0d652a35857b", instance: instance) { slot }
+}
+component Surface037be76ff84c(instance: text) {
+  view Kit(component: "Surface037be76ff84c", instance: instance) { slot }
+}
+component Surfaced922d9062265(instance: text) {
+  view Kit(component: "Surfaced922d9062265", instance: instance) { slot }
+}
+component Surface5259d30211c6(instance: text) {
+  view Kit(component: "Surface5259d30211c6", instance: instance) { slot }
+}
+component KitButton5dc7ea8cd583(instance: text) {
+  view Kit(component: "KitButton5dc7ea8cd583", instance: instance) { slot }
+}
+component Surface93a316bf76d8(instance: text) {
+  view Kit(component: "Surface93a316bf76d8", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Textbbb78f347dd4(instance: text, text: text) {
+  view Kit(component: "Textbbb78f347dd4", instance: instance, text: text)
+}
+component Textebfce118a93d(instance: text, text: text) {
+  view Kit(component: "Textebfce118a93d", instance: instance, text: text)
+}
+component Surfacef38cb6e126ad(instance: text) {
+  view Kit(component: "Surfacef38cb6e126ad", instance: instance) { slot }
+}
+component Text135984308361(instance: text, text: text) {
+  view Kit(component: "Text135984308361", instance: instance, text: text)
+}
+component Textb0da492fbb80(instance: text, text: text) {
+  view Kit(component: "Textb0da492fbb80", instance: instance, text: text)
+}
+component KitButton870a84d356fb(instance: text) {
+  view Kit(component: "KitButton870a84d356fb", instance: instance) { slot }
+}
+component Surface438e546ce1a7(instance: text) {
+  view Kit(component: "Surface438e546ce1a7", instance: instance) { slot }
+}
+component Text6f3a3496dae2(instance: text, text: text) {
+  view Kit(component: "Text6f3a3496dae2", instance: instance, text: text)
+}
+component Text20c3843a2a4d(instance: text, text: text) {
+  view Kit(component: "Text20c3843a2a4d", instance: instance, text: text)
+}
+component Text0b1d4ee0c31a(instance: text, text: text) {
+  view Kit(component: "Text0b1d4ee0c31a", instance: instance, text: text)
+}
+component Text150e8f55b979(instance: text, text: text) {
+  view Kit(component: "Text150e8f55b979", instance: instance, text: text)
+}
+component Surface74fd496c64c8(instance: text) {
+  view Kit(component: "Surface74fd496c64c8", instance: instance) { slot }
+}
+component Textabbbbbefba80(instance: text, text: text) {
+  view Kit(component: "Textabbbbbefba80", instance: instance, text: text)
+}
+component Text39fa2229ac34(instance: text, text: text) {
+  view Kit(component: "Text39fa2229ac34", instance: instance, text: text)
+}
+component Textb9b6d409ed31(instance: text, text: text) {
+  view Kit(component: "Textb9b6d409ed31", instance: instance, text: text)
+}
+component Surface90a6678328eb(instance: text) {
+  view Kit(component: "Surface90a6678328eb", instance: instance) { slot }
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Text818ca4aca68f(instance: text, text: text) {
+  view Kit(component: "Text818ca4aca68f", instance: instance, text: text)
+}
+component Text3a69f089029c(instance: text, text: text) {
+  view Kit(component: "Text3a69f089029c", instance: instance, text: text)
+}
+component Textec8a31d26ae1(instance: text, text: text) {
+  view Kit(component: "Textec8a31d26ae1", instance: instance, text: text)
+}
+component Text3bfbee53b617(instance: text, text: text) {
+  view Kit(component: "Text3bfbee53b617", instance: instance, text: text)
+}
+component Text12e73a3eb58e(instance: text, text: text) {
+  view Kit(component: "Text12e73a3eb58e", instance: instance, text: text)
+}
+
+view root Surface991755d1cfb2(instance: "page") {
+  Surface0d652a35857b(instance: "screen") {
+    Surface037be76ff84c(instance: "wallpaper_upper") {
+
+    }
+    Surfaced922d9062265(instance: "wallpaper_lower") {
+
+    }
+    Surface5259d30211c6(instance: "picker_card") {
+      KitButton5dc7ea8cd583(instance: "saturday") {
+        Surface93a316bf76d8(instance: "saturday_surface") {
+
+        }
+        NativeButton02f1d1bd99b4(instance: "saturday_control", enabled: saturday_control_enabled)
+        Textbbb78f347dd4(instance: "saturday_name", text: copy.saturday_name_text)
+        Textebfce118a93d(instance: "saturday_date", text: copy.saturday_date_text)
+      }
+      KitButton5dc7ea8cd583(instance: "sunday") {
+        Surfacef38cb6e126ad(instance: "sunday_surface") {
+
+        }
+        NativeButton02f1d1bd99b4(instance: "sunday_control", enabled: sunday_control_enabled)
+        Text135984308361(instance: "sunday_name", text: copy.sunday_name_text)
+        Textb0da492fbb80(instance: "sunday_date", text: copy.sunday_date_text)
+      }
+      KitButton870a84d356fb(instance: "conflict_slot") {
+        Surfacef38cb6e126ad(instance: "conflict_slot_surface") {
+
+        }
+        NativeButton02f1d1bd99b4(instance: "conflict_slot_control", enabled: conflict_slot_control_enabled)
+        Surface438e546ce1a7(instance: "morning_radio") {
+
+        }
+        Text6f3a3496dae2(instance: "morning_time", text: copy.morning_time_text)
+        Text20c3843a2a4d(instance: "morning_note", text: copy.morning_note_text)
+      }
+      KitButton870a84d356fb(instance: "afternoon") {
+        Surfacef38cb6e126ad(instance: "afternoon_surface") {
+
+        }
+        NativeButton02f1d1bd99b4(instance: "afternoon_control", enabled: afternoon_control_enabled)
+        Surface438e546ce1a7(instance: "afternoon_radio") {
+
+        }
+        Text0b1d4ee0c31a(instance: "afternoon_time", text: copy.afternoon_time_text)
+        Text150e8f55b979(instance: "afternoon_note", text: copy.afternoon_note_text)
+      }
+      KitButton5dc7ea8cd583(instance: "confirm_booking") {
+        Surface74fd496c64c8(instance: "confirm_booking_surface") {
+
+        }
+        NativeButton02f1d1bd99b4(instance: "confirm_booking_control", enabled: confirm_booking_control_enabled)
+        Textabbbbbefba80(instance: "confirm_booking_text", text: copy.confirm_booking_text_text)
+      }
+      KitButton5dc7ea8cd583(instance: "return_items") {
+        Surfacef38cb6e126ad(instance: "return_items_surface") {
+
+        }
+        NativeButton02f1d1bd99b4(instance: "return_items_control", enabled: return_items_control_enabled)
+        Text39fa2229ac34(instance: "return_items_text", text: copy.return_items_text_text)
+      }
+      Textb9b6d409ed31(instance: "title", text: copy.title_text)
+    }
+    Surface90a6678328eb(instance: "dock") {
+      Vectore0a378fde04f(instance: "dock_icon_heart")
+      Vectore0a378fde04f(instance: "dock_icon_calendar")
+      Vectore0a378fde04f(instance: "dock_icon_mail")
+      Text818ca4aca68f(instance: "dock_health", text: copy.dock_health_text)
+      Text3a69f089029c(instance: "dock_calendar", text: copy.dock_calendar_text)
+      Textec8a31d26ae1(instance: "dock_mail", text: copy.dock_mail_text)
+    }
+    Text3bfbee53b617(instance: "status_time", text: copy.status_time_text)
+    Text12e73a3eb58e(instance: "status_date", text: copy.status_date_text)
+  }
+}

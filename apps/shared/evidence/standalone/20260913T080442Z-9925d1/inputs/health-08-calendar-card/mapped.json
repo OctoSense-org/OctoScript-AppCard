@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "reference_sha256": "f38d2b6dbfc8a6eea30ffd4a0ee8d5760097766a0d15d5d80f4707b4d59ee254",
+  "tree": {
+    "t": "stack",
+    "id": "calendar_card",
+    "x": 0.0,
+    "y": 0.0,
+    "w": 331.27485380116957,
+    "h": 232.9512670565302,
+    "c": [
+      {
+        "t": "stack",
+        "id": "calendar_restore",
+        "x": 21.177387914230017,
+        "y": 158.83040935672506,
+        "w": 291.94541910331384,
+        "h": 54.45614035087719,
+        "c": [
+          {
+            "t": "stack",
+            "id": "calendar_restore_surface",
+            "x": 21.177387914230017,
+            "y": 158.83040935672506,
+            "w": 291.94541910331384,
+            "h": 54.45614035087719,
+            "c": [],
+            "bg": 4293915375,
+            "variant": "surface",
+            "radius": 12.101364522417153
+          },
+          {
+            "t": "button",
+            "id": "calendar_restore_control",
+            "x": 21.177387914230017,
+            "y": 158.83040935672506,
+            "w": 291.94541910331384,
+            "h": 54.45614035087719,
+            "enabled": 1
+          },
+          {
+            "t": "text",
+            "id": "calendar_restore_text",
+            "text": "重新加入",
+            "x": 117.37989056530486,
+            "y": 171.96367570517356,
+            "w": 92.17323957127316,
+            "h": 24.390061650856918,
+            "size": 22.04330989281829,
+            "weight": 400,
+            "line_height": 24.390061650856918,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+            "color": 4280693806,
+            "tracking": 0,
+            "font_asc": -0.22526952396329547,
+            "font_desc": 0.11626952396329551
+          }
+        ],
+        "kit": "{\"widget\":\"KitButton\",\"bindings\":{\"control\":[1],\"label\":[2]}}"
+      },
+      {
+        "t": "svg",
+        "id": "calendar_icon_3",
+        "x": 24.2027290448343,
+        "y": 21.177387914229996,
+        "w": 27.228070175438596,
+        "h": 27.228070175438596,
+        "src": ""
+      },
+      {
+        "t": "text",
+        "id": "calendar_title",
+        "text": "日历记录已撤销",
+        "x": 60.9370224104607,
+        "y": 24.932148606945532,
+        "w": 148.8464643287893,
+        "h": 23.223195051635038,
+        "size": 20.6923520469699,
+        "weight": 400,
+        "line_height": 23.223195051635038,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+        "color": 4280693806,
+        "tracking": 0,
+        "font_asc": -0.21634593208833053,
+        "font_desc": 0.10934593208833057
+      },
+      {
+        "t": "text",
+        "id": "calendar_note",
+        "text": "仅移除日历提醒",
+        "x": 17.33794635933173,
+        "y": 67.03224651853037,
+        "w": 167.10904971262812,
+        "h": 25.693503611779537,
+        "size": 23.30129281608973,
+        "weight": 400,
+        "line_height": 25.693503611779537,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+        "color": 4280693806,
+        "tracking": 0,
+        "font_asc": -0.22716785258288397,
+        "font_desc": 0.11816785258288409
+      },
+      {
+        "t": "text",
+        "id": "booking_note",
+        "text": "体检预约仍然有效",
+        "x": 17.227852919080732,
+        "y": 102.87310165465266,
+        "w": 188.7005476237502,
+        "h": 25.494526229713927,
+        "size": 23.087568452968775,
+        "weight": 400,
+        "line_height": 25.494526229713927,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+        "color": 4280693806,
+        "tracking": 0,
+        "font_asc": -0.22537329420054952,
+        "font_desc": 0.11837329420054951
+      }
+    ],
+    "bg": 4294770171,
+    "variant": "surface",
+    "radius": 18.152046783625728
+  },
+  "changes": [
+    {
+      "source": "cards/health-08/mapped.json",
+      "source_sha256": "f4df5bb66c3bb971700617f916193bc1623a64755a4427927f7c91ca2f306d25",
+      "operation": "Extract native subtree and translate origin",
+      "source_root": "calendar_card",
+      "translation": [
+        -38.11890838206628,
+        -422.03508771929825
+      ]
+    }
+  ]
+}

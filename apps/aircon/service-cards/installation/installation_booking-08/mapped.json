@@ -1,0 +1,229 @@
+{
+  "schema_version": 1,
+  "reference_sha256": "afa75669e56ced61238887867122f4e2307a36e9b21f888f619380c6f977c77d",
+  "tree": {
+    "t": "stack",
+    "id": "installation_booking",
+    "x": 0.0,
+    "y": 0.0,
+    "w": 364.0,
+    "h": 229.04296875,
+    "c": [
+      {
+        "t": "stack",
+        "id": "reschedule",
+        "x": 19.72727272727273,
+        "y": 170.509765625,
+        "w": 134.9090909090909,
+        "h": 40.08251953125,
+        "c": [
+          {
+            "t": "stack",
+            "id": "reschedule_surface",
+            "x": 19.72727272727273,
+            "y": 170.509765625,
+            "w": 134.9090909090909,
+            "h": 40.08251953125,
+            "c": [],
+            "variant": "surface",
+            "bg": 4294770171,
+            "radius": 12.727272727272727,
+            "border": 0.65,
+            "bordercolor": 4291548878
+          },
+          {
+            "t": "button",
+            "id": "reschedule_control",
+            "x": 19.72727272727273,
+            "y": 170.509765625,
+            "w": 134.9090909090909,
+            "h": 40.08251953125,
+            "enabled": 1
+          },
+          {
+            "t": "text",
+            "id": "text_182",
+            "text": "改约",
+            "x": 68.29043889704826,
+            "y": 181.15397456289992,
+            "w": 37.60448858254913,
+            "h": 18.5,
+            "size": 15.716306791274565,
+            "weight": 400,
+            "line_height": 18.5,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+            "color": 4284515696,
+            "tracking": 0.546875,
+            "font_asc": -0.20467392345596924,
+            "font_desc": 0.0886739234559693
+          }
+        ],
+        "kit": "{\"widget\":\"KitButton\",\"bindings\":{\"control\":[1],\"label\":[2]}}"
+      },
+      {
+        "t": "stack",
+        "id": "cancel_booking",
+        "x": 194.0909090909091,
+        "y": 170.509765625,
+        "w": 133.0,
+        "h": 40.08251953125,
+        "c": [
+          {
+            "t": "stack",
+            "id": "cancel_booking_surface",
+            "x": 194.0909090909091,
+            "y": 170.509765625,
+            "w": 133.0,
+            "h": 40.08251953125,
+            "c": [],
+            "variant": "surface",
+            "bg": 4294770171,
+            "radius": 12.727272727272727,
+            "border": 0.65,
+            "bordercolor": 4291548878
+          },
+          {
+            "t": "button",
+            "id": "cancel_booking_control",
+            "x": 194.0909090909091,
+            "y": 170.509765625,
+            "w": 133.0,
+            "h": 40.08251953125,
+            "enabled": 1
+          },
+          {
+            "t": "text",
+            "id": "text_183",
+            "text": "取消预约",
+            "x": 225.12141977018004,
+            "y": 181.01654720690453,
+            "w": 72.93824000826523,
+            "h": 19.0,
+            "size": 16.69044235500748,
+            "weight": 400,
+            "line_height": 19.0,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+            "color": 4284515696,
+            "tracking": 0.2156862745098067,
+            "font_asc": -0.2132684774425111,
+            "font_desc": 0.10226847744251119
+          }
+        ],
+        "kit": "{\"widget\":\"KitButton\",\"bindings\":{\"control\":[1],\"label\":[2]}}"
+      },
+      {
+        "t": "svg",
+        "id": "wrench_icon_0",
+        "x": 21.000000000000004,
+        "y": 18.45068359375,
+        "w": 28.0,
+        "h": 29.2666015625,
+        "src": ""
+      },
+      {
+        "t": "svg",
+        "id": "check_icon_1",
+        "x": 318.8181818181818,
+        "y": 22.904296875,
+        "w": 20.363636363636363,
+        "h": 20.99560546875,
+        "src": ""
+      },
+      {
+        "t": "text",
+        "id": "text_178",
+        "text": "安装服务 · 预约成功",
+        "x": 61.43949174584671,
+        "y": 24.741983932468173,
+        "w": 163.89833904827873,
+        "h": 19.5,
+        "size": 16.724263235423233,
+        "weight": 400,
+        "line_height": 19.5,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+        "color": 4281418044,
+        "tracking": 0,
+        "font_asc": -0.20177664399092965,
+        "font_desc": 0.08477664399092966
+      },
+      {
+        "t": "text",
+        "id": "text_179",
+        "text": "王师傅",
+        "x": 21.629787927698548,
+        "y": 67.5756756327716,
+        "w": 56.29585867871857,
+        "h": 19.0,
+        "size": 16.452786226239525,
+        "weight": 400,
+        "line_height": 19.0,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+        "color": 4281418044,
+        "tracking": 0.59375,
+        "font_asc": -0.2070375395256956,
+        "font_desc": 0.09503753952569569
+      },
+      {
+        "t": "text",
+        "id": "text_180",
+        "text": "周六 9月19日 14:00-16:00",
+        "x": 21.454216705896282,
+        "y": 99.83449155534888,
+        "w": 204.9036362982466,
+        "h": 18.630935669577962,
+        "size": 16.29308976067097,
+        "weight": 400,
+        "line_height": 18.630935669577962,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+        "color": 4281418044,
+        "tracking": 0.6644736842105263,
+        "font_asc": -0.21375652030254577,
+        "font_desc": 0.0907565203025456
+      },
+      {
+        "t": "text",
+        "id": "text_181",
+        "text": "家 · 海棠路18号",
+        "x": 15.832754542540972,
+        "y": 130.1589739299111,
+        "w": 121.00630114653481,
+        "h": 18.35099777227279,
+        "size": 15.481119495439906,
+        "weight": 400,
+        "line_height": 18.35099777227279,
+        "alignx": 0,
+        "variant": "single_line",
+        "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+        "color": 4281418044,
+        "tracking": 0,
+        "font_asc": -0.18381037643375098,
+        "font_desc": 0.07881037643375108
+      }
+    ],
+    "variant": "surface",
+    "bg": 4294770171,
+    "radius": 20.363636363636363
+  },
+  "changes": [
+    {
+      "source": "cards/aircon-08/mapped.json",
+      "source_sha256": "350fccd59b73a2301978fd7ac496de6e42ced087bc03ae0eb360c6d2e57568ba",
+      "operation": "Extract service-owned native subtree and translate origin",
+      "source_root": "installation_booking",
+      "translation": [
+        -17.818181818181817,
+        -156.162109375
+      ]
+    }
+  ]
+}

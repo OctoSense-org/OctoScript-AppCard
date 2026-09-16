@@ -1,0 +1,453 @@
+diff --git a/apps/kit-host/src/beauty.rs b/apps/kit-host/src/beauty.rs
+index ef3c677..3ce38ac 100644
+--- a/apps/kit-host/src/beauty.rs
++++ b/apps/kit-host/src/beauty.rs
+@@ -1,6 +1,7 @@
+ //! Native, chrome-free preview of the lab's L0 cards through splash-makepad.
+ pub use makepad_widgets;
+ use makepad_widgets::*;
++use makepad_widgets::browser::Browser;
+ use splash_widgets::design::*;
+ mod beauty_semantics;
+ use beauty_semantics::Session as SemanticSession;
+@@ -9,6 +10,8 @@ app_main!(App);
+ 
+ script_mod! {
+     use mod.prelude.widgets.*
++    mod.prelude.widgets.Browser = mod.widgets.Browser
++    mod.prelude.widgets.BrowserBackend = mod.widgets.BrowserBackend
+     startup() do #(App::script_component(vm)) {
+         ui: Root {
+             main_window := Window {
+@@ -42,6 +45,12 @@ pub struct App {
+     #[rust]
+     pending_focus: Option<String>,
+     #[rust]
++    pending_selection: Option<makepad_draw::text::selection::Selection>,
++    #[rust]
++    pending_scroll: Vec<(String, f64)>,
++    #[rust]
++    scroll_report: String,
++    #[rust]
+     action_log: String,
+     #[rust]
+     semantic_actions: Vec<serde_json::Value>,
+@@ -89,6 +98,16 @@ impl App {
+         self.pending_focus = focused
+             .first()
+             .and_then(|e| e["id"].as_str().map(str::to_owned));
++        self.pending_selection = if r["preserve_input_selection"].as_bool()==Some(true) {
++            self.pending_focus.as_ref().and_then(|id| {
++                let widget=self.ui.widget(cx,&[LiveId::from_str(id)]);
++                widget.borrow::<TextInput>().filter(|input|cx.has_key_focus(input.area())).map(|input|input.selection())
++            })
++        } else {None};
++        self.pending_scroll=r["scroll_restore"].as_array().map(|items|items.iter().filter_map(|item| {
++            Some((item["id"].as_str()?.to_owned(),item["y"].as_f64()?))
++        }).collect()).unwrap_or_default();
++        self.scroll_report.clear();
+         cx.set_key_focus(Area::Empty);
+         self.inspection_ids = elements
+             .iter()
+@@ -104,8 +123,11 @@ impl App {
+             splash_makepad::to_makepad_l0_ui(&tree)
+         };
+         let code = format!(
+-            "use mod.prelude.widgets.*\nlet root = View{{width:Fill height:Fill flow:Overlay {ui}}}\nroot"
++            "use mod.prelude.widgets.*\nreturn View{{width:Fill height:Fill flow:Overlay {ui}}}"
+         );
++        if let Some(layout) = r["layout"].as_str() {
++            let _ = std::fs::write(format!("{layout}.native.splash"), &code);
++        }
+         let sm = ScriptMod {
+             cargo_manifest_path: env!("CARGO_MANIFEST_DIR").into(),
+             module_path: module_path!().into(),
+@@ -118,7 +140,8 @@ impl App {
+         let view = cx.with_vm(|vm| {
+             let value = vm
+                 .eval_checked(sm, 2_000_000)
+-                .ok_or("native VM rejected the widget tree")?;
++                .ok_or_else(|| format!("native VM rejected the widget tree; consumed={}; captured={:?}",
++                    vm.last_limit_consumed(), vm.bx.captured_errors))?;
+             Ok::<_, String>(View::script_from_value(vm, value))
+         })?;
+         let width = r["width"].as_f64().ok_or("missing width")?;
+@@ -128,7 +151,7 @@ impl App {
+             dvec2(width, height),
+             dvec2(80.0, 80.0),
+             false,
+-            "Splash beauty preview".into(),
++            r["title"].as_str().unwrap_or("Splash beauty preview").into(),
+         );
+         if !first_mount {
+             self.ui
+@@ -145,10 +168,19 @@ impl App {
+         // overlay drawing immediately. Nested old overlays can otherwise keep
+         // the same stale parent redraw id and survive into the next screen.
+         fn retire_overlay(cx:&mut Cx,widget:WidgetRef) {
++            if widget.borrow::<Browser>().is_some() {
++                // Platform views are outside the Metal tree and must close
++                // before an old AppCard is retired or they cover the next one.
++                cx.system_browser(LiveId(widget.widget_uid().0)).close();
++            }
+             splash_widgets::kit::retire_overlay(cx,&widget);
+             let list=widget.borrow::<DesignOverlay>().and_then(|v|v.draw_list.as_ref().map(|l|l.id()))
+                 .or_else(||widget.borrow::<DesignGlassSvg>().and_then(|v|v.draw_list.as_ref().map(|l|l.id())));
+-            if let Some(id)=list {cx.draw_lists[id].clear_draw_items(cx.redraw_id);}
++            if let Some(id)=list {
++                let recording_gen=cx.next_uniform_gen();
++                let uniforms_gen=cx.next_uniform_gen();
++                cx.draw_lists[id].clear_draw_items(cx.redraw_id,recording_gen,uniforms_gen);
++            }
+             let mut children=Vec::new();
+             widget.children(&mut |_,child|children.push(child));
+             for child in children {retire_overlay(cx,child);}
+@@ -202,6 +234,14 @@ impl App {
+         if self.layout_path.is_empty() {
+             return;
+         }
++        if !self.pending_scroll.is_empty() {
++            if self.pending_scroll.iter().any(|(id,_)|!self.ui.widget(cx,&[LiveId::from_str(id)]).area().is_valid(cx)) {return;}
++            for (id,y) in std::mem::take(&mut self.pending_scroll) {
++                self.ui.widget(cx,&[LiveId::from_str(&id)]).set_scroll_pos(cx,dvec2(0.,y.max(0.)));
++            }
++            cx.redraw_all();
++            return;
++        }
+         let mut rows = Vec::new();
+         let mut pending = Vec::new();
+         for (index,id) in self.inspection_ids.iter().enumerate() {
+@@ -267,7 +307,8 @@ impl App {
+             let widget = self.ui.widget(cx, &[LiveId::from_str(&id)]);
+             if let Some(mut input) = widget.borrow_mut::<TextInput>() {
+                 input.set_key_focus(cx);
+-                input.move_cursor_text_end(cx, false);
++                if let Some(selection)=self.pending_selection.take() {input.set_selection(cx,selection);}
++                else {input.move_cursor_text_end(cx, false);}
+                 input.reset_blink_timer(cx);
+                 input.redraw(cx);
+                 return;
+@@ -282,12 +323,34 @@ impl App {
+             self.layout_path.clear();
+         }
+     }
++
++    fn report_scroll(&mut self,cx:&mut Cx) {
++        if !self.layout_path.is_empty() {return;}
++        let r:serde_json::Value=serde_json::from_str(&self.last_request).unwrap_or_default();
++        let Some(path)=r["scroll_state"].as_str() else {return;};
++        let Some(watches)=r["scroll_watch"].as_array() else {return;};
++        let mut rows=Vec::new();
++        for watch in watches {
++            let (Some(id),Some(content))=(watch["id"].as_str(),watch["content"].as_str()) else {continue;};
++            let viewport=self.ui.widget(cx,&[LiveId::from_str(id)]).area();
++            let content=self.ui.widget(cx,&[LiveId::from_str(content)]).area();
++            if !viewport.is_valid(cx) || !content.is_valid(cx) {continue;}
++            let v=viewport.rect(cx);let c=content.rect(cx);
++            rows.push(serde_json::json!({"id":id,"y":(v.pos.y-c.pos.y).max(0.),"max_y":(c.size.y-v.size.y).max(0.),"viewport_height":v.size.y}));
++        }
++        let report=serde_json::json!({"nonce":r["nonce"],"elements":rows}).to_string();
++        if report!=self.scroll_report {
++            let tmp=format!("{path}.new");
++            if std::fs::write(&tmp,&report).is_ok() && std::fs::rename(&tmp,path).is_ok() {self.scroll_report=report;}
++        }
++    }
+ }
+ 
+ impl AppMain for App {
+     fn script_mod(vm: &mut ScriptVm) -> ScriptValue {
+         crate::makepad_widgets::theme_mod(vm);
+         splash_widgets::widgets_mod(vm);
++        makepad_widgets::browser::script_mod(vm);
+         splash_widgets::design::script_mod(vm);
+         splash_widgets::kit::script_mod(vm);
+         splash_widgets::progress::script_mod(vm);
+@@ -295,6 +358,27 @@ impl AppMain for App {
+         self::script_mod(vm)
+     }
+     fn handle_event(&mut self, cx: &mut Cx, event: &Event) {
++        #[cfg(target_os = "macos")]
++        if let Event::Custom(body)=event {
++            if let Ok(probe)=serde_json::from_str::<serde_json::Value>(body) {
++                if probe["kind"]=="webview_lifecycle" {
++                    if let Some(path)=probe["result"].as_str() {
++                        let _=std::fs::write(path,serde_json::json!({"native_browsers":cx.system_browser_count()}).to_string());
++                    }
++                }
++                if probe["kind"]=="webview_inspect" {
++                    if let (Some(id),Some(path))=(probe["id"].as_str(),probe["result"].as_str()) {
++                        if self.inspection_ids.iter().any(|known|known==id) {
++                            let widget=self.ui.widget(cx,&[LiveId::from_str(id)]);
++                            if widget.borrow::<Browser>().is_some() {
++                                cx.system_browser(LiveId(widget.widget_uid().0)).inspect(
++                                    path.to_owned(),probe["snapshot"].as_str().map(str::to_owned),probe["scroll_y"].as_f64());
++                            }
++                        }
++                    }
++                }
++            }
++        }
+         if let Event::Actions(actions)=event {
+             self.semantic.actions(cx,&self.ui,actions);
+             for action in actions {
+@@ -326,6 +410,7 @@ impl AppMain for App {
+         if self.timer.is_event(event).is_some() {
+             self.semantic.poll(cx,&self.ui);
+             self.measure_layout(cx);
++            self.report_scroll(cx);
+         }
+     }
+ }
+diff --git a/crates/makepad-plot/src/chart_paint.rs b/crates/makepad-plot/src/chart_paint.rs
+index fbed021..f4b2d32 100644
+--- a/crates/makepad-plot/src/chart_paint.rs
++++ b/crates/makepad-plot/src/chart_paint.rs
+@@ -27,7 +27,7 @@ impl ChartPaint {
+ 
+     pub fn apply(&self, draw: &mut DrawVector, x: f32, y: f32, w: f32, h: f32) {
+         let stops: Vec<_> = self.stops.iter().map(|&(offset,c)| GradientStop {
+-            offset, color:[c.x*c.w,c.y*c.w,c.z*c.w,c.w], straight_rgb:Some([c.x,c.y,c.z]),
++            offset, color:[c.x*c.w,c.y*c.w,c.z*c.w,c.w],
+         }).collect();
+         draw.cur_gradient_row_v=draw.add_gradient_row(&stops);
+         if self.radial {
+diff --git a/crates/makepad-plot/src/plot_view.rs b/crates/makepad-plot/src/plot_view.rs
+index 046193b..700c126 100644
+--- a/crates/makepad-plot/src/plot_view.rs
++++ b/crates/makepad-plot/src/plot_view.rs
+@@ -276,6 +276,7 @@ impl PlotView {
+                 height: Size::Fixed(self.rect.size.y),
+                 margin: Inset::default(),
+                 metrics: Metrics::default(),
++                ..Walk::default()
+             },
+             Layout {
+                 clip_x: self.clip_plot,
+@@ -748,8 +749,8 @@ impl PlotView {
+         let top=self.plot_rect.pos.y as f32;
+         let bottom=(self.plot_rect.pos.y+self.plot_rect.size.y) as f32;
+         let stops=vec![
+-            GradientStop{offset:0.,color:[color.x*color.w,color.y*color.w,color.z*color.w,color.w],straight_rgb:None},
+-            GradientStop{offset:1.,color:[0.;4],straight_rgb:None},
++            GradientStop{offset:0.,color:[color.x*color.w,color.y*color.w,color.z*color.w,color.w]},
++            GradientStop{offset:1.,color:[0.;4]},
+         ];
+         self.draw_vector.cur_gradient_row_v=self.draw_vector.add_gradient_row(&stops);
+         self.draw_vector.set_paint(VectorPaint::linear_gradient(0.,top,0.,bottom,stops));
+diff --git a/crates/splash-makepad/src/design.rs b/crates/splash-makepad/src/design.rs
+index 348a3a9..12b85cd 100644
+--- a/crates/splash-makepad/src/design.rs
++++ b/crates/splash-makepad/src/design.rs
+@@ -4,6 +4,30 @@
+ use splash_render::{NodeKind, UiNode};
+ use std::fmt::Write;
+ 
++fn design_asset_allowed(src: &str) -> bool {
++    if src.starts_with("http://127.0.0.1:") { return true; }
++    #[cfg(target_arch = "wasm32")]
++    if src.starts_with("http://localhost:") || src.starts_with("http://localhost/") { return true; }
++    // The browser host additionally checks against its own iframe origin/base.
++    // Native/lab builds retain their loopback-only resource rule.
++    #[cfg(target_arch = "wasm32")]
++    for base in [
++        "https://octosense.org/wasm/service-cards/card-assets/",
++        "https://octosense-org.github.io/wasm/service-cards/card-assets/",
++        "https://octosense-org.github.io/Octosense-website/wasm/service-cards/card-assets/",
++    ] {
++        if let Some(path) = src.strip_prefix(base) {
++            let parts: Vec<_> = path.split('/').collect();
++            if parts.len() == 3 && parts[1] == "assets"
++                && parts.iter().all(|part| !part.is_empty() && *part != "." && *part != ".."
++                    && part.bytes().all(|c| c.is_ascii_alphanumeric() || matches!(c, b'-' | b'_' | b'.'))) {
++                return true;
++            }
++        }
++    }
++    false
++}
++
+ /// Turn template-local child paths into the IDs of this mounted instance.
+ /// Reject broken bindings before evaluating any Makepad widget source.
+ pub fn kit_contract(n: &UiNode) -> Result<Option<serde_json::Value>, String> {
+@@ -84,8 +108,18 @@ pub fn prepare(source: &str) -> Result<UiNode, String> {
+ }
+ 
+ pub fn to_makepad_ui(tree: &UiNode) -> Result<String, String> {
+-    fn emit(n: &UiNode, out: &mut String) -> Result<(), String> {
++    fn emit(n: &UiNode, out: &mut String, flow_origin: Option<(f64, f64)>) -> Result<(), String> {
+         let a = &n.attrs;
++        let scroll_y = n.kind == NodeKind::Stack && a.variant.as_deref() == Some("scroll_y");
++        // Leaf widgets may reuse their Walk for internal text layout. Keep the
++        // positioning margin on a wrapper so it cannot be applied twice.
++        let wrapped = flow_origin.is_some() && n.kind != NodeKind::Stack;
++        if wrapped {
++            let (x, y) = flow_origin.unwrap();
++            writeln!(out, "View {{width: {} height: {} margin: Inset{{left: {} top: {} right: 0 bottom: 0}} flow: Overlay padding: 0 clip_x: false clip_y: false",
++                a.w.ok_or("design width required")?, a.h.ok_or("design height required")?,
++                a.x.unwrap_or(0.) - x, a.y.unwrap_or(0.) - y).unwrap();
++        }
+         let contract = kit_contract(n)?;
+         let glass = matches!(a.variant.as_deref(),Some("glass_surface" | "glass_overlay"));
+         let glass_children = n.children.iter().any(|c|matches!(c.attrs.variant.as_deref(),Some("glass_surface" | "glass_overlay" | "glass_svg" | "glass_group")));
+@@ -94,6 +128,7 @@ pub fn to_makepad_ui(tree: &UiNode) -> Result<String, String> {
+             NodeKind::Stack if a.variant.as_deref() == Some("pill") => "DesignPill",
+             NodeKind::Stack if a.variant.as_deref() == Some("button") => "DesignButton",
+             NodeKind::Stack if a.variant.as_deref() == Some("radio") => "DesignRadio",
++            NodeKind::Stack if scroll_y => "ScrollYView",
+             NodeKind::Stack if glass => "DesignGlassSurface",
+             // The importer marks the component that owns the glass and its
+             // foreground. Promoting its parent too would move an entire
+@@ -105,6 +140,7 @@ pub fn to_makepad_ui(tree: &UiNode) -> Result<String, String> {
+             NodeKind::Stack => "View",
+             NodeKind::Text if a.rotation.is_some() => "DesignRotatedLabel",
+             NodeKind::Text => "Label",
++            NodeKind::Web => "Browser",
+             NodeKind::Input => "DesignInput",
+             NodeKind::Button => "DesignNativeButton",
+             NodeKind::Slider | NodeKind::RangeSlider => "DesignAtroSlider",
+@@ -144,16 +180,25 @@ pub fn to_makepad_ui(tree: &UiNode) -> Result<String, String> {
+             a.h.ok_or("design height required")?
+         )
+         .unwrap();
+-        // Walk.abs_pos is window-local; source frames retain that coordinate
+-        // system through nested, inspectable Views.
+-        writeln!(
+-            out,
+-            "abs_pos: vec2({}, {})",
+-            a.x.unwrap_or(0.),
+-            a.y.unwrap_or(0.)
+-        )
+-        .unwrap();
++        // Source frames stay window-local. Inside a scroll viewport, convert
++        // them to parent-relative overlay margins so native layout applies the
++        // scroll offset and measures the complete content extent.
++        if wrapped {
++            writeln!(out, "margin: 0").unwrap();
++        } else if let Some((x, y)) = flow_origin {
++            writeln!(out, "margin: Inset{{left: {} top: {} right: 0 bottom: 0}}",
++                a.x.unwrap_or(0.) - x, a.y.unwrap_or(0.) - y).unwrap();
++        } else {
++            writeln!(out, "abs_pos: vec2({}, {})", a.x.unwrap_or(0.), a.y.unwrap_or(0.)).unwrap();
++        }
+         match n.kind {
++            NodeKind::Web => {
++                let src=a.src.as_ref().ok_or("web document source required")?;
++                if !src.starts_with("data:text/html;charset=utf-8;base64,") {
++                    return Err("measured web content requires an inline HTML document".into());
++                }
++                writeln!(out,"backend: BrowserBackend.Native url: {src:?}").unwrap();
++            }
+             NodeKind::StockPlot => {
+                 writeln!(out,"demo_data: false clip_plot: false plot_margin: Inset{{left:0 top:0 right:0 bottom:0}} draw_bg.color: #0000 draw_vector.draw_depth: 0").unwrap();
+                 if a.variant.as_deref()==Some("donut") {
+@@ -236,7 +281,7 @@ pub fn to_makepad_ui(tree: &UiNode) -> Result<String, String> {
+                     )
+                     .unwrap();
+                 }
+-                let clip=a.variant.as_deref()==Some("clip");
++                let clip=scroll_y || a.variant.as_deref()==Some("clip");
+                 writeln!(out, "flow: Overlay padding: 0 clip_x: {clip} clip_y: {clip}").unwrap();
+                 if let Some(bg) = a.bg {
+                     writeln!(out, "show_bg: true draw_bg.color: {}", super::hex_rgba(bg)).unwrap();
+@@ -245,7 +290,10 @@ pub fn to_makepad_ui(tree: &UiNode) -> Result<String, String> {
+                     writeln!(out, "selected: {}", selected != 0).unwrap();
+                 }
+                 for c in &n.children {
+-                    emit(c, out)?;
++                    let origin = if scroll_y || flow_origin.is_some() {
++                        Some((a.x.unwrap_or(0.), a.y.unwrap_or(0.)))
++                    } else { None };
++                    emit(c, out, origin)?;
+                 }
+             }
+             NodeKind::Text | NodeKind::Input => {
+@@ -335,7 +383,7 @@ pub fn to_makepad_ui(tree: &UiNode) -> Result<String, String> {
+             }
+             NodeKind::Image => {
+                 let src = a.src.as_ref().ok_or("design image resource required")?;
+-                if !src.starts_with("http://127.0.0.1:") {
++                if !design_asset_allowed(src) {
+                     return Err("design assets must use the lab's local asset server".into());
+                 }
+                 writeln!(out, "src: http_resource({src:?}) fit: ImageFit.Stretch").unwrap();
+@@ -356,7 +404,7 @@ pub fn to_makepad_ui(tree: &UiNode) -> Result<String, String> {
+                     writeln!(out,"draw_svg.overlay_blend: {}",a.value.unwrap_or(0.)).unwrap();
+                 }
+                 let src=a.src.as_ref().ok_or("design SVG resource required")?;
+-                if !src.starts_with("http://127.0.0.1:") || !src.ends_with(".svg") {
++                if !design_asset_allowed(src) || !src.ends_with(".svg") {
+                     return Err("design vectors require a local SVG asset".into());
+                 }
+                 writeln!(out,"animating: false draw_svg.svg: http_resource({src:?}) draw_svg.preserve_viewbox: true draw_svg.preserve_aspect: false").unwrap();
+@@ -364,10 +412,11 @@ pub fn to_makepad_ui(tree: &UiNode) -> Result<String, String> {
+             _ => unreachable!(),
+         }
+         writeln!(out, "}}").unwrap();
++        if wrapped { writeln!(out, "}}").unwrap(); }
+         Ok(())
+     }
+     let mut out = String::new();
+-    emit(tree, &mut out)?;
++    emit(tree, &mut out, None)?;
+     Ok(out)
+ }
+ 
+@@ -375,6 +424,24 @@ pub fn to_makepad_ui(tree: &UiNode) -> Result<String, String> {
+ mod tests {
+     use super::*;
+ 
++    #[test]
++    fn scroll_content_flows_relative_to_parents_and_chrome_stays_absolute() {
++        let tree=prepare(r#"{t:"stack" x:0 y:0 w:406 h:776 c:[
++            {t:"stack" id:"reader" variant:"scroll_y" x:0 y:88 w:406 h:616 c:[
++                {t:"stack" id:"content" x:0 y:88 w:406 h:1800 c:[
++                    {t:"stack" id:"last" x:23 y:1800 w:360 h:24}
++                ]}
++            ]}
++            {t:"stack" id:"toolbar" x:0 y:704 w:406 h:49}
++        ]}"#).unwrap();
++        let ui=to_makepad_ui(&tree).unwrap();
++        assert!(ui.contains("reader := ScrollYView {\nwidth: 406 height: 616\nabs_pos: vec2(0, 88)"));
++        assert!(ui.contains("clip_x: true clip_y: true"));
++        assert!(ui.contains("content := View {\nwidth: 406 height: 1800\nmargin: Inset{left: 0 top: 0 right: 0 bottom: 0}"));
++        assert!(ui.contains("last := View {\nwidth: 360 height: 24\nmargin: Inset{left: 23 top: 1712 right: 0 bottom: 0}"));
++        assert!(ui.contains("toolbar := View {\nwidth: 406 height: 49\nabs_pos: vec2(0, 704)"));
++    }
++
+     #[test]
+     fn semantic_index_keeps_no_selection_and_nonzero_values() {
+         for index in [-1,0,4] {
+@@ -467,6 +534,16 @@ mod tests {
+         assert!(to_makepad_ui(&image).is_err());
+     }
+ 
++    #[test]
++    fn html_document_uses_platform_browser_and_rejects_external_sources() {
++        let tree=prepare(r#"{t:"web" w:406 h:616 src:"data:text/html;charset=utf-8;base64,PGI+SGVsbG88L2I+"}"#).unwrap();
++        let ui=to_makepad_ui(&tree).unwrap();
++        assert!(ui.contains("Browser {"));
++        assert!(ui.contains("backend: BrowserBackend.Native"));
++        let remote=prepare(r#"{t:"web" w:406 h:616 src:"https://example.com"}"#).unwrap();
++        assert!(to_makepad_ui(&remote).is_err());
++    }
++
+     #[test]
+     fn native_input_retains_editable_value_placeholder_and_focus_contract() {
+         let mut tree = prepare(
+diff --git a/crates/splash-render/src/eval.rs b/crates/splash-render/src/eval.rs
+index 92cb0d2..a555e69 100644
+--- a/crates/splash-render/src/eval.rs
++++ b/crates/splash-render/src/eval.rs
+@@ -17,11 +17,9 @@ use splash_node::{Attrs, NodeKind, UiNode};
+ /// Returns `None` for evaluation errors, exhausted execution/tree budgets or any
+ /// malformed node. A failed child invalidates the entire tree.
+ pub fn build(src: &str, register: impl FnOnce(&mut ScriptVm)) -> Option<UiNode> {
+-    let mut std_slot = 0;
+-    let mut host = 0;
++    let mut host = ScriptVmHost::new((), ());
+     let vm = &mut ScriptVm {
+         host: &mut host,
+-        std: &mut std_slot,
+         bx: Box::new(ScriptVmBase::new()),
+     };
+ 

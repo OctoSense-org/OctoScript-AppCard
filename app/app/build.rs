@@ -36,7 +36,7 @@ fn pin_splash_runtime() {
     }
     let root = PathBuf::from(env::var("CARGO_MANIFEST_DIR").unwrap()).join("../..").canonicalize().unwrap();
     let mut files = Vec::new();
-    for path in ["aichat", "app/app/src", "app/app/resources", "Octoscript/crates/octoscript-ui-l0", "Octoscript-Makepad/crates/octoscript-node",
+    for path in ["aichat", "app/app/src", "app/app/resources", "../octoscript/crates/octoscript-ui-l0", "../octoscript-makepad/crates/octoscript-node",
         "app/crates", "octos/crates/octos-core", "app/Cargo.toml", "app/Cargo.lock", "app/app/Cargo.toml", "app/app/build.rs", "app/.cargo"] {
         collect(&root.join(path), &mut files);
     }

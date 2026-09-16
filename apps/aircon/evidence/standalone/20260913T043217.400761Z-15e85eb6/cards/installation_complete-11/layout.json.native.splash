@@ -1,0 +1,59 @@
+use mod.prelude.widgets.*
+return View{width:Fill height:Fill flow:Overlay beauty_0 := DesignSurface {
+width: 356.9505 height: 171.06212
+abs_pos: vec2(0, 0)
+draw_bg.radius: 24.885437 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfbff
+beauty_0_0 := KitButton {
+contract: "{\"bindings\":{\"control\":\"beauty_0_0_1\",\"label\":\"beauty_0_0_2\"},\"widget\":\"KitButton\"}" glass: false
+width: 177.30873 height: 45.098198
+abs_pos: vec2(87.0990291262136, 102.63727454909815)
+flow: Overlay padding: 0 clip_x: false clip_y: false
+beauty_0_0_0 := DesignSurface {
+width: 177.30873 height: 45.098198
+abs_pos: vec2(87.0990291262136, 102.63727454909815)
+draw_bg.radius: 15.553398 draw_bg.ellipse: 0 draw_bg.border_width: 0.65 draw_bg.border_position: 0 draw_bg.border_color: #cbd6ceff
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfbff
+}
+beauty_0_0_1 := DesignNativeButton {
+width: 177.30873 height: 45.098198
+abs_pos: vec2(87.0990291262136, 102.63727454909815)
+enabled: true
+}
+beauty_0_0_2 := Label {
+width: 84.66625 height: 21
+abs_pos: vec2(132.18959186782547, 116.50643718532172)
+clip_x: false clip_y: false
+padding: 0 text: "反馈问题" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.22598872 desc: 0.10998871 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 14.125746 line_spacing: 1 letter_spacing: 1.25}
+draw_text.color: #608570ff
+}
+}
+beauty_0_1 := Svg {
+width: 29.551456 height: 31.879759
+abs_pos: vec2(20.219417475728157, 20.99398797595188)
+animating: false draw_svg.svg: http_resource("http://127.0.0.1:8170/ux-images/installation_complete-11/assets/wrench_icon_1-1210670333e1.svg") draw_svg.preserve_viewbox: true draw_svg.preserve_aspect: false
+}
+beauty_0_2 := Label {
+width: 200.55014 height: 21.5
+abs_pos: vec2(71.57169154791305, 26.23363340646108)
+clip_x: false clip_y: false
+padding: 0 text: "安装服务 · 安装已完成" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.20717123 desc: 0.09717123 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 13.974981 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+beauty_0_3 := Label {
+width: 139.04411 height: 20.563362
+abs_pos: vec2(16.002536270109573, 66.40695213779668)
+clip_x: false clip_y: false
+padding: 0 text: "家 · 海棠路18号" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.2010662 desc: 0.0960662 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 13.400778 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+}
+}

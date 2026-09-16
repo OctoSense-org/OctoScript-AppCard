@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.1.0",
+  "contract_sha256": "2774c3b6deb1b1e2a743f2d77e37aac4cdc7ba4976b7ecace4b3e20039830662",
+  "reference_sha256": "f38d2b6dbfc8a6eea30ffd4a0ee8d5760097766a0d15d5d80f4707b4d59ee254",
+  "classification_scope": "Authored intent and explicit review candidates; no claim of automatic visual recognition.",
+  "elements": [
+    {
+      "id": "calendar_card",
+      "role": "card",
+      "basis": "Explicit measured service composition ownership",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "calendar_restore",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "calendar_restore_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "calendar_restore_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "calendar_restore_text",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "calendar_icon_3",
+      "role": "icon",
+      "basis": "Explicit inspected source region or traced vector symbol",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/calendar_icon_3.svg",
+        "sha256": "eb7e019ef6117f168130e94bb240953b38c1f8fd95434029322b0c38ad998550",
+        "method": "reference_svg",
+        "reference_sha256": "f38d2b6dbfc8a6eea30ffd4a0ee8d5760097766a0d15d5d80f4707b4d59ee254",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector tracing of visible source symbol; shape approximation, no raster or text"
+      }
+    },
+    {
+      "id": "calendar_title",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "calendar_note",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "booking_note",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+# ledger logistics_card-04@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy text_169_text { class: user-copy, en: "联系配送员" }
+copy text_170_text { class: user-copy, en: "修改时间" }
+copy text_162_text { class: user-copy, en: "物流 · 配送中" }
+copy text_163_text { class: user-copy, en: "周五 14:00-16:00" }
+copy text_164_text { class: user-copy, en: "空调正在送往你家" }
+copy text_165_text { class: user-copy, en: "已发货" }
+copy text_166_text { class: user-copy, en: "配送中" }
+copy text_167_text { class: user-copy, en: "家 · 海棠路18号" }
+copy text_168_text { class: user-copy, en: "来自购物订单" }
+copy text_212_text { class: user-copy, en: "已送达" }
+state courier_control_enabled { shape: bool, initial: true }
+state delivery_time_control_enabled { shape: bool, initial: true }
+component Surface4ca52600778e(instance: text) {
+  view Kit(component: "Surface4ca52600778e", instance: instance) { slot }
+}
+component Surface3c3bbeb094ae(instance: text) {
+  view Kit(component: "Surface3c3bbeb094ae", instance: instance) { slot }
+}
+component KitButton5dc7ea8cd583(instance: text) {
+  view Kit(component: "KitButton5dc7ea8cd583", instance: instance) { slot }
+}
+component Surface3e73be6d2f1c(instance: text) {
+  view Kit(component: "Surface3e73be6d2f1c", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Textde079a381157(instance: text, text: text) {
+  view Kit(component: "Textde079a381157", instance: instance, text: text)
+}
+component Texte5f106623ead(instance: text, text: text) {
+  view Kit(component: "Texte5f106623ead", instance: instance, text: text)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Surfaceec1ce4e5adcd(instance: text) {
+  view Kit(component: "Surfaceec1ce4e5adcd", instance: instance) { slot }
+}
+component Surface1774da2a60fe(instance: text) {
+  view Kit(component: "Surface1774da2a60fe", instance: instance) { slot }
+}
+component Text55273d9d7319(instance: text, text: text) {
+  view Kit(component: "Text55273d9d7319", instance: instance, text: text)
+}
+component Textc43e9fd0e153(instance: text, text: text) {
+  view Kit(component: "Textc43e9fd0e153", instance: instance, text: text)
+}
+component Text08d45242cf8d(instance: text, text: text) {
+  view Kit(component: "Text08d45242cf8d", instance: instance, text: text)
+}
+component Text2b4883143754(instance: text, text: text) {
+  view Kit(component: "Text2b4883143754", instance: instance, text: text)
+}
+component Text7ef8ebc24c5f(instance: text, text: text) {
+  view Kit(component: "Text7ef8ebc24c5f", instance: instance, text: text)
+}
+component Text439b3599a3a7(instance: text, text: text) {
+  view Kit(component: "Text439b3599a3a7", instance: instance, text: text)
+}
+component Text98b3da464714(instance: text, text: text) {
+  view Kit(component: "Text98b3da464714", instance: instance, text: text)
+}
+component Texte4fb7e534b49(instance: text, text: text) {
+  view Kit(component: "Texte4fb7e534b49", instance: instance, text: text)
+}
+
+view root Surface4ca52600778e(instance: "logistics_card") {
+  Surface3c3bbeb094ae(instance: "divider_0") {
+
+  }
+  KitButton5dc7ea8cd583(instance: "courier") {
+    Surface3e73be6d2f1c(instance: "courier_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "courier_control", enabled: courier_control_enabled)
+    Textde079a381157(instance: "text_169", text: copy.text_169_text)
+  }
+  KitButton5dc7ea8cd583(instance: "delivery_time") {
+    Surface3e73be6d2f1c(instance: "delivery_time_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "delivery_time_control", enabled: delivery_time_control_enabled)
+    Texte5f106623ead(instance: "text_170", text: copy.text_170_text)
+  }
+  Vectore0a378fde04f(instance: "truck_icon_0")
+  Vectore0a378fde04f(instance: "home_icon_1")
+  Surfaceec1ce4e5adcd(instance: "step_0") {
+
+  }
+  Surface1774da2a60fe(instance: "step_1") {
+
+  }
+  Surfaceec1ce4e5adcd(instance: "step_2") {
+
+  }
+  Text55273d9d7319(instance: "text_162", text: copy.text_162_text)
+  Textc43e9fd0e153(instance: "text_163", text: copy.text_163_text)
+  Text08d45242cf8d(instance: "text_164", text: copy.text_164_text)
+  Text2b4883143754(instance: "text_165", text: copy.text_165_text)
+  Text7ef8ebc24c5f(instance: "text_166", text: copy.text_166_text)
+  Text439b3599a3a7(instance: "text_167", text: copy.text_167_text)
+  Text98b3da464714(instance: "text_168", text: copy.text_168_text)
+  Texte4fb7e534b49(instance: "text_212", text: copy.text_212_text)
+}

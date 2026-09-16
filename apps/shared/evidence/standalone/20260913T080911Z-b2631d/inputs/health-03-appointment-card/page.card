@@ -1,0 +1,71 @@
+# ledger health-03-appointment-card@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy choose_items_text_text { class: user-copy, en: "选择项目" }
+copy defer_text_text { class: user-copy, en: "稍后安排" }
+copy card_status_text { class: user-copy, en: "健康 · 待预约" }
+copy appointment_title_text { class: user-copy, en: "年度体检" }
+copy appointment_note_text { class: user-copy, en: "选择项目和适合你的时间" }
+copy provider_name_text { class: user-copy, en: "安心体检中心" }
+state choose_items_control_enabled { shape: bool, initial: true }
+state defer_control_enabled { shape: bool, initial: true }
+component Surface5259d30211c6(instance: text) {
+  view Kit(component: "Surface5259d30211c6", instance: instance) { slot }
+}
+component KitButton5dc7ea8cd583(instance: text) {
+  view Kit(component: "KitButton5dc7ea8cd583", instance: instance) { slot }
+}
+component Surface93a316bf76d8(instance: text) {
+  view Kit(component: "Surface93a316bf76d8", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Textcd4758377fda(instance: text, text: text) {
+  view Kit(component: "Textcd4758377fda", instance: instance, text: text)
+}
+component Surfacef38cb6e126ad(instance: text) {
+  view Kit(component: "Surfacef38cb6e126ad", instance: instance) { slot }
+}
+component Text4e1ccfdff3eb(instance: text, text: text) {
+  view Kit(component: "Text4e1ccfdff3eb", instance: instance, text: text)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Text7ca1df6eeeaf(instance: text, text: text) {
+  view Kit(component: "Text7ca1df6eeeaf", instance: instance, text: text)
+}
+component Text2b38475b4932(instance: text, text: text) {
+  view Kit(component: "Text2b38475b4932", instance: instance, text: text)
+}
+component Textcf8e2cacf417(instance: text, text: text) {
+  view Kit(component: "Textcf8e2cacf417", instance: instance, text: text)
+}
+component Text7e7d185d95ae(instance: text, text: text) {
+  view Kit(component: "Text7e7d185d95ae", instance: instance, text: text)
+}
+
+view root Surface5259d30211c6(instance: "appointment_card") {
+  KitButton5dc7ea8cd583(instance: "choose_items") {
+    Surface93a316bf76d8(instance: "choose_items_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "choose_items_control", enabled: choose_items_control_enabled)
+    Textcd4758377fda(instance: "choose_items_text", text: copy.choose_items_text_text)
+  }
+  KitButton5dc7ea8cd583(instance: "defer") {
+    Surfacef38cb6e126ad(instance: "defer_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "defer_control", enabled: defer_control_enabled)
+    Text4e1ccfdff3eb(instance: "defer_text", text: copy.defer_text_text)
+  }
+  Vectore0a378fde04f(instance: "heart_icon_0")
+  Text7ca1df6eeeaf(instance: "card_status", text: copy.card_status_text)
+  Text2b38475b4932(instance: "appointment_title", text: copy.appointment_title_text)
+  Textcf8e2cacf417(instance: "appointment_note", text: copy.appointment_note_text)
+  Text7e7d185d95ae(instance: "provider_name", text: copy.provider_name_text)
+}

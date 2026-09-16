@@ -1,0 +1,52 @@
+# ledger reunion-calendar-card-08@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy text_179_text { class: user-copy, en: "重新加入" }
+copy text_176_text { class: user-copy, en: "日历记录已撤销" }
+copy text_177_text { class: user-copy, en: "报名仍然有效" }
+copy text_178_text { class: user-copy, en: "周六 10月24日 18:30" }
+state restore_calendar_control_enabled { shape: bool, initial: true }
+component Surface4db6711dab1a(instance: text) {
+  view Kit(component: "Surface4db6711dab1a", instance: instance) { slot }
+}
+component KitButton3f1620e22939(instance: text) {
+  view Kit(component: "KitButton3f1620e22939", instance: instance) { slot }
+}
+component Surfacefcc8b3af7876(instance: text) {
+  view Kit(component: "Surfacefcc8b3af7876", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Text4d8e6615221c(instance: text, text: text) {
+  view Kit(component: "Text4d8e6615221c", instance: instance, text: text)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Textd374177414c7(instance: text, text: text) {
+  view Kit(component: "Textd374177414c7", instance: instance, text: text)
+}
+component Textf520900eabd0(instance: text, text: text) {
+  view Kit(component: "Textf520900eabd0", instance: instance, text: text)
+}
+component Texta1622ac35609(instance: text, text: text) {
+  view Kit(component: "Texta1622ac35609", instance: instance, text: text)
+}
+
+view root Surface4db6711dab1a(instance: "calendar_card") {
+  KitButton3f1620e22939(instance: "restore_calendar") {
+    Surfacefcc8b3af7876(instance: "restore_calendar_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "restore_calendar_control", enabled: restore_calendar_control_enabled)
+    Text4d8e6615221c(instance: "text_179", text: copy.text_179_text)
+  }
+  Vectore0a378fde04f(instance: "calendar_icon_3")
+  Vectore0a378fde04f(instance: "calendar_icon_4")
+  Textd374177414c7(instance: "text_176", text: copy.text_176_text)
+  Textf520900eabd0(instance: "text_177", text: copy.text_177_text)
+  Texta1622ac35609(instance: "text_178", text: copy.text_178_text)
+}

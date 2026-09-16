@@ -8,6 +8,7 @@ import argparse,json,signal,subprocess,sys,time,uuid
 from pathlib import Path
 import sys as _sys, pathlib as _pathlib
 _sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[1]))
+from core.native_paths import repository
 from core import kitconf
 
 TRANSIENT=('empty native frame after three readbacks','Studio frame did not settle at')
@@ -20,7 +21,7 @@ def validate_sources(kit):
     audit.unlink(missing_ok=True)
     command=['cargo','run','--release','-q','-p','splash-makepad','--example','kit_audit','--',
              str(kit['cards_dir']),str(kitconf.HERE/kit['source_designs_dir']),str(PACKS.parent),str(audit)]
-    result=subprocess.run(command,cwd=kitconf.HERE.parents[1]/'splash-makepad',capture_output=True,text=True)
+    result=subprocess.run(command,cwd=repository('splash-makepad'),capture_output=True,text=True)
     (out/'capture-preflight.log').write_text(result.stdout+result.stderr)
     rows={r['screen']:r for r in json.loads(audit.read_text()).get('screens',[])} if audit.exists() else {}
     return result.returncode==0 and all(rows.get(name,{}).get('pass') for name in kit['screens'])

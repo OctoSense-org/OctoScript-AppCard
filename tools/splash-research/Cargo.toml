@@ -8,10 +8,10 @@ default-run = "octos-one-splash-research-experiment"
 [workspace]
 
 [dependencies]
-octoscript-capabilities = { path = "../../Octoscript/crates/octoscript-capabilities" }
-octoscript-core = { path = "../../Octoscript/crates/octoscript-core" }
-octoscript-schema = { path = "../../Octoscript/crates/octoscript-schema" }
-octoscript-ui-l0 = { path = "../../Octoscript/crates/octoscript-ui-l0" }
+octoscript-capabilities = { path = "../../../octoscript/crates/octoscript-capabilities" }
+octoscript-core = { path = "../../../octoscript/crates/octoscript-core" }
+octoscript-schema = { path = "../../../octoscript/crates/octoscript-schema" }
+octoscript-ui-l0 = { path = "../../../octoscript/crates/octoscript-ui-l0" }
 serde_json = "1.0"
 futures = "0.3"
 tokio = { version = "1", features = ["rt", "time", "macros"] }

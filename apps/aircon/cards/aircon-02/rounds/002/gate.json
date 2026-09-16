@@ -1,0 +1,2729 @@
+{
+  "schema_version": 1,
+  "id": "aircon-02",
+  "round": "002",
+  "build_id": [
+    8
+  ],
+  "tolerances": {
+    "native_geometry_px": 1.0,
+    "image_position_px": 3.0,
+    "image_dimension_px": 3.0,
+    "text_ink_position_px": 3.0,
+    "text_ink_dimension_px": 3.0,
+    "clipping_px": 1.0,
+    "color_channel": 16
+  },
+  "native_structure_pass": true,
+  "image_structure_pass": false,
+  "semantic_mapping_pass": true,
+  "semantic_errors": [],
+  "semantic_mapping": {
+    "schema_version": 1,
+    "policy_version": "1.1.0",
+    "policy_sha256": "d502a7c4f7dcc52ada37cfbbaf6bd9289afdcab90e30c504de96e8f8f39ff153",
+    "evaluator_sha256": "35d4dfa6e986e0f4c6acbf9cd7e10a7c148e30fe3f9e31be930d53b15eeef9d3",
+    "manifest_sha256": "3e9e6e3eb5bd3c87655cfd315577ef301eaba42664a72c1ab0b0f835756adcd1",
+    "reference_sha256": "e77a48d6c66c43b6e2342edf0907cc8369a52b9c8f968ef8ca1375546b40ae13",
+    "id": "aircon-02",
+    "round": "002",
+    "phase": "inspection",
+    "pass": true,
+    "errors": [],
+    "elements": [
+      {
+        "id": "page",
+        "role": "layout",
+        "basis": "authored stack node",
+        "expected_widgets": [
+          "View"
+        ],
+        "actual_widget": "View",
+        "issues": [],
+        "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+      },
+      {
+        "id": "screen",
+        "role": "layout",
+        "basis": "authored stack node",
+        "expected_widgets": [
+          "View"
+        ],
+        "actual_widget": "View",
+        "issues": [],
+        "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+      },
+      {
+        "id": "order_product",
+        "role": "card",
+        "basis": "Service-owned card surface with native child widgets",
+        "expected_widgets": [
+          "View",
+          "TaskplanProjectCard",
+          "CamoTrackRow"
+        ],
+        "actual_widget": "View",
+        "issues": [],
+        "repair": "Reuse the matching kit component, or compose and name a new reusable component from native children."
+      },
+      {
+        "id": "product_photo",
+        "role": "photo",
+        "basis": "Visual source-region review and explicit native renderer ownership",
+        "expected_widgets": [
+          "Image"
+        ],
+        "actual_widget": "Image",
+        "issues": [],
+        "repair": "Use an original or separately generated image asset with documented crop, fit and clipping."
+      },
+      {
+        "id": "text_48",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "text_49",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "order_details",
+        "role": "card",
+        "basis": "Service-owned card surface with native child widgets",
+        "expected_widgets": [
+          "View",
+          "TaskplanProjectCard",
+          "CamoTrackRow"
+        ],
+        "actual_widget": "View",
+        "issues": [],
+        "repair": "Reuse the matching kit component, or compose and name a new reusable component from native children."
+      },
+      {
+        "id": "divider_0",
+        "role": "layout",
+        "basis": "authored stack node",
+        "expected_widgets": [
+          "View"
+        ],
+        "actual_widget": "View",
+        "issues": [],
+        "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+      },
+      {
+        "id": "divider_1",
+        "role": "layout",
+        "basis": "authored stack node",
+        "expected_widgets": [
+          "View"
+        ],
+        "actual_widget": "View",
+        "issues": [],
+        "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+      },
+      {
+        "id": "person_icon_2",
+        "role": "icon",
+        "basis": "Visual source-region review and explicit native renderer ownership",
+        "expected_widgets": [
+          "Svg",
+          "Icon",
+          "Image"
+        ],
+        "actual_widget": "Svg",
+        "issues": [],
+        "repair": "Use a matching kit icon or reference-derived SVG. A source crop requires a recorded visual feature that cannot be reproduced faithfully with the available vector renderer."
+      },
+      {
+        "id": "calendar_icon_3",
+        "role": "icon",
+        "basis": "Visual source-region review and explicit native renderer ownership",
+        "expected_widgets": [
+          "Svg",
+          "Icon",
+          "Image"
+        ],
+        "actual_widget": "Svg",
+        "issues": [],
+        "repair": "Use a matching kit icon or reference-derived SVG. A source crop requires a recorded visual feature that cannot be reproduced faithfully with the available vector renderer."
+      },
+      {
+        "id": "wrench_icon_4",
+        "role": "icon",
+        "basis": "Visual source-region review and explicit native renderer ownership",
+        "expected_widgets": [
+          "Svg",
+          "Icon",
+          "Image"
+        ],
+        "actual_widget": "Svg",
+        "issues": [],
+        "repair": "Use a matching kit icon or reference-derived SVG. A source crop requires a recorded visual feature that cannot be reproduced faithfully with the available vector renderer."
+      },
+      {
+        "id": "text_50",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "text_51",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "text_53",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "text_54",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "divider_2",
+        "role": "layout",
+        "basis": "authored stack node",
+        "expected_widgets": [
+          "View"
+        ],
+        "actual_widget": "View",
+        "issues": [],
+        "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+      },
+      {
+        "id": "back",
+        "role": "button",
+        "basis": "authored KitButton composition",
+        "expected_widgets": [
+          "Button",
+          "KitButton"
+        ],
+        "actual_widget": "KitButton",
+        "issues": [],
+        "repair": "Use a native control and verify its declared action."
+      },
+      {
+        "id": "back_surface",
+        "role": "layout",
+        "basis": "authored stack node",
+        "expected_widgets": [
+          "View"
+        ],
+        "actual_widget": "View",
+        "issues": [],
+        "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+      },
+      {
+        "id": "back_control",
+        "role": "button",
+        "basis": "authored button node",
+        "expected_widgets": [
+          "Button",
+          "KitButton"
+        ],
+        "actual_widget": "Button",
+        "issues": [],
+        "repair": "Use a native control and verify its declared action."
+      },
+      {
+        "id": "view_logistics",
+        "role": "button",
+        "basis": "authored KitButton composition",
+        "expected_widgets": [
+          "Button",
+          "KitButton"
+        ],
+        "actual_widget": "KitButton",
+        "issues": [],
+        "repair": "Use a native control and verify its declared action."
+      },
+      {
+        "id": "view_logistics_surface",
+        "role": "layout",
+        "basis": "authored stack node",
+        "expected_widgets": [
+          "View"
+        ],
+        "actual_widget": "View",
+        "issues": [],
+        "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+      },
+      {
+        "id": "view_logistics_control",
+        "role": "button",
+        "basis": "authored button node",
+        "expected_widgets": [
+          "Button",
+          "KitButton"
+        ],
+        "actual_widget": "Button",
+        "issues": [],
+        "repair": "Use a native control and verify its declared action."
+      },
+      {
+        "id": "text_61",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "support",
+        "role": "button",
+        "basis": "authored KitButton composition",
+        "expected_widgets": [
+          "Button",
+          "KitButton"
+        ],
+        "actual_widget": "KitButton",
+        "issues": [],
+        "repair": "Use a native control and verify its declared action."
+      },
+      {
+        "id": "support_surface",
+        "role": "layout",
+        "basis": "authored stack node",
+        "expected_widgets": [
+          "View"
+        ],
+        "actual_widget": "View",
+        "issues": [],
+        "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+      },
+      {
+        "id": "support_control",
+        "role": "button",
+        "basis": "authored button node",
+        "expected_widgets": [
+          "Button",
+          "KitButton"
+        ],
+        "actual_widget": "Button",
+        "issues": [],
+        "repair": "Use a native control and verify its declared action."
+      },
+      {
+        "id": "text_62",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "back_icon_0",
+        "role": "icon",
+        "basis": "Visual source-region review and explicit native renderer ownership",
+        "expected_widgets": [
+          "Svg",
+          "Icon",
+          "Image"
+        ],
+        "actual_widget": "Svg",
+        "issues": [],
+        "repair": "Use a matching kit icon or reference-derived SVG. A source crop requires a recorded visual feature that cannot be reproduced faithfully with the available vector renderer."
+      },
+      {
+        "id": "check_icon_1",
+        "role": "icon",
+        "basis": "Visual source-region review and explicit native renderer ownership",
+        "expected_widgets": [
+          "Svg",
+          "Icon",
+          "Image"
+        ],
+        "actual_widget": "Svg",
+        "issues": [],
+        "repair": "Use a matching kit icon or reference-derived SVG. A source crop requires a recorded visual feature that cannot be reproduced faithfully with the available vector renderer."
+      },
+      {
+        "id": "step_0",
+        "role": "layout",
+        "basis": "authored stack node",
+        "expected_widgets": [
+          "View"
+        ],
+        "actual_widget": "View",
+        "issues": [],
+        "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+      },
+      {
+        "id": "step_1",
+        "role": "layout",
+        "basis": "authored stack node",
+        "expected_widgets": [
+          "View"
+        ],
+        "actual_widget": "View",
+        "issues": [],
+        "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+      },
+      {
+        "id": "step_2",
+        "role": "layout",
+        "basis": "authored stack node",
+        "expected_widgets": [
+          "View"
+        ],
+        "actual_widget": "View",
+        "issues": [],
+        "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+      },
+      {
+        "id": "text_44",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "text_46",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "text_47",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "text_55",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "text_56",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "text_57",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "text_58",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "text_59",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      },
+      {
+        "id": "text_60",
+        "role": "text",
+        "basis": "authored text node",
+        "expected_widgets": [
+          "Label",
+          "TextFlow"
+        ],
+        "actual_widget": "Label",
+        "issues": [],
+        "repair": "Use native text with a bundled font, exact copy and measured line layout."
+      }
+    ],
+    "scope": "Semantic mapping checks only; geometry, visual fidelity and complete app workflows remain separate."
+  },
+  "accepted": false,
+  "visual_review": {
+    "status": "repair",
+    "rgb_mae": 4.541,
+    "note": "Diagnostic only. Typography, graphics, color and effects still need side-by-side review.",
+    "review": {
+      "reference_sha256": "e77a48d6c66c43b6e2342edf0907cc8369a52b9c8f968ef8ca1375546b40ae13",
+      "native_sha256": "39a980a6b84fd7b4d7a81482e112843d08b8b8d4c4f431edea6437f5465c23b7",
+      "reviewer": "Codex visual inspection of the original atlas and each actual Studio viewport capture",
+      "verdict": "repair",
+      "criteria": {
+        "typography": false,
+        "colors": false,
+        "imagery": false,
+        "effects": false
+      },
+      "findings": [
+        {
+          "area": "overall",
+          "status": "repair",
+          "detail": "All 12 final captures visually inspected. Native card hierarchy, readable labels, actions and service ownership are present. Measured font sizing improved and confirmation check is legible. Exact raster-reference parity remains unmet.",
+          "remaining_differences": "Noto glyphs and dark sage text differ from the generated gray type; reconstructed line icons and desktop dock retain different proportions and shapes; native panels omit source soft shadows and abstract wallpaper. Source wording corrections are intentional and documented; source photos are retained as artwork-only crops."
+        }
+      ]
+    },
+    "receipt_current": true
+  },
+  "native_errors": [],
+  "image_errors": [
+    "text_48: text color",
+    "text_50: text color",
+    "text_51: text color",
+    "text_53: text color",
+    "text_54: text color",
+    "text_61: text color",
+    "text_62: text color",
+    "text_44: reference text missing or OCR unresolved",
+    "text_46: text color",
+    "text_47: text color",
+    "text_56: text color",
+    "text_58: text color",
+    "text_60: text color",
+    "3 extra reference text observations need classification"
+  ],
+  "elements": [
+    {
+      "id": "page",
+      "native_id": "beauty_0",
+      "expected_bounds": [
+        0,
+        0,
+        406,
+        776
+      ],
+      "actual_bounds": [
+        0.0,
+        0.0,
+        406.0,
+        776.0
+      ],
+      "parent": "host",
+      "widget_type": "View",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "screen",
+      "native_id": "beauty_0_0",
+      "expected_bounds": [
+        18.0,
+        0.0,
+        370.0,
+        776.0
+      ],
+      "actual_bounds": [
+        18.0,
+        0.0,
+        370.0,
+        776.0
+      ],
+      "parent": "beauty_0",
+      "widget_type": "View",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "order_product",
+      "native_id": "beauty_0_0_0",
+      "expected_bounds": [
+        32.313346228239844,
+        152.47970479704796,
+        339.94197292069634,
+        136.01476014760146
+      ],
+      "actual_bounds": [
+        32.31334686279297,
+        152.47970581054688,
+        339.9419860839844,
+        136.01475524902344
+      ],
+      "parent": "beauty_0_0",
+      "widget_type": "View",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "product_photo",
+      "native_id": "beauty_0_0_0_0",
+      "expected_bounds": [
+        47.5,
+        179.5,
+        89.5,
+        87.5
+      ],
+      "actual_bounds": [
+        47.5,
+        179.5,
+        89.5,
+        87.5
+      ],
+      "parent": "beauty_0_0_0",
+      "widget_type": "Image",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_48",
+      "native_id": "beauty_0_0_0_1",
+      "expected_bounds": [
+        151.4195741221683,
+        192.57350437844758,
+        118.72361844679502,
+        20.201154945719605
+      ],
+      "actual_bounds": [
+        151.41957092285156,
+        192.57350158691406,
+        118.72362,
+        20.201155
+      ],
+      "parent": "beauty_0_0_0",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "1.5\u5339\u53d8\u9891\u7a7a\u8c03",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_49",
+      "native_id": "beauty_0_0_0_2",
+      "expected_bounds": [
+        299.3955619440599,
+        240.26581193640516,
+        61.01869964071637,
+        20.0
+      ],
+      "actual_bounds": [
+        299.39556884765625,
+        240.26580810546875,
+        61.0187,
+        20.0
+      ],
+      "parent": "beauty_0_0_0",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "\u00a52,799",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "order_details",
+      "native_id": "beauty_0_0_1",
+      "expected_bounds": [
+        32.313346228239844,
+        289.21033210332104,
+        339.94197292069634,
+        211.18081180811808
+      ],
+      "actual_bounds": [
+        32.31334686279297,
+        289.2103271484375,
+        339.9419860839844,
+        211.18081665039062
+      ],
+      "parent": "beauty_0_0",
+      "widget_type": "View",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "divider_0",
+      "native_id": "beauty_0_0_1_0",
+      "expected_bounds": [
+        49.48936170212766,
+        377.26199261992616,
+        304.1586073500967,
+        0.7158671586715867
+      ],
+      "actual_bounds": [
+        49.48936080932617,
+        377.2619934082031,
+        304.1585998535156,
+        0.7158671617507935
+      ],
+      "parent": "beauty_0_0_1",
+      "widget_type": "View",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "divider_1",
+      "native_id": "beauty_0_0_1_1",
+      "expected_bounds": [
+        49.48936170212766,
+        435.9630996309963,
+        304.1586073500967,
+        0.7158671586715867
+      ],
+      "actual_bounds": [
+        49.48936080932617,
+        435.9631042480469,
+        304.1585998535156,
+        0.7158671617507935
+      ],
+      "parent": "beauty_0_0_1",
+      "widget_type": "View",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "person_icon_2",
+      "native_id": "beauty_0_0_1_2",
+      "expected_bounds": [
+        53.06769825918762,
+        308.53874538745384,
+        22.901353965183752,
+        23.62361623616236
+      ],
+      "actual_bounds": [
+        53.06769943237305,
+        308.53875732421875,
+        22.90135383605957,
+        23.62361717224121
+      ],
+      "parent": "beauty_0_0_1",
+      "widget_type": "Svg",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "calendar_icon_3",
+      "native_id": "beauty_0_0_1_3",
+      "expected_bounds": [
+        53.06769825918762,
+        395.15867158671585,
+        25.04835589941973,
+        24.339483394833948
+      ],
+      "actual_bounds": [
+        53.06769943237305,
+        395.1586608886719,
+        25.048355102539062,
+        24.3394832611084
+      ],
+      "parent": "beauty_0_0_1",
+      "widget_type": "Svg",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "wrench_icon_4",
+      "native_id": "beauty_0_0_1_4",
+      "expected_bounds": [
+        52.35203094777563,
+        454.57564575645756,
+        25.04835589941973,
+        24.339483394833948
+      ],
+      "actual_bounds": [
+        52.35203170776367,
+        454.5756530761719,
+        25.048355102539062,
+        24.3394832611084
+      ],
+      "parent": "beauty_0_0_1",
+      "widget_type": "Svg",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_50",
+      "native_id": "beauty_0_0_1_5",
+      "expected_bounds": [
+        94.56920382040958,
+        310.3484369828183,
+        38.74074266749092,
+        17.12524059390529
+      ],
+      "actual_bounds": [
+        94.56920623779297,
+        310.34844970703125,
+        38.74074,
+        17.12524
+      ],
+      "parent": "beauty_0_0_1",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "Alex",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_51",
+      "native_id": "beauty_0_0_1_6",
+      "expected_bounds": [
+        94.16739334732985,
+        343.8013034259725,
+        122.39752378934374,
+        18.5
+      ],
+      "actual_bounds": [
+        94.16739654541016,
+        343.8013000488281,
+        122.39752,
+        18.5
+      ],
+      "parent": "beauty_0_0_1",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "\u5bb6 \u00b7 \u6d77\u68e0\u8def18\u53f7",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_53",
+      "native_id": "beauty_0_0_1_7",
+      "expected_bounds": [
+        94.61580344053961,
+        400.77691099047223,
+        209.67512262991679,
+        18.0
+      ],
+      "actual_bounds": [
+        94.61580657958984,
+        400.77691650390625,
+        209.67513,
+        18.0
+      ],
+      "parent": "beauty_0_0_1",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "\u5468\u4e94 9\u670818\u65e5 14:00-16:00",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_54",
+      "native_id": "beauty_0_0_1_8",
+      "expected_bounds": [
+        94.17167123580394,
+        455.8934547760379,
+        124.3153280370065,
+        19.0
+      ],
+      "actual_bounds": [
+        94.17166900634766,
+        455.8934631347656,
+        124.31533,
+        19.0
+      ],
+      "parent": "beauty_0_0_1",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "\u5230\u8d27\u540e\u9884\u7ea6\u5b89\u88c5",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "divider_2",
+      "native_id": "beauty_0_0_2",
+      "expected_bounds": [
+        50.20502901353965,
+        531.8892988929889,
+        1.4313346228239845,
+        99.50553505535055
+      ],
+      "actual_bounds": [
+        50.20502853393555,
+        531.8892822265625,
+        1.4313346147537231,
+        99.50553131103516
+      ],
+      "parent": "beauty_0_0",
+      "widget_type": "View",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "back",
+      "native_id": "beauty_0_0_3",
+      "expected_bounds": [
+        32.313346228239844,
+        47.96309963099631,
+        28.626692456479688,
+        37.22509225092251
+      ],
+      "actual_bounds": [
+        32.31334686279297,
+        47.96310043334961,
+        28.626692,
+        37.225094
+      ],
+      "parent": "beauty_0_0",
+      "widget_type": "KitButton",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "back_surface",
+      "native_id": "beauty_0_0_3_0",
+      "expected_bounds": [
+        32.313346228239844,
+        47.96309963099631,
+        28.626692456479688,
+        37.22509225092251
+      ],
+      "actual_bounds": [
+        32.31334686279297,
+        47.96310043334961,
+        28.626691818237305,
+        37.225093841552734
+      ],
+      "parent": "beauty_0_0_3",
+      "widget_type": "View",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "back_control",
+      "native_id": "beauty_0_0_3_1",
+      "expected_bounds": [
+        32.313346228239844,
+        47.96309963099631,
+        28.626692456479688,
+        37.22509225092251
+      ],
+      "actual_bounds": [
+        32.31334686279297,
+        47.96310043334961,
+        28.626691818237305,
+        37.225093841552734
+      ],
+      "parent": "beauty_0_0_3",
+      "widget_type": "Button",
+      "visible": true,
+      "text": "",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "view_logistics",
+      "native_id": "beauty_0_0_4",
+      "expected_bounds": [
+        36.6073500967118,
+        693.6752767527674,
+        151.72147001934235,
+        52.25830258302583
+      ],
+      "actual_bounds": [
+        36.60734939575195,
+        693.67529296875,
+        151.72147,
+        52.2583
+      ],
+      "parent": "beauty_0_0",
+      "widget_type": "KitButton",
+      "visible": true,
+      "text": "\u67e5\u770b\u7269\u6d41",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "view_logistics_surface",
+      "native_id": "beauty_0_0_4_0",
+      "expected_bounds": [
+        36.6073500967118,
+        693.6752767527674,
+        151.72147001934235,
+        52.25830258302583
+      ],
+      "actual_bounds": [
+        36.60734939575195,
+        693.67529296875,
+        151.72146606445312,
+        52.25830078125
+      ],
+      "parent": "beauty_0_0_4",
+      "widget_type": "View",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "view_logistics_control",
+      "native_id": "beauty_0_0_4_1",
+      "expected_bounds": [
+        36.6073500967118,
+        693.6752767527674,
+        151.72147001934235,
+        52.25830258302583
+      ],
+      "actual_bounds": [
+        36.60734939575195,
+        693.67529296875,
+        151.72146606445312,
+        52.25830078125
+      ],
+      "parent": "beauty_0_0_4",
+      "widget_type": "Button",
+      "visible": true,
+      "text": "",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_61",
+      "native_id": "beauty_0_0_4_2",
+      "expected_bounds": [
+        73.82901373798585,
+        708.8773610906611,
+        80.16975774868078,
+        21.0
+      ],
+      "actual_bounds": [
+        73.82901000976562,
+        708.8773803710938,
+        80.169754,
+        21.0
+      ],
+      "parent": "beauty_0_0_4",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "\u67e5\u770b\u7269\u6d41",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "support",
+      "native_id": "beauty_0_0_5",
+      "expected_bounds": [
+        217.67117988394583,
+        693.6752767527674,
+        149.5744680851064,
+        51.54243542435424
+      ],
+      "actual_bounds": [
+        217.67117309570312,
+        693.67529296875,
+        149.57446,
+        51.542435
+      ],
+      "parent": "beauty_0_0",
+      "widget_type": "KitButton",
+      "visible": true,
+      "text": "\u8054\u7cfb\u5ba2\u670d",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "support_surface",
+      "native_id": "beauty_0_0_5_0",
+      "expected_bounds": [
+        217.67117988394583,
+        693.6752767527674,
+        149.5744680851064,
+        51.54243542435424
+      ],
+      "actual_bounds": [
+        217.67117309570312,
+        693.67529296875,
+        149.574462890625,
+        51.54243469238281
+      ],
+      "parent": "beauty_0_0_5",
+      "widget_type": "View",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "support_control",
+      "native_id": "beauty_0_0_5_1",
+      "expected_bounds": [
+        217.67117988394583,
+        693.6752767527674,
+        149.5744680851064,
+        51.54243542435424
+      ],
+      "actual_bounds": [
+        217.67117309570312,
+        693.67529296875,
+        149.574462890625,
+        51.54243469238281
+      ],
+      "parent": "beauty_0_0_5",
+      "widget_type": "Button",
+      "visible": true,
+      "text": "",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_62",
+      "native_id": "beauty_0_0_5_2",
+      "expected_bounds": [
+        253.34553522231306,
+        708.5841053369575,
+        79.84668633968393,
+        21.176877665799438
+      ],
+      "actual_bounds": [
+        253.3455352783203,
+        708.5841064453125,
+        79.84669,
+        21.176878
+      ],
+      "parent": "beauty_0_0_5",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "\u8054\u7cfb\u5ba2\u670d",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "back_icon_0",
+      "native_id": "beauty_0_0_6",
+      "expected_bounds": [
+        34.460348162475825,
+        50.11070110701107,
+        22.901353965183752,
+        28.634686346863468
+      ],
+      "actual_bounds": [
+        34.460350036621094,
+        50.11070251464844,
+        22.90135383605957,
+        28.634685516357422
+      ],
+      "parent": "beauty_0_0",
+      "widget_type": "Svg",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "check_icon_1",
+      "native_id": "beauty_0_0_7",
+      "expected_bounds": [
+        39.47001934235976,
+        108.81180811808117,
+        28.626692456479688,
+        28.634686346863468
+      ],
+      "actual_bounds": [
+        39.47002029418945,
+        108.81180572509766,
+        28.626691818237305,
+        28.634685516357422
+      ],
+      "parent": "beauty_0_0",
+      "widget_type": "Svg",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "step_0",
+      "native_id": "beauty_0_0_8",
+      "expected_bounds": [
+        45.195357833655706,
+        522.5830258302583,
+        12.88201160541586,
+        12.88560885608856
+      ],
+      "actual_bounds": [
+        45.19535827636719,
+        522.5830078125,
+        12.882011413574219,
+        12.885608673095703
+      ],
+      "parent": "beauty_0_0",
+      "widget_type": "View",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "step_1",
+      "native_id": "beauty_0_0_9",
+      "expected_bounds": [
+        45.195357833655706,
+        572.6937269372694,
+        12.88201160541586,
+        12.88560885608856
+      ],
+      "actual_bounds": [
+        45.19535827636719,
+        572.6937255859375,
+        12.882011413574219,
+        12.885608673095703
+      ],
+      "parent": "beauty_0_0",
+      "widget_type": "View",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "step_2",
+      "native_id": "beauty_0_0_10",
+      "expected_bounds": [
+        45.195357833655706,
+        624.9520295202951,
+        12.88201160541586,
+        12.88560885608856
+      ],
+      "actual_bounds": [
+        45.19535827636719,
+        624.9520263671875,
+        12.882011413574219,
+        12.885608673095703
+      ],
+      "parent": "beauty_0_0",
+      "widget_type": "View",
+      "visible": true,
+      "text": null,
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_44",
+      "native_id": "beauty_0_0_11",
+      "expected_bounds": [
+        34.83984996653305,
+        12.59545711746588,
+        153.00413814730743,
+        19.19285022568063
+      ],
+      "actual_bounds": [
+        34.83985137939453,
+        12.595457077026367,
+        153.00414,
+        19.19285
+      ],
+      "parent": "beauty_0_0",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "9\u670817\u65e5 \u5468\u56db 09:45",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_46",
+      "native_id": "beauty_0_0_12",
+      "expected_bounds": [
+        164.3962042203231,
+        54.59207139825517,
+        84.14867488535174,
+        22.0
+      ],
+      "actual_bounds": [
+        164.39620971679688,
+        54.592071533203125,
+        84.148674,
+        22.0
+      ],
+      "parent": "beauty_0_0",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "\u8ba2\u5355\u8be6\u60c5",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_47",
+      "native_id": "beauty_0_0_13",
+      "expected_bounds": [
+        82.06396233872607,
+        113.55775354857026,
+        62.56535161719153,
+        21.5
+      ],
+      "actual_bounds": [
+        82.06396484375,
+        113.55775451660156,
+        62.565353,
+        21.5
+      ],
+      "parent": "beauty_0_0",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "\u5df2\u4ed8\u6b3e",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_55",
+      "native_id": "beauty_0_0_14",
+      "expected_bounds": [
+        75.6604754821831,
+        519.5769697991014,
+        40.448782048112626,
+        20.5
+      ],
+      "actual_bounds": [
+        75.66047668457031,
+        519.5769653320312,
+        40.448784,
+        20.5
+      ],
+      "parent": "beauty_0_0",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "\u4e0b\u5355",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_56",
+      "native_id": "beauty_0_0_15",
+      "expected_bounds": [
+        253.4606953803944,
+        523.788841141364,
+        104.99341290069201,
+        16.5
+      ],
+      "actual_bounds": [
+        253.460693359375,
+        523.788818359375,
+        104.993416,
+        16.5
+      ],
+      "parent": "beauty_0_0",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "9\u670817\u65e5 09:40",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_57",
+      "native_id": "beauty_0_0_16",
+      "expected_bounds": [
+        75.5724393841724,
+        570.3876468917013,
+        58.05053969707726,
+        19.5
+      ],
+      "actual_bounds": [
+        75.57244110107422,
+        570.3876342773438,
+        58.05054,
+        19.5
+      ],
+      "parent": "beauty_0_0",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "\u5df2\u4ed8\u6b3e",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_58",
+      "native_id": "beauty_0_0_17",
+      "expected_bounds": [
+        253.4193529546904,
+        573.4475596409739,
+        105.39666176670693,
+        17.0
+      ],
+      "actual_bounds": [
+        253.4193572998047,
+        573.4475708007812,
+        105.39666,
+        17.0
+      ],
+      "parent": "beauty_0_0",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "9\u670817\u65e5 09:45",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_59",
+      "native_id": "beauty_0_0_18",
+      "expected_bounds": [
+        75.14501788547467,
+        620.783431754483,
+        58.60215741392414,
+        20.0
+      ],
+      "actual_bounds": [
+        75.14501953125,
+        620.783447265625,
+        58.602158,
+        20.0
+      ],
+      "parent": "beauty_0_0",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "\u5f85\u53d1\u8d27",
+      "enabled": true,
+      "issues": []
+    },
+    {
+      "id": "text_60",
+      "native_id": "beauty_0_0_19",
+      "expected_bounds": [
+        253.44168592056616,
+        623.9348775294839,
+        105.20832862183352,
+        16.5
+      ],
+      "actual_bounds": [
+        253.44168090820312,
+        623.9348754882812,
+        105.20833,
+        16.5
+      ],
+      "parent": "beauty_0_0",
+      "widget_type": "Label",
+      "visible": true,
+      "text": "9\u670817\u65e5 09:45",
+      "enabled": true,
+      "issues": []
+    }
+  ],
+  "text_differences": [
+    {
+      "id": "text_48",
+      "reference": [
+        153.0,
+        194.5,
+        110.0,
+        16.0
+      ],
+      "native": [
+        153.0,
+        194.5,
+        110.0,
+        16.0
+      ],
+      "delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "reference_color": [
+        77,
+        77,
+        76
+      ],
+      "native_color": [
+        49,
+        65,
+        60
+      ],
+      "issues": [
+        "text color"
+      ]
+    },
+    {
+      "id": "text_49",
+      "reference": [
+        300.0,
+        243.5,
+        54.0,
+        16.0
+      ],
+      "native": [
+        300.5,
+        243.5,
+        53.5,
+        16.0
+      ],
+      "delta": [
+        0.5,
+        0.0,
+        -0.5,
+        0.0
+      ],
+      "reference_color": [
+        51,
+        52,
+        52
+      ],
+      "native_color": [
+        49,
+        65,
+        60
+      ],
+      "issues": []
+    },
+    {
+      "id": "text_50",
+      "reference": [
+        95.0,
+        312.0,
+        32.0,
+        13.0
+      ],
+      "native": [
+        95.0,
+        312.0,
+        32.0,
+        13.0
+      ],
+      "delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "reference_color": [
+        68,
+        68,
+        69
+      ],
+      "native_color": [
+        49,
+        65,
+        60
+      ],
+      "issues": [
+        "text color"
+      ]
+    },
+    {
+      "id": "text_51",
+      "reference": [
+        95.5,
+        345.5,
+        114.0,
+        14.5
+      ],
+      "native": [
+        95.5,
+        345.5,
+        114.0,
+        14.0
+      ],
+      "delta": [
+        0.0,
+        0.0,
+        0.0,
+        -0.5
+      ],
+      "reference_color": [
+        86,
+        86,
+        86
+      ],
+      "native_color": [
+        49,
+        65,
+        60
+      ],
+      "issues": [
+        "text color"
+      ]
+    },
+    {
+      "id": "text_53",
+      "reference": [
+        95.5,
+        402.5,
+        202.5,
+        14.0
+      ],
+      "native": [
+        95.5,
+        402.5,
+        202.5,
+        14.0
+      ],
+      "delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "reference_color": [
+        74,
+        75,
+        75
+      ],
+      "native_color": [
+        49,
+        65,
+        60
+      ],
+      "issues": [
+        "text color"
+      ]
+    },
+    {
+      "id": "text_54",
+      "reference": [
+        95.5,
+        457.5,
+        116.5,
+        15.0
+      ],
+      "native": [
+        95.5,
+        457.5,
+        116.5,
+        15.0
+      ],
+      "delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "reference_color": [
+        81,
+        81,
+        81
+      ],
+      "native_color": [
+        49,
+        65,
+        60
+      ],
+      "issues": [
+        "text color"
+      ]
+    },
+    {
+      "id": "text_61",
+      "reference": [
+        75.0,
+        710.5,
+        72.5,
+        17.0
+      ],
+      "native": [
+        74.5,
+        710.5,
+        73.0,
+        17.0
+      ],
+      "delta": [
+        -0.5,
+        0.0,
+        0.5,
+        0.0
+      ],
+      "reference_color": [
+        80,
+        104,
+        86
+      ],
+      "native_color": [
+        96,
+        133,
+        112
+      ],
+      "issues": [
+        "text color"
+      ]
+    },
+    {
+      "id": "text_62",
+      "reference": [
+        254.0,
+        710.5,
+        72.5,
+        17.0
+      ],
+      "native": [
+        254.0,
+        710.5,
+        72.5,
+        17.0
+      ],
+      "delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "reference_color": [
+        82,
+        97,
+        87
+      ],
+      "native_color": [
+        96,
+        133,
+        112
+      ],
+      "issues": [
+        "text color"
+      ]
+    },
+    {
+      "id": "text_44",
+      "reference": null,
+      "native": null,
+      "delta": null,
+      "reference_color": null,
+      "native_color": null,
+      "issues": [
+        "reference text missing or OCR unresolved"
+      ]
+    },
+    {
+      "id": "text_46",
+      "reference": [
+        165.5,
+        56.5,
+        76.5,
+        18.0
+      ],
+      "native": [
+        165.5,
+        56.5,
+        76.5,
+        17.5
+      ],
+      "delta": [
+        0.0,
+        0.0,
+        0.0,
+        -0.5
+      ],
+      "reference_color": [
+        28,
+        28,
+        28
+      ],
+      "native_color": [
+        49,
+        65,
+        60
+      ],
+      "issues": [
+        "text color"
+      ]
+    },
+    {
+      "id": "text_47",
+      "reference": [
+        84.0,
+        115.5,
+        54.0,
+        17.5
+      ],
+      "native": [
+        84.0,
+        115.5,
+        54.0,
+        17.0
+      ],
+      "delta": [
+        0.0,
+        0.0,
+        0.0,
+        -0.5
+      ],
+      "reference_color": [
+        58,
+        99,
+        58
+      ],
+      "native_color": [
+        49,
+        65,
+        60
+      ],
+      "issues": [
+        "text color"
+      ]
+    },
+    {
+      "id": "text_55",
+      "reference": [
+        76.5,
+        521.5,
+        33.0,
+        16.5
+      ],
+      "native": [
+        77.0,
+        521.5,
+        32.5,
+        15.5
+      ],
+      "delta": [
+        0.5,
+        0.0,
+        -0.5,
+        -1.0
+      ],
+      "reference_color": [
+        47,
+        49,
+        48
+      ],
+      "native_color": [
+        49,
+        65,
+        60
+      ],
+      "issues": []
+    },
+    {
+      "id": "text_56",
+      "reference": [
+        254.0,
+        525.5,
+        98.5,
+        12.5
+      ],
+      "native": [
+        254.0,
+        525.5,
+        98.5,
+        12.5
+      ],
+      "delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "reference_color": [
+        160,
+        161,
+        160
+      ],
+      "native_color": [
+        49,
+        65,
+        60
+      ],
+      "issues": [
+        "text color"
+      ]
+    },
+    {
+      "id": "text_57",
+      "reference": [
+        77.5,
+        572.0,
+        49.5,
+        15.5
+      ],
+      "native": [
+        77.5,
+        572.0,
+        49.5,
+        15.5
+      ],
+      "delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "reference_color": [
+        61,
+        62,
+        61
+      ],
+      "native_color": [
+        49,
+        65,
+        60
+      ],
+      "issues": []
+    },
+    {
+      "id": "text_58",
+      "reference": [
+        254.0,
+        575.5,
+        98.5,
+        13.0
+      ],
+      "native": [
+        254.0,
+        575.5,
+        98.5,
+        13.0
+      ],
+      "delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "reference_color": [
+        159,
+        159,
+        159
+      ],
+      "native_color": [
+        49,
+        65,
+        60
+      ],
+      "issues": [
+        "text color"
+      ]
+    },
+    {
+      "id": "text_59",
+      "reference": [
+        76.0,
+        622.5,
+        51.0,
+        16.0
+      ],
+      "native": [
+        76.0,
+        622.5,
+        51.0,
+        16.0
+      ],
+      "delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "reference_color": [
+        130,
+        129,
+        129
+      ],
+      "native_color": [
+        117,
+        131,
+        124
+      ],
+      "issues": []
+    },
+    {
+      "id": "text_60",
+      "reference": [
+        254.0,
+        626.0,
+        98.5,
+        12.5
+      ],
+      "native": [
+        254.0,
+        626.0,
+        98.5,
+        12.5
+      ],
+      "delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "reference_color": [
+        160,
+        160,
+        160
+      ],
+      "native_color": [
+        49,
+        65,
+        60
+      ],
+      "issues": [
+        "text color"
+      ]
+    }
+  ],
+  "geometry_differences": [
+    {
+      "id": "page",
+      "reference": [
+        0,
+        0,
+        406,
+        776
+      ],
+      "native": [
+        0.0,
+        0.0,
+        406.0,
+        776.0
+      ],
+      "delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "issues": []
+    },
+    {
+      "id": "screen",
+      "reference": [
+        18.0,
+        0.0,
+        370.0,
+        776.0
+      ],
+      "native": [
+        18.0,
+        0.0,
+        370.0,
+        776.0
+      ],
+      "delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "issues": []
+    },
+    {
+      "id": "order_product",
+      "reference": [
+        32.313346228239844,
+        152.47970479704796,
+        339.94197292069634,
+        136.01476014760146
+      ],
+      "native": [
+        32.31334686279297,
+        152.47970581054688,
+        339.9419860839844,
+        136.01475524902344
+      ],
+      "delta": [
+        0.0,
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "issues": []
+    },
+    {
+      "id": "product_photo",
+      "reference": [
+        47.5,
+        179.5,
+        89.5,
+        87.5
+      ],
+      "native": [
+        47.5,
+        179.5,
+        89.5,
+        87.5
+      ],
+      "delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "issues": []
+    },
+    {
+      "id": "order_details",
+      "reference": [
+        32.313346228239844,
+        289.21033210332104,
+        339.94197292069634,
+        211.18081180811808
+      ],
+      "native": [
+        32.31334686279297,
+        289.2103271484375,
+        339.9419860839844,
+        211.18081665039062
+      ],
+      "delta": [
+        0.0,
+        -0.0,
+        0.0,
+        0.0
+      ],
+      "issues": []
+    },
+    {
+      "id": "divider_0",
+      "reference": [
+        49.48936170212766,
+        377.26199261992616,
+        304.1586073500967,
+        0.7158671586715867
+      ],
+      "native": [
+        49.48936080932617,
+        377.2619934082031,
+        304.1585998535156,
+        0.7158671617507935
+      ],
+      "delta": [
+        -0.0,
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "issues": []
+    },
+    {
+      "id": "divider_1",
+      "reference": [
+        49.48936170212766,
+        435.9630996309963,
+        304.1586073500967,
+        0.7158671586715867
+      ],
+      "native": [
+        49.48936080932617,
+        435.9631042480469,
+        304.1585998535156,
+        0.7158671617507935
+      ],
+      "delta": [
+        -0.0,
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "issues": []
+    },
+    {
+      "id": "person_icon_2",
+      "reference": [
+        53.06769825918762,
+        308.53874538745384,
+        22.901353965183752,
+        23.62361623616236
+      ],
+      "native": [
+        53.06769943237305,
+        308.53875732421875,
+        22.90135383605957,
+        23.62361717224121
+      ],
+      "delta": [
+        0.0,
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "issues": []
+    },
+    {
+      "id": "calendar_icon_3",
+      "reference": [
+        53.06769825918762,
+        395.15867158671585,
+        25.04835589941973,
+        24.339483394833948
+      ],
+      "native": [
+        53.06769943237305,
+        395.1586608886719,
+        25.048355102539062,
+        24.3394832611084
+      ],
+      "delta": [
+        0.0,
+        -0.0,
+        -0.0,
+        -0.0
+      ],
+      "issues": []
+    },
+    {
+      "id": "wrench_icon_4",
+      "reference": [
+        52.35203094777563,
+        454.57564575645756,
+        25.04835589941973,
+        24.339483394833948
+      ],
+      "native": [
+        52.35203170776367,
+        454.5756530761719,
+        25.048355102539062,
+        24.3394832611084
+      ],
+      "delta": [
+        0.0,
+        0.0,
+        -0.0,
+        -0.0
+      ],
+      "issues": []
+    },
+    {
+      "id": "divider_2",
+      "reference": [
+        50.20502901353965,
+        531.8892988929889,
+        1.4313346228239845,
+        99.50553505535055
+      ],
+      "native": [
+        50.20502853393555,
+        531.8892822265625,
+        1.4313346147537231,
+        99.50553131103516
+      ],
+      "delta": [
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0
+      ],
+      "issues": []
+    },
+    {
+      "id": "back",
+      "reference": [
+        32.313346228239844,
+        47.96309963099631,
+        28.626692456479688,
+        37.22509225092251
+      ],
+      "native": [
+        32.31334686279297,
+        47.96310043334961,
+        28.626692,
+        37.225094
+      ],
+      "delta": [
+        0.0,
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "issues": []
+    },
+    {
+      "id": "back_surface",
+      "reference": [
+        32.313346228239844,
+        47.96309963099631,
+        28.626692456479688,
+        37.22509225092251
+      ],
+      "native": [
+        32.31334686279297,
+        47.96310043334961,
+        28.626691818237305,
+        37.225093841552734
+      ],
+      "delta": [
+        0.0,
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "issues": []
+    },
+    {
+      "id": "back_control",
+      "reference": [
+        32.313346228239844,
+        47.96309963099631,
+        28.626692456479688,
+        37.22509225092251
+      ],
+      "native": [
+        32.31334686279297,
+        47.96310043334961,
+        28.626691818237305,
+        37.225093841552734
+      ],
+      "delta": [
+        0.0,
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "issues": []
+    },
+    {
+      "id": "view_logistics",
+      "reference": [
+        36.6073500967118,
+        693.6752767527674,
+        151.72147001934235,
+        52.25830258302583
+      ],
+      "native": [
+        36.60734939575195,
+        693.67529296875,
+        151.72147,
+        52.2583
+      ],
+      "delta": [
+        -0.0,
+        0.0,
+        -0.0,
+        -0.0
+      ],
+      "issues": []
+    },
+    {
+      "id": "view_logistics_surface",
+      "reference": [
+        36.6073500967118,
+        693.6752767527674,
+        151.72147001934235,
+        52.25830258302583
+      ],
+      "native": [
+        36.60734939575195,
+        693.67529296875,
+        151.72146606445312,
+        52.25830078125
+      ],
+      "delta": [
+        -0.0,
+        0.0,
+        -0.0,
+        -0.0
+      ],
+      "issues": []
+    },
+    {
+      "id": "view_logistics_control",
+      "reference": [
+        36.6073500967118,
+        693.6752767527674,
+        151.72147001934235,
+        52.25830258302583
+      ],
+      "native": [
+        36.60734939575195,
+        693.67529296875,
+        151.72146606445312,
+        52.25830078125
+      ],
+      "delta": [
+        -0.0,
+        0.0,
+        -0.0,
+        -0.0
+      ],
+      "issues": []
+    },
+    {
+      "id": "support",
+      "reference": [
+        217.67117988394583,
+        693.6752767527674,
+        149.5744680851064,
+        51.54243542435424
+      ],
+      "native": [
+        217.67117309570312,
+        693.67529296875,
+        149.57446,
+        51.542435
+      ],
+      "delta": [
+        -0.0,
+        0.0,
+        -0.0,
+        -0.0
+      ],
+      "issues": []
+    },
+    {
+      "id": "support_surface",
+      "reference": [
+        217.67117988394583,
+        693.6752767527674,
+        149.5744680851064,
+        51.54243542435424
+      ],
+      "native": [
+        217.67117309570312,
+        693.67529296875,
+        149.574462890625,
+        51.54243469238281
+      ],
+      "delta": [
+        -0.0,
+        0.0,
+        -0.0,
+        -0.0
+      ],
+      "issues": []
+    },
+    {
+      "id": "support_control",
+      "reference": [
+        217.67117988394583,
+        693.6752767527674,
+        149.5744680851064,
+        51.54243542435424
+      ],
+      "native": [
+        217.67117309570312,
+        693.67529296875,
+        149.574462890625,
+        51.54243469238281
+      ],
+      "delta": [
+        -0.0,
+        0.0,
+        -0.0,
+        -0.0
+      ],
+      "issues": []
+    },
+    {
+      "id": "back_icon_0",
+      "reference": [
+        34.460348162475825,
+        50.11070110701107,
+        22.901353965183752,
+        28.634686346863468
+      ],
+      "native": [
+        34.460350036621094,
+        50.11070251464844,
+        22.90135383605957,
+        28.634685516357422
+      ],
+      "delta": [
+        0.0,
+        0.0,
+        -0.0,
+        -0.0
+      ],
+      "issues": []
+    },
+    {
+      "id": "check_icon_1",
+      "reference": [
+        39.47001934235976,
+        108.81180811808117,
+        28.626692456479688,
+        28.634686346863468
+      ],
+      "native": [
+        39.47002029418945,
+        108.81180572509766,
+        28.626691818237305,
+        28.634685516357422
+      ],
+      "delta": [
+        0.0,
+        -0.0,
+        -0.0,
+        -0.0
+      ],
+      "issues": []
+    },
+    {
+      "id": "step_0",
+      "reference": [
+        45.195357833655706,
+        522.5830258302583,
+        12.88201160541586,
+        12.88560885608856
+      ],
+      "native": [
+        45.19535827636719,
+        522.5830078125,
+        12.882011413574219,
+        12.885608673095703
+      ],
+      "delta": [
+        0.0,
+        -0.0,
+        -0.0,
+        -0.0
+      ],
+      "issues": []
+    },
+    {
+      "id": "step_1",
+      "reference": [
+        45.195357833655706,
+        572.6937269372694,
+        12.88201160541586,
+        12.88560885608856
+      ],
+      "native": [
+        45.19535827636719,
+        572.6937255859375,
+        12.882011413574219,
+        12.885608673095703
+      ],
+      "delta": [
+        0.0,
+        -0.0,
+        -0.0,
+        -0.0
+      ],
+      "issues": []
+    },
+    {
+      "id": "step_2",
+      "reference": [
+        45.195357833655706,
+        624.9520295202951,
+        12.88201160541586,
+        12.88560885608856
+      ],
+      "native": [
+        45.19535827636719,
+        624.9520263671875,
+        12.882011413574219,
+        12.885608673095703
+      ],
+      "delta": [
+        0.0,
+        -0.0,
+        -0.0,
+        -0.0
+      ],
+      "issues": []
+    }
+  ],
+  "relations": [
+    {
+      "first": "back",
+      "second": "back_icon_0",
+      "vertical_gap_reference": -35.07749077490775,
+      "vertical_gap_native": -35.07749191870117,
+      "left_alignment_delta": 1.2395921444863234e-06
+    },
+    {
+      "first": "back_icon_0",
+      "second": "check_icon_1",
+      "vertical_gap_reference": 30.06642066420664,
+      "vertical_gap_native": 30.066417694091797,
+      "left_alignment_delta": -9.223155785775816e-07
+    },
+    {
+      "first": "check_icon_1",
+      "second": "order_product",
+      "vertical_gap_reference": 15.033210332103316,
+      "vertical_gap_native": 15.033214569091797,
+      "left_alignment_delta": -3.1727656590874176e-07
+    },
+    {
+      "first": "order_product",
+      "second": "order_details",
+      "vertical_gap_reference": 0.7158671586716139,
+      "vertical_gap_native": 0.7158660888671875,
+      "left_alignment_delta": 0.0
+    },
+    {
+      "first": "order_details",
+      "second": "step_0",
+      "vertical_gap_reference": 22.191881918819178,
+      "vertical_gap_native": 22.191864013671875,
+      "left_alignment_delta": -1.9184164301577766e-07
+    },
+    {
+      "first": "step_0",
+      "second": "divider_2",
+      "vertical_gap_reference": -3.5793357933579486,
+      "vertical_gap_native": -3.579334259033203,
+      "left_alignment_delta": -9.22315585683009e-07
+    },
+    {
+      "first": "divider_2",
+      "second": "step_1",
+      "vertical_gap_reference": -58.701107011070064,
+      "vertical_gap_native": -58.701087951660156,
+      "left_alignment_delta": 9.22315585683009e-07
+    },
+    {
+      "first": "step_1",
+      "second": "step_2",
+      "vertical_gap_reference": 39.37269372693718,
+      "vertical_gap_native": 39.3726921081543,
+      "left_alignment_delta": 0.0
+    },
+    {
+      "first": "step_2",
+      "second": "view_logistics",
+      "vertical_gap_reference": 55.83763837638376,
+      "vertical_gap_native": 55.8376579284668,
+      "left_alignment_delta": -1.1436713265311482e-06
+    },
+    {
+      "first": "view_logistics",
+      "second": "support",
+      "vertical_gap_reference": -52.25830258302583,
+      "vertical_gap_native": -52.2583,
+      "left_alignment_delta": -6.087282855560261e-06
+    },
+    {
+      "first": "person_icon_2",
+      "second": "divider_0",
+      "vertical_gap_reference": 45.099630996309955,
+      "vertical_gap_native": 45.099618911743164,
+      "left_alignment_delta": -2.065986912214157e-06
+    },
+    {
+      "first": "divider_0",
+      "second": "calendar_icon_3",
+      "vertical_gap_reference": 17.180811808118108,
+      "vertical_gap_native": 17.180800318717957,
+      "left_alignment_delta": 2.065986912214157e-06
+    },
+    {
+      "first": "calendar_icon_3",
+      "second": "divider_1",
+      "vertical_gap_reference": 16.46494464944648,
+      "vertical_gap_native": 16.4649600982666,
+      "left_alignment_delta": -2.065986912214157e-06
+    },
+    {
+      "first": "divider_1",
+      "second": "wrench_icon_4",
+      "vertical_gap_reference": 17.896678966789693,
+      "vertical_gap_native": 17.896681666374207,
+      "left_alignment_delta": 1.6527895283502403e-06
+    },
+    {
+      "first": "back_surface",
+      "second": "back_control",
+      "vertical_gap_reference": -37.22509225092251,
+      "vertical_gap_native": -37.225093841552734,
+      "left_alignment_delta": 0.0
+    },
+    {
+      "first": "view_logistics_surface",
+      "second": "view_logistics_control",
+      "vertical_gap_reference": -52.25830258302583,
+      "vertical_gap_native": -52.25830078125,
+      "left_alignment_delta": 0.0
+    },
+    {
+      "first": "support_surface",
+      "second": "support_control",
+      "vertical_gap_reference": -51.54243542435424,
+      "vertical_gap_native": -51.54243469238281,
+      "left_alignment_delta": 0.0
+    }
+  ],
+  "interaction_scope": "native activation and declared fixture state/data probes; no live feeds or complete app navigation"
+}

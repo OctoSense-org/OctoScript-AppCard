@@ -1,0 +1,26 @@
+{
+  "provider": "OpenAI Image API",
+  "model": "gpt-image-2",
+  "mode": "imagegen skill CLI edit",
+  "endpoint": "https://api.openai.com/v1/images/edits",
+  "request": {
+    "model": "gpt-image-2",
+    "n": 1,
+    "size": "2400x3456",
+    "quality": "high",
+    "output_format": "png",
+    "input_image_count": 1
+  },
+  "actual_image_size": [
+    2400,
+    3456
+  ],
+  "actual_pixel_count": 8294400,
+  "generation_elapsed_seconds": 118.3,
+  "recorded_at": "2026-09-13T03:27:12.610895+00:00",
+  "prompt_sha256": "a126e14909b681d7b71f25252502b1662fae91dec5bf8738de5b5770b98f4e76",
+  "image_sha256": "168eb235aefdd446b1f9941b15107d7b6ca2a1ff88ec5d437801d2ea2ee0abf5",
+  "reference_image_sha256": "1ad47eee8be9abae44b1073d6b4c8eb348bc2c92e694769fe423f4723ad458c8",
+  "api_usage": "Not exposed by the bundled CLI",
+  "credentials_persisted": false
+}

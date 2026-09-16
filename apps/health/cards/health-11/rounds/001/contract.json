@@ -1,0 +1,411 @@
+{
+  "schema_version": 1,
+  "id": "health-11",
+  "app": "health",
+  "number": 11,
+  "title": "取消预约",
+  "structure": "Measured native application and health/calendar-owned service cards",
+  "artboard": [
+    406,
+    776
+  ],
+  "font_family": "Noto Sans SC",
+  "content_source": "Fictional annual checkup booking; optional items are provider choices, not medical recommendations",
+  "palette": {
+    "name": "Sage",
+    "page": "#d9e9df",
+    "panel": "#fcfdfb",
+    "ink": "#26342e",
+    "accent": "#5c8069"
+  },
+  "graphics": {},
+  "tree": {
+    "t": "stack",
+    "id": "page",
+    "x": 0,
+    "y": 0,
+    "w": 406,
+    "h": 776,
+    "bg": 4293981682,
+    "variant": "surface",
+    "c": [
+      {
+        "t": "stack",
+        "id": "screen",
+        "x": 26.017543859649123,
+        "y": 0.0,
+        "w": 353.96491228070175,
+        "h": 776.0,
+        "c": [
+          {
+            "t": "stack",
+            "id": "wallpaper_upper",
+            "x": 26.017543859649123,
+            "y": 0.0,
+            "w": 353.96491228070175,
+            "h": 158.83040935672514,
+            "c": [],
+            "bg": 4292011487,
+            "variant": "surface",
+            "radius": 18.152046783625728
+          },
+          {
+            "t": "stack",
+            "id": "wallpaper_lower",
+            "x": 26.017543859649123,
+            "y": 639.859649122807,
+            "w": 353.96491228070175,
+            "h": 136.140350877193,
+            "c": [],
+            "bg": 4292208342,
+            "variant": "surface",
+            "radius": 18.152046783625728
+          },
+          {
+            "t": "stack",
+            "id": "cancel_card",
+            "x": 38.11890838206628,
+            "y": 140.6783625730994,
+            "w": 331.27485380116957,
+            "h": 461.364522417154,
+            "c": [
+              {
+                "t": "stack",
+                "id": "cancel_summary",
+                "x": 56.27095516569201,
+                "y": 308.5847953216374,
+                "w": 294.9707602339181,
+                "h": 137.65302144249512,
+                "c": [
+                  {
+                    "t": "svg",
+                    "id": "clinic_icon_0",
+                    "x": 69.8849902534113,
+                    "y": 331.27485380116957,
+                    "w": 30.253411306042885,
+                    "h": 33.278752436647174,
+                    "src": ""
+                  },
+                  {
+                    "t": "svg",
+                    "id": "calendar_icon_1",
+                    "x": 69.8849902534113,
+                    "y": 385.7309941520468,
+                    "w": 24.202729044834307,
+                    "h": 25.71539961013645,
+                    "src": ""
+                  },
+                  {
+                    "t": "text",
+                    "id": "provider_name",
+                    "text": "安心体检中心",
+                    "x": 107.7017543859649,
+                    "y": 335.812865497076,
+                    "w": 166.36842105263156,
+                    "h": 28.202729044834307,
+                    "size": 22.508538011695908,
+                    "weight": 400,
+                    "line_height": 28.202729044834307,
+                    "alignx": 0,
+                    "variant": "single_line",
+                    "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+                    "color": 4280693806
+                  },
+                  {
+                    "t": "text",
+                    "id": "appointment_time",
+                    "text": "周日 10月25日 10:00–11:00",
+                    "x": 107.99682494091832,
+                    "y": 392.0239255657392,
+                    "w": 229.36273919118543,
+                    "h": 26.676189250632625,
+                    "size": 21.088856003088342,
+                    "weight": 400,
+                    "line_height": 26.676189250632625,
+                    "alignx": 0,
+                    "variant": "single_line",
+                    "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+                    "color": 4280693806
+                  }
+                ],
+                "bg": 4293915632,
+                "variant": "surface",
+                "radius": 18.152046783625728
+              },
+              {
+                "t": "stack",
+                "id": "keep_booking",
+                "x": 59.2962962962963,
+                "y": 523.3840155945419,
+                "w": 139.16569200779728,
+                "h": 57.48148148148148,
+                "c": [
+                  {
+                    "t": "stack",
+                    "id": "keep_booking_surface",
+                    "x": 59.2962962962963,
+                    "y": 523.3840155945419,
+                    "w": 139.16569200779728,
+                    "h": 57.48148148148148,
+                    "c": [],
+                    "bg": 4293915375,
+                    "variant": "surface",
+                    "radius": 12.101364522417153
+                  },
+                  {
+                    "t": "button",
+                    "id": "keep_booking_control",
+                    "x": 59.2962962962963,
+                    "y": 523.3840155945419,
+                    "w": 139.16569200779728,
+                    "h": 57.48148148148148,
+                    "enabled": 1
+                  },
+                  {
+                    "t": "text",
+                    "id": "keep_booking_text",
+                    "text": "保留预约",
+                    "x": 86.39529840213845,
+                    "y": 539.9366834570405,
+                    "w": 85.72669319613865,
+                    "h": 33.006501429091635,
+                    "size": 26.976046329055222,
+                    "weight": 400,
+                    "line_height": 33.006501429091635,
+                    "alignx": 0,
+                    "variant": "single_line",
+                    "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+                    "color": 4280693806
+                  }
+                ],
+                "kit": "{\"widget\":\"KitButton\",\"bindings\":{\"control\":[1],\"label\":[2]}}"
+              },
+              {
+                "t": "stack",
+                "id": "confirm_cancel",
+                "x": 209.05068226120858,
+                "y": 523.3840155945419,
+                "w": 137.65302144249512,
+                "h": 57.48148148148148,
+                "c": [
+                  {
+                    "t": "stack",
+                    "id": "confirm_cancel_surface",
+                    "x": 209.05068226120858,
+                    "y": 523.3840155945419,
+                    "w": 137.65302144249512,
+                    "h": 57.48148148148148,
+                    "c": [],
+                    "bg": 4291262825,
+                    "variant": "surface",
+                    "radius": 12.101364522417153
+                  },
+                  {
+                    "t": "button",
+                    "id": "confirm_cancel_control",
+                    "x": 209.05068226120858,
+                    "y": 523.3840155945419,
+                    "w": 137.65302144249512,
+                    "h": 57.48148148148148,
+                    "enabled": 1
+                  },
+                  {
+                    "t": "text",
+                    "id": "confirm_cancel_text",
+                    "text": "确认取消",
+                    "x": 237.34695995608115,
+                    "y": 540.060770100517,
+                    "w": 85.64036830731081,
+                    "h": 29.81393981201845,
+                    "size": 24.00696402517716,
+                    "weight": 400,
+                    "line_height": 29.81393981201845,
+                    "alignx": 0,
+                    "variant": "single_line",
+                    "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+                    "color": 4294967295
+                  }
+                ],
+                "kit": "{\"widget\":\"KitButton\",\"bindings\":{\"control\":[1],\"label\":[2]}}"
+              },
+              {
+                "t": "text",
+                "id": "title",
+                "text": "取消体检预约",
+                "x": 61.287047379206015,
+                "y": 172.82076257492602,
+                "w": 161.0946166278326,
+                "h": 33.32962830262794,
+                "size": 27.27655432144398,
+                "weight": 400,
+                "line_height": 33.32962830262794,
+                "alignx": 0,
+                "variant": "single_line",
+                "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+                "color": 4280693806
+              },
+              {
+                "t": "text",
+                "id": "cancel_note",
+                "text": "这会取消预约并移除关联日历",
+                "x": 64.88011427415842,
+                "y": 223.71914033926723,
+                "w": 265.293327584369,
+                "h": 29.16353681411022,
+                "size": 23.402089237122507,
+                "weight": 400,
+                "line_height": 29.16353681411022,
+                "alignx": 0,
+                "variant": "single_line",
+                "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+                "color": 4280693806
+              },
+              {
+                "t": "text",
+                "id": "scope_note",
+                "text": "仅撤销日历不会取消预约",
+                "x": 64.88010879311685,
+                "y": 255.9667904093241,
+                "w": 240.1419249417489,
+                "h": 32.86379920638113,
+                "size": 26.84333326193445,
+                "weight": 400,
+                "line_height": 32.86379920638113,
+                "alignx": 0,
+                "variant": "single_line",
+                "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+                "color": 4280693806
+              }
+            ],
+            "bg": 4294770171,
+            "variant": "surface",
+            "radius": 18.152046783625728
+          },
+          {
+            "t": "stack",
+            "id": "dock",
+            "x": 36.606237816764136,
+            "y": 680.7017543859648,
+            "w": 334.3001949317739,
+            "h": 89.2475633528265,
+            "c": [
+              {
+                "t": "svg",
+                "id": "dock_icon_heart",
+                "x": 89.54970760233917,
+                "y": 694.3157894736842,
+                "w": 40.84210526315789,
+                "h": 40.84210526315789,
+                "src": ""
+              },
+              {
+                "t": "svg",
+                "id": "dock_icon_calendar",
+                "x": 180.30994152046782,
+                "y": 694.3157894736842,
+                "w": 40.84210526315789,
+                "h": 40.84210526315789,
+                "src": ""
+              },
+              {
+                "t": "svg",
+                "id": "dock_icon_mail",
+                "x": 271.0701754385965,
+                "y": 694.3157894736842,
+                "w": 40.84210526315789,
+                "h": 40.84210526315789,
+                "src": ""
+              },
+              {
+                "t": "text",
+                "id": "dock_health",
+                "text": "健康",
+                "x": 94.08771929824562,
+                "y": 742.7212475633528,
+                "w": 39.304093567251456,
+                "h": 22.152046783625728,
+                "size": 16.88140350877193,
+                "weight": 400,
+                "line_height": 22.152046783625728,
+                "alignx": 0,
+                "variant": "single_line",
+                "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+                "color": 4280693806
+              },
+              {
+                "t": "text",
+                "id": "dock_calendar",
+                "text": "日历",
+                "x": 183.3352826510721,
+                "y": 742.7212475633528,
+                "w": 39.304093567251456,
+                "h": 22.152046783625728,
+                "size": 16.88140350877193,
+                "weight": 400,
+                "line_height": 22.152046783625728,
+                "alignx": 0,
+                "variant": "single_line",
+                "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+                "color": 4280693806
+              },
+              {
+                "t": "text",
+                "id": "dock_mail",
+                "text": "邮件",
+                "x": 274.09551656920075,
+                "y": 742.7212475633528,
+                "w": 39.304093567251456,
+                "h": 22.152046783625728,
+                "size": 16.88140350877193,
+                "weight": 400,
+                "line_height": 22.152046783625728,
+                "alignx": 0,
+                "variant": "single_line",
+                "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+                "color": 4280693806
+              }
+            ],
+            "bg": 4293784811,
+            "variant": "surface",
+            "radius": 18.152046783625728
+          },
+          {
+            "t": "text",
+            "id": "status_time",
+            "text": "09:41",
+            "x": 50.50786758724882,
+            "y": 18.62267576187692,
+            "w": 64.08200834694428,
+            "h": 25.76211058908528,
+            "size": 20.238762847849312,
+            "weight": 400,
+            "line_height": 25.76211058908528,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+            "color": 4280693806
+          },
+          {
+            "t": "text",
+            "id": "status_date",
+            "text": "10月22日 周四",
+            "x": 50.507872491075446,
+            "y": 47.34584902317861,
+            "w": 110.79177672031088,
+            "h": 22.20247579410775,
+            "size": 16.92830248852021,
+            "weight": 400,
+            "line_height": 22.20247579410775,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+            "color": 4280693806
+          }
+        ],
+        "bg": 4292471263,
+        "variant": "surface",
+        "radius": 18.152046783625728
+      }
+    ]
+  }
+}

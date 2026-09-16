@@ -1,0 +1,22 @@
+{
+  "id": "reunion-10",
+  "reference_sha256": "de5449fe63be0236bffe4f6b2b8fa7ce0b3af2a445403820fdfae2e5f4d33ff4",
+  "round": "001",
+  "native_findings": [],
+  "image_findings": [
+    "missing observed reference measurements"
+  ],
+  "text_differences": [],
+  "visual_findings": [],
+  "visual_review_current": false,
+  "visual_verdict": null,
+  "semantic_findings": [],
+  "semantic_repairs": [],
+  "rules": [
+    "Preserve real native Labels and controls.",
+    "Never replace a page with its screenshot.",
+    "Follow MAPPING-RULES.md: data graphics require native data-bound widgets; artwork requires asset provenance.",
+    "Repair mapped.json or native vector assets; recapture through Studio.",
+    "Do not widen tolerances to manufacture a pass."
+  ]
+}

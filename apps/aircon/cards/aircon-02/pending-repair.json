@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "id": "31e3a4265d7f5196ff9aedbbf9e585a3829dbc3daa6799b4000a4d44d47e4bb7",
+  "status": "applied",
+  "changes": [
+    {
+      "category": "typography",
+      "element": "native-text-labels",
+      "file": "mapped.json",
+      "reason": "Measured uniform size and origin refinements; preserve all native labels/buttons and exact approved text"
+    },
+    {
+      "category": "asset",
+      "element": "check_icon_1",
+      "file": "assets/check_icon_1.svg",
+      "reason": "Reviewed white confirmation check had a transparent circle; fill the native SVG circle with sage so the white tick is legible"
+    },
+    {
+      "category": "semantic",
+      "element": "reviewed-native-vector-assets",
+      "file": "semantic-map.json",
+      "reason": "Bind the reviewed SVG refinements to their exact new asset hashes"
+    }
+  ],
+  "acceptance": "requires compile, fresh Studio capture and all design gates"
+}

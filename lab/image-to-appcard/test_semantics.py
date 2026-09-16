@@ -28,6 +28,23 @@ class MappingRulesTests(unittest.TestCase):
         self.fixture({'t': 'text', 'id': 'headline', 'text': 'Weather'})
         self.assertTrue(evaluate(self.directory)['pass'])
 
+    def test_native_input_requires_a_declared_value_binding(self):
+        manifest = self.fixture({'t': 'input', 'id': 'search', 'text': ''})
+        self.assertFalse(evaluate(self.directory)['pass'])
+        manifest['elements'][0]['behavior'] = {'event': 'changed', 'target': 'search', 'property': 'text'}
+        write(self.directory / 'semantic-map.json', manifest)
+        self.assertTrue(evaluate(self.directory)['pass'])
+
+    def test_form_field_keeps_its_native_input_role(self):
+        manifest = self.fixture({'t': 'stack', 'id': 'field',
+            'kit': json.dumps({'widget': 'KitFormField', 'bindings': {'input': [0]}}),
+            'c': [{'t': 'input', 'id': 'value', 'text': ''}]})
+        for entry in manifest['elements']:
+            self.assertEqual(entry['role'], 'input')
+            entry['behavior'] = {'event': 'changed', 'target': 'value', 'property': 'text'}
+        write(self.directory / 'semantic-map.json', manifest)
+        self.assertTrue(evaluate(self.directory)['pass'])
+
     def test_svg_trend_is_rejected_even_though_it_is_a_native_widget_kind(self):
         self.fixture({'t': 'svg', 'id': 'trend'}, 'line')
         report = evaluate(self.directory)

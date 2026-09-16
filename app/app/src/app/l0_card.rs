@@ -52,22 +52,22 @@ pub fn close_reader() {
 /// look without the card ever naming one. It has to be a PREFIX: a function body
 /// resolves a name at its declaration point, so a palette appended after the kit
 /// would not reach the roles that read it.
-const KIT_BODY: &str = include_str!("../../../../Octoscript-Makepad/components/l0/_kit.octoscript");
+const KIT_BODY: &str = include_str!("../../../../../octoscript-makepad/components/l0/_kit.octoscript");
 
 /// The base theme: every knob and every colour.
 const PALETTE_BASE: &str =
-    include_str!("../../../../Octoscript-Makepad/components/l0/_palette_dark.octoscript");
+    include_str!("../../../../../octoscript-makepad/components/l0/_palette_dark.octoscript");
 /// Every SIZE, computed from the knobs — concatenated AFTER the mood's delta so a
 /// mood can move a knob (`let` evaluates at its own line, so deriving in the base
 /// would leave a delta's `radius_factor` with nothing left to change).
 const PALETTE_DERIVE: &str =
-    include_str!("../../../../Octoscript-Makepad/components/l0/_derive.octoscript");
+    include_str!("../../../../../octoscript-makepad/components/l0/_derive.octoscript");
 /// Colour derived from seeds, the way sizes always were — rebinds the surface
 /// tokens only when a fragment set `seed_on`, so the shipped moods are
 /// byte-identical. Spliced after the axes (whose ground fragments supply the
 /// seeds) and before the env override (which must still win for measurement).
 const PALETTE_DERIVE_COLOR: &str =
-    include_str!("../../../../Octoscript-Makepad/components/l0/_derive_color.octoscript");
+    include_str!("../../../../../octoscript-makepad/components/l0/_derive_color.octoscript");
 
 /// Each mood the L0 catalog admits, and the DELTA that answers it. `dark` is the
 /// base, so its delta is empty. The names are `octoscript_ui_l0::catalog::THEMES`;
@@ -75,24 +75,24 @@ const PALETTE_DERIVE_COLOR: &str =
 /// entry here renders in the base and looks correct.
 const PALETTES: &[(&str, &str)] = &[
     ("dark", ""),
-    ("light", include_str!("../../../../Octoscript-Makepad/components/l0/_palette_light.octoscript")),
-    ("glass", include_str!("../../../../Octoscript-Makepad/components/l0/_palette_glass.octoscript")),
-    ("photo", include_str!("../../../../Octoscript-Makepad/components/l0/_palette_photo.octoscript")),
-    ("vibrant", include_str!("../../../../Octoscript-Makepad/components/l0/_palette_vibrant.octoscript")),
-    ("minimal", include_str!("../../../../Octoscript-Makepad/components/l0/_palette_minimal.octoscript")),
+    ("light", include_str!("../../../../../octoscript-makepad/components/l0/_palette_light.octoscript")),
+    ("glass", include_str!("../../../../../octoscript-makepad/components/l0/_palette_glass.octoscript")),
+    ("photo", include_str!("../../../../../octoscript-makepad/components/l0/_palette_photo.octoscript")),
+    ("vibrant", include_str!("../../../../../octoscript-makepad/components/l0/_palette_vibrant.octoscript")),
+    ("minimal", include_str!("../../../../../octoscript-makepad/components/l0/_palette_minimal.octoscript")),
     // Theme packs — kits imported whole (palette + scale + family + depth).
-    ("atro", include_str!("../../../../Octoscript-Makepad/components/l0/_palette_atro.octoscript")),
-    ("atro_light", include_str!("../../../../Octoscript-Makepad/components/l0/_palette_atro_light.octoscript")),
-    ("camo", include_str!("../../../../Octoscript-Makepad/components/l0/_palette_camo.octoscript")),
-    ("camo_light", include_str!("../../../../Octoscript-Makepad/components/l0/_palette_camo_light.octoscript")),
-    ("taskplan_light", include_str!("../../../../Octoscript-Makepad/components/l0/_palette_taskplan_light.octoscript")),
+    ("atro", include_str!("../../../../../octoscript-makepad/components/l0/_palette_atro.octoscript")),
+    ("atro_light", include_str!("../../../../../octoscript-makepad/components/l0/_palette_atro_light.octoscript")),
+    ("camo", include_str!("../../../../../octoscript-makepad/components/l0/_palette_camo.octoscript")),
+    ("camo_light", include_str!("../../../../../octoscript-makepad/components/l0/_palette_camo_light.octoscript")),
+    ("taskplan_light", include_str!("../../../../../octoscript-makepad/components/l0/_palette_taskplan_light.octoscript")),
 ];
 
 /// One `accent: .<hue>` delta, for one mood.
 macro_rules! accent {
     ($hue:literal, $mood:literal) => {
         ($hue, $mood, include_str!(concat!(
-            "../../../../Octoscript-Makepad/components/l0/_axis_accent_",
+            "../../../../../octoscript-makepad/components/l0/_axis_accent_",
             $hue, "_", $mood, ".octoscript")))
     };
 }
@@ -101,7 +101,7 @@ macro_rules! accent {
 macro_rules! axis {
     ($axis:literal, $value:literal) => {
         ($axis, $value, include_str!(concat!(
-            "../../../../Octoscript-Makepad/components/l0/_axis_",
+            "../../../../../octoscript-makepad/components/l0/_axis_",
             $axis, "_", $value, ".octoscript")))
     };
 }
@@ -1220,7 +1220,7 @@ mod exemplar_drift {
     //! finds out.
     const EXEMPLAR: &str = include_str!("../../../../a2app-l0/apps/nav/exemplar.card");
     const FIXTURE: &str =
-        include_str!("../../../../Octoscript/crates/octoscript-ui-l0/tests/fixtures/nav.card");
+        include_str!("../../../../../octoscript/crates/octoscript-ui-l0/tests/fixtures/nav.card");
 
     #[test]
     fn the_nav_exemplar_is_the_card_the_profile_tests_check() {
@@ -2128,7 +2128,7 @@ mod resolve_tests {
 mod capability_bridge {
     const BACKEND: &str = include_str!("../../../../aichat/widgets/src/splash.rs");
     const LOWERING: &str =
-        include_str!("../../../../Octoscript/crates/octoscript-ui-l0/src/lib.rs");
+        include_str!("../../../../../octoscript/crates/octoscript-ui-l0/src/lib.rs");
 
     fn between(hay: &str, open: &str, close: char) -> std::collections::BTreeSet<String> {
         let mut out = std::collections::BTreeSet::new();
