@@ -12,6 +12,7 @@ tests and fixture evidence. App runtime state and personal data stay ignored.
 | [Health](health/README.md) | Native cards / WASM | Fictional health-check booking journey. |
 | [Reunion](reunion/README.md) | Native cards / WASM | Reunion planning, RSVP and payment journey. |
 | [personal-data](personal-data/README.md) | octos skill (macOS, Android later) | Read-only search over the Mail and Calendar apps' data for the octos agent: `mail_search`, `mail_read`, `calendar_query`, `contacts_lookup`. Phase 1 of the octos personal-memory ADR. |
+| [Calendar](calendar/README.md) | Native cards / browser preview + sync server | iOS-style calendar for two devices: 10 screens, 4 service cards, and a SQLite-backed operation-log server every client replays. |
 
 All projects are siblings here; `personal-data` is a plain Rust skill rather than an AppCard journey. The repository root is
 `Octosense-Service-AppCards/`; there is no nested `pipeline/` checkout.
