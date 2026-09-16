@@ -5,7 +5,7 @@ import os
 APPCARDS = Path(__file__).resolve().parents[2]
 WORKSPACE = Path(os.environ.get(
     "OCTOSENSE_WORKSPACE",
-    APPCARDS.parent if APPCARDS.parent.name == "octosense-org" else APPCARDS.parent / "octosense-org",
+    APPCARDS.parent,
 )).resolve()
 DIRECTORIES = {"makepad": "makepad", "splash": "octoscript", "splash-makepad": "octoscript-makepad"}
 

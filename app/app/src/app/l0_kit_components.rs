@@ -6,9 +6,7 @@ use std::sync::OnceLock;
 
 fn recipes() -> &'static Value {
     static RECIPES: OnceLock<Value> = OnceLock::new();
-    RECIPES.get_or_init(|| serde_json::from_str(include_str!(
-        "../../../../../octoscript-makepad/components/l0/native/app-recipes.json"
-    )).expect("bundled native component recipes"))
+    RECIPES.get_or_init(|| serde_json::from_str(include_str!(concat!(env!("OCTOSENSE_WORKSPACE"), "/octoscript-makepad/components/l0/native/app-recipes.json"))).expect("bundled native component recipes"))
 }
 
 fn node(kind: NodeKind, children: Vec<UiNode>) -> UiNode {

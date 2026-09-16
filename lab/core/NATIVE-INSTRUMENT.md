@@ -125,3 +125,22 @@ bash tools/image-to-appcard-flow.sh run \
 ```
 
 Do not select legacy `capture --launch` for a request to test without Studio. Keep direct-instrument results alongside the project's evidence with explicit provenance. Adapting the shared capture/gate implementation to consume these results is separate work; until then, report those legacy stages as unrun. Semantic correctness, native interaction, source-image fidelity, visual review, and browser/platform acceptance remain separate decisions.
+
+
+## Shared runtime and HTML reader checks
+
+All applications select the root `native-runtime.lock.json`; its
+Octoscript-Makepad release owns the underlying `runtime.json`. Prepare the
+sibling sources with `python3 tools/setup-native.py` and verify the dependency
+graph with `--check --cargo-manifest app/Cargo.toml`. Mail and WASM do not apply
+private framework patches. Preserve existing edits before updating a checkout.
+
+`apps/mail/scripts/verify_runtime.py` launches an owned hidden native Metal
+window and uses the built-in HTTP instrument. `/event?data=<JSON>` dispatches
+app-defined probes. The `beauty-host` supports `webview_inspect` (native widget
+ID, result path, optional snapshot path and scroll position) and
+`webview_lifecycle` (owned browser count). The fixture checks formatted HTML,
+script blocking, full reader scrolling, WebView disposal, subject search and a
+150-row inbox with bounded native widgets. It captures only the app drawable or
+its own WKWebView, finishes through `/gq`, and waits for process exit. It does not
+use Studio or a software GPU.

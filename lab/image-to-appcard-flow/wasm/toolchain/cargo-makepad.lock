@@ -37,10 +37,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "anyhow"
-version = "1.0.104"
+name = "allocator-api2"
+version = "0.2.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "330a5ed07fa54e4702c9d6c4174f74427fc0ef6e214bbd677ae50a5099946470"
+checksum = "683d7910e743518b0e34f1186f92494becacb047c7b6bf616c96772180fef923"
 
 [[package]]
 name = "arrayvec"
@@ -54,10 +54,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "base64"
-version = "0.23.1"
+name = "autocfg"
+version = "1.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ac07cdecf99051d9a5238b80f35af32cdeba5b336e55d957b318b50137e18da5"
+checksum = "f2032f911046de80f0a198e0901378627c33f59ea0ac00e363d481118bd70a53"
 
 [[package]]
 name = "bit-set"
@@ -73,15 +73,6 @@ version = "0.8.0"
 [[package]]
 name = "bitflags"
 version = "2.10.0"
-
-[[package]]
-name = "block2"
-version = "0.6.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cdeb9d870516001442e364c5220d3574d2da8dc765554b4a617230d33fa58ef5"
-dependencies = [
- "objc2",
-]
 
 [[package]]
 name = "brotli"
@@ -109,20 +100,20 @@ name = "bytemuck"
 version = "1.25.0"
 
 [[package]]
-name = "byteorder"
-version = "1.5.0"
+name = "bytemuck"
+version = "1.25.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "95832e849adfb21180ccb6826a99da14e5d266ae5c2e668e1602cf234f153797"
 
 [[package]]
 name = "byteorder"
 version = "1.5.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1fd0f2584146f6f2ef48085050886acf353beff7305ebd1ae69500e27c67f64b"
 
 [[package]]
-name = "bytes"
-version = "1.12.1"
+name = "byteorder-lite"
+version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fc652a48c352aef3ea3aed32080501cf3ef6ed5da78602a020c991775b0aff04"
+checksum = "8f1fe948ff07f4bd06c30984e69f5b4899c516a3ef74f34df92a2df2ab535495"
 
 [[package]]
 name = "bzip2"
@@ -161,9 +152,9 @@ dependencies = [
 
 [[package]]
 name = "cc"
-version = "1.4.5"
+version = "1.4.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "005ec2760ca554fae18df7a11195552ec576cd665632a881bc011d5bb2fd4d80"
+checksum = "a3eb0f42d6c360dc3f8a821f6bf2fdea7f72bfd36b3076eb0e6d1e9e0752fff4"
 dependencies = [
  "find-msvc-tools",
  "shlex",
@@ -182,12 +173,6 @@ checksum = "9330f8b2ff13f34540b44e946ef35111825727b38d33286ef986142615121801"
 [[package]]
 name = "cfg_aliases"
 version = "0.2.1"
-
-[[package]]
-name = "cfg_aliases"
-version = "0.2.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f079e83a288787bcd14a6aea84cee5c87a67c5a3e660c30f557a3d24761b3527"
 
 [[package]]
 name = "color_quant"
@@ -212,31 +197,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "crossbeam-deque"
-version = "0.8.8"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "622f3fc73690be383c7214310406f28a90e6edeadc3cea882f9d71e495b9711a"
-dependencies = [
- "crossbeam-epoch",
- "crossbeam-utils",
-]
-
-[[package]]
-name = "crossbeam-epoch"
-version = "0.9.21"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dc74980687109a3b14c72fd458107bf0baa1da1a1a805e178d15501ba9b86d9d"
-dependencies = [
- "crossbeam-utils",
-]
-
-[[package]]
-name = "crossbeam-utils"
-version = "0.8.23"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a31eee39dddec8330830986fcd7625edb5a24ec90ea038215273bbc3adb08ac6"
-
-[[package]]
 name = "crunchy"
 version = "0.2.4"
 
@@ -251,37 +211,8 @@ dependencies = [
 ]
 
 [[package]]
-name = "ctrlc"
-version = "3.5.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e0b1fab2ae45819af2d0731d60f2afe17227ebb1a1538a236da84c93e9a60162"
-dependencies = [
- "dispatch2",
- "nix",
- "windows-sys 0.61.2",
-]
-
-[[package]]
-name = "dispatch2"
-version = "0.3.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1e0e367e4e7da84520dedcac1901e4da967309406d1e51017ae1abfb97adbd38"
-dependencies = [
- "bitflags",
- "block2",
- "libc",
- "objc2",
-]
-
-[[package]]
 name = "downcast-rs"
 version = "1.2.1"
-
-[[package]]
-name = "either"
-version = "1.18.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "252afb9ae5eaa683babdc6a068b3f5726eb19e05070c731f9b2a23a7c3e8ed34"
 
 [[package]]
 name = "equivalent"
@@ -300,14 +231,8 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "39cab71617ae0d63f51a36d69f866391735b51691dbda63cf6f96d042b63efeb"
 dependencies = [
  "libc",
- "windows-sys 0.61.2",
+ "windows-sys",
 ]
-
-[[package]]
-name = "fastrand"
-version = "2.5.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "da7c62ceae207dd37ea5b845da6a0696c799f85e97da1ab5b7910be3c1c80223"
 
 [[package]]
 name = "filetime"
@@ -341,11 +266,45 @@ name = "foldhash"
 version = "0.2.0"
 
 [[package]]
+name = "foldhash"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "77ce24cb58228fbb8aa041425bb1050850ac19177686ea6e0f41a70416f56fdb"
+
+[[package]]
 name = "fxhash"
 version = "0.2.1"
 dependencies = [
- "byteorder 1.5.0",
+ "byteorder",
 ]
+
+[[package]]
+name = "g2gen"
+version = "1.2.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c5a7e0eb46f83a20260b850117d204366674e85d3a908d90865c78df9a6b1dfc"
+dependencies = [
+ "g2poly",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.119",
+]
+
+[[package]]
+name = "g2p"
+version = "1.2.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "539e2644c030d3bf4cd208cb842d2ce2f80e82e6e8472390bcef83ceba0d80ad"
+dependencies = [
+ "g2gen",
+ "g2poly",
+]
+
+[[package]]
+name = "g2poly"
+version = "1.2.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "312d2295c7302019c395cfb90dacd00a82a2eabd700429bba9c7a3f38dbbe11b"
 
 [[package]]
 name = "getrandom"
@@ -359,28 +318,22 @@ dependencies = [
 ]
 
 [[package]]
-name = "getrandom"
-version = "0.4.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "300e883d756b2e4ec94e02791f39b04b522276138852cfc41d9fb7e904106099"
+name = "hashbrown"
+version = "0.16.1"
 dependencies = [
- "cfg-if 1.0.4 (registry+https://github.com/rust-lang/crates.io-index)",
- "libc",
- "r-efi",
+ "foldhash 0.2.0",
 ]
 
 [[package]]
 name = "hashbrown"
 version = "0.16.1"
-dependencies = [
- "foldhash",
-]
-
-[[package]]
-name = "hashbrown"
-version = "0.17.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ed5909b6e89a2db4456e54cd5f673791d7eca6732202bbf2a9cc504fe2f9b84a"
+checksum = "841d1cc9bed7f9236f321df977030373f4a4163ae1a7dbfe1a51a2c1a51d9100"
+dependencies = [
+ "allocator-api2",
+ "equivalent 1.0.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "foldhash 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
+]
 
 [[package]]
 name = "hexf-parse"
@@ -391,31 +344,6 @@ name = "hilog-sys"
 version = "0.1.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f715f263b6e73aa2322b59057134b4daf56a765cbebc2f6b35e640ffded3361b"
-
-[[package]]
-name = "home"
-version = "0.5.12"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cc627f471c528ff0c4a49e1d5e60450c8f6461dd6d10ba9dcd3a61d3dff7728d"
-dependencies = [
- "windows-sys 0.61.2",
-]
-
-[[package]]
-name = "http"
-version = "1.5.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "918d3568bebf352712bc2ef3d46a8bcf1a75b373be6539de198e9105cbbf9ce0"
-dependencies = [
- "bytes",
- "itoa",
-]
-
-[[package]]
-name = "httparse"
-version = "1.10.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6dbf3de79e51f3d586ab4cb9d5c3e2c14aa28ed23d180cf89b4df0454a69cc87"
 
 [[package]]
 name = "i_float"
@@ -447,21 +375,23 @@ name = "i_tree"
 version = "0.19.0"
 
 [[package]]
+name = "image"
+version = "0.25.10"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "85ab80394333c02fe689eaf900ab500fbd0c2213da414687ebf995a65d5a6104"
+dependencies = [
+ "bytemuck 1.25.2",
+ "byteorder-lite",
+ "moxcms",
+ "num-traits 0.2.19 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
 name = "indexmap"
 version = "2.13.0"
 dependencies = [
  "equivalent 1.0.2",
  "hashbrown 0.16.1",
-]
-
-[[package]]
-name = "indexmap"
-version = "2.14.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cc4e190f5d26ca7051642629da2c52fc03bde85a03197c99408dcd291734c855"
-dependencies = [
- "equivalent 1.0.2 (registry+https://github.com/rust-lang/crates.io-index)",
- "hashbrown 0.17.1",
 ]
 
 [[package]]
@@ -518,25 +448,18 @@ dependencies = [
 
 [[package]]
 name = "linux-raw-sys"
-version = "0.4.15"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d26c52dbd32dccf2d10cac7725f8eae5296885fb5703b261f7d0a0739ec807ab"
-
-[[package]]
-name = "linux-raw-sys"
 version = "0.12.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "32a66949e030da00e8c7d4434b251670a91556f4144941d37452769c25d58a53"
 
 [[package]]
-name = "log"
-version = "0.4.29"
-
-[[package]]
-name = "log"
-version = "0.4.34"
+name = "lru"
+version = "0.16.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f9f8bd3e56ce4dfc153cf470fffbfa98c7620958b312ca5c3a4b8d5181fd13c6"
+checksum = "7f66e8d5d03f609abc3a39e6f08e4164ebf1447a732906d39eb9b99b7919ef39"
+dependencies = [
+ "hashbrown 0.16.1 (registry+https://github.com/rust-lang/crates.io-index)",
+]
 
 [[package]]
 name = "makepad-ai-beats"
@@ -599,6 +522,7 @@ dependencies = [
 name = "makepad-ai-hub"
 version = "0.3.0"
 dependencies = [
+ "makepad-ai-beats",
  "makepad-ai-body",
  "makepad-ai-common",
  "makepad-ai-flux",
@@ -606,6 +530,7 @@ dependencies = [
  "makepad-ai-llm",
  "makepad-ai-motion",
  "makepad-ai-music",
+ "makepad-ai-notes",
  "makepad-ai-paint",
  "makepad-ai-rife",
  "makepad-ai-rig",
@@ -854,32 +779,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "makepad-app-finance"
-version = "0.1.0"
-dependencies = [
- "makepad-sqlite",
- "makepad-widgets",
- "makepad-wm-theme",
-]
-
-[[package]]
-name = "makepad-app-flow-ui"
-version = "0.1.0"
-dependencies = [
- "makepad-ai-hub",
- "makepad-ai-services",
- "makepad-aichat",
- "makepad-app-asset-server",
- "makepad-asset-client",
- "makepad-code-editor",
- "makepad-flow",
- "makepad-flowgraph",
- "makepad-media-view",
- "makepad-strict-json",
- "makepad-widgets",
-]
-
-[[package]]
 name = "makepad-app-module"
 version = "0.1.0"
 dependencies = [
@@ -894,6 +793,7 @@ version = "0.1.0"
 dependencies = [
  "makepad-ai-hub",
  "makepad-ai-services",
+ "makepad-app-module",
  "makepad-converse",
  "makepad-geodata",
  "makepad-map-build",
@@ -904,7 +804,6 @@ dependencies = [
  "makepad-test",
  "makepad-widgets",
  "makepad-wm-theme",
- "serde_json",
 ]
 
 [[package]]
@@ -975,7 +874,9 @@ dependencies = [
  "makepad-asset-data",
  "makepad-asset-importer",
  "makepad-draw",
+ "makepad-flow",
  "makepad-gltf",
+ "makepad-micro-serde",
  "makepad-render",
  "makepad-strict-json",
 ]
@@ -989,7 +890,6 @@ name = "makepad-asset-importer"
 version = "0.1.0"
 dependencies = [
  "jpeg-encoder",
- "libc",
  "makepad-ai-hub",
  "makepad-asset-annotate",
  "makepad-asset-client",
@@ -1102,16 +1002,38 @@ name = "makepad-byteorder-lite"
 version = "0.1.0"
 
 [[package]]
+name = "makepad-calculator"
+version = "0.1.0"
+dependencies = [
+ "makepad-ai-services",
+ "makepad-app-module",
+ "makepad-strict-json",
+ "makepad-widgets",
+ "makepad-wm-theme",
+]
+
+[[package]]
+name = "makepad-calendar"
+version = "0.1.0"
+dependencies = [
+ "makepad-ai-services",
+ "makepad-app-module",
+ "makepad-civil-time",
+ "makepad-strict-json",
+ "makepad-widgets",
+ "makepad-wm-theme",
+]
+
+[[package]]
 name = "makepad-cef"
 version = "0.1.0"
 dependencies = [
  "bzip2",
  "libloading 0.8.9",
  "makepad-error-log",
+ "makepad-network",
  "makepad-objc-sys",
- "sha1_smol",
  "tar",
- "ureq",
 ]
 
 [[package]]
@@ -1127,12 +1049,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "makepad-civil-time"
+version = "0.1.0"
+
+[[package]]
 name = "makepad-clock"
 version = "0.1.0"
 dependencies = [
+ "makepad-ai-services",
+ "makepad-aichat",
+ "makepad-app-module",
  "makepad-widgets",
  "makepad-wm-api",
  "makepad-wm-theme",
+]
+
+[[package]]
+name = "makepad-code-arch"
+version = "0.1.0"
+dependencies = [
+ "makepad-git",
+ "makepad-toml-parser",
 ]
 
 [[package]]
@@ -1222,6 +1159,35 @@ version = "2.0.0"
 dependencies = [
  "makepad-live-id",
  "makepad-micro-proc-macro",
+]
+
+[[package]]
+name = "makepad-director"
+version = "2.0.0"
+dependencies = [
+ "makepad-ai-services",
+ "makepad-aichat",
+ "makepad-bounded-http",
+ "makepad-code-arch",
+ "makepad-code-editor",
+ "makepad-diskmap",
+ "makepad-draw",
+ "makepad-git",
+ "makepad-screen",
+ "makepad-strict-json",
+ "makepad-terminal",
+ "makepad-widgets",
+ "makepad-wm-api",
+ "makepad-wm-theme",
+ "makepad-workspace",
+]
+
+[[package]]
+name = "makepad-diskmap"
+version = "0.1.0"
+dependencies = [
+ "makepad-git",
+ "makepad-widgets",
 ]
 
 [[package]]
@@ -1616,12 +1582,12 @@ name = "makepad-fab-shell"
 version = "0.1.0"
 dependencies = [
  "makepad-fab-tour",
- "makepad-game-sim",
  "makepad-math",
  "makepad-micro-serde",
  "makepad-platform-video",
  "makepad-raytrace",
  "makepad-render",
+ "makepad-scene",
  "makepad-widgets",
 ]
 
@@ -1672,6 +1638,7 @@ version = "0.1.0"
 dependencies = [
  "makepad-ai-hub",
  "makepad-ai-services",
+ "makepad-diskmap",
  "makepad-strict-json",
  "makepad-widgets",
  "makepad-wm-api",
@@ -1681,6 +1648,21 @@ dependencies = [
 [[package]]
 name = "makepad-filesystem-watcher"
 version = "0.1.0"
+dependencies = [
+ "makepad-git",
+]
+
+[[package]]
+name = "makepad-finance"
+version = "0.1.0"
+dependencies = [
+ "makepad-ai-services",
+ "makepad-app-module",
+ "makepad-civil-time",
+ "makepad-sqlite",
+ "makepad-widgets",
+ "makepad-wm-theme",
+]
 
 [[package]]
 name = "makepad-flow"
@@ -1706,14 +1688,8 @@ dependencies = [
 name = "makepad-flow-server"
 version = "0.1.0"
 dependencies = [
+ "makepad-asset-client",
  "makepad-flow",
-]
-
-[[package]]
-name = "makepad-flowgraph"
-version = "0.1.0"
-dependencies = [
- "makepad-widgets",
 ]
 
 [[package]]
@@ -1733,28 +1709,14 @@ name = "makepad-futures-legacy"
 version = "1.0.0"
 
 [[package]]
-name = "makepad-game-math"
-version = "0.1.0"
-
-[[package]]
-name = "makepad-game-sim"
-version = "0.1.0"
-dependencies = [
- "makepad-box3d",
- "makepad-game-math",
- "makepad-live-id",
- "makepad-math",
-]
-
-[[package]]
 name = "makepad-geodata"
 version = "0.1.0"
 dependencies = [
  "makepad-fast-inflate",
  "makepad-map-nav",
  "makepad-mbtile-reader",
+ "makepad-micro-serde",
  "makepad-network",
- "serde_json",
 ]
 
 [[package]]
@@ -1788,7 +1750,7 @@ version = "2.7.1"
 dependencies = [
  "cfg-if 1.0.4",
  "crunchy",
- "num-traits",
+ "num-traits 0.2.19",
  "zerocopy 0.8.39",
 ]
 
@@ -1871,6 +1833,18 @@ name = "makepad-lz4"
 version = "0.1.0"
 
 [[package]]
+name = "makepad-mail"
+version = "0.1.0"
+dependencies = [
+ "makepad-ai-services",
+ "makepad-app-module",
+ "makepad-civil-time",
+ "makepad-strict-json",
+ "makepad-widgets",
+ "makepad-wm-theme",
+]
+
+[[package]]
 name = "makepad-map-bake"
 version = "0.1.0"
 dependencies = [
@@ -1885,9 +1859,8 @@ dependencies = [
  "makepad-fast-inflate",
  "makepad-map-nav",
  "makepad-mbtile-reader",
+ "makepad-micro-serde",
  "makepad-widgets",
- "osmpbf",
- "serde_json",
  "smallvec",
 ]
 
@@ -1905,9 +1878,8 @@ dependencies = [
  "makepad-map-build",
  "makepad-map-nav",
  "makepad-mbtile-reader",
+ "makepad-micro-serde",
  "makepad-network",
- "osmpbf",
- "serde_json",
  "smallvec",
 ]
 
@@ -1987,11 +1959,11 @@ dependencies = [
  "makepad-csg-boolean",
  "makepad-csg-math",
  "makepad-csg-mesh",
- "makepad-game-sim",
  "makepad-gltf",
  "makepad-mesh-edit",
  "makepad-remesh",
  "makepad-render",
+ "makepad-soft-body",
  "makepad-strict-json",
  "makepad-zune-png",
 ]
@@ -2018,6 +1990,18 @@ dependencies = [
  "makepad-micro-serde",
  "makepad-script",
  "windows",
+]
+
+[[package]]
+name = "makepad-notes"
+version = "0.1.0"
+dependencies = [
+ "makepad-ai-services",
+ "makepad-app-module",
+ "makepad-civil-time",
+ "makepad-strict-json",
+ "makepad-widgets",
+ "makepad-wm-theme",
 ]
 
 [[package]]
@@ -2068,7 +2052,6 @@ version = "2.0.0"
 dependencies = [
  "ash",
  "bitflags",
- "ctrlc",
  "hilog-sys",
  "makepad-android-state",
  "makepad-apple-sys",
@@ -2090,6 +2073,7 @@ dependencies = [
  "napi-derive-ohos",
  "napi-ohos",
  "ohos-sys",
+ "rqrr",
  "smallvec",
  "wayland-client",
  "wayland-egl",
@@ -2107,10 +2091,6 @@ dependencies = [
  "makepad-objc-sys",
  "windows",
 ]
-
-[[package]]
-name = "makepad-rabin-karp"
-version = "1.0.0"
 
 [[package]]
 name = "makepad-raytrace"
@@ -2136,6 +2116,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "makepad-reminders"
+version = "0.1.0"
+dependencies = [
+ "makepad-ai-services",
+ "makepad-app-module",
+ "makepad-civil-time",
+ "makepad-strict-json",
+ "makepad-widgets",
+ "makepad-wm-theme",
+]
+
+[[package]]
 name = "makepad-remote"
 version = "0.1.0"
 
@@ -2146,13 +2138,22 @@ dependencies = [
  "jpeg-encoder",
  "makepad-draw",
  "makepad-fast-inflate",
- "makepad-game-sim",
  "makepad-gltf",
+ "makepad-raytrace",
+ "makepad-scene",
+ "makepad-soft-body",
 ]
 
 [[package]]
 name = "makepad-rtsmap"
 version = "0.1.0"
+
+[[package]]
+name = "makepad-scene"
+version = "0.1.0"
+dependencies = [
+ "makepad-math",
+]
 
 [[package]]
 name = "makepad-score"
@@ -2241,6 +2242,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "makepad-screen"
+version = "0.1.0"
+dependencies = [
+ "makepad-strict-json",
+]
+
+[[package]]
 name = "makepad-script"
 version = "1.0.0"
 dependencies = [
@@ -2305,6 +2313,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "makepad-soft-body"
+version = "0.1.0"
+
+[[package]]
 name = "makepad-soundfont"
 version = "0.1.0"
 
@@ -2328,33 +2340,6 @@ version = "0.1.0"
 [[package]]
 name = "makepad-strict-json"
 version = "0.1.0"
-
-[[package]]
-name = "makepad-studio"
-version = "2.0.0"
-dependencies = [
- "makepad-code-editor",
- "makepad-studio-hub",
- "makepad-studio-protocol",
- "makepad-terminal-core",
- "makepad-widgets",
-]
-
-[[package]]
-name = "makepad-studio-hub"
-version = "0.1.0"
-dependencies = [
- "makepad-filesystem-watcher",
- "makepad-git",
- "makepad-live-id",
- "makepad-micro-serde",
- "makepad-network",
- "makepad-rabin-karp",
- "makepad-regex",
- "makepad-script-std",
- "makepad-studio-protocol",
- "makepad-terminal-core",
-]
 
 [[package]]
 name = "makepad-studio-protocol"
@@ -2415,19 +2400,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "makepad-terminal-core"
-version = "1.0.0"
-dependencies = [
- "windows",
-]
-
-[[package]]
 name = "makepad-test"
 version = "0.1.0"
 dependencies = [
  "makepad-micro-serde",
- "makepad-network",
- "makepad-studio-hub",
  "makepad-studio-protocol",
  "makepad-test-macros",
 ]
@@ -2539,6 +2515,9 @@ version = "1.0.0"
 name = "makepad-weather"
 version = "0.1.0"
 dependencies = [
+ "makepad-ai-services",
+ "makepad-aichat",
+ "makepad-app-module",
  "makepad-widgets",
  "makepad-wm-api",
  "makepad-wm-theme",
@@ -2566,8 +2545,10 @@ dependencies = [
  "makepad-latex-math",
  "makepad-mbtile-reader",
  "makepad-pdf-parse",
+ "octoscript-node",
  "pulldown-cmark",
  "serde",
+ "serde_json",
  "ttf-parser",
  "unicode-segmentation 1.12.0",
 ]
@@ -2577,11 +2558,8 @@ name = "makepad-wm"
 version = "0.1.0"
 dependencies = [
  "makepad-ai-services",
- "makepad-aichat",
  "makepad-app-module",
  "makepad-network",
- "makepad-photos",
- "makepad-sheets",
  "makepad-strict-json",
  "makepad-studio-protocol",
  "makepad-widgets",
@@ -2600,6 +2578,14 @@ dependencies = [
 name = "makepad-wm-theme"
 version = "0.1.0"
 dependencies = [
+ "makepad-widgets",
+]
+
+[[package]]
+name = "makepad-workspace"
+version = "2.0.0"
+dependencies = [
+ "makepad-code-editor",
  "makepad-widgets",
 ]
 
@@ -2629,7 +2615,7 @@ dependencies = [
 name = "makepad-zune-bmp"
 version = "0.5.2"
 dependencies = [
- "log 0.4.34",
+ "makepad-error-log",
  "makepad-zune-core",
 ]
 
@@ -2637,7 +2623,7 @@ dependencies = [
 name = "makepad-zune-core"
 version = "0.5.1"
 dependencies = [
- "log 0.4.34",
+ "makepad-error-log",
 ]
 
 [[package]]
@@ -2681,15 +2667,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cf8baf1c55e62ffcace7a9f06f4bd9cd3f0c4beb022d3b367256b91b87513d98"
 
 [[package]]
-name = "memmap2"
-version = "0.5.10"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "83faa42c0a078c393f6b29d5db232d8be22776a891f8f56e5284faee4a20b327"
-dependencies = [
- "libc",
-]
-
-[[package]]
 name = "miniz_oxide"
 version = "0.8.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2709,6 +2686,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "moxcms"
+version = "0.8.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bb85c154ba489f01b25c0d36ae69a87e4a1c73a72631fc6c0eb6dde34a73e44b"
+dependencies = [
+ "num-traits 0.2.19 (registry+https://github.com/rust-lang/crates.io-index)",
+ "pxfm",
+]
+
+[[package]]
 name = "naga"
 version = "27.0.3"
 dependencies = [
@@ -2716,18 +2703,18 @@ dependencies = [
  "bit-set",
  "bitflags",
  "cfg-if 1.0.4",
- "cfg_aliases 0.2.1",
+ "cfg_aliases",
  "hashbrown 0.16.1",
  "hexf-parse",
- "indexmap 2.13.0",
+ "indexmap",
  "makepad-error-log",
  "makepad-half",
- "num-traits",
+ "num-traits 0.2.19",
  "once_cell 1.21.3",
  "rustc-hash",
  "spirv",
- "thiserror 2.0.18",
- "unicode-ident",
+ "thiserror",
+ "unicode-ident 1.0.22",
 ]
 
 [[package]]
@@ -2780,35 +2767,21 @@ dependencies = [
 ]
 
 [[package]]
-name = "nix"
-version = "0.31.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cf20d2fde8ff38632c426f1165ed7436270b44f199fc55284c38276f9db47c3d"
-dependencies = [
- "bitflags",
- "cfg-if 1.0.4 (registry+https://github.com/rust-lang/crates.io-index)",
- "cfg_aliases 0.2.2",
- "libc",
-]
-
-[[package]]
 name = "num-traits"
 version = "0.2.19"
 
 [[package]]
-name = "objc2"
-version = "0.6.4"
+name = "num-traits"
+version = "0.2.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3a12a8ed07aefc768292f076dc3ac8c48f3781c8f2d5851dd3d98950e8c5a89f"
+checksum = "071dfc062690e90b734c0b2273ce72ad0ffa95f0c74596bc250dcfd960262841"
 dependencies = [
- "objc2-encode",
+ "autocfg",
 ]
 
 [[package]]
-name = "objc2-encode"
-version = "4.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ef25abbcd74fb2609453eb695bd2f860d389e457f67dc17cafc8b8cbc89d0c33"
+name = "octoscript-node"
+version = "0.1.0"
 
 [[package]]
 name = "ohos-sys"
@@ -2825,26 +2798,6 @@ name = "once_cell"
 version = "1.21.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9f7c3e4beb33f85d45ae3e3a1792185706c8e16d043238c593331cc7cd313b50"
-
-[[package]]
-name = "osmpbf"
-version = "0.3.8"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5d689d6e9f254bbd63893ce00a27147e41fe94bf3abca70f85b5345afb3cb728"
-dependencies = [
- "byteorder 1.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "flate2",
- "memmap2",
- "protobuf",
- "protobuf-codegen",
- "rayon",
-]
-
-[[package]]
-name = "percent-encoding"
-version = "2.3.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9b4f627cb1b25917193a259e49bdad08f671f8d9708acfd5fe0a8c1455d87220"
 
 [[package]]
 name = "pkg-config"
@@ -2871,58 +2824,7 @@ version = "1.0.107"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "985e7ec9bb745e6ce6535b544d84d6cd6f7ad8bd711c398938ae983b91a766d9"
 dependencies = [
- "unicode-ident",
-]
-
-[[package]]
-name = "protobuf"
-version = "3.7.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d65a1d4ddae7d8b5de68153b48f6aa3bba8cb002b243dbdbc55a5afbc98f99f4"
-dependencies = [
- "once_cell 1.21.4",
- "protobuf-support",
- "thiserror 1.0.69",
-]
-
-[[package]]
-name = "protobuf-codegen"
-version = "3.7.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5d3976825c0014bbd2f3b34f0001876604fe87e0c86cd8fa54251530f1544ace"
-dependencies = [
- "anyhow",
- "once_cell 1.21.4",
- "protobuf",
- "protobuf-parse",
- "regex",
- "tempfile",
- "thiserror 1.0.69",
-]
-
-[[package]]
-name = "protobuf-parse"
-version = "3.7.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b4aeaa1f2460f1d348eeaeed86aea999ce98c1bded6f089ff8514c9d9dbdc973"
-dependencies = [
- "anyhow",
- "indexmap 2.14.2",
- "log 0.4.34",
- "protobuf",
- "protobuf-support",
- "tempfile",
- "thiserror 1.0.69",
- "which",
-]
-
-[[package]]
-name = "protobuf-support"
-version = "3.7.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3e36c2f31e0a47f9280fb347ef5e461ffcd2c52dd520d8e216b52f93b0b0d7d6"
-dependencies = [
- "thiserror 1.0.69",
+ "unicode-ident 1.0.24",
 ]
 
 [[package]]
@@ -2935,6 +2837,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "pxfm"
+version = "0.1.30"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d55d956fa96f5ec02be2e13af0e20391a5aa83d6a074e3ad368959d0fab299ea"
+
+[[package]]
 name = "quote"
 version = "1.0.47"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2942,12 +2850,6 @@ checksum = "1fbf4db142a473a8d80c26bbf18454ed458bf8d26c8219c331daecfdbd079001"
 dependencies = [
  "proc-macro2",
 ]
-
-[[package]]
-name = "r-efi"
-version = "6.0.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f8dcc9c7d52a811697d2151c701e0d08956f92b0e24136cf4cf27b57a6a0d9bf"
 
 [[package]]
 name = "rand"
@@ -2976,27 +2878,7 @@ version = "0.6.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ec0be4795e2f6a28069bec0b5ff3e2ac9bafc99e6a9a7dc3547996c5c816922c"
 dependencies = [
- "getrandom 0.2.17",
-]
-
-[[package]]
-name = "rayon"
-version = "1.12.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fb39b166781f92d482534ef4b4b1b2568f42613b53e5b6c160e24cfbfa30926d"
-dependencies = [
- "either",
- "rayon-core",
-]
-
-[[package]]
-name = "rayon-core"
-version = "1.13.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "22e18b0f0062d30d4230b2e85ff77fdfe4326feb054b9783a3460d8435c8ab91"
-dependencies = [
- "crossbeam-deque",
- "crossbeam-utils",
+ "getrandom",
 ]
 
 [[package]]
@@ -3029,35 +2911,19 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d6f6ff9a378485b298a5286656da665ba74413d36db0979633275d2e708145d4"
 
 [[package]]
-name = "ring"
-version = "0.17.14"
+name = "rqrr"
+version = "0.10.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a4689e6c2294d81e88dc6261c768b63bc4fcdb852be6d1352498b114f61383b7"
+checksum = "ffbe87d9e8db95652c25ded2418150e00b08c2fde09e23ec15896d2c470c6631"
 dependencies = [
- "cc",
- "cfg-if 1.0.4 (registry+https://github.com/rust-lang/crates.io-index)",
- "getrandom 0.2.17",
- "libc",
- "untrusted",
- "windows-sys 0.52.0",
+ "g2p",
+ "image",
+ "lru",
 ]
 
 [[package]]
 name = "rustc-hash"
 version = "1.1.0"
-
-[[package]]
-name = "rustix"
-version = "0.38.44"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fdb5bc1ae2baa591800df16c9ca78619bf65c0488b41b96ccec5d11220d8c154"
-dependencies = [
- "bitflags",
- "errno",
- "libc",
- "linux-raw-sys 0.4.15",
- "windows-sys 0.59.0",
-]
 
 [[package]]
 name = "rustix"
@@ -3068,43 +2934,8 @@ dependencies = [
  "bitflags",
  "errno",
  "libc",
- "linux-raw-sys 0.12.1",
- "windows-sys 0.61.2",
-]
-
-[[package]]
-name = "rustls"
-version = "0.23.44"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6725596c3f2c3a0aef021139e145d4eafe314a6623e4680ca83852b2c67ab2ba"
-dependencies = [
- "log 0.4.34",
- "once_cell 1.21.4",
- "ring",
- "rustls-pki-types",
- "rustls-webpki",
- "subtle",
- "zeroize",
-]
-
-[[package]]
-name = "rustls-pki-types"
-version = "1.15.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2f4925028c7eb5d1fcdaf196971378ed9d2c1c4efc7dc5d011256f76c99c0a96"
-dependencies = [
- "zeroize",
-]
-
-[[package]]
-name = "rustls-webpki"
-version = "0.103.15"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f3c3cf1d8b1e7d4927e2d154c3fcb02979afb9939629c62cd9048d4f07b60ac2"
-dependencies = [
- "ring",
- "rustls-pki-types",
- "untrusted",
+ "linux-raw-sys",
+ "windows-sys",
 ]
 
 [[package]]
@@ -3112,7 +2943,7 @@ name = "rustybuzz"
 version = "0.18.0"
 dependencies = [
  "bitflags",
- "bytemuck",
+ "bytemuck 1.25.0",
  "makepad-error-log",
  "smallvec",
  "ttf-parser",
@@ -3174,12 +3005,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "sha1_smol"
-version = "1.0.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bbfa15b3dddfee50a0fff136974b3e1bde555604ba463834a7eb7deb6417705d"
-
-[[package]]
 name = "shlex"
 version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3207,12 +3032,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "subtle"
-version = "2.6.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "13c2bddecc57b384dee18652358fb23172facb8a2c51ccc10d74c157bdea3292"
-
-[[package]]
 name = "syn"
 version = "2.0.119"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3220,7 +3039,7 @@ checksum = "872831b642d1a07999a962a351ed35b955ea2cfc8f3862091e2a240a84f17297"
 dependencies = [
  "proc-macro2",
  "quote",
- "unicode-ident",
+ "unicode-ident 1.0.24",
 ]
 
 [[package]]
@@ -3231,7 +3050,7 @@ checksum = "12df2e0110f65b775f769bb17ef989067a1d931b2eb822bd4346631eeada89f9"
 dependencies = [
  "proc-macro2",
  "quote",
- "unicode-ident",
+ "unicode-ident 1.0.24",
 ]
 
 [[package]]
@@ -3246,43 +3065,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "tempfile"
-version = "3.27.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "32497e9a4c7b38532efcdebeef879707aa9f794296a4f0244f6f69e9bc8574bd"
-dependencies = [
- "fastrand",
- "getrandom 0.4.3",
- "once_cell 1.21.4",
- "rustix 1.1.4",
- "windows-sys 0.61.2",
-]
-
-[[package]]
-name = "thiserror"
-version = "1.0.69"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b6aaf5339b578ea85b50e080feb250a3e8ae8cfcdff9a461c9ec2904bc923f52"
-dependencies = [
- "thiserror-impl 1.0.69",
-]
-
-[[package]]
 name = "thiserror"
 version = "2.0.18"
 dependencies = [
- "thiserror-impl 2.0.18",
-]
-
-[[package]]
-name = "thiserror-impl"
-version = "1.0.69"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4fee6c4efc90059e10f81e6d42c60a18f76588c3d74cb83a0b242a2b6c7504c1"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 2.0.119",
+ "thiserror-impl",
 ]
 
 [[package]]
@@ -3314,6 +3100,10 @@ version = "0.3.0"
 
 [[package]]
 name = "unicode-ident"
+version = "1.0.22"
+
+[[package]]
+name = "unicode-ident"
 version = "1.0.24"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e6e4313cd5fcd3dad5cafa179702e2b244f760991f45397d14d4ebf38247da75"
@@ -3341,46 +3131,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c6f5d3c3b1bf09027a88a6bc961fc00497d651009560b5463668dc81b0fa87a8"
 
 [[package]]
-name = "untrusted"
-version = "0.9.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8ecb6da28b8a351d773b68d5825ac39017e680750f980f3a1a85cd8dd28a47c1"
-
-[[package]]
-name = "ureq"
-version = "3.4.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "af5546be8f5378d5414f83733f5c9a2526f4645829edbc1c41790aeef1b38e8b"
-dependencies = [
- "base64",
- "log 0.4.34",
- "percent-encoding",
- "rustls",
- "rustls-pki-types",
- "ureq-proto",
- "utf8-zero",
- "webpki-roots",
-]
-
-[[package]]
-name = "ureq-proto"
-version = "0.6.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fabc3e92916c89c95b20eef7b06b00b066bc217ef9ea3a4ac9bf1a7e35261e10"
-dependencies = [
- "base64",
- "http",
- "httparse",
- "log 0.4.34",
-]
-
-[[package]]
-name = "utf8-zero"
-version = "0.8.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b8c0a043c9540bae7c578c88f91dda8bd82e59ae27c21baca69c8b191aaf5a6e"
-
-[[package]]
 name = "wasi"
 version = "0.11.1+wasi-snapshot-preview1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3391,7 +3141,6 @@ name = "wayland-backend"
 version = "0.3.12"
 dependencies = [
  "downcast-rs",
- "libc",
  "scoped-tls",
  "smallvec",
  "wayland-sys",
@@ -3402,8 +3151,8 @@ name = "wayland-client"
 version = "0.31.12"
 dependencies = [
  "bitflags",
- "libc",
  "wayland-backend",
+ "wayland-sys",
 ]
 
 [[package]]
@@ -3427,34 +3176,13 @@ dependencies = [
 name = "wayland-sys"
 version = "0.31.8"
 dependencies = [
- "log 0.4.29",
+ "makepad-error-log",
  "pkg-config 0.3.32",
-]
-
-[[package]]
-name = "webpki-roots"
-version = "1.0.9"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7dcd9d09a39985f5344844e66b0c530a33843579125f23e21e9f0f220850f22a"
-dependencies = [
- "rustls-pki-types",
 ]
 
 [[package]]
 name = "weezl"
 version = "0.1.12"
-
-[[package]]
-name = "which"
-version = "4.4.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "87ba24419a2078cd2b0f2ede2691b6c66d8e47836da3b6db8265ebad47afbfc7"
-dependencies = [
- "either",
- "home",
- "once_cell 1.21.4",
- "rustix 0.38.44",
-]
 
 [[package]]
 name = "windows"
@@ -3504,24 +3232,6 @@ name = "windows-strings"
 version = "0.5.1"
 dependencies = [
  "windows-link",
-]
-
-[[package]]
-name = "windows-sys"
-version = "0.52.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "282be5f36a8ce781fad8c8ae18fa3f9beff57ec1b52cb3de0789201425d9a33d"
-dependencies = [
- "windows-targets",
-]
-
-[[package]]
-name = "windows-sys"
-version = "0.59.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1e38bc4d79ed67fd075bcc251a1c39b32a1776bbe92e5bef1f0bf1f8c531853b"
-dependencies = [
- "windows-targets",
 ]
 
 [[package]]
@@ -3604,7 +3314,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "32e45ad4206f6d2479085147f02bc2ef834ac85886624a23575ae137c8aa8156"
 dependencies = [
  "libc",
- "rustix 1.1.4",
+ "rustix",
 ]
 
 [[package]]
@@ -3632,16 +3342,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "zeroize"
-version = "1.9.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e13c156562582aa81c60cb29407084cdb54c4164760106ab78e6c5b0858cf64e"
-
-[[package]]
 name = "zlib-rs"
-version = "0.6.7"
+version = "0.6.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "34b31d188d9d685a4f9c7b46d6e36631b07058d2cfe190267adce54dc230bf12"
+checksum = "b268e58e7c693d7c271f93ffc4ba3b380412554231c85bf61ca7af91042a4112"
 
 [[package]]
 name = "zmij"

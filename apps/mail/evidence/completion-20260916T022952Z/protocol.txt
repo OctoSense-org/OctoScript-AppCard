@@ -1,0 +1,37 @@
+makepad-remote  app=beauty-host pid=10495  windows=1  grabs=/var/folders/0d/m62_wsfd1d93bwp2cxr82cgw0000gs/T/makepad-remote/beauty-host-10495
+all routes are GET; every answer is one line of JSON; x/y are layout points, window-local, y down
+/                 this sheet
+/s[?w=ID]         {"app":..,"pid":..,"w":[{"i":id,"t":title,"sz":[w,h],"px":[w,h],"dpi":f,"pos":[x,y]}]}
+                  a window the HUMAN closed is reported as {"err":"window N closed by user"} — not a crash, do not relaunch
+/g?w=&scale=&raw= grab window w (default: first). returns {"png":path,"w":id,"sz":[w,h],"capture_ms":ms,"encode_ms":ms}; raw=1 sends image/png bytes
+                  standalone macOS: pending Draw + immediate present at UI arming, before later input; no animation tick. Other backends: next render
+/gseq?n=8&every_ms=50&scale=1  a separate present per deadline; n=1..64, every_ms>=8, span<=60s; {"png":[paths],"frames":[per-frame timings]}
+                  scheduled_ms and pixels_ms share the request origin; capture_ms = pixels_ms - scheduled_ms; cadence never waits for PNG encoding
+                  commands follow UI queue order (concurrent sockets have no client-time order); macOS wait=1 input replies after submitting its applied frame
+/m?k=&x=&y=&w=    mouse. k=move|down|up|click|scroll  b=0 left,1 right,2 middle  scroll: dx=,dy=
+add hw=1 to take the hardware pointer path (pointer-lock/pin transform included)
+/click?x=&y=      alias for /m?k=click
+/k?t=TEXT         type text. or /k?k=down|up&c=KeyA (Escape ReturnKey Tab Backspace ArrowLeft F1 Key1 ..)
+/t?t=TEXT         same as /k?t=
+/event?data=TEXT   dispatch an application-defined Event::Custom (also POST with a data string)
+/drop?path=&x=&y= drop one absolute file path through Drag/Drop/DragEnd; optional w= and wait=1; app validates/loads it
+/log?n=50         {"n":lastseq,"l":[lines]}; /log?since=N for everything after seq N
+/trace             get topics; ?topics=gpu.pass,wm sets them; ?off=1 clears them
+/snap?q=&w=&all=  widget rects, ready to click: {"s":[{"i":id,"ty":type,"r":[x,y,w,h],"w":win,"t":text}]}
+                  q= filters id/type/text (substring); default lists only visible, sized widgets
+/d                whole widget tree as indented text (id, type, x y w h)
+/tweak?on=1|0     the TWEAKER design-feedback overlay (also Shift+F10 in-app). hover outlines widgets; click pins; buttons never fire
+/tweak/state      selection + its editable properties + diff log + annotations, one JSON
+/tweak/apply      POST {"path":"a.b.c","splash":"{padding: 20}"} or {"path":..,"prop":"padding","value":"20"} — live-apply + relayout
+/tweak/diff       the raw edit log; POST /tweak/clear resets it
+/tweak/final      coalesced end state per widget (original -> final); adds "png" when the user drew
+/tweak/grab       window grab with the overlay composited (same as /g while tweaking)
+/shader/consts    the compiled shaders' hot-patchable constants (annotated literals): {"shaders":[{"id","consts":[{"i","name","value","min","max","step","file","line"}]}]}; shader=ID for one
+/shader/const     ?shader=ID&i=N&v=VALUE patches one constant on the GPU (no recompile, source untouched); reset=1 puts the literal back
+/close?w=ID       close one window the normal way
+/gq[?scale=&w=]   FINISH HERE: grab every window, then quit. {"png":[paths],"quit":1}
+/quit             shut the app down gracefully (no final grab)
+if you launched this app, you MUST end with /gq (or /quit) — never leave test windows on the user's screen, never pkill
+add &wait=1 to any input route to answer only after the next frame is drawn (so a following /g sees it)
+add &w=ID to target a window; omit for the first one. errors are {"err":"..."} with status 404
+POST the same routes with a flat JSON body ({"x":10,"y":20}) when quoting query strings is painful

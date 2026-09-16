@@ -10,10 +10,10 @@ def cargo_manifest(dependencies: dict[str, Path]) -> str:
     # JSON quoted strings are valid TOML basic strings, including Windows paths.
     crates = {
         "makepad-widgets": dependencies["makepad"] / "widgets",
-        "splash-widgets": dependencies["splash-makepad"] / "crates/splash-widgets",
-        "splash-render": dependencies["splash-makepad"] / "crates/splash-render",
-        "splash-makepad": dependencies["splash-makepad"] / "crates/splash-makepad",
-        "splash-ui-l0": dependencies["splash"] / "crates/splash-ui-l0",
+        "octoscript-widgets": dependencies["octoscript-makepad"] / "crates/octoscript-widgets",
+        "octoscript-render": dependencies["octoscript-makepad"] / "crates/octoscript-render",
+        "octoscript-makepad": dependencies["octoscript-makepad"] / "crates/octoscript-makepad",
+        "octoscript-ui-l0": dependencies["octoscript"] / "crates/octoscript-ui-l0",
     }
     paths = "\n".join(f"{name} = {{ path = {json.dumps(str(path.resolve()))} }}" for name, path in crates.items())
     return f'''[package]

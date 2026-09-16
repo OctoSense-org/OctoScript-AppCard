@@ -126,7 +126,7 @@ A card is emitted as a fenced block; the substrate is chosen per card:
   card* below.
 
 **The `octos.*` web-widget kit** is the web counterpart of Splash's `glass.*`:
-`aichat/widgets/src/octos_{core,media,finance,weather}.js`, auto-injected into
+`../makepad/widgets/src/octos_{core,media,finance,weather}.js`, auto-injected into
 every runhtml card. Cards **compose** from it instead of hand-rolling — including
 **data-bound components** that fetch their own live data and render in one call:
 `octos.stock("AAPL")`, `octos.forecast("Tokyo")`. See
