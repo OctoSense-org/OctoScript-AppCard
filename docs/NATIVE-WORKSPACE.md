@@ -4,16 +4,15 @@ Makepad and the Octoscript engines are independent Git repositories in the
 organization workspace. They are not AppCards submodules or application folders.
 
 ```text
-home/
+octosense-org/
   Octosense-Service-AppCards/
     apps/{aircon,mail,school,health,reunion}/
     lab/
     tools/
-  octosense-org/
-    makepad/
-    octoscript/
-    octoscript-makepad/
-    .appcard-native/mail/      # isolated pinned build checkouts
+  makepad/
+  octoscript/
+  octoscript-makepad/
+  .appcard-native/mail/        # isolated pinned build checkouts
 ```
 
 `OCTOSENSE_WORKSPACE` overrides the organization workspace path. The default is

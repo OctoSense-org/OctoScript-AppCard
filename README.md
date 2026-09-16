@@ -1,5 +1,8 @@
 # Octoscript AppCards
 
+Local checkout: `octosense-org/Octosense-Service-AppCards/`, alongside the
+organization's shared native repositories.
+
 The application projects are grouped under [apps/](apps/README.md):
 [Aircon](apps/aircon/README.md), [Mail](apps/mail/README.md),
 [School](apps/school/README.md), [Health](apps/health/README.md) and
