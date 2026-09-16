@@ -24,7 +24,7 @@ Its semantic audit is separate from the legacy Sketch vector-geometry route.
 ## What gets composed
 
 The `input_format: "design"` route imports source-measured `.splash` trees and
-uses `splash_makepad::design` to generate native Makepad widgets. It preserves
+uses `octoscript_makepad::design` to generate native Makepad widgets. It preserves
 Sketch group hierarchy and source IDs. It is a fixed-layout visual port;
 it does not establish reusable L0–L3 composition,
 responsive behavior, or a complete application.
@@ -173,7 +173,7 @@ The native designs can now be promoted to reusable L0 kits for **Taskplan,
 Atro and Camo**. Run `python3 promote_l0.py --kit camo-native-all` (or
 `atro-native-all` / `taskplan-native-all`) after native import. This writes the
 theme's measured tokens, typed primitive and compound components under
-`splash-makepad/components/l0/native/`, and `.card`, `.data.json`, and
+`Octoscript-Makepad/components/l0/native/`, and `.card`, `.data.json`, and
 `.l0map.json` screen instances under `work/<family>/native/l0/`.
 
 Validate the resulting `camo-l0-all`, `atro-l0-all` or `taskplan-l0-all` kit with
@@ -184,7 +184,7 @@ cards and music rows. Shared definitions own their layers and take one instance
 ID plus named content/state parameters; host part bindings retain Sketch IDs.
 The runtime mounts `KitButton`, `KitFormField`, `KitTabBar`,
 `KitBottomNavigation`, `TaskplanProjectCard` and `CamoTrackRow` from
-`splash-widgets::kit`. Public defaults are in `roles.l0` / `semantic_roles`.
+`octoscript-widgets::kit`. Public defaults are in `roles.l0` / `semantic_roles`.
 The gate requires these actual Studio widget types for every promoted boundary;
 a generic View with the same name does not pass. Explicitly mapped transparent
 native controls fill passive Atro tab and card/row action gaps while the offline
@@ -208,7 +208,7 @@ Missing/host-only inspection still fails the structural gate. Per-element kit
 failures join structural and visual findings in the repair report.
 
 The native widget implementations are reusable registrations in
-`splash-widgets::design` and `splash-widgets::kit`, separate from the beauty host. Standard L0 text roles
+`octoscript-widgets::design` and `octoscript-widgets::kit`, separate from the beauty host. Standard L0 text roles
 also receive the imported source fonts and measured sizes. The source screen
 templates retain fixed-artboard placement; responsive layout and complete app
 workflows require their own evidence.
@@ -217,7 +217,7 @@ workflows require their own evidence.
 forward only when the full target/capture/prompt hash is identical. It never
 reuses structural inspection, assigns a new score, or accepts changed pixels.
 Changed pairs require fresh screenshot review. See
-[the native L0 kit contract](../../splash-makepad/docs/native-l0-kits.md).
+[the native L0 kit contract](../../Octoscript-Makepad/docs/native-l0-kits.md).
 
 1. **Import the source.** Verify the archive and source document; resolve symbols
    and overrides in a copy. Export the original Sketch artboards as references.
@@ -424,7 +424,7 @@ failed baseline, documented in [TASKPLAN-VALIDATION.md](TASKPLAN-VALIDATION.md).
 
 ### Using kit components in existing Octos apps
 
-Promotion now also exports `splash-makepad/components/l0/native/app-recipes.json`
+Promotion now also exports `Octoscript-Makepad/components/l0/native/app-recipes.json`
 through `export_app_recipes.py`. These compact recipes retain source component
 IDs, source screen names, kit hashes and native part styles. Run the exporter
 with `--check` to detect stale recipes. The first app adapters compose Weather
@@ -440,7 +440,7 @@ pass. Before/after captures, per-element differences, source mappings and the
 validation script are in `docs/reviews/theme-phone-evidence/components/`.
 
 Page structure is a separate adaptation step. Six authored L0 recipes now live
-in `splash-makepad/components/l0/pages/`: Weather dashboard/forecast, Stocks
+in `Octoscript-Makepad/components/l0/pages/`: Weather dashboard/forecast, Stocks
 tiles/chart, and News magazine/compact. They replace named views while keeping
 the app's source/state/event declarations. The bundled selector can choose
 `weather@atro_light/dashboard`, for example. Each adapted page must pass native

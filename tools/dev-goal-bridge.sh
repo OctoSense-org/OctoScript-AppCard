@@ -3,7 +3,7 @@
 set -u
 ADB="$HOME/Library/Android/sdk/platform-tools/adb"
 D=bf0a4730
-SM=$HOME/home/Splash-Makepad
+SM="${OCTOSENSE_WORKSPACE:-$(cd -- "$(dirname -- "$0")/../.." && pwd)}/octoscript-makepad"
 R=/tmp/round_card.splash
 "$ADB" -s $D pull /data/local/tmp/dev_card.splash "$R" >/dev/null 2>&1
 
@@ -12,8 +12,8 @@ F=/tmp/findings.txt
 echo "FINDINGS (mechanical):" >> "$F"
 
 # 1 · headless translate, default state
-{ echo 'let st = { route: "siren", dark: 1 }'; echo 'fn sget(k, d) { return d }'; cat "$SM/components/material/screens/kit.splash" "$R"; } > /tmp/rc_default.splash
-T1=$(cd "$SM" && cargo run -q -p splash-makepad --example translate -- /tmp/rc_default.splash 2>&1)
+{ echo 'let st = { route: "siren", dark: 1 }'; echo 'fn sget(k, d) { return d }'; cat "$SM/components/material/screens/kit.octoscript" "$R"; } > /tmp/rc_default.splash
+T1=$(cd "$SM" && cargo run -q -p octoscript-makepad --example translate -- /tmp/rc_default.splash 2>&1)
 ERRS=$(echo "$T1" | grep -oE '"message":"[^"]+"' | sort -u | head -5)
 if [ -n "$ERRS" ]; then
   echo "- translate(default state): ERRORS:" >> "$F"; echo "$ERRS" | sed 's/^/    /' >> "$F"
@@ -34,8 +34,8 @@ fn sget(k, d) {
   return d
 }
 SHIM
-cat "$SM/components/material/screens/kit.splash" "$R"; } > /tmp/rc_placed.splash
-T2=$(cd "$SM" && cargo run -q -p splash-makepad --example translate -- /tmp/rc_placed.splash 2>&1)
+cat "$SM/components/material/screens/kit.octoscript" "$R"; } > /tmp/rc_placed.splash
+T2=$(cd "$SM" && cargo run -q -p octoscript-makepad --example translate -- /tmp/rc_placed.splash 2>&1)
 E2=$(echo "$T2" | grep -oE '"message":"[^"]+"' | sort -u | head -3)
 if [ -n "$E2" ]; then
   echo "- translate(placed state sb_placed=1, qty_cmac=2, size venti, Home tab): ERRORS:" >> "$F"; echo "$E2" | sed 's/^/    /' >> "$F"
@@ -45,7 +45,7 @@ else
 fi
 
 # 3 · phone render, default state
-{ cat "$SM/components/material/screens/kit.splash"; echo 'fn N(k, d) { return sget(k, d) }'; cat "$R"; } > /tmp/rc_device.splash
+{ cat "$SM/components/material/screens/kit.octoscript"; echo 'fn N(k, d) { return sget(k, d) }'; cat "$R"; } > /tmp/rc_device.splash
 "$ADB" -s $D push /tmp/rc_device.splash /data/local/tmp/flutter_samples.splash >/dev/null 2>&1
 "$ADB" -s $D shell am force-stop dev.makepad.flutter_samples
 "$ADB" -s $D shell monkey -p dev.makepad.flutter_samples -c android.intent.category.LAUNCHER 1 >/dev/null 2>&1

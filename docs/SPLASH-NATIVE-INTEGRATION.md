@@ -330,7 +330,7 @@ execution.
 > rip out Makepad?" into the far smaller "which UI backend do we bind?" The
 > DSL/logic layer ports for free; the whole question lives in the render backend.
 
-*Crate structure: splash-core · splash-capabilities · splash-schema ·
+*Crate structure: octoscript-core · octoscript-capabilities · octoscript-schema ·
 splash-storage · splash-protocol · splash-worker · splash-sandbox ·
 splash-workflow · splash-cli · splash-lsp · vendor/makepad.*
 

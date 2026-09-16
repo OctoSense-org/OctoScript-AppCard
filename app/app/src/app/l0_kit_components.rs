@@ -1,13 +1,13 @@
 //! Adaptive compositions of the ported semantic kits for existing L0 apps.
 //! Recipes retain source component IDs; runtime bindings retain L0 data/events.
 use serde_json::{json, Value};
-use splash_node::{Attrs, NodeKind, UiNode};
+use octoscript_node::{Attrs, NodeKind, UiNode};
 use std::sync::OnceLock;
 
 fn recipes() -> &'static Value {
     static RECIPES: OnceLock<Value> = OnceLock::new();
     RECIPES.get_or_init(|| serde_json::from_str(include_str!(
-        "../../../../splash-makepad/components/l0/native/app-recipes.json"
+        "../../../../../octoscript-makepad/components/l0/native/app-recipes.json"
     )).expect("bundled native component recipes"))
 }
 
@@ -310,11 +310,11 @@ impl Composer<'_> {
 pub fn compose(source: &str, root: UiNode) -> UiNode {
     // Generated cards may declare their app via `model` without an exemplar's
     // ledger identity. Use the language header parser for both valid forms.
-    let header = splash_ui_l0::parse_header(source);
+    let header = octoscript_ui_l0::parse_header(source);
     let app = header.as_ref().filter(|h| h.contradictions.is_empty()).and_then(|h| {
         h.model.as_deref().or(h.ledger.as_deref())
     }).filter(|app| matches!(*app, "weather" | "stock" | "news"));
-    let theme = splash_ui_l0::card_theme(source);
+    let theme = octoscript_ui_l0::card_theme(source);
     let (Some(app), Some(theme)) = (app, theme.as_deref()) else { return root };
     let Some(recipes) = recipes().get(theme) else { return root };
     let mut root = root;

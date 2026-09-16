@@ -1,9 +1,9 @@
 //! Evaluate the L0 theme kit in THIS repository's VM, into a shared `UiNode`.
 //!
 //! `ui-profile-l0.md` §1.1 names `UiNode` as the point where one card reaches
-//! three backends. `splash-node` carries that model and depends on nothing, so
+//! three backends. `octoscript-node` carries that model and depends on nothing, so
 //! this app can hold it — but the evaluator that *produces* one needs a VM, and
-//! `splash-render`'s is a different lineage. Taking it fails the lockfile:
+//! `octoscript-render`'s is a different lineage. Taking it fails the lockfile:
 //!
 //! ```text
 //! makepad-error-log v1.0.0 (makepad-splash/libs/error_log)
@@ -12,7 +12,7 @@
 //!
 //! So the contract is shared and the evaluator is not. This is the second
 //! implementation of it, against this repo's own `makepad-script`, producing the
-//! same tree. `splash-render`'s `eval.rs` is the reference — a working one, which
+//! same tree. `octoscript-render`'s `eval.rs` is the reference — a working one, which
 //! is the difference between porting and guessing.
 //!
 //! **This is not a fork.** The tree it produces is the shared type, so a
@@ -24,7 +24,7 @@ use makepad_widgets::makepad_draw::makepad_platform::makepad_script::array::Scri
 use makepad_widgets::makepad_draw::makepad_platform::makepad_script::makepad_live_id::*;
 use makepad_widgets::makepad_draw::makepad_platform::makepad_script::traits::*;
 use makepad_widgets::makepad_draw::makepad_platform::makepad_script::*;
-use splash_node::{Attrs, NodeKind, UiNode};
+use octoscript_node::{Attrs, NodeKind, UiNode};
 
 /// Evaluate `src` with this app's capabilities registered.
 ///
@@ -81,7 +81,7 @@ pub(super) fn probe_text(cx: &mut makepad_widgets::Cx, expression: &str) -> Opti
         module_path: "splash".into(), file: "l0-probe.splash".into(),
         line: slot, column: 0,
         code: format!("return \"\" + ({expression})"), values: vec![],
-    }, splash_node::MAX_EVAL_INSTRUCTIONS);
+    }, octoscript_node::MAX_EVAL_INSTRUCTIONS);
     let result = value.map(|value| {
         let mut result = String::new();
         vm.bx.heap.cast_to_string(value, &mut result);
@@ -106,7 +106,7 @@ pub fn build(
 ) -> Option<UiNode> {
     // The HOST is the app's `Cx`, not a placeholder.
     //
-    // `splash-render`'s evaluator passes a dummy because nothing it evaluates
+    // `octoscript-render`'s evaluator passes a dummy because nothing it evaluates
     // touches one. This backend's capabilities do: `cx_mut()` downcasts the host
     // to `&mut Cx` and unwraps, so a `sys.*` call on a VM built with anything
     // else panics the app. Weather and news lower to literals and survived it;
@@ -134,7 +134,7 @@ pub fn build(
         column: 0,
         code: src.to_string(),
         values: Vec::new(),
-    }, splash_node::MAX_EVAL_INSTRUCTIONS)?;
+    }, octoscript_node::MAX_EVAL_INSTRUCTIONS)?;
 
     walk(vm, value, 0)
 }
@@ -179,7 +179,7 @@ fn build_without_capabilities(src: &str) -> Option<UiNode> {
         column: 0,
         code: src.to_string(),
         values: Vec::new(),
-    }, splash_node::MAX_EVAL_INSTRUCTIONS)?;
+    }, octoscript_node::MAX_EVAL_INSTRUCTIONS)?;
     if value.is_nil() {
         return None;
     }
@@ -188,12 +188,12 @@ fn build_without_capabilities(src: &str) -> Option<UiNode> {
 
 /// One DSL object → one `UiNode`, recursing into `c`.
 fn walk(vm: &mut ScriptVm, value: ScriptValue, depth: usize) -> Option<UiNode> {
-    let mut remaining = splash_node::MAX_TREE_NODES;
+    let mut remaining = octoscript_node::MAX_TREE_NODES;
     walk_inner(vm, value, depth, &mut remaining)
 }
 
 fn walk_inner(vm: &mut ScriptVm, value: ScriptValue, depth: usize, remaining: &mut usize) -> Option<UiNode> {
-    if depth > splash_node::MAX_TREE_DEPTH || *remaining == 0 {
+    if depth > octoscript_node::MAX_TREE_DEPTH || *remaining == 0 {
         return None;
     }
     *remaining -= 1;
@@ -408,7 +408,7 @@ fn children_of(vm: &mut ScriptVm, value: ScriptValue, remaining: usize) -> Optio
 
 #[cfg(test)]
 mod tests {
-    use splash_ui_l0::{kit, realize, RealizeLimits};
+    use octoscript_ui_l0::{kit, realize, RealizeLimits};
 
     #[test]
     fn l0_migration_native_conversion_is_a_declared_runtime_value() {
@@ -474,16 +474,16 @@ mod tests {
     fn kit() -> String {
         format!(
             "{}\n{}\n{}",
-            include_str!("../../../../splash-makepad/components/l0/_palette_dark.splash"),
-            include_str!("../../../../splash-makepad/components/l0/_derive.splash"),
-            include_str!("../../../../splash-makepad/components/l0/_kit.splash"),
+            include_str!("../../../../../octoscript-makepad/components/l0/_palette_dark.octoscript"),
+            include_str!("../../../../../octoscript-makepad/components/l0/_derive.octoscript"),
+            include_str!("../../../../../octoscript-makepad/components/l0/_kit.octoscript"),
         )
     }
-    const NEWS: &str = include_str!("../../../../splash/crates/splash-ui-l0/tests/fixtures/news.card");
-    const STOCK: &str = include_str!("../../../../splash/crates/splash-ui-l0/tests/fixtures/stock.card");
-    const WEATHER: &str = include_str!("../../../../splash/crates/splash-ui-l0/tests/fixtures/weather.card");
+    const NEWS: &str = include_str!("../../../../../octoscript/crates/octoscript-ui-l0/tests/fixtures/news.card");
+    const STOCK: &str = include_str!("../../../../../octoscript/crates/octoscript-ui-l0/tests/fixtures/stock.card");
+    const WEATHER: &str = include_str!("../../../../../octoscript/crates/octoscript-ui-l0/tests/fixtures/weather.card");
 
-    fn build_card(card: &str, data: serde_json::Value) -> splash_node::UiNode {
+    fn build_card(card: &str, data: serde_json::Value) -> octoscript_node::UiNode {
         let report = realize(card, &data, RealizeLimits::default());
         assert!(
             report.diagnostics.is_empty(),
@@ -570,7 +570,7 @@ mod tests {
     /// The counts both evaluators must agree on, read from the file that owns
     /// them rather than copied into a literal.
     const CONFORMANCE: &str =
-        include_str!("../../../../splash-makepad/components/l0/conformance.txt");
+        include_str!("../../../../../octoscript-makepad/components/l0/conformance.txt");
 
     fn expected(card: &str) -> usize {
         CONFORMANCE
@@ -586,8 +586,8 @@ mod tests {
     /// **The point of this test.** Two independent evaluators, two VM lineages,
     /// one tree.
     ///
-    /// `splash-render` walks the DSL with the makepad-splash VM; this walks it
-    /// with the app's own, because taking `splash-render` here fails the
+    /// `octoscript-render` walks the DSL with the makepad-splash VM; this walks it
+    /// with the app's own, because taking `octoscript-render` here fails the
     /// lockfile. The model is shared and only the walk is duplicated — and a
     /// duplicated walk drifts unless something checks it. Neither repository can
     /// run the other's evaluator, so the check is a number both read.
@@ -607,7 +607,7 @@ mod tests {
             assert_eq!(
                 tree.count(),
                 expected(name),
-                "{name}: this VM produced {} nodes, splash-render produces {}",
+                "{name}: this VM produced {} nodes, octoscript-render produces {}",
                 tree.count(),
                 expected(name)
             );
@@ -620,7 +620,7 @@ mod tests {
     /// exactly, and render as a blank card.
     #[test]
     fn the_second_evaluator_carries_the_cards_text() {
-        fn words(n: &splash_node::UiNode, out: &mut Vec<String>) {
+        fn words(n: &octoscript_node::UiNode, out: &mut Vec<String>) {
             if let Some(t) = n.attrs.text.as_deref() {
                 out.push(t.to_owned());
             }
@@ -652,7 +652,7 @@ mod tests {
     /// tree of exactly the right shape that no one can interact with.
     #[test]
     fn a_tap_target_survives_evaluation() {
-        fn taps(n: &splash_node::UiNode, out: &mut Vec<String>) {
+        fn taps(n: &octoscript_node::UiNode, out: &mut Vec<String>) {
             if let Some(t) = n.attrs.tapto.as_deref() {
                 out.push(t.to_owned());
             }
@@ -690,16 +690,16 @@ mod tests {
     /// part of the contract rather than an optimisation.
     #[test]
     fn a_live_source_without_its_capability_is_visibly_wrong() {
-        let mut store = splash_ui_l0::InstanceStore::default();
-        splash_ui_l0::dispatch_with(
+        let mut store = octoscript_ui_l0::InstanceStore::default();
+        octoscript_ui_l0::dispatch_with(
             STOCK, &mut store, "root", "open_quote",
             Some(&serde_json::Value::String("NVDA".into())));
-        let r = splash_ui_l0::realize_with_state(STOCK, &stock_data(), &store, RealizeLimits::default());
+        let r = octoscript_ui_l0::realize_with_state(STOCK, &stock_data(), &store, RealizeLimits::default());
         let src = format!("{}\n{}", kit(), kit::lower(&r.root.expect("root")));
 
         let bare = super::build_without_capabilities(&src).expect("still evaluates");
         let mut out = Vec::new();
-        fn words(n: &splash_node::UiNode, out: &mut Vec<String>) {
+        fn words(n: &octoscript_node::UiNode, out: &mut Vec<String>) {
             if let Some(t) = n.attrs.text.as_deref() { out.push(t.to_owned()); }
             for c in &n.children { words(c, out); }
         }
@@ -754,10 +754,10 @@ mod nav_dsl {
     //! screenshot-verified through `makepad::lower` while the device path still
     //! stacked the map in a column. Writing the DSL to a file lets it be pushed to
     //! a running app with no rebuild.
-    use splash_ui_l0::{kit, realize, RealizeLimits};
+    use octoscript_ui_l0::{kit, realize, RealizeLimits};
 
     const NAV: &str = include_str!(
-        "../../../../splash/crates/splash-ui-l0/tests/fixtures/nav.card"
+        "../../../../../octoscript/crates/octoscript-ui-l0/tests/fixtures/nav.card"
     );
     fn kit() -> String { super::super::l0_card::kit_src() }
 
@@ -819,9 +819,9 @@ mod kit_palette {
     //! So this asserts the tree, where the collision is observable, and compares a
     //! chip against a panel rather than against a constant: the two are meant to
     //! carry the same fill, and a rename that misses one of them fails here.
-    use splash_ui_l0::{kit, realize, RealizeLimits};
+    use octoscript_ui_l0::{kit, realize, RealizeLimits};
 
-    fn find(n: &splash_node::UiNode, k: splash_node::NodeKind) -> Option<&splash_node::UiNode> {
+    fn find(n: &octoscript_node::UiNode, k: octoscript_node::NodeKind) -> Option<&octoscript_node::UiNode> {
         if n.kind == k {
             return Some(n);
         }
@@ -874,8 +874,8 @@ mod kit_palette {
         );
         let tree = super::build_without_capabilities(&src).expect("evaluated to nil");
 
-        let chip = find(&tree, splash_node::NodeKind::Chip).expect("a chip");
-        let panel = find(&tree, splash_node::NodeKind::Card).expect("a panel");
+        let chip = find(&tree, octoscript_node::NodeKind::Chip).expect("a chip");
+        let panel = find(&tree, octoscript_node::NodeKind::Card).expect("a panel");
         assert_eq!(
             chip.attrs.bg, panel.attrs.bg,
             "a chip and a panel carry the same fill; a chip of {:?} against a panel \
@@ -906,7 +906,7 @@ mod numeric_text {
     //! Built from a REAL card through `kit::lower`. The first version of this test
     //! handed the VM a synthetic `l0_col([l0_value(42)])` tail, which evaluates to
     //! nil there, so it took its own skip path and passed with the fix reverted.
-    use splash_ui_l0::{kit, realize, RealizeLimits};
+    use octoscript_ui_l0::{kit, realize, RealizeLimits};
 
     #[test]
     fn a_number_bound_to_text_reaches_the_tree_as_text() {
@@ -937,7 +937,7 @@ mod numeric_text {
         let src = format!("{}\n{}", super::super::l0_card::kit_src(), lowered);
         let tree = super::build_without_capabilities(&src).expect("evaluated to nil");
 
-        fn words(n: &splash_node::UiNode, out: &mut Vec<String>) {
+        fn words(n: &octoscript_node::UiNode, out: &mut Vec<String>) {
             if let Some(t) = n.attrs.text.as_deref() {
                 out.push(t.to_owned());
             }

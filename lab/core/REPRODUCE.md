@@ -18,7 +18,7 @@ See [the reviewer contract](MODEL-REVIEW.md) for the division of work.
 - Python 3.11 or 3.12. Use separate environments: the image measurement
   requirements currently use NumPy 1.x, while Sketch uses NumPy 2.x.
 - The complete compatible workspace: `lab/`, `tools/`, `makepad/`, `splash/`
-  and `splash-makepad/`. Include this workspace's native widget, chart and
+  and `Octoscript-Makepad/`. Include this workspace's native widget, chart and
   Studio inspection changes. A bare upstream Makepad checkout is insufficient.
   Record repository/submodule revisions and any local patch with a reproduction.
 - Release Makepad Studio and `cargo-makepad` built from the same compatible
@@ -48,7 +48,7 @@ export BEAUTY_BRIDGE="http://127.0.0.1:8169"
 Start the following long-running commands in separate terminals with the same
 environment. `splashref` is the configured mount alias, not a user identity.
 UI builds and launches go through Studio's release RunItems in
-`splash-makepad/makepad.splash`.
+`Octoscript-Makepad/makepad.splash`.
 
 ```sh
 bash tools/beauty-studio.sh "$BEAUTY_STUDIO_BIN" --remote \
