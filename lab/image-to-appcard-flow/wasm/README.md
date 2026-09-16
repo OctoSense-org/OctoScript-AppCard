@@ -18,7 +18,12 @@ python3 lab/image-to-appcard-flow/wasm/build.py \
 
 For an existing publication directory, `--replace` builds and verifies a complete staged package before an OS atomic directory exchange (macOS `renamex_np` / Linux `renameat2`). The output path never disappears during exchange. The previous package is then archived beside it as `.<name>.previous-<build-id>`; interruption after exchange leaves the old package intact at the recorded staging path. Platforms without atomic exchange fail while retaining the previous output. Failed compilation or packaging leaves the published directory untouched. The flow orchestrator uses this option when refreshing its configured `outputs.wasm` location.
 
-The default `--dependency-mode isolated` clones the recorded revisions into the scratch directory and applies the bundled patches there. Existing shared source repositories are neither checked out nor patched. Local Git objects are reused when available; otherwise the recorded public origins are cloned. A dependency checkout with additional edits fails validation rather than being reset. To reuse an already compatible working checkout, `--dependency-mode existing` verifies exact revisions, tracked patch hashes and modified source hashes before and after building.
+The default `--dependency-mode isolated` prepares the release from the AppCards
+root `native-runtime.lock.json` in scratch. Octoscript-Makepad's `runtime.json`
+owns the Makepad and Octoscript revisions. These are the same sources used by
+Mail and Android; no app-specific patches are applied. Existing shared source
+repositories are preserved. `--dependency-mode existing` verifies the same
+release in the shared workspace before and after building.
 
 `--cargo-makepad /path/to/cargo-makepad` reuses an existing compiler executable and records its SHA. Otherwise the tool builds `cargo-makepad` into scratch if no executable is present. `--target-dir /path/to/cargo-cache` symlinks the generated host's `target` directory to a caller-owned cache; do not share an active cache between concurrent builds. `--prepare-only` stages and verifies the dependency snapshot and generated Cargo manifest without compiling.
 
@@ -34,13 +39,19 @@ Contract IDs determine output `card-assets/<id>/assets/<file>` paths. IDs and fl
 
 Discovery stops descending once a card directory has `contract.json`, so earlier `rounds/` snapshots and nested evidence are preserved as history and are never accidentally shipped as current artwork.
 
-## Dependency snapshot
+## Shared runtime
 
-`dependencies.lock.json` fixes the known working revisions and SHA-256 hashes of the complete tracked patch sets. `patches/makepad.patch` restores checked VM evaluation, native state/geometry APIs, text tracking in logical pixels, Label allocation measurement, and the no-atomics SDF path. `patches/splash-makepad.patch` carries the corresponding VM/draw API adaptations and browser asset policy. The clean Splash revision has an empty patch. Native-only compatibility hunks are retained to reproduce the known source snapshot; this is not a claim that each hunk is necessary for every browser card.
+The AppCards root `native-runtime.lock.json` selects Octoscript-Makepad; its
+`runtime.json` selects Makepad and Octoscript. Generated Cargo configuration
+resolves every Makepad crate to that source, including transitive dependencies.
+The framework owns native/WebView compatibility and the no-atomics SDF path.
+Cargo locks in `template/` and `toolchain/` record package resolution only.
 
-Generated `makepad_platform/web.js` receives three exact-match packaging patches: iframe blur does not recapture focus, initial focus prevents parent scrolling, and later keyboard focus prevents scrolling. Original dependency JavaScript remains unchanged. The index-to-bridge and bridge-to-WASM URLs are stamped with the WASM SHA to avoid an older cached module after publication.
-
-`patches/image-to-appcard.patch` separately preserves the parent lab's Chinese OCR, disabled-control activation checks, viewport cropping and capture lifecycle fixes, with base revision and source hashes in `lab_compatibility` in the lock. These changes are required to reproduce the corresponding native Studio inspection workflow; the in-memory WASM build does not call those lab adapters. On the recorded clean pipeline revision, `git apply --check lab/image-to-appcard-flow/wasm/patches/image-to-appcard.patch` verifies applicability before applying that patch. If the lab fixes have already been committed upstream, compare the recorded source hashes instead of applying twice. The WASM builder never changes those source files or initializes Studio.
+Generated `makepad_platform/web.js` receives exact-match packaging patches for
+iframe focus behavior. The dependency source remains unchanged. The index and
+bridge URLs carry the WASM SHA to avoid stale modules after publication.
+`patches/image-to-appcard.patch` is retained as historical lab evidence; the WASM
+build never applies it or starts Studio.
 
 ## Browser transport and artwork policy
 
@@ -54,11 +65,11 @@ Asset URLs must stay inside the iframe's same-origin sibling `card-assets/` dire
 - `https://octosense-org.github.io/wasm/service-cards/card-assets/`
 - `https://octosense-org.github.io/Octosense-website/wasm/service-cards/card-assets/`
 
-Other domains or deployment prefixes require a reviewed WASM policy patch and rebuild. Native/lab rendering retains its original loopback-only policy. This restriction is intentionally not an arbitrary remote-resource bypass.
+Other domains or deployment prefixes require a framework policy change and rebuild. Native/lab rendering retains its original loopback-only policy. This restriction is intentionally not an arbitrary remote-resource bypass.
 
 ## Evidence and browser smoke
 
-Every run gets a new `runs/<build-id>/receipt.json` and compiler log in scratch. Failed builds retain their actual failure and any incomplete package. Successful `build.json` records the WASM SHA, compiler/toolchain, exact dependency revisions plus dirty patch/source hashes, pipeline/template sources, generated Cargo/native sources, project font/card/artwork hashes, generated JavaScript patches and every shipped file's hash except `build.json` itself. The run receipt also hashes the final package receipt. Pipeline hashes live in `pipeline_sources`; `sources` contains only paths relative to `--project`, preserving the site publisher's input-verification contract.
+Every run gets a new `runs/<build-id>/receipt.json` and compiler log in scratch. Failed builds retain their actual failure and any incomplete package. Successful `build.json` records the WASM SHA, compiler/toolchain, the shared runtime revision and its exact dependency revisions, pipeline/template sources, generated Cargo/native sources, project font/card/artwork hashes, generated JavaScript patches and every shipped file's hash except `build.json` itself. The run receipt also hashes the final package receipt. Pipeline hashes live in `pipeline_sources`; `sources` contains only paths relative to `--project`, preserving the site publisher's input-verification contract.
 
 ```sh
 node lab/image-to-appcard-flow/wasm/smoke.cjs \

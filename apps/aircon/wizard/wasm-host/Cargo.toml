@@ -8,10 +8,10 @@ edition = "2021"
 [dependencies]
 serde_json = { version = "1", features = ["float_roundtrip"] }
 makepad-widgets = { path = "../../../../../makepad/widgets" }
-splash-widgets = { path = "../../../../../octoscript-makepad/crates/splash-widgets" }
-splash-render = { path = "../../../../../octoscript-makepad/crates/splash-render" }
-splash-makepad = { path = "../../../../../octoscript-makepad/crates/splash-makepad" }
-splash-ui-l0 = { path = "../../../../../octoscript/crates/splash-ui-l0" }
+octoscript-widgets = { path = "../../../../../octoscript-makepad/crates/octoscript-widgets" }
+octoscript-render = { path = "../../../../../octoscript-makepad/crates/octoscript-render" }
+octoscript-makepad = { path = "../../../../../octoscript-makepad/crates/octoscript-makepad" }
+octoscript-ui-l0 = { path = "../../../../../octoscript/crates/octoscript-ui-l0" }
 
 [profile.release]
 opt-level = 3
@@ -21,3 +21,15 @@ codegen-units = 1
 [[bin]]
 name = "octosense-wizard"
 path = "src/main.rs"
+
+# Resolve the exact framework sources prepared by tools/setup-native.py.
+
+[patch."https://github.com/OctoSense-org/makepad.git"]
+makepad-widgets = { path = "../../../../../makepad/widgets" }
+makepad-script = { path = "../../../../../makepad/platform/script" }
+
+[patch."https://github.com/OctoSense-org/Octoscript.git"]
+octoscript-ui-l0 = { path = "../../../../../octoscript/crates/octoscript-ui-l0" }
+
+[patch."https://github.com/OctoSense-org/Octoscript-Makepad.git"]
+octoscript-node = { path = "../../../../../octoscript-makepad/crates/octoscript-node" }

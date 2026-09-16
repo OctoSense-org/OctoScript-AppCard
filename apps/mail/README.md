@@ -18,12 +18,15 @@ lab/image-to-appcard/.venv/bin/python apps/mail/scripts/setup_native.py
 bash 'apps/mail/Run Mail.command'
 ```
 
-The setup command creates pinned native checkouts outside AppCards, under
-`octosense-org/.appcard-native/mail/` and applies the hash-verified compatibility patches
-in [native-support/](native-support/README.md). It fetches commits from existing
-shared repositories when available, otherwise from the declared GitHub repos.
-It preserves the shared repositories. The launcher builds a release `beauty-host`
-and starts it directly with `--remote`; it does not use Makepad Studio.
+The setup command prepares the shared `octosense-org/{makepad,octoscript,
+octoscript-makepad}` repositories from the root
+[`native-runtime.lock.json`](../../native-runtime.lock.json). Octoscript-Makepad
+owns the exact underlying revisions in its `runtime.json`. Mail, Android and
+WASM use that same runtime; Mail has no private patch set. Existing local edits
+are preserved and reported. Use `--update` only for clean checkouts, or
+`--root /path/to/isolated-workspace` for a separate checkout of the same release.
+The launcher builds a release `beauty-host` and starts it directly with
+`--remote` using Makepad's built-in instrument.
 
 A fresh checkout starts with fictional sample mail. Open **Mailboxes → Settings**,
 enter the email address/login and a Gmail app password using **Set Password**,
@@ -42,7 +45,7 @@ From `apps/mail/`:
 it still requires a macOS graphical session. Close an existing owned instance
 before changing launch mode. `OCTOS_APPCARD_PIPELINE` overrides the repository
 root, `OCTOSENSE_WORKSPACE` selects the shared organization workspace,
-`OCTOS_MAIL_NATIVE_ROOT` overrides the isolated dependency directory,
+`OCTOS_MAIL_NATIVE_ROOT` selects another workspace containing the same locked runtime,
 and `OCTOS_MAIL_PYTHON` overrides the launcher's Python executable.
 
 ## Mail features
@@ -125,6 +128,7 @@ From `apps/mail/`, after native setup:
 APP_PYTHON=../../lab/image-to-appcard/.venv/bin/python
 "$APP_PYTHON" -m unittest discover -s service -p 'test_*.py'
 "$APP_PYTHON" scripts/verify_completion.py
+"$APP_PYTHON" scripts/verify_runtime.py
 "$APP_PYTHON" scripts/verify_settings.py --keep-closed
 # Optional live checks using the locally configured Gmail account:
 "$APP_PYTHON" scripts/verify_gmail_services.py

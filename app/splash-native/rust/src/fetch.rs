@@ -23,7 +23,7 @@
 //! Responses are cached per exact URL, so ~45 field reads across one card cost two
 //! requests.
 
-use splash_core::vm as ms;
+use octoscript_core::vm as ms;
 use ms::makepad_live_id::*;
 use ms::traits::*;
 use ms::*;

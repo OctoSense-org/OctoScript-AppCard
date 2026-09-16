@@ -40,12 +40,8 @@ const OCTOS_PLACEHOLDER_SYSTEM_PROMPT: &str = "";
 /// `app_generation_session_system_prompt`, but delivered per-message because
 /// octos serves system prompts server-side and the protocol carries no
 /// client system-prompt field.
-// The Splash DSL manual lives in the framework fork, which the documented
-// clone layout mandates at `octos-one/aichat` beside `app/` (see
-// docs/BUILDING-ANDROID.md § 1). Reference it there directly — a fresh
-// clone has no `app/splash.md` copy, so the old relative path failed the
-// very first build.
-const SPLASH_MANUAL: &str = include_str!("../../../aichat/splash.md");
+// Embed the manual from the framework release selected by the owning workspace.
+const SPLASH_MANUAL: &str = include_str!(concat!(env!("OCTOSENSE_WORKSPACE"), "/makepad/splash.md"));
 
 /// The L0 memory — what an app agent is given instead of the Splash manual.
 ///

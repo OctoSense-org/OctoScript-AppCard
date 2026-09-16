@@ -448,7 +448,7 @@ def check_sliders(bridge, build, name, portable, out):
 
 def validate(kit, name):
     card, data, spec = selected_inputs(kit, name)
-    r = subprocess.run(['cargo', 'run', '--release', '-q', '-p', 'splash-makepad',
+    r = subprocess.run(['cargo', 'run', '--release', '-q', '-p', 'octoscript-makepad',
                         '--example', 'beauty_check', '--', str(card), str(data),
                         str(MOUNT / 'components/l0')], cwd=MOUNT,
                        capture_output=True, text=True)

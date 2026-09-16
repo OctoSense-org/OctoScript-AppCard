@@ -20,3 +20,8 @@ rss = "2"
 scraper = { version = "0.24", default-features = false }
 chrono = { version = "0.4", default-features = false, features = ["clock", "std"] }
 sha2 = "0.10"
+
+# Resolve the exact framework sources prepared by tools/setup-native.py.
+
+[patch."https://github.com/OctoSense-org/makepad.git"]
+makepad-script = { path = "../../../makepad/platform/script" }

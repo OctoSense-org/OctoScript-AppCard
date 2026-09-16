@@ -43,8 +43,8 @@ def start_process(args,log,env=None,cwd=ROOT):
 
 
 def launch_native(app,hidden=False):
-    if not (NATIVE_ROOT/'ready.json').exists():
-        raise RuntimeError('Run scripts/setup_native.py before launching Mail; see apps/mail/README.md.')
+    from core.native_runtime import verify, runtime_tool
+    verify(NATIVE_ROOT)
     logs=ROOT/'runtime/logs';logs.mkdir(parents=True,exist_ok=True)
     env=os.environ.copy();env.update(RUSTFLAGS='',CARGO_PROFILE_RELEASE_LTO='false',BEAUTY_REQUEST=str(CURRENT))
     for key in ('STUDIO_HOST','STUDIO_BUILD','STUDIO_CRATE','MAKEPAD_REMOTE','MAKEPAD_FOCUS'):
@@ -54,6 +54,7 @@ def launch_native(app,hidden=False):
     workspace=NATIVE_ROOT/'octoscript-makepad'
     with (logs/'build.log').open('a') as log:
         subprocess.run(['cargo','build','--release','-p','kit-host','--bin','beauty-host'],cwd=workspace,env=env,stdout=log,stderr=log,check=True)
+    runtime_tool(NATIVE_ROOT).verify_cargo(NATIVE_ROOT, workspace/'Cargo.toml')
     if not listening(8170):
         start_process([sys.executable,'-m','http.server','8170','--bind','127.0.0.1','--directory',PIPELINE/'docs/reviews/theme-phone-evidence'],logs/'artwork.log',env)
     app.build='native-'+uuid.uuid4().hex
