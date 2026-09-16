@@ -1,0 +1,242 @@
+# ledger ios-mail-07@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy clock_text { class: user-copy, en: "9:41" }
+copy signal_text { class: user-copy, en: "•••" }
+copy back_label_text { class: user-copy, en: "Mailboxes" }
+copy heading_text { class: user-copy, en: "Mail Server" }
+copy save_server_label_text { class: user-copy, en: "Save" }
+copy incoming_heading_text { class: user-copy, en: "INCOMING MAIL · POP3" }
+copy server_label_address_text { class: user-copy, en: "Email" }
+copy server_address_input_text { class: user-copy, en: "you@gmail.com" }
+copy server_address_input_placeholder { class: user-copy, en: "you@example.com" }
+copy server_label_username_text { class: user-copy, en: "User Name" }
+copy server_username_input_text { class: user-copy, en: "you@gmail.com" }
+copy server_username_input_placeholder { class: user-copy, en: "Login name" }
+copy server_label_host_text { class: user-copy, en: "Host Name" }
+copy server_host_input_text { class: user-copy, en: "pop.gmail.com" }
+copy server_host_input_placeholder { class: user-copy, en: "pop.example.com" }
+copy server_label_port_text { class: user-copy, en: "Port" }
+copy server_port_input_text { class: user-copy, en: "995" }
+copy server_port_input_placeholder { class: user-copy, en: "995" }
+copy password_label_text { class: user-copy, en: "Password" }
+copy server_password_label_text { class: user-copy, en: "Set Password" }
+copy security_heading_text { class: user-copy, en: "CONNECTION SECURITY" }
+copy security_tls_label_text { class: user-copy, en: "SSL / TLS" }
+copy security_starttls_label_text { class: user-copy, en: "STARTTLS" }
+copy recent_label_text { class: user-copy, en: "Gmail recent mode" }
+copy recent_toggle_label_text { class: user-copy, en: "On" }
+copy outgoing_settings_label_text { class: user-copy, en: "Outgoing mail & Gmail sync" }
+copy test_server_label_text { class: user-copy, en: "Test Connection" }
+copy sync_label_text { class: user-copy, en: "Check for Mail" }
+copy use_sample_label_text { class: user-copy, en: "Use sample mailbox" }
+copy use_gmail_label_text { class: user-copy, en: "Open inbox" }
+copy server_status_0_text { class: user-copy, en: "Changes apply when you tap Save." }
+state back_control_enabled { shape: bool, initial: true }
+state save_server_control_enabled { shape: bool, initial: true }
+state server_password_control_enabled { shape: bool, initial: true }
+state security_tls_control_enabled { shape: bool, initial: true }
+state security_starttls_control_enabled { shape: bool, initial: true }
+state recent_toggle_control_enabled { shape: bool, initial: true }
+state outgoing_settings_control_enabled { shape: bool, initial: true }
+state test_server_control_enabled { shape: bool, initial: true }
+state sync_control_enabled { shape: bool, initial: true }
+state use_sample_control_enabled { shape: bool, initial: true }
+state use_gmail_control_enabled { shape: bool, initial: true }
+component Surfaceb3bf053fa23f(instance: text) {
+  view Kit(component: "Surfaceb3bf053fa23f", instance: instance) { slot }
+}
+component Texte27738bae55e(instance: text, text: text) {
+  view Kit(component: "Texte27738bae55e", instance: instance, text: text)
+}
+component Text4e382b71b3db(instance: text, text: text) {
+  view Kit(component: "Text4e382b71b3db", instance: instance, text: text)
+}
+component Surface52dca9ad1b08(instance: text) {
+  view Kit(component: "Surface52dca9ad1b08", instance: instance) { slot }
+}
+component Surface3c50a155d697(instance: text) {
+  view Kit(component: "Surface3c50a155d697", instance: instance) { slot }
+}
+component Surface9c73e63eadf8(instance: text) {
+  view Kit(component: "Surface9c73e63eadf8", instance: instance) { slot }
+}
+component KitButtonf171c73ac8d0(instance: text) {
+  view Kit(component: "KitButtonf171c73ac8d0", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Textd691d2c11e59(instance: text, text: text) {
+  view Kit(component: "Textd691d2c11e59", instance: instance, text: text)
+}
+component Texte6dc76ffcdef(instance: text, text: text) {
+  view Kit(component: "Texte6dc76ffcdef", instance: instance, text: text)
+}
+component Text0b8ec402e6c9(instance: text, text: text) {
+  view Kit(component: "Text0b8ec402e6c9", instance: instance, text: text)
+}
+component Text941b43984a70(instance: text, text: text) {
+  view Kit(component: "Text941b43984a70", instance: instance, text: text)
+}
+component Surfaceaa48f8246bef(instance: text) {
+  view Kit(component: "Surfaceaa48f8246bef", instance: instance) { slot }
+}
+component Text3a20158d14af(instance: text, text: text) {
+  view Kit(component: "Text3a20158d14af", instance: instance, text: text)
+}
+component KitFormFielde72fd31bc16b(instance: text) {
+  view Kit(component: "KitFormFielde72fd31bc16b", instance: instance) { slot }
+}
+component Inputd1df42f8f55d(instance: text, text: text, placeholder: text) {
+  view Kit(component: "Inputd1df42f8f55d", instance: instance, text: text, placeholder: placeholder)
+}
+component Surface1cb43409b0c6(instance: text) {
+  view Kit(component: "Surface1cb43409b0c6", instance: instance) { slot }
+}
+component Text544e10761088(instance: text, text: text) {
+  view Kit(component: "Text544e10761088", instance: instance, text: text)
+}
+component Surface39f338232c47(instance: text) {
+  view Kit(component: "Surface39f338232c47", instance: instance) { slot }
+}
+component Surfacef8cb67796d4c(instance: text) {
+  view Kit(component: "Surfacef8cb67796d4c", instance: instance) { slot }
+}
+component Text29bd0f69f787(instance: text, text: text) {
+  view Kit(component: "Text29bd0f69f787", instance: instance, text: text)
+}
+component Text9a99e06a40c6(instance: text, text: text) {
+  view Kit(component: "Text9a99e06a40c6", instance: instance, text: text)
+}
+component Texta24b94860fc0(instance: text, text: text) {
+  view Kit(component: "Texta24b94860fc0", instance: instance, text: text)
+}
+component Text72be704561ec(instance: text, text: text) {
+  view Kit(component: "Text72be704561ec", instance: instance, text: text)
+}
+component Textce99a3659b57(instance: text, text: text) {
+  view Kit(component: "Textce99a3659b57", instance: instance, text: text)
+}
+component Text99887d1c0a19(instance: text, text: text) {
+  view Kit(component: "Text99887d1c0a19", instance: instance, text: text)
+}
+component Textcdc57a2d4bbd(instance: text, text: text) {
+  view Kit(component: "Textcdc57a2d4bbd", instance: instance, text: text)
+}
+
+view root Surfaceb3bf053fa23f(instance: "page") {
+  Texte27738bae55e(instance: "clock", text: copy.clock_text)
+  Text4e382b71b3db(instance: "signal", text: copy.signal_text)
+  Surface52dca9ad1b08(instance: "battery") {
+
+  }
+  Surface3c50a155d697(instance: "battery_tip") {
+
+  }
+  Surface9c73e63eadf8(instance: "home_indicator") {
+
+  }
+  KitButtonf171c73ac8d0(instance: "back") {
+    NativeButton02f1d1bd99b4(instance: "back_control", enabled: back_control_enabled)
+    Vectore0a378fde04f(instance: "back_icon")
+    Textd691d2c11e59(instance: "back_label", text: copy.back_label_text)
+  }
+  Texte6dc76ffcdef(instance: "heading", text: copy.heading_text)
+  KitButtonf171c73ac8d0(instance: "save_server") {
+    NativeButton02f1d1bd99b4(instance: "save_server_control", enabled: save_server_control_enabled)
+    Text0b8ec402e6c9(instance: "save_server_label", text: copy.save_server_label_text)
+  }
+  Text941b43984a70(instance: "incoming_heading", text: copy.incoming_heading_text)
+  Surfaceaa48f8246bef(instance: "incoming_surface") {
+
+  }
+  Text3a20158d14af(instance: "server_label_address", text: copy.server_label_address_text)
+  KitFormFielde72fd31bc16b(instance: "server_address") {
+    Inputd1df42f8f55d(instance: "server_address_input", text: copy.server_address_input_text, placeholder: copy.server_address_input_placeholder)
+  }
+  Surface1cb43409b0c6(instance: "server_rule_address") {
+
+  }
+  Text3a20158d14af(instance: "server_label_username", text: copy.server_label_username_text)
+  KitFormFielde72fd31bc16b(instance: "server_username") {
+    Inputd1df42f8f55d(instance: "server_username_input", text: copy.server_username_input_text, placeholder: copy.server_username_input_placeholder)
+  }
+  Surface1cb43409b0c6(instance: "server_rule_username") {
+
+  }
+  Text3a20158d14af(instance: "server_label_host", text: copy.server_label_host_text)
+  KitFormFielde72fd31bc16b(instance: "server_host") {
+    Inputd1df42f8f55d(instance: "server_host_input", text: copy.server_host_input_text, placeholder: copy.server_host_input_placeholder)
+  }
+  Surface1cb43409b0c6(instance: "server_rule_host") {
+
+  }
+  Text3a20158d14af(instance: "server_label_port", text: copy.server_label_port_text)
+  KitFormFielde72fd31bc16b(instance: "server_port") {
+    Inputd1df42f8f55d(instance: "server_port_input", text: copy.server_port_input_text, placeholder: copy.server_port_input_placeholder)
+  }
+  Surface1cb43409b0c6(instance: "server_rule_port") {
+
+  }
+  Text3a20158d14af(instance: "password_label", text: copy.password_label_text)
+  KitButtonf171c73ac8d0(instance: "server_password") {
+    NativeButton02f1d1bd99b4(instance: "server_password_control", enabled: server_password_control_enabled)
+    Text544e10761088(instance: "server_password_label", text: copy.server_password_label_text)
+  }
+  Text941b43984a70(instance: "security_heading", text: copy.security_heading_text)
+  Surface39f338232c47(instance: "security_surface") {
+
+  }
+  KitButtonf171c73ac8d0(instance: "security_tls") {
+    NativeButton02f1d1bd99b4(instance: "security_tls_control", enabled: security_tls_control_enabled)
+    Surfacef8cb67796d4c(instance: "security_tls_surface") {
+
+    }
+    Text29bd0f69f787(instance: "security_tls_label", text: copy.security_tls_label_text)
+  }
+  KitButtonf171c73ac8d0(instance: "security_starttls") {
+    NativeButton02f1d1bd99b4(instance: "security_starttls_control", enabled: security_starttls_control_enabled)
+    Text9a99e06a40c6(instance: "security_starttls_label", text: copy.security_starttls_label_text)
+  }
+  Surfacef8cb67796d4c(instance: "recent_surface") {
+
+  }
+  Texta24b94860fc0(instance: "recent_label", text: copy.recent_label_text)
+  KitButtonf171c73ac8d0(instance: "recent_toggle") {
+    NativeButton02f1d1bd99b4(instance: "recent_toggle_control", enabled: recent_toggle_control_enabled)
+    Text72be704561ec(instance: "recent_toggle_label", text: copy.recent_toggle_label_text)
+  }
+  KitButtonf171c73ac8d0(instance: "outgoing_settings") {
+    NativeButton02f1d1bd99b4(instance: "outgoing_settings_control", enabled: outgoing_settings_control_enabled)
+    Textce99a3659b57(instance: "outgoing_settings_label", text: copy.outgoing_settings_label_text)
+  }
+  KitButtonf171c73ac8d0(instance: "test_server") {
+    NativeButton02f1d1bd99b4(instance: "test_server_control", enabled: test_server_control_enabled)
+    Surfacef8cb67796d4c(instance: "test_server_surface") {
+
+    }
+    Textce99a3659b57(instance: "test_server_label", text: copy.test_server_label_text)
+  }
+  KitButtonf171c73ac8d0(instance: "sync") {
+    NativeButton02f1d1bd99b4(instance: "sync_control", enabled: sync_control_enabled)
+    Surfacef8cb67796d4c(instance: "sync_surface") {
+
+    }
+    Textce99a3659b57(instance: "sync_label", text: copy.sync_label_text)
+  }
+  KitButtonf171c73ac8d0(instance: "use_sample") {
+    NativeButton02f1d1bd99b4(instance: "use_sample_control", enabled: use_sample_control_enabled)
+    Text99887d1c0a19(instance: "use_sample_label", text: copy.use_sample_label_text)
+  }
+  KitButtonf171c73ac8d0(instance: "use_gmail") {
+    NativeButton02f1d1bd99b4(instance: "use_gmail_control", enabled: use_gmail_control_enabled)
+    Text99887d1c0a19(instance: "use_gmail_label", text: copy.use_gmail_label_text)
+  }
+  Textcdc57a2d4bbd(instance: "server_status_0", text: copy.server_status_0_text)
+}

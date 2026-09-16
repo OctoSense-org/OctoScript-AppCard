@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "repositories": {
+    "makepad": {
+      "url": "https://github.com/OctoSense-org/makepad.git",
+      "revision": "38f4d3bc28938dfc8d8afe05082e84e599c0575d",
+      "patch": "makepad.patch",
+      "patch_sha256": "424a1c9ac234e16dd286a098cf6cd2b4db4edc890c056c68cacbfa2efea3d0db",
+      "files_after": {
+        "draw/src/shader/draw_text.rs": "b5e6645cd0e7568970a47554e5b616a190d3a2bd876b3b44eb7812fb7da5e4df",
+        "draw/src/text/font_family.rs": "75c4f254c42fecab8baab38ad8da8835c130a766e304177b12035cb04bc04a32",
+        "draw/src/text/fonts.rs": "c5f16d855e77294c5d17850ef4511ac2e92c37e5c2a295e9e353c3054a0ce830",
+        "draw/src/text/layouter.rs": "926f4ed2badeced3de365c523bf1ae26fb793895cca41cdb495e168382dac9d9",
+        "platform/script/src/vm.rs": "355a46d33727418ac86ca1a598f14e0907257494a594e53099a4236c26e07299",
+        "platform/src/cx_api.rs": "c5d2500076adeb427d131d6933a5406d6e779855d17b3578a1ab35faf854a929",
+        "platform/src/os/apple/apple_webview.rs": "28e26abd2bf8bdcbe00474de368388854a0d5d9cb3824e5a972be8a4db2e2b98",
+        "platform/src/os/apple/macos/macos.rs": "7c105cbafa9c24942d3a077665dcddd9c252793da4a9a80f9b42e674cdb66bf9",
+        "widgets/src/gauss_view.rs": "f319ec43c184093464e465e3b4ac42544e76d026599cd9597a87237e7d9f3840",
+        "widgets/src/label.rs": "50ee7c538e0550b929312b1e92fdf75e2709a243c460e36fc34e2683d47929ad",
+        "widgets/src/view.rs": "85eede98f2019b525032b63547ce4cb1fc4df4ccdb692dbe65ac143ae5710e71",
+        "widgets/src/widget.rs": "4c200598bb14f86f455d8524acb27af7f08d0773b62bd694be8994b54361590f"
+      }
+    },
+    "splash-makepad": {
+      "url": "https://github.com/OctoSense-org/Octoscript-Makepad.git",
+      "revision": "3a3bdb4fe74456e18c6416d54ff51ec1f4016bca",
+      "patch": "splash-makepad.patch",
+      "patch_sha256": "904a87659bd699f381776e563acffe9e72a6467677aca0fa27824ba1f250c22e",
+      "files_after": {
+        "apps/kit-host/src/beauty.rs": "2d08fadcf3f32e155b025cc9860ce6d446d9e9a4563ba59aa2e3ca528f473797",
+        "crates/makepad-plot/src/chart_paint.rs": "4a6a736ad15a8dd69b3f397cdb7ac3cc453e21c7ac8efc427671dfde55b5aa60",
+        "crates/makepad-plot/src/plot_view.rs": "822d0c65dcdfac3620593b720afceb0226c2c006b659ee25da3276b2452827ee",
+        "crates/splash-makepad/src/design.rs": "323e21e62b674a95c87480eec6256af7ffd6828615a45e2bc4044a84b59f5595",
+        "crates/splash-render/src/eval.rs": "b9ca518b15ef4260af0faeac8b2caff80ca945b8b852d4b0509788ade1a0e275"
+      }
+    },
+    "splash": {
+      "url": "https://github.com/OctoSense-org/Octoscript.git",
+      "revision": "7a77b075f37449b34f135879a5563a27b806edd4"
+    }
+  }
+}
