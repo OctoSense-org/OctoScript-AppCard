@@ -18,13 +18,22 @@ builds it. One OS, many app agents, one routing brain that can grow the app set.
 
 ## What's here
 
+Standalone runnable applications live under [apps/](apps/README.md), starting
+with the [Mail app](apps/mail/README.md).
+
 For the complete generated-image → interactive native service-card → WASM website
 workflow, see [image-to-appcard-flow](lab/image-to-appcard-flow/README.md).
 It starts from one 8–12-screen atlas and preserves source, widget and verification
 provenance through the native and browser stages.
 
+For native UI testing, use [Makepad's built-in instrument](lab/core/NATIVE-INSTRUMENT.md):
+standalone release builds, hidden native windows for automation, direct HTTP input
+and app-owned captures. The guide includes the mail-server settings example and
+the compatibility boundary for older Studio capture/gate stages.
+
 ```
 octos-one/
+  apps/         Standalone runnable apps with their own services, design and tests.
   app/          The Android client (Makepad + Rust). The AMA (router + composer),
                 the multi-agent routing (decision → activation → composition), the
                 Splash card renderer + post-generation validator, and the shared

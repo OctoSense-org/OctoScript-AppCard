@@ -1,0 +1,868 @@
+{
+  "schema_version": 1,
+  "reference_sha256": "782dedeb25365099f80148be33deb744d46daa446afc4303ff21612163b08088",
+  "tree": {
+    "t": "stack",
+    "id": "page",
+    "x": 0,
+    "y": 0,
+    "w": 406,
+    "h": 776,
+    "c": [
+      {
+        "t": "text",
+        "id": "clock",
+        "text": "9:41",
+        "x": 63.79408676403814,
+        "y": 17.0,
+        "w": 29.0,
+        "h": 14.5,
+        "size": 14.036022400484335,
+        "line_height": 14.5,
+        "weight": 600,
+        "color": 4278255616,
+        "font_src": "self:resources/ux/Inter-600.ttf",
+        "variant": "single_line",
+        "alignx": 0,
+        "tracking": -0.669916061248171,
+        "font_asc": -0.08843821439354727,
+        "font_desc": 0.08846652055296755
+      },
+      {
+        "t": "text",
+        "id": "signal",
+        "text": "\u2022\u2022\u2022",
+        "x": 310,
+        "y": 11,
+        "w": 30,
+        "h": 20,
+        "size": 12,
+        "line_height": 15.84,
+        "weight": 600,
+        "color": 4280032286,
+        "font_src": "self:resources/ux/Inter-600.ttf",
+        "variant": "single_line",
+        "alignx": 0
+      },
+      {
+        "t": "stack",
+        "id": "battery",
+        "x": 354.0,
+        "y": 17.0,
+        "w": 23.0,
+        "h": 10.0,
+        "c": [],
+        "bg": 4294901246,
+        "variant": "surface",
+        "radius": 2.0
+      },
+      {
+        "t": "stack",
+        "id": "battery_tip",
+        "x": 378.0,
+        "y": 20.0,
+        "w": 2.0,
+        "h": 4.0,
+        "c": [],
+        "bg": 4287532691,
+        "variant": "surface",
+        "radius": 1.0
+      },
+      {
+        "t": "stack",
+        "id": "home_indicator",
+        "x": 137.0,
+        "y": 762.0,
+        "w": 132.0,
+        "h": 5.0,
+        "c": [],
+        "bg": 4280032286,
+        "variant": "surface",
+        "radius": 2.5
+      },
+      {
+        "t": "stack",
+        "id": "back",
+        "x": 12.0,
+        "y": 40.0,
+        "w": 140.0,
+        "h": 42.0,
+        "c": [
+          {
+            "t": "button",
+            "id": "back_control",
+            "x": 12.0,
+            "y": 40.0,
+            "w": 140.0,
+            "h": 42.0,
+            "enabled": true
+          },
+          {
+            "t": "svg",
+            "id": "back_icon",
+            "x": 22.0,
+            "y": 49.0,
+            "w": 24.0,
+            "h": 24.0
+          },
+          {
+            "t": "text",
+            "id": "back_label",
+            "text": "Inbox",
+            "x": 35.24108322324967,
+            "y": 57.0,
+            "w": 63.5,
+            "h": 23.0,
+            "size": 25.701453104359313,
+            "line_height": 23.0,
+            "weight": 400,
+            "color": 4279005179,
+            "font_src": "self:resources/ux/Inter-400.ttf",
+            "variant": "single_line",
+            "alignx": 0,
+            "tracking": -1.172721268163805,
+            "font_asc": -0.1633943256578947,
+            "font_desc": 0.15167557565789472
+          }
+        ],
+        "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+      },
+      {
+        "t": "stack",
+        "id": "top_action",
+        "x": 324.0,
+        "y": 40.0,
+        "w": 68.0,
+        "h": 42.0,
+        "c": [
+          {
+            "t": "button",
+            "id": "top_action_control",
+            "x": 324.0,
+            "y": 40.0,
+            "w": 68.0,
+            "h": 42.0,
+            "enabled": true
+          },
+          {
+            "t": "text",
+            "id": "top_action_label",
+            "text": "Unread",
+            "x": 327,
+            "y": 40,
+            "w": 62,
+            "h": 42,
+            "size": 17,
+            "line_height": 22.44,
+            "weight": 400,
+            "color": 4278221567,
+            "font_src": "self:resources/ux/Inter-400.ttf",
+            "variant": "single_line",
+            "alignx": 0.5
+          }
+        ],
+        "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+      },
+      {
+        "t": "text",
+        "id": "subject_0",
+        "text": "Weekend plans",
+        "x": 47.7038784067086,
+        "y": 105.0,
+        "w": 244.0,
+        "h": 35.0,
+        "size": 33.274633123689725,
+        "line_height": 35.0,
+        "weight": 700,
+        "color": 4278321666,
+        "font_src": "self:resources/ux/Inter-700.ttf",
+        "variant": "single_line",
+        "alignx": 0,
+        "tracking": -0.7925838574423475,
+        "font_asc": -0.1811050907258065,
+        "font_desc": -0.02299647177419356
+      },
+      {
+        "t": "stack",
+        "id": "avatar",
+        "x": 22.0,
+        "y": 178.0,
+        "w": 44.0,
+        "h": 44.0,
+        "c": [],
+        "bg": 4294835453,
+        "variant": "surface",
+        "radius": 22.0
+      },
+      {
+        "t": "text",
+        "id": "initials",
+        "text": "AM",
+        "x": 47.84563758389262,
+        "y": 173.5,
+        "w": 37.0,
+        "h": 23.5,
+        "size": 26.80268456375839,
+        "line_height": 23.5,
+        "weight": 600,
+        "color": 4278943485,
+        "font_src": "self:resources/ux/Inter-600.ttf",
+        "variant": "single_line",
+        "alignx": 0,
+        "tracking": -8.604362416107385,
+        "font_asc": -0.16659154647435903,
+        "font_desc": 0.16659154647435898
+      },
+      {
+        "t": "text",
+        "id": "sender",
+        "text": "Alex Morgan",
+        "x": 100.57298136645963,
+        "y": 166.0,
+        "w": 101.0,
+        "h": 20.5,
+        "size": 17.490683229813666,
+        "line_height": 20.5,
+        "weight": 600,
+        "color": 4278190080,
+        "font_src": "self:resources/ux/Inter-600.ttf",
+        "variant": "single_line",
+        "alignx": 0,
+        "tracking": -0.8806677018633551,
+        "font_asc": -0.12686434659090906,
+        "font_desc": -0.08895596590909088
+      },
+      {
+        "t": "text",
+        "id": "recipient",
+        "text": "To: you@gmail.com",
+        "x": 80,
+        "y": 202,
+        "w": 280,
+        "h": 23,
+        "size": 12,
+        "line_height": 15.84,
+        "weight": 400,
+        "color": 4287532691,
+        "font_src": "self:resources/ux/Inter-400.ttf",
+        "variant": "single_line",
+        "alignx": 0
+      },
+      {
+        "t": "text",
+        "id": "date",
+        "text": "9:24 AM",
+        "x": 304.6628149507759,
+        "y": 191.5,
+        "w": 54.0,
+        "h": 14.5,
+        "size": 14.053729350909395,
+        "line_height": 14.5,
+        "weight": 400,
+        "color": 4287203724,
+        "font_src": "self:resources/ux/Inter-400.ttf",
+        "variant": "single_line",
+        "alignx": 0,
+        "tracking": -0.780775488069415,
+        "font_asc": -0.08907199848024328,
+        "font_desc": 0.08913433225683887
+      },
+      {
+        "t": "stack",
+        "id": "message_rule",
+        "x": 20.0,
+        "y": 235.0,
+        "w": 366.0,
+        "h": 0.65,
+        "c": [],
+        "bg": 4293059303,
+        "variant": "surface",
+        "radius": 0
+      },
+      {
+        "t": "text",
+        "id": "body_0",
+        "text": "Hi there,",
+        "x": 50.48261327713382,
+        "y": 255.0,
+        "w": 63.57185194942044,
+        "h": 20.0,
+        "size": 17.26448893572181,
+        "line_height": 20.0,
+        "weight": 400,
+        "color": 4278650630,
+        "font_src": "self:resources/ux/Inter-400.ttf",
+        "variant": "single_line",
+        "alignx": 0,
+        "tracking": -0.8617623814541613,
+        "font_asc": -0.1014404296875,
+        "font_desc": -0.049926757812500056
+      },
+      {
+        "t": "text",
+        "id": "body_1",
+        "text": "",
+        "x": 23,
+        "y": 278,
+        "w": 360,
+        "h": 24,
+        "size": 15,
+        "line_height": 19.8,
+        "weight": 400,
+        "color": 4280032286,
+        "font_src": "self:resources/ux/Inter-400.ttf",
+        "variant": "single_line",
+        "alignx": 0
+      },
+      {
+        "t": "text",
+        "id": "body_2",
+        "text": "Let's meet by the water on Saturday. I",
+        "x": 50.91942148760331,
+        "y": 302.0,
+        "w": 269.0,
+        "h": 21.0,
+        "size": 17.983471074380166,
+        "line_height": 21.0,
+        "weight": 400,
+        "color": 4278255873,
+        "font_src": "self:resources/ux/Inter-400.ttf",
+        "variant": "single_line",
+        "alignx": 0,
+        "tracking": -1.4837921599285244,
+        "font_asc": -0.12023207720588236,
+        "font_desc": -0.07801011029411764
+      },
+      {
+        "t": "text",
+        "id": "body_3",
+        "text": "found a quiet spot with great coffee and a",
+        "x": 52.33016983016983,
+        "y": 325.5,
+        "w": 268.0,
+        "h": 21.0,
+        "size": 17.39060939060939,
+        "line_height": 21.0,
+        "weight": 400,
+        "color": 4278519045,
+        "font_src": "self:resources/ux/Inter-400.ttf",
+        "variant": "single_line",
+        "alignx": 0,
+        "tracking": -1.9404376111693185,
+        "font_asc": -0.09202665441176472,
+        "font_desc": -0.08961397058823528
+      },
+      {
+        "t": "text",
+        "id": "body_4",
+        "text": "view of the boats.",
+        "x": 51.54035308953342,
+        "y": 350.0,
+        "w": 175.80644981826273,
+        "h": 17.5,
+        "size": 17.43253467843632,
+        "line_height": 17.5,
+        "weight": 400,
+        "color": 4278387459,
+        "font_src": "self:resources/ux/Inter-400.ttf",
+        "variant": "single_line",
+        "alignx": 0,
+        "tracking": 1.4848861360433199,
+        "font_asc": -0.0923032407407407,
+        "font_desc": 0.11378761574074087
+      },
+      {
+        "t": "text",
+        "id": "body_5",
+        "text": "",
+        "x": 23,
+        "y": 374,
+        "w": 360,
+        "h": 24,
+        "size": 15,
+        "line_height": 19.8,
+        "weight": 400,
+        "color": 4280032286,
+        "font_src": "self:resources/ux/Inter-400.ttf",
+        "variant": "single_line",
+        "alignx": 0
+      },
+      {
+        "t": "text",
+        "id": "body_6",
+        "text": "How does 10:30 sound?",
+        "x": 50.91590612777053,
+        "y": 397.5,
+        "w": 177.0,
+        "h": 17.5,
+        "size": 18.02346805736636,
+        "line_height": 17.5,
+        "weight": 400,
+        "color": 4278321666,
+        "font_src": "self:resources/ux/Inter-400.ttf",
+        "variant": "single_line",
+        "alignx": 0,
+        "tracking": -1.4406779661016942,
+        "font_asc": -0.12047887731481477,
+        "font_desc": 0.11852575231481478
+      },
+      {
+        "t": "text",
+        "id": "body_7",
+        "text": "",
+        "x": 23,
+        "y": 422,
+        "w": 360,
+        "h": 24,
+        "size": 15,
+        "line_height": 19.8,
+        "weight": 400,
+        "color": 4280032286,
+        "font_src": "self:resources/ux/Inter-400.ttf",
+        "variant": "single_line",
+        "alignx": 0
+      },
+      {
+        "t": "text",
+        "id": "body_8",
+        "text": "See you soon,",
+        "x": 50.95144628099174,
+        "y": 445.5,
+        "w": 103.0,
+        "h": 21.5,
+        "size": 18.512396694214875,
+        "line_height": 21.5,
+        "weight": 400,
+        "color": 4278190080,
+        "font_src": "self:resources/ux/Inter-400.ttf",
+        "variant": "single_line",
+        "alignx": 0,
+        "tracking": -1.916903409090909,
+        "font_asc": -0.12340959821428577,
+        "font_desc": -0.0748325892857144
+      },
+      {
+        "t": "text",
+        "id": "body_9",
+        "text": "Alex",
+        "x": 51.05350066050198,
+        "y": 470.5,
+        "w": 35.0,
+        "h": 17.0,
+        "size": 17.585204755614267,
+        "line_height": 17.0,
+        "weight": 400,
+        "color": 4278321409,
+        "font_src": "self:resources/ux/Inter-400.ttf",
+        "variant": "single_line",
+        "alignx": 0,
+        "tracking": -1.4130339057683845,
+        "font_asc": -0.12747896634615385,
+        "font_desc": 0.11576021634615385
+      },
+      {
+        "t": "stack",
+        "id": "reply_primary",
+        "x": 48.0,
+        "y": 612.0,
+        "w": 113.0,
+        "h": 44.0,
+        "c": [
+          {
+            "t": "button",
+            "id": "reply_primary_control",
+            "x": 48.0,
+            "y": 612.0,
+            "w": 113.0,
+            "h": 44.0,
+            "enabled": true
+          },
+          {
+            "t": "stack",
+            "id": "reply_primary_surface",
+            "x": 48.0,
+            "y": 612.0,
+            "w": 113.0,
+            "h": 44.0,
+            "c": [],
+            "bg": 4278680061,
+            "variant": "surface",
+            "radius": 12.57
+          },
+          {
+            "t": "svg",
+            "id": "reply_primary_icon",
+            "x": 57.262,
+            "y": 621.429,
+            "w": 22.23,
+            "h": 25.143
+          },
+          {
+            "t": "text",
+            "id": "reply_primary_label",
+            "text": "Reply",
+            "x": 68.85594989561586,
+            "y": 624.5,
+            "w": 76.06152139874739,
+            "h": 21.5,
+            "size": 18.70563674321503,
+            "line_height": 21.5,
+            "weight": 400,
+            "color": 4294770174,
+            "font_src": "self:resources/ux/Inter-400.ttf",
+            "variant": "single_line",
+            "alignx": 0,
+            "tracking": 4.924256263048017,
+            "font_asc": -0.13429129464285716,
+            "font_desc": -0.0737165178571429
+          }
+        ],
+        "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+      },
+      {
+        "t": "stack",
+        "id": "toolbar_surface",
+        "x": 0.0,
+        "y": 704.0,
+        "w": 406.0,
+        "h": 49.0,
+        "c": [],
+        "bg": 4294901502,
+        "variant": "surface",
+        "radius": 0
+      },
+      {
+        "t": "stack",
+        "id": "toolbar_separator",
+        "x": 0.0,
+        "y": 704.0,
+        "w": 406.0,
+        "h": 0.65,
+        "c": [],
+        "bg": 4293059303,
+        "variant": "surface",
+        "radius": 0
+      },
+      {
+        "t": "stack",
+        "id": "tool_archive",
+        "x": 18.0,
+        "y": 708.0,
+        "w": 54.0,
+        "h": 44.0,
+        "c": [
+          {
+            "t": "button",
+            "id": "tool_archive_control",
+            "x": 18.0,
+            "y": 708.0,
+            "w": 54.0,
+            "h": 44.0,
+            "enabled": true
+          },
+          {
+            "t": "svg",
+            "id": "tool_archive_icon",
+            "x": 33.0,
+            "y": 718.0,
+            "w": 24.0,
+            "h": 24.0
+          }
+        ],
+        "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+      },
+      {
+        "t": "stack",
+        "id": "tool_flag",
+        "x": 120.0,
+        "y": 708.0,
+        "w": 54.0,
+        "h": 44.0,
+        "c": [
+          {
+            "t": "button",
+            "id": "tool_flag_control",
+            "x": 120.0,
+            "y": 708.0,
+            "w": 54.0,
+            "h": 44.0,
+            "enabled": true
+          },
+          {
+            "t": "svg",
+            "id": "tool_flag_icon",
+            "x": 135.0,
+            "y": 718.0,
+            "w": 24.0,
+            "h": 24.0
+          }
+        ],
+        "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+      },
+      {
+        "t": "stack",
+        "id": "tool_reply",
+        "x": 222.0,
+        "y": 708.0,
+        "w": 54.0,
+        "h": 44.0,
+        "c": [
+          {
+            "t": "button",
+            "id": "tool_reply_control",
+            "x": 222.0,
+            "y": 708.0,
+            "w": 54.0,
+            "h": 44.0,
+            "enabled": true
+          },
+          {
+            "t": "svg",
+            "id": "tool_reply_icon",
+            "x": 237.0,
+            "y": 718.0,
+            "w": 24.0,
+            "h": 24.0
+          }
+        ],
+        "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+      },
+      {
+        "t": "stack",
+        "id": "tool_compose",
+        "x": 324.0,
+        "y": 708.0,
+        "w": 54.0,
+        "h": 44.0,
+        "c": [
+          {
+            "t": "button",
+            "id": "tool_compose_control",
+            "x": 324.0,
+            "y": 708.0,
+            "w": 54.0,
+            "h": 44.0,
+            "enabled": true
+          },
+          {
+            "t": "svg",
+            "id": "tool_compose_icon",
+            "x": 339.0,
+            "y": 718.0,
+            "w": 24.0,
+            "h": 24.0
+          }
+        ],
+        "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+      }
+    ],
+    "bg": 4293981682,
+    "variant": "surface",
+    "radius": 0
+  },
+  "changes": [
+    {
+      "id": "page",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "battery",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "battery_tip",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "home_indicator",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "back",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "back_control",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "back_icon",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "top_action",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "top_action_control",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "avatar",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "message_rule",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "reply_primary",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "reply_primary_control",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "reply_primary_surface",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "reply_primary_icon",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "toolbar_surface",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "toolbar_separator",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "tool_archive",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "tool_archive_control",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "tool_archive_icon",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "tool_flag",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "tool_flag_control",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "tool_flag_icon",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "tool_reply",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "tool_reply_control",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "tool_reply_icon",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "tool_compose",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "tool_compose_control",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "tool_compose_icon",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "clock",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.04772834084569818
+    },
+    {
+      "id": "back_label",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.045628597861842125
+    },
+    {
+      "id": "subject_0",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.023819461945564502
+    },
+    {
+      "id": "initials",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.3210261418269232
+    },
+    {
+      "id": "sender",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.05035067471590915
+    },
+    {
+      "id": "date",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.055556462528495484
+    },
+    {
+      "id": "body_0",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.04991531372070307
+    },
+    {
+      "id": "body_2",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.08250866330484902
+    },
+    {
+      "id": "body_3",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.11157962136836441
+    },
+    {
+      "id": "body_4",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": 0.08517901518246185
+    },
+    {
+      "id": "body_6",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.07993344907407404
+    },
+    {
+      "id": "body_8",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.10354701450892857
+    },
+    {
+      "id": "body_9",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.08035356570512824
+    },
+    {
+      "id": "reply_primary_label",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": 0.26324986049107146
+    }
+  ],
+  "limits": [
+    "Measured fixed artboard; not a responsive production application."
+  ]
+}

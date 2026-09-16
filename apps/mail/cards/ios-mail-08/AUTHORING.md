@@ -1,0 +1,3 @@
+# Reviewed native mapping
+
+The atlas was inspected as eight app/service states. Apple Vision observations and contour measurements are retained separately. The generated atlas did not follow the requested screen aspect ratios, so the implementation deliberately reflows its shared hierarchy onto a 406 × 776 point mobile surface. Native Inter text, KitButton controls, KitFormField inputs, and SVG line icons implement the design. This is an explicit layout adaptation; strict pixel parity has not been asserted. Runtime messages and local state replace fixture copy without altering service actions.

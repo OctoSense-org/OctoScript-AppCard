@@ -1,0 +1,465 @@
+{
+  "schema_version": 1,
+  "reference_sha256": "ca680a401af1b2b30f67118b0fe0bb6c5cc3edba5ddadb8afb8926f7bd04cd1d",
+  "tree": {
+    "t": "stack",
+    "id": "page",
+    "x": 0,
+    "y": 0,
+    "w": 406,
+    "h": 776,
+    "c": [
+      {
+        "t": "text",
+        "id": "clock",
+        "text": "9:41",
+        "x": 51.72685693204178,
+        "y": 17.0,
+        "w": 30.0,
+        "h": 15.5,
+        "size": 15.3727864386257,
+        "line_height": 15.5,
+        "weight": 600,
+        "color": 4278716424,
+        "font_src": "self:resources/ux/Inter-600.ttf",
+        "variant": "single_line",
+        "alignx": 0,
+        "tracking": -1.1940350512083147,
+        "font_asc": -0.10082869358459357,
+        "font_desc": 0.10085699974401391
+      },
+      {
+        "t": "text",
+        "id": "signal",
+        "text": "\u2022\u2022\u2022",
+        "x": 310,
+        "y": 11,
+        "w": 30,
+        "h": 20,
+        "size": 12,
+        "line_height": 15.84,
+        "weight": 600,
+        "color": 4280032286,
+        "font_src": "self:resources/ux/Inter-600.ttf",
+        "variant": "single_line",
+        "alignx": 0
+      },
+      {
+        "t": "stack",
+        "id": "battery",
+        "x": 354.0,
+        "y": 17.0,
+        "w": 23.0,
+        "h": 10.0,
+        "c": [],
+        "bg": 4294375158,
+        "variant": "surface",
+        "radius": 2.0
+      },
+      {
+        "t": "stack",
+        "id": "battery_tip",
+        "x": 378.0,
+        "y": 20.0,
+        "w": 2.0,
+        "h": 4.0,
+        "c": [],
+        "bg": 4287532691,
+        "variant": "surface",
+        "radius": 1.0
+      },
+      {
+        "t": "stack",
+        "id": "home_indicator",
+        "x": 137.0,
+        "y": 762.0,
+        "w": 132.0,
+        "h": 5.0,
+        "c": [],
+        "bg": 4280032286,
+        "variant": "surface",
+        "radius": 2.5
+      },
+      {
+        "t": "stack",
+        "id": "back",
+        "x": 12.0,
+        "y": 40.0,
+        "w": 140.0,
+        "h": 42.0,
+        "c": [
+          {
+            "t": "button",
+            "id": "back_control",
+            "x": 12.0,
+            "y": 40.0,
+            "w": 140.0,
+            "h": 42.0,
+            "enabled": true
+          },
+          {
+            "t": "svg",
+            "id": "back_icon",
+            "x": 22.0,
+            "y": 49.0,
+            "w": 24.0,
+            "h": 24.0
+          },
+          {
+            "t": "text",
+            "id": "back_label",
+            "text": "Cancel",
+            "x": 35.927734375,
+            "y": 62.0,
+            "w": 53.5,
+            "h": 17.5,
+            "size": 18.0,
+            "line_height": 17.5,
+            "weight": 400,
+            "color": 4278414075,
+            "font_src": "self:resources/ux/Inter-400.ttf",
+            "variant": "single_line",
+            "alignx": 0,
+            "tracking": -1.41328125,
+            "font_asc": -0.12033420138888884,
+            "font_desc": 0.1174045138888889
+          }
+        ],
+        "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+      },
+      {
+        "t": "stack",
+        "id": "top_action",
+        "x": 324.0,
+        "y": 40.0,
+        "w": 68.0,
+        "h": 42.0,
+        "c": [
+          {
+            "t": "button",
+            "id": "top_action_control",
+            "x": 324.0,
+            "y": 40.0,
+            "w": 68.0,
+            "h": 42.0,
+            "enabled": true
+          },
+          {
+            "t": "text",
+            "id": "top_action_label",
+            "text": "Save",
+            "x": 333.98046875,
+            "y": 62.0,
+            "w": 38.5,
+            "h": 17.5,
+            "size": 18.0,
+            "line_height": 17.5,
+            "weight": 400,
+            "color": 4278611450,
+            "font_src": "self:resources/ux/Inter-400.ttf",
+            "variant": "single_line",
+            "alignx": 0,
+            "tracking": -1.9560546875,
+            "font_asc": -0.12033420138888884,
+            "font_desc": 0.1174045138888889
+          }
+        ],
+        "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+      },
+      {
+        "t": "text",
+        "id": "compose_title",
+        "text": "New Message",
+        "x": 140.7189440993789,
+        "y": 62.5,
+        "w": 109.0,
+        "h": 20.5,
+        "size": 17.490683229813666,
+        "line_height": 20.5,
+        "weight": 600,
+        "color": 4278190080,
+        "font_src": "self:resources/ux/Inter-600.ttf",
+        "variant": "single_line",
+        "alignx": 0,
+        "tracking": -1.2720496894409947,
+        "font_asc": -0.12686434659090906,
+        "font_desc": -0.08895596590909088
+      },
+      {
+        "t": "text",
+        "id": "to_label",
+        "text": "To:",
+        "x": 22,
+        "y": 105,
+        "w": 45,
+        "h": 40,
+        "size": 16,
+        "line_height": 21.12,
+        "weight": 400,
+        "color": 4287532691,
+        "font_src": "self:resources/ux/Inter-400.ttf",
+        "variant": "single_line",
+        "alignx": 0
+      },
+      {
+        "t": "stack",
+        "id": "to",
+        "x": 70.0,
+        "y": 105.0,
+        "w": 314.0,
+        "h": 40.0,
+        "c": [
+          {
+            "t": "input",
+            "id": "to_input",
+            "text": "",
+            "x": 70.0,
+            "y": 105.0,
+            "w": 314.0,
+            "h": 40.0,
+            "size": 17,
+            "line_height": 22.44,
+            "weight": 400,
+            "color": 4280032286,
+            "font_src": "self:resources/ux/Inter-400.ttf",
+            "variant": "single_line",
+            "alignx": 0,
+            "placeholder": "Recipient",
+            "focused": 0
+          }
+        ],
+        "kit": "{\"widget\": \"KitFormField\", \"bindings\": {\"input\": [0]}}"
+      },
+      {
+        "t": "stack",
+        "id": "to_rule",
+        "x": 20.0,
+        "y": 153.0,
+        "w": 366.0,
+        "h": 0.65,
+        "c": [],
+        "bg": 4293059303,
+        "variant": "surface",
+        "radius": 0
+      },
+      {
+        "t": "text",
+        "id": "subject_label",
+        "text": "Subject:",
+        "x": 22,
+        "y": 163,
+        "w": 74,
+        "h": 40,
+        "size": 16,
+        "line_height": 21.12,
+        "weight": 400,
+        "color": 4287532691,
+        "font_src": "self:resources/ux/Inter-400.ttf",
+        "variant": "single_line",
+        "alignx": 0
+      },
+      {
+        "t": "stack",
+        "id": "subject",
+        "x": 101.0,
+        "y": 163.0,
+        "w": 283.0,
+        "h": 40.0,
+        "c": [
+          {
+            "t": "input",
+            "id": "subject_input",
+            "text": "Coffee next week?",
+            "x": 101.0,
+            "y": 163.0,
+            "w": 283.0,
+            "h": 40.0,
+            "size": 17,
+            "line_height": 22.44,
+            "weight": 400,
+            "color": 4280032286,
+            "font_src": "self:resources/ux/Inter-400.ttf",
+            "variant": "single_line",
+            "alignx": 0,
+            "placeholder": "Subject",
+            "focused": 0
+          }
+        ],
+        "kit": "{\"widget\": \"KitFormField\", \"bindings\": {\"input\": [0]}}"
+      },
+      {
+        "t": "stack",
+        "id": "subject_rule",
+        "x": 20.0,
+        "y": 210.0,
+        "w": 366.0,
+        "h": 0.65,
+        "c": [],
+        "bg": 4293059303,
+        "variant": "surface",
+        "radius": 0
+      },
+      {
+        "t": "stack",
+        "id": "body",
+        "x": 23.0,
+        "y": 235.0,
+        "w": 359.0,
+        "h": 380.0,
+        "c": [
+          {
+            "t": "input",
+            "id": "body_input",
+            "text": "Hi Jamie,\n\nWould you like to grab coffee next week?\n\nBest,",
+            "x": 23.0,
+            "y": 235.0,
+            "w": 359.0,
+            "h": 380.0,
+            "size": 17,
+            "line_height": 22.44,
+            "weight": 400,
+            "color": 4280032286,
+            "font_src": "self:resources/ux/Inter-400.ttf",
+            "variant": "multiline",
+            "alignx": 0,
+            "placeholder": "Write your message\u2026",
+            "focused": 0
+          }
+        ],
+        "kit": "{\"widget\": \"KitFormField\", \"bindings\": {\"input\": [0]}}"
+      },
+      {
+        "t": "stack",
+        "id": "draft_note_surface",
+        "x": 20.0,
+        "y": 659.0,
+        "w": 366.0,
+        "h": 50.0,
+        "c": [],
+        "bg": 4294901502,
+        "variant": "surface",
+        "radius": 12.0
+      },
+      {
+        "t": "text",
+        "id": "draft_note",
+        "text": "Drafts stay on this Mac",
+        "x": 30,
+        "y": 663,
+        "w": 346,
+        "h": 42,
+        "size": 14,
+        "line_height": 18.48,
+        "weight": 400,
+        "color": 4278221567,
+        "font_src": "self:resources/ux/Inter-400.ttf",
+        "variant": "single_line",
+        "alignx": 0.5
+      }
+    ],
+    "bg": 4293981682,
+    "variant": "surface",
+    "radius": 0
+  },
+  "changes": [
+    {
+      "id": "page",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "battery",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "battery_tip",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "home_indicator",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "back",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "back_control",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "back_icon",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "top_action",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "top_action_control",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "to",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "to_input",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "to_rule",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "subject",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "subject_input",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "subject_rule",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "body",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "body_input",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "draft_note_surface",
+      "source": "observed non-text annotation"
+    },
+    {
+      "id": "clock",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.07767199889072675
+    },
+    {
+      "id": "back_label",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.078515625
+    },
+    {
+      "id": "top_action_label",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.1086697048611111
+    },
+    {
+      "id": "compose_title",
+      "source": "Vision OCR ink bounds plus bundled font glyph metrics",
+      "font_family_verified_in_reference": false,
+      "tracking_em": -0.07272727272727278
+    }
+  ],
+  "limits": [
+    "Measured fixed artboard; not a responsive production application."
+  ]
+}

@@ -1,0 +1,487 @@
+diff --git a/draw/src/shader/draw_text.rs b/draw/src/shader/draw_text.rs
+index 4a5faf7a..9d59f1e4 100644
+--- a/draw/src/shader/draw_text.rs
++++ b/draw/src/shader/draw_text.rs
+@@ -2730,6 +2730,7 @@ pub fn layout(
+                 wrap,
+                 align: align.x as f32,
+                 line_spacing_scale: self.text_style.line_spacing,
++                letter_spacing_in_lpxs: self.text_style.letter_spacing,
+                 max_rows: if self.max_lines > 0 {
+                     Some(self.max_lines)
+                 } else {
+@@ -3407,6 +3408,9 @@ pub struct TextStyle {
+     pub font_size: f32,
+     #[live(1.0)]
+     pub line_spacing: f32,
++    /// Additional advance per glyph in logical pixels, including negative tracking.
++    #[live(0.0)]
++    pub letter_spacing: f32,
+     /// A vertical offset applied when drawing text, as a fraction of the font size.
+     /// Positive values shift text downward, useful for aligning baselines when
+     /// mixing fonts with different vertical metrics (e.g., code font with regular text).
+diff --git a/draw/src/text/font_family.rs b/draw/src/text/font_family.rs
+index ed3b4870..6dd0e6d2 100644
+--- a/draw/src/text/font_family.rs
++++ b/draw/src/text/font_family.rs
+@@ -72,11 +72,15 @@ pub fn id(&self) -> FontFamilyId {
+     }
+ 
+     pub fn get_or_shape(&self, text: Substr) -> Rc<ShapedText> {
++        self.get_or_shape_with_spacing(text, 0.0)
++    }
++
++    pub fn get_or_shape_with_spacing(&self, text: Substr, letter_spacing_in_ems: f32) -> Rc<ShapedText> {
+         self.shaper.borrow_mut().get_or_shape(ShapeParams {
+             text,
+             fonts: self.fonts.clone(),
+             direction: Direction::default(),
+-            letter_spacing: Ems(0.0),
++            letter_spacing: Ems(letter_spacing_in_ems),
+             word_spacing: Ems(0.0),
+             features: Rc::new(Vec::new()),
+             diagnostics: self.diagnostics.clone(),
+diff --git a/draw/src/text/fonts.rs b/draw/src/text/fonts.rs
+index a47a691e..686422c0 100644
+--- a/draw/src/text/fonts.rs
++++ b/draw/src/text/fonts.rs
+@@ -87,6 +87,16 @@ pub fn new(cx: &mut Cx, settings: layouter::Settings) -> Self {
+ 
+         let mut msdf_job_sender: FromUISender<QueuedMsdfJob> = Default::default();
+         let msdf_result_receiver: ToUIReceiver<CompletedMsdfJob> = Default::default();
++        // Single-threaded browser builds intentionally use the existing SDF/SLUG
++        // path. Do not launch an unavailable worker or queue MSDF work for it.
++        #[cfg(all(target_arch = "wasm32", not(target_feature = "atomics")))]
++        {
++            layouter.rasterizer().borrow_mut()
++                .set_outline_rasterization_mode(OutlineRasterizationMode::Sdf);
++            drop(msdf_job_sender.receiver());
++        }
++        #[cfg(not(all(target_arch = "wasm32", not(target_feature = "atomics"))))]
++        {
+         let worker_rx = msdf_job_sender
+             .receiver()
+             .expect("MSDF worker receiver is taken exactly once");
+@@ -114,6 +124,7 @@ pub fn new(cx: &mut Cx, settings: layouter::Settings) -> Self {
+         }) {
+             task.detach();
+         }
++        }
+ 
+         Self {
+             layouter,
+diff --git a/draw/src/text/layouter.rs b/draw/src/text/layouter.rs
+index b259419a..8d8cbfa8 100644
+--- a/draw/src/text/layouter.rs
++++ b/draw/src/text/layouter.rs
+@@ -427,6 +427,7 @@ fn layout_by_word(&mut self, len: usize) {
+             self.font_family.clone(),
+             self.style.font_size_in_lpxs(),
+             SegmentKind::Word,
++            self.options.letter_spacing_in_lpxs,
+         );
+         while !fitter.is_empty() {
+             if self.is_past_max_rows() {
+@@ -469,6 +470,7 @@ fn layout_by_grapheme(&mut self, len: usize) {
+             self.font_family.clone(),
+             self.style.font_size_in_lpxs(),
+             SegmentKind::Grapheme,
++            self.options.letter_spacing_in_lpxs,
+         );
+         while !fitter.is_empty() {
+             if self.is_past_max_rows() {
+@@ -489,9 +491,10 @@ fn layout_by_grapheme(&mut self, len: usize) {
+ 
+     fn layout_directly(&mut self, len: usize) {
+         self.append_text(
+-            &self.font_family.get_or_shape(
++            &self.font_family.get_or_shape_with_spacing(
+                 self.text
+                     .substr(self.current_row_end..self.current_row_end + len),
++                self.options.letter_spacing_in_lpxs / self.style.font_size_in_lpxs().max(f32::EPSILON),
+             ),
+         );
+     }
+@@ -652,7 +655,8 @@ fn apply_ellipsis_truncation(mut self) -> LaidoutText {
+ 
+     /// Truncates the last row to fit within `max_width` and appends an ellipsis glyph.
+     fn truncate_last_row_with_ellipsis(&mut self, max_width: f32) {
+-        let ellipsis_shaped = self.font_family.get_or_shape("…".into());
++        let ellipsis_shaped = self.font_family.get_or_shape_with_spacing("…".into(),
++            self.options.letter_spacing_in_lpxs / self.style.font_size_in_lpxs().max(f32::EPSILON));
+         let font_size_in_lpxs = self.style.font_size_in_lpxs();
+         let ellipsis_width: f32 = ellipsis_shaped
+             .glyphs
+@@ -715,6 +719,7 @@ struct Fitter {
+     text: Substr,
+     font_family: Rc<FontFamily>,
+     font_size_in_lpxs: f32,
++    letter_spacing_in_ems: f32,
+     lens: Vec<usize>,
+     widths_in_lpxs: Vec<f32>,
+ }
+@@ -725,7 +730,9 @@ fn new(
+         font_family: Rc<FontFamily>,
+         font_size_in_lpxs: f32,
+         segment_kind: SegmentKind,
++        letter_spacing_in_lpxs: f32,
+     ) -> Self {
++        let letter_spacing_in_ems = letter_spacing_in_lpxs / font_size_in_lpxs.max(f32::EPSILON);
+         let mut lens: Vec<_> = match segment_kind {
+             SegmentKind::Word => text
+                 .split_word_bounds()
+@@ -742,7 +749,7 @@ fn new(
+             .scan(0, |state, len| {
+                 let start = *state;
+                 let end = start + len;
+-                let segment = font_family.get_or_shape(text.substr(start..end));
++                let segment = font_family.get_or_shape_with_spacing(text.substr(start..end), letter_spacing_in_ems);
+                 let width_in_lpxs = segment.width_in_ems * font_size_in_lpxs;
+                 *state = end;
+                 Some(width_in_lpxs)
+@@ -752,6 +759,7 @@ fn new(
+             text,
+             font_family,
+             font_size_in_lpxs,
++            letter_spacing_in_ems,
+             lens,
+             widths_in_lpxs,
+         }
+@@ -781,7 +789,7 @@ fn fit(&mut self, wrap_width_in_lpxs: f32) -> Option<Rc<ShapedText>> {
+         if let Some(mut best_count) = best_count {
+             while best_count > 0 {
+                 let best_len = self.lens[..best_count].iter().sum();
+-                let best_text = self.font_family.get_or_shape(self.text.substr(0..best_len));
++                let best_text = self.font_family.get_or_shape_with_spacing(self.text.substr(0..best_len), self.letter_spacing_in_ems);
+                 if best_text.width_in_ems * self.font_size_in_lpxs <= wrap_width_in_lpxs {
+                     self.lens.drain(..best_count);
+                     self.widths_in_lpxs.drain(..best_count);
+@@ -1059,6 +1067,7 @@ pub struct LayoutOptions {
+     pub wrap: bool,
+     pub align: f32,
+     pub line_spacing_scale: f32,
++    pub letter_spacing_in_lpxs: f32,
+     /// Maximum number of rows to display. `None` means unlimited.
+     /// When set and the text exceeds this many rows, excess rows are discarded.
+     pub max_rows: Option<usize>,
+@@ -1077,6 +1086,7 @@ fn default() -> Self {
+             wrap: false,
+             align: 0.0,
+             line_spacing_scale: 1.0,
++            letter_spacing_in_lpxs: 0.0,
+             max_rows: None,
+             ellipsis: false,
+         }
+@@ -1098,6 +1108,7 @@ fn hash<H>(&self, hasher: &mut H)
+         self.wrap.hash(hasher);
+         self.align.to_bits().hash(hasher);
+         self.line_spacing_scale.to_bits().hash(hasher);
++        self.letter_spacing_in_lpxs.to_bits().hash(hasher);
+         self.max_rows.hash(hasher);
+         self.ellipsis.hash(hasher);
+     }
+@@ -1112,6 +1123,7 @@ fn eq(&self, other: &Self) -> bool {
+             && self.wrap == other.wrap
+             && self.align.to_bits() == other.align.to_bits()
+             && self.line_spacing_scale.to_bits() == other.line_spacing_scale.to_bits()
++            && self.letter_spacing_in_lpxs.to_bits() == other.letter_spacing_in_lpxs.to_bits()
+             && self.max_rows == other.max_rows
+             && self.ellipsis == other.ellipsis
+     }
+diff --git a/platform/script/src/vm.rs b/platform/script/src/vm.rs
+index 40df5e44..80a61b40 100644
+--- a/platform/script/src/vm.rs
++++ b/platform/script/src/vm.rs
+@@ -708,6 +708,7 @@ pub fn drain_errors(&mut self) {
+         loop {
+             let err = self.bx.threads.cur().trap.err_pop_front();
+             if let Some(err) = err {
++                self.bx.uncaught_error_count = self.bx.uncaught_error_count.saturating_add(1);
+                 if self.bx.captured_errors.is_some() {
+                     let formatted = self.format_error(&err);
+                     if let Some(sink) = self.bx.captured_errors.as_mut() {
+@@ -1380,6 +1381,19 @@ pub fn add_script_mod(&mut self, new_mod: ScriptMod) -> u16 {
+         i as u16
+     }
+ 
++    /// Bounded document evaluation backported from OctoSense revision 5b6932cf.
++    pub fn eval_checked(&mut self, script_mod: ScriptMod, limit: usize) -> Option<ScriptValue> {
++        let errors = self.bx.uncaught_error_count;
++        let value = self.with_instruction_limit(limit, |vm| vm.eval(script_mod));
++        self.drain_errors();
++        let valid = !value.is_nil() && !value.is_err() && self.bx.uncaught_error_count == errors;
++        if !valid {
++            log!("CHECKED_EVAL_REJECT value={:?} uncaught_before={} uncaught_after={} paused={} captured={:?}",
++                value, errors, self.bx.uncaught_error_count, self.bx.threads.cur_ref().is_paused(), self.bx.captured_errors);
++        }
++        valid.then_some(value)
++    }
++
+     pub fn eval(&mut self, script_mod: ScriptMod) -> ScriptValue {
+         self.eval_with_source(script_mod, ScriptObject::ZERO)
+     }
+@@ -1583,6 +1597,7 @@ pub struct ScriptVmBase {
+     pub is_reload: bool,
+     pub debug_trace: bool,
+     pub silence_errors: bool,
++    pub uncaught_error_count: usize,
+     /// When Some, drained errors are pushed here (formatted) instead of being
+     /// logged or dropped — even under `silence_errors`. Install before an
+     /// eval/call, take after, to feed diagnostics back to a host (e.g. an AI
+@@ -1608,6 +1623,7 @@ pub fn empty() -> Self {
+             is_reload: false,
+             debug_trace: false,
+             silence_errors: false,
++            uncaught_error_count: 0,
+             captured_errors: None,
+             run_budget: None,
+             last_limit_consumed: 0,
+@@ -1643,6 +1659,7 @@ pub fn new() -> Self {
+             is_reload: false,
+             debug_trace: false,
+             silence_errors: false,
++            uncaught_error_count: 0,
+             captured_errors: None,
+             run_budget: None,
+             last_limit_consumed: 0,
+diff --git a/platform/src/cx_api.rs b/platform/src/cx_api.rs
+index 0cd78e26..213fca44 100644
+--- a/platform/src/cx_api.rs
++++ b/platform/src/cx_api.rs
+@@ -145,6 +145,15 @@ pub fn close(&mut self) {
+             browser_id: self.id.0,
+         });
+     }
++
++    /// Inspect the app's own native WebView asynchronously. The snapshot is
++    /// captured by WebKit, including content absent from the Metal drawable.
++    #[cfg(target_os = "macos")]
++    pub fn inspect(&mut self, result_path: String, snapshot_path: Option<String>, scroll_y: Option<f64>) {
++        self.cx.platform_ops.push_back(CxOsOp::InspectSystemBrowser {
++            browser_id: self.id.0, result_path, snapshot_path, scroll_y,
++        });
++    }
+ }
+ 
+ pub trait CxOsApi {
+@@ -413,6 +422,13 @@ pub enum CxOsOp {
+     CloseSystemBrowser {
+         browser_id: LiveId,
+     },
++    #[cfg(target_os = "macos")]
++    InspectSystemBrowser {
++        browser_id: LiveId,
++        result_path: String,
++        snapshot_path: Option<String>,
++        scroll_y: Option<f64>,
++    },
+     PrepareAudioPlayback(LiveId, VideoSource, bool, bool),
+     BeginVideoPlayback(LiveId),
+     PauseVideoPlayback(LiveId),
+@@ -521,6 +537,8 @@ fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+             Self::SetSystemBrowserUrl { .. } => write!(f, "SetSystemBrowserUrl"),
+             Self::SystemBrowserHistoryGo { .. } => write!(f, "SystemBrowserHistoryGo"),
+             Self::CloseSystemBrowser { .. } => write!(f, "CloseSystemBrowser"),
++            #[cfg(target_os = "macos")]
++            Self::InspectSystemBrowser { .. } => write!(f, "InspectSystemBrowser"),
+             Self::PrepareAudioPlayback(..) => write!(f, "PrepareAudioPlayback"),
+             Self::BeginVideoPlayback(..) => write!(f, "BeginVideoPlayback"),
+             Self::PauseVideoPlayback(..) => write!(f, "PauseVideoPlayback"),
+@@ -963,6 +981,11 @@ pub fn system_browser(&mut self, id: impl Into<SystemBrowserId>) -> CxSystemBrow
+         }
+     }
+ 
++    #[cfg(target_os = "macos")]
++    pub fn system_browser_count(&self) -> usize {
++        self.os.system_browsers.len()
++    }
++
+     // Determines whether to show your application in the dock when it runs. The default value is true.
+     // You can remove the dock icon by setting this value to false.
+     /// FPS mouse capture: lock hides and freezes the hardware cursor while
+diff --git a/platform/src/os/apple/apple_webview.rs b/platform/src/os/apple/apple_webview.rs
+index da39a579..2d7bf149 100644
+--- a/platform/src/os/apple/apple_webview.rs
++++ b/platform/src/os/apple/apple_webview.rs
+@@ -5,6 +5,8 @@
+     os::apple::{apple_sys::*, apple_util::str_to_nsstring},
+ };
+ use makepad_objc_sys::{class, msg_send};
++#[cfg(target_os = "macos")]
++use makepad_objc_sys::objc_block;
+ 
+ #[link(name = "WebKit", kind = "framework")]
+ unsafe extern "C" {}
+@@ -210,6 +212,46 @@ pub(crate) fn history_go(&mut self, delta: i32) {
+         history_go(self.web_view, delta);
+     }
+ 
++    pub(crate) fn inspect(&mut self, result_path: String, snapshot_path: Option<String>, scroll_y: Option<f64>) {
++        if self.web_view == nil { return; }
++        let scroll = scroll_y.filter(|y| y.is_finite())
++            .map(|y| format!("window.scrollTo(0,{y});")).unwrap_or_default();
++        let script = format!(r#"{scroll}JSON.stringify({{
++            readyState:document.readyState,title:document.title,
++            scrollY:window.scrollY,scrollHeight:document.documentElement.scrollHeight,
++            viewportHeight:window.innerHeight,viewportWidth:window.innerWidth,
++            text:document.body.innerText,tables:document.querySelectorAll('table').length,
++            bold:document.querySelectorAll('b,strong').length,
++            images:Array.from(document.images).map(i=>({{complete:i.complete,width:i.naturalWidth,height:i.naturalHeight}})),
++            emailScriptExecuted:typeof window.emailScriptExecuted!=='undefined'
++        }})"#);
++        unsafe {
++            let completion = objc_block!(move |value: ObjcId, error: ObjcId| {
++                let result = if error != nil || value == nil {
++                    "{\"error\":\"WebView evaluation failed\"}".to_string()
++                } else { crate::os::apple::apple_util::nsstring_to_string(value) };
++                let _ = std::fs::write(&result_path, result);
++            });
++            let () = msg_send![self.web_view, evaluateJavaScript: str_to_nsstring(&script) completionHandler: &completion];
++            if let Some(path) = snapshot_path {
++                let config: ObjcId = msg_send![class!(WKSnapshotConfiguration), new];
++                let () = msg_send![config, setAfterScreenUpdates: YES];
++                let completion = objc_block!(move |image: ObjcId, error: ObjcId| {
++                    if error != nil || image == nil { return; }
++                    let tiff: ObjcId = msg_send![image, TIFFRepresentation];
++                    let bitmap: ObjcId = msg_send![class!(NSBitmapImageRep), imageRepWithData: tiff];
++                    let properties: ObjcId = msg_send![class!(NSDictionary), dictionary];
++                    let png: ObjcId = msg_send![bitmap, representationUsingType: 4u64 properties: properties];
++                    if png != nil {
++                        let _: BOOL = msg_send![png, writeToFile: str_to_nsstring(&path) atomically: YES];
++                    }
++                });
++                let () = msg_send![self.web_view, takeSnapshotWithConfiguration: config completionHandler: &completion];
++                let () = msg_send![config, release];
++            }
++        }
++    }
++
+     pub(crate) fn cleanup(&mut self) {
+         unsafe {
+             if self.web_view != nil {
+@@ -217,6 +259,10 @@ pub(crate) fn cleanup(&mut self) {
+             }
+         }
+         self.detach();
++        unsafe {
++            if self.web_view != nil { let () = msg_send![self.web_view, release]; self.web_view = nil; }
++            if self.host_view != nil { let () = msg_send![self.host_view, release]; self.host_view = nil; }
++        }
+     }
+ }
+ 
+diff --git a/platform/src/os/apple/macos/macos.rs b/platform/src/os/apple/macos/macos.rs
+index 0b33a3a1..cdf97437 100644
+--- a/platform/src/os/apple/macos/macos.rs
++++ b/platform/src/os/apple/macos/macos.rs
+@@ -1974,6 +1974,13 @@ fn handle_platform_ops(
+                         browser.cleanup();
+                     }
+                 }
++                CxOsOp::InspectSystemBrowser { browser_id, result_path, snapshot_path, scroll_y } => {
++                    if let Some(browser) = self.os.system_browsers.get_mut(&browser_id) {
++                        browser.inspect(result_path, snapshot_path, scroll_y);
++                    } else {
++                        let _ = std::fs::write(result_path, r#"{"error":"native browser is closed"}"#);
++                    }
++                }
+                 CxOsOp::SaveFileDialog(settings) => {
+                     with_macos_app(|app| app.open_save_file_dialog(settings));
+                 }
+diff --git a/widgets/src/gauss_view.rs b/widgets/src/gauss_view.rs
+index 72cfaa67..f17cf6b7 100644
+--- a/widgets/src/gauss_view.rs
++++ b/widgets/src/gauss_view.rs
+@@ -559,6 +559,8 @@ pub struct GaussRoundedView {
+     // view is placed in the normal (background) flow rather than inside a `glass.Layer`.
+     #[rust]
+     draw_list: Option<DrawList2d>,
++    #[rust]
++    pub snapshot_ready: bool,
+ }
+ 
+ impl GaussRoundedView {
+@@ -571,6 +573,7 @@ pub fn draw_surface_with_backdrop(&mut self, cx: &mut Cx2d, rect: Rect, snapshot
+     }
+ 
+     fn bind_snapshot(&mut self, cx: &mut Cx2d, snapshot: Option<GaussBlurSnapshot>) {
++        self.snapshot_ready = snapshot.is_some();
+         let draw_bg = &mut self.view.draw_bg.draw_vars;
+         if let Some(snapshot) = snapshot {
+             draw_bg.set_texture(0, &snapshot.scene_texture);
+diff --git a/widgets/src/label.rs b/widgets/src/label.rs
+index 8b97cfae..e185c258 100644
+--- a/widgets/src/label.rs
++++ b/widgets/src/label.rs
+@@ -237,6 +237,12 @@ pub struct Label {
+     pub walk: Walk,
+     #[live]
+     pub align: Align,
++    #[live(false)]
++    pub clip_x: bool,
++    #[live(false)]
++    pub clip_y: bool,
++    #[rust]
++    pub text_layout_rect: Rect,
+     #[live(Flow::right_wrap())]
+     flow: Flow,
+     #[live]
+@@ -251,6 +257,7 @@ pub struct Label {
+     pub text_overflow: TextOverflow,
+ 
+     #[rust]
++    #[area]
+     area: Area,
+     #[live]
+     text: ArcStringMut,
+@@ -312,6 +319,8 @@ fn draw_walk(&mut self, cx: &mut Cx2d, _scope: &mut Scope, walk: Walk) -> DrawSt
+             walk,
+             Layout {
+                 flow: self.flow,
++                clip_x: self.clip_x,
++                clip_y: self.clip_y,
+                 ..Default::default()
+             },
+         );
+@@ -322,7 +331,7 @@ fn draw_walk(&mut self, cx: &mut Cx2d, _scope: &mut Scope, walk: Walk) -> DrawSt
+         });
+         self.draw_text.max_lines = self.max_lines;
+         self.draw_text.text_overflow = self.text_overflow;
+-        self.draw_text
++        self.text_layout_rect = self.draw_text
+             .draw_walk(cx, walk, self.align, self.text.as_ref());
+         cx.end_turtle_with_area(&mut self.area);
+         DrawStep::done()
+diff --git a/widgets/src/view.rs b/widgets/src/view.rs
+index d170cf13..2e6dfbd7 100644
+--- a/widgets/src/view.rs
++++ b/widgets/src/view.rs
+@@ -103,6 +103,8 @@ pub struct View {
+     #[live(true)]
+     #[apply_state]
+     pub visible: bool,
++    #[live]
++    pub selected: Option<bool>,
+     #[live(false)]
+     skip_widget_tree_search: bool,
+ 
+diff --git a/widgets/src/widget.rs b/widgets/src/widget.rs
+index bb85cff2..03e4c685 100644
+--- a/widgets/src/widget.rs
++++ b/widgets/src/widget.rs
+@@ -341,6 +341,15 @@ fn disabled(&self, _cx: &Cx) -> bool {
+         false
+     }
+ 
++    /// Optional state supplied by native AppCard compositions.
++    fn selected_value(&self, _cx: &Cx) -> Option<String> {
++        None
++    }
++
++    fn checked(&self, _cx: &Cx) -> Option<bool> {
++        None
++    }
++
+     fn ref_cast_type_id(&self) -> TypeId
+     where
+         Self: 'static,

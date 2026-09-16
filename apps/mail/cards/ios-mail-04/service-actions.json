@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "owner": "mail",
+  "controls": {
+    "back": {
+      "event": "navigate",
+      "payload": {
+        "screen": "inbox"
+      },
+      "enabled": true
+    },
+    "search_field": {
+      "event": "search",
+      "payload": {},
+      "enabled": true,
+      "input": true
+    },
+    "clear_search": {
+      "event": "clear_search",
+      "payload": {},
+      "enabled": true
+    },
+    "message_0_open": {
+      "event": "open",
+      "payload": {
+        "id": "demo-1"
+      },
+      "enabled": true
+    },
+    "tool_filter": {
+      "event": "folder",
+      "payload": {
+        "folder": "unread"
+      },
+      "enabled": true
+    },
+    "tool_compose": {
+      "event": "compose",
+      "payload": {},
+      "enabled": true
+    }
+  }
+}
