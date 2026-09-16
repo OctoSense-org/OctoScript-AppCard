@@ -76,12 +76,14 @@
     "wasm": {
       "build_id": "20260916T024755Z-c2f6a6df",
       "sha256": "263ac6f13c5e2c4c94f5973ae4dbcfa99036d2ba4af54e9c48d66d2f8086a074",
-      "browser": "Chromium mount, expected action and resource policy passed"
+      "browser": "Chromium mount, expected action and resource policy passed on retry",
+      "initial_attempt": "Mounted successfully but timed out awaiting the click action; retained failed evidence beside the passing retry"
     },
     "limitations": [
       "Android/OpenHarmony checks run on macOS host; device SDKs unavailable",
       "Existing target-specific WASM and OH warnings remain",
-      "Protocol tests use local TLS fixtures; no external emails sent"
+      "Protocol tests use local TLS fixtures; no external emails sent",
+      "Chromium smoke intermittently misses the first automated click; retry passed, not a full browser compatibility claim"
     ],
     "isolated_wasm": {
       "fresh_sources": true,
