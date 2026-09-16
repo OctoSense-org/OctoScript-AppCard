@@ -1,0 +1,112 @@
+{
+  "frame_id": 5,
+  "controls": {
+    "saturday": {
+      "event": "health.saturday",
+      "source_bounds": [
+        24,
+        118,
+        92,
+        54
+      ],
+      "enabled": true,
+      "text_ids": [
+        "saturday_name",
+        "saturday_date"
+      ],
+      "ocr_ids": [
+        16,
+        17
+      ]
+    },
+    "sunday": {
+      "event": "health.sunday",
+      "source_bounds": [
+        123,
+        118,
+        92,
+        54
+      ],
+      "enabled": true,
+      "text_ids": [
+        "sunday_name",
+        "sunday_date"
+      ],
+      "ocr_ids": [
+        18,
+        19
+      ]
+    },
+    "conflict_slot": {
+      "event": "health.conflict_slot",
+      "source_bounds": [
+        23,
+        187,
+        192,
+        57
+      ],
+      "enabled": false,
+      "text_ids": [
+        "morning_time",
+        "morning_note"
+      ],
+      "ocr_ids": [
+        20,
+        21
+      ]
+    },
+    "afternoon": {
+      "event": "health.afternoon",
+      "source_bounds": [
+        23,
+        250,
+        192,
+        56
+      ],
+      "enabled": true,
+      "text_ids": [
+        "afternoon_time",
+        "afternoon_note"
+      ],
+      "ocr_ids": [
+        22,
+        23
+      ]
+    },
+    "confirm_booking": {
+      "event": "health.confirm_booking",
+      "source_bounds": [
+        22,
+        321,
+        193,
+        38
+      ],
+      "enabled": false,
+      "text_ids": [
+        "confirm_booking_text"
+      ],
+      "ocr_ids": [
+        24
+      ]
+    },
+    "return_items": {
+      "event": "health.return_items",
+      "source_bounds": [
+        22,
+        368,
+        193,
+        38
+      ],
+      "enabled": true,
+      "text_ids": [
+        "return_items_text"
+      ],
+      "ocr_ids": [
+        25
+      ]
+    }
+  },
+  "source": "health-05",
+  "simulation": true,
+  "owner": "health"
+}

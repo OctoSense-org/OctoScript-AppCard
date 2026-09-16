@@ -1,0 +1,68 @@
+use mod.prelude.widgets.*
+return View{width:Fill height:Fill flow:Overlay beauty_0 := DesignSurface {
+width: 263.05084 height: 153.44633
+abs_pos: vec2(0, 0)
+draw_bg.radius: 14.613936 draw_bg.ellipse: 0 draw_bg.border_width: 0.4 draw_bg.border_position: 0 draw_bg.border_color: #e2e8e3ff
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfcff
+beauty_0_0 := KitButton {
+contract: "{\"bindings\":{\"control\":\"beauty_0_0_1\",\"label\":\"beauty_0_0_2\"},\"widget\":\"KitButton\"}" glass: false
+width: 239.66855 height: 33.612053
+abs_pos: vec2(10.229755178907709, 108.14312617702444)
+flow: Overlay padding: 0 clip_x: false clip_y: false
+beauty_0_0_0 := DesignSurface {
+width: 239.66855 height: 33.612053
+abs_pos: vec2(10.229755178907709, 108.14312617702444)
+draw_bg.radius: 5.8455744 draw_bg.ellipse: 0 draw_bg.border_width: 0.7 draw_bg.border_position: 0 draw_bg.border_color: #a8bfb1ff
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #f9fcf9ff
+}
+beauty_0_0_1 := DesignNativeButton {
+width: 239.66855 height: 33.612053
+abs_pos: vec2(10.229755178907709, 108.14312617702444)
+enabled: true
+}
+beauty_0_0_2 := Label {
+width: 76.47993 height: 20.061213
+abs_pos: vec2(94.4639892409873, 115.48462373266796)
+clip_x: false clip_y: false
+padding: 0 text: "查看费用" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.20481567 desc: 0.087815665 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 13.022604 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #477d64ff
+}
+}
+beauty_0_1 := Svg {
+width: 33.612053 height: 29.227873
+abs_pos: vec2(13.152542372881356, 14.61393596986818)
+animating: false draw_svg.svg: http_resource("http://127.0.0.1:8170/ux-images/school-payment-02/assets/wallet_icon_2-5820d0ca044e.svg") draw_svg.preserve_viewbox: true draw_svg.preserve_aspect: false
+}
+beauty_0_2 := Label {
+width: 105.80762 height: 17.554222
+abs_pos: vec2(68.88222966192771, 20.827907653478064)
+clip_x: false clip_y: false
+padding: 0 text: "支付 · 待确认" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.18060954 desc: 0.07027621 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 10.997837 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #c38b52ff
+}
+beauty_0_3 := Label {
+width: 94.9272 height: 19.696808
+abs_pos: vec2(68.62619263719756, 51.24761917354647)
+clip_x: false clip_y: false
+padding: 0 text: "活动材料费" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.20277871 desc: 0.090778716 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 12.796311 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #33413cff
+}
+beauty_0_4 := Label {
+width: 61.74721 height: 22.916603
+abs_pos: vec2(68.7621243255021, 77.2990266016028)
+clip_x: false clip_y: false
+padding: 0 text: "¥120" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.33375302 desc: 0.19475304 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 18.692295 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #33413cff
+}
+}
+}

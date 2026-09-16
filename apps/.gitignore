@@ -1,0 +1,16 @@
+# Local runs, deployment packages and generated build output.
+*.log
+*.jsonl
+*/private/
+*/pipeline-output/
+*/wizard/wasm-dist/
+*/wizard/.wasm-dist*
+*/wizard/wasm-host/resources/
+*/runtime/*
+
+# Aircon's runtime directory also contains source and historical support patches.
+!aircon/runtime/*.py
+!aircon/runtime/*.sh
+!aircon/runtime/*.patch
+!aircon/runtime/README.md
+!aircon/runtime/infrastructure.json

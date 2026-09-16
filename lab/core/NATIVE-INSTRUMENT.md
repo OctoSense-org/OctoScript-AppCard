@@ -14,7 +14,7 @@ From the pipeline root, for the existing `beauty-host` L0 adapter:
 APP_PIPELINE_ROOT="$PWD"
 APP_NATIVE_REQUEST="/absolute/path/to/app/runtime/current-request.json"
 APP_NATIVE_LOG="$(mktemp -t appcard-native)"
-cd "$APP_PIPELINE_ROOT/splash-makepad"
+cd "$OCTOSENSE_WORKSPACE/octoscript-makepad"
 RUSTFLAGS='' CARGO_PROFILE_RELEASE_LTO=false cargo build --release -p kit-host --bin beauty-host
 MAKEPAD_HIDE_WINDOWS=1 BEAUTY_REQUEST="$APP_NATIVE_REQUEST" \
   ./target/release/beauty-host --remote > "$APP_NATIVE_LOG" 2>&1 &

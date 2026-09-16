@@ -1,0 +1,288 @@
+{
+  "schema_version": 1,
+  "id": "health-02",
+  "app": "health",
+  "number": 2,
+  "title": "体检详情",
+  "structure": "Measured native application and health/calendar-owned service cards",
+  "artboard": [
+    406,
+    776
+  ],
+  "font_family": "Noto Sans SC",
+  "content_source": "Fictional annual checkup booking; optional items are provider choices, not medical recommendations",
+  "palette": {
+    "name": "Sage",
+    "page": "#d9e9df",
+    "panel": "#fcfdfb",
+    "ink": "#26342e",
+    "accent": "#5c8069"
+  },
+  "graphics": {},
+  "tree": {
+    "t": "stack",
+    "id": "page",
+    "x": 0,
+    "y": 0,
+    "w": 406,
+    "h": 776,
+    "bg": 4293981682,
+    "variant": "surface",
+    "c": [
+      {
+        "t": "stack",
+        "id": "screen",
+        "x": 26.017543859649123,
+        "y": 0.0,
+        "w": 353.96491228070175,
+        "h": 776.0,
+        "c": [
+          {
+            "t": "stack",
+            "id": "details_provider",
+            "x": 48.707602339181285,
+            "y": 133.1150097465887,
+            "w": 310.0974658869396,
+            "h": 80.17153996101364,
+            "c": [
+              {
+                "t": "svg",
+                "id": "clinic_icon_1",
+                "x": 68.37231968810916,
+                "y": 158.83040935672514,
+                "w": 33.278752436647174,
+                "h": 31.766081871345026,
+                "src": ""
+              },
+              {
+                "t": "text",
+                "id": "provider_name",
+                "text": "安心体检中心",
+                "x": 123.83099356672739,
+                "y": 160.5008592310778,
+                "w": 118.36323116071972,
+                "h": 30.98066935571078,
+                "size": 25.092022500811026,
+                "weight": 400,
+                "line_height": 30.98066935571078,
+                "alignx": 0,
+                "variant": "single_line",
+                "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+                "color": 4280693806
+              }
+            ],
+            "bg": 4294770171,
+            "variant": "surface",
+            "radius": 18.152046783625728
+          },
+          {
+            "t": "stack",
+            "id": "details_package",
+            "x": 48.707602339181285,
+            "y": 226.90058479532163,
+            "w": 310.0974658869396,
+            "h": 80.17153996101364,
+            "c": [
+              {
+                "t": "svg",
+                "id": "package_icon_2",
+                "x": 69.8849902534113,
+                "y": 252.61598440545808,
+                "w": 28.74074074074074,
+                "h": 33.278752436647174,
+                "src": ""
+              },
+              {
+                "t": "text",
+                "id": "basic_name",
+                "text": "基础体检套餐",
+                "x": 123.8843291867493,
+                "y": 254.2235630384609,
+                "w": 118.2565599110624,
+                "h": 30.464406245311043,
+                "size": 24.611897808139272,
+                "weight": 400,
+                "line_height": 30.464406245311043,
+                "alignx": 0,
+                "variant": "single_line",
+                "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+                "color": 4280693806
+              }
+            ],
+            "bg": 4294770171,
+            "variant": "surface",
+            "radius": 18.152046783625728
+          },
+          {
+            "t": "stack",
+            "id": "details_options",
+            "x": 48.707602339181285,
+            "y": 320.68615984405454,
+            "w": 310.0974658869396,
+            "h": 80.17153996101364,
+            "c": [
+              {
+                "t": "svg",
+                "id": "tooth_icon_3",
+                "x": 68.37231968810916,
+                "y": 343.3762183235867,
+                "w": 36.304093567251456,
+                "h": 36.304093567251456,
+                "src": ""
+              },
+              {
+                "t": "text",
+                "id": "optional_note",
+                "text": "可自选牙科与视力项目",
+                "x": 122.82846003898635,
+                "y": 350.93957115009744,
+                "w": 205.69785575048732,
+                "h": 26.690058479532162,
+                "size": 21.101754385964913,
+                "weight": 400,
+                "line_height": 26.690058479532162,
+                "alignx": 0,
+                "variant": "single_line",
+                "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+                "color": 4280693806
+              }
+            ],
+            "bg": 4294770171,
+            "variant": "surface",
+            "radius": 18.152046783625728
+          },
+          {
+            "t": "stack",
+            "id": "details_edit",
+            "x": 48.707602339181285,
+            "y": 414.4717348927875,
+            "w": 310.0974658869396,
+            "h": 80.17153996101364,
+            "c": [
+              {
+                "t": "svg",
+                "id": "sliders_icon_4",
+                "x": 68.37231968810916,
+                "y": 440.1871345029239,
+                "w": 34.79142300194932,
+                "h": 34.79142300194932,
+                "src": ""
+              },
+              {
+                "t": "text",
+                "id": "edit_note",
+                "text": "预约前可随时修改",
+                "x": 122.82846003898635,
+                "y": 444.7251461988304,
+                "w": 210.23586744639374,
+                "h": 28.202729044834307,
+                "size": 22.508538011695908,
+                "weight": 400,
+                "line_height": 28.202729044834307,
+                "alignx": 0,
+                "variant": "single_line",
+                "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+                "color": 4280693806
+              }
+            ],
+            "bg": 4294770171,
+            "variant": "surface",
+            "radius": 18.152046783625728
+          },
+          {
+            "t": "stack",
+            "id": "arrange_desktop",
+            "x": 53.24561403508772,
+            "y": 608.093567251462,
+            "w": 301.0214424951267,
+            "h": 71.09551656920078,
+            "c": [
+              {
+                "t": "stack",
+                "id": "arrange_desktop_surface",
+                "x": 53.24561403508772,
+                "y": 608.093567251462,
+                "w": 301.0214424951267,
+                "h": 71.09551656920078,
+                "c": [],
+                "bg": 4284252265,
+                "variant": "surface",
+                "radius": 12.101364522417153
+              },
+              {
+                "t": "button",
+                "id": "arrange_desktop_control",
+                "x": 53.24561403508772,
+                "y": 608.093567251462,
+                "w": 301.0214424951267,
+                "h": 71.09551656920078,
+                "enabled": 1
+              },
+              {
+                "t": "text",
+                "id": "arrange_desktop_text",
+                "text": "在桌面安排",
+                "x": 141.96092883574215,
+                "y": 632.2079657021143,
+                "w": 125.22007016782413,
+                "h": 32.996552165708536,
+                "size": 26.966793514108936,
+                "weight": 400,
+                "line_height": 32.996552165708536,
+                "alignx": 0,
+                "variant": "single_line",
+                "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+                "color": 4294967295
+              }
+            ],
+            "kit": "{\"widget\":\"KitButton\",\"bindings\":{\"control\":[1],\"label\":[2]}}"
+          },
+          {
+            "t": "svg",
+            "id": "back_icon_0",
+            "x": 50.22027290448343,
+            "y": 65.0448343079922,
+            "w": 21.177387914230017,
+            "h": 27.228070175438596,
+            "src": ""
+          },
+          {
+            "t": "text",
+            "id": "status_time",
+            "text": "9:41",
+            "x": 62.94164567890637,
+            "y": 21.142252244522112,
+            "w": 38.93059416356373,
+            "h": 19.117459500421937,
+            "size": 14.0592373353924,
+            "weight": 400,
+            "line_height": 19.117459500421937,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+            "color": 4280693806
+          },
+          {
+            "t": "text",
+            "id": "title",
+            "text": "体检详情",
+            "x": 152.69992887823446,
+            "y": 64.11907082139965,
+            "w": 100.14901430007312,
+            "h": 33.220310392755835,
+            "size": 27.174888665262923,
+            "weight": 400,
+            "line_height": 33.220310392755835,
+            "alignx": 0,
+            "variant": "single_line",
+            "font_src": "self:resources/service/NotoSansSC-Regular.ttf",
+            "color": 4280693806
+          }
+        ],
+        "bg": 4294507255,
+        "variant": "surface",
+        "radius": 18.152046783625728
+      }
+    ]
+  }
+}

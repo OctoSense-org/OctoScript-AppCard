@@ -1,0 +1,30 @@
+diff --git a/examples/material_catalog/Cargo.toml b/examples/material_catalog/Cargo.toml
+index 23812e5..9d06fa7 100644
+--- a/examples/material_catalog/Cargo.toml
++++ b/examples/material_catalog/Cargo.toml
+@@ -8,8 +8,8 @@ description = "A Material-Design component catalog authored in Splash DSL, rende
+ makepad-widgets = { path = "../../widgets", version = "2.0.0" }
+ # Runtime Splash-DSL pipeline (see splash_runtime): the [patch] in the workspace
+ # root points these at this repo's local makepad-script, one shared VM.
+-splash-render = { path = "/Users/yuechen/home/Splash-OH-render/crates/splash-render" }
+-splash-makepad = { path = "/Users/yuechen/home/Splash-OH-render/crates/splash-makepad" }
++splash-render = { path = "../../../splash-makepad/crates/splash-render" }
++splash-makepad = { path = "../../../splash-makepad/crates/splash-makepad" }
+ 
+ [[bin]]
+ name = "makepad-example-material-catalog"
+diff --git a/examples/splash_runtime/Cargo.toml b/examples/splash_runtime/Cargo.toml
+index 1f9a28c..6ef010a 100644
+--- a/examples/splash_runtime/Cargo.toml
++++ b/examples/splash_runtime/Cargo.toml
+@@ -11,8 +11,8 @@ makepad-widgets = { path = "../../widgets", version = "2.0.0" }
+ # turns that UiNode into makepad's own UI dialect. A [patch] in the workspace
+ # root points their makepad-script at this repo's local one, so the whole app
+ # runs on a single VM.
+-splash-render = { path = "/Users/yuechen/home/Splash-OH-render/crates/splash-render" }
+-splash-makepad = { path = "/Users/yuechen/home/Splash-OH-render/crates/splash-makepad" }
++splash-render = { path = "../../../splash-makepad/crates/splash-render" }
++splash-makepad = { path = "../../../splash-makepad/crates/splash-makepad" }
+ 
+ [[bin]]
+ name = "makepad-example-splash-runtime"

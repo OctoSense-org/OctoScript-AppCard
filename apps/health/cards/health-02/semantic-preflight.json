@@ -1,0 +1,274 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.1.0",
+  "policy_sha256": "d502a7c4f7dcc52ada37cfbbaf6bd9289afdcab90e30c504de96e8f8f39ff153",
+  "evaluator_sha256": "35d4dfa6e986e0f4c6acbf9cd7e10a7c148e30fe3f9e31be930d53b15eeef9d3",
+  "manifest_sha256": "d8281d333672a72f914f3227e759355a95c76710c7c0aa34aa60cdce7b782896",
+  "reference_sha256": "4f959c862b54b127d429e7dbb6996786fa0c74d9ec9611e2a47f7610553c663e",
+  "id": "health-02",
+  "round": null,
+  "phase": "preflight",
+  "pass": true,
+  "errors": [],
+  "elements": [
+    {
+      "id": "page",
+      "role": "layout",
+      "basis": "authored stack node",
+      "expected_widgets": [
+        "View"
+      ],
+      "actual_widget": null,
+      "issues": [],
+      "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+    },
+    {
+      "id": "screen",
+      "role": "layout",
+      "basis": "authored stack node",
+      "expected_widgets": [
+        "View"
+      ],
+      "actual_widget": null,
+      "issues": [],
+      "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+    },
+    {
+      "id": "details_provider",
+      "role": "card",
+      "basis": "Explicit measured service composition ownership",
+      "expected_widgets": [
+        "View",
+        "TaskplanProjectCard",
+        "CamoTrackRow"
+      ],
+      "actual_widget": null,
+      "issues": [],
+      "repair": "Reuse the matching kit component, or compose and name a new reusable component from native children."
+    },
+    {
+      "id": "clinic_icon_1",
+      "role": "icon",
+      "basis": "Explicit inspected source region or traced vector symbol",
+      "expected_widgets": [
+        "Svg",
+        "Icon",
+        "Image"
+      ],
+      "actual_widget": null,
+      "issues": [],
+      "repair": "Use a matching kit icon or reference-derived SVG. A source crop requires a recorded visual feature that cannot be reproduced faithfully with the available vector renderer."
+    },
+    {
+      "id": "provider_name",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": null,
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "details_package",
+      "role": "card",
+      "basis": "Explicit measured service composition ownership",
+      "expected_widgets": [
+        "View",
+        "TaskplanProjectCard",
+        "CamoTrackRow"
+      ],
+      "actual_widget": null,
+      "issues": [],
+      "repair": "Reuse the matching kit component, or compose and name a new reusable component from native children."
+    },
+    {
+      "id": "package_icon_2",
+      "role": "icon",
+      "basis": "Explicit inspected source region or traced vector symbol",
+      "expected_widgets": [
+        "Svg",
+        "Icon",
+        "Image"
+      ],
+      "actual_widget": null,
+      "issues": [],
+      "repair": "Use a matching kit icon or reference-derived SVG. A source crop requires a recorded visual feature that cannot be reproduced faithfully with the available vector renderer."
+    },
+    {
+      "id": "basic_name",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": null,
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "details_options",
+      "role": "card",
+      "basis": "Explicit measured service composition ownership",
+      "expected_widgets": [
+        "View",
+        "TaskplanProjectCard",
+        "CamoTrackRow"
+      ],
+      "actual_widget": null,
+      "issues": [],
+      "repair": "Reuse the matching kit component, or compose and name a new reusable component from native children."
+    },
+    {
+      "id": "tooth_icon_3",
+      "role": "icon",
+      "basis": "Explicit inspected source region or traced vector symbol",
+      "expected_widgets": [
+        "Svg",
+        "Icon",
+        "Image"
+      ],
+      "actual_widget": null,
+      "issues": [],
+      "repair": "Use a matching kit icon or reference-derived SVG. A source crop requires a recorded visual feature that cannot be reproduced faithfully with the available vector renderer."
+    },
+    {
+      "id": "optional_note",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": null,
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "details_edit",
+      "role": "card",
+      "basis": "Explicit measured service composition ownership",
+      "expected_widgets": [
+        "View",
+        "TaskplanProjectCard",
+        "CamoTrackRow"
+      ],
+      "actual_widget": null,
+      "issues": [],
+      "repair": "Reuse the matching kit component, or compose and name a new reusable component from native children."
+    },
+    {
+      "id": "sliders_icon_4",
+      "role": "icon",
+      "basis": "Explicit inspected source region or traced vector symbol",
+      "expected_widgets": [
+        "Svg",
+        "Icon",
+        "Image"
+      ],
+      "actual_widget": null,
+      "issues": [],
+      "repair": "Use a matching kit icon or reference-derived SVG. A source crop requires a recorded visual feature that cannot be reproduced faithfully with the available vector renderer."
+    },
+    {
+      "id": "edit_note",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": null,
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "arrange_desktop",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "expected_widgets": [
+        "Button",
+        "KitButton"
+      ],
+      "actual_widget": null,
+      "issues": [],
+      "repair": "Use a native control and verify its declared action."
+    },
+    {
+      "id": "arrange_desktop_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "expected_widgets": [
+        "View"
+      ],
+      "actual_widget": null,
+      "issues": [],
+      "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+    },
+    {
+      "id": "arrange_desktop_control",
+      "role": "button",
+      "basis": "authored button node",
+      "expected_widgets": [
+        "Button",
+        "KitButton"
+      ],
+      "actual_widget": null,
+      "issues": [],
+      "repair": "Use a native control and verify its declared action."
+    },
+    {
+      "id": "arrange_desktop_text",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": null,
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "back_icon_0",
+      "role": "icon",
+      "basis": "Explicit inspected source region or traced vector symbol",
+      "expected_widgets": [
+        "Svg",
+        "Icon",
+        "Image"
+      ],
+      "actual_widget": null,
+      "issues": [],
+      "repair": "Use a matching kit icon or reference-derived SVG. A source crop requires a recorded visual feature that cannot be reproduced faithfully with the available vector renderer."
+    },
+    {
+      "id": "status_time",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": null,
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    {
+      "id": "title",
+      "role": "text",
+      "basis": "authored text node",
+      "expected_widgets": [
+        "Label",
+        "TextFlow"
+      ],
+      "actual_widget": null,
+      "issues": [],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    }
+  ],
+  "scope": "Semantic mapping checks only; geometry, visual fidelity and complete app workflows remain separate."
+}

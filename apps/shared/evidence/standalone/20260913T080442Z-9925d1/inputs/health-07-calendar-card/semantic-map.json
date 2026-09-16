@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.1.0",
+  "contract_sha256": "39c87d74fde63d9f1f71068b4691870a533ec7fbc7e133f52f7f97a403c6ae03",
+  "reference_sha256": "133cadec63237ec872e039103c155eb0ef92e8fb8f911abc3cf805c3e0e8e0d9",
+  "classification_scope": "Authored intent and explicit review candidates; no claim of automatic visual recognition.",
+  "elements": [
+    {
+      "id": "calendar_card",
+      "role": "card",
+      "basis": "Explicit measured service composition ownership",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "calendar_confirm",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "calendar_confirm_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "calendar_confirm_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "calendar_confirm_text",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "calendar_undo",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "calendar_undo_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "calendar_undo_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "calendar_undo_text",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "calendar_icon_3",
+      "role": "icon",
+      "basis": "Explicit inspected source region or traced vector symbol",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/calendar_icon_3.svg",
+        "sha256": "eb7e019ef6117f168130e94bb240953b38c1f8fd95434029322b0c38ad998550",
+        "method": "reference_svg",
+        "reference_sha256": "133cadec63237ec872e039103c155eb0ef92e8fb8f911abc3cf805c3e0e8e0d9",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector tracing of visible source symbol; shape approximation, no raster or text"
+      }
+    },
+    {
+      "id": "calendar_title",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "calendar_event_title",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "calendar_note",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    }
+  ]
+}

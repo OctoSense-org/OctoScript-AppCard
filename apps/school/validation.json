@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "atlas": {
+    "requested_size": [
+      2400,
+      3456
+    ],
+    "actual_size": [
+      907,
+      1733
+    ],
+    "model": "not exposed by built-in tool",
+    "image_count": 1
+  },
+  "native_scenes": 12,
+  "standalone_cards": 14,
+  "native_labels": 201,
+  "checks": {
+    "semantic_preflight": "passed",
+    "compile_12_scenes": "passed",
+    "extract_compile_14_cards": "passed",
+    "bundle": "passed",
+    "service_tests": {
+      "passed": 14,
+      "failed": 0,
+      "locales": [
+        "cn",
+        "en"
+      ],
+      "routes": 4,
+      "all_native_actions_exercised": true
+    },
+    "studio_capture": "pending root serial capture",
+    "visual_gate": "not run",
+    "hosted_browser": "pending root integration"
+  },
+  "bundle_sha256": "728ab700ab2b1673382b9962b82d92015384d7adc2034f93b3d6bcdcc0b0d072",
+  "ux_corrections": "source/ux-corrections.json"
+}

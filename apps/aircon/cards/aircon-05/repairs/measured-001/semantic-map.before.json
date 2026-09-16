@@ -1,0 +1,315 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.1.0",
+  "contract_sha256": "996284a678ad75cda5adb51a78f74b9375b8a3fb5a44ffafe840622baaca73cc",
+  "reference_sha256": "d92a3dfb2bf65359e74b6d8c600a8bcf1e2e1cd0079dadc4b184e332590de78b",
+  "classification_scope": "Authored intent and explicit review candidates; no claim of automatic visual recognition.",
+  "elements": [
+    {
+      "id": "page",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "screen",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "installation_card",
+      "role": "card",
+      "basis": "Service-owned card surface with native child widgets",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "product_photo",
+      "role": "photo",
+      "basis": "Visual source-region review and explicit native renderer ownership",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/product_photo.png",
+        "sha256": "b4b7d6304af1b83e3b50300b2652034acef6e3b607aa99b24cc0b8a5aafcaf30",
+        "method": "source_crop",
+        "reference_sha256": "d92a3dfb2bf65359e74b6d8c600a8bcf1e2e1cd0079dadc4b184e332590de78b",
+        "crop_pixels": [
+          73,
+          672,
+          245,
+          222
+        ],
+        "contains_ui": false,
+        "fit": "contain",
+        "clip": true,
+        "notes": "Artwork-only source region; product photography or technician portrait, visually reviewed"
+      }
+    },
+    {
+      "id": "choose_time",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "choose_time_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "choose_time_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_19",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "defer",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "defer_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "defer_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_20",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "wrench_icon_0",
+      "role": "icon",
+      "basis": "Visual source-region review and explicit native renderer ownership",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/wrench_icon_0.svg",
+        "sha256": "1210670333e1f913e6fb26259e8d8a0ba51c7e5c5f2aed5300f46ecdf0fef01d",
+        "method": "reference_svg",
+        "reference_sha256": "d92a3dfb2bf65359e74b6d8c600a8bcf1e2e1cd0079dadc4b184e332590de78b",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector reconstruction of the reviewed source symbol; no embedded text or raster UI"
+      }
+    },
+    {
+      "id": "check_icon_1",
+      "role": "icon",
+      "basis": "Visual source-region review and explicit native renderer ownership",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/check_icon_1.svg",
+        "sha256": "b454e45f1990ad3cdde19b68869cee12f252d1d1aea44d03fed3e590ce7ea897",
+        "method": "reference_svg",
+        "reference_sha256": "d92a3dfb2bf65359e74b6d8c600a8bcf1e2e1cd0079dadc4b184e332590de78b",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector reconstruction of the reviewed source symbol; no embedded text or raster UI"
+      }
+    },
+    {
+      "id": "text_13",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_14",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_15",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_16",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_17",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_18",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "dock",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "dock_tile_0",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "dock_mail",
+      "role": "icon",
+      "basis": "Visual source-region review and explicit native renderer ownership",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/dock_mail.svg",
+        "sha256": "9b7cff617690a90aac7b12cb3fef04594954830e1bc22fcd9518a5cf98ca1e93",
+        "method": "reference_svg",
+        "reference_sha256": "d92a3dfb2bf65359e74b6d8c600a8bcf1e2e1cd0079dadc4b184e332590de78b",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector reconstruction of the reviewed source symbol; no embedded text or raster UI"
+      }
+    },
+    {
+      "id": "dock_tile_1",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "dock_tile_2",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "dock_bag",
+      "role": "icon",
+      "basis": "Visual source-region review and explicit native renderer ownership",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/dock_bag.svg",
+        "sha256": "2f675e8ba88bad04e7dcdce9b85424e2d8458a97463597bfa7b814452887fb40",
+        "method": "reference_svg",
+        "reference_sha256": "d92a3dfb2bf65359e74b6d8c600a8bcf1e2e1cd0079dadc4b184e332590de78b",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector reconstruction of the reviewed source symbol; no embedded text or raster UI"
+      }
+    },
+    {
+      "id": "dock_tile_3",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "dock_wallet",
+      "role": "icon",
+      "basis": "Visual source-region review and explicit native renderer ownership",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/dock_wallet.svg",
+        "sha256": "ad9266d4ebef2712804598eee5535322f54c6c4d15b3ba967f5616e33a3bb72d",
+        "method": "reference_svg",
+        "reference_sha256": "d92a3dfb2bf65359e74b6d8c600a8bcf1e2e1cd0079dadc4b184e332590de78b",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector reconstruction of the reviewed source symbol; no embedded text or raster UI"
+      }
+    },
+    {
+      "id": "text_11",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_12",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_21",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_22",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_23",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_24",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_25",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    }
+  ]
+}

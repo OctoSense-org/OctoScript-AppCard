@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "id": "e3a7bbbbed9f2d17e6f05e483a05c00aaaf4cb6b324dd4146c21413feab0da70",
+  "status": "applied",
+  "changes": [
+    {
+      "category": "typography",
+      "element": "native-text-labels",
+      "file": "mapped.json",
+      "reason": "Measured uniform size and origin refinements; preserve all native labels/buttons and exact approved text"
+    },
+    {
+      "category": "asset",
+      "element": "check_icon_1",
+      "file": "assets/check_icon_1.svg",
+      "reason": "Reviewed white confirmation check had a transparent circle; fill the native SVG circle with sage so the white tick is legible"
+    },
+    {
+      "category": "asset",
+      "element": "dock_mail",
+      "file": "assets/dock_mail.svg",
+      "reason": "Reviewed Studio dock symbol is about 1.5 times the source size; expand internal viewBox 1.5 times while keeping the measured native component rectangle"
+    },
+    {
+      "category": "asset",
+      "element": "dock_bag",
+      "file": "assets/dock_bag.svg",
+      "reason": "Reviewed Studio dock symbol is about 1.5 times the source size; expand internal viewBox 1.5 times while keeping the measured native component rectangle"
+    },
+    {
+      "category": "asset",
+      "element": "dock_wallet",
+      "file": "assets/dock_wallet.svg",
+      "reason": "Reviewed Studio dock symbol is about 1.5 times the source size; expand internal viewBox 1.5 times while keeping the measured native component rectangle"
+    },
+    {
+      "category": "semantic",
+      "element": "reviewed-native-vector-assets",
+      "file": "semantic-map.json",
+      "reason": "Bind the reviewed SVG refinements to their exact new asset hashes"
+    }
+  ],
+  "acceptance": "requires compile, fresh Studio capture and all design gates"
+}

@@ -1,0 +1,86 @@
+# ledger health-02@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy provider_name_text { class: user-copy, en: "安心体检中心" }
+copy basic_name_text { class: user-copy, en: "基础体检套餐" }
+copy optional_note_text { class: user-copy, en: "可自选牙科与视力项目" }
+copy edit_note_text { class: user-copy, en: "预约前可随时修改" }
+copy arrange_desktop_text_text { class: user-copy, en: "在桌面安排" }
+copy status_time_text { class: user-copy, en: "9:41" }
+copy title_text { class: user-copy, en: "体检详情" }
+state arrange_desktop_control_enabled { shape: bool, initial: true }
+component Surface991755d1cfb2(instance: text) {
+  view Kit(component: "Surface991755d1cfb2", instance: instance) { slot }
+}
+component Surfacefe4d80d7823f(instance: text) {
+  view Kit(component: "Surfacefe4d80d7823f", instance: instance) { slot }
+}
+component Surface5259d30211c6(instance: text) {
+  view Kit(component: "Surface5259d30211c6", instance: instance) { slot }
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Textaccda5766d2f(instance: text, text: text) {
+  view Kit(component: "Textaccda5766d2f", instance: instance, text: text)
+}
+component Texta39bdbc0ec60(instance: text, text: text) {
+  view Kit(component: "Texta39bdbc0ec60", instance: instance, text: text)
+}
+component Texta20398a9bc1b(instance: text, text: text) {
+  view Kit(component: "Texta20398a9bc1b", instance: instance, text: text)
+}
+component Text2b476a84b6c0(instance: text, text: text) {
+  view Kit(component: "Text2b476a84b6c0", instance: instance, text: text)
+}
+component KitButton5dc7ea8cd583(instance: text) {
+  view Kit(component: "KitButton5dc7ea8cd583", instance: instance) { slot }
+}
+component Surface93a316bf76d8(instance: text) {
+  view Kit(component: "Surface93a316bf76d8", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Textecec43254799(instance: text, text: text) {
+  view Kit(component: "Textecec43254799", instance: instance, text: text)
+}
+component Texta862ba22a153(instance: text, text: text) {
+  view Kit(component: "Texta862ba22a153", instance: instance, text: text)
+}
+component Text94194e1885fc(instance: text, text: text) {
+  view Kit(component: "Text94194e1885fc", instance: instance, text: text)
+}
+
+view root Surface991755d1cfb2(instance: "page") {
+  Surfacefe4d80d7823f(instance: "screen") {
+    Surface5259d30211c6(instance: "details_provider") {
+      Vectore0a378fde04f(instance: "clinic_icon_1")
+      Textaccda5766d2f(instance: "provider_name", text: copy.provider_name_text)
+    }
+    Surface5259d30211c6(instance: "details_package") {
+      Vectore0a378fde04f(instance: "package_icon_2")
+      Texta39bdbc0ec60(instance: "basic_name", text: copy.basic_name_text)
+    }
+    Surface5259d30211c6(instance: "details_options") {
+      Vectore0a378fde04f(instance: "tooth_icon_3")
+      Texta20398a9bc1b(instance: "optional_note", text: copy.optional_note_text)
+    }
+    Surface5259d30211c6(instance: "details_edit") {
+      Vectore0a378fde04f(instance: "sliders_icon_4")
+      Text2b476a84b6c0(instance: "edit_note", text: copy.edit_note_text)
+    }
+    KitButton5dc7ea8cd583(instance: "arrange_desktop") {
+      Surface93a316bf76d8(instance: "arrange_desktop_surface") {
+
+      }
+      NativeButton02f1d1bd99b4(instance: "arrange_desktop_control", enabled: arrange_desktop_control_enabled)
+      Textecec43254799(instance: "arrange_desktop_text", text: copy.arrange_desktop_text_text)
+    }
+    Vectore0a378fde04f(instance: "back_icon_0")
+    Texta862ba22a153(instance: "status_time", text: copy.status_time_text)
+    Text94194e1885fc(instance: "title", text: copy.title_text)
+  }
+}

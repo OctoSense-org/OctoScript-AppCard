@@ -47,7 +47,7 @@ def main():
             message=decode_message(msg.as_bytes(),'fixture-pop-uid');message.pop('attachment_items');message.update(labels=['\\Inbox'],gmail_id='123456')
             box=fixture();box.update(address=config['address'],host=config['host'],account_id=account_id(config),messages=[message],has_more=False,available=1)
             atomic_json(private/'mailbox.json',box)
-            app=MailSession();process,instrument=launch_native(app,hidden=True);settled()
+            app=MailSession();process,instrument=launch_native(app,hidden=True);settled(poll=app.poll)
             (out/'protocol.txt').write_text(instrument.get('/'))
 
             def pump(seconds=.7):
@@ -57,7 +57,9 @@ def main():
                 while any(app.state.get(k) for k in ('remote_busy','send_busy','attachment_busy','loading_more','account_busy')):
                     app.poll();time.sleep(.05)
                     if time.monotonic()>deadline:raise AssertionError('Fixture operation did not complete')
-                settled()
+                # This fixture owns the controller in-process. Keep consuming
+                # native events and worker results while waiting for a remount.
+                settled(poll=app.poll)
 
             def click(ident):
                 meta=settled();node=next(n for n in read(meta['mapping'])['elements'] if n['source_id']==ident)

@@ -1,0 +1,13 @@
+diff --git a/makepad.splash b/makepad.splash
+index 2059dbd..eae006a 100644
+--- a/makepad.splash
++++ b/makepad.splash
+@@ -9,7 +9,7 @@ hub.set_run_items([
+         on_run: fn(id) {
+             hub.run(
+                 {"STUDIO_HOST": hub.studio_local_host() "STUDIO_BUILD": id.to_string()
+-                 "STUDIO_CRATE": "kit-host" "BEAUTY_REQUEST": "../lab/ux-image/current-request.json"},
++                 "STUDIO_CRATE": "kit-host" "BEAUTY_REQUEST": "../lab/image-to-appcard/current-request.json"},
+                 "cargo",
+                 ["run" "-p" "kit-host" "--bin" "beauty-host" "--release" "--message-format=json"
+                  "--" "--message-format=json" "--stdin-loop"]

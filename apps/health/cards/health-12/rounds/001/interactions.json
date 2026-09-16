@@ -1,0 +1,33 @@
+{
+  "pass": true,
+  "controls": [
+    {
+      "id": "return_booking_control",
+      "expected_action_owner": "beauty_0_0_2_2",
+      "pass": true,
+      "events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_0_2_2"
+        }
+      ],
+      "scope": "native KitButton activation; no production navigation or data feeds"
+    },
+    {
+      "id": "cancel_booking_control",
+      "expected_action_owner": "beauty_0_0_2_3",
+      "pass": true,
+      "events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_0_2_3"
+        }
+      ],
+      "scope": "native KitButton activation; no production navigation or data feeds"
+    }
+  ]
+}

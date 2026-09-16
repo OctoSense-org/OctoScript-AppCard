@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.1.0",
+  "contract_sha256": "d6f6010abdf602bed2a6c5624481f9250e5f486e819744f164a130ad8b6c390c",
+  "reference_sha256": "456a3f86b9444319924135415dbf2a0ce1bddf00b6ed5dcb354c68c7cc31a16e",
+  "classification_scope": "Authored intent and explicit review candidates; no claim of automatic visual recognition.",
+  "elements": [
+    {
+      "id": "rsvp_summary",
+      "role": "card",
+      "basis": "Explicit event-specific service composition with native children",
+      "confidence": 1,
+      "decision": "reviewed"
+    },
+    {
+      "id": "view_reunion",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "view_reunion_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "view_reunion_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "group_icon_1",
+      "role": "icon",
+      "basis": "Reviewed artwork-only source region or native vector icon",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/group_icon_1.svg",
+        "sha256": "a863d3bd8d66ea77c53543b8771a29cc3c5e135065d65081e155ae50be06d57e",
+        "method": "reference_svg",
+        "reference_sha256": "456a3f86b9444319924135415dbf2a0ce1bddf00b6ed5dcb354c68c7cc31a16e",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native SVG reconstruction of a reviewed line symbol; no embedded raster or text"
+      }
+    },
+    {
+      "id": "text_48",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_49",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    }
+  ]
+}

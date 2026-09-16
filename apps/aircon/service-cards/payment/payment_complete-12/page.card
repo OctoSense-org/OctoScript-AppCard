@@ -1,0 +1,93 @@
+# ledger payment_complete-12@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy text_203_text { class: user-copy, en: "安装服务单" }
+copy text_204_text { class: user-copy, en: "查看凭证" }
+copy text_197_text { class: user-copy, en: "支付 · 已完成" }
+copy text_198_text { class: user-copy, en: "空调安装材料费" }
+copy text_199_text { class: user-copy, en: "¥130" }
+copy text_200_text { class: user-copy, en: "已支付" }
+copy text_201_text { class: user-copy, en: "加长铜管 2米" }
+copy text_202_text { class: user-copy, en: "收款方：安装服务团队" }
+copy text_215_text { class: user-copy, en: "¥130" }
+state source_service_order_control_enabled { shape: bool, initial: true }
+state view_payment_receipt_control_enabled { shape: bool, initial: true }
+component Surface0a1823aa4964(instance: text) {
+  view Kit(component: "Surface0a1823aa4964", instance: instance) { slot }
+}
+component Surface3c3bbeb094ae(instance: text) {
+  view Kit(component: "Surface3c3bbeb094ae", instance: instance) { slot }
+}
+component KitButton5dc7ea8cd583(instance: text) {
+  view Kit(component: "KitButton5dc7ea8cd583", instance: instance) { slot }
+}
+component Group3d2637879433(instance: text) {
+  view Kit(component: "Group3d2637879433", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Text09a49076dc3b(instance: text, text: text) {
+  view Kit(component: "Text09a49076dc3b", instance: instance, text: text)
+}
+component Surfaced8d7ceb3e964(instance: text) {
+  view Kit(component: "Surfaced8d7ceb3e964", instance: instance) { slot }
+}
+component Text133d822df4e6(instance: text, text: text) {
+  view Kit(component: "Text133d822df4e6", instance: instance, text: text)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Texta3919a7a9491(instance: text, text: text) {
+  view Kit(component: "Texta3919a7a9491", instance: instance, text: text)
+}
+component Textee995e5d3e4d(instance: text, text: text) {
+  view Kit(component: "Textee995e5d3e4d", instance: instance, text: text)
+}
+component Text886fcaf7eb2a(instance: text, text: text) {
+  view Kit(component: "Text886fcaf7eb2a", instance: instance, text: text)
+}
+component Text37785e2dc1a5(instance: text, text: text) {
+  view Kit(component: "Text37785e2dc1a5", instance: instance, text: text)
+}
+component Texta995c0fe3f25(instance: text, text: text) {
+  view Kit(component: "Texta995c0fe3f25", instance: instance, text: text)
+}
+component Text8a125b41a0fe(instance: text, text: text) {
+  view Kit(component: "Text8a125b41a0fe", instance: instance, text: text)
+}
+component Texte65d47dd3230(instance: text, text: text) {
+  view Kit(component: "Texte65d47dd3230", instance: instance, text: text)
+}
+
+view root Surface0a1823aa4964(instance: "payment_complete") {
+  Surface3c3bbeb094ae(instance: "divider_0") {
+
+  }
+  KitButton5dc7ea8cd583(instance: "source_service_order") {
+    Group3d2637879433(instance: "source_service_order_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "source_service_order_control", enabled: source_service_order_control_enabled)
+    Text09a49076dc3b(instance: "text_203", text: copy.text_203_text)
+  }
+  KitButton5dc7ea8cd583(instance: "view_payment_receipt") {
+    Surfaced8d7ceb3e964(instance: "view_payment_receipt_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "view_payment_receipt_control", enabled: view_payment_receipt_control_enabled)
+    Text133d822df4e6(instance: "text_204", text: copy.text_204_text)
+  }
+  Vectore0a378fde04f(instance: "wallet_icon_0")
+  Vectore0a378fde04f(instance: "check_icon_1")
+  Texta3919a7a9491(instance: "text_197", text: copy.text_197_text)
+  Textee995e5d3e4d(instance: "text_198", text: copy.text_198_text)
+  Text886fcaf7eb2a(instance: "text_199", text: copy.text_199_text)
+  Text37785e2dc1a5(instance: "text_200", text: copy.text_200_text)
+  Texta995c0fe3f25(instance: "text_201", text: copy.text_201_text)
+  Text8a125b41a0fe(instance: "text_202", text: copy.text_202_text)
+  Texte65d47dd3230(instance: "text_215", text: copy.text_215_text)
+}

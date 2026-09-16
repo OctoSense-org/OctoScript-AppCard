@@ -57,7 +57,7 @@ def short(value, length):
 def mail_advances(size, weight):
     # Native Makepad uses unhinted font advances. Pillow's basic layout rounds
     # small glyphs to whole pixels and can underestimate a long line's width.
-    with TTFont(NATIVE_ROOT/'splash-makepad/apps/kit-host/resources/ux'/f'Inter-{weight}.ttf') as font:
+    with TTFont(NATIVE_ROOT/'octoscript-makepad/apps/kit-host/resources/ux'/f'Inter-{weight}.ttf') as font:
         scale=size/font['head'].unitsPerEm
         return {chr(c):font['hmtx'][glyph][0]*scale for c,glyph in font.getBestCmap().items()}
 

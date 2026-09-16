@@ -1,0 +1,82 @@
+diff --git a/platform/script/src/vm.rs b/platform/script/src/vm.rs
+index dac57c6..3c08f7d 100644
+--- a/platform/script/src/vm.rs
++++ b/platform/script/src/vm.rs
+@@ -500,6 +500,7 @@ pub fn drain_errors(&mut self) {
+         loop {
+             let err = self.bx.threads.cur().trap.err.borrow_mut().pop_front();
+             if let Some(err) = err {
++                self.bx.uncaught_error_count = self.bx.uncaught_error_count.saturating_add(1);
+                 if self.bx.silence_errors {
+                     continue;
+                 }
+@@ -1118,6 +1119,16 @@ pub fn add_script_mod(&mut self, new_mod: ScriptMod) -> u16 {
+         i as u16
+     }
+ 
++    /// Backported from OctoSense Makepad 5b6932cf for the pinned Splash host.
++    /// Native calls and parsing are outside the bytecode instruction budget.
++    pub fn eval_checked(&mut self, script_mod: ScriptMod, limit: usize) -> Option<ScriptValue> {
++        let errors = self.bx.uncaught_error_count;
++        let value = self.with_instruction_limit(limit, |vm| vm.eval(script_mod));
++        self.drain_errors();
++        (!value.is_nil() && !value.is_err() && self.bx.uncaught_error_count == errors)
++            .then_some(value)
++    }
++
+     pub fn eval(&mut self, script_mod: ScriptMod) -> ScriptValue {
+         self.eval_with_source(script_mod, ScriptObject::ZERO)
+     }
+@@ -1300,6 +1311,8 @@ pub struct ScriptVmBase {
+     pub is_reload: bool,
+     pub debug_trace: bool,
+     pub silence_errors: bool,
++    /// Number of uncaught errors drained; checked evaluation rejects recovery.
++    pub uncaught_error_count: usize,
+     pub run_budget: Option<ScriptRunBudget>,
+ }
+ 
+@@ -1314,6 +1327,7 @@ pub fn empty() -> Self {
+             is_reload: false,
+             debug_trace: false,
+             silence_errors: false,
++            uncaught_error_count: 0,
+             run_budget: None,
+         }
+     }
+@@ -1346,6 +1360,7 @@ pub fn new() -> Self {
+             is_reload: false,
+             debug_trace: false,
+             silence_errors: false,
++            uncaught_error_count: 0,
+             run_budget: None,
+         }
+     }
+@@ -1355,6 +1370,27 @@ pub fn new() -> Self {
+ mod tests {
+     use super::*;
+ 
++    #[test]
++    fn eval_checked_preserves_instruction_limit_and_rejects_recovered_error() {
++        fn checked(code: &str, limit: usize) -> Option<ScriptValue> {
++            let mut host = ();
++            let mut std = ();
++            let mut vm = ScriptVm {
++                host: &mut host,
++                std: &mut std,
++                bx: Box::new(ScriptVmBase::new()),
++            };
++            vm.eval_checked(ScriptMod {
++                cargo_manifest_path: String::new(), module_path: "checked-test".into(),
++                file: "checked-test.splash".into(), line: 0, column: 0,
++                code: code.into(), values: Vec::new(),
++            }, limit)
++        }
++        assert!(checked("{ t: \"stack\" }", 1024).is_some());
++        assert!(checked("loop {}", 1024).is_none());
++        assert!(checked("missing_function(); { t: \"stack\" }", 1024).is_none());
++    }
++
+     #[derive(Script, ScriptHook, Default)]
+     struct ApplyEvalParityTest {
+         #[source]

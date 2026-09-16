@@ -20,6 +20,8 @@ from package import package_runtime
 from publish import publish_package
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parents[1]))
+from core.native_paths import repository, adapt_cargo_paths, cargo_paths, WORKSPACE as NATIVE_WORKSPACE
 
 
 def sha(path: Path) -> str:
@@ -34,7 +36,15 @@ def check_dependency(repo: Path, spec: dict) -> dict:
     revision = git(repo, "rev-parse", "HEAD").decode().strip()
     if revision != spec["revision"]:
         raise RuntimeError(f"{repo.name}: revision {revision} differs from locked {spec['revision']}")
-    patch = git(repo, "diff", "HEAD", "--binary", "--full-index", "--no-ext-diff")
+    manifest_changes = {}
+    for name in git(repo, "diff", "--name-only", "HEAD").decode().splitlines():
+        if name.endswith('Cargo.toml') and name not in spec['modified_sources']:
+            original = git(repo, 'show', 'HEAD:' + name).decode()
+            if (repo / name).read_text() != cargo_paths(original):
+                raise RuntimeError(f'{repo.name}/{name}: unexpected manifest edit')
+            manifest_changes[name] = sha(repo / name)
+    patch = git(repo, "diff", "HEAD", "--binary", "--full-index", "--no-ext-diff", '--', '.',
+                *(':(exclude)' + name for name in manifest_changes))
     if hashlib.sha256(patch).hexdigest() != spec["patch_sha256"]:
         raise RuntimeError(f"{repo.name}: tracked changes differ from the recorded compatibility patch")
     for name, expected in spec["modified_sources"].items():
@@ -43,12 +53,13 @@ def check_dependency(repo: Path, spec: dict) -> dict:
     untracked = git(repo, "ls-files", "--others", "--exclude-standard").decode().splitlines()
     # Existing native kit-host font copies are outside the browser dependency graph.
     unexpected = [p for p in untracked if not (
-        repo.name == "splash-makepad" and re.fullmatch(
+        p == 'LICENSE-APACHE' or repo.name in ("splash-makepad", "octoscript-makepad") and re.fullmatch(
             r"apps/kit-host/resources/service/(NotoSansSC-(Regular|Medium|Bold)\.ttf|OFL\.txt)", p))]
     if unexpected:
         raise RuntimeError(f"{repo.name}: unrecorded source files: {unexpected}")
     return {"revision": revision, "patch_sha256": spec["patch_sha256"],
-            "modified_sources": spec["modified_sources"], "ignored_native_resource_files": untracked}
+            "modified_sources": spec["modified_sources"], "directory_path_adaptations": manifest_changes,
+            "ignored_native_resource_files": untracked}
 
 
 def prepare_dependencies(workspace: Path, scratch: Path, mode: str, lock: dict) -> tuple[dict, dict]:
@@ -57,11 +68,11 @@ def prepare_dependencies(workspace: Path, scratch: Path, mode: str, lock: dict) 
         patch = HERE / spec["patch"]
         if sha(patch) != spec["patch_sha256"]:
             raise RuntimeError(f"Bundled patch was modified without updating dependency lock: {name}")
-        source = workspace / name
+        source = repository(name, workspace)
         if mode == "existing":
             repo = source
         else:
-            repo = scratch / "dependencies" / name
+            repo = repository(name, scratch / "dependencies")
             if not repo.exists():
                 repo.parent.mkdir(parents=True, exist_ok=True)
                 if (source / ".git").exists():
@@ -86,6 +97,8 @@ def prepare_dependencies(workspace: Path, scratch: Path, mode: str, lock: dict) 
                 if patch.stat().st_size:
                     subprocess.run(["git", "-C", str(repo), "apply", "--check", str(patch)], check=True)
                     subprocess.run(["git", "-C", str(repo), "apply", str(patch)], check=True)
+        if mode != 'existing':
+            adapt_cargo_paths(repo)
         evidence[name] = check_dependency(repo, spec)
         dependencies[name] = repo
     return dependencies, evidence
@@ -114,10 +127,10 @@ def run(args: argparse.Namespace) -> dict:
         raise RuntimeError("Output already exists; use a new output directory to retain previous package evidence")
     if output == project or output in project.parents or output == HERE or output in HERE.parents:
         raise RuntimeError("Package output must not replace project or pipeline source directories")
-    scratch = (args.build_dir or output.parent / f".{output.name}-build").resolve()
+    scratch = (args.build_dir or NATIVE_WORKSPACE / '.appcard-native/wasm' / project.name).resolve()
     if scratch == output or output in scratch.parents or scratch in output.parents:
         raise RuntimeError("Build directory and package output must be separate directory trees")
-    for protected in (workspace / "makepad", workspace / "splash", workspace / "splash-makepad"):
+    for protected in (repository(name, workspace) for name in ('makepad', 'splash', 'splash-makepad')):
         if scratch == protected or protected in scratch.parents:
             raise RuntimeError("Build directory must not be inside a source submodule")
         if output == protected or protected in output.parents:

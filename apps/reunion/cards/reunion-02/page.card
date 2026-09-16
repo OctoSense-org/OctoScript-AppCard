@@ -1,0 +1,139 @@
+# ledger reunion-02@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy text_61_text { class: user-copy, en: "十年同窗 再聚一堂" }
+copy text_62_text { class: user-copy, en: "2016届同学聚会" }
+copy text_63_text { class: user-copy, en: "周五10月23日 18:30" }
+copy text_64_text { class: user-copy, en: "周六 10月24日 18:30" }
+copy text_65_text { class: user-copy, en: "周日 10月25日 12:00" }
+copy text_66_text { class: user-copy, en: "去投票" }
+copy text_67_text { class: user-copy, en: "群资料" }
+copy text_54_text { class: user-copy, en: "9:41" }
+copy text_56_text { class: user-copy, en: "2016届同学群" }
+copy text_57_text { class: user-copy, en: "王宁" }
+copy text_58_text { class: user-copy, en: "09:24" }
+copy text_59_text { class: user-copy, en: "好久不见，找个周末一起吃饭吧" }
+state back_messages_control_enabled { shape: bool, initial: true }
+state open_poll_control_enabled { shape: bool, initial: true }
+state group_info_control_enabled { shape: bool, initial: true }
+component Surface991755d1cfb2(instance: text) {
+  view Kit(component: "Surface991755d1cfb2", instance: instance) { slot }
+}
+component Surface18f6d557518f(instance: text) {
+  view Kit(component: "Surface18f6d557518f", instance: instance) { slot }
+}
+component Surfacec68b2b978c4e(instance: text) {
+  view Kit(component: "Surfacec68b2b978c4e", instance: instance) { slot }
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Textb369840b6e5d(instance: text, text: text) {
+  view Kit(component: "Textb369840b6e5d", instance: instance, text: text)
+}
+component Textda4a89d5e5af(instance: text, text: text) {
+  view Kit(component: "Textda4a89d5e5af", instance: instance, text: text)
+}
+component Textecd2510db07b(instance: text, text: text) {
+  view Kit(component: "Textecd2510db07b", instance: instance, text: text)
+}
+component Textd0f3fac3f89e(instance: text, text: text) {
+  view Kit(component: "Textd0f3fac3f89e", instance: instance, text: text)
+}
+component Textdf67f996fbb6(instance: text, text: text) {
+  view Kit(component: "Textdf67f996fbb6", instance: instance, text: text)
+}
+component Surface4b08a31684e2(instance: text) {
+  view Kit(component: "Surface4b08a31684e2", instance: instance) { slot }
+}
+component Imageec6f4cac3824(instance: text) {
+  view Kit(component: "Imageec6f4cac3824", instance: instance)
+}
+component KitButtonc745f1e63f07(instance: text) {
+  view Kit(component: "KitButtonc745f1e63f07", instance: instance) { slot }
+}
+component Surface1cc6a0b4e6b7(instance: text) {
+  view Kit(component: "Surface1cc6a0b4e6b7", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component KitButton3f1620e22939(instance: text) {
+  view Kit(component: "KitButton3f1620e22939", instance: instance) { slot }
+}
+component Surface592192b269fb(instance: text) {
+  view Kit(component: "Surface592192b269fb", instance: instance) { slot }
+}
+component Text7024eac4a07d(instance: text, text: text) {
+  view Kit(component: "Text7024eac4a07d", instance: instance, text: text)
+}
+component Surface02d4c6df0c63(instance: text) {
+  view Kit(component: "Surface02d4c6df0c63", instance: instance) { slot }
+}
+component Text426361dcad91(instance: text, text: text) {
+  view Kit(component: "Text426361dcad91", instance: instance, text: text)
+}
+component Textabb3b01a45c0(instance: text, text: text) {
+  view Kit(component: "Textabb3b01a45c0", instance: instance, text: text)
+}
+component Text29348ee0d0f4(instance: text, text: text) {
+  view Kit(component: "Text29348ee0d0f4", instance: instance, text: text)
+}
+component Text10c4d18db3f7(instance: text, text: text) {
+  view Kit(component: "Text10c4d18db3f7", instance: instance, text: text)
+}
+component Text283a54e3b045(instance: text, text: text) {
+  view Kit(component: "Text283a54e3b045", instance: instance, text: text)
+}
+component Text2c3e4190ecb7(instance: text, text: text) {
+  view Kit(component: "Text2c3e4190ecb7", instance: instance, text: text)
+}
+
+view root Surface991755d1cfb2(instance: "page") {
+  Surface18f6d557518f(instance: "screen") {
+    Surfacec68b2b978c4e(instance: "invitation") {
+      Vectore0a378fde04f(instance: "calendar_icon_1")
+      Vectore0a378fde04f(instance: "calendar_icon_2")
+      Vectore0a378fde04f(instance: "calendar_icon_3")
+      Vectore0a378fde04f(instance: "calendar_icon_4")
+      Textb369840b6e5d(instance: "text_61", text: copy.text_61_text)
+      Textda4a89d5e5af(instance: "text_62", text: copy.text_62_text)
+      Textecd2510db07b(instance: "text_63", text: copy.text_63_text)
+      Textd0f3fac3f89e(instance: "text_64", text: copy.text_64_text)
+      Textdf67f996fbb6(instance: "text_65", text: copy.text_65_text)
+    }
+    Surface4b08a31684e2(instance: "invitation_message") {
+
+    }
+    Imageec6f4cac3824(instance: "organizer_avatar")
+    Imageec6f4cac3824(instance: "venue_photo")
+    KitButtonc745f1e63f07(instance: "back_messages") {
+      Surface1cc6a0b4e6b7(instance: "back_messages_surface") {
+
+      }
+      NativeButton02f1d1bd99b4(instance: "back_messages_control", enabled: back_messages_control_enabled)
+    }
+    KitButton3f1620e22939(instance: "open_poll") {
+      Surface592192b269fb(instance: "open_poll_surface") {
+
+      }
+      NativeButton02f1d1bd99b4(instance: "open_poll_control", enabled: open_poll_control_enabled)
+      Text7024eac4a07d(instance: "text_66", text: copy.text_66_text)
+    }
+    KitButton3f1620e22939(instance: "group_info") {
+      Surface02d4c6df0c63(instance: "group_info_surface") {
+
+      }
+      NativeButton02f1d1bd99b4(instance: "group_info_control", enabled: group_info_control_enabled)
+      Text426361dcad91(instance: "text_67", text: copy.text_67_text)
+    }
+    Vectore0a378fde04f(instance: "back_icon_0")
+    Textabb3b01a45c0(instance: "text_54", text: copy.text_54_text)
+    Text29348ee0d0f4(instance: "text_56", text: copy.text_56_text)
+    Text10c4d18db3f7(instance: "text_57", text: copy.text_57_text)
+    Text283a54e3b045(instance: "text_58", text: copy.text_58_text)
+    Text2c3e4190ecb7(instance: "text_59", text: copy.text_59_text)
+  }
+}

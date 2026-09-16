@@ -1,0 +1,56 @@
+{
+  "pass": true,
+  "controls": [
+    {
+      "id": "conflict_slot_control",
+      "pass": true,
+      "enabled": false,
+      "events": [],
+      "query_evidence": "conflict_slot_control-disabled-query.json",
+      "snapshot_evidence": "conflict_slot_control-disabled-snapshot.json",
+      "scope": "native disabled Button ignores actual Studio click"
+    },
+    {
+      "id": "afternoon_control",
+      "expected_action_owner": "beauty_0_0_2_2",
+      "pass": true,
+      "events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_0_2_2"
+        }
+      ],
+      "scope": "native KitButton activation; no production navigation or data feeds"
+    },
+    {
+      "id": "confirm_booking_control",
+      "expected_action_owner": "beauty_0_0_2_3",
+      "pass": true,
+      "events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_0_2_3"
+        }
+      ],
+      "scope": "native KitButton activation; no production navigation or data feeds"
+    },
+    {
+      "id": "cancel_selection_control",
+      "expected_action_owner": "beauty_0_0_2_4",
+      "pass": true,
+      "events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_0_2_4"
+        }
+      ],
+      "scope": "native KitButton activation; no production navigation or data feeds"
+    }
+  ]
+}

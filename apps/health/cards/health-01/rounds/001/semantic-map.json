@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.1.0",
+  "contract_sha256": "b13716121a4ad0a9dd0de0802ae0eb8805e1234f32b554b8418ddfb5898e43b1",
+  "reference_sha256": "431906c484527746531cb4cc2777454d79c734e413c39a236dad1b1e1f465c37",
+  "classification_scope": "Authored intent and explicit review candidates; no claim of automatic visual recognition.",
+  "elements": [
+    {
+      "id": "page",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "screen",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "open_details",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "open_details_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "open_details_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "open_details_text",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "clinic_photo",
+      "role": "photo",
+      "basis": "Explicit inspected source region or traced vector symbol",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/clinic_photo.png",
+        "sha256": "00c1c550ccfedb37d953fa923fa444ddad3f50f21546958e2a3f0aa909a4c61f",
+        "method": "source_crop",
+        "reference_sha256": "431906c484527746531cb4cc2777454d79c734e413c39a236dad1b1e1f465c37",
+        "crop_pixels": [
+          67,
+          221,
+          678,
+          653
+        ],
+        "contains_ui": false,
+        "fit": "contain",
+        "clip": true,
+        "notes": "Visually inspected empty waiting-room photograph; no UI, text, diagnostics or people"
+      }
+    },
+    {
+      "id": "dock",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "dock_icon_heart",
+      "role": "icon",
+      "basis": "Explicit inspected source region or traced vector symbol",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/dock_icon_heart.svg",
+        "sha256": "2b22eedb8ac2a5c9900ec3322b642276bd7df7d765b7a57cdbd7a3cdf2b74bc3",
+        "method": "reference_svg",
+        "reference_sha256": "431906c484527746531cb4cc2777454d79c734e413c39a236dad1b1e1f465c37",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector tracing of visible source symbol; shape approximation, no raster or text"
+      }
+    },
+    {
+      "id": "dock_icon_calendar",
+      "role": "icon",
+      "basis": "Explicit inspected source region or traced vector symbol",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/dock_icon_calendar.svg",
+        "sha256": "eb7e019ef6117f168130e94bb240953b38c1f8fd95434029322b0c38ad998550",
+        "method": "reference_svg",
+        "reference_sha256": "431906c484527746531cb4cc2777454d79c734e413c39a236dad1b1e1f465c37",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector tracing of visible source symbol; shape approximation, no raster or text"
+      }
+    },
+    {
+      "id": "dock_icon_mail",
+      "role": "icon",
+      "basis": "Explicit inspected source region or traced vector symbol",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/dock_icon_mail.svg",
+        "sha256": "15d753dccafef2720d25c32622d763eec99dd814785def83c52611c446bd8d9f",
+        "method": "reference_svg",
+        "reference_sha256": "431906c484527746531cb4cc2777454d79c734e413c39a236dad1b1e1f465c37",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector tracing of visible source symbol; shape approximation, no raster or text"
+      }
+    },
+    {
+      "id": "dock_icon_person",
+      "role": "icon",
+      "basis": "Explicit inspected source region or traced vector symbol",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/dock_icon_person.svg",
+        "sha256": "116613922fc64787b76123a875f9cba58961c066f1d17c9dfaa04f10d0789e6c",
+        "method": "reference_svg",
+        "reference_sha256": "431906c484527746531cb4cc2777454d79c734e413c39a236dad1b1e1f465c37",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector tracing of visible source symbol; shape approximation, no raster or text"
+      }
+    },
+    {
+      "id": "dock_health",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "dock_calendar",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "dock_mail",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "dock_profile",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "title",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "heading",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "provider_name",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "tagline",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "status_time",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    }
+  ]
+}

@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.1.0",
+  "contract_sha256": "92ed3ab2d3acd5dcbb9d6428eeefb02694437d9dedaf7b00ee707b57bc4feb5f",
+  "reference_sha256": "e815c0c842063b5748f28fa2eca1ba57bbffcca696862a9ada4b908098ec1337",
+  "classification_scope": "Authored intent and explicit review candidates; no claim of automatic visual recognition.",
+  "elements": [
+    {
+      "id": "order_card",
+      "role": "card",
+      "basis": "Service-owned card surface with native child widgets",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "product_photo",
+      "role": "photo",
+      "basis": "Visual source-region review and explicit native renderer ownership",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/product_photo.png",
+        "sha256": "c009f411fcd98950f99993e4c904b516ed3c85d2e7cae7fe35c839264ad7e7de",
+        "method": "source_crop",
+        "reference_sha256": "e815c0c842063b5748f28fa2eca1ba57bbffcca696862a9ada4b908098ec1337",
+        "crop_pixels": [
+          39,
+          157,
+          197,
+          197
+        ],
+        "contains_ui": false,
+        "fit": "contain",
+        "clip": true,
+        "notes": "Artwork-only source region; product photography or technician portrait, visually reviewed"
+      }
+    },
+    {
+      "id": "view_order",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "view_order_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "view_order_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_110",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "collapse",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "collapse_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "collapse_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_111",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "order_icon_0",
+      "role": "icon",
+      "basis": "Visual source-region review and explicit native renderer ownership",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/order_icon_0.svg",
+        "sha256": "21092ea107db3e4f3ae713f29e2e667d7a8ba0dd71c2f1d90f4d8145fbf4d17b",
+        "method": "reference_svg",
+        "reference_sha256": "e815c0c842063b5748f28fa2eca1ba57bbffcca696862a9ada4b908098ec1337",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector reconstruction of the reviewed source symbol; no embedded text or raster UI"
+      }
+    },
+    {
+      "id": "text_105",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_106",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_107",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_108",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_109",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    }
+  ]
+}

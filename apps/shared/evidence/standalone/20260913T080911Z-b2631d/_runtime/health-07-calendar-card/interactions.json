@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "buttons": [
+    {
+      "source_id": "calendar_confirm_control",
+      "native_id": "beauty_0_0_1",
+      "kit_action_id": "beauty_0_0",
+      "enabled": true,
+      "passed": true,
+      "activated_events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_0"
+        }
+      ],
+      "evidence": "controls/01-calendar_confirm_control"
+    },
+    {
+      "source_id": "calendar_undo_control",
+      "native_id": "beauty_0_1_1",
+      "kit_action_id": "beauty_0_1",
+      "enabled": true,
+      "passed": true,
+      "activated_events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_1"
+        }
+      ],
+      "evidence": "controls/02-calendar_undo_control"
+    }
+  ],
+  "fixture_state": "unchanged; KitAction is observed without a reducer or external service"
+}

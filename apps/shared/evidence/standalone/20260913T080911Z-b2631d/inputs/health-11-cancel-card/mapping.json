@@ -1,0 +1,316 @@
+{
+  "schema_version": 1,
+  "elements": [
+    {
+      "source_id": "cancel_card",
+      "native_id": "beauty_0",
+      "parent": null,
+      "kind": "stack",
+      "component": "Surface5259d30211c6",
+      "semantic_role": "card",
+      "bounds": [
+        0.0,
+        0.0,
+        331.27485380116957,
+        461.364522417154
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "cancel_summary",
+      "native_id": "beauty_0_0",
+      "parent": "cancel_card",
+      "kind": "stack",
+      "component": "Surfacef37d7030b284",
+      "semantic_role": "card",
+      "bounds": [
+        18.152046783625728,
+        167.90643274853798,
+        294.9707602339181,
+        137.65302144249512
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "clinic_icon_0",
+      "native_id": "beauty_0_0_0",
+      "parent": "cancel_summary",
+      "kind": "svg",
+      "component": "Vectore0a378fde04f",
+      "semantic_role": "icon",
+      "bounds": [
+        31.766081871345023,
+        190.59649122807016,
+        30.253411306042885,
+        33.278752436647174
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "calendar_icon_1",
+      "native_id": "beauty_0_0_1",
+      "parent": "cancel_summary",
+      "kind": "svg",
+      "component": "Vectore0a378fde04f",
+      "semantic_role": "icon",
+      "bounds": [
+        31.766081871345023,
+        245.05263157894737,
+        24.202729044834307,
+        25.71539961013645
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "provider_name",
+      "native_id": "beauty_0_0_2",
+      "parent": "cancel_summary",
+      "kind": "text",
+      "component": "Text550edb62d31f",
+      "semantic_role": "text",
+      "bounds": [
+        67.77940291092501,
+        193.1345029239766,
+        160.82113851944476,
+        28.202729044834307
+      ],
+      "text": "\u5b89\u5fc3\u4f53\u68c0\u4e2d\u5fc3",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 26.13685641990746
+    },
+    {
+      "source_id": "appointment_time",
+      "native_id": "beauty_0_0_3",
+      "parent": "cancel_summary",
+      "kind": "text",
+      "component": "Text60adcfddfaf2",
+      "semantic_role": "text",
+      "bounds": [
+        69.2614806458871,
+        252.48319198790742,
+        231.89448903552253,
+        20.40093126009744
+      ],
+      "text": "\u5468\u65e5 10\u670825\u65e5 10:00\u201311:00",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 18.679876150452667
+    },
+    {
+      "source_id": "keep_booking",
+      "native_id": "beauty_0_1",
+      "parent": "cancel_card",
+      "kind": "stack",
+      "component": "KitButton5dc7ea8cd583",
+      "semantic_role": "button",
+      "bounds": [
+        21.177387914230017,
+        382.70565302144246,
+        139.16569200779728,
+        57.48148148148148
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "keep_booking_surface",
+      "native_id": "beauty_0_1_0",
+      "parent": "keep_booking",
+      "kind": "stack",
+      "component": "Surfacef38cb6e126ad",
+      "semantic_role": "layout",
+      "bounds": [
+        21.177387914230017,
+        382.70565302144246,
+        139.16569200779728,
+        57.48148148148148
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "keep_booking_control",
+      "native_id": "beauty_0_1_1",
+      "parent": "keep_booking",
+      "kind": "button",
+      "component": "NativeButton02f1d1bd99b4",
+      "semantic_role": "button",
+      "bounds": [
+        21.177387914230017,
+        382.70565302144246,
+        139.16569200779728,
+        57.48148148148148
+      ],
+      "text": null,
+      "enabled": 1,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "keep_booking_text",
+      "native_id": "beauty_0_1_2",
+      "parent": "keep_booking",
+      "kind": "text",
+      "component": "Texted6d017ac9da",
+      "semantic_role": "text",
+      "bounds": [
+        47.78851464994109,
+        402.00406419586545,
+        88.8478904575781,
+        23.515014805242963
+      ],
+      "text": "\u4fdd\u7559\u9884\u7ea6",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 21.211972614394526
+    },
+    {
+      "source_id": "confirm_cancel",
+      "native_id": "beauty_0_2",
+      "parent": "cancel_card",
+      "kind": "stack",
+      "component": "KitButton5dc7ea8cd583",
+      "semantic_role": "button",
+      "bounds": [
+        170.9317738791423,
+        382.70565302144246,
+        137.65302144249512,
+        57.48148148148148
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "confirm_cancel_surface",
+      "native_id": "beauty_0_2_0",
+      "parent": "confirm_cancel",
+      "kind": "stack",
+      "component": "Surfacec4337a9ebda3",
+      "semantic_role": "layout",
+      "bounds": [
+        170.9317738791423,
+        382.70565302144246,
+        137.65302144249512,
+        57.48148148148148
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "confirm_cancel_control",
+      "native_id": "beauty_0_2_1",
+      "parent": "confirm_cancel",
+      "kind": "button",
+      "component": "NativeButton02f1d1bd99b4",
+      "semantic_role": "button",
+      "bounds": [
+        170.9317738791423,
+        382.70565302144246,
+        137.65302144249512,
+        57.48148148148148
+      ],
+      "text": null,
+      "enabled": 1,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "confirm_cancel_text",
+      "native_id": "beauty_0_2_2",
+      "parent": "confirm_cancel",
+      "kind": "text",
+      "component": "Text1eabb108a667",
+      "semantic_role": "text",
+      "bounds": [
+        198.48640724305181,
+        400.4996722647145,
+        88.75935211006237,
+        23.579410337424406
+      ],
+      "text": "\u786e\u8ba4\u53d6\u6d88",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 21.18983802751559
+    },
+    {
+      "source_id": "title",
+      "native_id": "beauty_0_3",
+      "parent": "cancel_card",
+      "kind": "text",
+      "component": "Textc026327a81c6",
+      "semantic_role": "text",
+      "bounds": [
+        22.147307148056022,
+        32.355751993922155,
+        165.18397617111225,
+        28.902924318436842
+      ],
+      "text": "\u53d6\u6d88\u4f53\u68c0\u9884\u7ea6",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 26.86399602851871
+    },
+    {
+      "source_id": "cancel_note",
+      "native_id": "beauty_0_4",
+      "parent": "cancel_card",
+      "kind": "text",
+      "component": "Text450c3c605097",
+      "semantic_role": "text",
+      "bounds": [
+        26.029848151170654,
+        84.12505328764533,
+        268.1014064438694,
+        22.99498577115522
+      ],
+      "text": "\u8fd9\u4f1a\u53d6\u6d88\u9884\u7ea6\u5e76\u79fb\u9664\u5173\u8054\u65e5\u5386",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 20.315492803374568
+    },
+    {
+      "source_id": "scope_note",
+      "native_id": "beauty_0_5",
+      "parent": "cancel_card",
+      "kind": "text",
+      "component": "Text221beaec165a",
+      "semantic_role": "text",
+      "bounds": [
+        26.21719709635579,
+        117.61274585238621,
+        243.3614584657036,
+        24.21516317405806
+      ],
+      "text": "\u4ec5\u64a4\u9500\u65e5\u5386\u4e0d\u4f1a\u53d6\u6d88\u9884\u7ea6",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 21.760132587791237
+    }
+  ],
+  "fonts": {
+    "self:resources/service/NotoSansSC-Regular.ttf": "62513a5d6706afa489edfd29e1c860d076a3d36f0ba865fa917ebb79a96dfef8"
+  },
+  "contract_sha256": "48b76ca22c44cf898b5ee09d9c8920c67c0d4c09e2362437ab4778c9b3a28739",
+  "mapping_basis": "mapped.json"
+}

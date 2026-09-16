@@ -1,0 +1,72 @@
+{
+  "passed": true,
+  "buttons": [
+    {
+      "source_id": "friday_control",
+      "native_id": "beauty_0_0_1",
+      "kit_action_id": "beauty_0_0",
+      "enabled": false,
+      "passed": true,
+      "activated_events": [],
+      "evidence": "controls/01-friday_control"
+    },
+    {
+      "source_id": "saturday_control",
+      "native_id": "beauty_0_1_1",
+      "kit_action_id": "beauty_0_1",
+      "enabled": true,
+      "passed": true,
+      "activated_events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_1"
+        }
+      ],
+      "evidence": "controls/02-saturday_control"
+    },
+    {
+      "source_id": "sunday_control",
+      "native_id": "beauty_0_2_1",
+      "kit_action_id": "beauty_0_2",
+      "enabled": true,
+      "passed": true,
+      "activated_events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_2"
+        }
+      ],
+      "evidence": "controls/03-sunday_control"
+    },
+    {
+      "source_id": "confirm_attendance_control",
+      "native_id": "beauty_0_3_1",
+      "kit_action_id": "beauty_0_3",
+      "enabled": false,
+      "passed": true,
+      "activated_events": [],
+      "evidence": "controls/04-confirm_attendance_control"
+    },
+    {
+      "source_id": "back_poll_control",
+      "native_id": "beauty_0_4_1",
+      "kit_action_id": "beauty_0_4",
+      "enabled": true,
+      "passed": true,
+      "activated_events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_4"
+        }
+      ],
+      "evidence": "controls/05-back_poll_control"
+    }
+  ],
+  "fixture_state": "unchanged; KitAction is observed without a reducer or external service"
+}

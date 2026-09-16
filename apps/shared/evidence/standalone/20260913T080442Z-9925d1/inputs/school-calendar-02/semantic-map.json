@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.1.0",
+  "contract_sha256": "ae1769db37362a6fb22400363fcdee03aff288cd4a4b3be6ae2d8c95acbc97ca",
+  "reference_sha256": "1bb6e9386e8c678e89a9b5309b5e4b579149e7c256a57f5d2e819ec501416feb",
+  "classification_scope": "Authored intent and explicit review candidates; no claim of automatic visual recognition.",
+  "elements": [
+    {
+      "id": "calendar_card",
+      "role": "card",
+      "basis": "Explicit independently owned service surface, native Label/Button children",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "view_calendar",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "view_calendar_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "view_calendar_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "copy_73",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "calendar_icon_1",
+      "role": "icon",
+      "basis": "Source icon inspected; native SVG paths without raster or text",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/calendar_icon_1.svg",
+        "sha256": "d1ce6830d28598a637e8f5f1d7e4e26efe008e434988d5f8dc8d0b187e9e1b30",
+        "method": "reference_svg",
+        "reference_sha256": "1bb6e9386e8c678e89a9b5309b5e4b579149e7c256a57f5d2e819ec501416feb",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Visually measured source icon reconstructed as vector paths; no text or embedded raster"
+      }
+    },
+    {
+      "id": "copy_69",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "copy_70",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "copy_71",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "copy_72",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    }
+  ]
+}

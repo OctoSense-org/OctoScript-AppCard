@@ -1,0 +1,59 @@
+use mod.prelude.widgets.*
+return View{width:Fill height:Fill flow:Overlay beauty_0 := DesignSurface {
+width: 263.54718 height: 131.77359
+abs_pos: vec2(0, 0)
+draw_bg.radius: 14.641509 draw_bg.ellipse: 0 draw_bg.border_width: 0.4 draw_bg.border_position: 0 draw_bg.border_color: #e2e8e3ff
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfcff
+beauty_0_0 := KitButton {
+contract: "{\"bindings\":{\"control\":\"beauty_0_0_1\",\"label\":\"beauty_0_0_2\"},\"widget\":\"KitButton\"}" glass: false
+width: 237.19246 height: 35.13962
+abs_pos: vec2(11.713207547169816, 84.92075471698121)
+flow: Overlay padding: 0 clip_x: false clip_y: false
+beauty_0_0_0 := DesignSurface {
+width: 237.19246 height: 35.13962
+abs_pos: vec2(11.713207547169816, 84.92075471698121)
+draw_bg.radius: 5.8566036 draw_bg.ellipse: 0 draw_bg.border_width: 0.7 draw_bg.border_position: 0 draw_bg.border_color: #a8bfb1ff
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #f9fcf9ff
+}
+beauty_0_0_1 := DesignNativeButton {
+width: 237.19246 height: 35.13962
+abs_pos: vec2(11.713207547169816, 84.92075471698121)
+enabled: true
+}
+beauty_0_0_2 := Label {
+width: 76.57257 height: 19.757198
+abs_pos: vec2(89.10487553748379, 93.6185938689843)
+clip_x: false clip_y: false
+padding: 0 text: "查看凭证" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.20072027 desc: 0.08872026 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 12.789932 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #477d64ff
+}
+}
+beauty_0_1 := Svg {
+width: 32.21132 height: 32.21132
+abs_pos: vec2(11.713207547169816, 11.713207547169816)
+animating: false draw_svg.svg: http_resource("http://127.0.0.1:8170/ux-images/school-payment-12/assets/check_icon_2-66dac3d5cf77.svg") draw_svg.preserve_viewbox: true draw_svg.preserve_aspect: false
+}
+beauty_0_2 := Label {
+width: 109.91689 height: 18.294071
+abs_pos: vec2(55.94303054168037, 16.941665171806108)
+clip_x: false clip_y: false
+padding: 0 text: "支付 · 已完成" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.18003662 desc: 0.07003662 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 11.453583 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #477d64ff
+}
+beauty_0_3 := Label {
+width: 124.394745 height: 22.946198
+abs_pos: vec2(56.076470401528184, 51.25356624865384)
+clip_x: false clip_y: false
+padding: 0 text: "¥120 已支付" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.22274214 desc: 0.1094088 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 15.422918 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #33413cff
+}
+}
+}

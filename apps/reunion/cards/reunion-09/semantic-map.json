@@ -1,0 +1,336 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.1.0",
+  "contract_sha256": "15f9c1206fa0ab1ea3692ea865f2724afd6c1fffd37cf4cb4efdaaed3cf112f2",
+  "reference_sha256": "b48d6d27efc8b83d1f9e168c3c6ac70e368bd875c82d119e8fa2c25f072cc508",
+  "classification_scope": "Authored intent and explicit review candidates; no claim of automatic visual recognition.",
+  "elements": [
+    {
+      "id": "page",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "screen",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "payment_card",
+      "role": "card",
+      "basis": "Explicit event-specific service composition with native children",
+      "confidence": 1,
+      "decision": "reviewed"
+    },
+    {
+      "id": "pay_contribution",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "pay_contribution_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "pay_contribution_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_46",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "cancel_payment",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "cancel_payment_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "cancel_payment_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_47",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "wallet_icon_0",
+      "role": "icon",
+      "basis": "Reviewed artwork-only source region or native vector icon",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/wallet_icon_0.svg",
+        "sha256": "a55d6b3117a99886252fd0de5ba8487754bd95800b2e050040539e070b7b56e5",
+        "method": "reference_svg",
+        "reference_sha256": "b48d6d27efc8b83d1f9e168c3c6ac70e368bd875c82d119e8fa2c25f072cc508",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native SVG reconstruction of a reviewed line symbol; no embedded raster or text"
+      }
+    },
+    {
+      "id": "text_36",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_37",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_38",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_39",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_40",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_41",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_42",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_43",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_44",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_45",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "rsvp_summary",
+      "role": "card",
+      "basis": "Explicit event-specific service composition with native children",
+      "confidence": 1,
+      "decision": "reviewed"
+    },
+    {
+      "id": "view_reunion",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "view_reunion_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "view_reunion_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "group_icon_1",
+      "role": "icon",
+      "basis": "Reviewed artwork-only source region or native vector icon",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/group_icon_1.svg",
+        "sha256": "a863d3bd8d66ea77c53543b8771a29cc3c5e135065d65081e155ae50be06d57e",
+        "method": "reference_svg",
+        "reference_sha256": "b48d6d27efc8b83d1f9e168c3c6ac70e368bd875c82d119e8fa2c25f072cc508",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native SVG reconstruction of a reviewed line symbol; no embedded raster or text"
+      }
+    },
+    {
+      "id": "text_48",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_49",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "dock",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "dock_message",
+      "role": "icon",
+      "basis": "Reviewed artwork-only source region or native vector icon",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/dock_message.svg",
+        "sha256": "94781da8c43a880f37575b7fa2fe3999844efe8aa5d1370e3b505fdf8c7171f6",
+        "method": "reference_svg",
+        "reference_sha256": "b48d6d27efc8b83d1f9e168c3c6ac70e368bd875c82d119e8fa2c25f072cc508",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native SVG reconstruction of a reviewed line symbol; no embedded raster or text"
+      }
+    },
+    {
+      "id": "dock_calendar",
+      "role": "icon",
+      "basis": "Reviewed artwork-only source region or native vector icon",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/dock_calendar.svg",
+        "sha256": "267a117ea0a845aaab47937fbf902f76e448fe8840980d1602126f726e265098",
+        "method": "reference_svg",
+        "reference_sha256": "b48d6d27efc8b83d1f9e168c3c6ac70e368bd875c82d119e8fa2c25f072cc508",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native SVG reconstruction of a reviewed line symbol; no embedded raster or text"
+      }
+    },
+    {
+      "id": "dock_group",
+      "role": "icon",
+      "basis": "Reviewed artwork-only source region or native vector icon",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/dock_group.svg",
+        "sha256": "a863d3bd8d66ea77c53543b8771a29cc3c5e135065d65081e155ae50be06d57e",
+        "method": "reference_svg",
+        "reference_sha256": "b48d6d27efc8b83d1f9e168c3c6ac70e368bd875c82d119e8fa2c25f072cc508",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native SVG reconstruction of a reviewed line symbol; no embedded raster or text"
+      }
+    },
+    {
+      "id": "dock_wallet",
+      "role": "icon",
+      "basis": "Reviewed artwork-only source region or native vector icon",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/dock_wallet.svg",
+        "sha256": "a55d6b3117a99886252fd0de5ba8487754bd95800b2e050040539e070b7b56e5",
+        "method": "reference_svg",
+        "reference_sha256": "b48d6d27efc8b83d1f9e168c3c6ac70e368bd875c82d119e8fa2c25f072cc508",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native SVG reconstruction of a reviewed line symbol; no embedded raster or text"
+      }
+    },
+    {
+      "id": "text_34",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_50",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_51",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_52",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "dock_calendar_label",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    }
+  ]
+}

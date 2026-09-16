@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.1.0",
+  "contract_sha256": "705f72707dc52843574ab1ab129d136ef0affa99c57234dfb3c3774299d2b362",
+  "reference_sha256": "d98779871c2a5c05432acd245c11186698d90d7f22f76790494c5b1f8ac868aa",
+  "classification_scope": "Authored intent and explicit review candidates; no claim of automatic visual recognition.",
+  "elements": [
+    {
+      "id": "payment_complete",
+      "role": "card",
+      "basis": "Service-owned card surface with native child widgets",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "divider_0",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "source_service_order",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "source_service_order_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "source_service_order_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_203",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "view_payment_receipt",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "view_payment_receipt_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "view_payment_receipt_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_204",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "wallet_icon_0",
+      "role": "icon",
+      "basis": "Visual source-region review and explicit native renderer ownership",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/wallet_icon_0.svg",
+        "sha256": "ad9266d4ebef2712804598eee5535322f54c6c4d15b3ba967f5616e33a3bb72d",
+        "method": "reference_svg",
+        "reference_sha256": "d98779871c2a5c05432acd245c11186698d90d7f22f76790494c5b1f8ac868aa",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector reconstruction of the reviewed source symbol; no embedded text or raster UI"
+      }
+    },
+    {
+      "id": "check_icon_1",
+      "role": "icon",
+      "basis": "Visual source-region review and explicit native renderer ownership",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/check_icon_1.svg",
+        "sha256": "781ba26ef38584719316f6fd2c55a7f0c14463b9f9471aee918b812574bba9be",
+        "method": "reference_svg",
+        "reference_sha256": "d98779871c2a5c05432acd245c11186698d90d7f22f76790494c5b1f8ac868aa",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector reconstruction of the reviewed source symbol; no embedded text or raster UI; Measured native refinement: Reviewed white confirmation check had a transparent circle; fill the native SVG circle with sage so the white tick is legible"
+      }
+    },
+    {
+      "id": "text_197",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_198",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_199",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_200",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_201",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_202",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_215",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    }
+  ]
+}

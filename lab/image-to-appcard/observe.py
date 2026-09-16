@@ -11,7 +11,7 @@ from PIL import Image
 from fontTools.ttLib import TTFont
 from fontTools.pens.boundsPen import BoundsPen
 from catalogue import HERE,walk
-from compile import ROOT,digest
+from compile import ROOT,digest,repository
 
 def norm(s):
     return re.sub(r'\s+',' ',s.replace('•','·').replace('’',"'").replace('“','"').replace('”','"')).strip().casefold()
@@ -177,7 +177,7 @@ def map_observations(directory):
     for row in observed['text']:
         if row['status']!='observed':continue
         n=nodes[row['id']];x,y,w,h=row['ink_bounds']
-        font=ROOT/'splash-makepad/apps/kit-host'/n['font_src'].removeprefix('self:')
+        font=repository('splash-makepad')/'apps/kit-host'/n['font_src'].removeprefix('self:')
         (x0,y0,x1,y1),advance,asc,desc=metrics(str(font),n['text'])
         size=h/(y1-y0);tracking=(w-(x1-x0)*size)/max(1,len(n['text'])-1)
         # Use real glyph metrics, not a bitmap label or per-character drawing.

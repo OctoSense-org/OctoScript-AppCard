@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "scenario": "aircon-fresh",
+  "simulation": true,
+  "revision": 15,
+  "fixture": {
+    "schema_version": 1,
+    "scenario": "aircon-fresh",
+    "locale": "zh-CN",
+    "timezone": "Asia/Shanghai",
+    "simulation": true,
+    "customer": {
+      "name": "Alex",
+      "address": "家 · 海棠路 18 号"
+    },
+    "order": {
+      "id": "order-aircon-001",
+      "product": "1.5匹变频空调",
+      "amount_minor": 279900,
+      "currency": "CNY"
+    },
+    "delivery": {
+      "id": "delivery-aircon-001",
+      "starts_at": "2026-09-18T14:00:00+08:00",
+      "ends_at": "2026-09-18T16:00:00+08:00",
+      "delivered_at": "2026-09-18T15:20:00+08:00"
+    },
+    "installation": {
+      "id": "booking-aircon-001",
+      "technician": "王师傅",
+      "provider": "安装服务团队",
+      "days": [
+        {
+          "date": "2026-09-19",
+          "label": "周六 9月19日"
+        },
+        {
+          "date": "2026-09-20",
+          "label": "周日 9月20日"
+        }
+      ],
+      "slots": [
+        {
+          "id": "morning",
+          "label": "09:00–11:00",
+          "starts_at": "2026-09-19T09:00:00+08:00",
+          "ends_at": "2026-09-19T11:00:00+08:00"
+        },
+        {
+          "id": "afternoon",
+          "label": "14:00–16:00",
+          "starts_at": "2026-09-19T14:00:00+08:00",
+          "ends_at": "2026-09-19T16:00:00+08:00"
+        }
+      ]
+    },
+    "calendar": {
+      "installation_event_id": "calendar-installation-aircon-001",
+      "existing_events": [
+        {
+          "id": "calendar-project-meeting",
+          "title": "项目例会",
+          "starts_at": "2026-09-19T09:00:00+08:00",
+          "ends_at": "2026-09-19T11:00:00+08:00"
+        }
+      ]
+    },
+    "payment": {
+      "id": "invoice-materials-aircon-001",
+      "description": "加长铜管 2米",
+      "amount_minor": 13000,
+      "currency": "CNY",
+      "payee": "安装服务团队"
+    },
+    "authorizations": {
+      "calendar_sync_from_confirmed_installation": true,
+      "automatic_payment": false
+    },
+    "source": {
+      "flow_id": "aircon-fresh-v2",
+      "atlas_sha256": "168eb235aefdd446b1f9941b15107d7b6ca2a1ff88ec5d437801d2ea2ee0abf5",
+      "source_frame_count": 12
+    }
+  },
+  "processed_events": {
+    "service-7fa4f611651d462d87f18ae3a2da6048:0": "284c0f8540e8449767327e21c0807652d6c28e85d841dc45a57b4be2f4b5dc39",
+    "service-136cbcc41c244e6d8330cc0428d169c5:0": "decd1b70372dae5e413fbe5657710674ca6daf91c8d1eacc2e6c60c26d686921",
+    "native-verify-0d357f7df23541d192c9814051e71d54": "b547af42d3b3055d0aaa1b3db8721e77d170db885818b3a97266493684c22b1c",
+    "native-verify-566a81cde40c4973b502c317dcefca6e": "0079bed3d3689d9a9355defbc3a48d487baa28e998edb8d4b6ed1f554de76215",
+    "service-e6360504808b498182cb89913098ce44:0": "958a50dbdc4b0681d17da0eaba83e0d36beb095bdca8ddfc793ecaa2aa0a94a5",
+    "service-10c5522ffc1f40dc80c2b8428a7893d6:0": "7d7c2e4842febf04dc42d5127315261e54ba5bbe9beeed23703ac42703a8c44d",
+    "service-ee9b508996af47f99b58d896d756d74e:0": "ecb599d216f5b98ee4f770ba882da50d1df4ecaf431d6c880f7c25b4c776cae2",
+    "service-b394fbc26fe943eda39f57f04fea477b:0": "a95e5609d23aa262fb2c762719d789e81dc5cc664b7c826f775c81478c51bcd8",
+    "service-f1903bcb759f49e6ab1d6aa9d35d4f28:0": "c31d8db9eeda0bc16c7dcd762e0a3a5c8f7ae8ae05b2cd290c9388aeec62d830",
+    "service-53c87f33f1374d0ca2d8a8fa1ed5bbdb:0": "5e86241830bff9909cd9bb60ffa532c9429686565a61aa7cb069e35435859c57",
+    "native-verify-59e520bdb42f49f48759a534f8dd4cec": "0b8cfe7b024cfaccd15d5f0e78fda345c25129b388d121cea97a0c82cf4324f8",
+    "native-verify-f8d39bc7b6584675b70e609cbcfa301e": "6a16ba4733cd0b649189fb16eb4ce5053c3ee76807173c561617a1b6eb05f2f6",
+    "service-0a7022c9a03e42d3b85e68850f1aceba:0": "809d9c9c5bfef9cda9df0865c7527c0bc3ba314c4830509f29aea87bb1e77ce6",
+    "service-53406776099a421ca082ba043d1cb202:0": "b29bf3b64e848f226e5d12f410c443aa43456776a8885ac40d6c1b1a4933c788",
+    "service-fefb243ce22f4a2b9aec1a2f1ee7776c:0": "9a7cfb67fb1bd1e1860ec7ba3acbbc04e73484d68403ba8054d18378dc7e8c97"
+  },
+  "effects": [
+    {
+      "kind": "order.create_demo",
+      "entity_id": "order-aircon-001",
+      "simulation": true,
+      "amount_minor": 279900
+    },
+    {
+      "kind": "logistics.update",
+      "entity_id": "delivery-aircon-001",
+      "simulation": true,
+      "status": "out_for_delivery"
+    },
+    {
+      "kind": "logistics.update",
+      "entity_id": "delivery-aircon-001",
+      "simulation": true,
+      "status": "delivered"
+    },
+    {
+      "kind": "installation.upsert",
+      "entity_id": "booking-aircon-001",
+      "simulation": true,
+      "slot_id": "afternoon",
+      "version": 1
+    },
+    {
+      "kind": "calendar.upsert",
+      "entity_id": "calendar-installation-aircon-001",
+      "simulation": true
+    },
+    {
+      "kind": "calendar.remove",
+      "entity_id": "calendar-installation-aircon-001",
+      "simulation": true
+    },
+    {
+      "kind": "calendar.upsert",
+      "entity_id": "calendar-installation-aircon-001",
+      "simulation": true
+    },
+    {
+      "kind": "installation.progress",
+      "entity_id": "booking-aircon-001",
+      "simulation": true,
+      "status": "en_route"
+    },
+    {
+      "kind": "installation.progress",
+      "entity_id": "booking-aircon-001",
+      "simulation": true,
+      "status": "completed"
+    },
+    {
+      "kind": "payment.invoice_created",
+      "entity_id": "invoice-materials-aircon-001",
+      "simulation": true,
+      "amount_minor": 13000
+    },
+    {
+      "kind": "payment.request_cancelled",
+      "entity_id": "invoice-materials-aircon-001",
+      "simulation": true
+    },
+    {
+      "kind": "payment.capture_demo",
+      "entity_id": "invoice-materials-aircon-001",
+      "simulation": true,
+      "receipt_id": "receipt-invoice-materials-aircon-001",
+      "amount_minor": 13000
+    }
+  ],
+  "ui": {
+    "surface": "desktop",
+    "app": null,
+    "page": null,
+    "slot_picker": false,
+    "installation_deferred": false,
+    "dismissed_cards": []
+  },
+  "order": {
+    "id": "order-aircon-001",
+    "status": "paid_demo"
+  },
+  "delivery": {
+    "id": "delivery-aircon-001",
+    "status": "delivered",
+    "delivered_at": "2026-09-18T15:20:00+08:00"
+  },
+  "installation": {
+    "id": "booking-aircon-001",
+    "status": "completed",
+    "selected_slot_id": "afternoon",
+    "booked_slot_id": "afternoon",
+    "selected_day": "2026-09-19",
+    "booked_day": "2026-09-19",
+    "version": 1
+  },
+  "calendar": {
+    "events": {
+      "calendar-project-meeting": {
+        "id": "calendar-project-meeting",
+        "title": "项目例会",
+        "starts_at": "2026-09-19T09:00:00+08:00",
+        "ends_at": "2026-09-19T11:00:00+08:00"
+      },
+      "calendar-installation-aircon-001": {
+        "id": "calendar-installation-aircon-001",
+        "title": "空调上门安装",
+        "starts_at": "2026-09-19T14:00:00+08:00",
+        "ends_at": "2026-09-19T16:00:00+08:00",
+        "source_app": "installation",
+        "source_entity_id": "booking-aircon-001",
+        "booking_version": 1
+      }
+    },
+    "installation_sync": "added",
+    "acknowledged": false
+  },
+  "payment": {
+    "id": "invoice-materials-aircon-001",
+    "status": "paid",
+    "receipt": {
+      "id": "receipt-invoice-materials-aircon-001",
+      "amount_minor": 13000,
+      "currency": "CNY",
+      "payee": "安装服务团队",
+      "simulation": true
+    }
+  }
+}

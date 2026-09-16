@@ -1,0 +1,97 @@
+{
+  "frame_id": 7,
+  "controls": {
+    "close": {
+      "event": "installation.close_slots",
+      "ocr_ids": [],
+      "source_bounds": [
+        431,
+        165,
+        54,
+        54
+      ],
+      "enabled": true
+    },
+    "saturday": {
+      "event": "installation.choose_day",
+      "ocr_ids": [
+        123
+      ],
+      "source_bounds": [
+        43,
+        287,
+        208,
+        61
+      ],
+      "enabled": true
+    },
+    "sunday": {
+      "event": "installation.choose_day",
+      "ocr_ids": [
+        124
+      ],
+      "source_bounds": [
+        274,
+        287,
+        200,
+        61
+      ],
+      "enabled": true
+    },
+    "conflict_slot": {
+      "event": "installation.choose_slot",
+      "ocr_ids": [
+        125,
+        126
+      ],
+      "source_bounds": [
+        43,
+        374,
+        432,
+        120
+      ],
+      "enabled": false
+    },
+    "afternoon": {
+      "event": "installation.choose_slot",
+      "ocr_ids": [
+        127,
+        128
+      ],
+      "source_bounds": [
+        43,
+        509,
+        432,
+        120
+      ],
+      "enabled": true
+    },
+    "cancel_selection": {
+      "event": "installation.close_slots",
+      "ocr_ids": [
+        131
+      ],
+      "source_bounds": [
+        43,
+        788,
+        183,
+        67
+      ],
+      "enabled": true
+    },
+    "confirm_booking": {
+      "event": "installation.confirm",
+      "ocr_ids": [
+        132
+      ],
+      "source_bounds": [
+        251,
+        788,
+        223,
+        67
+      ],
+      "enabled": true
+    }
+  },
+  "source": "selected-slot"
+}

@@ -1,0 +1,93 @@
+use mod.prelude.widgets.*
+return View{width:Fill height:Fill flow:Overlay beauty_0 := DesignSurface {
+width: 357.7459 height: 410.8699
+abs_pos: vec2(0, 0)
+draw_bg.radius: 19.967213 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfbff
+beauty_0_0 := KitButton {
+contract: "{\"bindings\":{\"control\":\"beauty_0_0_1\",\"label\":\"beauty_0_0_2\"},\"widget\":\"KitButton\"}" glass: false
+width: 309.4918 height: 54.893547
+abs_pos: vec2(23.295081967213118, 329.36129032258066)
+draw_bg.radius: 0 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfbff
+beauty_0_0_0 := DesignSurface {
+width: 309.4918 height: 54.893547
+abs_pos: vec2(23.295081967213118, 329.36129032258066)
+draw_bg.radius: 11.647541 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #608570ff
+}
+beauty_0_0_1 := DesignNativeButton {
+width: 309.4918 height: 54.893547
+abs_pos: vec2(23.295081967213118, 329.36129032258066)
+enabled: true
+}
+beauty_0_0_2 := Label {
+width: 95.58598 height: 25.179258
+abs_pos: vec2(134.11106475521424, 347.9430214937395)
+clip_x: false clip_y: false
+padding: 0 text: "查看报名" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.2296504 desc: 0.118650384 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 17.17237 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #ffffffff
+}
+}
+beauty_0_1 := Svg {
+width: 53.245903 height: 53.230106
+abs_pos: vec2(28.28688524590164, 29.941935483870964)
+animating: false draw_svg.svg: http_resource("http://127.0.0.1:8170/ux-images/reunion-rsvp-card-06/assets/check_icon_0-069b164f0061.svg") draw_svg.preserve_viewbox: true draw_svg.preserve_aspect: false
+}
+beauty_0_2 := Svg {
+width: 26.622952 height: 28.278494
+abs_pos: vec2(28.28688524590164, 266.1505376344086)
+animating: false draw_svg.svg: http_resource("http://127.0.0.1:8170/ux-images/reunion-rsvp-card-06/assets/warning_icon_1-e4e325bc6382.svg") draw_svg.preserve_viewbox: true draw_svg.preserve_aspect: false
+}
+beauty_0_3 := Label {
+width: 127.56965 height: 21.880037
+abs_pos: vec2(101.56379594583488, 34.88192298530424)
+clip_x: false clip_y: false
+padding: 0 text: "聚会 · 已报名" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.2126378 desc: 0.0936378 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 14.37302 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+beauty_0_4 := Label {
+width: 312.39322 height: 35.763607
+abs_pos: vec2(24.666793566228247, 104.38828019217229)
+clip_x: false clip_y: false
+padding: 0 text: "周六10月24日 18:30" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.2670091 desc: 0.1440091 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 25.866127 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+beauty_0_5 := Label {
+width: 201.70888 height: 24.451885
+abs_pos: vec2(25.45343159071398, 164.9205683177341)
+clip_x: false clip_y: false
+padding: 0 text: "你的时间偏好已提交" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.21995705 desc: 0.11495705 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 16.47574 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+beauty_0_6 := Label {
+width: 180.55075 height: 24.43575
+abs_pos: vec2(24.657327871475243, 193.6329319092455)
+clip_x: false clip_y: false
+padding: 0 text: "王宁正在确认场地" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.2243745 desc: 0.1163745 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 16.551632 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+beauty_0_7 := Label {
+width: 209.53943 height: 23.012398
+abs_pos: vec2(65.07946001865568, 270.367500186906)
+clip_x: false clip_y: false
+padding: 0 text: "场地确认后再加入日历" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.21969506 desc: 0.10869507 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 15.415458 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+}
+}

@@ -1,0 +1,234 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.1.0",
+  "contract_sha256": "be38d7a859cdd46cc3a354ea77a06595ed5a10d0f1c9f06d9737d4f4fd0d1330",
+  "reference_sha256": "98182f50a8ae453063c23ed64a5d4365a01baaf307cca883c52898e6d383becb",
+  "classification_scope": "Authored intent and explicit review candidates; no claim of automatic visual recognition.",
+  "elements": [
+    {
+      "id": "page",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "screen",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "inbox_list",
+      "role": "card",
+      "basis": "Explicit event-specific service composition with native children",
+      "confidence": 1,
+      "decision": "reviewed"
+    },
+    {
+      "id": "selected_chat",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "group_avatar",
+      "role": "photo",
+      "basis": "Reviewed artwork-only source region or native vector icon",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/group_avatar.png",
+        "sha256": "7367d1e9ce52b99fea4a91bac83c0d12af0661a2ca2f831230a26f26c7a92cfd",
+        "method": "source_crop",
+        "reference_sha256": "98182f50a8ae453063c23ed64a5d4365a01baaf307cca883c52898e6d383becb",
+        "crop_pixels": [
+          44,
+          376,
+          142,
+          146
+        ],
+        "contains_ui": false,
+        "fit": "contain",
+        "clip": true,
+        "notes": "Reviewed text-free venue photography or contact avatar only, cropped from original generated artwork"
+      }
+    },
+    {
+      "id": "teacher_avatar",
+      "role": "photo",
+      "basis": "Reviewed artwork-only source region or native vector icon",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/teacher_avatar.png",
+        "sha256": "8554135ca20e3619c3264f2f4d7bf7a5d23c99975eb8ab6882a57e37efd15279",
+        "method": "source_crop",
+        "reference_sha256": "98182f50a8ae453063c23ed64a5d4365a01baaf307cca883c52898e6d383becb",
+        "crop_pixels": [
+          44,
+          589,
+          142,
+          149
+        ],
+        "contains_ui": false,
+        "fit": "contain",
+        "clip": true,
+        "notes": "Reviewed text-free venue photography or contact avatar only, cropped from original generated artwork"
+      }
+    },
+    {
+      "id": "family_avatar",
+      "role": "photo",
+      "basis": "Reviewed artwork-only source region or native vector icon",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/family_avatar.png",
+        "sha256": "f71de02dd5eb002957b9296c2d0a23601f329454c9c2089e2b230f705b9ca420",
+        "method": "source_crop",
+        "reference_sha256": "98182f50a8ae453063c23ed64a5d4365a01baaf307cca883c52898e6d383becb",
+        "crop_pixels": [
+          44,
+          806,
+          142,
+          142
+        ],
+        "contains_ui": false,
+        "fit": "contain",
+        "clip": true,
+        "notes": "Reviewed text-free venue photography or contact avatar only, cropped from original generated artwork"
+      }
+    },
+    {
+      "id": "text_5",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_6",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_7",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_8",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_9",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_10",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_11",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_12",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "search_field",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "open_invite",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "open_invite_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "open_invite_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_13",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "search_icon_0",
+      "role": "icon",
+      "basis": "Reviewed artwork-only source region or native vector icon",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/search_icon_0.svg",
+        "sha256": "b27d8e715fcb2ed5f947ea42296c9ed09037e40a1b0cb9924e569767c6ed540e",
+        "method": "reference_svg",
+        "reference_sha256": "98182f50a8ae453063c23ed64a5d4365a01baaf307cca883c52898e6d383becb",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native SVG reconstruction of a reviewed line symbol; no embedded raster or text"
+      }
+    },
+    {
+      "id": "text_1",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_2",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "search_label",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    }
+  ]
+}

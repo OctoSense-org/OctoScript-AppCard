@@ -1,0 +1,71 @@
+# ledger reunion-calendar-card-07@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy ack_label_text { class: user-copy, en: "确认" }
+copy text_123_text { class: user-copy, en: "撤销日程" }
+copy text_119_text { class: user-copy, en: "日历 · 已更新" }
+copy text_120_text { class: user-copy, en: "同学聚会" }
+copy text_121_text { class: user-copy, en: "10月24日 18:30–21:00" }
+copy text_122_text { class: user-copy, en: "已加入个人日历" }
+state ack_calendar_control_enabled { shape: bool, initial: true }
+state undo_calendar_control_enabled { shape: bool, initial: true }
+component Surfacec68b2b978c4e(instance: text) {
+  view Kit(component: "Surfacec68b2b978c4e", instance: instance) { slot }
+}
+component KitButton3f1620e22939(instance: text) {
+  view Kit(component: "KitButton3f1620e22939", instance: instance) { slot }
+}
+component Surface592192b269fb(instance: text) {
+  view Kit(component: "Surface592192b269fb", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Text5ddc289bbed3(instance: text, text: text) {
+  view Kit(component: "Text5ddc289bbed3", instance: instance, text: text)
+}
+component Surface02d4c6df0c63(instance: text) {
+  view Kit(component: "Surface02d4c6df0c63", instance: instance) { slot }
+}
+component Text3c6731ca5d29(instance: text, text: text) {
+  view Kit(component: "Text3c6731ca5d29", instance: instance, text: text)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Textba2d3fa0c430(instance: text, text: text) {
+  view Kit(component: "Textba2d3fa0c430", instance: instance, text: text)
+}
+component Texte84fd6ecbba2(instance: text, text: text) {
+  view Kit(component: "Texte84fd6ecbba2", instance: instance, text: text)
+}
+component Textf6fc71d2b59b(instance: text, text: text) {
+  view Kit(component: "Textf6fc71d2b59b", instance: instance, text: text)
+}
+component Texte5f156306578(instance: text, text: text) {
+  view Kit(component: "Texte5f156306578", instance: instance, text: text)
+}
+
+view root Surfacec68b2b978c4e(instance: "calendar_card") {
+  KitButton3f1620e22939(instance: "ack_calendar") {
+    Surface592192b269fb(instance: "ack_calendar_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "ack_calendar_control", enabled: ack_calendar_control_enabled)
+    Text5ddc289bbed3(instance: "ack_label", text: copy.ack_label_text)
+  }
+  KitButton3f1620e22939(instance: "undo_calendar") {
+    Surface02d4c6df0c63(instance: "undo_calendar_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "undo_calendar_control", enabled: undo_calendar_control_enabled)
+    Text3c6731ca5d29(instance: "text_123", text: copy.text_123_text)
+  }
+  Vectore0a378fde04f(instance: "calendar_icon_3")
+  Textba2d3fa0c430(instance: "text_119", text: copy.text_119_text)
+  Texte84fd6ecbba2(instance: "text_120", text: copy.text_120_text)
+  Textf6fc71d2b59b(instance: "text_121", text: copy.text_121_text)
+  Texte5f156306578(instance: "text_122", text: copy.text_122_text)
+}

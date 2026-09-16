@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.1.0",
+  "contract_sha256": "2da3aef1d7f06862decdbdeb95366977909a932db1e6a7d0257bf05c35d6aea7",
+  "reference_sha256": "5dc63ac4d6515363fff4f8140f4eaba343b4111af1fae51cf072312ce7784ceb",
+  "classification_scope": "Authored intent and explicit review candidates; no claim of automatic visual recognition.",
+  "elements": [
+    {
+      "id": "appointment_card",
+      "role": "card",
+      "basis": "Explicit measured service composition ownership",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "choose_items",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "choose_items_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "choose_items_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "choose_items_text",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "defer",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "defer_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "defer_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "defer_text",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "heart_icon_0",
+      "role": "icon",
+      "basis": "Explicit inspected source region or traced vector symbol",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/heart_icon_0.svg",
+        "sha256": "2b22eedb8ac2a5c9900ec3322b642276bd7df7d765b7a57cdbd7a3cdf2b74bc3",
+        "method": "reference_svg",
+        "reference_sha256": "5dc63ac4d6515363fff4f8140f4eaba343b4111af1fae51cf072312ce7784ceb",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector tracing of visible source symbol; shape approximation, no raster or text"
+      }
+    },
+    {
+      "id": "card_status",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "appointment_title",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "appointment_note",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "provider_name",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    }
+  ]
+}

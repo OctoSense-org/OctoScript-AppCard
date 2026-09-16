@@ -1,0 +1,624 @@
+{
+  "schema_version": 1,
+  "elements": [
+    {
+      "source_id": "page",
+      "native_id": "beauty_0",
+      "parent": null,
+      "kind": "stack",
+      "component": "Surfaceb3bf053fa23f",
+      "semantic_role": "layout",
+      "bounds": [
+        0,
+        0,
+        406,
+        776
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "clock",
+      "native_id": "beauty_0_0",
+      "parent": "page",
+      "kind": "text",
+      "component": "Texte27738bae55e",
+      "semantic_role": "text",
+      "bounds": [
+        28,
+        12.76,
+        60,
+        18.48
+      ],
+      "text": "9:41",
+      "enabled": null,
+      "font": "self:resources/ux/Inter-600.ttf",
+      "size": 14
+    },
+    {
+      "source_id": "signal",
+      "native_id": "beauty_0_1",
+      "parent": "page",
+      "kind": "text",
+      "component": "Text4e382b71b3db",
+      "semantic_role": "text",
+      "bounds": [
+        310,
+        13.08,
+        30,
+        15.84
+      ],
+      "text": "•••",
+      "enabled": null,
+      "font": "self:resources/ux/Inter-600.ttf",
+      "size": 12
+    },
+    {
+      "source_id": "battery",
+      "native_id": "beauty_0_2",
+      "parent": "page",
+      "kind": "stack",
+      "component": "Surface52dca9ad1b08",
+      "semantic_role": "layout",
+      "bounds": [
+        354,
+        17,
+        23,
+        10
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "battery_tip",
+      "native_id": "beauty_0_3",
+      "parent": "page",
+      "kind": "stack",
+      "component": "Surface3c50a155d697",
+      "semantic_role": "layout",
+      "bounds": [
+        378,
+        20,
+        2,
+        4
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "home_indicator",
+      "native_id": "beauty_0_4",
+      "parent": "page",
+      "kind": "stack",
+      "component": "Surface9c73e63eadf8",
+      "semantic_role": "layout",
+      "bounds": [
+        137,
+        762,
+        132,
+        5
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "back",
+      "native_id": "beauty_0_5",
+      "parent": "page",
+      "kind": "stack",
+      "component": "KitButtonf171c73ac8d0",
+      "semantic_role": "button",
+      "bounds": [
+        12,
+        40,
+        140,
+        42
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "back_control",
+      "native_id": "beauty_0_5_0",
+      "parent": "back",
+      "kind": "button",
+      "component": "NativeButton02f1d1bd99b4",
+      "semantic_role": "button",
+      "bounds": [
+        12,
+        40,
+        140,
+        42
+      ],
+      "text": null,
+      "enabled": true,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "back_icon",
+      "native_id": "beauty_0_5_1",
+      "parent": "back",
+      "kind": "svg",
+      "component": "Vectore0a378fde04f",
+      "semantic_role": "icon",
+      "bounds": [
+        22,
+        49.0,
+        10.8,
+        24
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "back_label",
+      "native_id": "beauty_0_5_2",
+      "parent": "back",
+      "kind": "text",
+      "component": "Textd691d2c11e59",
+      "semantic_role": "text",
+      "bounds": [
+        39,
+        49.78,
+        109,
+        22.44
+      ],
+      "text": "Mailboxes",
+      "enabled": null,
+      "font": "self:resources/ux/Inter-400.ttf",
+      "size": 17
+    },
+    {
+      "source_id": "heading",
+      "native_id": "beauty_0_6",
+      "parent": "page",
+      "kind": "text",
+      "component": "Texte6dc76ffcdef",
+      "semantic_role": "text",
+      "bounds": [
+        22,
+        91.56,
+        364,
+        44.88
+      ],
+      "text": "Gmail Folders",
+      "enabled": null,
+      "font": "self:resources/ux/Inter-700.ttf",
+      "size": 34
+    },
+    {
+      "source_id": "folder_scroll",
+      "native_id": "beauty_0_7",
+      "parent": "page",
+      "kind": "stack",
+      "component": "Group5fb60150eb73",
+      "semantic_role": "layout",
+      "bounds": [
+        0,
+        157,
+        406,
+        510
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "folder_content",
+      "native_id": "beauty_0_7_0",
+      "parent": "folder_scroll",
+      "kind": "stack",
+      "component": "Group3d2637879433",
+      "semantic_role": "layout",
+      "bounds": [
+        0,
+        157,
+        406,
+        510
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "remote_folder_0",
+      "native_id": "beauty_0_7_0_0",
+      "parent": "folder_content",
+      "kind": "stack",
+      "component": "KitButtonf171c73ac8d0",
+      "semantic_role": "button",
+      "bounds": [
+        20,
+        157,
+        366,
+        53
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "remote_folder_0_control",
+      "native_id": "beauty_0_7_0_0_0",
+      "parent": "remote_folder_0",
+      "kind": "button",
+      "component": "NativeButton02f1d1bd99b4",
+      "semantic_role": "button",
+      "bounds": [
+        20,
+        157,
+        366,
+        53
+      ],
+      "text": null,
+      "enabled": true,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "remote_folder_0_surface",
+      "native_id": "beauty_0_7_0_0_1",
+      "parent": "remote_folder_0",
+      "kind": "stack",
+      "component": "Surfacef8cb67796d4c",
+      "semantic_role": "layout",
+      "bounds": [
+        20,
+        157,
+        366,
+        53
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "remote_folder_0_icon",
+      "native_id": "beauty_0_7_0_0_2",
+      "parent": "remote_folder_0",
+      "kind": "svg",
+      "component": "Vectore0a378fde04f",
+      "semantic_role": "icon",
+      "bounds": [
+        30,
+        171.5,
+        24,
+        24
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "remote_folder_0_label",
+      "native_id": "beauty_0_7_0_0_3",
+      "parent": "remote_folder_0",
+      "kind": "text",
+      "component": "Text96d8e9375aa1",
+      "semantic_role": "text",
+      "bounds": [
+        60,
+        172.94,
+        322,
+        21.12
+      ],
+      "text": "INBOX",
+      "enabled": null,
+      "font": "self:resources/ux/Inter-400.ttf",
+      "size": 16
+    },
+    {
+      "source_id": "remote_folder_1",
+      "native_id": "beauty_0_7_0_1",
+      "parent": "folder_content",
+      "kind": "stack",
+      "component": "KitButtonf171c73ac8d0",
+      "semantic_role": "button",
+      "bounds": [
+        20,
+        215,
+        366,
+        53
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "remote_folder_1_control",
+      "native_id": "beauty_0_7_0_1_0",
+      "parent": "remote_folder_1",
+      "kind": "button",
+      "component": "NativeButton02f1d1bd99b4",
+      "semantic_role": "button",
+      "bounds": [
+        20,
+        215,
+        366,
+        53
+      ],
+      "text": null,
+      "enabled": true,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "remote_folder_1_surface",
+      "native_id": "beauty_0_7_0_1_1",
+      "parent": "remote_folder_1",
+      "kind": "stack",
+      "component": "Surfacef8cb67796d4c",
+      "semantic_role": "layout",
+      "bounds": [
+        20,
+        215,
+        366,
+        53
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "remote_folder_1_icon",
+      "native_id": "beauty_0_7_0_1_2",
+      "parent": "remote_folder_1",
+      "kind": "svg",
+      "component": "Vectore0a378fde04f",
+      "semantic_role": "icon",
+      "bounds": [
+        30,
+        229.5,
+        24,
+        24
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "remote_folder_1_label",
+      "native_id": "beauty_0_7_0_1_3",
+      "parent": "remote_folder_1",
+      "kind": "text",
+      "component": "Text96d8e9375aa1",
+      "semantic_role": "text",
+      "bounds": [
+        60,
+        230.94,
+        322,
+        21.12
+      ],
+      "text": "[Gmail]/All Mail",
+      "enabled": null,
+      "font": "self:resources/ux/Inter-400.ttf",
+      "size": 16
+    },
+    {
+      "source_id": "remote_folder_2",
+      "native_id": "beauty_0_7_0_2",
+      "parent": "folder_content",
+      "kind": "stack",
+      "component": "KitButtonf171c73ac8d0",
+      "semantic_role": "button",
+      "bounds": [
+        20,
+        273,
+        366,
+        53
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "remote_folder_2_control",
+      "native_id": "beauty_0_7_0_2_0",
+      "parent": "remote_folder_2",
+      "kind": "button",
+      "component": "NativeButton02f1d1bd99b4",
+      "semantic_role": "button",
+      "bounds": [
+        20,
+        273,
+        366,
+        53
+      ],
+      "text": null,
+      "enabled": true,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "remote_folder_2_surface",
+      "native_id": "beauty_0_7_0_2_1",
+      "parent": "remote_folder_2",
+      "kind": "stack",
+      "component": "Surfacef8cb67796d4c",
+      "semantic_role": "layout",
+      "bounds": [
+        20,
+        273,
+        366,
+        53
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "remote_folder_2_icon",
+      "native_id": "beauty_0_7_0_2_2",
+      "parent": "remote_folder_2",
+      "kind": "svg",
+      "component": "Vectore0a378fde04f",
+      "semantic_role": "icon",
+      "bounds": [
+        30,
+        287.5,
+        24,
+        24
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "remote_folder_2_label",
+      "native_id": "beauty_0_7_0_2_3",
+      "parent": "remote_folder_2",
+      "kind": "text",
+      "component": "Text96d8e9375aa1",
+      "semantic_role": "text",
+      "bounds": [
+        60,
+        288.94,
+        322,
+        21.12
+      ],
+      "text": "[Gmail]/Sent Mail",
+      "enabled": null,
+      "font": "self:resources/ux/Inter-400.ttf",
+      "size": 16
+    },
+    {
+      "source_id": "remote_folder_3",
+      "native_id": "beauty_0_7_0_3",
+      "parent": "folder_content",
+      "kind": "stack",
+      "component": "KitButtonf171c73ac8d0",
+      "semantic_role": "button",
+      "bounds": [
+        20,
+        331,
+        366,
+        53
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "remote_folder_3_control",
+      "native_id": "beauty_0_7_0_3_0",
+      "parent": "remote_folder_3",
+      "kind": "button",
+      "component": "NativeButton02f1d1bd99b4",
+      "semantic_role": "button",
+      "bounds": [
+        20,
+        331,
+        366,
+        53
+      ],
+      "text": null,
+      "enabled": true,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "remote_folder_3_surface",
+      "native_id": "beauty_0_7_0_3_1",
+      "parent": "remote_folder_3",
+      "kind": "stack",
+      "component": "Surfacef8cb67796d4c",
+      "semantic_role": "layout",
+      "bounds": [
+        20,
+        331,
+        366,
+        53
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "remote_folder_3_icon",
+      "native_id": "beauty_0_7_0_3_2",
+      "parent": "remote_folder_3",
+      "kind": "svg",
+      "component": "Vectore0a378fde04f",
+      "semantic_role": "icon",
+      "bounds": [
+        30,
+        345.5,
+        24,
+        24
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "remote_folder_3_label",
+      "native_id": "beauty_0_7_0_3_3",
+      "parent": "remote_folder_3",
+      "kind": "text",
+      "component": "Text96d8e9375aa1",
+      "semantic_role": "text",
+      "bounds": [
+        60,
+        346.94,
+        322,
+        21.12
+      ],
+      "text": "Projects",
+      "enabled": null,
+      "font": "self:resources/ux/Inter-400.ttf",
+      "size": 16
+    },
+    {
+      "source_id": "folders_status_0",
+      "native_id": "beauty_0_8",
+      "parent": "page",
+      "kind": "text",
+      "component": "Text05ae259fd7eb",
+      "semantic_role": "text",
+      "bounds": [
+        26,
+        677.92,
+        354,
+        17.16
+      ],
+      "text": "",
+      "enabled": null,
+      "font": "self:resources/ux/Inter-400.ttf",
+      "size": 13
+    }
+  ],
+  "fonts": {
+    "self:resources/ux/Inter-600.ttf": "c68ee119fdc75a0c3daaf3af8afb3f556a5c961c58d4690076a13a56fd8c4242",
+    "self:resources/ux/Inter-400.ttf": "b6724fa153562e675ad77673f50bddfc5caf2fcd9e4be279f2d0aa56bb210488",
+    "self:resources/ux/Inter-700.ttf": "b6e29575c0d0aff9c4c8f89763994876000a09fa9d0d1da32133aea5fdbfe0e5"
+  },
+  "contract_sha256": "e4783d8f038d94ee75c5a27ec1235aa81fd8d499967831b998e7af36d96d5380",
+  "mapping_basis": "mapped.json"
+}

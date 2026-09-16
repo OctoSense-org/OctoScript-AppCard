@@ -1,0 +1,54 @@
+{
+  "passed": true,
+  "buttons": [
+    {
+      "source_id": "source_service_order_control",
+      "native_id": "beauty_0_1_1",
+      "kit_action_id": "beauty_0_1",
+      "enabled": true,
+      "passed": true,
+      "activated_events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_1"
+        }
+      ],
+      "evidence": "controls/01-source_service_order_control"
+    },
+    {
+      "source_id": "pay_materials_control",
+      "native_id": "beauty_0_2_1",
+      "kit_action_id": "beauty_0_2",
+      "enabled": true,
+      "passed": true,
+      "activated_events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_2"
+        }
+      ],
+      "evidence": "controls/02-pay_materials_control"
+    },
+    {
+      "source_id": "withdraw_payment_request_control",
+      "native_id": "beauty_0_3_1",
+      "kit_action_id": "beauty_0_3",
+      "enabled": true,
+      "passed": true,
+      "activated_events": [
+        {
+          "action": {
+            "kind": "activated"
+          },
+          "id": "beauty_0_3"
+        }
+      ],
+      "evidence": "controls/03-withdraw_payment_request_control"
+    }
+  ],
+  "fixture_state": "unchanged; KitAction is observed without a reducer or external service"
+}

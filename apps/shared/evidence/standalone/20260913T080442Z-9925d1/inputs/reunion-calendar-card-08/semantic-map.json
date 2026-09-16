@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.1.0",
+  "contract_sha256": "0620f84b392dfc68646eafba4565f88f073308336a231b65fd5ec432491c4708",
+  "reference_sha256": "9c6a14e773bc2b5c1397f4cae19c63f37040b312bd7b39f3fad39cc7a24b283c",
+  "classification_scope": "Authored intent and explicit review candidates; no claim of automatic visual recognition.",
+  "elements": [
+    {
+      "id": "calendar_card",
+      "role": "card",
+      "basis": "Explicit event-specific service composition with native children",
+      "confidence": 1,
+      "decision": "reviewed"
+    },
+    {
+      "id": "restore_calendar",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "restore_calendar_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "restore_calendar_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_179",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "calendar_icon_3",
+      "role": "icon",
+      "basis": "Reviewed artwork-only source region or native vector icon",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/calendar_icon_3.svg",
+        "sha256": "267a117ea0a845aaab47937fbf902f76e448fe8840980d1602126f726e265098",
+        "method": "reference_svg",
+        "reference_sha256": "9c6a14e773bc2b5c1397f4cae19c63f37040b312bd7b39f3fad39cc7a24b283c",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native SVG reconstruction of a reviewed line symbol; no embedded raster or text"
+      }
+    },
+    {
+      "id": "calendar_icon_4",
+      "role": "icon",
+      "basis": "Reviewed artwork-only source region or native vector icon",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/calendar_icon_4.svg",
+        "sha256": "267a117ea0a845aaab47937fbf902f76e448fe8840980d1602126f726e265098",
+        "method": "reference_svg",
+        "reference_sha256": "9c6a14e773bc2b5c1397f4cae19c63f37040b312bd7b39f3fad39cc7a24b283c",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native SVG reconstruction of a reviewed line symbol; no embedded raster or text"
+      }
+    },
+    {
+      "id": "text_176",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_177",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_178",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    }
+  ]
+}

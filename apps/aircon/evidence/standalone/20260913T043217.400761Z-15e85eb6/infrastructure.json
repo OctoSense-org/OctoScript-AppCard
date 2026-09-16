@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-09-13T04:19:13.605880+00:00",
+  "platform": "Darwin arm64",
+  "rustc": "rustc 1.97.1 (8bab26f4f 2026-07-14)",
+  "revisions": {
+    "": "6c5759fbebf74254ec5ede0fa7992b29f9b6cfa7",
+    "makepad": "38f4d3bc28938dfc8d8afe05082e84e599c0575d",
+    "splash": "7a77b075f37449b34f135879a5563a27b806edd4",
+    "splash-makepad": "3a3bdb4fe74456e18c6416d54ff51ec1f4016bca"
+  },
+  "build": {
+    "command": "RUSTFLAGS='' cargo build --release -p makepad-studio -p cargo-makepad",
+    "rustflags": "",
+    "release": true,
+    "host_build": "Studio RunItem octos-ux-image-studio; no direct shell host prebuild",
+    "host_profile": {
+      "release": true,
+      "opt_level": 3,
+      "lto": false,
+      "source": "CARGO_PROFILE_RELEASE_LTO=false in Studio RunItem; no direct application build"
+    }
+  },
+  "binaries": {
+    "makepad-studio": {
+      "path": "pipeline/makepad/target/release/makepad-studio",
+      "sha256": "8d1157f5783fe710f69b8bbda8e07ee566e5d73596fb5921537fd2ccb7f96b15"
+    },
+    "cargo-makepad": {
+      "path": "pipeline/makepad/target/release/cargo-makepad",
+      "sha256": "253aebcb11a38f619f99918864223b3fd3f72726353295bd8613a288f2b7cb12"
+    },
+    "beauty-host": {
+      "path": "pipeline/splash-makepad/target/release/beauty-host",
+      "sha256": "1d887b1e91278302333285c9b7eb2111e6ecfd1b9f11a0d6e005a0501c247fe3",
+      "build_id": [
+        8
+      ],
+      "run_item": "octos-ux-image-studio",
+      "release": true,
+      "lto": false
+    }
+  },
+  "patches": {
+    "checked-evaluation-backport.patch": "85b9b48d173d03a4c0c2417165d7287c2213512c48d0d68a23b3253898177d98",
+    "makepad-portability.patch": "0133e8518536df207cdebe3ad81ddcefd8e44340f5b0c812b495e56c1b2735ec",
+    "run-item-path.patch": "9c7b867b17f5914594ff45969de55cf8bff6fff3ab99d6015d774f415e49f33e",
+    "compatible-makepad.patch": "02cacb78e20f6a748b539331a9de33fac0b0838272108b2f56fdf27df080f146",
+    "compatible-splash-makepad.patch": "aa40872d59b8c85383c671818e0b9954f606a4d107f638aa714b93ad679f14e2",
+    "disabled-control-probe.patch": "b6d0ae60df45b07d6222f714fb4372e445f88afdd6ddba059c6776d97fadb12e",
+    "initial-pin-portability-attempt.patch": "63f33e4903c8430eb451eaf39fd220d76d2a7366a83f81f0b3443f11375e9b73"
+  },
+  "ports": {
+    "studio": 8012,
+    "bridge": 8182,
+    "artwork": 8170
+  },
+  "preserved_existing_studio_pid": 19627,
+  "own_studio_pid": 53510,
+  "own_bridge_pid": 56174,
+  "disabled_control_tests": {
+    "passed": 6,
+    "command": "lab/image-to-appcard/.venv/bin/python -m unittest discover -s lab/image-to-appcard -p test_capture_lifecycle.py",
+    "numeric_zero_supported": true
+  },
+  "validation_boundary": "Native pipeline infrastructure and pilot evidence verified; parent owns final visual repairs, bulk captures, service flows and acceptance",
+  "compatibility": {
+    "original_makepad_pin": "2783fdc573fc137b266582d1a3bd040241bd5255",
+    "active_makepad_revision": "38f4d3bc28938dfc8d8afe05082e84e599c0575d",
+    "reason": "Published pin lacks APIs consumed by pinned Splash runtime; use last compatible source retaining Studio plus narrow source adapters",
+    "unused_companion_revision": "5b6932cf071c097ac0997a019b2a08016dcf1196",
+    "unused_companion_reason": "Studio application removed upstream",
+    "active_patches": [
+      "compatible-makepad.patch",
+      "compatible-splash-makepad.patch",
+      "disabled-control-probe.patch"
+    ],
+    "vm_existing_tests_passed": 13,
+    "native_adapters": [
+      "VM checked evaluation with instruction budget and uncaught-error rejection",
+      "View selected state and Widget selection inspection traits",
+      "Label actual draw return rectangle and clipping flags",
+      "GaussRoundedView actual backdrop snapshot availability",
+      "Splash VM host container and draw list generations",
+      "Plot Walk defaults and premultiplied gradient initializer"
+    ],
+    "inspection_protocol_source": "unchanged platform/studio source at38f4d3bc; Studio/client built together; application-only widget adapters do not alter wire layout",
+    "native_tracking": {
+      "input_unit": "logical pixels",
+      "shape_unit": "ems = tracking / logical font size",
+      "paths": [
+        "TextStyle",
+        "LayoutOptions and cache key",
+        "FontFamily",
+        "ShapeParams"
+      ],
+      "coverage": [
+        "normal rows",
+        "word/grapheme wrapping",
+        "ellipsis"
+      ],
+      "existing_draw_library_tests_passed": 131
+    },
+    "active_patch_hashes": {
+      "compatible-makepad.patch": "02cacb78e20f6a748b539331a9de33fac0b0838272108b2f56fdf27df080f146",
+      "compatible-splash-makepad.patch": "aa40872d59b8c85383c671818e0b9954f606a4d107f638aa714b93ad679f14e2",
+      "disabled-control-probe.patch": "b6d0ae60df45b07d6222f714fb4372e445f88afdd6ddba059c6776d97fadb12e"
+    }
+  },
+  "own_artwork_pid": 50641,
+  "historical_attempts": {
+    "initial_checked_evaluation_backport": {
+      "upstream_revision": "5b6932cf071c097ac0997a019b2a08016dcf1196",
+      "source": "platform/script/src/vm.rs",
+      "patch": "checked-evaluation-backport.patch",
+      "sha256": "85b9b48d173d03a4c0c2417165d7287c2213512c48d0d68a23b3253898177d98",
+      "validation": "release VM test passes: valid document, runaway loop, recovered runtime error"
+    }
+  },
+  "protocol": {
+    "base_revision": "38f4d3bc28938dfc8d8afe05082e84e599c0575d",
+    "wire_source_patched": false,
+    "files": {
+      "platform/studio/src/studio.rs": "87324fcadc607b4837792edef70f22951d791bfff5cbea850bf8b6cda91e17ab",
+      "platform/studio/src/shared_framebuf.rs": "66a490e4d1c3fa9e1f36e5761bac5955f55137a82dd18077c2b429dede7d1da8",
+      "platform/studio/src/lib.rs": "1def16169ac5275c449a5ede86fcf2ea31cfcf448ece9cd57db1532068509d8a",
+      "platform/studio/src/keyboard.rs": "bce4b358dc999b7145163094ee6216bfca9b707bc1160c8c0ca608fbc4419b39",
+      "platform/studio/src/cursor.rs": "8452cbc033cc192c0593860f53f8b21863d4c5289db1b52a75a2ff74c98c06a8",
+      "platform/studio/src/hub_protocol.rs": "e5680eadcd58775886fd35b2eaf90f0f2e42e19bca2e3f769ea249a04b0915ee",
+      "platform/studio/src/mouse.rs": "d877d5d16454216f01bcd7d301f9c189218d6e1ef70943c59642049617fea9e3"
+    },
+    "client_adapter": "Forwards WidgetSnapshot and preserves query-client filtering; no wire format change",
+    "native_widget_adapters": "Host widget adapters applied after infrastructure build; no protocol mutation"
+  },
+  "native_pilot": {
+    "round": "cards/aircon-07/rounds/010",
+    "build_id": [
+      8
+    ],
+    "native_widgets": 56,
+    "native_viewport_px": [
+      812,
+      1552
+    ],
+    "all_inspection_kinds_captured": true,
+    "label_geometry": "actual allocated native walk Area matches mapping; content rect recorded separately",
+    "enabled_controls_activated": 6,
+    "disabled_conflict_control": "native snapshot disabled and no activation; probe numeric-zero classification repaired after round010",
+    "acceptance": "round010 is not accepted; retain failed probe receipt and recapture with repaired tool",
+    "transport_handed_to_parent": true
+  }
+}

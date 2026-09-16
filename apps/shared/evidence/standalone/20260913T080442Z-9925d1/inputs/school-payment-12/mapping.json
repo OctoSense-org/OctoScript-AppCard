@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "elements": [
+    {
+      "source_id": "payment_card",
+      "native_id": "beauty_0",
+      "parent": null,
+      "kind": "stack",
+      "component": "Surface649e6645fbe8",
+      "semantic_role": "card",
+      "bounds": [
+        0.0,
+        0.0,
+        263.5471698113207,
+        131.77358490566036
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "view_receipt",
+      "native_id": "beauty_0_0",
+      "parent": "payment_card",
+      "kind": "stack",
+      "component": "KitButton5dc7ea8cd583",
+      "semantic_role": "button",
+      "bounds": [
+        11.713207547169816,
+        84.92075471698121,
+        237.19245283018867,
+        35.13962264150943
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "view_receipt_surface",
+      "native_id": "beauty_0_0_0",
+      "parent": "view_receipt",
+      "kind": "stack",
+      "component": "Surface5ed0a01ed1e3",
+      "semantic_role": "layout",
+      "bounds": [
+        11.713207547169816,
+        84.92075471698121,
+        237.19245283018867,
+        35.13962264150943
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "view_receipt_control",
+      "native_id": "beauty_0_0_1",
+      "parent": "view_receipt",
+      "kind": "button",
+      "component": "NativeButton02f1d1bd99b4",
+      "semantic_role": "button",
+      "bounds": [
+        11.713207547169816,
+        84.92075471698121,
+        237.19245283018867,
+        35.13962264150943
+      ],
+      "text": null,
+      "enabled": 1,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "copy_219",
+      "native_id": "beauty_0_0_2",
+      "parent": "view_receipt",
+      "kind": "text",
+      "component": "Textd1fedce512de",
+      "semantic_role": "text",
+      "bounds": [
+        89.10487553748379,
+        93.6185938689843,
+        76.57256719522485,
+        19.75719750393094
+      ],
+      "text": "\u67e5\u770b\u51ed\u8bc1",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 17.05324405187331
+    },
+    {
+      "source_id": "check_icon_2",
+      "native_id": "beauty_0_1",
+      "parent": "payment_card",
+      "kind": "svg",
+      "component": "Vectore0a378fde04f",
+      "semantic_role": "icon",
+      "bounds": [
+        11.713207547169816,
+        11.713207547169816,
+        32.21132075471698,
+        32.21132075471698
+      ],
+      "text": null,
+      "enabled": null,
+      "font": null,
+      "size": null
+    },
+    {
+      "source_id": "copy_217",
+      "native_id": "beauty_0_2",
+      "parent": "payment_card",
+      "kind": "text",
+      "component": "Textfb0e49b43f31",
+      "semantic_role": "text",
+      "bounds": [
+        55.94303054168037,
+        16.941665171806108,
+        109.91689156383337,
+        18.294071818931204
+      ],
+      "text": "\u652f\u4ed8 \u00b7 \u5df2\u5b8c\u6210",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 15.271444250994877
+    },
+    {
+      "source_id": "copy_218",
+      "native_id": "beauty_0_3",
+      "parent": "payment_card",
+      "kind": "text",
+      "component": "Textbef0bca471a8",
+      "semantic_role": "text",
+      "bounds": [
+        56.076470401528184,
+        51.25356624865384,
+        124.39474117230542,
+        22.94619687181866
+      ],
+      "text": "\u00a5120 \u5df2\u652f\u4ed8",
+      "enabled": null,
+      "font": "self:resources/service/NotoSansSC-Regular.ttf",
+      "size": 20.563889513551366
+    }
+  ],
+  "fonts": {
+    "self:resources/service/NotoSansSC-Regular.ttf": "62513a5d6706afa489edfd29e1c860d076a3d36f0ba865fa917ebb79a96dfef8"
+  },
+  "contract_sha256": "1cc027f58a4941df1791050b38a40af438ad7894c1210eea1c0e0f97966dc395",
+  "mapping_basis": "mapped.json"
+}

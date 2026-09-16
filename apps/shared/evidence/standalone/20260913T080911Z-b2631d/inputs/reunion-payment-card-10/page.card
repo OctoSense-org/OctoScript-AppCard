@@ -1,0 +1,66 @@
+# ledger reunion-payment-card-10@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy text_91_text { class: user-copy, en: "重新打开支付" }
+copy text_85_text { class: user-copy, en: "支付 · 已取消" }
+copy text_86_text { class: user-copy, en: "2016届同学聚会" }
+copy text_87_text { class: user-copy, en: "¥180" }
+copy text_88_text { class: user-copy, en: "收款人 王宁" }
+copy text_89_text { class: user-copy, en: "本次支付已取消" }
+copy text_90_text { class: user-copy, en: "聚会报名不受影响" }
+state reopen_payment_control_enabled { shape: bool, initial: true }
+component Surfacec68b2b978c4e(instance: text) {
+  view Kit(component: "Surfacec68b2b978c4e", instance: instance) { slot }
+}
+component KitButton3f1620e22939(instance: text) {
+  view Kit(component: "KitButton3f1620e22939", instance: instance) { slot }
+}
+component Surface592192b269fb(instance: text) {
+  view Kit(component: "Surface592192b269fb", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Text3dfece5297ef(instance: text, text: text) {
+  view Kit(component: "Text3dfece5297ef", instance: instance, text: text)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Text43679dd68772(instance: text, text: text) {
+  view Kit(component: "Text43679dd68772", instance: instance, text: text)
+}
+component Text28296ca1c30f(instance: text, text: text) {
+  view Kit(component: "Text28296ca1c30f", instance: instance, text: text)
+}
+component Textf6f15d4e38af(instance: text, text: text) {
+  view Kit(component: "Textf6f15d4e38af", instance: instance, text: text)
+}
+component Text32a2a165ba88(instance: text, text: text) {
+  view Kit(component: "Text32a2a165ba88", instance: instance, text: text)
+}
+component Text756c9eb3665d(instance: text, text: text) {
+  view Kit(component: "Text756c9eb3665d", instance: instance, text: text)
+}
+component Text6718e595bf33(instance: text, text: text) {
+  view Kit(component: "Text6718e595bf33", instance: instance, text: text)
+}
+
+view root Surfacec68b2b978c4e(instance: "payment_card") {
+  KitButton3f1620e22939(instance: "reopen_payment") {
+    Surface592192b269fb(instance: "reopen_payment_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "reopen_payment_control", enabled: reopen_payment_control_enabled)
+    Text3dfece5297ef(instance: "text_91", text: copy.text_91_text)
+  }
+  Vectore0a378fde04f(instance: "warning_icon_0")
+  Text43679dd68772(instance: "text_85", text: copy.text_85_text)
+  Text28296ca1c30f(instance: "text_86", text: copy.text_86_text)
+  Textf6f15d4e38af(instance: "text_87", text: copy.text_87_text)
+  Text32a2a165ba88(instance: "text_88", text: copy.text_88_text)
+  Text756c9eb3665d(instance: "text_89", text: copy.text_89_text)
+  Text6718e595bf33(instance: "text_90", text: copy.text_90_text)
+}

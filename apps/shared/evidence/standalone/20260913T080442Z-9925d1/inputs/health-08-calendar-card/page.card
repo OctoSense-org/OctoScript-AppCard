@@ -1,0 +1,51 @@
+# ledger health-08-calendar-card@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy calendar_restore_text_text { class: user-copy, en: "重新加入" }
+copy calendar_title_text { class: user-copy, en: "日历记录已撤销" }
+copy calendar_note_text { class: user-copy, en: "仅移除日历提醒" }
+copy booking_note_text { class: user-copy, en: "体检预约仍然有效" }
+state calendar_restore_control_enabled { shape: bool, initial: true }
+component Surface5259d30211c6(instance: text) {
+  view Kit(component: "Surface5259d30211c6", instance: instance) { slot }
+}
+component KitButton5dc7ea8cd583(instance: text) {
+  view Kit(component: "KitButton5dc7ea8cd583", instance: instance) { slot }
+}
+component Surfacef38cb6e126ad(instance: text) {
+  view Kit(component: "Surfacef38cb6e126ad", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Textceef5f8a0702(instance: text, text: text) {
+  view Kit(component: "Textceef5f8a0702", instance: instance, text: text)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Text8e3391447ded(instance: text, text: text) {
+  view Kit(component: "Text8e3391447ded", instance: instance, text: text)
+}
+component Text50747405087b(instance: text, text: text) {
+  view Kit(component: "Text50747405087b", instance: instance, text: text)
+}
+component Texta7f5c3408edc(instance: text, text: text) {
+  view Kit(component: "Texta7f5c3408edc", instance: instance, text: text)
+}
+
+view root Surface5259d30211c6(instance: "calendar_card") {
+  KitButton5dc7ea8cd583(instance: "calendar_restore") {
+    Surfacef38cb6e126ad(instance: "calendar_restore_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "calendar_restore_control", enabled: calendar_restore_control_enabled)
+    Textceef5f8a0702(instance: "calendar_restore_text", text: copy.calendar_restore_text_text)
+  }
+  Vectore0a378fde04f(instance: "calendar_icon_3")
+  Text8e3391447ded(instance: "calendar_title", text: copy.calendar_title_text)
+  Text50747405087b(instance: "calendar_note", text: copy.calendar_note_text)
+  Texta7f5c3408edc(instance: "booking_note", text: copy.booking_note_text)
+}

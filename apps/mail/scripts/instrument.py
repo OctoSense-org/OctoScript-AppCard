@@ -39,15 +39,20 @@ class Instrument:
 def read(path):return json.loads(Path(path).read_text())
 
 
-def settled(timeout=25):
+def settled(timeout=25,poll=None):
     from common import ROOT
     end=time.monotonic()+timeout
+    status={}
     while time.monotonic()<end:
+        if poll is not None:poll()
         try:
             meta=read(ROOT/'runtime/session/session.json');r=meta['request']
             native,layout=read(r['result']),read(r['layout'])
             state=read(ROOT/'runtime/session/state.json')
+            status={'native_ok':native.get('ok'),'layout_matches':layout.get('nonce')==r['nonce'],
+                    'build_matches':native.get('request',{}).get('build_id')==r['build_id'],
+                    'screen':state.get('screen'),'mount_revision':meta.get('revision'),'state_revision':state.get('revision')}
             if native.get('ok') and layout.get('nonce')==r['nonce'] and native['request'].get('build_id')==r['build_id'] and (state['screen']=='compose' or meta['revision']==state['revision']):return meta
         except (OSError,ValueError):pass
         time.sleep(.1)
-    raise RuntimeError('Native scene did not settle')
+    raise RuntimeError('Native scene did not settle: '+json.dumps(status))

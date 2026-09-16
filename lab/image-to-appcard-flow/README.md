@@ -29,7 +29,7 @@ needed only when rebuilding native code.
 
 ```sh
 export BEAUTY_PYTHON="$PWD/lab/image-to-appcard/.venv/bin/python"
-export FLOW_PROJECT="/path/to/Octosense-Service-AppCards"
+export FLOW_PROJECT="/path/to/Octosense-Service-AppCards/apps/aircon"
 export FLOW_SITE="/path/to/Octosense-website"
 
 bash tools/image-to-appcard-flow.sh plan \

@@ -1,0 +1,45 @@
+{
+  "frame_id": 11,
+  "controls": {
+    "source_service_order": {
+      "event": "navigation.service_order",
+      "ocr_ids": [
+        146
+      ],
+      "source_bounds": [
+        43,
+        451,
+        127,
+        34
+      ],
+      "enabled": true
+    },
+    "pay_materials": {
+      "event": "payment.pay",
+      "ocr_ids": [
+        148
+      ],
+      "source_bounds": [
+        42,
+        502,
+        217,
+        59
+      ],
+      "enabled": true
+    },
+    "withdraw_payment_request": {
+      "event": "payment.cancel",
+      "ocr_ids": [
+        149
+      ],
+      "source_bounds": [
+        285,
+        501,
+        169,
+        59
+      ],
+      "enabled": true
+    }
+  },
+  "source": "payment-due"
+}

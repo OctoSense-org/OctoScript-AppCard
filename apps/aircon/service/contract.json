@@ -1,0 +1,486 @@
+{
+  "schema_version": 1,
+  "id": "aircon-service-cards",
+  "locale": "zh-CN",
+  "simulation": true,
+  "controller": {
+    "module": "controller.py",
+    "api": [
+      "initial_state(fixture?)",
+      "reduce(state,event)",
+      "view_model(state)",
+      "demo_states()"
+    ],
+    "event": {
+      "id": "unique string; duplicate exact event is no-op; same id different content is rejected",
+      "action": "actions[].id",
+      "actor": "user|provider; locally validated, not authentication",
+      "payload": "action-specific object"
+    },
+    "persistence": "caller serializes each instance; CLI uses atomic file replacement"
+  },
+  "ownership": {
+    "shopping": [
+      "order"
+    ],
+    "logistics": [
+      "delivery"
+    ],
+    "installation": [
+      "booking",
+      "technician",
+      "installation_progress"
+    ],
+    "calendar": [
+      "calendar_events",
+      "calendar_acknowledgement"
+    ],
+    "payment": [
+      "invoice",
+      "receipt"
+    ]
+  },
+  "actions": [
+    {
+      "id": "calendar.acknowledge",
+      "actor": "user",
+      "reads": [
+        "calendar.installation_event"
+      ],
+      "writes": [
+        "calendar.acknowledged"
+      ],
+      "description": "确认已看到更新，不重复创建日程",
+      "payload": {}
+    },
+    {
+      "id": "calendar.restore",
+      "actor": "user",
+      "reads": [
+        "installation"
+      ],
+      "writes": [
+        "calendar.installation_event",
+        "calendar.installation_sync"
+      ],
+      "description": "使用稳定事件 id 恢复日程，不重新预约",
+      "payload": {}
+    },
+    {
+      "id": "calendar.undo",
+      "actor": "user",
+      "reads": [
+        "calendar.installation_event"
+      ],
+      "writes": [
+        "calendar.installation_event",
+        "calendar.installation_sync"
+      ],
+      "description": "只撤销安装日程，预约继续有效",
+      "payload": {}
+    },
+    {
+      "id": "card.dismiss",
+      "actor": "user",
+      "reads": [
+        "visible_cards"
+      ],
+      "writes": [
+        "ui.dismissed_cards"
+      ],
+      "description": "收起卡片，不取消任何服务",
+      "payload": {
+        "card_id": "visible stable owner:entity id"
+      }
+    },
+    {
+      "id": "installation.cancel",
+      "actor": "user",
+      "reads": [
+        "installation"
+      ],
+      "writes": [
+        "installation",
+        "calendar.installation_event",
+        "ui"
+      ],
+      "description": "显式取消未出发的安装预约并删除关联日程",
+      "payload": {}
+    },
+    {
+      "id": "installation.choose_day",
+      "actor": "user",
+      "reads": [
+        "fixture.installation.days"
+      ],
+      "writes": [
+        "installation.selected_day",
+        "installation.selected_slot_id"
+      ],
+      "description": "选择日期，清除旧日期下的草稿时段",
+      "payload": {
+        "date": "2026-09-19|2026-09-20"
+      }
+    },
+    {
+      "id": "installation.choose_slot",
+      "actor": "user",
+      "reads": [
+        "calendar.events",
+        "fixture.installation.slots"
+      ],
+      "writes": [
+        "installation.selected_slot_id"
+      ],
+      "description": "仅选择无冲突时段",
+      "payload": {
+        "slot_id": "morning|afternoon"
+      }
+    },
+    {
+      "id": "installation.close_slots",
+      "actor": "user",
+      "reads": [
+        "installation.booked_slot_id"
+      ],
+      "writes": [
+        "ui",
+        "installation.selected_slot_id",
+        "installation.selected_day"
+      ],
+      "description": "撤销草稿，保留旧预约",
+      "payload": {}
+    },
+    {
+      "id": "installation.completed",
+      "actor": "provider",
+      "reads": [
+        "installation",
+        "fixture.payment"
+      ],
+      "writes": [
+        "installation.status",
+        "payment.status"
+      ],
+      "description": "安装完成并创建唯一待支付请求，不扣款",
+      "payload": {}
+    },
+    {
+      "id": "installation.confirm",
+      "actor": "user",
+      "reads": [
+        "calendar.events",
+        "fixture.authorizations"
+      ],
+      "writes": [
+        "installation",
+        "calendar.installation_event",
+        "ui"
+      ],
+      "description": "再次校验冲突，提交预约并按已有授权同步日历",
+      "payload": {}
+    },
+    {
+      "id": "installation.defer",
+      "actor": "user",
+      "reads": [
+        "installation.booked_slot_id"
+      ],
+      "writes": [
+        "ui",
+        "installation.selected_slot_id"
+      ],
+      "description": "暂不预约，仅收起预约入口",
+      "payload": {}
+    },
+    {
+      "id": "installation.open_slots",
+      "actor": "user",
+      "reads": [
+        "installation",
+        "calendar"
+      ],
+      "writes": [
+        "ui",
+        "installation.selected_slot_id",
+        "installation.selected_day"
+      ],
+      "description": "展开安装时段",
+      "payload": {}
+    },
+    {
+      "id": "installation.reschedule",
+      "actor": "user",
+      "reads": [
+        "installation",
+        "calendar"
+      ],
+      "writes": [
+        "ui",
+        "installation.selected_slot_id",
+        "installation.selected_day"
+      ],
+      "description": "编辑已有预约的草稿",
+      "payload": {}
+    },
+    {
+      "id": "installation.technician_departed",
+      "actor": "provider",
+      "reads": [
+        "installation"
+      ],
+      "writes": [
+        "installation.status"
+      ],
+      "description": "已有预约的师傅出发，不倒退完成状态",
+      "payload": {}
+    },
+    {
+      "id": "logistics.delivered",
+      "actor": "provider",
+      "reads": [
+        "order"
+      ],
+      "writes": [
+        "delivery",
+        "installation.status"
+      ],
+      "description": "服务回传收货并提供安装入口",
+      "payload": {}
+    },
+    {
+      "id": "logistics.out_for_delivery",
+      "actor": "provider",
+      "reads": [
+        "order"
+      ],
+      "writes": [
+        "delivery"
+      ],
+      "description": "服务回传派送进度，不倒退已送达状态",
+      "payload": {}
+    },
+    {
+      "id": "navigation.desktop",
+      "actor": "user",
+      "reads": [
+        "order"
+      ],
+      "writes": [
+        "ui"
+      ],
+      "description": "返回系统桌面",
+      "payload": {}
+    },
+    {
+      "id": "navigation.open_app",
+      "actor": "user",
+      "reads": [
+        "ui"
+      ],
+      "writes": [
+        "ui"
+      ],
+      "description": "打开所属应用，交由宿主展示详情",
+      "payload": {
+        "app": "shopping|logistics|installation|calendar|payment",
+        "page": "optional string"
+      }
+    },
+    {
+      "id": "order.purchase_demo",
+      "actor": "user",
+      "reads": [
+        "fixture.order"
+      ],
+      "writes": [
+        "order",
+        "ui"
+      ],
+      "description": "创建已有付款的演示订单",
+      "payload": {}
+    },
+    {
+      "id": "payment.cancel",
+      "actor": "user",
+      "reads": [
+        "payment"
+      ],
+      "writes": [
+        "payment.status"
+      ],
+      "description": "只撤销待支付请求，不能退款或取消安装",
+      "payload": {}
+    },
+    {
+      "id": "payment.pay",
+      "actor": "user",
+      "reads": [
+        "fixture.payment",
+        "payment"
+      ],
+      "writes": [
+        "payment"
+      ],
+      "description": "明确用户动作，校验单号/整数分/币种，创建唯一模拟回执",
+      "payload": {
+        "invoice_id": "invoice-materials-aircon-001",
+        "amount_minor": 13000,
+        "currency": "CNY"
+      }
+    },
+    {
+      "id": "payment.reopen",
+      "actor": "user",
+      "reads": [
+        "payment"
+      ],
+      "writes": [
+        "payment.status"
+      ],
+      "description": "重新打开已撤销但未付款的请求",
+      "payload": {}
+    }
+  ],
+  "frames": [
+    {
+      "id": 1,
+      "surface": "app",
+      "view_fixture": "fixtures/01.view.json",
+      "state_fixture": "fixtures/01.state.json",
+      "source_frame": "../cards/aircon-01"
+    },
+    {
+      "id": 2,
+      "surface": "app",
+      "view_fixture": "fixtures/02.view.json",
+      "state_fixture": "fixtures/02.state.json",
+      "source_frame": "../cards/aircon-02"
+    },
+    {
+      "id": 3,
+      "surface": "desktop",
+      "view_fixture": "fixtures/03.view.json",
+      "state_fixture": "fixtures/03.state.json",
+      "source_frame": "../cards/aircon-03"
+    },
+    {
+      "id": 4,
+      "surface": "desktop",
+      "view_fixture": "fixtures/04.view.json",
+      "state_fixture": "fixtures/04.state.json",
+      "source_frame": "../cards/aircon-04"
+    },
+    {
+      "id": 5,
+      "surface": "desktop",
+      "view_fixture": "fixtures/05.view.json",
+      "state_fixture": "fixtures/05.state.json",
+      "source_frame": "../cards/aircon-05"
+    },
+    {
+      "id": 6,
+      "surface": "desktop",
+      "view_fixture": "fixtures/06.view.json",
+      "state_fixture": "fixtures/06.state.json",
+      "source_frame": "../cards/aircon-06"
+    },
+    {
+      "id": 7,
+      "surface": "desktop",
+      "view_fixture": "fixtures/07.view.json",
+      "state_fixture": "fixtures/07.state.json",
+      "source_frame": "../cards/aircon-07"
+    },
+    {
+      "id": 8,
+      "surface": "desktop",
+      "view_fixture": "fixtures/08.view.json",
+      "state_fixture": "fixtures/08.state.json",
+      "source_frame": "../cards/aircon-08"
+    },
+    {
+      "id": 9,
+      "surface": "desktop",
+      "view_fixture": "fixtures/09.view.json",
+      "state_fixture": "fixtures/09.state.json",
+      "source_frame": "../cards/aircon-09"
+    },
+    {
+      "id": 10,
+      "surface": "desktop",
+      "view_fixture": "fixtures/10.view.json",
+      "state_fixture": "fixtures/10.state.json",
+      "source_frame": "../cards/aircon-10"
+    },
+    {
+      "id": 11,
+      "surface": "desktop",
+      "view_fixture": "fixtures/11.view.json",
+      "state_fixture": "fixtures/11.state.json",
+      "source_frame": "../cards/aircon-11"
+    },
+    {
+      "id": 12,
+      "surface": "desktop",
+      "view_fixture": "fixtures/12.view.json",
+      "state_fixture": "fixtures/12.state.json",
+      "source_frame": "../cards/aircon-12"
+    }
+  ],
+  "data_relations": [
+    {
+      "from": "order",
+      "to": "delivery",
+      "key": "order.id",
+      "purpose": "订单触发配送进度"
+    },
+    {
+      "from": "delivery.delivered",
+      "to": "installation",
+      "purpose": "收货事件触发预约入口"
+    },
+    {
+      "from": "calendar.events",
+      "to": "installation.slots",
+      "purpose": "即时检查时间冲突，提交前重新检查"
+    },
+    {
+      "from": "installation.booking",
+      "to": "calendar.installation_event",
+      "key": "booking.id + stable calendar_event_id",
+      "purpose": "已有授权时先更新日程，再呈现确认与撤销"
+    },
+    {
+      "from": "installation.completed",
+      "to": "payment.invoice",
+      "key": "installation.id + stable invoice_id",
+      "purpose": "材料费待支付，由用户确认后生成唯一模拟回执"
+    }
+  ],
+  "invariants": [
+    "Money is integer minor units; invoice display and payment payload must match",
+    "Calendar undo never cancels a booking",
+    "Explicit booking cancellation removes only its own calendar event",
+    "Calendar restore and rescheduling use stable IDs",
+    "Day/slot changes only affect drafts until confirmed",
+    "Provider updates are monotonic and never authorize payment",
+    "Pending payment cancellation is not refund",
+    "Card body navigation never changes domain records",
+    "Native controls bind semantic actions and enabled state; frame_id only names design reference"
+  ],
+  "native_binding": {
+    "card_identity": "view.cards[].id",
+    "label": "view.cards[].title and data fields",
+    "buttons": "view.cards[].actions with enabled and payload",
+    "card_body": "view.cards[].body_action",
+    "route": "view.app_route (host must implement detail layout)",
+    "live_state": "view.bindings",
+    "native_validation": "Makepad Studio instrument click + widget state + screenshot; reducer tests are separate"
+  },
+  "provenance": {
+    "flow_id": "aircon-fresh-v2",
+    "atlas_sha256": "168eb235aefdd446b1f9941b15107d7b6ca2a1ff88ec5d437801d2ea2ee0abf5",
+    "source_frame_count": 12
+  }
+}

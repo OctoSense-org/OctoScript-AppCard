@@ -14,6 +14,8 @@ import uuid
 
 HERE = Path(__file__).resolve().parent
 WORKSPACE = HERE.parents[1]
+sys.path.insert(0, str(HERE.parent))
+from core.native_paths import WORKSPACE as NATIVE_WORKSPACE
 STAGES = ('intake', 'prepare', 'observe', 'measure', 'map', 'semantic', 'compile', 'capture', 'gate', 'extract', 'bundle',
           'service-test', 'wasm', 'integrate', 'web-test', 'hosted-test')
 DEFAULT_STAGES = 'intake,semantic,compile,bundle,service-test'
@@ -128,7 +130,7 @@ def commands_for(stage, doc, manifest, project, website, node, python, launch=Fa
         script = {'intake': 'atlas.py', 'bundle': 'bundle.py', 'extract': 'extract.py'}[stage]
         argv = [python, str(HERE / script), *common, '--output', str(out['cards' if stage == 'extract' else stage])]
     elif stage == 'wasm':
-        argv = [python, str(HERE / 'wasm/build.py'), '--workspace', str(WORKSPACE),
+        argv = [python, str(HERE / 'wasm/build.py'), '--workspace', str(NATIVE_WORKSPACE),
                 '--project', str(project), '--output', str(out['wasm']), '--replace']
     elif stage == 'integrate':
         if website is None:
