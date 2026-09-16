@@ -8,10 +8,10 @@ default-run = "octos-one-splash-research-experiment"
 [workspace]
 
 [dependencies]
-splash-capabilities = { path = "../../../octosense-org/octoscript/crates/splash-capabilities" }
-splash-core = { path = "../../../octosense-org/octoscript/crates/splash-core" }
-splash-schema = { path = "../../../octosense-org/octoscript/crates/splash-schema" }
-splash-ui-l0 = { path = "../../../octosense-org/octoscript/crates/splash-ui-l0" }
+splash-capabilities = { path = "../../../octoscript/crates/splash-capabilities" }
+splash-core = { path = "../../../octoscript/crates/splash-core" }
+splash-schema = { path = "../../../octoscript/crates/splash-schema" }
+splash-ui-l0 = { path = "../../../octoscript/crates/splash-ui-l0" }
 serde_json = "1.0"
 futures = "0.3"
 tokio = { version = "1", features = ["rt", "time", "macros"] }

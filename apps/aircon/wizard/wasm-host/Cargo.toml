@@ -7,11 +7,11 @@ edition = "2021"
 
 [dependencies]
 serde_json = { version = "1", features = ["float_roundtrip"] }
-makepad-widgets = { path = "../../../../../octosense-org/makepad/widgets" }
-splash-widgets = { path = "../../../../../octosense-org/octoscript-makepad/crates/splash-widgets" }
-splash-render = { path = "../../../../../octosense-org/octoscript-makepad/crates/splash-render" }
-splash-makepad = { path = "../../../../../octosense-org/octoscript-makepad/crates/splash-makepad" }
-splash-ui-l0 = { path = "../../../../../octosense-org/octoscript/crates/splash-ui-l0" }
+makepad-widgets = { path = "../../../../../makepad/widgets" }
+splash-widgets = { path = "../../../../../octoscript-makepad/crates/splash-widgets" }
+splash-render = { path = "../../../../../octoscript-makepad/crates/splash-render" }
+splash-makepad = { path = "../../../../../octoscript-makepad/crates/splash-makepad" }
+splash-ui-l0 = { path = "../../../../../octoscript/crates/splash-ui-l0" }
 
 [profile.release]
 opt-level = 3
