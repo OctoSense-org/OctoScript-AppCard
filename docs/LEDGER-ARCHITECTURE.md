@@ -572,7 +572,7 @@ So **Splash has no supported path for LLM-generated UI**, and octos-one occupies
 bypassing Splash — which is how it inherited `fs`/`run`/`net`/`quit`.
 
 R2's "wiring gap, not a design gap" is withdrawn: `Runtime`'s VM accessor is private
-(`splash-core/src/lib.rs:1200`), the renderer needs a live `ScriptVm` after evaluation, and
+(`octoscript-core/src/lib.rs:1200`), the renderer needs a live `ScriptVm` after evaluation, and
 re-registering the platform module through `Runtime::configure` would reinstall the APIs
 Runtime masks.
 
@@ -732,10 +732,10 @@ resident. The only decoder that fits a phone has **zero weights**.
 ```
 Splash/
 ├── crates/                        workspace 1 — no UI deps, security-critical
-│   ├── splash-core                  VM, grammar, Runtime      [exists, 12,658]
+│   ├── octoscript-core                  VM, grammar, Runtime      [exists, 12,658]
 │   │     └── profile/ui             NEW  UI grammar: L0 subset, then L1, then L2
-│   ├── splash-schema / -storage / -protocol / -worker         [exists]
-│   ├── splash-capabilities / -workflow / -sandbox / -linux-*  [exists]
+│   ├── octoscript-schema / -storage / -protocol / -worker         [exists]
+│   ├── octoscript-capabilities / -workflow / -sandbox / -linux-*  [exists]
 │   ├── splash-cli / -lsp                                      [exists]
 │   ├── splash-ui-host             NEW  host surfaces per level (empty for L0/L1)
 │   ├── splash-app-catalog         NEW  sys.* + sensors, declared once
@@ -743,8 +743,8 @@ Splash/
 │   └── splash-mobile-containment  NEW  gates L2 on mobile
 │
 ├── ui/                            workspace 2 — the shared UI spine
-│   ├── splash-render                GROWS: + layout, text roles, theme
-│   ├── splash-widgets               widget semantics, not realization
+│   ├── octoscript-render                GROWS: + layout, text roles, theme
+│   ├── octoscript-widgets               widget semantics, not realization
 │   ├── splash-backend             NEW  the port trait (§12)
 │   └── conformance/               NEW  card corpus + golden output
 │
@@ -752,7 +752,7 @@ Splash/
 ```
 
 **Two workspaces**, so `makepad-widgets` never enters the tree `splash-sandbox` and
-`splash-storage` live in. **The UI profile is a module in `splash-core`**, since it shares the
+`splash-storage` live in. **The UI profile is a module in `octoscript-core`**, since it shares the
 parser and `Runtime`'s VM accessor is private.
 
 **`splash-app-catalog`** matters disproportionately: `sys.*` is hand-written four times today
@@ -765,8 +765,8 @@ has surfaced as a device-visible bug.**
 
 | | Lines | Note |
 |---|---|---|
-| `splash-render` | **824** | shared core; no makepad deps |
-| `splash-makepad` + `splash-widgets` | 3,136 | the Makepad backend |
+| `octoscript-render` | **824** | shared core; no makepad deps |
+| `splash-makepad` + `octoscript-widgets` | 3,136 | the Makepad backend |
 | `splash-oh` + `splash-oh-native` | **15,207** | ~5× Makepad |
 | Splash-Android | **17 files** | barely started |
 
@@ -812,12 +812,12 @@ Cost: Makepad donates upward; OH sheds ~4,400 lines; **Android is built from scr
 0. **Level-aware host surfaces** — the §7.1 sandbox fix (becomes the L2 surface), the
    `splash-native` `with_instruction_limit` one-liner, runtime-bound event identity (§7.2).
 1. **Message-per-segment wire form** (§9.1) with cache telemetry.
-2. **The L0 grammar in `splash-core`** — parser, validator, components with declared local
+2. **The L0 grammar in `octoscript-core`** — parser, validator, components with declared local
    state, lowering to `UiNode`, empty host surface.
 3. **Port the plan layer onto it.** `app/app/src/app/plan/` already has correct L0 *semantics*;
    give it the L0 grammar plus segment/fold/overlay rather than replacing it.
 4. **`splash-app-catalog`.**
-5. **Grow `splash-render`; define `splash-backend`; declarative `MapView`; conformance.**
+5. **Grow `octoscript-render`; define `splash-backend`; declarative `MapView`; conformance.**
 6. **Backend parity** — OH sheds its layers; Android is built.
 7. **`splash-ledger`** with level and instance-state enforcement — after §8.2 is resolved.
 8. **Reconciliation (§6), then L1, then containment, then L2 idle refinement.**

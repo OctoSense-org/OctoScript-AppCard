@@ -1,7 +1,7 @@
 //! JSON-lines bridge: the real Splash VM owns dependencies; the host owns I/O.
 use serde_json::{json, Value};
-use splash_capabilities::{CapabilityModule, CapabilityRuntime, JsonToolContract, ToolError, ToolMetadata, ToolPolicy};
-use splash_core::ExecutionLimits;
+use octoscript_capabilities::{CapabilityModule, CapabilityRuntime, JsonToolContract, ToolError, ToolMetadata, ToolPolicy};
+use octoscript_core::ExecutionLimits;
 use std::{io::{self, BufRead, Write}, collections::BTreeMap, time::{Duration, Instant}};
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut lines = io::stdin().lock().lines();

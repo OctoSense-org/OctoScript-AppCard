@@ -26,7 +26,12 @@ the AppCards parent when it is named `octosense-org`, otherwise its sibling
 | `octoscript` | `https://github.com/OctoSense-org/Octoscript.git` |
 | `octoscript-makepad` | `https://github.com/OctoSense-org/Octoscript-Makepad.git` |
 
-The pinned upstream revisions still use Rust crate names such as `splash-ui-l0`
+The current main branches use `octoscript-*` Rust crate names and pinned git
+dependencies. The Android app and research tools retain those names; CI checks
+out the required engines beside AppCards.
+
+Mail and the reproducible WASM builds use older, explicitly pinned compatibility
+revisions. These pinned revisions still use Rust crate names such as `splash-ui-l0`
 and `splash-makepad`. Those crate names and historical patch/lock identifiers
 remain intact. Repository directory names are `octoscript` and
 `octoscript-makepad`. The setup helper adapts the two upstream Cargo manifests

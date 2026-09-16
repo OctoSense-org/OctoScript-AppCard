@@ -110,7 +110,7 @@ def capture(id,build):
         'reference_sha256':digest((directory/'reference.png').read_bytes()) if (directory/'reference.png').exists() else None,
         'files':{str(p.relative_to(round_dir)):digest(p.read_bytes()) for p in round_dir.rglob('*') if p.is_file()},
         'pipeline_sources':{name:digest((HERE/name).read_bytes()) for name in ('semantics.py','mapping-rules.json','compile.py','gate.py','studio.py','../core/policy.py')},
-        'runtime_sources':{str(p.relative_to(repository('splash-makepad'))):digest(p.read_bytes()) for base in ['apps/kit-host/src','crates/splash-makepad/src','crates/splash-widgets/src','crates/makepad-plot/src'] for p in (repository('splash-makepad')/base).rglob('*.rs')}})
+        'runtime_sources':{str(p.relative_to(repository('splash-makepad'))):digest(p.read_bytes()) for base in ['apps/kit-host/src','crates/splash-makepad/src','crates/splash-widgets/src','crates/octoscript-makepad/src','crates/octoscript-widgets/src','crates/makepad-plot/src'] for p in (repository('splash-makepad')/base).rglob('*.rs')}})
     # Publish only after the interaction probes and their receipt are complete.
     print(json.dumps({'id':id,'round':round_dir.name,'build_id':build,'nodes':native['nodes']}),flush=True)
     return round_dir

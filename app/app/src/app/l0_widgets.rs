@@ -16,7 +16,7 @@
 //! colour appears in this file that did not come off a node, that is the defect
 //! §1.1 exists to prevent.
 
-use splash_node::{Attrs, NodeKind, UiNode};
+use octoscript_node::{Attrs, NodeKind, UiNode};
 use std::fmt::Write as _;
 
 /// Render a tree as the DSL this repository's VM evaluates.
@@ -1311,7 +1311,7 @@ fn emit_widget(node: &UiNode, out: &mut String, depth: usize) {
         // shadow both softens and drops as the surface rises.
         //
         // The ink is derived here rather than themed because carrying a
-        // `shadowcolor` would mean editing `Attrs` in the splash-node
+        // `shadowcolor` would mean editing `Attrs` in the octoscript-node
         // submodule, and this change stays inside octos-one. The consequence is
         // that only SOFT shadows are expressible today — a hard offset block
         // (neubrutalist, memphis) needs a themed ink and near-zero blur, and
@@ -1921,7 +1921,7 @@ mod tests {
 #[cfg(test)]
 mod wire_tests {
     use super::{parse_tap, to_dsl, TAP_CHANNEL};
-    use splash_node::{Attrs, NodeKind, UiNode};
+    use octoscript_node::{Attrs, NodeKind, UiNode};
 
     /// The tap payload the emitter writes is the one the handler reads.
     ///
@@ -1936,7 +1936,7 @@ mod wire_tests {
     /// was covered nowhere. This test starts at the emitted DSL.
     #[test]
     fn the_emitted_tap_is_the_one_the_handler_parses() {
-        // Exactly what `splash_ui_l0::kit::tap_target` writes.
+        // Exactly what `octoscript_ui_l0::kit::tap_target` writes.
         let target = "l0:{\"e\":\"set_range\",\"k\":\"root/detail/ranges#0/Chip#2\",\"v\":\"m1\"}";
         let dsl = to_dsl(&UiNode {
             kind: NodeKind::Chip,
@@ -2001,7 +2001,7 @@ mod range_tests {
 #[cfg(test)]
 mod field_tests {
     use super::{to_dsl, TAP_CHANNEL};
-    use splash_node::{Attrs, NodeKind, UiNode};
+    use octoscript_node::{Attrs, NodeKind, UiNode};
 
     /// A `Field` binds its RETURN key and is never covered by a hit target.
     ///
@@ -2190,7 +2190,7 @@ mod hoisting {
 #[cfg(test)]
 mod two_maps {
     use super::to_dsl;
-    use splash_node::{Attrs, NodeKind, UiNode};
+    use octoscript_node::{Attrs, NodeKind, UiNode};
 
     fn map() -> UiNode {
         UiNode {
@@ -2272,7 +2272,7 @@ mod two_maps {
 #[cfg(test)]
 mod stroke_and_shadow_tests {
     use super::*;
-    use splash_node::{Attrs, NodeKind, UiNode};
+    use octoscript_node::{Attrs, NodeKind, UiNode};
 
     fn card_with(border: Option<f32>, ink: Option<u32>, lift: Option<f32>) -> String {
         let a = Attrs { border, bordercolor: ink, elevation: lift, ..Default::default() };
@@ -2327,7 +2327,7 @@ mod dump_real_card {
 #[cfg(test)]
 mod texture_tests {
     use super::*;
-    use splash_node::{Attrs, NodeKind, UiNode};
+    use octoscript_node::{Attrs, NodeKind, UiNode};
 
     /// A textured node emits a tiled image over itself.
     #[test]

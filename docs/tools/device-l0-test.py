@@ -29,7 +29,7 @@ import numpy as np
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
-SPLASH = ROOT.parent / "Splash"
+SPLASH = ROOT.parent / "octoscript"
 GOLDEN = Path(__file__).parent / "golden"
 ADB = Path.home() / "Library/Android/sdk/platform-tools/adb"
 DEVICE = "bf0a4730"  # OnePlus 6T
@@ -91,7 +91,7 @@ def adb(*args, **kw):
 def lower(case):
     """Realize a card (optionally after one event) and return the DSL."""
     _, card, data, event, payload = case[:5]
-    card_path = SPLASH / "crates/splash-ui-l0/tests/fixtures" / card
+    card_path = SPLASH / "crates/octoscript-ui-l0/tests/fixtures" / card
     data_path = Path(__file__).parent / "data" / data
 
     if event:
@@ -102,7 +102,7 @@ def lower(case):
         args = ["--example", "lower_l0", "--", str(card_path), str(data_path)]
 
     out = subprocess.run(
-        ["cargo", "run", "-q", "-p", "splash-ui-l0", *args],
+        ["cargo", "run", "-q", "-p", "octoscript-ui-l0", *args],
         cwd=SPLASH, capture_output=True, text=True,
     )
     if out.returncode != 0:

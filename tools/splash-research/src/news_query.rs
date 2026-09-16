@@ -72,7 +72,7 @@ mod tests {
             assert_eq!(query.name, "research.query");
             assert!(runtime.claim_next_external_tool().is_none());
             let output = if fail {
-                Err(splash_capabilities::ToolError::Failed("translation unavailable".into()))
+                Err(octoscript_capabilities::ToolError::Failed("translation unavailable".into()))
             } else {
                 Ok(json!({"query":"US Iran conflict"}).to_string())
             };
