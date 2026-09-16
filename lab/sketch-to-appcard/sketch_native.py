@@ -24,6 +24,7 @@ from PIL import Image
 
 import sys as _sys, pathlib as _pathlib
 _sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[1]))
+from core.native_paths import repository
 from core import kitconf
 from sketch2spec import Extractor
 from sketch_assets import export_graphics
@@ -1365,7 +1366,7 @@ def main():
             spaces=n.get('control',{}).get('leading_spaces',0)
             if spaces:
                 from fontTools.ttLib import TTFont
-                resource=kitconf.HERE.parents[1]/'Octoscript-Makepad/apps/kit-host/resources'/node['font_src'].split('resources/',1)[1]
+                resource=repository('splash-makepad')/'apps/kit-host/resources'/node['font_src'].split('resources/',1)[1]
                 with TTFont(resource) as font:
                     advance=font['hmtx'].metrics[font.getBestCmap()[32]][0]/font['head'].unitsPerEm
                 node['padleft']=spaces*(advance*node['size']+node.get('tracking',0))

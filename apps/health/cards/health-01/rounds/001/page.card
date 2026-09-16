@@ -1,0 +1,98 @@
+# ledger health-01@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy open_details_text_text { class: user-copy, en: "查看详情" }
+copy dock_health_text { class: user-copy, en: "健康" }
+copy dock_calendar_text { class: user-copy, en: "日历" }
+copy dock_mail_text { class: user-copy, en: "邮件" }
+copy dock_profile_text { class: user-copy, en: "我的" }
+copy title_text { class: user-copy, en: "健康" }
+copy heading_text { class: user-copy, en: "年度体检邀请" }
+copy provider_name_text { class: user-copy, en: "安心体检中心" }
+copy tagline_text { class: user-copy, en: "为自己留一点时间" }
+copy status_time_text { class: user-copy, en: "9:41" }
+state open_details_control_enabled { shape: bool, initial: true }
+component Surface991755d1cfb2(instance: text) {
+  view Kit(component: "Surface991755d1cfb2", instance: instance) { slot }
+}
+component Surfacefe4d80d7823f(instance: text) {
+  view Kit(component: "Surfacefe4d80d7823f", instance: instance) { slot }
+}
+component KitButton5dc7ea8cd583(instance: text) {
+  view Kit(component: "KitButton5dc7ea8cd583", instance: instance) { slot }
+}
+component Surface93a316bf76d8(instance: text) {
+  view Kit(component: "Surface93a316bf76d8", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Textded415b65a1a(instance: text, text: text) {
+  view Kit(component: "Textded415b65a1a", instance: instance, text: text)
+}
+component Imageec6f4cac3824(instance: text) {
+  view Kit(component: "Imageec6f4cac3824", instance: instance)
+}
+component Surface90a6678328eb(instance: text) {
+  view Kit(component: "Surface90a6678328eb", instance: instance) { slot }
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Text226c4d70c0a9(instance: text, text: text) {
+  view Kit(component: "Text226c4d70c0a9", instance: instance, text: text)
+}
+component Text9e82d840b7f4(instance: text, text: text) {
+  view Kit(component: "Text9e82d840b7f4", instance: instance, text: text)
+}
+component Text4f4b4b92c896(instance: text, text: text) {
+  view Kit(component: "Text4f4b4b92c896", instance: instance, text: text)
+}
+component Texte5b57e89d754(instance: text, text: text) {
+  view Kit(component: "Texte5b57e89d754", instance: instance, text: text)
+}
+component Text1f9ce125a885(instance: text, text: text) {
+  view Kit(component: "Text1f9ce125a885", instance: instance, text: text)
+}
+component Textd6cbfeab19a9(instance: text, text: text) {
+  view Kit(component: "Textd6cbfeab19a9", instance: instance, text: text)
+}
+component Text1abd0b9fe90d(instance: text, text: text) {
+  view Kit(component: "Text1abd0b9fe90d", instance: instance, text: text)
+}
+component Text9e3bd26e6e4f(instance: text, text: text) {
+  view Kit(component: "Text9e3bd26e6e4f", instance: instance, text: text)
+}
+component Texta4611aedbe29(instance: text, text: text) {
+  view Kit(component: "Texta4611aedbe29", instance: instance, text: text)
+}
+
+view root Surface991755d1cfb2(instance: "page") {
+  Surfacefe4d80d7823f(instance: "screen") {
+    KitButton5dc7ea8cd583(instance: "open_details") {
+      Surface93a316bf76d8(instance: "open_details_surface") {
+
+      }
+      NativeButton02f1d1bd99b4(instance: "open_details_control", enabled: open_details_control_enabled)
+      Textded415b65a1a(instance: "open_details_text", text: copy.open_details_text_text)
+    }
+    Imageec6f4cac3824(instance: "clinic_photo")
+    Surface90a6678328eb(instance: "dock") {
+      Vectore0a378fde04f(instance: "dock_icon_heart")
+      Vectore0a378fde04f(instance: "dock_icon_calendar")
+      Vectore0a378fde04f(instance: "dock_icon_mail")
+      Vectore0a378fde04f(instance: "dock_icon_person")
+      Text226c4d70c0a9(instance: "dock_health", text: copy.dock_health_text)
+      Text9e82d840b7f4(instance: "dock_calendar", text: copy.dock_calendar_text)
+      Text4f4b4b92c896(instance: "dock_mail", text: copy.dock_mail_text)
+      Texte5b57e89d754(instance: "dock_profile", text: copy.dock_profile_text)
+    }
+    Text1f9ce125a885(instance: "title", text: copy.title_text)
+    Textd6cbfeab19a9(instance: "heading", text: copy.heading_text)
+    Text1abd0b9fe90d(instance: "provider_name", text: copy.provider_name_text)
+    Text9e3bd26e6e4f(instance: "tagline", text: copy.tagline_text)
+    Texta4611aedbe29(instance: "status_time", text: copy.status_time_text)
+  }
+}

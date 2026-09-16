@@ -1,0 +1,699 @@
+{
+  "schema_version": 1,
+  "reference_sha256": "782dedeb25365099f80148be33deb744d46daa446afc4303ff21612163b08088",
+  "tree": {
+    "t": "stack",
+    "id": "page",
+    "x": 0,
+    "y": 0,
+    "w": 406,
+    "h": 776,
+    "c": [
+      {
+        "t": "text",
+        "id": "clock",
+        "text": "9:41",
+        "x": 28,
+        "y": 12.76,
+        "w": 60,
+        "h": 18.48,
+        "size": 14,
+        "line_height": 18.48,
+        "weight": 600,
+        "color": 4280032286,
+        "font_src": "self:resources/ux/Inter-600.ttf",
+        "variant": "single_line",
+        "alignx": 0
+      },
+      {
+        "t": "text",
+        "id": "signal",
+        "text": "•••",
+        "x": 310,
+        "y": 13.08,
+        "w": 30,
+        "h": 15.84,
+        "size": 12,
+        "line_height": 15.84,
+        "weight": 600,
+        "color": 4280032286,
+        "font_src": "self:resources/ux/Inter-600.ttf",
+        "variant": "single_line",
+        "alignx": 0
+      },
+      {
+        "t": "stack",
+        "id": "battery",
+        "x": 354,
+        "y": 17,
+        "w": 23,
+        "h": 10,
+        "c": [],
+        "bg": 4280032286,
+        "variant": "surface",
+        "radius": 2
+      },
+      {
+        "t": "stack",
+        "id": "battery_tip",
+        "x": 378,
+        "y": 20,
+        "w": 2,
+        "h": 4,
+        "c": [],
+        "bg": 4287532691,
+        "variant": "surface",
+        "radius": 1
+      },
+      {
+        "t": "stack",
+        "id": "home_indicator",
+        "x": 137,
+        "y": 762,
+        "w": 132,
+        "h": 5,
+        "c": [],
+        "bg": 4280032286,
+        "variant": "surface",
+        "radius": 3
+      },
+      {
+        "t": "stack",
+        "id": "back",
+        "x": 12,
+        "y": 40,
+        "w": 140,
+        "h": 42,
+        "c": [
+          {
+            "t": "button",
+            "id": "back_control",
+            "x": 12,
+            "y": 40,
+            "w": 140,
+            "h": 42,
+            "enabled": true
+          },
+          {
+            "t": "svg",
+            "id": "back_icon",
+            "x": 22,
+            "y": 49.0,
+            "w": 10.8,
+            "h": 24
+          },
+          {
+            "t": "text",
+            "id": "back_label",
+            "text": "Inbox",
+            "x": 39,
+            "y": 49.78,
+            "w": 109,
+            "h": 22.44,
+            "size": 17,
+            "line_height": 22.44,
+            "weight": 400,
+            "color": 4278221567,
+            "font_src": "self:resources/ux/Inter-400.ttf",
+            "variant": "single_line",
+            "alignx": 0
+          }
+        ],
+        "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+      },
+      {
+        "t": "stack",
+        "id": "top_action",
+        "x": 324,
+        "y": 40,
+        "w": 68,
+        "h": 42,
+        "c": [
+          {
+            "t": "button",
+            "id": "top_action_control",
+            "x": 324,
+            "y": 40,
+            "w": 68,
+            "h": 42,
+            "enabled": true
+          },
+          {
+            "t": "text",
+            "id": "top_action_label",
+            "text": "Unread",
+            "x": 327,
+            "y": 49.78,
+            "w": 61,
+            "h": 22.44,
+            "size": 17,
+            "line_height": 22.44,
+            "weight": 400,
+            "color": 4278221567,
+            "font_src": "self:resources/ux/Inter-400.ttf",
+            "variant": "single_line",
+            "alignx": 0.5
+          }
+        ],
+        "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+      },
+      {
+        "t": "stack",
+        "id": "reader_scroll",
+        "x": 0,
+        "y": 88,
+        "w": 406,
+        "h": 616,
+        "c": [
+          {
+            "t": "stack",
+            "id": "reader_content",
+            "x": 0,
+            "y": 88,
+            "w": 406,
+            "h": 613,
+            "c": [
+              {
+                "t": "text",
+                "id": "subject_0",
+                "text": "Weekend plans",
+                "x": 22,
+                "y": 92.18,
+                "w": 364,
+                "h": 35.64,
+                "size": 27,
+                "line_height": 35.64,
+                "weight": 700,
+                "color": 4280032286,
+                "font_src": "self:resources/ux/Inter-700.ttf",
+                "variant": "single_line",
+                "alignx": 0
+              },
+              {
+                "t": "stack",
+                "id": "avatar",
+                "x": 22,
+                "y": 178,
+                "w": 44,
+                "h": 44,
+                "c": [],
+                "bg": 4278221567,
+                "variant": "surface",
+                "radius": 22
+              },
+              {
+                "t": "text",
+                "id": "initials",
+                "text": "AM",
+                "x": 22,
+                "y": 188.78,
+                "w": 44,
+                "h": 22.44,
+                "size": 17,
+                "line_height": 22.44,
+                "weight": 600,
+                "color": 4294967295,
+                "font_src": "self:resources/ux/Inter-600.ttf",
+                "variant": "single_line",
+                "alignx": 0.5
+              },
+              {
+                "t": "text",
+                "id": "sender",
+                "text": "Alex Morgan",
+                "x": 80,
+                "y": 179.28,
+                "w": 228,
+                "h": 22.44,
+                "size": 17,
+                "line_height": 22.44,
+                "weight": 600,
+                "color": 4280032286,
+                "font_src": "self:resources/ux/Inter-600.ttf",
+                "variant": "single_line",
+                "alignx": 0
+              },
+              {
+                "t": "text",
+                "id": "recipient",
+                "text": "To: you@gmail.com",
+                "x": 80,
+                "y": 205.58,
+                "w": 280,
+                "h": 15.84,
+                "size": 12,
+                "line_height": 15.84,
+                "weight": 400,
+                "color": 4287532691,
+                "font_src": "self:resources/ux/Inter-400.ttf",
+                "variant": "single_line",
+                "alignx": 0
+              },
+              {
+                "t": "text",
+                "id": "date",
+                "text": "9:24 AM",
+                "x": 292,
+                "y": 182.08,
+                "w": 90,
+                "h": 15.84,
+                "size": 12,
+                "line_height": 15.84,
+                "weight": 400,
+                "color": 4287532691,
+                "font_src": "self:resources/ux/Inter-400.ttf",
+                "variant": "single_line",
+                "alignx": 1
+              },
+              {
+                "t": "stack",
+                "id": "message_rule",
+                "x": 20,
+                "y": 235,
+                "w": 366,
+                "h": 0.65,
+                "c": [],
+                "bg": 4293059303,
+                "variant": "surface",
+                "radius": 0
+              },
+              {
+                "t": "text",
+                "id": "body_0",
+                "text": "Hi there,",
+                "x": 23,
+                "y": 256.1,
+                "w": 360,
+                "h": 19.8,
+                "size": 15,
+                "line_height": 19.8,
+                "weight": 400,
+                "color": 4280032286,
+                "font_src": "self:resources/ux/Inter-400.ttf",
+                "variant": "single_line",
+                "alignx": 0
+              },
+              {
+                "t": "text",
+                "id": "body_1",
+                "text": "",
+                "x": 23,
+                "y": 280.1,
+                "w": 360,
+                "h": 19.8,
+                "size": 15,
+                "line_height": 19.8,
+                "weight": 400,
+                "color": 4280032286,
+                "font_src": "self:resources/ux/Inter-400.ttf",
+                "variant": "single_line",
+                "alignx": 0
+              },
+              {
+                "t": "text",
+                "id": "body_2",
+                "text": "Let's meet by the water on Saturday. I found a",
+                "x": 23,
+                "y": 304.1,
+                "w": 360,
+                "h": 19.8,
+                "size": 15,
+                "line_height": 19.8,
+                "weight": 400,
+                "color": 4280032286,
+                "font_src": "self:resources/ux/Inter-400.ttf",
+                "variant": "single_line",
+                "alignx": 0
+              },
+              {
+                "t": "text",
+                "id": "body_3",
+                "text": "quiet spot with great coffee and a view of the",
+                "x": 23,
+                "y": 328.1,
+                "w": 360,
+                "h": 19.8,
+                "size": 15,
+                "line_height": 19.8,
+                "weight": 400,
+                "color": 4280032286,
+                "font_src": "self:resources/ux/Inter-400.ttf",
+                "variant": "single_line",
+                "alignx": 0
+              },
+              {
+                "t": "text",
+                "id": "body_4",
+                "text": "boats.",
+                "x": 23,
+                "y": 352.1,
+                "w": 360,
+                "h": 19.8,
+                "size": 15,
+                "line_height": 19.8,
+                "weight": 400,
+                "color": 4280032286,
+                "font_src": "self:resources/ux/Inter-400.ttf",
+                "variant": "single_line",
+                "alignx": 0
+              },
+              {
+                "t": "text",
+                "id": "body_5",
+                "text": "",
+                "x": 23,
+                "y": 376.1,
+                "w": 360,
+                "h": 19.8,
+                "size": 15,
+                "line_height": 19.8,
+                "weight": 400,
+                "color": 4280032286,
+                "font_src": "self:resources/ux/Inter-400.ttf",
+                "variant": "single_line",
+                "alignx": 0
+              },
+              {
+                "t": "text",
+                "id": "body_6",
+                "text": "How does 10:30 sound?",
+                "x": 23,
+                "y": 400.1,
+                "w": 360,
+                "h": 19.8,
+                "size": 15,
+                "line_height": 19.8,
+                "weight": 400,
+                "color": 4280032286,
+                "font_src": "self:resources/ux/Inter-400.ttf",
+                "variant": "single_line",
+                "alignx": 0
+              },
+              {
+                "t": "text",
+                "id": "body_7",
+                "text": "",
+                "x": 23,
+                "y": 424.1,
+                "w": 360,
+                "h": 19.8,
+                "size": 15,
+                "line_height": 19.8,
+                "weight": 400,
+                "color": 4280032286,
+                "font_src": "self:resources/ux/Inter-400.ttf",
+                "variant": "single_line",
+                "alignx": 0
+              },
+              {
+                "t": "text",
+                "id": "body_8",
+                "text": "See you soon,",
+                "x": 23,
+                "y": 448.1,
+                "w": 360,
+                "h": 19.8,
+                "size": 15,
+                "line_height": 19.8,
+                "weight": 400,
+                "color": 4280032286,
+                "font_src": "self:resources/ux/Inter-400.ttf",
+                "variant": "single_line",
+                "alignx": 0
+              },
+              {
+                "t": "text",
+                "id": "body_9",
+                "text": "Alex",
+                "x": 23,
+                "y": 472.1,
+                "w": 360,
+                "h": 19.8,
+                "size": 15,
+                "line_height": 19.8,
+                "weight": 400,
+                "color": 4280032286,
+                "font_src": "self:resources/ux/Inter-400.ttf",
+                "variant": "single_line",
+                "alignx": 0
+              },
+              {
+                "t": "stack",
+                "id": "reply_primary",
+                "x": 22,
+                "y": 641,
+                "w": 122,
+                "h": 42,
+                "c": [
+                  {
+                    "t": "button",
+                    "id": "reply_primary_control",
+                    "x": 22,
+                    "y": 641,
+                    "w": 122,
+                    "h": 42,
+                    "enabled": true
+                  },
+                  {
+                    "t": "stack",
+                    "id": "reply_primary_surface",
+                    "x": 22,
+                    "y": 641,
+                    "w": 122,
+                    "h": 42,
+                    "c": [],
+                    "bg": 4278221567,
+                    "variant": "surface",
+                    "radius": 12
+                  },
+                  {
+                    "t": "svg",
+                    "id": "reply_primary_icon",
+                    "x": 32,
+                    "y": 650.0,
+                    "w": 24,
+                    "h": 24
+                  },
+                  {
+                    "t": "text",
+                    "id": "reply_primary_label",
+                    "text": "Reply",
+                    "x": 62,
+                    "y": 650.78,
+                    "w": 78,
+                    "h": 22.44,
+                    "size": 17,
+                    "line_height": 22.44,
+                    "weight": 400,
+                    "color": 4294967295,
+                    "font_src": "self:resources/ux/Inter-400.ttf",
+                    "variant": "single_line",
+                    "alignx": 0
+                  }
+                ],
+                "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+              }
+            ]
+          }
+        ],
+        "variant": "scroll_y"
+      },
+      {
+        "t": "stack",
+        "id": "toolbar_surface",
+        "x": 0,
+        "y": 704,
+        "w": 406,
+        "h": 49,
+        "c": [],
+        "bg": 4294967295,
+        "variant": "surface",
+        "radius": 0
+      },
+      {
+        "t": "stack",
+        "id": "toolbar_separator",
+        "x": 0,
+        "y": 704,
+        "w": 406,
+        "h": 0.65,
+        "c": [],
+        "bg": 4293059303,
+        "variant": "surface",
+        "radius": 0
+      },
+      {
+        "t": "stack",
+        "id": "tool_archive",
+        "x": 8,
+        "y": 708,
+        "w": 54,
+        "h": 44,
+        "c": [
+          {
+            "t": "button",
+            "id": "tool_archive_control",
+            "x": 8,
+            "y": 708,
+            "w": 54,
+            "h": 44,
+            "enabled": true
+          },
+          {
+            "t": "svg",
+            "id": "tool_archive_icon",
+            "x": 23.0,
+            "y": 718.0,
+            "w": 24,
+            "h": 24
+          }
+        ],
+        "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+      },
+      {
+        "t": "stack",
+        "id": "tool_flag",
+        "x": 74,
+        "y": 708,
+        "w": 54,
+        "h": 44,
+        "c": [
+          {
+            "t": "button",
+            "id": "tool_flag_control",
+            "x": 74,
+            "y": 708,
+            "w": 54,
+            "h": 44,
+            "enabled": true
+          },
+          {
+            "t": "svg",
+            "id": "tool_flag_icon",
+            "x": 89.0,
+            "y": 718.0,
+            "w": 24,
+            "h": 24
+          }
+        ],
+        "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+      },
+      {
+        "t": "stack",
+        "id": "tool_attachments",
+        "x": 140,
+        "y": 708,
+        "w": 54,
+        "h": 44,
+        "c": [
+          {
+            "t": "button",
+            "id": "tool_attachments_control",
+            "x": 140,
+            "y": 708,
+            "w": 54,
+            "h": 44,
+            "enabled": true
+          },
+          {
+            "t": "svg",
+            "id": "tool_attachments_icon",
+            "x": 155.0,
+            "y": 718.0,
+            "w": 24,
+            "h": 24
+          }
+        ],
+        "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+      },
+      {
+        "t": "stack",
+        "id": "tool_move",
+        "x": 206,
+        "y": 708,
+        "w": 54,
+        "h": 44,
+        "c": [
+          {
+            "t": "button",
+            "id": "tool_move_control",
+            "x": 206,
+            "y": 708,
+            "w": 54,
+            "h": 44,
+            "enabled": true
+          },
+          {
+            "t": "svg",
+            "id": "tool_move_icon",
+            "x": 221.0,
+            "y": 718.0,
+            "w": 24,
+            "h": 24
+          }
+        ],
+        "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+      },
+      {
+        "t": "stack",
+        "id": "tool_reply",
+        "x": 272,
+        "y": 708,
+        "w": 54,
+        "h": 44,
+        "c": [
+          {
+            "t": "button",
+            "id": "tool_reply_control",
+            "x": 272,
+            "y": 708,
+            "w": 54,
+            "h": 44,
+            "enabled": true
+          },
+          {
+            "t": "svg",
+            "id": "tool_reply_icon",
+            "x": 287.0,
+            "y": 718.0,
+            "w": 24,
+            "h": 24
+          }
+        ],
+        "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+      },
+      {
+        "t": "stack",
+        "id": "tool_compose",
+        "x": 338,
+        "y": 708,
+        "w": 54,
+        "h": 44,
+        "c": [
+          {
+            "t": "button",
+            "id": "tool_compose_control",
+            "x": 338,
+            "y": 708,
+            "w": 54,
+            "h": 44,
+            "enabled": true
+          },
+          {
+            "t": "svg",
+            "id": "tool_compose_icon",
+            "x": 353.0,
+            "y": 718.0,
+            "w": 24,
+            "h": 24
+          }
+        ],
+        "kit": "{\"widget\": \"KitButton\", \"bindings\": {\"control\": [0]}}"
+      }
+    ],
+    "bg": 4294967295,
+    "variant": "surface",
+    "radius": 0
+  },
+  "basis": "Reviewed atlas hierarchy with explicit reflow to 406×776 logical points; runtime text comes from service state."
+}

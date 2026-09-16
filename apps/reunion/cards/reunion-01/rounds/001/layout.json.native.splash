@@ -1,0 +1,188 @@
+use mod.prelude.widgets.*
+return View{width:Fill height:Fill flow:Overlay beauty_0 := DesignSurface {
+width: 406 height: 776
+abs_pos: vec2(0, 0)
+draw_bg.radius: 0 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #f0f5f2ff
+beauty_0_0 := DesignSurface {
+width: 406 height: 771.5
+abs_pos: vec2(0, 2)
+draw_bg.radius: 0 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fafbf9ff
+beauty_0_0_0 := DesignSurface {
+width: 382.31668 height: 338.3772
+abs_pos: vec2(10.15, 159.3453947368421)
+draw_bg.radius: 20.3 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfbff
+beauty_0_0_0_0 := DesignSurface {
+width: 385.7 height: 106.58881
+abs_pos: vec2(10.15, 169.49671052631578)
+draw_bg.radius: 11.841666 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #e4ede5ff
+}
+beauty_0_0_0_1 := DesignImage {
+width: 71 height: 73
+abs_pos: vec2(22, 188)
+src: http_resource("http://127.0.0.1:8170/ux-images/reunion-01/assets/group_avatar-7367d1e9ce52.png") fit: ImageFit.Stretch
+draw_bg.image_dim_w: 142.0 draw_bg.image_dim_h: 146.0
+}
+beauty_0_0_0_2 := DesignImage {
+width: 71 height: 74.5
+abs_pos: vec2(22, 294.5)
+src: http_resource("http://127.0.0.1:8170/ux-images/reunion-01/assets/teacher_avatar-8554135ca20e.png") fit: ImageFit.Stretch
+draw_bg.image_dim_w: 142.0 draw_bg.image_dim_h: 149.0
+}
+beauty_0_0_0_3 := DesignImage {
+width: 71 height: 71
+abs_pos: vec2(22, 403)
+src: http_resource("http://127.0.0.1:8170/ux-images/reunion-01/assets/family_avatar-f71de02dd5eb.png") fit: ImageFit.Stretch
+draw_bg.image_dim_w: 142.0 draw_bg.image_dim_h: 142.0
+}
+beauty_0_0_0_4 := Label {
+width: 142.73883 height: 24.766212
+abs_pos: vec2(107.51555485876594, 196.0798523897941)
+clip_x: false clip_y: false
+padding: 0 text: "2016届同学群" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.22133511 desc: 0.116335124 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 16.728958 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+beauty_0_0_0_5 := Label {
+width: 234.80424 height: 20.901972
+abs_pos: vec2(111.28596260173994, 231.17598534649028)
+clip_x: false clip_y: false
+padding: 0 text: "王宁：好久不见，一起聚聚吧" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.20235042 desc: 0.06835043 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 13.31563 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+beauty_0_0_0_6 := Label {
+width: 53.689236 height: 19.09773
+abs_pos: vec2(318.319890358635, 199.2483145595836)
+clip_x: false clip_y: false
+padding: 0 text: "09:24" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.31345508 desc: 0.17445509 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 14.918705 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+beauty_0_0_0_7 := Label {
+width: 76.21774 height: 26.146776
+abs_pos: vec2(107.81275758041916, 304.56908803650225)
+clip_x: false clip_y: false
+padding: 0 text: "林老师" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.23591793 desc: 0.12591793 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 18.054436 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+beauty_0_0_0_8 := Label {
+width: 62.0481 height: 21.104841
+abs_pos: vec2(110.66122102465577, 336.87991483050115)
+clip_x: false clip_y: false
+padding: 0 text: "明天见" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.25963745 desc: 0.097637445 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 14.512026 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+beauty_0_0_0_9 := Label {
+width: 43.135544 height: 22.021917
+abs_pos: vec2(325.223936964991, 306.5135559361955)
+clip_x: false clip_y: false
+padding: 0 text: "昨天" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.21679112 desc: 0.10579112 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 14.675829 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+beauty_0_0_0_10 := Label {
+width: 54.502117 height: 27.35723
+abs_pos: vec2(106.97054637354094, 414.9938773082461)
+clip_x: false clip_y: false
+padding: 0 text: "家人" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.2337954 desc: 0.1307954 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 18.938293 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+beauty_0_0_0_11 := Label {
+width: 116.57128 height: 21.411026
+abs_pos: vec2(111.43568393620014, 447.5749836628091)
+clip_x: false clip_y: false
+padding: 0 text: "周末一起吃饭" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.21340089 desc: 0.09340088 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 14.071411 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+}
+beauty_0_0_1 := DesignSurface {
+width: 365.4 height: 49.064693
+abs_pos: vec2(21.991666666666667, 103.51315789473684)
+draw_bg.radius: 11.841666 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #eeeeecff
+}
+beauty_0_0_2 := KitButton {
+contract: "{\"bindings\":{\"control\":\"beauty_0_0_2_1\",\"label\":\"beauty_0_0_2_2\"},\"widget\":\"KitButton\"}" glass: false
+width: 367.09167 height: 62.59978
+abs_pos: vec2(20.3, 668.6030701754386)
+draw_bg.radius: 0 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfbff
+beauty_0_0_2_0 := DesignSurface {
+width: 367.09167 height: 62.59978
+abs_pos: vec2(20.3, 668.6030701754386)
+draw_bg.radius: 11.841666 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #608570ff
+}
+beauty_0_0_2_1 := DesignNativeButton {
+width: 367.09167 height: 62.59978
+abs_pos: vec2(20.3, 668.6030701754386)
+enabled: true
+}
+beauty_0_0_2_2 := Label {
+width: 106.19133 height: 27.555101
+abs_pos: vec2(151.7731708469474, 688.7689814852628)
+clip_x: false clip_y: false
+padding: 0 text: "查看邀请" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.24171548 desc: 0.12771547 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 19.160873 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #ffffffff
+}
+}
+beauty_0_0_3 := Svg {
+width: 20.3 height: 20.302631
+abs_pos: vec2(33.833333333333336, 117.04824561403508)
+animating: false draw_svg.svg: http_resource("http://127.0.0.1:8170/ux-images/reunion-01/assets/search_icon_0-b27d8e715fcb.svg") draw_svg.preserve_viewbox: true draw_svg.preserve_aspect: false
+}
+beauty_0_0_4 := Label {
+width: 43.181103 height: 19.305433
+abs_pos: vec2(37.3557209833277, 17.122079756896298)
+clip_x: false clip_y: false
+padding: 0 text: "9:41" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.31481954 desc: 0.17581953 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 15.123945 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+beauty_0_0_5 := Label {
+width: 58.301334 height: 29.250122
+abs_pos: vec2(18.719722624699003, 56.66250028927759)
+clip_x: false clip_y: false
+padding: 0 text: "消息" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.23633699 desc: 0.134337 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 20.363 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #75837cff
+}
+beauty_0_0_6 := Label {
+width: 62.656937 height: 31.070175
+abs_pos: vec2(66.52285643686682, 111.66447368421052)
+clip_x: false clip_y: false
+padding: 0 text: "搜索" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.25080687 desc: 0.13780686 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 21.996351 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+}
+}
+}

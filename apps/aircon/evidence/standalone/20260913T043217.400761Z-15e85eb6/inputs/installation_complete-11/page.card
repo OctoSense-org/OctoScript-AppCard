@@ -1,0 +1,46 @@
+# ledger installation_complete-11@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy text_152_text { class: user-copy, en: "反馈问题" }
+copy text_150_text { class: user-copy, en: "安装服务 · 安装已完成" }
+copy text_151_text { class: user-copy, en: "家 · 海棠路18号" }
+state report_installation_issue_control_enabled { shape: bool, initial: true }
+component Surface85929981c7b2(instance: text) {
+  view Kit(component: "Surface85929981c7b2", instance: instance) { slot }
+}
+component KitButton5dc7ea8cd583(instance: text) {
+  view Kit(component: "KitButton5dc7ea8cd583", instance: instance) { slot }
+}
+component Surface1657f9595e09(instance: text) {
+  view Kit(component: "Surface1657f9595e09", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Textca07ba96a809(instance: text, text: text) {
+  view Kit(component: "Textca07ba96a809", instance: instance, text: text)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Textef6b13897eb5(instance: text, text: text) {
+  view Kit(component: "Textef6b13897eb5", instance: instance, text: text)
+}
+component Text05338c7eaebc(instance: text, text: text) {
+  view Kit(component: "Text05338c7eaebc", instance: instance, text: text)
+}
+
+view root Surface85929981c7b2(instance: "installation_complete") {
+  KitButton5dc7ea8cd583(instance: "report_installation_issue") {
+    Surface1657f9595e09(instance: "report_installation_issue_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "report_installation_issue_control", enabled: report_installation_issue_control_enabled)
+    Textca07ba96a809(instance: "text_152", text: copy.text_152_text)
+  }
+  Vectore0a378fde04f(instance: "wrench_icon_1")
+  Textef6b13897eb5(instance: "text_150", text: copy.text_150_text)
+  Text05338c7eaebc(instance: "text_151", text: copy.text_151_text)
+}

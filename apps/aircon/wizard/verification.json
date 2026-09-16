@@ -1,0 +1,33 @@
+{
+  "checked_at": "2026-09-13T06:35:08.054874+00:00",
+  "wasm_sha256": "9fa202972d4e85ab67507b0f8f41718655c198d59b62b34b75cfeee9a6e502f0",
+  "local_model_and_render_tests": {
+    "passed": 21
+  },
+  "website_browser_suite": {
+    "passed": 16
+  },
+  "final_wasm_wizard_browser_suite": {
+    "passed": 4
+  },
+  "live_full_flows": {
+    "origin": "https://octosense.org",
+    "passed": 2,
+    "locales": [
+      "cn",
+      "en"
+    ],
+    "frames_per_flow": 12
+  },
+  "deployment": {
+    "source_implementation_commit": "7a4825e",
+    "artifact_commit": "97ae9ca",
+    "workflow_run": 34742704035,
+    "conclusion": "success"
+  },
+  "known_limitations": [
+    "Chromium 1243 intermittently stalled on cold mounts or reused-tab checks; failed evidence is retained, the UI exposes Retry while preserving service state.",
+    "All service operations use simulation data; no real orders, calendar writes, or payments."
+  ],
+  "preview": "http://127.0.0.1:4324/cn/experience/aircon/"
+}

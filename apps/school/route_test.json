@@ -1,0 +1,275 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "name": "mail-calendar-explicit-payment",
+      "steps": [
+        {
+          "control": "open_mail",
+          "frame": 2,
+          "assert": {
+            "calendar.present": true,
+            "payment.status": "pending",
+            "authorization.autoPay": false
+          }
+        },
+        {
+          "update": true,
+          "frame": 3
+        },
+        {
+          "control": "ack_calendar",
+          "frame": 3,
+          "assert": {
+            "calendar.acknowledged": true,
+            "payment.charges": 0
+          }
+        },
+        {
+          "control": "ack_calendar",
+          "disabled": true,
+          "frame": 3
+        },
+        {
+          "control": "view_payment",
+          "frame": 7
+        },
+        {
+          "control": "pay_fee",
+          "frame": 10,
+          "assert": {
+            "payment.status": "paid",
+            "payment.charges": 1
+          }
+        },
+        {
+          "control": "view_receipt",
+          "frame": 11,
+          "assert": {
+            "payment.receipt.id": "SC-120-0924"
+          }
+        },
+        {
+          "control": "return_mail",
+          "frame": 12,
+          "assert": {
+            "mail.processedViewed": true
+          }
+        },
+        {
+          "control": "show_desktop",
+          "frame": 10
+        },
+        {
+          "control": "view_calendar",
+          "frame": 6
+        },
+        {
+          "control": "return_mail",
+          "frame": 12
+        },
+        {
+          "control": "back_inbox",
+          "frame": 1
+        },
+        {
+          "restart": true,
+          "frame": 1,
+          "assert": {
+            "payment.charges": 0,
+            "mail.read": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "undo-restore-cancel-reopen",
+      "steps": [
+        {
+          "control": "open_mail",
+          "frame": 2
+        },
+        {
+          "control": "show_desktop",
+          "frame": 3
+        },
+        {
+          "control": "undo_calendar",
+          "frame": 4,
+          "assert": {
+            "calendar.present": false,
+            "payment.status": "pending"
+          }
+        },
+        {
+          "control": "restore_calendar",
+          "frame": 5,
+          "assert": {
+            "calendar.present": true,
+            "calendar.id": "school-science-day-2026-09-25"
+          }
+        },
+        {
+          "control": "view_calendar",
+          "frame": 6
+        },
+        {
+          "control": "show_desktop",
+          "frame": 5
+        },
+        {
+          "control": "view_payment",
+          "frame": 7
+        },
+        {
+          "control": "cancel_payment",
+          "frame": 8,
+          "assert": {
+            "payment.status": "cancelled",
+            "payment.charges": 0,
+            "calendar.present": true
+          }
+        },
+        {
+          "control": "reopen_payment",
+          "frame": 9,
+          "assert": {
+            "payment.status": "pending",
+            "payment.id": "school-materials-120",
+            "payment.charges": 0
+          }
+        },
+        {
+          "control": "pay_fee",
+          "frame": 10
+        },
+        {
+          "control": "view_receipt",
+          "frame": 11
+        },
+        {
+          "control": "return_mail",
+          "frame": 12
+        }
+      ]
+    },
+    {
+      "name": "in-app-calendar-and-history",
+      "steps": [
+        {
+          "control": "dock_calendar",
+          "frame": 6
+        },
+        {
+          "control": "undo_calendar",
+          "frame": 6,
+          "assert": {
+            "calendar.present": false
+          }
+        },
+        {
+          "control": "show_desktop",
+          "frame": 4
+        },
+        {
+          "control": "view_payment",
+          "frame": 7
+        },
+        {
+          "control": "cancel_payment",
+          "frame": 8,
+          "assert": {
+            "calendar.present": false,
+            "payment.charges": 0
+          }
+        },
+        {
+          "control": "view_calendar",
+          "frame": 6,
+          "assert": {
+            "calendar.present": false
+          }
+        },
+        {
+          "control": "undo_calendar",
+          "frame": 6,
+          "assert": {
+            "calendar.present": true
+          }
+        },
+        {
+          "control": "dock_payment",
+          "frame": 9,
+          "assert": {
+            "payment.status": "pending",
+            "payment.charges": 0
+          }
+        },
+        {
+          "control": "cancel_payment",
+          "frame": 8
+        },
+        {
+          "back": true,
+          "frame": 9,
+          "assert": {
+            "payment.status": "pending"
+          }
+        },
+        {
+          "control": "show_desktop",
+          "frame": 5
+        },
+        {
+          "control": "dock_mail",
+          "frame": 2
+        }
+      ]
+    },
+    {
+      "name": "desktop-payment-without-opening-app",
+      "steps": [
+        {
+          "control": "open_mail",
+          "frame": 2
+        },
+        {
+          "control": "show_desktop",
+          "frame": 3
+        },
+        {
+          "control": "cancel_payment",
+          "frame": 8,
+          "assert": {
+            "payment.charges": 0,
+            "calendar.present": true
+          }
+        },
+        {
+          "control": "reopen_payment",
+          "frame": 9
+        },
+        {
+          "control": "show_desktop",
+          "frame": 3
+        },
+        {
+          "control": "pay_fee",
+          "frame": 10,
+          "assert": {
+            "payment.status": "paid",
+            "payment.charges": 1
+          }
+        },
+        {
+          "control": "view_receipt",
+          "frame": 11
+        },
+        {
+          "control": "return_mail",
+          "frame": 12
+        }
+      ]
+    }
+  ]
+}

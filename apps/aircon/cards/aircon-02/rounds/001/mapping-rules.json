@@ -1,0 +1,258 @@
+{
+  "schema_version": 1,
+  "version": "1.1.0",
+  "minimum_confidence": 0.9,
+  "roles": {
+    "layout": {
+      "native_types": [
+        "View"
+      ],
+      "kinds": [
+        "stack"
+      ],
+      "repair": "Compose layout containers with explicit spacing, sizing and clipping."
+    },
+    "text": {
+      "native_types": [
+        "Label",
+        "TextFlow"
+      ],
+      "kinds": [
+        "text"
+      ],
+      "repair": "Use native text with a bundled font, exact copy and measured line layout."
+    },
+    "button": {
+      "native_types": [
+        "Button",
+        "KitButton"
+      ],
+      "kinds": [
+        "button",
+        "stack"
+      ],
+      "repair": "Use a native control and verify its declared action."
+    },
+    "range_option": {
+      "native_types": [
+        "RadioButton",
+        "Button"
+      ],
+      "kinds": [
+        "radio",
+        "button"
+      ],
+      "behavior": true,
+      "repair": "Replace the static range label with a native selector; bind selection to the chart and verify the resulting data change."
+    },
+    "input": {
+      "native_types": [
+        "TextInput",
+        "KitFormField"
+      ],
+      "kinds": [
+        "input",
+        "stack"
+      ],
+      "behavior": true,
+      "repair": "Use a native input with editable value, focus and validation state."
+    },
+    "toggle": {
+      "native_types": [
+        "CheckBox",
+        "RadioButton"
+      ],
+      "kinds": [
+        "checkbox",
+        "radio"
+      ],
+      "behavior": true,
+      "repair": "Use a native stateful control; inspect and change its value."
+    },
+    "tabs": {
+      "native_types": [
+        "KitTabBar",
+        "KitBottomNavigation",
+        "TabBar"
+      ],
+      "kinds": [
+        "stack"
+      ],
+      "behavior": true,
+      "repair": "Use a reusable native tab group with selected state and a content binding."
+    },
+    "list": {
+      "native_types": [
+        "PortalList",
+        "View"
+      ],
+      "kinds": [
+        "stack",
+        "list"
+      ],
+      "repair": "Reuse a row component; declare scrolling, item data and fixed versus virtualized layout."
+    },
+    "card": {
+      "native_types": [
+        "View",
+        "TaskplanProjectCard",
+        "CamoTrackRow"
+      ],
+      "kinds": [
+        "stack"
+      ],
+      "repair": "Reuse the matching kit component, or compose and name a new reusable component from native children."
+    },
+    "chart.line": {
+      "native_types": [
+        "LineChart",
+        "LinePlot",
+        "D3LineChart"
+      ],
+      "kinds": [
+        "line_chart",
+        "line_plot",
+        "stockplot"
+      ],
+      "data": true,
+      "repair": "Bind explicit numeric series to a native line chart. SVG paths and raster crops cannot substitute for a chart."
+    },
+    "chart.area": {
+      "native_types": [
+        "AreaChart",
+        "LinePlot",
+        "D3AreaChart"
+      ],
+      "kinds": [
+        "area_chart",
+        "line_plot",
+        "stockplot"
+      ],
+      "data": true,
+      "repair": "Use a native data-bound area chart with declared baseline, axes and fill."
+    },
+    "chart.candlestick": {
+      "native_types": [
+        "CandlestickChart"
+      ],
+      "kinds": [
+        "candlestick_chart"
+      ],
+      "data": true,
+      "repair": "Bind OHLC series to the native candlestick widget; retain financial values as data."
+    },
+    "chart.donut": {
+      "native_types": [
+        "PieChart",
+        "D3PieChart",
+        "DonutChart"
+      ],
+      "kinds": [
+        "pie_chart",
+        "stockplot"
+      ],
+      "data": true,
+      "repair": "Use a data-bound circular chart with category values, colors and an inner radius."
+    },
+    "chart.radar": {
+      "native_types": [
+        "RadarChart",
+        "D3RadarChart"
+      ],
+      "kinds": [
+        "radar_chart",
+        "stockplot"
+      ],
+      "data": true,
+      "repair": "Use a chart for radial quantitative data. A weather map needs a separately declared map widget; resolve ambiguous radar imagery first."
+    },
+    "waveform": {
+      "native_types": [
+        "LinePlot",
+        "AudioWaveform",
+        "BarPlot"
+      ],
+      "kinds": [
+        "line_plot",
+        "waveform",
+        "stockplot"
+      ],
+      "data": true,
+      "repair": "Bind audio samples or an explicit fixture to a native waveform component."
+    },
+    "progress": {
+      "native_types": [
+        "ProgressBar",
+        "Slider",
+        "DesignProgressBar"
+      ],
+      "kinds": [
+        "progress",
+        "slider"
+      ],
+      "behavior": true,
+      "repair": "Bind a normalized value to a reusable progress widget; verify fill changes when the value changes."
+    },
+    "icon": {
+      "native_types": [
+        "Svg",
+        "Icon",
+        "Image"
+      ],
+      "kinds": [
+        "svg",
+        "icon",
+        "image"
+      ],
+      "asset": true,
+      "repair": "Use a matching kit icon or reference-derived SVG. A source crop requires a recorded visual feature that cannot be reproduced faithfully with the available vector renderer."
+    },
+    "illustration": {
+      "native_types": [
+        "Svg",
+        "Image"
+      ],
+      "kinds": [
+        "svg",
+        "image"
+      ],
+      "asset": true,
+      "repair": "Reconstruct simple artwork faithfully as SVG, or crop only the original illustration into an Image asset."
+    },
+    "photo": {
+      "native_types": [
+        "Image"
+      ],
+      "kinds": [
+        "image"
+      ],
+      "asset": true,
+      "repair": "Use an original or separately generated image asset with documented crop, fit and clipping."
+    },
+    "unknown": {
+      "native_types": [],
+      "kinds": [],
+      "repair": "Resolve this region's function from the brief and image before choosing a renderer."
+    },
+    "chart.bar": {
+      "native_types": [
+        "BarPlot"
+      ],
+      "kinds": [
+        "stockplot"
+      ],
+      "data": true,
+      "repair": "Bind categorical or floating intervals to a native bar plot; source paint is not a numerical chart."
+    },
+    "chart.scatter": {
+      "native_types": [
+        "ScatterPlot"
+      ],
+      "kinds": [
+        "stockplot"
+      ],
+      "data": true,
+      "repair": "Bind numerical coordinates and marker radii; preserve map artwork separately."
+    }
+  }
+}

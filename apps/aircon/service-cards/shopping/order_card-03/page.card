@@ -1,0 +1,80 @@
+# ledger order_card-03@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy text_110_text { class: user-copy, en: "查看订单" }
+copy text_111_text { class: user-copy, en: "收起" }
+copy text_105_text { class: user-copy, en: "订单 · 已付款" }
+copy text_106_text { class: user-copy, en: "1.5匹变频空调" }
+copy text_107_text { class: user-copy, en: "¥2,799" }
+copy text_108_text { class: user-copy, en: "预计周五送达" }
+copy text_109_text { class: user-copy, en: "来自购物订单" }
+state view_order_control_enabled { shape: bool, initial: true }
+state collapse_control_enabled { shape: bool, initial: true }
+component Surfacef75bc8b05744(instance: text) {
+  view Kit(component: "Surfacef75bc8b05744", instance: instance) { slot }
+}
+component Imageec6f4cac3824(instance: text) {
+  view Kit(component: "Imageec6f4cac3824", instance: instance)
+}
+component KitButton5dc7ea8cd583(instance: text) {
+  view Kit(component: "KitButton5dc7ea8cd583", instance: instance) { slot }
+}
+component Surfacebb17178ea68b(instance: text) {
+  view Kit(component: "Surfacebb17178ea68b", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Text730fee64e7a2(instance: text, text: text) {
+  view Kit(component: "Text730fee64e7a2", instance: instance, text: text)
+}
+component Surfacea933ed967ab1(instance: text) {
+  view Kit(component: "Surfacea933ed967ab1", instance: instance) { slot }
+}
+component Text0bc612cf5cce(instance: text, text: text) {
+  view Kit(component: "Text0bc612cf5cce", instance: instance, text: text)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Textf34a4816eb92(instance: text, text: text) {
+  view Kit(component: "Textf34a4816eb92", instance: instance, text: text)
+}
+component Text81b5a1faa7bc(instance: text, text: text) {
+  view Kit(component: "Text81b5a1faa7bc", instance: instance, text: text)
+}
+component Text546ef2c356e8(instance: text, text: text) {
+  view Kit(component: "Text546ef2c356e8", instance: instance, text: text)
+}
+component Text394fb1dbbaf8(instance: text, text: text) {
+  view Kit(component: "Text394fb1dbbaf8", instance: instance, text: text)
+}
+component Text5dbbd1f232ad(instance: text, text: text) {
+  view Kit(component: "Text5dbbd1f232ad", instance: instance, text: text)
+}
+
+view root Surfacef75bc8b05744(instance: "order_card") {
+  Imageec6f4cac3824(instance: "product_photo")
+  KitButton5dc7ea8cd583(instance: "view_order") {
+    Surfacebb17178ea68b(instance: "view_order_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "view_order_control", enabled: view_order_control_enabled)
+    Text730fee64e7a2(instance: "text_110", text: copy.text_110_text)
+  }
+  KitButton5dc7ea8cd583(instance: "collapse") {
+    Surfacea933ed967ab1(instance: "collapse_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "collapse_control", enabled: collapse_control_enabled)
+    Text0bc612cf5cce(instance: "text_111", text: copy.text_111_text)
+  }
+  Vectore0a378fde04f(instance: "order_icon_0")
+  Textf34a4816eb92(instance: "text_105", text: copy.text_105_text)
+  Text81b5a1faa7bc(instance: "text_106", text: copy.text_106_text)
+  Text546ef2c356e8(instance: "text_107", text: copy.text_107_text)
+  Text394fb1dbbaf8(instance: "text_108", text: copy.text_108_text)
+  Text5dbbd1f232ad(instance: "text_109", text: copy.text_109_text)
+}

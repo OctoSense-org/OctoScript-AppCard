@@ -1,0 +1,73 @@
+use mod.prelude.widgets.*
+return View{width:Fill height:Fill flow:Overlay beauty_0 := DesignSurface {
+width: 270.35782 height: 229.4388
+abs_pos: vec2(0, 0)
+draw_bg.radius: 14.613936 draw_bg.ellipse: 0 draw_bg.border_width: 0.4 draw_bg.border_position: 0 draw_bg.border_color: #e2e8e3ff
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfcff
+beauty_0_0 := KitButton {
+contract: "{\"bindings\":{\"control\":\"beauty_0_0_1\",\"label\":\"beauty_0_0_2\"},\"widget\":\"KitButton\"}" glass: false
+width: 235.28436 height: 46.764595
+abs_pos: vec2(17.5367231638418, 162.21468926553672)
+flow: Overlay padding: 0 clip_x: false clip_y: false
+beauty_0_0_0 := DesignSurface {
+width: 235.28436 height: 46.764595
+abs_pos: vec2(17.5367231638418, 162.21468926553672)
+draw_bg.radius: 5.8455744 draw_bg.ellipse: 0 draw_bg.border_width: 0.7 draw_bg.border_position: 0 draw_bg.border_color: #a8bfb1ff
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #f9fcf9ff
+}
+beauty_0_0_1 := DesignNativeButton {
+width: 235.28436 height: 46.764595
+abs_pos: vec2(17.5367231638418, 162.21468926553672)
+enabled: true
+}
+beauty_0_0_2 := Label {
+width: 80.54912 height: 20.686342
+abs_pos: vec2(92.02535128230949, 176.44332251068607)
+clip_x: false clip_y: false
+padding: 0 text: "重新加入" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.20513088 desc: 0.09613088 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 13.529466 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #477d64ff
+}
+}
+beauty_0_1 := Svg {
+width: 33.612053 height: 33.612053
+abs_pos: vec2(18.998116760828623, 16.07532956685499)
+animating: false draw_svg.svg: http_resource("http://127.0.0.1:8170/ux-images/school-calendar-04/assets/calendar_icon_0-d1ce6830d285.svg") draw_svg.preserve_viewbox: true draw_svg.preserve_aspect: false
+}
+beauty_0_2 := Svg {
+width: 20.45951 height: 20.45951
+abs_pos: vec2(64.30131826741996, 24.843691148775875)
+animating: false draw_svg.svg: http_resource("http://127.0.0.1:8170/ux-images/school-calendar-04/assets/close_icon_1-2445798d461b.svg") draw_svg.preserve_viewbox: true draw_svg.preserve_aspect: false
+}
+beauty_0_3 := Label {
+width: 165.21469 height: 21.288286
+abs_pos: vec2(91.71530029454752, 26.621393596986806)
+clip_x: false clip_y: false
+padding: 0 text: "日历 · 已撤销" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.2055284 desc: 0.098528385 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 13.957174 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #c6655dff
+}
+beauty_0_4 := Label {
+width: 171.89824 height: 20.06179
+abs_pos: vec2(15.649000998644098, 81.0576767127469)
+clip_x: false clip_y: false
+padding: 0 text: "仅移除家庭日历记录" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.19482367 desc: 0.08782367 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 12.911407 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #33413cff
+}
+beauty_0_5 := Label {
+width: 153.67 height: 20.161154
+abs_pos: vec2(14.973825752619803, 112.28670989943696)
+clip_x: false clip_y: false
+padding: 0 text: "学校活动仍然有效" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.1956617 desc: 0.089661695 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 13.00522 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #33413cff
+}
+}
+}

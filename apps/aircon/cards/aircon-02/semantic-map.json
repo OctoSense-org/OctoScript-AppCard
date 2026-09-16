@@ -1,0 +1,364 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.1.0",
+  "contract_sha256": "b3aba8b775ac6434d56d912ca0b8bebb77fb2794c3c872d56b9864b6838460ba",
+  "reference_sha256": "e77a48d6c66c43b6e2342edf0907cc8369a52b9c8f968ef8ca1375546b40ae13",
+  "classification_scope": "Authored intent and explicit review candidates; no claim of automatic visual recognition.",
+  "elements": [
+    {
+      "id": "page",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "screen",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "order_product",
+      "role": "card",
+      "basis": "Service-owned card surface with native child widgets",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "product_photo",
+      "role": "photo",
+      "basis": "Visual source-region review and explicit native renderer ownership",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/product_photo.png",
+        "sha256": "6edcc850bc03a210ed4f7c620e56bd634f7f0f92bf4a33d3a6082a2180c5ad52",
+        "method": "source_crop",
+        "reference_sha256": "e77a48d6c66c43b6e2342edf0907cc8369a52b9c8f968ef8ca1375546b40ae13",
+        "crop_pixels": [
+          95,
+          359,
+          179,
+          175
+        ],
+        "contains_ui": false,
+        "fit": "contain",
+        "clip": true,
+        "notes": "Artwork-only source region; product photography or technician portrait, visually reviewed"
+      }
+    },
+    {
+      "id": "text_48",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_49",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "order_details",
+      "role": "card",
+      "basis": "Service-owned card surface with native child widgets",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "divider_0",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "divider_1",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "person_icon_2",
+      "role": "icon",
+      "basis": "Visual source-region review and explicit native renderer ownership",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/person_icon_2.svg",
+        "sha256": "045769d021ded6d01598f0dec76dc1e1c2d35e5cee0209d8bd466d6669ef3727",
+        "method": "reference_svg",
+        "reference_sha256": "e77a48d6c66c43b6e2342edf0907cc8369a52b9c8f968ef8ca1375546b40ae13",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector reconstruction of the reviewed source symbol; no embedded text or raster UI"
+      }
+    },
+    {
+      "id": "calendar_icon_3",
+      "role": "icon",
+      "basis": "Visual source-region review and explicit native renderer ownership",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/calendar_icon_3.svg",
+        "sha256": "ae776c61fe98dc0aee57fc63b1343360e4030e6cc97db9fa23eca69d129b3b1d",
+        "method": "reference_svg",
+        "reference_sha256": "e77a48d6c66c43b6e2342edf0907cc8369a52b9c8f968ef8ca1375546b40ae13",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector reconstruction of the reviewed source symbol; no embedded text or raster UI"
+      }
+    },
+    {
+      "id": "wrench_icon_4",
+      "role": "icon",
+      "basis": "Visual source-region review and explicit native renderer ownership",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/wrench_icon_4.svg",
+        "sha256": "1210670333e1f913e6fb26259e8d8a0ba51c7e5c5f2aed5300f46ecdf0fef01d",
+        "method": "reference_svg",
+        "reference_sha256": "e77a48d6c66c43b6e2342edf0907cc8369a52b9c8f968ef8ca1375546b40ae13",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector reconstruction of the reviewed source symbol; no embedded text or raster UI"
+      }
+    },
+    {
+      "id": "text_50",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_51",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_53",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_54",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "divider_2",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "back",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "back_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "back_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "view_logistics",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "view_logistics_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "view_logistics_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_61",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "support",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "support_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "support_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_62",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "back_icon_0",
+      "role": "icon",
+      "basis": "Visual source-region review and explicit native renderer ownership",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/back_icon_0.svg",
+        "sha256": "23c0f034fd6afc76d67644ec247b6d57b64452b91b3c7ff09c207f41e6661ace",
+        "method": "reference_svg",
+        "reference_sha256": "e77a48d6c66c43b6e2342edf0907cc8369a52b9c8f968ef8ca1375546b40ae13",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector reconstruction of the reviewed source symbol; no embedded text or raster UI"
+      }
+    },
+    {
+      "id": "check_icon_1",
+      "role": "icon",
+      "basis": "Visual source-region review and explicit native renderer ownership",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/check_icon_1.svg",
+        "sha256": "781ba26ef38584719316f6fd2c55a7f0c14463b9f9471aee918b812574bba9be",
+        "method": "reference_svg",
+        "reference_sha256": "e77a48d6c66c43b6e2342edf0907cc8369a52b9c8f968ef8ca1375546b40ae13",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector reconstruction of the reviewed source symbol; no embedded text or raster UI; Measured native refinement: Reviewed white confirmation check had a transparent circle; fill the native SVG circle with sage so the white tick is legible"
+      }
+    },
+    {
+      "id": "step_0",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "step_1",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "step_2",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_44",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_46",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_47",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_55",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_56",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_57",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_58",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_59",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_60",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    }
+  ]
+}

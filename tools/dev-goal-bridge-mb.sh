@@ -3,7 +3,7 @@
 set -u
 ADB="$HOME/Library/Android/sdk/platform-tools/adb"
 D=bf0a4730
-SM=$HOME/home/Splash-Makepad
+SM="${OCTOSENSE_WORKSPACE:-$(cd -- "$(dirname -- "$0")/../.." && pwd)}/octoscript-makepad"
 R=/tmp/mb_card.splash
 "$ADB" -s $D pull /data/local/tmp/dev_card.splash "$R" >/dev/null 2>&1
 # Mechanical normalization: markdown code fences are not DSL.

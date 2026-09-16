@@ -11,6 +11,10 @@ import time
 import zipfile
 
 
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "lab"))
+from core.native_paths import WORKSPACE as native
+
 def main():
     root = Path(os.environ['OCTOS_OHOS_ROOT'])
     request_path = Path(os.environ['OCTOS_OHOS_REQUEST'])
@@ -19,7 +23,7 @@ def main():
     evidence = Path(request.get('evidence_dir', '/tmp/octos-ohos-generation'))
     evidence.mkdir(parents=True, exist_ok=True)
     project = root / 'app/target/makepad-open-harmony/octos_app'
-    tool = root / 'makepad/target/release/cargo-makepad'
+    tool = native / 'makepad/target/release/cargo-makepad'
     hdc = os.environ['HDC']
     device = os.environ.get('OCTOS_OHOS_DEVICE') or request.get('device')
     if not device:
@@ -80,7 +84,7 @@ def main():
             profile_path.write_text(json.dumps(profile, indent=2))
         if not profile['app'].get('signingConfigs'):
             raise SystemExit('A local device signing configuration is required')
-        template = root / 'makepad/tools/open_harmony/deveco/entry/src/main'
+        template = native / 'makepad/tools/open_harmony/deveco/entry/src/main'
         for name in ('ets', 'cpp/types'):
             shutil.copytree(template / name, project / 'entry/src/main' / name, dirs_exist_ok=True)
         shutil.copy2(template / 'module.json5', project / 'entry/src/main/module.json5')

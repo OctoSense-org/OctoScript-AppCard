@@ -1,0 +1,82 @@
+# ledger health-11-cancel-card@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy provider_name_text { class: user-copy, en: "安心体检中心" }
+copy appointment_time_text { class: user-copy, en: "周日 10月25日 10:00–11:00" }
+copy keep_booking_text_text { class: user-copy, en: "保留预约" }
+copy confirm_cancel_text_text { class: user-copy, en: "确认取消" }
+copy title_text { class: user-copy, en: "取消体检预约" }
+copy cancel_note_text { class: user-copy, en: "这会取消预约并移除关联日历" }
+copy scope_note_text { class: user-copy, en: "仅撤销日历不会取消预约" }
+state keep_booking_control_enabled { shape: bool, initial: true }
+state confirm_cancel_control_enabled { shape: bool, initial: true }
+component Surface5259d30211c6(instance: text) {
+  view Kit(component: "Surface5259d30211c6", instance: instance) { slot }
+}
+component Surfacef37d7030b284(instance: text) {
+  view Kit(component: "Surfacef37d7030b284", instance: instance) { slot }
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Text550edb62d31f(instance: text, text: text) {
+  view Kit(component: "Text550edb62d31f", instance: instance, text: text)
+}
+component Text60adcfddfaf2(instance: text, text: text) {
+  view Kit(component: "Text60adcfddfaf2", instance: instance, text: text)
+}
+component KitButton5dc7ea8cd583(instance: text) {
+  view Kit(component: "KitButton5dc7ea8cd583", instance: instance) { slot }
+}
+component Surfacef38cb6e126ad(instance: text) {
+  view Kit(component: "Surfacef38cb6e126ad", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Texted6d017ac9da(instance: text, text: text) {
+  view Kit(component: "Texted6d017ac9da", instance: instance, text: text)
+}
+component Surfacec4337a9ebda3(instance: text) {
+  view Kit(component: "Surfacec4337a9ebda3", instance: instance) { slot }
+}
+component Text1eabb108a667(instance: text, text: text) {
+  view Kit(component: "Text1eabb108a667", instance: instance, text: text)
+}
+component Textc026327a81c6(instance: text, text: text) {
+  view Kit(component: "Textc026327a81c6", instance: instance, text: text)
+}
+component Text450c3c605097(instance: text, text: text) {
+  view Kit(component: "Text450c3c605097", instance: instance, text: text)
+}
+component Text221beaec165a(instance: text, text: text) {
+  view Kit(component: "Text221beaec165a", instance: instance, text: text)
+}
+
+view root Surface5259d30211c6(instance: "cancel_card") {
+  Surfacef37d7030b284(instance: "cancel_summary") {
+    Vectore0a378fde04f(instance: "clinic_icon_0")
+    Vectore0a378fde04f(instance: "calendar_icon_1")
+    Text550edb62d31f(instance: "provider_name", text: copy.provider_name_text)
+    Text60adcfddfaf2(instance: "appointment_time", text: copy.appointment_time_text)
+  }
+  KitButton5dc7ea8cd583(instance: "keep_booking") {
+    Surfacef38cb6e126ad(instance: "keep_booking_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "keep_booking_control", enabled: keep_booking_control_enabled)
+    Texted6d017ac9da(instance: "keep_booking_text", text: copy.keep_booking_text_text)
+  }
+  KitButton5dc7ea8cd583(instance: "confirm_cancel") {
+    Surfacec4337a9ebda3(instance: "confirm_cancel_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "confirm_cancel_control", enabled: confirm_cancel_control_enabled)
+    Text1eabb108a667(instance: "confirm_cancel_text", text: copy.confirm_cancel_text_text)
+  }
+  Textc026327a81c6(instance: "title", text: copy.title_text)
+  Text450c3c605097(instance: "cancel_note", text: copy.cancel_note_text)
+  Text221beaec165a(instance: "scope_note", text: copy.scope_note_text)
+}

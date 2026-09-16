@@ -1,0 +1,58 @@
+{
+  "frame_id": 8,
+  "controls": {
+    "reschedule": {
+      "event": "installation.open_slots",
+      "ocr_ids": [
+        182
+      ],
+      "source_bounds": [
+        59,
+        416,
+        212,
+        63
+      ],
+      "enabled": true
+    },
+    "cancel_booking": {
+      "event": "installation.cancel",
+      "ocr_ids": [
+        183
+      ],
+      "source_bounds": [
+        333,
+        416,
+        209,
+        63
+      ],
+      "enabled": true
+    },
+    "acknowledge_calendar": {
+      "event": "calendar.acknowledge",
+      "ocr_ids": [
+        188
+      ],
+      "source_bounds": [
+        56,
+        775,
+        212,
+        63
+      ],
+      "enabled": false
+    },
+    "undo_calendar": {
+      "event": "calendar.undo",
+      "ocr_ids": [
+        189
+      ],
+      "source_bounds": [
+        333,
+        775,
+        209,
+        63
+      ],
+      "enabled": true
+    }
+  },
+  "source": "booked"
+}

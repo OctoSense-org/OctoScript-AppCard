@@ -1,0 +1,51 @@
+# ledger school-payment-02@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy copy_77_text { class: user-copy, en: "查看费用" }
+copy copy_74_text { class: user-copy, en: "支付 · 待确认" }
+copy copy_75_text { class: user-copy, en: "活动材料费" }
+copy copy_76_text { class: user-copy, en: "¥120" }
+state view_payment_control_enabled { shape: bool, initial: true }
+component Surface3a19b3b3e5d4(instance: text) {
+  view Kit(component: "Surface3a19b3b3e5d4", instance: instance) { slot }
+}
+component KitButton5dc7ea8cd583(instance: text) {
+  view Kit(component: "KitButton5dc7ea8cd583", instance: instance) { slot }
+}
+component Surfacee3d98541ac37(instance: text) {
+  view Kit(component: "Surfacee3d98541ac37", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Text8fd80a5c65e9(instance: text, text: text) {
+  view Kit(component: "Text8fd80a5c65e9", instance: instance, text: text)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Text3aeeb1d0ac2e(instance: text, text: text) {
+  view Kit(component: "Text3aeeb1d0ac2e", instance: instance, text: text)
+}
+component Text2c138545d5a6(instance: text, text: text) {
+  view Kit(component: "Text2c138545d5a6", instance: instance, text: text)
+}
+component Text11c59aea1e2f(instance: text, text: text) {
+  view Kit(component: "Text11c59aea1e2f", instance: instance, text: text)
+}
+
+view root Surface3a19b3b3e5d4(instance: "payment_card") {
+  KitButton5dc7ea8cd583(instance: "view_payment") {
+    Surfacee3d98541ac37(instance: "view_payment_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "view_payment_control", enabled: view_payment_control_enabled)
+    Text8fd80a5c65e9(instance: "copy_77", text: copy.copy_77_text)
+  }
+  Vectore0a378fde04f(instance: "wallet_icon_2")
+  Text3aeeb1d0ac2e(instance: "copy_74", text: copy.copy_74_text)
+  Text2c138545d5a6(instance: "copy_75", text: copy.copy_75_text)
+  Text11c59aea1e2f(instance: "copy_76", text: copy.copy_76_text)
+}

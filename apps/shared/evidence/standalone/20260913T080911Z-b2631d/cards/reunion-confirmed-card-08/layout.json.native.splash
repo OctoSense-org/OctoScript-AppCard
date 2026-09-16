@@ -1,0 +1,98 @@
+use mod.prelude.widgets.*
+return View{width:Fill height:Fill flow:Overlay beauty_0 := DesignSurface {
+width: 362.11316 height: 340.43872
+abs_pos: vec2(0, 0)
+draw_bg.radius: 20.02469 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfbff
+beauty_0_0 := KitButton {
+contract: "{\"bindings\":{\"control\":\"beauty_0_0_1\",\"label\":\"beauty_0_0_2\"},\"widget\":\"KitButton\"}" glass: false
+width: 315.3889 height: 50.064518
+abs_pos: vec2(25.030864197530867, 267.01075268817203)
+draw_bg.radius: 0 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfbff
+beauty_0_0_0 := DesignSurface {
+width: 315.3889 height: 50.064518
+abs_pos: vec2(25.030864197530867, 267.01075268817203)
+draw_bg.radius: 11.68107 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #608570ff
+}
+beauty_0_0_1 := DesignNativeButton {
+width: 315.3889 height: 50.064518
+abs_pos: vec2(25.030864197530867, 267.01075268817203)
+enabled: true
+}
+beauty_0_0_2 := Label {
+width: 111.66563 height: 29.032259
+abs_pos: vec2(84.13594763684948, 280.03010752688175)
+clip_x: false clip_y: false
+padding: 0 text: "查看聚会" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.24569587 desc: 0.12369587 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 20.187305 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #ffffffff
+}
+}
+beauty_0_1 := Svg {
+width: 31.705761 height: 33.376343
+abs_pos: vec2(28.36831275720165, 28.369892473118277)
+animating: false draw_svg.svg: http_resource("http://127.0.0.1:8170/ux-images/reunion-confirmed-card-08/assets/calendar_icon_0-267a117ea0a8.svg") draw_svg.preserve_viewbox: true draw_svg.preserve_aspect: false
+}
+beauty_0_2 := Svg {
+width: 21.693415 height: 25.032259
+abs_pos: vec2(30.037037037037038, 141.8494623655914)
+animating: false draw_svg.svg: http_resource("http://127.0.0.1:8170/ux-images/reunion-confirmed-card-08/assets/pin_icon_1-2bf55d3cae2c.svg") draw_svg.preserve_viewbox: true draw_svg.preserve_aspect: false
+}
+beauty_0_3 := Svg {
+width: 21.693415 height: 25.032259
+abs_pos: vec2(30.037037037037038, 180.23225806451612)
+animating: false draw_svg.svg: http_resource("http://127.0.0.1:8170/ux-images/reunion-confirmed-card-08/assets/pin_icon_2-2bf55d3cae2c.svg") draw_svg.preserve_viewbox: true draw_svg.preserve_aspect: false
+}
+beauty_0_4 := Label {
+width: 122.005875 height: 21.074982
+abs_pos: vec2(79.43617318359057, 31.75659500087847)
+clip_x: false clip_y: false
+padding: 0 text: "聚会 · 已确认" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.2077173 desc: 0.088717304 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 13.725869 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+beauty_0_5 := Label {
+width: 277.8932 height: 35.139362
+abs_pos: vec2(19.87565013374177, 85.12795576213247)
+clip_x: false clip_y: false
+padding: 0 text: "十年同窗 再聚一堂" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.2549474 desc: 0.1379474 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 24.978098 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+beauty_0_6 := Label {
+width: 206.45961 height: 24.343147
+abs_pos: vec2(64.75630781057761, 141.46390971890222)
+clip_x: false clip_y: false
+padding: 0 text: "周六 10月24日 18:30" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.23445354 desc: 0.11145354 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 16.566082 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+beauty_0_7 := Label {
+width: 206.57224 height: 22.651308
+abs_pos: vec2(61.270031621290585, 180.6404750407596)
+clip_x: false clip_y: false
+padding: 0 text: "木光餐厅 · 桂花路8号" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.22024018 desc: 0.10924017 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 15.188361 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+beauty_0_8 := Label {
+width: 198.78047 height: 24.040747
+abs_pos: vec2(20.97154435328659, 225.83926761518282)
+clip_x: false clip_y: false
+padding: 0 text: "来自王宁的最新确认" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.22258827 desc: 0.11458827 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 16.231707 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #75837cff
+}
+}
+}

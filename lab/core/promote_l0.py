@@ -12,11 +12,12 @@ import json
 import pathlib
 import re
 
+from core.native_paths import repository
 from core import kitconf
 from core import semantic_widgets
 
 HERE = pathlib.Path(__file__).resolve().parent
-PACKS = HERE.parents[1] / 'Octoscript-Makepad/components/l0/native'
+PACKS = repository('splash-makepad') / 'components/l0/native'
 LAYOUT = {'x', 'y', 'w', 'h', 'src', 'image_width', 'image_height'}
 PROPS = {'kit_index':'index','text': 'text', 'placeholder': 'placeholder', 'enabled': 'enabled',
          'on': 'checked', 'selected': 'selected', 'value': 'value', 'value2': 'value2',

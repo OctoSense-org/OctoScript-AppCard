@@ -1,0 +1,345 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "name": "primary",
+      "steps": [
+        {
+          "control": "open_details",
+          "frame": 2
+        },
+        {
+          "control": "arrange_desktop",
+          "frame": 3
+        },
+        {
+          "control": "choose_items",
+          "frame": 4
+        },
+        {
+          "control": "choose_time",
+          "frame": 5
+        },
+        {
+          "control": "conflict_slot",
+          "disabled": true,
+          "frame": 5
+        },
+        {
+          "control": "confirm_booking",
+          "disabled": true,
+          "frame": 5
+        },
+        {
+          "control": "afternoon",
+          "frame": 6
+        },
+        {
+          "control": "confirm_booking",
+          "frame": 7,
+          "assert": {
+            "booking.status": "booked",
+            "booking.day": "2026-10-24"
+          }
+        },
+        {
+          "control": "calendar_confirm",
+          "frame": 7,
+          "assert": {
+            "calendar.acknowledged": true
+          }
+        },
+        {
+          "control": "view_booking",
+          "frame": 12,
+          "assert": {
+            "booking.status": "booked"
+          }
+        }
+      ]
+    },
+    {
+      "name": "calendar-edit-cancel",
+      "steps": [
+        {
+          "control": "open_details",
+          "frame": 2
+        },
+        {
+          "control": "arrange_desktop",
+          "frame": 3
+        },
+        {
+          "control": "choose_items",
+          "frame": 4
+        },
+        {
+          "control": "choose_time",
+          "frame": 5
+        },
+        {
+          "control": "conflict_slot",
+          "disabled": true,
+          "frame": 5
+        },
+        {
+          "control": "confirm_booking",
+          "disabled": true,
+          "frame": 5
+        },
+        {
+          "control": "afternoon",
+          "frame": 6
+        },
+        {
+          "control": "confirm_booking",
+          "frame": 7,
+          "assert": {
+            "booking.status": "booked",
+            "booking.day": "2026-10-24"
+          }
+        },
+        {
+          "control": "calendar_undo",
+          "frame": 8,
+          "assert": {
+            "booking.status": "booked"
+          }
+        },
+        {
+          "control": "calendar_restore",
+          "frame": 7
+        },
+        {
+          "control": "edit_booking",
+          "frame": 9,
+          "assert": {
+            "booking.day": "2026-10-24",
+            "draft.day": "2026-10-25"
+          }
+        },
+        {
+          "control": "select_new_time",
+          "frame": 10,
+          "assert": {
+            "booking.day": "2026-10-24"
+          }
+        },
+        {
+          "control": "confirm_changes",
+          "frame": 7,
+          "assert": {
+            "booking.day": "2026-10-25",
+            "booking.version": 2
+          }
+        },
+        {
+          "control": "view_booking",
+          "frame": 12
+        },
+        {
+          "control": "cancel_booking",
+          "frame": 11,
+          "assert": {
+            "booking.status": "booked"
+          }
+        },
+        {
+          "control": "keep_booking",
+          "frame": 7
+        },
+        {
+          "control": "view_booking",
+          "frame": 12
+        },
+        {
+          "control": "cancel_booking",
+          "frame": 11
+        },
+        {
+          "control": "confirm_cancel",
+          "frame": 12,
+          "assert": {
+            "booking.status": "canceled"
+          }
+        },
+        {
+          "control": "cancel_booking",
+          "disabled": true,
+          "frame": 12
+        }
+      ]
+    },
+    {
+      "name": "optional-items-sunday-and-back",
+      "steps": [
+        {
+          "control": "open_details",
+          "frame": 2
+        },
+        {
+          "control": "arrange_desktop",
+          "frame": 3
+        },
+        {
+          "control": "defer",
+          "frame": 3,
+          "assert": {
+            "invitation.deferred": true
+          }
+        },
+        {
+          "control": "choose_items",
+          "frame": 4
+        },
+        {
+          "control": "toggle_dental",
+          "frame": 4,
+          "assert": {
+            "selection.dental": true
+          }
+        },
+        {
+          "control": "toggle_vision",
+          "frame": 4,
+          "assert": {
+            "selection.vision": true
+          }
+        },
+        {
+          "control": "choose_time",
+          "frame": 5
+        },
+        {
+          "control": "sunday",
+          "frame": 5
+        },
+        {
+          "control": "conflict_slot",
+          "frame": 6
+        },
+        {
+          "back": true,
+          "frame": 5
+        },
+        {
+          "control": "afternoon",
+          "frame": 6
+        },
+        {
+          "control": "confirm_booking",
+          "frame": 7,
+          "assert": {
+            "booking.day": "2026-10-25",
+            "booking.dental": true,
+            "booking.vision": true
+          }
+        },
+        {
+          "restart": true,
+          "frame": 1
+        }
+      ]
+    },
+    {
+      "name": "removed-calendar-stays-removed-during-edit",
+      "steps": [
+        {
+          "control": "open_details",
+          "frame": 2
+        },
+        {
+          "control": "arrange_desktop",
+          "frame": 3
+        },
+        {
+          "control": "choose_items",
+          "frame": 4
+        },
+        {
+          "control": "choose_time",
+          "frame": 5
+        },
+        {
+          "control": "conflict_slot",
+          "disabled": true,
+          "frame": 5
+        },
+        {
+          "control": "confirm_booking",
+          "disabled": true,
+          "frame": 5
+        },
+        {
+          "control": "afternoon",
+          "frame": 6
+        },
+        {
+          "control": "confirm_booking",
+          "frame": 7,
+          "assert": {
+            "booking.status": "booked",
+            "booking.day": "2026-10-24"
+          }
+        },
+        {
+          "control": "calendar_undo",
+          "frame": 8
+        },
+        {
+          "control": "view_booking",
+          "frame": 12
+        },
+        {
+          "control": "return_booking",
+          "frame": 7
+        },
+        {
+          "control": "edit_booking",
+          "frame": 9
+        },
+        {
+          "control": "select_new_time",
+          "frame": 10
+        },
+        {
+          "control": "discard_changes",
+          "frame": 8,
+          "assert": {
+            "booking.day": "2026-10-24"
+          }
+        },
+        {
+          "control": "view_booking",
+          "frame": 12
+        },
+        {
+          "control": "return_booking",
+          "frame": 7
+        },
+        {
+          "control": "edit_booking",
+          "frame": 9
+        },
+        {
+          "control": "select_new_time",
+          "frame": 10
+        },
+        {
+          "control": "confirm_changes",
+          "frame": 8,
+          "assert": {
+            "booking.day": "2026-10-25"
+          }
+        },
+        {
+          "control": "calendar_restore",
+          "frame": 7,
+          "assert": {
+            "calendar.events.calendar-health-annual-2026.day": "2026-10-25"
+          }
+        }
+      ]
+    }
+  ]
+}

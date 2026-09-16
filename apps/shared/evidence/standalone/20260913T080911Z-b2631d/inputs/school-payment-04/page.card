@@ -1,0 +1,86 @@
+# ledger school-payment-04@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy pay_fee_label_text { class: user-copy, en: "支付 ¥120" }
+copy cancel_payment_label_text { class: user-copy, en: "撤销" }
+copy copy_182_text { class: user-copy, en: "查看费用" }
+copy copy_178_text { class: user-copy, en: "支付 · 待确认" }
+copy copy_179_text { class: user-copy, en: "学校活动材料费" }
+copy copy_180_text { class: user-copy, en: "¥120" }
+copy copy_181_text { class: user-copy, en: "收款方：北辰小学" }
+state pay_fee_control_enabled { shape: bool, initial: true }
+state cancel_payment_control_enabled { shape: bool, initial: true }
+state view_payment_control_enabled { shape: bool, initial: true }
+component Surface3a19b3b3e5d4(instance: text) {
+  view Kit(component: "Surface3a19b3b3e5d4", instance: instance) { slot }
+}
+component KitButton5dc7ea8cd583(instance: text) {
+  view Kit(component: "KitButton5dc7ea8cd583", instance: instance) { slot }
+}
+component Surface7efed7aa2ad9(instance: text) {
+  view Kit(component: "Surface7efed7aa2ad9", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Text5e2cacd42deb(instance: text, text: text) {
+  view Kit(component: "Text5e2cacd42deb", instance: instance, text: text)
+}
+component Surfacee3d98541ac37(instance: text) {
+  view Kit(component: "Surfacee3d98541ac37", instance: instance) { slot }
+}
+component Text58755a63e9e5(instance: text, text: text) {
+  view Kit(component: "Text58755a63e9e5", instance: instance, text: text)
+}
+component Group3d2637879433(instance: text) {
+  view Kit(component: "Group3d2637879433", instance: instance) { slot }
+}
+component Textdec843c1397a(instance: text, text: text) {
+  view Kit(component: "Textdec843c1397a", instance: instance, text: text)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Textfac79023c210(instance: text, text: text) {
+  view Kit(component: "Textfac79023c210", instance: instance, text: text)
+}
+component Textbf6273ffcc59(instance: text, text: text) {
+  view Kit(component: "Textbf6273ffcc59", instance: instance, text: text)
+}
+component Textac99a624f40a(instance: text, text: text) {
+  view Kit(component: "Textac99a624f40a", instance: instance, text: text)
+}
+component Text82e94e625c9e(instance: text, text: text) {
+  view Kit(component: "Text82e94e625c9e", instance: instance, text: text)
+}
+
+view root Surface3a19b3b3e5d4(instance: "payment_card") {
+  KitButton5dc7ea8cd583(instance: "pay_fee") {
+    Surface7efed7aa2ad9(instance: "pay_fee_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "pay_fee_control", enabled: pay_fee_control_enabled)
+    Text5e2cacd42deb(instance: "pay_fee_label", text: copy.pay_fee_label_text)
+  }
+  KitButton5dc7ea8cd583(instance: "cancel_payment") {
+    Surfacee3d98541ac37(instance: "cancel_payment_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "cancel_payment_control", enabled: cancel_payment_control_enabled)
+    Text58755a63e9e5(instance: "cancel_payment_label", text: copy.cancel_payment_label_text)
+  }
+  KitButton5dc7ea8cd583(instance: "view_payment") {
+    Group3d2637879433(instance: "view_payment_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "view_payment_control", enabled: view_payment_control_enabled)
+    Textdec843c1397a(instance: "copy_182", text: copy.copy_182_text)
+  }
+  Vectore0a378fde04f(instance: "wallet_icon_2")
+  Textfac79023c210(instance: "copy_178", text: copy.copy_178_text)
+  Textbf6273ffcc59(instance: "copy_179", text: copy.copy_179_text)
+  Textac99a624f40a(instance: "copy_180", text: copy.copy_180_text)
+  Text82e94e625c9e(instance: "copy_181", text: copy.copy_181_text)
+}

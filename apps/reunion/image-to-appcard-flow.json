@@ -1,0 +1,298 @@
+{
+  "schema_version": 1,
+  "id": "reunion",
+  "artboard": [
+    406,
+    776
+  ],
+  "locales": [
+    "en",
+    "cn"
+  ],
+  "generation": {
+    "atlas": "source/atlas.png",
+    "prompt": "source/prompt.txt",
+    "provider": "OpenAI built-in image_gen",
+    "model": "not exposed by tool",
+    "quality": "high",
+    "quality_provenance": "Requested highest supported in prompt; built-in tool exposed no quality or model parameter",
+    "requested_size": [
+      2400,
+      3456
+    ],
+    "actual_size": [
+      1045,
+      1505
+    ]
+  },
+  "scenes": [
+    {
+      "id": "1",
+      "design_id": "reunion-01",
+      "directory": "cards/reunion-01",
+      "crop": [
+        8,
+        30,
+        240,
+        456
+      ],
+      "surface": "app",
+      "title": "消息"
+    },
+    {
+      "id": "2",
+      "design_id": "reunion-02",
+      "directory": "cards/reunion-02",
+      "crop": [
+        269,
+        30,
+        244,
+        456
+      ],
+      "surface": "app",
+      "title": "聚会邀请"
+    },
+    {
+      "id": "3",
+      "design_id": "reunion-03",
+      "directory": "cards/reunion-03",
+      "crop": [
+        532,
+        30,
+        244,
+        456
+      ],
+      "surface": "desktop",
+      "title": "桌面投票卡"
+    },
+    {
+      "id": "4",
+      "design_id": "reunion-04",
+      "directory": "cards/reunion-04",
+      "crop": [
+        795,
+        30,
+        243,
+        456
+      ],
+      "surface": "desktop",
+      "title": "选择时段"
+    },
+    {
+      "id": "5",
+      "design_id": "reunion-05",
+      "directory": "cards/reunion-05",
+      "crop": [
+        8,
+        530,
+        240,
+        465
+      ],
+      "surface": "desktop",
+      "title": "已选时段"
+    },
+    {
+      "id": "6",
+      "design_id": "reunion-06",
+      "directory": "cards/reunion-06",
+      "crop": [
+        269,
+        530,
+        244,
+        465
+      ],
+      "surface": "desktop",
+      "title": "等待组织者"
+    },
+    {
+      "id": "7",
+      "design_id": "reunion-07",
+      "directory": "cards/reunion-07",
+      "crop": [
+        532,
+        530,
+        244,
+        465
+      ],
+      "surface": "desktop",
+      "title": "聚会与日历"
+    },
+    {
+      "id": "8",
+      "design_id": "reunion-08",
+      "directory": "cards/reunion-08",
+      "crop": [
+        795,
+        530,
+        243,
+        465
+      ],
+      "surface": "desktop",
+      "title": "撤销日历"
+    },
+    {
+      "id": "9",
+      "design_id": "reunion-09",
+      "directory": "cards/reunion-09",
+      "crop": [
+        8,
+        1034,
+        240,
+        456
+      ],
+      "surface": "desktop",
+      "title": "待付凑份子"
+    },
+    {
+      "id": "10",
+      "design_id": "reunion-10",
+      "directory": "cards/reunion-10",
+      "crop": [
+        269,
+        1034,
+        244,
+        456
+      ],
+      "surface": "desktop",
+      "title": "取消支付"
+    },
+    {
+      "id": "11",
+      "design_id": "reunion-11",
+      "directory": "cards/reunion-11",
+      "crop": [
+        532,
+        1034,
+        244,
+        456
+      ],
+      "surface": "desktop",
+      "title": "支付收据"
+    },
+    {
+      "id": "12",
+      "design_id": "reunion-12",
+      "directory": "cards/reunion-12",
+      "crop": [
+        795,
+        1034,
+        243,
+        456
+      ],
+      "surface": "app",
+      "title": "聚会详情"
+    }
+  ],
+  "cards": [
+    {
+      "id": "reunion-poll-card-03",
+      "scene": "3",
+      "root": "poll_card",
+      "owner": "reunion"
+    },
+    {
+      "id": "reunion-poll-card-04",
+      "scene": "4",
+      "root": "poll_card",
+      "owner": "reunion"
+    },
+    {
+      "id": "reunion-poll-card-05",
+      "scene": "5",
+      "root": "poll_card",
+      "owner": "reunion"
+    },
+    {
+      "id": "reunion-rsvp-card-06",
+      "scene": "6",
+      "root": "rsvp_card",
+      "owner": "reunion"
+    },
+    {
+      "id": "reunion-confirmed-card-07",
+      "scene": "7",
+      "root": "confirmed_card",
+      "owner": "reunion"
+    },
+    {
+      "id": "reunion-calendar-card-07",
+      "scene": "7",
+      "root": "calendar_card",
+      "owner": "calendar"
+    },
+    {
+      "id": "reunion-confirmed-card-08",
+      "scene": "8",
+      "root": "confirmed_card",
+      "owner": "reunion"
+    },
+    {
+      "id": "reunion-calendar-card-08",
+      "scene": "8",
+      "root": "calendar_card",
+      "owner": "calendar"
+    },
+    {
+      "id": "reunion-payment-card-09",
+      "scene": "9",
+      "root": "payment_card",
+      "owner": "payment"
+    },
+    {
+      "id": "reunion-rsvp-summary-09",
+      "scene": "9",
+      "root": "rsvp_summary",
+      "owner": "reunion"
+    },
+    {
+      "id": "reunion-payment-card-10",
+      "scene": "10",
+      "root": "payment_card",
+      "owner": "payment"
+    },
+    {
+      "id": "reunion-rsvp-summary-10",
+      "scene": "10",
+      "root": "rsvp_summary",
+      "owner": "reunion"
+    },
+    {
+      "id": "reunion-payment-receipt-11",
+      "scene": "11",
+      "root": "payment_receipt",
+      "owner": "payment"
+    },
+    {
+      "id": "reunion-confirmed-summary-11",
+      "scene": "11",
+      "root": "confirmed_summary",
+      "owner": "reunion"
+    }
+  ],
+  "artwork": {
+    "root": "artwork",
+    "source_prefix": "http://127.0.0.1:8170/ux-images/"
+  },
+  "outputs": {
+    "intake": "pipeline-output/intake",
+    "cards": "service-cards",
+    "bundle": "wizard/card-bundle",
+    "wasm": "wizard/wasm-dist",
+    "runs": "pipeline-output/runs"
+  },
+  "browser_modules": [
+    "wizard/service.mjs"
+  ],
+  "checks": {
+    "service-test": [
+      {
+        "argv": [
+          "{node}",
+          "--test",
+          "wizard/service.test.mjs"
+        ],
+        "cwd": "."
+      }
+    ]
+  }
+}

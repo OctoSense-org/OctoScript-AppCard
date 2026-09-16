@@ -1,0 +1,23 @@
+[package]
+name = "octosense-wizard"
+version = "0.1.0"
+edition = "2021"
+
+[workspace]
+
+[dependencies]
+serde_json = { version = "1", features = ["float_roundtrip"] }
+makepad-widgets = { path = "../../../../../makepad/widgets" }
+splash-widgets = { path = "../../../../../octoscript-makepad/crates/splash-widgets" }
+splash-render = { path = "../../../../../octoscript-makepad/crates/splash-render" }
+splash-makepad = { path = "../../../../../octoscript-makepad/crates/splash-makepad" }
+splash-ui-l0 = { path = "../../../../../octoscript/crates/splash-ui-l0" }
+
+[profile.release]
+opt-level = 3
+lto = false
+codegen-units = 1
+
+[[bin]]
+name = "octosense-wizard"
+path = "src/main.rs"

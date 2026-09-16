@@ -1,0 +1,56 @@
+# ledger school-calendar-02@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy copy_73_text { class: user-copy, en: "查看日程" }
+copy copy_69_text { class: user-copy, en: "日历 · 已更新" }
+copy copy_70_text { class: user-copy, en: "秋季科学日" }
+copy copy_71_text { class: user-copy, en: "9月25日 14:00–16:00" }
+copy copy_72_text { class: user-copy, en: "北辰小学 · 科学教室" }
+state view_calendar_control_enabled { shape: bool, initial: true }
+component Surface3a19b3b3e5d4(instance: text) {
+  view Kit(component: "Surface3a19b3b3e5d4", instance: instance) { slot }
+}
+component KitButton5dc7ea8cd583(instance: text) {
+  view Kit(component: "KitButton5dc7ea8cd583", instance: instance) { slot }
+}
+component Surfacee3d98541ac37(instance: text) {
+  view Kit(component: "Surfacee3d98541ac37", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Text86b6fd68ce02(instance: text, text: text) {
+  view Kit(component: "Text86b6fd68ce02", instance: instance, text: text)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Text97c0ad59a93b(instance: text, text: text) {
+  view Kit(component: "Text97c0ad59a93b", instance: instance, text: text)
+}
+component Texte9062a816f5c(instance: text, text: text) {
+  view Kit(component: "Texte9062a816f5c", instance: instance, text: text)
+}
+component Text92e72cdd16f5(instance: text, text: text) {
+  view Kit(component: "Text92e72cdd16f5", instance: instance, text: text)
+}
+component Textbd573f817125(instance: text, text: text) {
+  view Kit(component: "Textbd573f817125", instance: instance, text: text)
+}
+
+view root Surface3a19b3b3e5d4(instance: "calendar_card") {
+  KitButton5dc7ea8cd583(instance: "view_calendar") {
+    Surfacee3d98541ac37(instance: "view_calendar_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "view_calendar_control", enabled: view_calendar_control_enabled)
+    Text86b6fd68ce02(instance: "copy_73", text: copy.copy_73_text)
+  }
+  Vectore0a378fde04f(instance: "calendar_icon_1")
+  Text97c0ad59a93b(instance: "copy_69", text: copy.copy_69_text)
+  Texte9062a816f5c(instance: "copy_70", text: copy.copy_70_text)
+  Text92e72cdd16f5(instance: "copy_71", text: copy.copy_71_text)
+  Textbd573f817125(instance: "copy_72", text: copy.copy_72_text)
+}

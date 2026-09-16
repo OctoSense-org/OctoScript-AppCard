@@ -1,0 +1,385 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.1.0",
+  "contract_sha256": "5297419a2ad7110b7e8fd950895e2776a01b8ec4d6e155599df7f99b963f760d",
+  "reference_sha256": "26f610453b9655c399dde452abbaed26fdd491f374311ac4aa42f2396e584d4f",
+  "classification_scope": "Authored intent and explicit review candidates; no claim of automatic visual recognition.",
+  "elements": [
+    {
+      "id": "page",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "screen",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "installation_booking",
+      "role": "card",
+      "basis": "Service-owned card surface with native child widgets",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "reschedule",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "reschedule_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "reschedule_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_182",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "cancel_booking",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "cancel_booking_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "cancel_booking_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_183",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "wrench_icon_0",
+      "role": "icon",
+      "basis": "Visual source-region review and explicit native renderer ownership",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/wrench_icon_0.svg",
+        "sha256": "1210670333e1f913e6fb26259e8d8a0ba51c7e5c5f2aed5300f46ecdf0fef01d",
+        "method": "reference_svg",
+        "reference_sha256": "26f610453b9655c399dde452abbaed26fdd491f374311ac4aa42f2396e584d4f",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector reconstruction of the reviewed source symbol; no embedded text or raster UI"
+      }
+    },
+    {
+      "id": "check_icon_1",
+      "role": "icon",
+      "basis": "Visual source-region review and explicit native renderer ownership",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/check_icon_1.svg",
+        "sha256": "781ba26ef38584719316f6fd2c55a7f0c14463b9f9471aee918b812574bba9be",
+        "method": "reference_svg",
+        "reference_sha256": "26f610453b9655c399dde452abbaed26fdd491f374311ac4aa42f2396e584d4f",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector reconstruction of the reviewed source symbol; no embedded text or raster UI; Measured native refinement: Reviewed white confirmation check had a transparent circle; fill the native SVG circle with sage so the white tick is legible"
+      }
+    },
+    {
+      "id": "text_178",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_179",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_180",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_181",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "calendar_updated",
+      "role": "card",
+      "basis": "Service-owned card surface with native child widgets",
+      "confidence": 1.0,
+      "decision": "reviewed"
+    },
+    {
+      "id": "acknowledge_calendar",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "acknowledge_calendar_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "acknowledge_calendar_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_188",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "undo_calendar",
+      "role": "button",
+      "basis": "authored KitButton composition",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "undo_calendar_surface",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "undo_calendar_control",
+      "role": "button",
+      "basis": "authored button node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_189",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "calendar_icon_2",
+      "role": "icon",
+      "basis": "Visual source-region review and explicit native renderer ownership",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/calendar_icon_2.svg",
+        "sha256": "ae776c61fe98dc0aee57fc63b1343360e4030e6cc97db9fa23eca69d129b3b1d",
+        "method": "reference_svg",
+        "reference_sha256": "26f610453b9655c399dde452abbaed26fdd491f374311ac4aa42f2396e584d4f",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector reconstruction of the reviewed source symbol; no embedded text or raster UI"
+      }
+    },
+    {
+      "id": "text_184",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_185",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_186",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_187",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "dock",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "dock_tile_0",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "dock_mail",
+      "role": "icon",
+      "basis": "Visual source-region review and explicit native renderer ownership",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/dock_mail.svg",
+        "sha256": "937198f7155540aef812beebf949a34d7bba13831c710aa64b6642f2c685b326",
+        "method": "reference_svg",
+        "reference_sha256": "26f610453b9655c399dde452abbaed26fdd491f374311ac4aa42f2396e584d4f",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector reconstruction of the reviewed source symbol; no embedded text or raster UI; Measured native refinement: Reviewed Studio dock symbol is about 1.5 times the source size; expand internal viewBox 1.5 times while keeping the measured native component rectangle"
+      }
+    },
+    {
+      "id": "dock_tile_1",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "dock_tile_2",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "dock_bag",
+      "role": "icon",
+      "basis": "Visual source-region review and explicit native renderer ownership",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/dock_bag.svg",
+        "sha256": "f13ab07d80c79c103efcb1d87130035d5812bc1540d3eda528e02a396d6ce1bb",
+        "method": "reference_svg",
+        "reference_sha256": "26f610453b9655c399dde452abbaed26fdd491f374311ac4aa42f2396e584d4f",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector reconstruction of the reviewed source symbol; no embedded text or raster UI; Measured native refinement: Reviewed Studio dock symbol is about 1.5 times the source size; expand internal viewBox 1.5 times while keeping the measured native component rectangle"
+      }
+    },
+    {
+      "id": "dock_tile_3",
+      "role": "layout",
+      "basis": "authored stack node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "dock_wallet",
+      "role": "icon",
+      "basis": "Visual source-region review and explicit native renderer ownership",
+      "confidence": 1,
+      "decision": "reviewed",
+      "asset": {
+        "path": "assets/dock_wallet.svg",
+        "sha256": "ac8e97cf898ceae8e8c2ea1b66a325535e87a610cd0638b30a70ddb4754d0fb5",
+        "method": "reference_svg",
+        "reference_sha256": "26f610453b9655c399dde452abbaed26fdd491f374311ac4aa42f2396e584d4f",
+        "fit": "stretch",
+        "clip": true,
+        "notes": "Native vector reconstruction of the reviewed source symbol; no embedded text or raster UI; Measured native refinement: Reviewed Studio dock symbol is about 1.5 times the source size; expand internal viewBox 1.5 times while keeping the measured native component rectangle"
+      }
+    },
+    {
+      "id": "text_176",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_177",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_190",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_191",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_192",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_193",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    },
+    {
+      "id": "text_214",
+      "role": "text",
+      "basis": "authored text node",
+      "confidence": 1.0,
+      "decision": "declared"
+    }
+  ]
+}

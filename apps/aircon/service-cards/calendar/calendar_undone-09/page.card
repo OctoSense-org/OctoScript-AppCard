@@ -1,0 +1,46 @@
+# ledger calendar_undone-09@1.0.0
+# level: L0
+# profile: ui/l0
+# Static design fixture, runtime native Kit composition.
+theme light
+copy text_36_text { class: user-copy, en: "重新加入" }
+copy text_34_text { class: user-copy, en: "日历记录已撤销" }
+copy text_35_text { class: user-copy, en: "安装预约仍然有效" }
+state restore_calendar_control_enabled { shape: bool, initial: true }
+component Surfacee37cf994f662(instance: text) {
+  view Kit(component: "Surfacee37cf994f662", instance: instance) { slot }
+}
+component KitButton5dc7ea8cd583(instance: text) {
+  view Kit(component: "KitButton5dc7ea8cd583", instance: instance) { slot }
+}
+component Surface077e2e7d76af(instance: text) {
+  view Kit(component: "Surface077e2e7d76af", instance: instance) { slot }
+}
+component NativeButton02f1d1bd99b4(instance: text, enabled: bool) {
+  view Kit(component: "NativeButton02f1d1bd99b4", instance: instance, enabled: enabled)
+}
+component Text38c90c7ec982(instance: text, text: text) {
+  view Kit(component: "Text38c90c7ec982", instance: instance, text: text)
+}
+component Vectore0a378fde04f(instance: text) {
+  view Kit(component: "Vectore0a378fde04f", instance: instance)
+}
+component Text86c3428c8753(instance: text, text: text) {
+  view Kit(component: "Text86c3428c8753", instance: instance, text: text)
+}
+component Textc04ee8e55958(instance: text, text: text) {
+  view Kit(component: "Textc04ee8e55958", instance: instance, text: text)
+}
+
+view root Surfacee37cf994f662(instance: "calendar_undone") {
+  KitButton5dc7ea8cd583(instance: "restore_calendar") {
+    Surface077e2e7d76af(instance: "restore_calendar_surface") {
+
+    }
+    NativeButton02f1d1bd99b4(instance: "restore_calendar_control", enabled: restore_calendar_control_enabled)
+    Text38c90c7ec982(instance: "text_36", text: copy.text_36_text)
+  }
+  Vectore0a378fde04f(instance: "calendar_icon_2")
+  Text86c3428c8753(instance: "text_34", text: copy.text_34_text)
+  Textc04ee8e55958(instance: "text_35", text: copy.text_35_text)
+}

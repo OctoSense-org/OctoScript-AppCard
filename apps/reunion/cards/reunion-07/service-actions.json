@@ -1,0 +1,53 @@
+{
+  "frame_id": 7,
+  "controls": {
+    "view_reunion": {
+      "event": "reunion.view_info",
+      "enabled": true,
+      "source_bounds": [
+        30,
+        184,
+        185,
+        32
+      ],
+      "ocr_ids": [
+        118
+      ],
+      "textIds": [
+        "text_118"
+      ]
+    },
+    "ack_calendar": {
+      "event": "calendar.acknowledge",
+      "enabled": true,
+      "source_bounds": [
+        28,
+        350,
+        85,
+        29
+      ],
+      "ocr_ids": [],
+      "textIds": [
+        "ack_label"
+      ]
+    },
+    "undo_calendar": {
+      "event": "calendar.undo",
+      "enabled": true,
+      "source_bounds": [
+        121,
+        350,
+        95,
+        29
+      ],
+      "ocr_ids": [
+        123
+      ],
+      "textIds": [
+        "text_123"
+      ]
+    }
+  },
+  "source": "reunion",
+  "simulation": true
+}

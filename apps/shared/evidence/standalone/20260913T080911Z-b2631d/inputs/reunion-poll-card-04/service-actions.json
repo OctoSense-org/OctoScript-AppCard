@@ -1,0 +1,94 @@
+{
+  "frame_id": 4,
+  "controls": {
+    "friday": {
+      "event": "reunion.choose_friday",
+      "enabled": false,
+      "source_bounds": [
+        25,
+        148,
+        194,
+        45
+      ],
+      "ocr_ids": [
+        155,
+        156
+      ],
+      "textIds": [
+        "text_155",
+        "text_156"
+      ]
+    },
+    "saturday": {
+      "event": "reunion.choose_saturday",
+      "enabled": true,
+      "source_bounds": [
+        25,
+        201,
+        194,
+        47
+      ],
+      "ocr_ids": [
+        157,
+        158
+      ],
+      "textIds": [
+        "text_157",
+        "text_158"
+      ]
+    },
+    "sunday": {
+      "event": "reunion.choose_sunday",
+      "enabled": true,
+      "source_bounds": [
+        25,
+        257,
+        194,
+        47
+      ],
+      "ocr_ids": [
+        159,
+        160
+      ],
+      "textIds": [
+        "text_159",
+        "text_160"
+      ]
+    },
+    "confirm_attendance": {
+      "event": "reunion.confirm_attendance",
+      "enabled": false,
+      "source_bounds": [
+        25,
+        322,
+        95,
+        34
+      ],
+      "ocr_ids": [
+        161
+      ],
+      "textIds": [
+        "text_161"
+      ]
+    },
+    "back_poll": {
+      "event": "reunion.back_poll",
+      "enabled": true,
+      "source_bounds": [
+        126,
+        322,
+        93,
+        34
+      ],
+      "ocr_ids": [
+        162
+      ],
+      "textIds": [
+        "text_162"
+      ]
+    }
+  },
+  "source": "reunion",
+  "simulation": true,
+  "owner": "reunion"
+}

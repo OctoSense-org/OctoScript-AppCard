@@ -1,4 +1,18 @@
-# octos-one
+# Octoscript AppCards
+
+Local checkout: `octosense-org/Octosense-Service-AppCards/`, alongside the
+organization's shared native repositories.
+
+The application projects are grouped under [apps/](apps/README.md):
+[Aircon](apps/aircon/README.md), [Mail](apps/mail/README.md),
+[School](apps/school/README.md), [Health](apps/health/README.md) and
+[Reunion](apps/reunion/README.md). Shared pipeline tools live in `lab/` and
+`tools/`; each app owns its design, screen states, services and flow manifest.
+Shared engines live outside this checkout, under `octosense-org/makepad`,
+`octosense-org/octoscript` and `octosense-org/octoscript-makepad`.
+See [native workspace setup](docs/NATIVE-WORKSPACE.md).
+
+The original Android agent client is described below.
 
 An **agent-OS phone client**: a native Android app where a routing brain (the
 **AMA**) dispatches every request to a concurrent **app agent** that generates a
@@ -18,8 +32,21 @@ builds it. One OS, many app agents, one routing brain that can grow the app set.
 
 ## What's here
 
+The five application projects live under [apps/](apps/README.md).
+
+For the complete generated-image → interactive native service-card → WASM website
+workflow, see [image-to-appcard-flow](lab/image-to-appcard-flow/README.md).
+It starts from one 8–12-screen atlas and preserves source, widget and verification
+provenance through the native and browser stages.
+
+For native UI testing, use [Makepad's built-in instrument](lab/core/NATIVE-INSTRUMENT.md):
+standalone release builds, hidden native windows for automation, direct HTTP input
+and app-owned captures. The guide includes the mail-server settings example and
+the compatibility boundary for older Studio capture/gate stages.
+
 ```
-octos-one/
+Octosense-Service-AppCards/
+  apps/         Standalone runnable apps with their own services, design and tests.
   app/          The Android client (Makepad + Rust). The AMA (router + composer),
                 the multi-agent routing (decision → activation → composition), the
                 Splash card renderer + post-generation validator, and the shared

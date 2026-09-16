@@ -21,7 +21,7 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-SPLASH = Path(__file__).resolve().parents[2] / "Octoscript"
+SPLASH = Path(__file__).resolve().parents[3] / "octoscript"
 
 
 def plan(card_path):

@@ -1,0 +1,279 @@
+{
+  "schema_version": 1,
+  "id": "health",
+  "artboard": [
+    406,
+    776
+  ],
+  "locales": [
+    "en",
+    "cn"
+  ],
+  "generation": {
+    "atlas": "source/atlas.png",
+    "prompt": "source/prompt.txt",
+    "provider": "OpenAI built-in image generation tool",
+    "requested_size": [
+      2400,
+      3456
+    ],
+    "quality": "high"
+  },
+  "scenes": [
+    {
+      "id": "1",
+      "design_id": "health-01",
+      "directory": "cards/health-01",
+      "crop": [
+        3,
+        24,
+        234,
+        513
+      ],
+      "surface": "app",
+      "title": "健康邀请"
+    },
+    {
+      "id": "2",
+      "design_id": "health-02",
+      "directory": "cards/health-02",
+      "crop": [
+        244,
+        24,
+        234,
+        513
+      ],
+      "surface": "app",
+      "title": "体检详情"
+    },
+    {
+      "id": "3",
+      "design_id": "health-03",
+      "directory": "cards/health-03",
+      "crop": [
+        485,
+        24,
+        234,
+        513
+      ],
+      "surface": "desktop",
+      "title": "桌面预约卡"
+    },
+    {
+      "id": "4",
+      "design_id": "health-04",
+      "directory": "cards/health-04",
+      "crop": [
+        726,
+        24,
+        234,
+        513
+      ],
+      "surface": "desktop",
+      "title": "选择体检项目"
+    },
+    {
+      "id": "5",
+      "design_id": "health-05",
+      "directory": "cards/health-05",
+      "crop": [
+        3,
+        569,
+        234,
+        513
+      ],
+      "surface": "desktop",
+      "title": "选择预约时间"
+    },
+    {
+      "id": "6",
+      "design_id": "health-06",
+      "directory": "cards/health-06",
+      "crop": [
+        244,
+        569,
+        234,
+        513
+      ],
+      "surface": "desktop",
+      "title": "确认预约时间"
+    },
+    {
+      "id": "7",
+      "design_id": "health-07",
+      "directory": "cards/health-07",
+      "crop": [
+        485,
+        569,
+        234,
+        513
+      ],
+      "surface": "desktop",
+      "title": "预约与日历"
+    },
+    {
+      "id": "8",
+      "design_id": "health-08",
+      "directory": "cards/health-08",
+      "crop": [
+        726,
+        569,
+        234,
+        513
+      ],
+      "surface": "desktop",
+      "title": "撤销日历"
+    },
+    {
+      "id": "9",
+      "design_id": "health-09",
+      "directory": "cards/health-09",
+      "crop": [
+        3,
+        1114,
+        234,
+        513
+      ],
+      "surface": "desktop",
+      "title": "修改预约"
+    },
+    {
+      "id": "10",
+      "design_id": "health-10",
+      "directory": "cards/health-10",
+      "crop": [
+        244,
+        1114,
+        234,
+        513
+      ],
+      "surface": "desktop",
+      "title": "确认修改"
+    },
+    {
+      "id": "11",
+      "design_id": "health-11",
+      "directory": "cards/health-11",
+      "crop": [
+        485,
+        1114,
+        234,
+        513
+      ],
+      "surface": "desktop",
+      "title": "取消预约"
+    },
+    {
+      "id": "12",
+      "design_id": "health-12",
+      "directory": "cards/health-12",
+      "crop": [
+        726,
+        1114,
+        234,
+        513
+      ],
+      "surface": "desktop",
+      "title": "预约摘要"
+    }
+  ],
+  "cards": [
+    {
+      "id": "health-03-appointment-card",
+      "scene": "3",
+      "root": "appointment_card",
+      "owner": "health"
+    },
+    {
+      "id": "health-04-package-card",
+      "scene": "4",
+      "root": "package_card",
+      "owner": "health"
+    },
+    {
+      "id": "health-05-picker-card",
+      "scene": "5",
+      "root": "picker_card",
+      "owner": "health"
+    },
+    {
+      "id": "health-06-picker-card",
+      "scene": "6",
+      "root": "picker_card",
+      "owner": "health"
+    },
+    {
+      "id": "health-07-booking-card",
+      "scene": "7",
+      "root": "booking_card",
+      "owner": "health"
+    },
+    {
+      "id": "health-07-calendar-card",
+      "scene": "7",
+      "root": "calendar_card",
+      "owner": "calendar"
+    },
+    {
+      "id": "health-08-booking-card",
+      "scene": "8",
+      "root": "booking_card",
+      "owner": "health"
+    },
+    {
+      "id": "health-08-calendar-card",
+      "scene": "8",
+      "root": "calendar_card",
+      "owner": "calendar"
+    },
+    {
+      "id": "health-09-edit-card",
+      "scene": "9",
+      "root": "edit_card",
+      "owner": "health"
+    },
+    {
+      "id": "health-10-review-card",
+      "scene": "10",
+      "root": "review_card",
+      "owner": "health"
+    },
+    {
+      "id": "health-11-cancel-card",
+      "scene": "11",
+      "root": "cancel_card",
+      "owner": "health"
+    },
+    {
+      "id": "health-12-summary-card",
+      "scene": "12",
+      "root": "summary_card",
+      "owner": "health"
+    }
+  ],
+  "artwork": {
+    "source_prefix": "http://127.0.0.1:8170/ux-images/",
+    "root": "artwork"
+  },
+  "outputs": {
+    "intake": "pipeline-output/intake-v2",
+    "cards": "pipeline-output/service-cards",
+    "bundle": "wizard/card-bundle",
+    "runs": "pipeline-output/runs"
+  },
+  "browser_modules": [
+    "wizard/service.mjs"
+  ],
+  "checks": {
+    "service-test": [
+      {
+        "argv": [
+          "{node}",
+          "--test",
+          "wizard/service.test.mjs"
+        ],
+        "cwd": "."
+      }
+    ]
+  }
+}

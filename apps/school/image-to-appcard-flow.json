@@ -1,0 +1,292 @@
+{
+  "schema_version": 1,
+  "id": "school",
+  "artboard": [
+    406,
+    776
+  ],
+  "locales": [
+    "en",
+    "cn"
+  ],
+  "generation": {
+    "atlas": "source/atlas.png",
+    "prompt": "source/prompt.txt",
+    "provider": "OpenAI built-in image_gen",
+    "requested_size": [
+      2400,
+      3456
+    ],
+    "quality": "high"
+  },
+  "scenes": [
+    {
+      "id": "1",
+      "design_id": "school-01",
+      "directory": "cards/school-01",
+      "crop": [
+        17,
+        36,
+        204,
+        531
+      ],
+      "surface": "app",
+      "title": "收件箱"
+    },
+    {
+      "id": "2",
+      "design_id": "school-02",
+      "directory": "cards/school-02",
+      "crop": [
+        240,
+        36,
+        204,
+        531
+      ],
+      "surface": "app",
+      "title": "邮件里的可行动卡片"
+    },
+    {
+      "id": "3",
+      "design_id": "school-03",
+      "directory": "cards/school-03",
+      "crop": [
+        463,
+        36,
+        204,
+        531
+      ],
+      "surface": "desktop",
+      "title": "日历已更新"
+    },
+    {
+      "id": "4",
+      "design_id": "school-04",
+      "directory": "cards/school-04",
+      "crop": [
+        686,
+        36,
+        204,
+        531
+      ],
+      "surface": "desktop",
+      "title": "撤销日历"
+    },
+    {
+      "id": "5",
+      "design_id": "school-05",
+      "directory": "cards/school-05",
+      "crop": [
+        17,
+        610,
+        204,
+        515
+      ],
+      "surface": "desktop",
+      "title": "重新加入日历"
+    },
+    {
+      "id": "6",
+      "design_id": "school-06",
+      "directory": "cards/school-06",
+      "crop": [
+        240,
+        610,
+        204,
+        515
+      ],
+      "surface": "app",
+      "title": "日历应用"
+    },
+    {
+      "id": "7",
+      "design_id": "school-07",
+      "directory": "cards/school-07",
+      "crop": [
+        463,
+        610,
+        204,
+        515
+      ],
+      "surface": "app",
+      "title": "缴费详情"
+    },
+    {
+      "id": "8",
+      "design_id": "school-08",
+      "directory": "cards/school-08",
+      "crop": [
+        686,
+        610,
+        204,
+        515
+      ],
+      "surface": "desktop",
+      "title": "撤销缴费请求"
+    },
+    {
+      "id": "9",
+      "design_id": "school-09",
+      "directory": "cards/school-09",
+      "crop": [
+        17,
+        1169,
+        204,
+        530
+      ],
+      "surface": "app",
+      "title": "重新打开缴费"
+    },
+    {
+      "id": "10",
+      "design_id": "school-10",
+      "directory": "cards/school-10",
+      "crop": [
+        240,
+        1169,
+        204,
+        530
+      ],
+      "surface": "desktop",
+      "title": "支付完成"
+    },
+    {
+      "id": "11",
+      "design_id": "school-11",
+      "directory": "cards/school-11",
+      "crop": [
+        463,
+        1169,
+        204,
+        530
+      ],
+      "surface": "app",
+      "title": "支付凭证"
+    },
+    {
+      "id": "12",
+      "design_id": "school-12",
+      "directory": "cards/school-12",
+      "crop": [
+        686,
+        1169,
+        204,
+        530
+      ],
+      "surface": "app",
+      "title": "已处理的邮件"
+    }
+  ],
+  "cards": [
+    {
+      "id": "school-calendar-02",
+      "scene": "2",
+      "root": "calendar_card",
+      "owner": "calendar"
+    },
+    {
+      "id": "school-payment-02",
+      "scene": "2",
+      "root": "payment_card",
+      "owner": "payment"
+    },
+    {
+      "id": "school-calendar-03",
+      "scene": "3",
+      "root": "calendar_card",
+      "owner": "calendar"
+    },
+    {
+      "id": "school-payment-03",
+      "scene": "3",
+      "root": "payment_card",
+      "owner": "payment"
+    },
+    {
+      "id": "school-calendar-04",
+      "scene": "4",
+      "root": "calendar_card",
+      "owner": "calendar"
+    },
+    {
+      "id": "school-payment-04",
+      "scene": "4",
+      "root": "payment_card",
+      "owner": "payment"
+    },
+    {
+      "id": "school-calendar-05",
+      "scene": "5",
+      "root": "calendar_card",
+      "owner": "calendar"
+    },
+    {
+      "id": "school-payment-05",
+      "scene": "5",
+      "root": "payment_card",
+      "owner": "payment"
+    },
+    {
+      "id": "school-calendar-08",
+      "scene": "8",
+      "root": "calendar_card",
+      "owner": "calendar"
+    },
+    {
+      "id": "school-payment-08",
+      "scene": "8",
+      "root": "payment_card",
+      "owner": "payment"
+    },
+    {
+      "id": "school-calendar-10",
+      "scene": "10",
+      "root": "calendar_card",
+      "owner": "calendar"
+    },
+    {
+      "id": "school-payment-10",
+      "scene": "10",
+      "root": "payment_card",
+      "owner": "payment"
+    },
+    {
+      "id": "school-calendar-12",
+      "scene": "12",
+      "root": "calendar_card",
+      "owner": "calendar"
+    },
+    {
+      "id": "school-payment-12",
+      "scene": "12",
+      "root": "payment_card",
+      "owner": "payment"
+    }
+  ],
+  "artwork": {
+    "source_prefix": "http://127.0.0.1:8170/ux-images/",
+    "root": "artwork"
+  },
+  "outputs": {
+    "intake": "pipeline-output/intake",
+    "cards": "pipeline-output/service-cards",
+    "bundle": "wizard/card-bundle",
+    "runs": "pipeline-output/runs"
+  },
+  "browser_modules": [
+    "wizard/service.mjs",
+    "wizard/copy.mjs"
+  ],
+  "checks": {
+    "service-test": [
+      {
+        "argv": [
+          "{node}",
+          "--test",
+          "wizard/service.test.mjs"
+        ],
+        "cwd": "."
+      }
+    ]
+  }
+}

@@ -1,0 +1,108 @@
+use mod.prelude.widgets.*
+return View{width:Fill height:Fill flow:Overlay beauty_0 := DesignSurface {
+width: 359.40985 height: 391.1513
+abs_pos: vec2(0, 0)
+draw_bg.radius: 19.967213 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfbff
+beauty_0_0 := KitButton {
+contract: "{\"bindings\":{\"control\":\"beauty_0_0_1\",\"label\":\"beauty_0_0_2\"},\"widget\":\"KitButton\"}" glass: false
+width: 309.4918 height: 54.92763
+abs_pos: vec2(24.959016393442624, 239.68421052631578)
+draw_bg.radius: 0 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfbff
+beauty_0_0_0 := DesignSurface {
+width: 309.4918 height: 54.92763
+abs_pos: vec2(24.959016393442624, 239.68421052631578)
+draw_bg.radius: 11.647541 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #608570ff
+}
+beauty_0_0_1 := DesignNativeButton {
+width: 309.4918 height: 54.92763
+abs_pos: vec2(24.959016393442624, 239.68421052631578)
+enabled: true
+}
+beauty_0_0_2 := Label {
+width: 94.2837 height: 24.78782
+abs_pos: vec2(138.12821730386318, 259.3314178728307)
+clip_x: false clip_y: false
+padding: 0 text: "选择时间" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.23239043 desc: 0.117390424 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 16.928194 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #ffffffff
+}
+}
+beauty_0_1 := KitButton {
+contract: "{\"bindings\":{\"control\":\"beauty_0_1_1\",\"label\":\"beauty_0_1_2\"},\"widget\":\"KitButton\"}" glass: false
+width: 309.4918 height: 56.592106
+abs_pos: vec2(24.959016393442624, 307.92763157894734)
+draw_bg.radius: 0 draw_bg.ellipse: 0 draw_bg.border_width: 0 draw_bg.border_position: 0 draw_bg.border_color: #00000000
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfbff
+beauty_0_1_0 := DesignSurface {
+width: 309.4918 height: 56.592106
+abs_pos: vec2(24.959016393442624, 307.92763157894734)
+draw_bg.radius: 11.647541 draw_bg.ellipse: 0 draw_bg.border_width: 0.65 draw_bg.border_position: 0 draw_bg.border_color: #a9bdb0ff
+flow: Overlay padding: 0 clip_x: false clip_y: false
+show_bg: true draw_bg.color: #fcfdfbff
+}
+beauty_0_1_1 := DesignNativeButton {
+width: 309.4918 height: 56.592106
+abs_pos: vec2(24.959016393442624, 307.92763157894734)
+enabled: true
+}
+beauty_0_1_2 := Label {
+width: 81.87084 height: 21.949228
+abs_pos: vec2(142.08075053385548, 326.05001468425326)
+clip_x: false clip_y: false
+padding: 0 text: "查看邀请" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.21726578 desc: 0.10326578 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 14.600782 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+}
+beauty_0_2 := Svg {
+width: 38.270493 height: 38.282894
+abs_pos: vec2(28.286885245901637, 21.63815789473685)
+animating: false draw_svg.svg: http_resource("http://127.0.0.1:8170/ux-images/reunion-poll-card-03/assets/calendar_icon_0-267a117ea0a8.svg") draw_svg.preserve_viewbox: true draw_svg.preserve_aspect: false
+}
+beauty_0_3 := Label {
+width: 151.167 height: 22.376118
+abs_pos: vec2(80.28895735404788, 34.79302666305341)
+clip_x: false clip_y: false
+padding: 0 text: "聚会 · 时间投票" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.21878166 desc: 0.09678166 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 14.819449 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+beauty_0_4 := Label {
+width: 280.79764 height: 35.469574
+abs_pos: vec2(24.524648726321615, 90.22611420384737)
+clip_x: false clip_y: false
+padding: 0 text: "十年同窗 再聚一堂" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.25557753 desc: 0.13857752 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 25.242973 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+beauty_0_5 := Label {
+width: 207.21092 height: 24.930725
+abs_pos: vec2(25.201691740827044, 138.7431194490618)
+clip_x: false clip_y: false
+padding: 0 text: "王宁邀请你选择时间" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.22642209 desc: 0.11742208 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 16.934242 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+beauty_0_6 := Label {
+width: 176.56161 height: 21.667067
+abs_pos: vec2(29.464342904503695, 191.46550378982454)
+clip_x: false clip_y: false
+padding: 0 text: "3个时段 · 18位同学" align: Align{x: 0 y: 0.5}
+flow: Right
+draw_text.text_style: TextStyle{font_family: FontFamily{latin := FontMember{res: crate_resource("self:resources/service/NotoSansSC-Regular.ttf") asc: -0.20537975 desc: 0.09837975 weight: 400} symbols := FontMember{res: crate_resource("makepad_widgets:resources/jetbrains_mono_variable.ttf") asc: 0 desc: 0 weight: 400} emoji := FontMember{res: file_resource("/System/Library/Fonts/Apple Color Emoji.ttc") asc: 0 desc: 0}} font_size: 14.201822 line_spacing: 1 letter_spacing: 0}
+draw_text.color: #31413cff
+}
+}
+}
