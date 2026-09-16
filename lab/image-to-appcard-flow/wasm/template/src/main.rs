@@ -3,7 +3,7 @@ pub use makepad_widgets;
 use makepad_widgets::*;
 use makepad_widgets::script::res::CxScriptResourceData;
 use serde_json::{json, Value};
-use splash_widgets::design::*;
+use octoscript_widgets::design::*;
 use std::cell::RefCell;
 use std::rc::Rc;
 
@@ -104,14 +104,14 @@ impl App {
         let card = request["card"].as_str().ok_or("missing card")?;
         let data = &request["data"];
         let pack = &request["kit"];
-        let report = splash_ui_l0::realize(card, data, Default::default());
+        let report = octoscript_ui_l0::realize(card, data, Default::default());
         let root = report.complete_root()?;
-        let theme = splash_ui_l0::card_theme(card).unwrap_or_else(|| "dark".into());
+        let theme = octoscript_ui_l0::card_theme(card).unwrap_or_else(|| "dark".into());
         if pack["theme"] != theme { return Err("kit/ledger theme mismatch".into()); }
-        let source = splash_ui_l0::kit_pack::lower(root, pack, data)?;
-        let mut tree = splash_makepad::design::prepare(&source)?;
-        let elements = splash_makepad::l0::inspectable(&mut tree);
-        let ui = splash_makepad::design::to_makepad_ui(&tree)?;
+        let source = octoscript_ui_l0::kit_pack::lower(root, pack, data)?;
+        let mut tree = octoscript_makepad::design::prepare(&source)?;
+        let elements = octoscript_makepad::l0::inspectable(&mut tree);
+        let ui = octoscript_makepad::design::to_makepad_ui(&tree)?;
         let code = format!("use mod.prelude.widgets.*\nreturn View{{width:Fill height:Fill flow:Overlay {ui}}}");
         let module = ScriptMod {
             cargo_manifest_path: env!("CARGO_MANIFEST_DIR").into(),
@@ -140,7 +140,7 @@ impl App {
         cx.set_key_focus(Area::Empty);
         self.retired_view = Some(std::mem::replace(&mut host.view, view));
         fn retire(cx: &mut Cx, widget: WidgetRef) {
-            splash_widgets::kit::retire_overlay(cx, &widget);
+            octoscript_widgets::kit::retire_overlay(cx, &widget);
             let list = widget.borrow::<DesignOverlay>().and_then(|v| v.draw_list.as_ref().map(|l| l.id()))
                 .or_else(|| widget.borrow::<DesignGlassSvg>().and_then(|v| v.draw_list.as_ref().map(|l| l.id())));
             if let Some(id) = list {
@@ -236,10 +236,10 @@ impl App {
 impl AppMain for App {
     fn script_mod(vm: &mut ScriptVm) -> ScriptValue {
         crate::makepad_widgets::theme_mod(vm);
-        splash_widgets::widgets_mod(vm);
-        splash_widgets::design::script_mod(vm);
-        splash_widgets::kit::script_mod(vm);
-        splash_widgets::progress::script_mod(vm);
+        octoscript_widgets::widgets_mod(vm);
+        octoscript_widgets::design::script_mod(vm);
+        octoscript_widgets::kit::script_mod(vm);
+        octoscript_widgets::progress::script_mod(vm);
         self::script_mod(vm)
     }
 
@@ -258,7 +258,7 @@ impl AppMain for App {
         if let Event::Actions(actions) = event {
             for action in actions {
                 let Some(action) = action.downcast_ref::<WidgetAction>() else { continue; };
-                if !matches!(action.cast::<splash_widgets::kit::KitAction>(), splash_widgets::kit::KitAction::Activated) { continue; }
+                if !matches!(action.cast::<octoscript_widgets::kit::KitAction>(), octoscript_widgets::kit::KitAction::Activated) { continue; }
                 let Some(native) = self.elements.iter().filter_map(|e| e["id"].as_str())
                     .find(|id| self.ui.widget(cx, &[LiveId::from_str(id)]).widget_uid() == action.widget_uid) else { continue; };
                 let source = self.mapping.iter().find(|row| row["native_id"] == native)

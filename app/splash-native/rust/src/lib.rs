@@ -38,7 +38,7 @@
 //! bundled copy — so what renders here is the SAME text the LLM produced, not a
 //! hand-written approximation.
 
-use splash_core::vm as ms;
+use octoscript_core::vm as ms;
 
 use ms::apply::*;
 use ms::array::ScriptArrayStorage;
@@ -183,11 +183,9 @@ const EVAL_INSTRUCTION_LIMIT: usize = 1_000_000;
 fn eval_to_nodes(src: &str) -> Node {
     // The VM is built by hand rather than via a constructor: `ScriptVm` borrows its
     // host and std slots, so they must outlive it on the caller's stack.
-    let mut std_slot = 0;
-    let mut host = 0;
+    let mut host = ms::ScriptVmHost::new((), ());
     let vm = &mut ScriptVm {
         host: &mut host,
-        std: &mut std_slot,
         bx: Box::new(ScriptVmBase::new()),
     };
     fetch::register(vm);

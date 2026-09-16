@@ -8,11 +8,11 @@ fn packs() -> &'static BTreeMap<&'static str, Value> {
     static PACKS: OnceLock<BTreeMap<&'static str, Value>> = OnceLock::new();
     PACKS.get_or_init(|| {
         [
-            ("atro", include_str!("../../../../../octoscript-makepad/components/l0/native/atro/tokens.json")),
-            ("atro_light", include_str!("../../../../../octoscript-makepad/components/l0/native/atro_light/tokens.json")),
-            ("camo", include_str!("../../../../../octoscript-makepad/components/l0/native/camo/tokens.json")),
-            ("camo_light", include_str!("../../../../../octoscript-makepad/components/l0/native/camo_light/tokens.json")),
-            ("taskplan_light", include_str!("../../../../../octoscript-makepad/components/l0/native/taskplan_light/tokens.json")),
+            ("atro", include_str!(concat!(env!("OCTOSENSE_WORKSPACE"), "/octoscript-makepad/components/l0/native/atro/tokens.json"))),
+            ("atro_light", include_str!(concat!(env!("OCTOSENSE_WORKSPACE"), "/octoscript-makepad/components/l0/native/atro_light/tokens.json"))),
+            ("camo", include_str!(concat!(env!("OCTOSENSE_WORKSPACE"), "/octoscript-makepad/components/l0/native/camo/tokens.json"))),
+            ("camo_light", include_str!(concat!(env!("OCTOSENSE_WORKSPACE"), "/octoscript-makepad/components/l0/native/camo_light/tokens.json"))),
+            ("taskplan_light", include_str!(concat!(env!("OCTOSENSE_WORKSPACE"), "/octoscript-makepad/components/l0/native/taskplan_light/tokens.json"))),
         ].into_iter().map(|(name, json)| (name, serde_json::from_str(json).expect("bundled theme tokens"))).collect()
     })
 }
@@ -53,7 +53,7 @@ mod tests {
             for role in ["body", "title"] {
                 for weight in [400, 500, 600, 700] {
                     let path = font_resource(&format!("kit:{theme}:{role}"), weight).unwrap();
-                    assert!(std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../aichat/widgets").join(path.strip_prefix("makepad_widgets:").unwrap()).is_file(), "{path}");
+                    assert!(std::path::Path::new(env!("OCTOSENSE_WORKSPACE")).join("makepad/widgets").join(path.strip_prefix("makepad_widgets:").unwrap()).is_file(), "{path}");
                 }
             }
         }

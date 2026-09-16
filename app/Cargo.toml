@@ -40,30 +40,8 @@ keyring  = "3"
 rusqlite = { version = "0.32", features = ["bundled"] }
 log      = "0.4"
 
-# External kits (streaming-markdown-kit, makepad-diagram-kit) pull
-# makepad-widgets from the ZhangHanDong/makepad git URL on their `dev` branch.
-# We path-dep the same fork at ../aichat. Without this patch Cargo resolves
-# two makepad-widgets / makepad-script graphs and types stop matching.
-# Mirrors aichat's own [patch] block at ~/home/aichat/Cargo.toml.
-[patch."https://github.com/ZhangHanDong/makepad.git"]
-makepad-widgets = { path = "../aichat/widgets" }
-
-# The app crate names its framework deps by git (pinned to the commits the
-# submodules are checked out at) so that a foreign workspace can consume
-# `octos-app` with git alone. Here, in the dev workspace, every one of those
-# is redirected to the submodule so a local edit of the fork / Octoscript /
-# octos is what builds, exactly as with the old path deps. Keep the pins and
-# the submodule commits in step.
-[patch."https://github.com/OctoSense-org/makepad.git"]
-makepad-widgets     = { path = "../aichat/widgets" }
-makepad-code-editor = { path = "../aichat/code_editor" }
-makepad-ai          = { path = "../aichat/libs/makepad_ai" }
-
-[patch."https://github.com/OctoSense-org/Octoscript.git"]
-octoscript-ui-l0 = { path = "../../octoscript/crates/octoscript-ui-l0" }
-
-[patch."https://github.com/OctoSense-org/Octoscript-Makepad.git"]
-octoscript-node = { path = "../../octoscript-makepad/crates/octoscript-node" }
+# Framework source overrides below use the sibling release prepared by
+# tools/setup-native.py from Octoscript-Makepad/runtime.json.
 
 [patch."https://github.com/octos-org/octos.git"]
 octos-core = { path = "../octos/crates/octos-core" }
@@ -100,3 +78,19 @@ large_enum_variant = "allow"
 derivable_impls = "allow"
 unnecessary_get_then_check = "allow"
 collapsible_match = "allow"
+
+# Resolve the exact framework sources prepared by tools/setup-native.py.
+
+[patch."https://github.com/OctoSense-org/makepad.git"]
+makepad-widgets = { path = "../../makepad/widgets" }
+makepad-code-editor = { path = "../../makepad/code_editor" }
+makepad-ai = { path = "../../makepad/libs/makepad_ai" }
+
+[patch."https://github.com/OctoSense-org/Octoscript.git"]
+octoscript-ui-l0 = { path = "../../octoscript/crates/octoscript-ui-l0" }
+
+[patch."https://github.com/OctoSense-org/Octoscript-Makepad.git"]
+octoscript-node = { path = "../../octoscript-makepad/crates/octoscript-node" }
+
+[patch."https://github.com/ZhangHanDong/makepad.git"]
+makepad-widgets = { path = "../../makepad/widgets" }

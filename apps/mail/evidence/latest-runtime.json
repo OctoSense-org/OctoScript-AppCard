@@ -1,0 +1,32 @@
+{
+  "directory": "evidence/runtime-20260916T024745Z",
+  "passed": true,
+  "checks": [
+    "Native WKWebView renders formatted full HTML, blocks mail scripts and scrolls to the end",
+    "Leaving the reader disposes its native WebView",
+    "A 150-message inbox scrolls beyond the initial window while mounting at most 60 rows",
+    "The fixed subject search finds and opens a message beyond the initial list window",
+    "The full plain-text reader scrolls vertically without pagination"
+  ],
+  "runtime": {
+    "schema_version": 1,
+    "runtime": {
+      "url": "https://github.com/OctoSense-org/Octoscript-Makepad.git",
+      "revision": "b1596d9c2cee6e80cca9d27b1b0c2d57b9d28dd8"
+    },
+    "repositories": {
+      "makepad": {
+        "url": "https://github.com/OctoSense-org/makepad.git",
+        "revision": "d4502ef1e4d196d2829a07aa137740cb0581e9b4"
+      },
+      "octoscript": {
+        "url": "https://github.com/OctoSense-org/Octoscript.git",
+        "revision": "5430518683462eebb65b56b9b5d0e620006f04f4"
+      }
+    },
+    "manifest_sha256": "1013f82ac0054e88e9f1e06183bbd0490fd390b863d243b868188bf5d2e3de35"
+  },
+  "native_pid": 15152,
+  "hidden": true,
+  "instrument": "Makepad HTTP /event; no Studio"
+}
