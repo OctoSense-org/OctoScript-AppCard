@@ -11,8 +11,9 @@ tests and fixture evidence. App runtime state and personal data stay ignored.
 | [School](school/README.md) | Native cards / WASM | School notice, calendar and payment journey. |
 | [Health](health/README.md) | Native cards / WASM | Fictional health-check booking journey. |
 | [Reunion](reunion/README.md) | Native cards / WASM | Reunion planning, RSVP and payment journey. |
+| [personal-data](personal-data/README.md) | octos skill (macOS, Android later) | Read-only search over the Mail and Calendar apps' data for the octos agent: `mail_search`, `mail_read`, `calendar_query`, `contacts_lookup`. Phase 1 of the octos personal-memory ADR. |
 
-All five projects are siblings here. The repository root is
+All projects are siblings here; `personal-data` is a plain Rust skill rather than an AppCard journey. The repository root is
 `Octosense-Service-AppCards/`; there is no nested `pipeline/` checkout.
 Makepad and Octoscript live in the separate [native workspace](../docs/NATIVE-WORKSPACE.md).
 [shared/](shared/README.md) contains common browser adapters and historical
