@@ -102,8 +102,29 @@ fn refresh_mail(loaded: &Loaded, index: &mut Index) -> Vec<String> {
         ));
         return notes;
     }
+    // Accounts whose mailbox is no longer under a configured directory
+    // leave the index, so their rows cannot surface (or be read) again.
+    let live: std::collections::HashSet<String> = files
+        .iter()
+        .filter_map(|p| p.file_stem().map(|s| s.to_string_lossy().trim_start_matches("mailbox-").to_string()))
+        .collect();
+    for source in index.sources() {
+        if let Some(account) = source.name.strip_prefix("mail:") {
+            if !live.contains(account) {
+                if let Err(e) = index.remove_mail_source(account) {
+                    notes.push(format!("mail: could not drop stale account {account}: {e}"));
+                }
+            }
+        }
+    }
     for path in files {
-        let fingerprint = mail::fingerprint(&path).unwrap_or_default();
+        // The body-indexing mode is part of the cache identity: flipping it
+        // must rebuild the account, not silently keep the old rows.
+        let fingerprint = format!(
+            "{}|bodies={}",
+            mail::fingerprint(&path).unwrap_or_default(),
+            loaded.config.mail.index_bodies
+        );
         let name = path
             .file_stem()
             .map(|s| s.to_string_lossy().trim_start_matches("mailbox-").to_string())
@@ -130,7 +151,19 @@ fn refresh_mail(loaded: &Loaded, index: &mut Index) -> Vec<String> {
 fn refresh_calendar(loaded: &Loaded, index: &mut Index) -> Vec<String> {
     let mut notes = Vec::new();
     match calendar::fetch(loaded, &loaded.config.locale) {
-        Fetch::Fresh(state) => {
+        Fetch::Fresh(mut state) => {
+            // Cache identity = which source, which language, which version:
+            // a different server with the same seq, or a locale change, must
+            // re-render the index.
+            let source_id = loaded
+                .config
+                .calendar
+                .state_file
+                .as_ref()
+                .map(|p| format!("file:{}", p.display()))
+                .or_else(|| loaded.config.calendar.server.clone())
+                .unwrap_or_default();
+            state.fingerprint = format!("{source_id}|{}|{}", loaded.config.locale, state.fingerprint);
             let stale = index
                 .source("calendar")
                 .map(|s| s.fingerprint != state.fingerprint)
@@ -223,9 +256,18 @@ fn mail_read(loaded: &Loaded, input: &Value) -> Result<String, String> {
         return Err("mail_read needs an \"id\" (from mail_search)".into());
     }
     let max_chars = int_arg(input, "max_chars", 6000).clamp(200, 40_000);
+    // Ids from mail_search are `<account>/<message id>`; a bare id (or uid)
+    // is accepted too and resolved across accounts.
+    let (want_account, want_id) = match id.split_once('/') {
+        Some((a, i)) => (Some(a.to_string()), i.to_string()),
+        None => (None, id.clone()),
+    };
     for path in mail::mailbox_files(&loaded.config.mail.dirs) {
         let mailbox = mail::load(&path)?;
-        if let Some(m) = mailbox.messages.iter().find(|m| m.id == id || m.uid == id) {
+        if want_account.as_deref().is_some_and(|a| a != mailbox.account) {
+            continue;
+        }
+        if let Some(m) = mailbox.messages.iter().find(|m| m.id == want_id || m.uid == want_id) {
             let body = m.text();
             let mut out = String::from(BANNER);
             out.push_str(&format!(
@@ -397,10 +439,25 @@ fn status(loaded: &Loaded, index: &Index, notes: &[String]) -> Result<String, St
 // ---------------------------------------------------------------- helpers
 
 fn event_line(e: &Event, calendars: &[calendar::Calendar]) -> String {
+    // Times are the event's own wall clock; the offset is shown so an agent
+    // on another machine never mistakes them for local time, and events
+    // that cross midnight show where they end.
+    let multi_day = e.last_day != e.first_day;
     let time = if e.all_day {
-        "all day".to_string()
+        if multi_day {
+            format!("all day through {}", e.last_day)
+        } else {
+            "all day".to_string()
+        }
     } else {
-        format!("{}–{}", hm(&e.start), hm(&e.end))
+        let offset = chrono::DateTime::parse_from_rfc3339(&e.start)
+            .map(|dt| format!(" (UTC{})", dt.format("%:z")))
+            .unwrap_or_default();
+        if multi_day {
+            format!("{} – {} {}{offset}", hm(&e.start), e.end.chars().take(10).collect::<String>(), hm(&e.end))
+        } else {
+            format!("{}–{}{offset}", hm(&e.start), hm(&e.end))
+        }
     };
     let mut line = format!("{time} · {}", if e.title.is_empty() { "(untitled)" } else { &e.title });
     if !e.location.is_empty() {
