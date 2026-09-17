@@ -1,0 +1,49 @@
+{
+  "seq": 6,
+  "digest": "fixture",
+  "state": {
+    "schema_version": 1,
+    "seq": 6,
+    "calendars": {
+      "personal": {"name": {"en": "Personal", "cn": "个人"}, "color": "34c759", "visible": true, "shared_with": []},
+      "family": {"name": {"en": "Family", "cn": "家庭"}, "color": "ff3b30", "visible": true, "shared_with": ["sam"]},
+      "birthdays": {"name": {"en": "Birthdays", "cn": "生日"}, "color": "af52de", "visible": false, "shared_with": []}
+    },
+    "events": {
+      "dentist": {
+        "id": "dentist", "calendar": "personal", "created_by": "alex-phone", "updated_by": "alex-phone",
+        "start": "2026-09-24T10:30:00+08:00", "end": "2026-09-24T11:15:00+08:00", "all_day": false,
+        "title": {"en": "Dentist", "cn": "牙医"}, "location": {"en": "Sunrise Dental", "cn": "日出牙科"},
+        "notes": "", "deleted": false
+      },
+      "dinner": {
+        "id": "dinner", "calendar": "family", "created_by": "sam-desktop", "updated_by": "sam-desktop",
+        "start": "2026-09-24T19:00:00+08:00", "end": "2026-09-24T20:30:00+08:00", "all_day": false,
+        "title": {"en": "Dinner with Sam", "cn": "和 Sam 晚餐"}, "location": {"en": "Lotus Kitchen", "cn": "莲花厨房"},
+        "notes": "Book a table for four.", "deleted": false
+      },
+      "old": {
+        "id": "old", "calendar": "work", "created_by": "alex-phone", "updated_by": "alex-phone",
+        "start": "2024-01-10T09:00:00+08:00", "end": "2024-01-10T10:00:00+08:00", "all_day": false,
+        "title": {"en": "Old planning meeting", "cn": ""}, "location": {"en": "", "cn": ""},
+        "notes": "", "deleted": false
+      },
+      "gone": {
+        "id": "gone", "calendar": "personal", "created_by": "alex-phone", "updated_by": "alex-phone",
+        "start": "2026-09-25T09:00:00+08:00", "end": "2026-09-25T10:00:00+08:00", "all_day": false,
+        "title": {"en": "Cancelled dentist follow-up", "cn": ""}, "location": {"en": "", "cn": ""},
+        "notes": "", "deleted": true
+      },
+      "holiday": {
+        "id": "holiday", "calendar": "personal", "created_by": "alex-phone", "updated_by": "alex-phone",
+        "start": "2026-10-01", "end": "2026-10-02", "all_day": true,
+        "title": {"en": "National Day", "cn": "国庆节"}, "location": {"en": "", "cn": ""},
+        "notes": "", "deleted": false
+      }
+    },
+    "invitations": {},
+    "devices": {},
+    "applied": {},
+    "history": []
+  }
+}
