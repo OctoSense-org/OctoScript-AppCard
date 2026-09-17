@@ -115,6 +115,16 @@ impl Index {
         .unwrap_or_default()
     }
 
+    /// Drop an account that is no longer configured (its mailbox file
+    /// vanished or its directory left `mail.dirs`).
+    pub fn remove_mail_source(&mut self, account: &str) -> Result<(), String> {
+        let tx = self.conn.transaction().map_err(|e| e.to_string())?;
+        tx.execute("DELETE FROM mail WHERE account = ?1", [account]).map_err(|e| e.to_string())?;
+        tx.execute("DELETE FROM mail_fts WHERE account = ?1", [account]).map_err(|e| e.to_string())?;
+        tx.execute("DELETE FROM sources WHERE name = ?1", [format!("mail:{account}")]).map_err(|e| e.to_string())?;
+        tx.commit().map_err(|e| e.to_string())
+    }
+
     pub fn note_source(&self, name: &str, note: &str) {
         let _ = self.conn.execute(
             "INSERT INTO sources(name, fingerprint, refreshed, note) VALUES (?1, '', '', ?2)
@@ -139,17 +149,19 @@ impl Index {
         {
             let mut row = tx
                 .prepare(
-                    "INSERT OR REPLACE INTO mail(id, account, uid, ts, date, sender, address, subject, preview,
+                    "INSERT OR REPLACE INTO mail(key, id, account, uid, ts, date, sender, address, subject, preview,
                      unread, flagged, flag, archived, trashed, attachments)
-                     VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15)",
+                     VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16)",
                 )
                 .map_err(|e| e.to_string())?;
             let mut fts = tx
-                .prepare("INSERT INTO mail_fts(id, account, sender, address, subject, preview, body) VALUES (?1,?2,?3,?4,?5,?6,?7)")
+                .prepare("INSERT INTO mail_fts(key, account, sender, address, subject, preview, body) VALUES (?1,?2,?3,?4,?5,?6,?7)")
                 .map_err(|e| e.to_string())?;
             for m in &mailbox.messages {
                 let body = if index_bodies { clip(&m.text(), 20_000) } else { String::new() };
+                let key = mail_key(&mailbox.account, &m.id);
                 row.execute(params![
+                    key,
                     m.id,
                     mailbox.account,
                     m.uid,
@@ -167,7 +179,7 @@ impl Index {
                     m.attachments
                 ])
                 .map_err(|e| e.to_string())?;
-                fts.execute(params![m.id, mailbox.account, m.sender, m.address, m.subject, m.preview, body])
+                fts.execute(params![key, mailbox.account, m.sender, m.address, m.subject, m.preview, body])
                     .map_err(|e| e.to_string())?;
             }
         }
@@ -258,14 +270,19 @@ impl Index {
             clauses.push(format!("mail_fts MATCH ?{}", args.len() + 1));
             args.push(fts.clone().unwrap().into());
             (
-                "mail_fts JOIN mail m ON m.id = mail_fts.id",
+                "mail_fts JOIN mail m ON m.key = mail_fts.key",
                 "bm25(mail_fts, 0.0, 0.0, 2.0, 1.0, 5.0, 1.0, 0.5), m.ts DESC",
             )
         } else {
             if !f.query.trim().is_empty() {
                 let like = format!("%{}%", f.query.trim());
                 let n = args.len() + 1;
-                clauses.push(format!("(m.subject LIKE ?{n} OR m.sender LIKE ?{n} OR m.preview LIKE ?{n} OR m.address LIKE ?{n})"));
+                // Substring fallback (CJK or empty FTS): headers plus any
+                // opted-in body text kept in the FTS table.
+                clauses.push(format!(
+                    "(m.subject LIKE ?{n} OR m.sender LIKE ?{n} OR m.preview LIKE ?{n} OR m.address LIKE ?{n} \
+                     OR EXISTS (SELECT 1 FROM mail_fts f WHERE f.key = m.key AND f.body LIKE ?{n}))"
+                ));
                 args.push(like.into());
             }
             ("mail m", "m.ts DESC")
@@ -276,7 +293,7 @@ impl Index {
             .query_row(&format!("SELECT COUNT(*) FROM {join} {where_sql}"), rusqlite::params_from_iter(args.iter()), |r| r.get(0))
             .map_err(|e| format!("count: {e}"))?;
         let sql = format!(
-            "SELECT m.id, m.date, m.sender, m.address, m.subject, m.preview, m.unread, m.flagged, m.flag,
+            "SELECT m.key, m.date, m.sender, m.address, m.subject, m.preview, m.unread, m.flagged, m.flag,
              m.archived, m.trashed, m.attachments FROM {join} {where_sql} ORDER BY {order} LIMIT {limit}"
         );
         let mut stmt = self.conn.prepare(&sql).map_err(|e| format!("query: {e}"))?;
@@ -442,6 +459,12 @@ impl Index {
     }
 }
 
+/// Account-qualified row key: Mail's message ids hash only the UID, so two
+/// accounts can share one; the key is what the tools hand back as `id`.
+pub fn mail_key(account: &str, id: &str) -> String {
+    format!("{account}/{id}")
+}
+
 pub fn now() -> String {
     chrono::Local::now().to_rfc3339_opts(chrono::SecondsFormat::Secs, true)
 }
@@ -450,14 +473,14 @@ const SCHEMA: &str = "
 PRAGMA journal_mode = WAL;
 CREATE TABLE IF NOT EXISTS sources(name TEXT PRIMARY KEY, fingerprint TEXT NOT NULL, refreshed TEXT NOT NULL, note TEXT NOT NULL DEFAULT '');
 CREATE TABLE IF NOT EXISTS mail(
-  id TEXT PRIMARY KEY, account TEXT NOT NULL, uid TEXT NOT NULL, ts INTEGER NOT NULL, date TEXT NOT NULL,
+  key TEXT PRIMARY KEY, id TEXT NOT NULL, account TEXT NOT NULL, uid TEXT NOT NULL, ts INTEGER NOT NULL, date TEXT NOT NULL,
   sender TEXT NOT NULL, address TEXT NOT NULL, subject TEXT NOT NULL, preview TEXT NOT NULL,
   unread INTEGER NOT NULL, flagged INTEGER NOT NULL, flag TEXT NOT NULL, archived INTEGER NOT NULL,
   trashed INTEGER NOT NULL, attachments INTEGER NOT NULL);
 CREATE INDEX IF NOT EXISTS mail_ts ON mail(ts DESC);
 CREATE INDEX IF NOT EXISTS mail_address ON mail(address);
 CREATE VIRTUAL TABLE IF NOT EXISTS mail_fts USING fts5(
-  id UNINDEXED, account UNINDEXED, sender, address, subject, preview, body, tokenize='unicode61 remove_diacritics 2');
+  key UNINDEXED, account UNINDEXED, sender, address, subject, preview, body, tokenize='unicode61 remove_diacritics 2');
 CREATE TABLE IF NOT EXISTS events(
   id TEXT PRIMARY KEY, calendar TEXT NOT NULL, start TEXT NOT NULL, end TEXT NOT NULL,
   start_ts INTEGER NOT NULL, end_ts INTEGER NOT NULL, first_day TEXT NOT NULL, last_day TEXT NOT NULL, all_day INTEGER NOT NULL,

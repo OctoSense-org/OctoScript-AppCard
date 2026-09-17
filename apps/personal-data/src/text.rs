@@ -56,7 +56,11 @@ fn decode_entities(s: &str) -> String {
     while let Some(i) = rest.find('&') {
         out.push_str(&rest[..i]);
         rest = &rest[i..];
-        let Some(end) = rest[..rest.len().min(12)].find(';') else {
+        let mut window = rest.len().min(12);
+        while !rest.is_char_boundary(window) {
+            window -= 1;
+        }
+        let Some(end) = rest[..window].find(';') else {
             out.push('&');
             rest = &rest[1..];
             continue;
@@ -147,6 +151,12 @@ mod tests {
         let html = "<html><head><style>p{}</style></head><body><p>Hi&nbsp;<b>Sam</b>,</p>\
                     <script>alert(1)</script><div>see you &amp; Alex at 10 &#x2014; ok</div></body></html>";
         assert_eq!(html_to_text(html), "Hi Sam, see you & Alex at 10 — ok");
+    }
+
+    #[test]
+    fn should_not_split_multibyte_text_when_scanning_entities() {
+        assert_eq!(html_to_text("<p>&amp;欢迎访问我们的网站</p>"), "&欢迎访问我们的网站");
+        assert_eq!(html_to_text("&欢迎访问我们的网站再来一次"), "&欢迎访问我们的网站再来一次");
     }
 
     #[test]

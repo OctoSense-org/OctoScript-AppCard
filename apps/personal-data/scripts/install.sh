@@ -42,7 +42,8 @@ cp "$here/target/release/main" "$stage/main"
 chmod 755 "$stage/main"
 cp "$here/skill/manifest.json" "$here/skill/SKILL.md" "$stage/"
 
-dirs_json=$(printf '%s\n' "$mail_dirs" | sed '/^$/d' | python3 -c 'import json,sys; print(json.dumps([l.rstrip("\n") for l in sys.stdin]))')
+# Absolute paths: the skill runs with the agent session's cwd, not ours.
+dirs_json=$(printf '%s\n' "$mail_dirs" | sed '/^$/d' | python3 -c 'import json,os,sys; print(json.dumps([os.path.abspath(l.rstrip("\n")) for l in sys.stdin]))')
 cal_json='{}'
 if [ -n "$state_file" ]; then
   cal_json=$(python3 -c 'import json,sys,os; print(json.dumps({"state_file": os.path.abspath(sys.argv[1])}))' "$state_file")
