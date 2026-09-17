@@ -125,6 +125,16 @@ impl Index {
         tx.commit().map_err(|e| e.to_string())
     }
 
+    /// Drop every calendar row and the calendar source entry.
+    pub fn clear_calendar(&mut self) -> Result<(), String> {
+        let tx = self.conn.transaction().map_err(|e| e.to_string())?;
+        for table in ["events", "events_fts", "calendars"] {
+            tx.execute(&format!("DELETE FROM {table}"), []).map_err(|e| e.to_string())?;
+        }
+        tx.execute("DELETE FROM sources WHERE name = 'calendar'", []).map_err(|e| e.to_string())?;
+        tx.commit().map_err(|e| e.to_string())
+    }
+
     pub fn note_source(&self, name: &str, note: &str) {
         let _ = self.conn.execute(
             "INSERT INTO sources(name, fingerprint, refreshed, note) VALUES (?1, '', '', ?2)

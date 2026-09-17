@@ -88,6 +88,22 @@ fn run(tool: &str, input: &Value) -> Result<String, String> {
 fn refresh_mail(loaded: &Loaded, index: &mut Index) -> Vec<String> {
     let mut notes = Vec::new();
     let files = mail::mailbox_files(&loaded.config.mail.dirs);
+    // Accounts whose mailbox is no longer under a configured directory
+    // leave the index, so their rows cannot surface (or be read) again —
+    // including when no mailbox is left at all.
+    let live: std::collections::HashSet<String> = files
+        .iter()
+        .filter_map(|p| p.file_stem().map(|s| s.to_string_lossy().trim_start_matches("mailbox-").to_string()))
+        .collect();
+    for source in index.sources() {
+        if let Some(account) = source.name.strip_prefix("mail:") {
+            if !live.contains(account) {
+                if let Err(e) = index.remove_mail_source(account) {
+                    notes.push(format!("mail: could not drop stale account {account}: {e}"));
+                }
+            }
+        }
+    }
     if files.is_empty() {
         notes.push(format!(
             "mail: no mailbox found under {}",
@@ -101,21 +117,6 @@ fn refresh_mail(loaded: &Loaded, index: &mut Index) -> Vec<String> {
                 .join(", ")
         ));
         return notes;
-    }
-    // Accounts whose mailbox is no longer under a configured directory
-    // leave the index, so their rows cannot surface (or be read) again.
-    let live: std::collections::HashSet<String> = files
-        .iter()
-        .filter_map(|p| p.file_stem().map(|s| s.to_string_lossy().trim_start_matches("mailbox-").to_string()))
-        .collect();
-    for source in index.sources() {
-        if let Some(account) = source.name.strip_prefix("mail:") {
-            if !live.contains(account) {
-                if let Err(e) = index.remove_mail_source(account) {
-                    notes.push(format!("mail: could not drop stale account {account}: {e}"));
-                }
-            }
-        }
     }
     for path in files {
         // The body-indexing mode is part of the cache identity: flipping it
@@ -148,22 +149,28 @@ fn refresh_mail(loaded: &Loaded, index: &mut Index) -> Vec<String> {
     notes
 }
 
+/// Which calendar source (and rendering locale) the cached rows belong to.
+fn calendar_cache_owner(loaded: &Loaded) -> String {
+    let source_id = loaded
+        .config
+        .calendar
+        .state_file
+        .as_ref()
+        .map(|p| format!("file:{}", p.display()))
+        .or_else(|| loaded.config.calendar.server.clone())
+        .unwrap_or_default();
+    format!("{source_id}|{}|", loaded.config.locale)
+}
+
 fn refresh_calendar(loaded: &Loaded, index: &mut Index) -> Vec<String> {
     let mut notes = Vec::new();
+    let owner = calendar_cache_owner(loaded);
     match calendar::fetch(loaded, &loaded.config.locale) {
         Fetch::Fresh(mut state) => {
             // Cache identity = which source, which language, which version:
             // a different server with the same seq, or a locale change, must
             // re-render the index.
-            let source_id = loaded
-                .config
-                .calendar
-                .state_file
-                .as_ref()
-                .map(|p| format!("file:{}", p.display()))
-                .or_else(|| loaded.config.calendar.server.clone())
-                .unwrap_or_default();
-            state.fingerprint = format!("{source_id}|{}|{}", loaded.config.locale, state.fingerprint);
+            state.fingerprint = format!("{owner}{}", state.fingerprint);
             let stale = index
                 .source("calendar")
                 .map(|s| s.fingerprint != state.fingerprint)
@@ -175,19 +182,34 @@ fn refresh_calendar(loaded: &Loaded, index: &mut Index) -> Vec<String> {
             }
         }
         Fetch::Unavailable(reason) => {
+            // Only fall back to cached rows that came from THIS source; rows
+            // from a replaced server or locale are cleared instead of shown.
             let cached = index.source("calendar");
             match cached {
-                Some(s) if !s.refreshed.is_empty() => notes.push(format!(
-                    "calendar: server unavailable ({reason}); using the index refreshed {}",
-                    s.refreshed
-                )),
-                _ => notes.push(format!("calendar: server unavailable ({reason}) and nothing cached yet")),
+                Some(s) if !s.refreshed.is_empty() && s.fingerprint.starts_with(&owner) => {
+                    notes.push(format!(
+                        "calendar: server unavailable ({reason}); using the index refreshed {}",
+                        s.refreshed
+                    ))
+                }
+                Some(_) => {
+                    if let Err(e) = index.clear_calendar() {
+                        notes.push(format!("calendar: could not clear stale rows: {e}"));
+                    }
+                    notes.push(format!(
+                        "calendar: server unavailable ({reason}); cached rows belonged to a different source and were dropped"
+                    ));
+                }
+                None => notes.push(format!("calendar: server unavailable ({reason}) and nothing cached yet")),
             }
         }
         Fetch::NotConfigured => {
-            if index.source("calendar").is_none() {
-                index.note_source("calendar", "not configured");
+            if index.source("calendar").is_some_and(|s| !s.fingerprint.is_empty()) {
+                if let Err(e) = index.clear_calendar() {
+                    notes.push(format!("calendar: could not clear rows: {e}"));
+                }
             }
+            index.note_source("calendar", "not configured");
             notes.push("calendar: not configured (set calendar.server or calendar.state_file in config.json)".into());
         }
     }
