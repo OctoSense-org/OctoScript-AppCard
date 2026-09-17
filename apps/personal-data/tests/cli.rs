@@ -211,6 +211,33 @@ fn should_rebuild_when_body_indexing_is_switched_on() {
 }
 
 #[test]
+fn should_drop_cached_rows_when_the_last_mailbox_or_the_calendar_source_goes_away() {
+    let rig = rig();
+    let (_, out) = call(&rig, "mail_search", json!({"query": "hike"}));
+    assert!(out.contains("id=fixture/m1"), "{out}");
+    let (_, out) = call(&rig, "calendar_query", json!({"query": "dentist"}));
+    assert!(out.contains("id=dentist"), "calendar cached from the first source:\n{out}");
+    std::fs::remove_file(rig._dir.path().join("mail").join("mailbox-fixture.json")).unwrap();
+    let (_, out) = call(&rig, "mail_search", json!({"query": "hike"}));
+    assert!(out.contains("0 of 0") && out.contains("no mailbox found"), "last mailbox removed:\n{out}");
+    // Calendar: point the config at a source that does not exist → the rows
+    // from the previous source must not be served.
+    let cfg_path = rig.config.clone();
+    let mut cfg: Value = serde_json::from_slice(&std::fs::read(&cfg_path).unwrap()).unwrap();
+    cfg["calendar"] = json!({"state_file": rig._dir.path().join("missing-state.json")});
+    std::fs::write(&cfg_path, cfg.to_string()).unwrap();
+    let (_, out) = call(&rig, "calendar_query", json!({"query": "dentist"}));
+    assert!(!out.contains("id=dentist") && out.contains("different source"), "{out}");
+}
+
+#[test]
+fn should_match_titles_with_standalone_punctuation() {
+    let rig = rig();
+    let (_, out) = call(&rig, "calendar_query", json!({"query": "Dinner - with Sam"}));
+    assert!(out.contains("id=dinner"), "punctuation-only term must not empty the query:\n{out}");
+}
+
+#[test]
 fn should_report_unknown_tool_with_failure_envelope() {
     let rig = rig();
     let (ok, out) = call(&rig, "bogus", json!({}));

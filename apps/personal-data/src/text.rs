@@ -130,9 +130,11 @@ pub fn has_cjk(s: &str) -> bool {
 /// Build a safe FTS5 MATCH expression: each term quoted, joined with AND,
 /// prefix-matched so partial words still hit. Returns None for no terms.
 pub fn fts_query(query: &str) -> Option<String> {
+    // Terms without any letter or digit ("-", "..") produce no tokens under
+    // unicode61 and would AND the whole query down to nothing.
     let terms: Vec<String> = query
         .split(|c: char| !c.is_alphanumeric() && c != '@' && c != '.' && c != '-' && c != '_')
-        .filter(|t| !t.is_empty())
+        .filter(|t| t.chars().any(char::is_alphanumeric))
         .map(|t| format!("\"{}\"*", t.replace('"', "\"\"")))
         .collect();
     if terms.is_empty() {
@@ -163,6 +165,8 @@ mod tests {
     fn should_quote_terms_when_building_fts_query() {
         assert_eq!(fts_query("car rental \"8\""), Some("\"car\"* AND \"rental\"* AND \"8\"*".into()));
         assert_eq!(fts_query("  ,, "), None);
+        assert_eq!(fts_query("Project update - Q3"), Some("\"Project\"* AND \"update\"* AND \"Q3\"*".into()));
+        assert_eq!(fts_query("- -- ..."), None);
     }
 
     #[test]
