@@ -23,6 +23,18 @@ profile that AppGallery Connect issues:
 Note that a debug profile is bound to one bundle and to the phones whose UDID it
 lists, so a debug build for the template project needs `BUNDLE=com.example.myapplication`.
 
+## Where the build is saved
+
+hvigor writes the pack to `deveco/build/outputs/default/` and empties that
+directory on the next build, so `--app` copies the signed pack, its `pack.info`
+and a sha256 out to
+
+    $HOME/octosense-app-builds/<bundle>-<versionName>-<versionCode>-<signing>/
+
+Set `ARCHIVE` to put it somewhere else. Keep it out of the repository: the packs
+are signed release artifacts, and once a version code has gone to a tester the
+file is the only record of exactly what they installed.
+
 ## Option 1: one or two testers, today
 
 1. Ask each tester for their device UDID (Settings, or `hdc shell bm get --udid`).
@@ -56,7 +68,15 @@ Testers install from AppGallery with an invitation, no computer needed.
 6. **Upload** it under Distribute → Beta testing (open testing), add the release
    notes, screenshots and privacy statement, and submit for review. Huawei
    reviews beta builds too, typically in a working day or two.
-7. **Invite** testers by link or by Huawei ID; they install from AppGallery.
+7. **Countries/regions.** The version page asks where the version is
+   distributed. A HarmonyOS app built against API 10 or later can only be
+   distributed to the Chinese mainland, so that is the only real choice, and it
+   follows that the developer account has to be a Chinese mainland account and
+   the testers' Huawei IDs have to be Chinese mainland IDs. An overseas Huawei
+   developer account cannot publish this app at all. Uploading the pack from
+   DevEco Studio is also mainland-only (Hong Kong, Macau and Taiwan excluded).
+8. **Invite** testers by link or by Huawei ID; they install from AppGallery. An
+   open test that skips review allows 100 invitations, a reviewed one 200.
 
 ## Before you submit
 

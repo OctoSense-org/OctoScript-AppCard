@@ -19,6 +19,10 @@ VERSION_CODE=${VERSION_CODE:-}
 VERSION_NAME=${VERSION_NAME:-}
 SIGNING=${SIGNING:-debug}
 DEVECO_PROJECT=${DEVECO_PROJECT:-$HOME/DevEcoStudioProjects/MyApplication}
+# Where a built App Pack is kept. Outside the repository: the packs are
+# release artifacts, they carry a signature, and one of them is whatever a
+# tester installed.
+ARCHIVE=${ARCHIVE:-$HOME/octosense-app-builds}
 HERE=$(cd "$(dirname "$0")" && pwd)
 DEVECO=/Applications/DevEco-Studio.app/Contents
 export JAVA_HOME=$DEVECO/jbr/Contents/Home
@@ -69,7 +73,20 @@ PY
 if [ "${1:-}" = "--app" ]; then
     echo "==> hvigor (App Pack for AppGallery Connect)"
     node $DEVECO/tools/hvigor/bin/hvigorw.js assembleApp --mode project -p product=default -p buildMode=release --no-daemon 2>&1 | tail -3
-    ls -la build/outputs/default/*.app 2>/dev/null || ls -la */build/outputs/default/*.app 2>/dev/null
+    PACK=$(ls build/outputs/default/*-signed.app 2>/dev/null | head -1)
+    [ -n "$PACK" ] || PACK=$(ls */build/outputs/default/*-signed.app 2>/dev/null | head -1)
+    [ -n "$PACK" ] || { echo "no signed App Pack was produced"; exit 1; }
+    # hvigor empties build/ on the next run, so keep the pack that was uploaded:
+    # a build that is on someone's phone has to stay reproducible from a file.
+    VC=$(python3 -c "import json,re,sys; print(json.loads(re.sub(r'(?m)^\s*//.*$','',open('AppScope/app.json5').read()))['app']['versionCode'])")
+    VN=$(python3 -c "import json,re,sys; print(json.loads(re.sub(r'(?m)^\s*//.*$','',open('AppScope/app.json5').read()))['app']['versionName'])")
+    OUT=$ARCHIVE/$BUNDLE-$VN-$VC-$SIGNING
+    mkdir -p "$OUT"
+    cp "$PACK" "$OUT/$BUNDLE-$VN-$VC-$SIGNING.app"
+    cp build/outputs/default/pack.info "$OUT/" 2>/dev/null || true
+    shasum -a 256 "$OUT/$BUNDLE-$VN-$VC-$SIGNING.app" > "$OUT/sha256.txt"
+    ls -la "$OUT"
+    echo "==> saved to $OUT"
     exit 0
 fi
 
