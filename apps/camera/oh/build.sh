@@ -34,6 +34,10 @@ export PATH=$JAVA_HOME/bin:$DEVECO/tools/node/bin:$DEVECO/sdk/default/openharmon
 export DEVECO_SDK_HOME=$DEVECO/sdk NODE_HOME=$DEVECO/tools/node
 D=${DEVICE:-5ZGYD25B13020968}
 cd "$HERE"
+# The ArkUI host takes Octoscript-OH, the Octoscript VM and makepad by
+# relative path, so without this the build follows whatever those siblings
+# happen to be on. PINS=skip builds anyway.
+[ "${PINS:-check}" = "skip" ] || python3 "$HERE/pins.py" check
 TMP_PROFILE=$(mktemp); TMP_APP=$(mktemp)
 echo "==> cargo"
 cargo build --release --target aarch64-unknown-linux-ohos 2>&1 | grep -E "^error|Finished" -A 6 | head -40
