@@ -38,6 +38,23 @@ Set `ARCHIVE` to put it somewhere else. Keep it out of the repository: the packs
 are signed release artifacts, and once a version code has gone to a tester the
 file is the only record of exactly what they installed.
 
+## Which sources it builds against
+
+The ArkUI host takes Octoscript-OH, the Octoscript virtual machine and makepad's
+script crate by relative path from the checkouts beside this repository, so the
+build follows whatever those are on. `oh-runtime.lock.json` records the revisions
+that are known to build and `pins.py` checks them before every build:
+
+    python3 apps/camera/oh/pins.py show      what the siblings are on
+    python3 apps/camera/oh/pins.py update    accept the current ones
+
+`PINS=skip` builds without the check. Note that the Octoscript-OH pin is one
+commit ahead of its default branch: the ArkUI raw touch stream and the rotate
+attribute the camera needs are not merged yet.
+
+The Makepad host in `apps/camera/native` is unrelated to this file. It resolves
+through OctoSense-mobile's `native-runtime.lock.json` instead.
+
 ## Option 1: one or two testers, today
 
 1. Ask each tester for their device UDID (Settings, or `hdc shell bm get --udid`).
