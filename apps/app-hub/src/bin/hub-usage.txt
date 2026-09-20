@@ -1,0 +1,21 @@
+hub — the OctoSense app hub command (ADR 0003)
+
+  hub keygen <path>                     make a signing key, print its public half
+  hub pubkey <key file>                 print a key's public half
+  hub certify --anchor <f> --working <f>   anchor certifies a working key
+  hub stamp <bundle>                    write the bundle's digest into its manifest
+  hub sign-manifest <bundle> --key <f> --key-id <id>
+  hub check <bundle> [--catalog <f>] [--allow-unsigned] [--publisher-key id=hex]
+  hub publish <bundle> --catalog <f> --key <f> --anchor-cert <hex>
+              --publisher <id> [--repo <url>] [--commit <sha>] [--out <dir>]
+  hub withdraw <app> --version <v> --reason <text> --catalog <f> --key <f> --anchor-cert <hex>
+  hub scan <bundle> [--reviewer <cmd>] [--packet <out.json>]
+  hub verify <catalog> --anchor <hex>
+
+publish also accepts --reviewer <cmd> (the agent scan; a reject stops the
+publish, human-review stops it until --reviewed) and writes
+<artifact>.pack.json beside the artifact for HTTP delivery.
+
+check is the gate: a publisher runs it before submitting, the hub runs the
+same code after. publish re-runs it, copies the bundle into the artifact
+store and signs the catalog.

@@ -1,0 +1,30 @@
+# octosense-app-hub — ADR 0003: the index, the catalog and its signatures.
+#
+# The hub is what decides an app is OFFERED; ADR 0002's policy crate decides
+# what it may DO once it runs. This crate holds both halves of that boundary:
+# the index entry a publisher submits, and the signed catalog a device reads.
+#
+# No makepad dependency: a device verifies a catalog long before it draws
+# anything, and the hub's own jobs run headless.
+[package]
+name = "octosense-app-hub"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+publish = false
+description = "The OctoSense app hub: index entries, a signed catalog, and the admission gate (ADR 0003)"
+
+[dependencies]
+octosense-app-policy = { path = "../app-policy" }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+blake3 = "1"
+ed25519-dalek = { version = "3", features = ["rand_core"] }
+rand_core = { version = "0.9", features = ["os_rng"] }
+hex = "0.4"
+base64 = "0.22"
+ureq = "3"
+
+[[bin]]
+name = "hub"
+path = "src/bin/hub.rs"
