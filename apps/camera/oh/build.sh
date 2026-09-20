@@ -18,12 +18,16 @@ BUNDLE=${BUNDLE:-dev.makepad.octosense.camera}
 VERSION_CODE=${VERSION_CODE:-}
 VERSION_NAME=${VERSION_NAME:-}
 SIGNING=${SIGNING:-debug}
-DEVECO_PROJECT=${DEVECO_PROJECT:-$HOME/DevEcoStudioProjects/MyApplication}
+# Whose debug signing block to borrow. DevEco writes the material into the
+# build-profile.json5 of whatever project is open, so the default is this
+# project itself; point it at another project to reuse that one's profile.
+DEVECO_PROJECT=${DEVECO_PROJECT:-}
 # Where a built App Pack is kept. Outside the repository: the packs are
 # release artifacts, they carry a signature, and one of them is whatever a
 # tester installed.
 ARCHIVE=${ARCHIVE:-$HOME/octosense-app-builds}
 HERE=$(cd "$(dirname "$0")" && pwd)
+: "${DEVECO_PROJECT:=$HERE/deveco}"
 DEVECO=/Applications/DevEco-Studio.app/Contents
 export JAVA_HOME=$DEVECO/jbr/Contents/Home
 export PATH=$JAVA_HOME/bin:$DEVECO/tools/node/bin:$DEVECO/sdk/default/openharmony/toolchains:$PATH

@@ -20,8 +20,11 @@ profile that AppGallery Connect issues:
     RELEASE_KEY_ALIAS=… RELEASE_KEY_PASSWORD=… \
     sh apps/camera/oh/build.sh --app
 
-Note that a debug profile is bound to one bundle and to the phones whose UDID it
-lists, so a debug build for the template project needs `BUNDLE=com.example.myapplication`.
+A debug profile is bound to one bundle and to the phones whose UDID it lists, and
+DevEco writes it for the bundle that `AppScope/app.json5` holds at the moment you
+tick "Automatically generate signature". So set the bundle first, save, sync, then
+sign. Signing against a stale bundle produces a profile the device rejects at
+install with a bundle-name mismatch. A debug profile also lasts fourteen days.
 
 ## Where the build is saved
 
