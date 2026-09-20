@@ -1,0 +1,41 @@
+# The Calendar's standalone shape: the same CALENDAR_MODULE the shell links,
+# hosted in one window by octosense-app-host. A library, because the Android
+# and OpenHarmony packagers load a cdylib; the binary is the desktop entry.
+[package]
+name = "octosense-calendar-app"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+publish = false
+description = "Calendar as a standalone app: the module in its own window, no window manager"
+
+[lib]
+name = "octosense_calendar_app"
+path = "src/lib.rs"
+crate-type = ["cdylib", "rlib"]
+
+[[bin]]
+name = "calendar"
+path = "src/main.rs"
+
+[dependencies]
+octosense-calendar = { path = "../native" }
+octosense-app-host = { path = "../../app-host" }
+makepad-widgets = { git = "https://github.com/OctoSense-org/makepad.git", rev = "d4502ef1e4d196d2829a07aa137740cb0581e9b4" }
+
+[patch."https://github.com/OctoSense-org/makepad.git"]
+makepad-widgets = { path = "../../../../makepad/widgets" }
+makepad-app-module = { path = "../../../../makepad/libs/app_module" }
+makepad-script = { path = "../../../../makepad/platform/script" }
+makepad-ai-services = { path = "../../../../makepad/libs/ai/services" }
+makepad-strict-json = { path = "../../../../makepad/libs/strict_json" }
+makepad-studio-protocol = { path = "../../../../makepad/platform/studio" }
+makepad-network = { path = "../../../../makepad/platform/network" }
+
+[patch."https://github.com/OctoSense-org/Octoscript-Makepad.git"]
+octoscript-makepad = { path = "../../../../octoscript-makepad/crates/octoscript-makepad" }
+octoscript-widgets = { path = "../../../../octoscript-makepad/crates/octoscript-widgets" }
+octoscript-node = { path = "../../../../octoscript-makepad/crates/octoscript-node" }
+
+[patch."https://github.com/OctoSense-org/Octoscript.git"]
+octoscript-ui-l0 = { path = "../../../../octoscript/crates/octoscript-ui-l0" }

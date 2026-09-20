@@ -82,7 +82,7 @@ checksum = "6d9e454fc11f76977dc803893aff6304ed33d6a26efae8696573bea74baa27ae"
 dependencies = [
  "arrayvec 0.7.8",
  "cc",
- "cfg-if 1.0.4 (registry+https://github.com/rust-lang/crates.io-index)",
+ "cfg-if 1.0.5",
  "constant_time_eq",
  "cpufeatures 0.3.1",
 ]
@@ -124,9 +124,9 @@ checksum = "8f1fe948ff07f4bd06c30984e69f5b4899c516a3ef74f34df92a2df2ab535495"
 
 [[package]]
 name = "cc"
-version = "1.4.6"
+version = "1.4.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a3eb0f42d6c360dc3f8a821f6bf2fdea7f72bfd36b3076eb0e6d1e9e0752fff4"
+checksum = "54413ede23c2daf518f35156dfde027feb2374004d63bd497f983c8db9c0e313"
 dependencies = [
  "find-msvc-tools",
  "shlex",
@@ -138,9 +138,9 @@ version = "1.0.4"
 
 [[package]]
 name = "cfg-if"
-version = "1.0.4"
+version = "1.0.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9330f8b2ff13f34540b44e946ef35111825727b38d33286ef986142615121801"
+checksum = "4e7648175b45a9a48536d676f68d918270699102aa8dab5496df06904c914600"
 
 [[package]]
 name = "cfg_aliases"
@@ -248,9 +248,9 @@ checksum = "877a4ace8713b0bcf2a4e7eec82529c029f1d0619886d18145fea96c3ffe5c0f"
 
 [[package]]
 name = "find-msvc-tools"
-version = "0.1.12"
+version = "0.1.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3e0f1c7c3a72c66fd80abe965175f7523475c0489a87d3ff9d6e8c87d87a9d2d"
+checksum = "ef25905e51abafe4dcea6c15fec58c57b601cdbd0ee53d22ea1d3016c587d39b"
 
 [[package]]
 name = "foldhash"
@@ -415,7 +415,7 @@ version = "0.3.105"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ce57d20d1ea864ce2ac172ab472d409214f4fd359f0b2a2775abdf522e2af99e"
 dependencies = [
- "cfg-if 1.0.4 (registry+https://github.com/rust-lang/crates.io-index)",
+ "cfg-if 1.0.5",
  "futures-util",
  "wasm-bindgen",
 ]
@@ -440,7 +440,7 @@ version = "0.8.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d7c4b02199fee7c5d21a5ae7d8cfa79a6ef5bb2fc834d6e9058e89c825efdc55"
 dependencies = [
- "cfg-if 1.0.4 (registry+https://github.com/rust-lang/crates.io-index)",
+ "cfg-if 1.0.5",
  "windows-link 0.2.1 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -925,7 +925,7 @@ version = "0.0.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8462d74a2d6c7a671bd610f99f9ba34c739aadd2da4d8dd9f109a7e666cc2ad2"
 dependencies = [
- "cfg-if 1.0.4 (registry+https://github.com/rust-lang/crates.io-index)",
+ "cfg-if 1.0.5",
  "convert_case",
  "napi-derive-backend-ohos",
  "proc-macro2",
@@ -1024,10 +1024,18 @@ dependencies = [
  "octoscript-node",
  "octoscript-ui-l0",
  "octoscript-widgets",
- "octosense-app-host",
  "serde",
  "serde_json",
  "sha2",
+]
+
+[[package]]
+name = "octosense-calendar-app"
+version = "0.1.0"
+dependencies = [
+ "makepad-widgets",
+ "octosense-app-host",
+ "octosense-calendar",
 ]
 
 [[package]]
@@ -1062,7 +1070,7 @@ version = "1.0.107"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "985e7ec9bb745e6ce6535b544d84d6cd6f7ad8bd711c398938ae983b91a766d9"
 dependencies = [
- "unicode-ident 1.0.24",
+ "unicode-ident 1.0.26",
 ]
 
 [[package]]
@@ -1189,7 +1197,7 @@ checksum = "e7a5d71263a5a7d47b41f6b3f06ba276f10cc18b0931f1799f710578e2309348"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 3.0.5",
+ "syn 3.0.6",
 ]
 
 [[package]]
@@ -1211,7 +1219,7 @@ version = "0.10.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a7507d819769d01a365ab707794a4084392c824f54a7a6a7862f8c3d0892b283"
 dependencies = [
- "cfg-if 1.0.4 (registry+https://github.com/rust-lang/crates.io-index)",
+ "cfg-if 1.0.5",
  "cpufeatures 0.2.17",
  "digest",
 ]
@@ -1257,18 +1265,18 @@ checksum = "872831b642d1a07999a962a351ed35b955ea2cfc8f3862091e2a240a84f17297"
 dependencies = [
  "proc-macro2",
  "quote",
- "unicode-ident 1.0.24",
+ "unicode-ident 1.0.26",
 ]
 
 [[package]]
 name = "syn"
-version = "3.0.5"
+version = "3.0.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "12df2e0110f65b775f769bb17ef989067a1d931b2eb822bd4346631eeada89f9"
+checksum = "8593e8e72159ed2257d083c7a454a85cbf854f37a0966d8d483aff8c8a3ebcee"
 dependencies = [
  "proc-macro2",
  "quote",
- "unicode-ident 1.0.24",
+ "unicode-ident 1.0.26",
 ]
 
 [[package]]
@@ -1317,9 +1325,9 @@ version = "1.0.22"
 
 [[package]]
 name = "unicode-ident"
-version = "1.0.24"
+version = "1.0.26"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e6e4313cd5fcd3dad5cafa179702e2b244f760991f45397d14d4ebf38247da75"
+checksum = "d245f478577f809a851594d02313b640fb437e0bb33866753cff937863096954"
 
 [[package]]
 name = "unicode-linebreak"
@@ -1355,7 +1363,7 @@ version = "0.2.128"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "aecb87a33d3b0c5e3b7aa46336eaf486cffafbd281b195e4c8b80d50df2351bf"
 dependencies = [
- "cfg-if 1.0.4 (registry+https://github.com/rust-lang/crates.io-index)",
+ "cfg-if 1.0.5",
  "once_cell 1.21.4",
  "rustversion",
  "wasm-bindgen-macro",
@@ -1381,7 +1389,7 @@ dependencies = [
  "bumpalo",
  "proc-macro2",
  "quote",
- "syn 3.0.5",
+ "syn 3.0.6",
  "wasm-bindgen-shared",
 ]
 
@@ -1391,7 +1399,7 @@ version = "0.2.128"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "81941cd78d0c92026c33e5e01312845a4cb1e9af3407f9134b100dd03144103e"
 dependencies = [
- "unicode-ident 1.0.24",
+ "unicode-ident 1.0.26",
 ]
 
 [[package]]

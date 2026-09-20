@@ -1,0 +1,38 @@
+# octosense-app-policy — ADR 0002 phase 1: the app manifest, and the one
+# place that turns it into the two containers an installed app runs in.
+#
+# It owns no runtime: it parses and verifies a manifest, resolves it against
+# the host's own ceilings, and hands back (a) the settings for the app's
+# splash isolate and (b) the profile for its octos agent session. Nothing
+# else may set either, so an app can never widen its own limits.
+#
+# Deliberately free of makepad and octos dependencies: this is policy, it
+# must be testable in milliseconds, and both consumers are thin adapters.
+[package]
+name = "octosense-app-policy"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+publish = false
+description = "Signed app manifests resolved into splash-isolate settings and octos agent session profiles (ADR 0002)"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+blake3 = "1"
+# Only for the splash adapter: the policy core never touches makepad, so the
+# rules stay testable in milliseconds. Off by default.
+makepad-widgets = { git = "https://github.com/OctoSense-org/makepad.git", rev = "d4502ef1e4d196d2829a07aa137740cb0581e9b4", optional = true }
+
+[features]
+default = []
+# Apply a resolved policy to a live splash isolate.
+splash = ["dep:makepad-widgets"]
+
+[patch."https://github.com/OctoSense-org/makepad.git"]
+makepad-widgets = { path = "../../../makepad/widgets" }
+makepad-script = { path = "../../../makepad/platform/script" }
+makepad-ai-services = { path = "../../../makepad/libs/ai/services" }
+makepad-strict-json = { path = "../../../makepad/libs/strict_json" }
+makepad-studio-protocol = { path = "../../../makepad/platform/studio" }
+makepad-network = { path = "../../../makepad/platform/network" }
