@@ -166,6 +166,15 @@ and service watchers. The flow capture lock coordinates flow runner jobs, but
 cannot stop an independently started watcher. It only creates temporary design
 aliases if absent and never replaces another design's directory.
 
+Native scene mounting carries its own traps; the Calendar port recorded the
+recurring ones — create-time viewport is not the tile size, one uniform scale
+for both axes, per-crate lowering-gate tests, the icon-asset policy
+contradiction, the real click action shape, edit-state rendering, and the
+verification discipline (per-round compare-transform refit, evidence crops
+over mean diff, walkthrough traps, stale-binary checks) — in
+[NATIVE-LESSONS.md](NATIVE-LESSONS.md). Two items there need a maintainer
+decision before they become code changes; they are flagged in place.
+
 Native structure, image fidelity, visual review and service correctness remain
 distinct. `gate` retains the existing strict image/semantic/native/visual decision
 and exits nonzero on failure. A browser test or a runnable prototype does not
