@@ -291,6 +291,9 @@ impl CameraView {
         result
     }
     fn mount_inner(&mut self, cx: &mut Cx) -> Result<(), String> {
+        // The platform publishes its camera list once; a module mounted later
+        // (the launcher opens us on demand) has to ask for it again.
+        if self.cameras.is_empty() { cx.refresh_video_inputs(); }
         let base = self.assets.as_ref().map(|a| a.endpoint.clone()).unwrap_or_else(|| "http://127.0.0.1:1/none".into());
         let t0 = std::time::Instant::now();
         let scene = self.session().render(&base);
