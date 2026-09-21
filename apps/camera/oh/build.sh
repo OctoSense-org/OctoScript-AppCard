@@ -68,6 +68,9 @@ else:
 bp = 'build-profile.json5'; s = open(bp).read()
 s = re.sub(r'"signingConfigs":\s*\[.*?\n\s*\],', block.rstrip(',') + ',', s, count=1, flags=re.S)
 s = re.sub(r'"compatibleSdkVersion":\s*"[^"]+"', '"compatibleSdkVersion": "6.0.1(21)"', s)
+# API 26 is a Beta SDK. Targeting it produces a pack AppGallery refuses to parse,
+# and the phone runs 6.0.1 anyway, so both versions point at the released SDK.
+s = re.sub(r'"targetSdkVersion":\s*"[^"]+"', '"targetSdkVersion": "6.0.1(21)"', s)
 open(bp, 'w').write(s)
 a = 'AppScope/app.json5'; t = open(a).read()
 t = re.sub(r'"bundleName": "[^"]+"', '"bundleName": "%s"' % bundle, t)
