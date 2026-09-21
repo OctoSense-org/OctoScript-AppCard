@@ -60,7 +60,9 @@ through OctoSense-mobile's `native-runtime.lock.json` instead.
 1. Ask each tester for their device UDID (Settings, or `hdc shell bm get --udid`).
 2. AppGallery Connect → Users and permissions → Device management: add each one
    (up to 100). Regenerate the debug profile so it lists them.
-3. Build the HAP and send it. They install it from a computer:
+3. Build the HAP and send it. `sh apps/camera/oh/build.sh --build-only` leaves it
+   at `$HOME/octosense-app-builds/<bundle>-<version>-<code>-<signing>/` with a
+   sha256 beside it. They install it from a computer:
    `hdc file send camera.hap /data/local/tmp/ && hdc shell bm install -p /data/local/tmp/camera.hap`.
 
 No review, but it needs a computer at their end and the profile expires, so
