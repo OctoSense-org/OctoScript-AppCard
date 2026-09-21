@@ -19,8 +19,8 @@ crash reporting. It sends no personal information anywhere.
 - **Photos and videos in the media library.** Used to save a photo or a video
   the person has just taken. The app writes the files it creates. It does not
   read the rest of the library.
-- **Network.** The interface loads its own images from a connection to the
-  device itself. No request leaves the phone.
+The app requests no network access at all. Its compiled code contains no
+networking calls, so nothing can be sent anywhere even in principle.
 
 ## Where the photos go
 

@@ -36,7 +36,7 @@ zh:
     - 变焦、对焦、曝光补偿与闪光灯控制
     - 拍照、人像、闪拍、录像等多种模式
 
-    本版本为测试版本，用于收集反馈。应用不收集任何个人信息，照片仅保存在本机。
+    本版本为测试版本，用于收集反馈。应用不联网、不收集任何个人信息，照片仅保存在本机。
 
 en:
 
@@ -49,8 +49,8 @@ en:
     - Zoom, focus, exposure compensation and flash control
     - Photo, portrait, snapshot and video modes
 
-    This is a test build, published to gather feedback. It collects no personal
-    information and photos stay on the device.
+    This is a test build, published to gather feedback. It has no network access,
+    collects no personal information, and photos stay on the device.
 
 ## Release notes for the test version
 
@@ -66,7 +66,6 @@ focus controls. Feedback welcome.
 | ohos.permission.CAMERA | the preview and capture |
 | ohos.permission.MICROPHONE | sound while recording video |
 | ohos.permission.WRITE_IMAGEVIDEO | saving a photo to the system gallery, restricted, needs approval |
-| ohos.permission.INTERNET | loading the interface's own local assets over a loopback connection |
 
 The gallery permission is the one that takes review time. Apply for it on the
 app's permission page and say plainly that the camera saves the photos the
