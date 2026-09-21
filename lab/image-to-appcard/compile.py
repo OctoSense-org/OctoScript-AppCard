@@ -29,8 +29,22 @@ def literal(value):
 # Historical generated SVGs are retained in per-design assets and capture rounds.
 # New compilations consume only explicitly mapped, verified artwork assets.
 
-def compile_page(directory):
+# The origin compiled artwork URLs point at. One source of truth: the flow
+# passes the manifest's `artwork.source_prefix`; a direct call honours
+# UX_IMAGES_PREFIX; only then the historical default. Every eval agent that
+# was told to use its own port hit the literal that used to sit here, and a
+# chained run then failed two stages later in `bundle` with a provenance
+# error that was really a port mismatch.
+DEFAULT_ARTWORK_PREFIX='http://127.0.0.1:8170/ux-images/'
+
+def artwork_prefix(explicit=None):
+    import os
+    prefix=explicit or os.environ.get('UX_IMAGES_PREFIX') or DEFAULT_ARTWORK_PREFIX
+    return prefix if prefix.endswith('/') else prefix+'/'
+
+def compile_page(directory, artwork_origin=None):
     directory=Path(directory).resolve();contract=json.loads((directory/'contract.json').read_text())
+    prefix=artwork_prefix(artwork_origin)
     overrides=directory/'mapped.json'
     tree=json.loads(overrides.read_text())['tree'] if overrides.exists() else contract['tree']
     ids=[n['id'] for n in walk(tree)]
@@ -44,7 +58,7 @@ def compile_page(directory):
         content=asset.read_bytes()
         filename=id+'-'+digest(content)[:12]+asset.suffix.lower()
         (assets/filename).write_bytes(content)
-        n['src']=f'http://127.0.0.1:8170/ux-images/{contract["id"]}/assets/{filename}'
+        n['src']=f'{prefix}{contract["id"]}/assets/{filename}'
     pack={'schema_version':1,'theme':'light','tokens':{},'components':{}}
     placements={};copies=[];states=[];definitions={};mapping=[];fonts={}
     def emit(node,depth=0,parent=None,path='beauty_0'):

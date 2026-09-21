@@ -168,3 +168,23 @@ class MappingRulesTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class ValueDomainTests(unittest.TestCase):
+    def test_flags_values_that_parse_but_cannot_render(self):
+        from semantics import value_domain_issues
+        bad = {'t': 'text', 'id': 'l', 'text': 'x', 'x': 0, 'y': 0, 'w': 60, 'h': 30, 'size': 44, 'alignx': 2, 'color': 'red'}
+        issues = value_domain_issues(bad)
+        self.assertTrue(any('alignx' in i for i in issues), issues)
+        self.assertTrue(any('line box' in i for i in issues), issues)
+        self.assertTrue(any('color' in i for i in issues), issues)
+
+    def test_accepts_a_well_formed_text_node(self):
+        from semantics import value_domain_issues
+        good = {'t': 'text', 'id': 'l', 'text': 'x', 'x': 0, 'y': 0, 'w': 60, 'h': 22, 'size': 15,
+                'alignx': 0.5, 'color': 4278190080, 'bg': '#FFFFFFFF'}
+        self.assertEqual(value_domain_issues(good), [])
+        # An authored line_height is the box the text needs, not 1.45 x size.
+        measured = {'t': 'text', 'id': 'm', 'text': '09:41', 'w': 60, 'h': 20, 'size': 15, 'line_height': 19.5}
+        self.assertEqual(value_domain_issues(measured), [])
+

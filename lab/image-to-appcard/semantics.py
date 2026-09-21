@@ -185,6 +185,11 @@ def evaluate(directory, round_dir=None):
         role = entry.get('role')
         rule = POLICY['roles'].get(role)
         issues = []
+        # Value domains the renderer will not check for us. Each of these
+        # compiled cleanly in the calendar evaluation and failed on screen:
+        # alignx 2 (200 %) drew the label outside its box, a 44 pt title in
+        # a 30 pt box clipped every line, and a 0-height box drew nothing.
+        issues.extend(value_domain_issues(node))
         actual = snapshots.get(mapping.get(id, {}).get('native_id'), {})
         if not rule or role == 'unknown':
             issues.append('unresolved semantic role')
@@ -280,6 +285,54 @@ def evaluate(directory, round_dir=None):
             'errors': errors, 'elements': results,
             'scope': 'Semantic mapping checks only; geometry, visual fidelity and complete app workflows remain separate.'}
 
+
+
+# The natural line box of the shipped fonts is about 1.45 x the size; a
+# text box shorter than that clips the glyphs at the bottom.
+LINE_BOX_FACTOR = 1.45
+
+
+def value_domain_issues(node):
+    """Cheap, deterministic checks on a composition node's values.
+
+    Structure and semantics are checked elsewhere; this is the layer that was
+    missing: a value that parses but cannot render as intended.
+    """
+    issues = []
+    kind = node.get('t')
+    for axis in ('alignx', 'aligny'):
+        value = node.get(axis)
+        if value is not None and not (numeric(value) and 0 <= value <= 1):
+            issues.append(f'{axis} {value!r} is outside 0..1 (0 = start, 0.5 = centre, 1 = end)')
+    for dim in ('w', 'h'):
+        value = node.get(dim)
+        if value is not None and not (numeric(value) and value >= 0):
+            issues.append(f'{dim} {value!r} is not a non-negative number')
+    for colour in ('color', 'bg'):
+        value = node.get(colour)
+        if value is None:
+            continue
+        ok = (numeric(value) and 0 <= value <= 0xFFFFFFFF) or (
+            isinstance(value, str) and value.startswith('#') and len(value) in (7, 9)
+            and all(c in '0123456789abcdefABCDEF' for c in value[1:]))
+        if not ok:
+            issues.append(f'{colour} {value!r} is neither a packed ARGB integer nor #RRGGBB / #AARRGGBB')
+    if kind == 'text':
+        size = node.get('size')
+        if size is not None and not (numeric(size) and size > 0):
+            issues.append(f'text size {size!r} must be a positive number')
+        # The box must hold the line: an authored line_height when there is
+        # one, else the font's natural line box. A 44 pt title in a 30 pt box
+        # clipped every line of the calendar's first build.
+        if numeric(size) and size > 0 and numeric(node.get('h')):
+            line = node.get('line_height')
+            needed = line if numeric(line) and line > 0 else size * LINE_BOX_FACTOR
+            if node['h'] < needed - 0.5:
+                issues.append(f"text box height {node['h']} is under its line box ({round(needed, 1)}); "
+                              "the glyphs will clip at the bottom")
+        if numeric(node.get('w')) and node['w'] == 0 and node.get('text'):
+            issues.append('text box width 0 draws nothing')
+    return issues
 
 def preflight(directory):
     report = evaluate(directory)
