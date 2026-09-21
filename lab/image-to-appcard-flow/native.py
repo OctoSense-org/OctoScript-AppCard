@@ -78,10 +78,12 @@ def main():
                 if not result['pass']:
                     raise ValueError('Semantic mapping failed: ' + scene['design_id'])
             elif args.stage == 'compile':
-                result = compile_page(directory)
+                # The manifest's declared prefix is the one `bundle` checks
+                # provenance against, so it is the one compile writes.
+                result = compile_page(directory, doc.get('artwork', {}).get('source_prefix'))
             elif args.stage == 'capture':
                 from studio import launch, capture, click_controls
-                compile_page(directory)
+                compile_page(directory, doc.get('artwork', {}).get('source_prefix'))
                 if build is None:
                     build = launch() if args.launch else json.loads((IMAGE / 'studio-run.json').read_text())['build_id']
                 with alias(scene['design_id'], directory):

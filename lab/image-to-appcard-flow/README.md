@@ -180,6 +180,24 @@ distinct. `gate` retains the existing strict image/semantic/native/visual decisi
 and exits nonzero on failure. A browser test or a runnable prototype does not
 upgrade an unaccepted visual comparison. Prior Studio evidence stays immutable.
 
+### Without Studio: the instrument path
+
+When the acceptance target is an external page set rather than the scene's own
+`reference.png` — a coding agent rebuilding an app from its atlas — `capture`
+and `gate` do not apply, and until now nothing checked the render at all.
+[`compare_screens.py`](compare_screens.py) renders every compiled scene in a
+fresh `beauty-host` (one process per scene, a new request nonce) and compares
+it with its page: per-band differences, a side-by-side per scene, an ink probe
+on every placed text widget (present, and with the page's colour and weight),
+the largest difference regions with their rect and both colours, and the host
+log's asset and font failures. `--app-grab` compares a running app's frame the
+same way and `--forbid-text` names widgets the app must not draw (the page's
+mock status bar). [`VISUAL-CHECKS.md`](VISUAL-CHECKS.md) is the rulebook the
+numbers serve: look at the side-by-side, name the difference, fix, re-measure.
+The semantic preflight now also refuses value-domain defects that compile and
+cannot draw — `alignx` outside 0..1, a text box under its line box — and
+`compile` writes the artwork prefix the manifest declares.
+
 ## 6. Package and integrate WASM
 
 ```sh
