@@ -90,9 +90,10 @@ if [ "${1:-}" = "--app" ]; then
     VN=$(python3 -c "import json,re,sys; print(json.loads(re.sub(r'(?m)^\s*//.*$','',open('AppScope/app.json5').read()))['app']['versionName'])")
     OUT=$ARCHIVE/$BUNDLE-$VN-$VC-$SIGNING
     mkdir -p "$OUT"
+    [ -f "$OUT/sha256.txt" ] && grep -v "\.app$" "$OUT/sha256.txt" > "$OUT/sha256.txt.new" 2>/dev/null && mv "$OUT/sha256.txt.new" "$OUT/sha256.txt" || true
     cp "$PACK" "$OUT/$BUNDLE-$VN-$VC-$SIGNING.app"
     cp build/outputs/default/pack.info "$OUT/" 2>/dev/null || true
-    shasum -a 256 "$OUT/$BUNDLE-$VN-$VC-$SIGNING.app" > "$OUT/sha256.txt"
+    ( cd "$OUT" && shasum -a 256 "$BUNDLE-$VN-$VC-$SIGNING.app" >> sha256.txt )
     ls -la "$OUT"
     echo "==> saved to $OUT"
     exit 0
@@ -108,7 +109,8 @@ VN=$(python3 -c "import json,re;print(json.loads(re.sub(r'(?m)^\s*//.*$','',open
 OUT=$ARCHIVE/$BUNDLE-$VN-$VC-$SIGNING
 mkdir -p "$OUT"
 cp "$H" "$OUT/$BUNDLE-$VN-$VC-$SIGNING.hap"
-shasum -a 256 "$OUT/$BUNDLE-$VN-$VC-$SIGNING.hap" >> "$OUT/sha256.txt"
+[ -f "$OUT/sha256.txt" ] && grep -v "\.hap$" "$OUT/sha256.txt" > "$OUT/sha256.txt.new" 2>/dev/null && mv "$OUT/sha256.txt.new" "$OUT/sha256.txt" || true
+( cd "$OUT" && shasum -a 256 "$BUNDLE-$VN-$VC-$SIGNING.hap" >> sha256.txt )
 echo "==> hap saved to $OUT/$BUNDLE-$VN-$VC-$SIGNING.hap"
 if [ "${1:-}" = "--build-only" ]; then exit 0; fi
 # The module is named like the Makepad host's ("makepad"): both HAPs share the bundle, and only a HAP
