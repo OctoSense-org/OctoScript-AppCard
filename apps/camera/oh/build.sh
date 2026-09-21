@@ -100,7 +100,17 @@ fi
 
 echo "==> hvigor"
 node $DEVECO/tools/hvigor/bin/hvigorw.js assembleHap --mode module -p product=default -p buildMode=release --no-daemon 2>&1 | sed 's/\x1b\[[0-9;]*m//g' | grep -E "Error Message|ERROR|BUILD" | sort -u
-[ "${1:-}" = "--build-only" ] && exit 0
+# hvigor empties build/ on the next run, so keep the HAP that was built: this is
+# the file a tester installs on the UDID route, and it has to stay identifiable.
+H=entry/build/default/outputs/default/makepad-default-signed.hap
+VC=$(python3 -c "import json,re;print(json.loads(re.sub(r'(?m)^\s*//.*$','',open('AppScope/app.json5').read()))['app']['versionCode'])")
+VN=$(python3 -c "import json,re;print(json.loads(re.sub(r'(?m)^\s*//.*$','',open('AppScope/app.json5').read()))['app']['versionName'])")
+OUT=$ARCHIVE/$BUNDLE-$VN-$VC-$SIGNING
+mkdir -p "$OUT"
+cp "$H" "$OUT/$BUNDLE-$VN-$VC-$SIGNING.hap"
+shasum -a 256 "$OUT/$BUNDLE-$VN-$VC-$SIGNING.hap" >> "$OUT/sha256.txt"
+echo "==> hap saved to $OUT/$BUNDLE-$VN-$VC-$SIGNING.hap"
+if [ "${1:-}" = "--build-only" ]; then exit 0; fi
 # The module is named like the Makepad host's ("makepad"): both HAPs share the bundle, and only a HAP
 # with the same module name installs in place, keeping the permission grants across a host swap.
 H=entry/build/default/outputs/default/makepad-default-signed.hap
