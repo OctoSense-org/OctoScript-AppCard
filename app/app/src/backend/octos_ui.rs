@@ -1286,7 +1286,7 @@ mod generation_terminal_tests {
             generation_started: HashMap::new(), connection_state: ConnectionState::Idle,
             app_prompt_cache: Default::default(),
             capabilities: None, workspace_cwd: None, fallback_profile: "_main".into(),
-            thinking: false, stdio_transport: true,
+            thinking: false, stdio_transport: true, transport_gone: false,
             persisted_seen: HashSet::new(), pending_completion: HashMap::new(),
             hold_hydrates: HashMap::new(),
         }
