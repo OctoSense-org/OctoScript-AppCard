@@ -100,6 +100,29 @@ Testers install from AppGallery with an invitation, no computer needed.
 8. **Invite** testers by link or by Huawei ID; they install from AppGallery. An
    open test that skips review allows 100 invitations, a reviewed one 200.
 
+## The release certificate
+
+AppGallery refuses a debug-signed pack. It parses the pack, finds a debug
+provisioning profile with a development certificate, and fails with a package
+parse error. The message does not say so, which makes it a confusing hour. A
+debug pack verifies perfectly with `hap-sign-tool verify-app`, so the pack is not
+the problem.
+
+The keystore and the signing request live outside the repository, in the same
+locked directory as the ROM signing keys, together with a `credentials.env` that
+carries the passwords and the variable names the build script expects. Keeping
+that file is what makes future updates possible: AppGallery ties the app to this
+key forever, and losing it means the app can never be updated again.
+
+To finish:
+
+1. Upload the `.csr` in AppGallery Connect and download the issued `.cer`.
+2. Create a release profile for the bundle, which is also where the approved
+   restricted permission gets attached.
+3. Put both files beside the keystore under the names `credentials.env` already
+   points at.
+4. Build with `set -a; . <that file>; set +a; SIGNING=release sh apps/camera/oh/build.sh --app`.
+
 ## Before you submit
 
 - Replace the app icon if the drawn one is not what you want: it is
