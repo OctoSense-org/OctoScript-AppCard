@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "comment": "The sibling checkouts apps/camera/oh compiles against. Checked by pins.py, which build.sh runs. The Makepad host has its own chain in OctoSense-mobile's native-runtime.lock.json and does not read this file.",
+  "repositories": {
+    "Octoscript-OH": {
+      "url": "https://github.com/OctoSense-org/Octoscript-OH.git",
+      "revision": "7fdfe88cdfe5733d6ef99cf63ace56bda608e2bd",
+      "branch": "feat/raw-touch-rotate",
+      "note": "One commit ahead of master: the ArkUI raw touch stream and the rotate attribute the camera needs. Move this to master once that lands."
+    },
+    "octoscript": {
+      "url": "https://github.com/OctoSense-org/Octoscript.git",
+      "revision": "68f6a9df55692b5d8ef8873a12721e279a3f40d6",
+      "branch": "main"
+    },
+    "makepad": {
+      "url": "https://github.com/OctoSense-org/makepad.git",
+      "revision": "825dbb422c6d7926e111e2ee7831d697870d8671",
+      "branch": "main",
+      "note": "Only platform/script is used here, pulled in by the Octoscript VM. This revision is the merge of the Android capture work and its script crate is byte-identical to the feat/android-camera-capture tip.",
+      "paths": [
+        "platform/script"
+      ]
+    }
+  }
+}
