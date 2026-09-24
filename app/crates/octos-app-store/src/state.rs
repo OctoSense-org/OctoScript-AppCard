@@ -457,7 +457,6 @@ fn apply_protocol(state: &mut AppState, cursor: Option<UiCursor>, n: UiNotificat
         UiNotification::SessionGoalCleared(_) => {}
         UiNotification::LoopUpdated(_) => {}
         UiNotification::LoopFired(_) => {}
-        UiNotification::LoopCompleted(_) => {}
         // MonitorRuntime (octos main, 2026-08): zero-token event watchers that
         // wake the master. Kernel-side machinery; nothing for this store to
         // project yet. Explicit arms, not `_`, so the NEXT protocol addition
@@ -496,7 +495,6 @@ fn apply_protocol(state: &mut AppState, cursor: Option<UiCursor>, n: UiNotificat
         UiNotification::VoiceExit(_) => {}
         UiNotification::VoiceAudioChunk(_) => {}
         // Transport-level wrapper; the ws layer unwraps before folding.
-        UiNotification::Envelope(_) => {}
         // Stage-1 canonical projection envelope, and since octos #1746 the ONLY
         // lane the server speaks for persisted rows — delivered unconditionally.
         // Nothing to fold here: the store's own state comes from the typed
