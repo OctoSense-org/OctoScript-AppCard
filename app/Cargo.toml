@@ -22,7 +22,7 @@ octos-app-render    = { path = "crates/octos-app-render" }
 # Octos protocol types: a git dep at the `octos` submodule's commit (the crate
 # inherits from its own workspace, which cargo reads out of the checkout), so
 # `octos-app` resolves from a foreign workspace; patched to the submodule below.
-octos-core = { git = "https://github.com/octos-org/octos.git", rev = "deb433e9a452c03d8fe7f4f6a26b42785c47ced7" }
+octos-core = { git = "https://github.com/octos-org/octos.git", rev = "18fcd3f16e527d2b601d7ae244f056fb711bb6b8" }
 
 # Async / wire
 tokio              = { version = "1", features = ["rt", "macros", "net", "time", "sync"] }
@@ -37,7 +37,9 @@ reqwest            = { version = "0.12", default-features = false, features = ["
 
 # Storage / OS integration
 keyring  = "3"
-rusqlite = { version = "0.32", features = ["bundled"] }
+# Matches Octos (>= #2455) and the Matrix SDK: one libsqlite3-sys (0.38) when
+# AppCard shares a process with them (OctoSense hosting Rinx).
+rusqlite = { version = "0.40.1", features = ["bundled"] }
 log      = "0.4"
 
 # Framework source overrides below use the sibling release prepared by

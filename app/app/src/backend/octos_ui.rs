@@ -933,7 +933,6 @@ impl OctosUiAgent {
             | UiNotification::SessionGoalCleared(_)
             | UiNotification::LoopUpdated(_)
             | UiNotification::LoopFired(_)
-            | UiNotification::LoopCompleted(_)
             // MonitorRuntime (octos main, 2026-08) — kernel-side watchers;
             // no chat-surface projection here.
             | UiNotification::MonitorUpdated(_)
@@ -948,7 +947,6 @@ impl OctosUiAgent {
             // 2026-07 protocol catch-up: no plan pane / voice surface here.
             | UiNotification::PlanUpdated(_)
             | UiNotification::VoiceAudioChunk(_)
-            | UiNotification::Envelope(_)
             // 2026-08 catch-up: background skill jobs and peer staging have no
             // surface in this app. (EnvelopeV2 is bridged above, not ignored.)
             | UiNotification::SkillActionJobUpdated(_)
