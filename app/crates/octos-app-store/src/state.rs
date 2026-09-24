@@ -567,7 +567,7 @@ mod tests {
         state.sessions.insert(Session::new(key(k), pid(), "S", ts(0)));
     }
 
-    /// Fixture for `TaskUpdatedEvent` — the 2026-07 protocol added eight
+    /// Fixture for `TaskUpdatedEvent` — the protocol keeps adding
     /// optional metadata fields the reducer ignores; keep the tests focused
     /// on the fields they exercise.
     fn task_updated_fixture(
@@ -590,6 +590,8 @@ mod tests {
             artifact_count: None,
             runtime_policy_stamp: None,
             turn_id: None,
+            started_at: None,
+            relaunched_from: None,
         }
     }
 
