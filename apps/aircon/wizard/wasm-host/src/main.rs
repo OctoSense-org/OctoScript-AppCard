@@ -208,7 +208,7 @@ impl App {
             let rect = area.rect(cx);
             let clip = area.clipped_rect(cx);
             let vector_ready = widget.borrow::<Svg>().map(|svg|
-                svg.draw_svg.svg_doc.is_some() && !svg.draw_svg.cached_indices.is_empty());
+                svg.draw_svg.svg_doc.is_some() && svg.draw_svg.has_mesh());
             let image_ready = widget.borrow::<Image>().map(|image| image.size_in_pixels(cx).is_some());
             if vector_ready == Some(false) || image_ready == Some(false) { return false; }
             let text_layout = widget.borrow::<Label>().map(|label| {
