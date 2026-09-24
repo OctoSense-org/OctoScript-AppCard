@@ -32,9 +32,9 @@ standalone = []
 [dependencies]
 # One framework source, locked by Octoscript-Makepad/runtime.json.
 # tools/setup-native.py verifies the release and prepares the sibling source.
-makepad-widgets     = { git = "https://github.com/OctoSense-org/makepad.git", rev = "2bfbb99c8e56ff0c15d7d31061aa49e239e220e2", features = ["maps", "pdf"] }
-makepad-code-editor = { git = "https://github.com/OctoSense-org/makepad.git", rev = "2bfbb99c8e56ff0c15d7d31061aa49e239e220e2" }
-makepad-ai          = { git = "https://github.com/OctoSense-org/makepad.git", rev = "2bfbb99c8e56ff0c15d7d31061aa49e239e220e2" }
+makepad-widgets     = { git = "https://github.com/OctoSense-org/makepad.git", rev = "57b31c9978635e51e633558131d1888d9ef4f45a", features = ["maps", "pdf"] }
+makepad-code-editor = { git = "https://github.com/OctoSense-org/makepad.git", rev = "57b31c9978635e51e633558131d1888d9ef4f45a" }
+makepad-ai          = { git = "https://github.com/OctoSense-org/makepad.git", rev = "57b31c9978635e51e633558131d1888d9ef4f45a" }
 
 # Inline-renderer kits use the same Makepad source through the workspace patch.
 streaming-markdown-kit = { git = "https://github.com/Project-Robius-China/streaming-markdown-kit.git", branch = "main", features = ["mermaid"] }
@@ -94,7 +94,7 @@ keyring = { workspace = true }
 # L0 profile checker and framework node model from the shared runtime.
 octoscript-ui-l0 = { git = "https://github.com/OctoSense-org/Octoscript.git", rev = "68f6a9df55692b5d8ef8873a12721e279a3f40d6" }
 
-octoscript-node = { git = "https://github.com/OctoSense-org/Octoscript-Makepad.git", rev = "082314ed712f7fa318199d92b206692164f2b016" }
+octoscript-node = { git = "https://github.com/OctoSense-org/Octoscript-Makepad.git", rev = "36ad1f220ff74d0cbccd89d2b17769133b3fafd1" }
 
 [build-dependencies]
 blake3 = "1.8"
