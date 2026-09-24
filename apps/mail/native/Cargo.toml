@@ -1,0 +1,21 @@
+[package]
+name = "octosense-mail"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+
+[dependencies]
+makepad-widgets = { git = "https://github.com/OctoSense-org/makepad.git", rev = "57b31c9978635e51e633558131d1888d9ef4f45a" }
+makepad-app-module = { git = "https://github.com/OctoSense-org/makepad.git", rev = "57b31c9978635e51e633558131d1888d9ef4f45a" }
+octoscript-makepad = { git = "https://github.com/OctoSense-org/Octoscript-Makepad.git", rev = "36ad1f220ff74d0cbccd89d2b17769133b3fafd1" }
+octoscript-widgets = { git = "https://github.com/OctoSense-org/Octoscript-Makepad.git", rev = "36ad1f220ff74d0cbccd89d2b17769133b3fafd1" }
+octoscript-ui-l0 = { git = "https://github.com/OctoSense-org/Octoscript.git", rev = "68f6a9df55692b5d8ef8873a12721e279a3f40d6" }
+octoscript-node = { git = "https://github.com/OctoSense-org/Octoscript-Makepad.git", rev = "36ad1f220ff74d0cbccd89d2b17769133b3fafd1" }
+serde_json = "1"
+base64 = "0.22"
+chrono = "0.4"
+mailparse = "0.16"
+rustls = { version = "0.23", default-features = false, features = ["std", "ring", "tls12"] }
+webpki-roots = "1"
+sha2 = "0.10"
+scraper = { version = "0.24", default-features = false }
