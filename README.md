@@ -67,19 +67,19 @@ agent never fabricates an approval, a review result or a submission.
 
 ## Status
 
-Script apps depend on work that is not on every `main` branch yet. Read this
-before you build.
+The work script apps depend on merged on 2026-09-26; use `main` of each
+repository.
 
 | Piece | State |
 | --- | --- |
-| Script-app gate, scan and `os.` id check in `hub` | Open PR [OctoSense-App-Hub#4](https://github.com/OctoSense-org/OctoSense-App-Hub/pull/4) (`apps/script-and-system-apps`). The docs here were verified against its commit `79a2c4f`. |
-| Contained script apps and host services in the runtime | Open PR [OctoSense-org/makepad#30](https://github.com/OctoSense-org/makepad/pull/30) (`sandbox/contained-tier-gates`), verified at `d94e5e6`. |
-| System and store apps in OctoSense-Desktop | Open PR [OctoSense-Desktop#36](https://github.com/OctoSense-org/OctoSense-Desktop/pull/36). |
-| Submission route | An issue on OctoSense-App-Hub (below). That route is written in App Hub PR #4; App Hub `main` still describes a planned index-repository pull request and release action that do not exist yet. |
+| Script-app gate, scan and `os.` id check in `hub` | On App Hub `main` ([OctoSense-App-Hub#4](https://github.com/OctoSense-org/OctoSense-App-Hub/pull/4), merged as `0d36f50b`). The docs here were verified against its pre-merge commit `79a2c4f`. |
+| Contained script apps and host services in the runtime | On makepad `main` ([OctoSense-org/makepad#30](https://github.com/OctoSense-org/makepad/pull/30), merged as `cd812acd`), selected by Octoscript-Makepad `463e3da8`, the release `native-runtime.lock.json` pins. Verified before the merge at `d94e5e6`. |
+| System and store apps in the shells | On `main` of OctoSense-Desktop ([#36](https://github.com/OctoSense-org/OctoSense-Desktop/pull/36)) and OctoSense-ROM's Home ([#18](https://github.com/OctoSense-org/OctoSense-ROM/pull/18)). |
+| Submission route | An issue on OctoSense-App-Hub (below), as App Hub's [PUBLISHING § Submitting](https://github.com/OctoSense-org/OctoSense-App-Hub/blob/main/docs/PUBLISHING.md#submitting) describes. The index repository and release action it mentions do not exist yet. |
 | Installing your own bundle on a phone | Not supported. See [Running an app](#running-an-app). |
 
 [docs/QUICKSTART.md §1](docs/QUICKSTART.md#1-prerequisites) lists the exact
-revisions that were verified together. Once those PRs merge, use `main`.
+revisions that were verified together before the merges.
 
 ## Quick path
 
@@ -289,7 +289,7 @@ App Hub's Card runner (the `card` module in App Hub's `crates/appstore`), not
 with `card-host` itself; it applies the same manifest policy. System apps are
 packed into the shell build from OctoSense-System-Apps; store apps are
 installed from the App Hub store out of the signed catalog. The Desktop side
-of this is in open PR
+of this landed with
 [OctoSense-Desktop#36](https://github.com/OctoSense-org/OctoSense-Desktop/pull/36).
 
 **On a phone, today** ([QUICKSTART §9](docs/QUICKSTART.md#9-run-it-on-an-octosense-phone)):
@@ -339,10 +339,9 @@ A maintainer re-runs the gate and the scan on the exact bytes and runs
 
 Limits, stated plainly:
 
-- The issue route is the one written in App Hub PR #4 (see [Status](#status));
-  App Hub `main` still describes an index-repository pull request and an
-  `octosense-org/publish-app` action that do not exist. Re-read App Hub's
-  "Submitting" section before you submit.
+- The issue route is the one App Hub's `main` documents (see [Status](#status));
+  the index repository and the `octosense-org/publish-app` action it mentions
+  do not exist yet. Re-read App Hub's "Submitting" section before you submit.
 - Never open a pull request that edits the App Hub's `catalog.json`, `index/`
   or `artifacts/`: only `hub publish` with the hub's key writes them.
 - A first submission always waits for a person. Automatic merging for
