@@ -14,6 +14,26 @@ tests and fixture evidence. App runtime state and personal data stay ignored.
 | [personal-data](personal-data/README.md) | octos skill (macOS, Android later) | Read-only search over the Mail and Calendar apps' data for the octos agent: `mail_search`, `mail_read`, `calendar_query`, `contacts_lookup`. Phase 1 of the octos personal-memory ADR. |
 | [Calendar](calendar/README.md) | Native cards / browser preview + sync server | iOS-style calendar for two devices: 10 screens, 4 service cards, and a SQLite-backed operation-log server every client replays. |
 
+## System script apps
+
+`apps/<name>/script/` is an app as a contained script bundle (`manifest.json`,
+`main.splash`, small artwork): what OctoSense ships as a first-party system app
+(`os.<name>`, OctoSense ADR 0004) and what a contestant's or publisher's app
+looks like. The OctoSense shells (the ROM's Home, the desktop shell) pin this
+repository and choose which bundles to include; App Hub's Card runner runs each
+in its own isolate under its manifest's policy. An app's `host-service/` is the
+Rust service its script calls through `host.request` (Mail keeps accounts and
+passwords there), and `native/` is the earlier native module, kept for
+comparison.
+
+| Script app | Id | Needs |
+| --- | --- | --- |
+| [News](news/script/main.splash) | `os.news` | `storage`, `net` (feed hosts), `images`, `web` |
+| [Photos](photos/script/main.splash) | `os.photos` | `storage`; the shell mounts its sample library as `{{assets}}/photos` |
+| [Maps](maps/script/main.splash) | `os.maps` | `storage`, `net` (map and route hosts), `location` |
+| [Camera](camera/script/main.splash) | `os.camera` | `camera`, `microphone`, `library`, `storage` |
+| [Mail](mail/script/main.splash) | `os.mail` | `storage`, `mail` (the [mail host service](mail/host-service)) |
+
 All projects are siblings here; `personal-data` is a plain Rust skill rather than an AppCard journey. The repository root is
 `Octosense-Service-AppCards/`; there is no nested `pipeline/` checkout.
 Makepad and Octoscript live in the separate [native workspace](../docs/NATIVE-WORKSPACE.md).

@@ -1,0 +1,172 @@
+let mode = "photo"          // photo | video
+let flash = "off"           // off | auto | on
+let recording = false
+let rec_started = 0
+let rec_timer = nil
+let shots = []              // app-relative paths, newest last
+let viewing = ""
+let keep = 30
+
+fn load_shots(){
+    if fs.exists("shots.json") {
+        let v = fs.read("shots.json").parse_json()
+        if v != nil { shots = v }
+    }
+}
+fn save_shots(){ fs.write("shots.json", shots.to_json()) }
+fn show_thumb(){
+    if shots.len() == 0 { ui.thumb_box.set_visible(false); return }
+    let last = shots[shots.len() - 1]
+    if last.split(".jpg").len() > 1 {
+        ui.thumb.load_image_from_data_async(fs.read_bytes(last))
+    }
+    ui.thumb_box.set_visible(true)
+}
+fn captured(){
+    let path = ui.cam.last()
+    if path == "" { return }
+    shots.push(path)
+    // The newest few stay in the app; the photo library keeps them all.
+    while shots.len() > keep {
+        let old = shots[0]
+        shots.remove(0)
+        if fs.exists(old) { fs.remove(old) }
+    }
+    save_shots()
+    show_thumb()
+}
+fn shutter(){
+    if mode == "photo" { ui.cam.capture(); return }
+    if recording { stop_recording() } else { start_recording() }
+}
+fn start_recording(){
+    if !ui.cam.record_start() { return }
+    recording = true
+    rec_started = time_now()
+    ui.rec.set_text("00:00")
+    ui.rec_box.set_visible(true)
+    rec_timer = start_interval(0.5, || tick_rec())
+    ui.shutter_face.render()
+}
+fn stop_recording(){
+    ui.cam.record_stop()
+    recording = false
+    if rec_timer != nil { stop_timer(rec_timer); rec_timer = nil }
+    ui.rec_box.set_visible(false)
+    ui.shutter_face.render()
+}
+fn two(n){ if n < 10 { return "0" + n } "" + n }
+fn tick_rec(){
+    let s = floor(time_now() - rec_started)
+    ui.rec.set_text(two(floor(s / 60)) + ":" + two(s % 60))
+}
+fn set_mode(m){
+    if recording { return }
+    mode = m
+    if m == "video" { ui.cam.set_aspect(16 / 9) } else { ui.cam.set_aspect(4 / 3) }
+    ui.modes.render()
+    ui.shutter_face.render()
+}
+fn cycle_flash(){
+    if flash == "off" { flash = "auto" } else if flash == "auto" { flash = "on" } else { flash = "off" }
+    ui.cam.set_flash(flash)
+    ui.flash_btn.set_text("Flash " + flash)
+}
+fn zoom_to(z){ ui.cam.set_zoom(z); ui.zooms.render() }
+fn open_viewer(){
+    if shots.len() == 0 { return }
+    viewing = shots[shots.len() - 1]
+    if viewing.split(".jpg").len() > 1 {
+        ui.full.load_image_from_data_async(fs.read_bytes(viewing))
+        ui.viewer_note.set_text("")
+    } else {
+        ui.viewer_note.set_text("Video saved to your photo library")
+    }
+    ui.viewer.set_visible(true)
+}
+fn close_viewer(){ ui.viewer.set_visible(false) }
+fn failed(){ ui.toast.set_text(ui.cam.error()) }
+fn boot(){
+    load_shots()
+    show_thumb()
+    ui.zooms.render()
+    ui.modes.render()
+    ui.shutter_face.render()
+    ui.cam.start()
+}
+start_timeout(0.05, || boot())
+
+let Chip = ButtonFlat{height: 34 padding: Inset{left: 12 right: 12}
+    draw_bg +: {border_radius: 17.0 color: #x00000066 color_hover: #x00000088 color_down: #x000000aa border_size: 0.0}
+    draw_text +: {color: #xffffff color_hover: #xffffff color_down: #xffffff text_style +: {font_size: 13}}
+}
+let ChipOn = Chip{draw_text +: {color: #xffd60a color_hover: #xffd60a color_down: #xffd60a}}
+let ModeOff = ButtonFlat{height: 30 padding: Inset{left: 10 right: 10}
+    draw_bg +: {color: #x00000000 color_hover: #x00000000 color_down: #x00000000 border_size: 0.0}
+    draw_text +: {color: #xffffffaa color_hover: #xffffff color_down: #xffffff text_style +: {font_size: 14}}
+}
+let ModeOn = ModeOff{draw_text +: {color: #xffd60a color_hover: #xffd60a color_down: #xffd60a}}
+
+SolidView{width: Fill height: Fill flow: Overlay draw_bg.color: #000000
+    cam := CameraPreview{width: Fill height: Fill facing: "back"
+        on_capture: || captured()
+        on_error: || failed()
+        on_zoom: |z| ui.zooms.render()
+    }
+    View{width: Fill height: Fill flow: Down
+        View{width: Fill height: Fit flow: Right align: Align{y: 0.5} padding: Inset{left: 12 right: 12 top: 12}
+            flash_btn := Chip{text: "Flash off" on_click: || cycle_flash()}
+            View{width: Fill height: 1}
+            rec_box := RoundedView{visible: false width: Fit height: Fit padding: Inset{left: 10 right: 10 top: 4 bottom: 4}
+                new_batch: true show_bg: true draw_bg.color: #xff3b30 draw_bg.border_radius: 6.0
+                rec := Label{text: "00:00" draw_text.color: #xffffff draw_text.text_style: theme.font_bold{font_size: 13}}
+            }
+        }
+        toast := Label{width: Fill align: Align{x: 0.5} padding: 8 text: "" draw_text.color: #xffd60a draw_text.text_style.font_size: 12}
+        View{width: Fill height: Fill}
+        zooms := View{width: Fill height: Fit flow: Right spacing: 8 align: Align{x: 0.5} padding: Inset{bottom: 12} on_render: || {
+            for z in [1 2 5] {
+                if floor(ui.cam.zoom() + 0.5) == z { ChipOn{text: "" + z + "×" on_click: || zoom_to(z)} }
+                else { Chip{text: "" + z + "×" on_click: || zoom_to(z)} }
+            }
+        }}
+        modes := View{width: Fill height: Fit flow: Right spacing: 12 align: Align{x: 0.5} padding: Inset{bottom: 10} on_render: || {
+            if mode == "photo" { ModeOn{text: "PHOTO"} } else { ModeOff{text: "PHOTO" on_click: || set_mode("photo")} }
+            if mode == "video" { ModeOn{text: "VIDEO"} } else { ModeOff{text: "VIDEO" on_click: || set_mode("video")} }
+        }}
+        View{width: Fill height: Fit flow: Right align: Align{x: 0.5 y: 0.5} padding: Inset{left: 28 right: 28 bottom: 36}
+            View{width: 56 height: 56
+                thumb_box := GestureView{visible: false width: 56 height: 56 on_tap: |x, y| open_viewer()
+                    thumb := Image{width: 56 height: 56 fit: ImageFit.CropToFill}
+                }
+            }
+            View{width: Fill height: 1}
+            shutter_face := View{width: 76 height: 76 on_render: || {
+                if mode == "photo" {
+                    ButtonFlat{width: 76 height: 76 text: "" on_click: || shutter()
+                        draw_bg +: {border_radius: 38.0 color: #xffffff color_hover: #xf2f2f2 color_down: #xd0d0d0 border_size: 4.0 border_color: #x888888}}
+                } else if recording {
+                    ButtonFlat{width: 76 height: 76 text: "Stop" on_click: || shutter()
+                        draw_bg +: {border_radius: 38.0 color: #xff3b30 color_hover: #xff3b30 color_down: #xcc2f26 border_size: 4.0 border_color: #xffffff}
+                        draw_text +: {color: #xffffff color_hover: #xffffff color_down: #xffffff text_style +: {font_size: 22}}}
+                } else {
+                    ButtonFlat{width: 76 height: 76 text: "" on_click: || shutter()
+                        draw_bg +: {border_radius: 38.0 color: #xff3b30 color_hover: #xff453a color_down: #xcc2f26 border_size: 4.0 border_color: #xffffff}}
+                }
+            }}
+            View{width: Fill height: 1}
+            ButtonFlat{width: 56 height: 56 text: "Flip" on_click: || ui.cam.switch()
+                draw_bg +: {border_radius: 28.0 color: #x00000066 color_hover: #x00000088 color_down: #x000000aa border_size: 0.0}
+                draw_text +: {color: #xffffff color_hover: #xffffff color_down: #xffffff text_style +: {font_size: 14}}}
+        }
+    }
+    viewer := SolidView{visible: false width: Fill height: Fill flow: Down new_batch: true draw_bg.color: #000000
+        View{width: Fill height: Fit padding: Inset{left: 8 top: 8}
+            ButtonFlat{text: "‹ Camera" on_click: || close_viewer()
+                draw_bg +: {color: #x00000000 color_hover: #x00000000 color_down: #x00000000 border_size: 0.0}
+                draw_text +: {color: #xffd60a color_hover: #xffd60a color_down: #xffd60a text_style +: {font_size: 15}}}
+        }
+        full := Image{width: Fill height: Fill fit: ImageFit.Smallest}
+        viewer_note := Label{width: Fill align: Align{x: 0.5} padding: 16 text: "" draw_text.color: #xffffffaa}
+    }
+}
