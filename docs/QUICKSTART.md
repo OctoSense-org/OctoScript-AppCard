@@ -1,0 +1,214 @@
+# Quickstart: build, run and ship an OctoSense script app
+
+One path, from nothing to a bundle the App Hub gate admits. Every command was
+run on macOS (Apple silicon) on 2026-09-25 unless marked **unverified**.
+
+```text
+1 prerequisites → 2 build hub + card-host → 3 octo new → 4 octo run → 5 edit loop
+→ 6 capabilities → 7 test and capture → 8 octo check → 9 on a phone → 10 publish
+```
+
+## 1. Prerequisites
+
+- **Rust** (stable, via rustup). `cargo` lives in `~/.cargo/bin`; put it on
+  `PATH` (`export PATH=$HOME/.cargo/bin:$PATH`).
+- **Python 3.9+** for `tools/octo` (no packages needed).
+- **A graphical session** for `card-host` (it opens a real window, 412x892
+  points, even when an agent drives it).
+- **The App Hub and its sibling sources** in one workspace directory:
+
+  ```text
+  <workspace>/
+    OctoScript-App-Design-Flow/   this repository
+    OctoSense-App-Hub/            hub, card-host, appstore
+    makepad/                      OctoSense-org/makepad
+    octoscript-makepad/           OctoSense-org/Octoscript-Makepad
+    octoscript/                   OctoSense-org/Octoscript
+  ```
+
+  The App Hub's `Cargo.toml` patches its Makepad and Octoscript dependencies to
+  exactly those sibling paths (`../makepad`, `../octoscript-makepad`,
+  `../octoscript`). Prepare them as [NATIVE-WORKSPACE](NATIVE-WORKSPACE.md)
+  describes, then check out the revisions the App Hub expects.
+
+  Script apps currently need the unmerged pull requests: App Hub
+  `apps/script-and-system-apps` (OctoSense-App-Hub#4) and Makepad
+  `sandbox/contained-tier-gates` (OctoSense-org/makepad#30). Verified with App
+  Hub `79a2c4f`, makepad `d94e5e6`, octoscript-makepad `c4c9682`, octoscript
+  `ed1d3a8`. Once those merge, use `main`.
+
+## 2. Build `hub` and `card-host`
+
+```sh
+cd <workspace>/OctoSense-App-Hub
+cargo build --release -p octosense-card-host -p octosense-app-hub
+```
+
+Verified (`Finished release profile … in 1m 43s` with dependencies cached).
+The binaries land in `target/release/` (or `$CARGO_TARGET_DIR/release/`).
+
+Then, from this repository:
+
+```sh
+export OCTOSENSE_APP_HUB=<workspace>/OctoSense-App-Hub   # optional when it is a sibling
+tools/octo doctor
+```
+
+`doctor` finds `hub` and `card-host` in `$OCTO_HUB`/`$OCTO_CARD_HOST`, then
+`$OCTOSENSE_APP_HUB/target/release`, `$CARGO_TARGET_DIR/release`,
+`$OCTOSENSE_APP_HUB/../target/release`, the sibling
+`../OctoSense-App-Hub/target/release`, then `PATH`. It rejects GitHub's
+unrelated `hub` CLI. Verified output ends with
+`ready: tools/octo new <dir> && tools/octo run <dir>/bundle`; when something is
+missing it prints `[fail]` lines, where it looked, and the fix.
+
+## 3. Create an app
+
+```sh
+tools/octo new ~/apps/my-app --id my-notes --name "My Notes"
+```
+
+Copies [templates/script-app](../templates/script-app/README.md) (`bundle/`,
+`AGENTS.md`, `.gitignore`), sets `id` and `name` in the manifest and the
+title label in `main.splash`, and stamps the bundle. Verified output (run
+with `--id my-test-notes --name "Test Notes"`):
+
+```text
+created …/my-app
+  id my-test-notes, name 'Test Notes', version 0.1.0, bundle stamped
+```
+
+Ids are `[a-z0-9.-]{1,64}`, not starting with `.`; `os.` is reserved for
+system apps. Make `~/apps/my-app` its own git repository.
+
+## 4. Run it on the desktop
+
+```sh
+tools/octo run ~/apps/my-app/bundle --port 8141            # foreground; Ctrl-C quits
+tools/octo run ~/apps/my-app/bundle --port 8141 --detach   # background; returns when admitted
+```
+
+This is `card-host --bundle <bundle> --app-data <app>/.local-state
+--allow-unsigned --stamp` with `MAKEPAD_REMOTE=8141`, started from the App Hub
+directory. Verified `--detach` output:
+
+```text
+[makepad-remote] listening on 127.0.0.1:8141 pid=18656 app=card-host grabs=/var/folders/…
+[I] crates/card-host/src/main.rs:189:9 - card-host: my-test-notes 0.1.0 admitted — capabilities {"storage"}, hosts {}, storage 16777216 bytes, agent none
+pid 18656  log …/my-app/.local-state/card-host.log
+```
+
+- `--stamp` rewrites the manifest digest on every start, so edits run without
+  a separate `hub stamp`. Without it (`--no-stamp`) card-host refuses a
+  bundle whose bytes changed.
+- `--system` admits an `os.*` system app under system ceilings.
+- The app's files live in its jail: `<app>/.local-state/<id>/`.
+- Look in the log for `admitted` **and** for errors after
+  `[SPLASH] eval:` (script errors print there, see
+  [SCRIPT-API](SCRIPT-API.md#errors-and-the-log)).
+
+Drive it over HTTP (all GET; coordinates are window points, y down):
+
+| Route | Does |
+| --- | --- |
+| `curl -s 127.0.0.1:8141/snap` | widgets with rects and text: `{"s":[{"i":id,"ty":type,"r":[x,y,w,h],"t":text}]}`; `?q=` filters |
+| `curl -s 127.0.0.1:8141/d` | the whole widget tree as text |
+| `curl -s "127.0.0.1:8141/click?x=150&y=140&wait=1"` | a real click (`wait=1`: answer after the next frame) |
+| `curl -s "127.0.0.1:8141/t?t=Buy%20milk&wait=1"` | type text into the focused input |
+| `curl -s "127.0.0.1:8141/k?k=down&c=ReturnKey"` | a key event |
+| `curl -s "127.0.0.1:8141/log?n=50"` | the last log lines |
+| `tools/octo shot 8141 out.png` | PNG of the window (`/g?raw=1`) |
+| `curl -s 127.0.0.1:8141/quit` | quit; always end with this (or `/gq`) |
+
+Verified: `/snap` showed the title label `"t":"Test Notes"`; clicking the
+input, `/t?t=Buy%20milk`, then clicking **Add** wrote `["Buy milk"]` to
+`.local-state/my-test-notes/notes.json` and drew the row; tapping the row
+removed it; a restart reloaded stored notes. Rows built by `on_render` do not
+always appear in `/snap` or `/d`: confirm them with a screenshot or the jail
+file, and click them by coordinates from the screenshot (pixels / 2 on a
+Retina Mac).
+
+## 5. The edit loop
+
+1. Edit `bundle/main.splash` (the language: [SCRIPT-API](SCRIPT-API.md)).
+2. `curl -s 127.0.0.1:8141/quit`, then `tools/octo run … --detach` again
+   (a restart re-reads the bundle and restamps it).
+3. `tools/octo shot 8141 /tmp/now.png` and look at it; read the log for errors.
+
+Keep the app's state in `.local-state/` between runs; delete it to test a
+first launch.
+
+## 6. Add capabilities
+
+Add only what a screen uses, in `bundle/manifest.json`:
+
+```json
+"capabilities": ["storage", "net"],
+"network": { "hosts": ["api.open-meteo.com"] }
+```
+
+Every `https://` host your `main.splash` names must be listed (unless you
+request `images` or `web`); plain `http://` is never allowed. What each
+capability unlocks and what the person sees: [CAPABILITIES](CAPABILITIES.md).
+Services such as mail: [HOST-SERVICES](HOST-SERVICES.md).
+
+## 7. Gotchas that cost the most time
+
+Full list in [SCRIPT-API](SCRIPT-API.md#gotchas).
+
+- Hex colors with an `e` next to a digit need `#x`: `#x1e1e2e`. Using `#x` everywhere is safe.
+- Iterate with `for i in n` (0..n-1); there is no `range()`.
+- In `on_render`, write `if list.len() == 0 { EmptyLabel } for i in list.len() { Row }`,
+  **not** `if … {…} else for …`: with `else for`, the empty branch drew nothing and the
+  list kept showing stale rows (observed with this template on makepad `d94e5e6`).
+- A hidden view does not draw its background; use `SolidView` for a filled panel.
+- `ButtonFlat` cannot hold `Label` children; for a tappable row use `GestureView{on_tap: |x, y| …}`.
+- Password and one-time-code fields are refused. Secrets belong to a host service's sheet.
+
+## 8. Check it
+
+```sh
+tools/octo shot 8141 ~/apps/my-app/bundle/screenshots/01-main.png   # after driving the app to a real state
+curl -s 127.0.0.1:8141/quit
+tools/octo check ~/apps/my-app/bundle
+```
+
+`check` runs `hub stamp` then `hub check --allow-unsigned` and exits nonzero
+on a refusal. Verified: without the screenshot, `REFUSED … [refused] listing:
+screenshots/01-main.png is named by the listing but is not in the bundle`
+(the template names a screenshot on purpose: never add a dummy one); with a
+real capture, `my-test-notes 0.1.0 — PASSED` plus the expected unsigned
+warning. `octo check` also notes template placeholders left in `listing.json`.
+
+## 9. Run it on an OctoSense phone
+
+What exists today, stated plainly:
+
+- **An arbitrary bundle cannot yet be side-loaded onto a stock OctoSense
+  phone.** The phone's store reads the built-in hub
+  (`DEFAULT_HUB`, `raw.githubusercontent.com/OctoSense-org/OctoSense-App-Hub/main/`)
+  and trusts only the anchor compiled into the build. `OCTOSENSE_HUB` and
+  `OCTOSENSE_HUB_ANCHOR` (a mirror directory or URL, and its anchor) are
+  environment variables, which the Android launcher does not set; no
+  on-device setting for them was found. **Unverified on a device.**
+- **Closest real path, verified on the desktop:** publish into a local
+  catalog with your own throwaway anchor and install it with the App Hub's
+  store, which is the same install code a phone runs:
+  [PUBLISHING § 4](PUBLISHING.md#4-rehearse-the-store-path-locally).
+- **First-party apps** reach a phone as system apps: a bundle in
+  [OctoSense-System-Apps](https://github.com/OctoSense-org/OctoSense-System-Apps),
+  listed in the ROM's `home/system-apps.json` and packed by
+  `home/apps/app-hub/build.rs`, then a ROM or Home build. That path is for
+  `os.*` apps maintained by OctoSense, not for store apps.
+- **After publication** your app appears in every phone's store from the
+  signed catalog.
+
+`card-host`'s remote bridge is compiled out on Android, so phone testing is
+through the shell's own instrument, not `tools/octo`.
+
+## 10. Publish
+
+Follow [PUBLISHING](PUBLISHING.md) top to bottom: final manifest and listing,
+real screenshots, `tools/octo check`, `hub scan`, then the **human** steps
+(publisher key, signing, and the submission issue).
+`tools/octo package-help` prints the checklist.

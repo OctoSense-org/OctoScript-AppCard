@@ -1,0 +1,28 @@
+# Developing this OctoSense app
+
+This repository is one OctoSense script app. `bundle/` is the app and the only
+thing submitted to the App Hub; everything else stays outside it.
+
+Follow the harness, and do not invent requirements or APIs:
+
+- How to build, run and test: [QUICKSTART](https://github.com/OctoSense-org/OctoScript-App-Design-Flow/blob/main/docs/QUICKSTART.md)
+- The language and every API an app may use: [SCRIPT-API](https://github.com/OctoSense-org/OctoScript-App-Design-Flow/blob/main/docs/SCRIPT-API.md)
+- Capabilities: [CAPABILITIES](https://github.com/OctoSense-org/OctoScript-App-Design-Flow/blob/main/docs/CAPABILITIES.md)
+- Publishing, step by step, with the human checkpoints: [PUBLISHING](https://github.com/OctoSense-org/OctoScript-App-Design-Flow/blob/main/docs/PUBLISHING.md)
+
+The loop: edit `bundle/main.splash` → `tools/octo run bundle --port 8141 --detach`
+→ drive it (`/click`, `/t`, `/snap`) and `tools/octo shot` → `curl -s 127.0.0.1:8141/quit`
+→ `tools/octo check bundle`. (`tools/octo` lives in the harness repository.)
+
+Rules:
+
+- Ask only for capabilities a screen uses; declare every `https://` host in
+  `network.hosts`; never `http://`.
+- Never collect a password, PIN or code; accounts go through a host service.
+- Screenshots are real captures you looked at. Never a dummy.
+- Restamp after every edit (`tools/octo check` does it). After signing, any
+  edit needs a new stamp and signature.
+- Keys, `.local-state/`, `build/` and review packets never enter `bundle/` or git.
+- Stop at human steps: publisher key, publisher details, platform claims, submission.
+
+Add this app's own requirements, data sources and tests below.
