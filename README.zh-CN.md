@@ -60,18 +60,17 @@ Agent）从一个想法（一段文字需求、一张生成的 UX 图）走到�
 
 ## 现状
 
-脚本应用依赖的部分工作尚未合入各仓库的 `main`。开始之前请先阅读。
+脚本应用依赖的工作已于 2026-09-26 合入各仓库的 `main`；请使用各仓库的 `main`。
 
 | 部分 | 状态 |
 | --- | --- |
-| `hub` 中的脚本应用准入检查、扫描与 `os.` id 检查 | 待合并 PR [OctoSense-App-Hub#4](https://github.com/OctoSense-org/OctoSense-App-Hub/pull/4)（`apps/script-and-system-apps`）。本仓库文档基于其提交 `79a2c4f` 验证。 |
-| 运行时中的隔离脚本应用与宿主服务 | 待合并 PR [OctoSense-org/makepad#30](https://github.com/OctoSense-org/makepad/pull/30)（`sandbox/contained-tier-gates`），在 `d94e5e6` 验证。 |
-| OctoSense-Desktop 中的系统应用与商店应用 | 待合并 PR [OctoSense-Desktop#36](https://github.com/OctoSense-org/OctoSense-Desktop/pull/36)。 |
-| 提交途径 | 在 OctoSense-App-Hub 开一个 issue（见下文）。这一途径写在 App Hub PR #4 中；App Hub `main` 仍描述的是计划中的索引仓库 pull request 与 release action，二者尚不存在。 |
+| `hub` 中的脚本应用准入检查、扫描与 `os.` id 检查 | 已在 App Hub `main`（[OctoSense-App-Hub#4](https://github.com/OctoSense-org/OctoSense-App-Hub/pull/4)，合并为 `0d36f50b`）。本仓库文档基于其合并前的提交 `79a2c4f` 验证。 |
+| 运行时中的隔离脚本应用与宿主服务 | 已在 makepad `main`（[OctoSense-org/makepad#30](https://github.com/OctoSense-org/makepad/pull/30)，合并为 `cd812acd`），由 `native-runtime.lock.json` 固定的 Octoscript-Makepad `463e3da8` 选定。合并前在 `d94e5e6` 验证。 |
+| Shell 中的系统应用与商店应用 | 已在 OctoSense-Desktop（[#36](https://github.com/OctoSense-org/OctoSense-Desktop/pull/36)）和 OctoSense-ROM 的 Home（[#18](https://github.com/OctoSense-org/OctoSense-ROM/pull/18)）的 `main`。 |
+| 提交途径 | 在 OctoSense-App-Hub 开一个 issue（见下文），如 App Hub 的 [PUBLISHING § Submitting](https://github.com/OctoSense-org/OctoSense-App-Hub/blob/main/docs/PUBLISHING.md#submitting) 所述。其中提到的索引仓库和 release action 尚不存在。 |
 | 在手机上安装自己的应用包 | 不支持。见[运行应用](#运行应用)。 |
 
-[docs/QUICKSTART.md §1](docs/QUICKSTART.md#1-prerequisites) 列出了一起验证过的确切版本。
-这些 PR 合并后，使用 `main` 即可。
+[docs/QUICKSTART.md §1](docs/QUICKSTART.md#1-prerequisites) 列出了合并前一起验证过的确切版本。
 
 ## 快速上手
 
@@ -256,8 +255,8 @@ my-app/                     the app's own git repository
 **在 Shell 中。** OctoSense-Desktop 和 OctoSense ROM 的 Home 通过 App Hub 的 Card runner
 （App Hub `crates/appstore` 中的 `card` 模块）运行应用，而不是 `card-host` 本身；它执行同一套
 manifest 策略。系统应用从 OctoSense-System-Apps 打包进 Shell 构建；商店应用从 App Hub 商店、
-依据签名目录安装。Desktop 这部分在待合并 PR
-[OctoSense-Desktop#36](https://github.com/OctoSense-org/OctoSense-Desktop/pull/36) 中。
+依据签名目录安装。Desktop 这部分随
+[OctoSense-Desktop#36](https://github.com/OctoSense-org/OctoSense-Desktop/pull/36) 合入。
 
 **目前在手机上**（[QUICKSTART §9](docs/QUICKSTART.md#9-run-it-on-an-octosense-phone)）：
 
@@ -297,9 +296,8 @@ manifest 策略。系统应用从 OctoSense-System-Apps 打包进 Shell 构建�
 
 限制，如实说明：
 
-- issue 途径写在 App Hub PR #4 中（见[现状](#现状)）；App Hub `main` 仍描述索引仓库
-  pull request 和 `octosense-org/publish-app` action，而这二者尚不存在。提交前请重新阅读
-  App Hub 的 "Submitting" 一节。
+- issue 途径即 App Hub `main` 所描述的途径（见[现状](#现状)）；其中提到的索引仓库和
+  `octosense-org/publish-app` action 尚不存在。提交前请重新阅读 App Hub 的 "Submitting" 一节。
 - 绝不要开编辑 App Hub `catalog.json`、`index/` 或 `artifacts/` 的 pull request：只有持有
   hub 密钥的 `hub publish` 能写入它们。
 - 首次提交一定会等待人工处理。老发布者自动合并尚在计划中，未实现。

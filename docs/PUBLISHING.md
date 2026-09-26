@@ -8,7 +8,7 @@ this page applies it to script apps and records what was verified.
 
 Every command below was run against App Hub `apps/script-and-system-apps`
 (commit `79a2c4f`: the script-app gate, the script-app scan and the `os.`
-identity check) on macOS, unless a step is marked **unverified**. Outputs are
+identity check, since merged to `main` as OctoSense-App-Hub#4) on macOS, unless a step is marked **unverified**. Outputs are
 quoted verbatim.
 
 - Start here only when [QUICKSTART](QUICKSTART.md) steps 1–6 pass: the app

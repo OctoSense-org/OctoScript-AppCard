@@ -31,11 +31,11 @@ run on macOS (Apple silicon) on 2026-09-25 unless marked **unverified**.
   `../octoscript`). Prepare them as [NATIVE-WORKSPACE](NATIVE-WORKSPACE.md)
   describes, then check out the revisions the App Hub expects.
 
-  Script apps currently need the unmerged pull requests: App Hub
-  `apps/script-and-system-apps` (OctoSense-App-Hub#4) and Makepad
-  `sandbox/contained-tier-gates` (OctoSense-org/makepad#30). Verified with App
-  Hub `79a2c4f`, makepad `d94e5e6`, octoscript-makepad `c4c9682`, octoscript
-  `ed1d3a8`. Once those merge, use `main`.
+  Script apps need App Hub and Makepad `main`: OctoSense-App-Hub#4 and
+  OctoSense-org/makepad#30 merged on 2026-09-26 (App Hub `0d36f50b`, makepad
+  `cd812acd`, selected by octoscript-makepad `463e3da8`). This guide was
+  verified before the merges with App Hub `79a2c4f`, makepad `d94e5e6`,
+  octoscript-makepad `c4c9682`, octoscript `ed1d3a8`.
 
 ## 2. Build `hub` and `card-host`
 
