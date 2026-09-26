@@ -15,7 +15,7 @@ import sys
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
-PIPE = ROOT.parents[1] / 'lab/image-to-appcard'
+PIPE = ROOT.parents[1] / 'flows/image-lib'
 sys.path.insert(0, str(PIPE))
 sys.path.insert(0, str(PIPE.parent))
 from catalogue import walk

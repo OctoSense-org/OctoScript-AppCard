@@ -11,7 +11,7 @@ import time
 import uuid
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path[:0] = [str(ROOT / 'apps/aircon/scripts'), str(ROOT / 'lab/image-to-appcard'), str(ROOT / 'lab')]
+sys.path[:0] = [str(ROOT / 'examples/aircon/scripts'), str(ROOT / 'flows/image-lib'), str(ROOT / 'flows')]
 import verify_standalone_cards as native
 import studio
 from core.gate_structure import parse_dump
@@ -23,7 +23,7 @@ parser.add_argument('--cards', help='Comma-separated card IDs for a targeted rep
 args = parser.parse_args()
 selected = set(args.cards.split(',')) if args.cards else None
 stamp = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ') + '-' + uuid.uuid4().hex[:6]
-output = ROOT / 'apps/shared/evidence/standalone' / stamp
+output = ROOT / 'examples/shared/evidence/standalone' / stamp
 output.mkdir(parents=True)
 report = {'passed': False, 'build_id': args.build_id, 'scope': native.SCOPE, 'cards': []}
 cards = []
@@ -50,7 +50,7 @@ for flow in args.flows.split(','):
         native.require(native.manifest(inputs) == hashes == native.manifest(folder), 'Source changed during staging')
         # Extracted packages keep their own compiled assets. Publish those exact bytes
         # to the local artwork server before asking Studio to load their native SVGs.
-        gallery = ROOT / 'docs/reviews/theme-phone-evidence/ux-images' / card['id'] / 'assets'
+        gallery = ROOT / 'flows/image-lib/published/ux-images' / card['id'] / 'assets'  # compile.GALLERY
         if (inputs / 'assets').exists():
             gallery.mkdir(parents=True, exist_ok=True)
             shutil.copytree(inputs / 'assets', gallery, dirs_exist_ok=True)
@@ -74,7 +74,7 @@ class FlowVerifier(native.Verifier):
             time.sleep(.1)
         raise RuntimeError('Native Window resize did not settle')
 
-with (ROOT / 'lab/image-to-appcard/.service-capture.lock').open('a') as lock:
+with (ROOT / 'flows/image-lib/.service-capture.lock').open('a') as lock:
     fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
     verifier = FlowVerifier(output, args.build_id, studio, parse_dump, 45)
     try:
@@ -109,6 +109,6 @@ with (ROOT / 'lab/image-to-appcard/.service-capture.lock').open('a') as lock:
         report['completed_at'] = datetime.now(timezone.utc).isoformat()
         native.write(output / 'report.json', report)
         native.write(output / 'seal.json', {'files': {name: digest for name,digest in native.manifest(output).items() if not name.startswith('_runtime/')}, 'mutable': '_runtime'})
-        native.write(ROOT / 'apps/shared/evidence/standalone-latest.json', {'directory': str(output.relative_to(ROOT)), 'passed': report['passed'], 'report_sha256': native.sha(output / 'report.json')})
+        native.write(ROOT / 'examples/shared/evidence/standalone-latest.json', {'directory': str(output.relative_to(ROOT)), 'passed': report['passed'], 'report_sha256': native.sha(output / 'report.json')})
 print(json.dumps({'passed': report['passed'], 'report': str(output / 'report.json')}))
 sys.exit(0 if report['passed'] else 1)

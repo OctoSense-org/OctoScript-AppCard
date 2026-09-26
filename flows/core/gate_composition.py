@@ -5,7 +5,7 @@ This gate covers generated composition policy. Studio inspection and visual
 freshness remain separate required gates. It does not certify reusable layouts.
 """
 import sys as _sys, pathlib as _pathlib
-_sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[1]))  # lab/, for `core`
+_sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[1]))  # flows/, for `core`
 import argparse
 import collections
 import hashlib

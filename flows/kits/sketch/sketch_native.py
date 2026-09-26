@@ -23,7 +23,7 @@ import xml.etree.ElementTree as ET
 from PIL import Image
 
 import sys as _sys, pathlib as _pathlib
-_sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[1]))
+_sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[2]))  # flows/, for `core`
 from core.native_paths import repository
 from core import kitconf
 from sketch2spec import Extractor

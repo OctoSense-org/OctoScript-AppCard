@@ -2,8 +2,8 @@
 """Compile, extract and export the authored school flow; capture is a separate explicit gate."""
 from pathlib import Path
 import json,sys
-ROOT=Path(__file__).resolve().parents[1];LAB=ROOT.parents[1]/'lab'
-sys.path[:0]=[str(LAB/'image-to-appcard-flow'),str(LAB/'image-to-appcard')]
+ROOT=Path(__file__).resolve().parents[1];LAB=ROOT.parents[1]/'flows'
+sys.path[:0]=[str(LAB/'image-to-card'),str(LAB/'image-lib')]
 import compile as compiler
 compiler.GALLERY=ROOT/'artwork'
 from semantics import preflight

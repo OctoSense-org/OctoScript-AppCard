@@ -14,7 +14,7 @@ Writes xrail/fill_<kit>_<rail>.jsonl:
      flag: "squeezed"|"overflow"|null, note}
 """
 import sys as _sys, pathlib as _pathlib
-_sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[1]))  # lab/, for `core`
+_sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[2]))  # flows/, for `core`
 import json
 import pathlib
 import sys

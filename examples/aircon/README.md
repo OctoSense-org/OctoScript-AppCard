@@ -5,7 +5,7 @@ This is **one Aircon app**, with [12 screen states](cards/README.md) and
 in [../](../README.md). Run commands below from this app directory.
 
 Native Studio launch/capture commands below describe the original verification.
-For new native tests, use the [built-in instrument](../../lab/core/NATIVE-INSTRUMENT.md)
+For new native tests, use the [built-in instrument](../../flows/core/NATIVE-INSTRUMENT.md)
 with hidden windows. Historical evidence retains its original paths and hashes.
 
 把同一次 Image 2.0 生成的 12 个 UX 画面转换为 Makepad 原生组件，并从场景中导出 14 个独立 service card 变体。目录独立于 Astro 网站。
@@ -17,11 +17,11 @@ with hidden windows. Historical evidence retains its original paths and hashes.
 - [App Card 与事务 Tile 设计需求](../../docs/app-card-design-requirements.md)：原始邮件 / 消息溯源、原位组合交互、旅行时间线与出行 Sub Tiles，含后续设计验收标准
 - [L0–L3、Theme Kit 与 Octos 架构评估](../../docs/layered-architecture-assessment.md)：现有实现、状态与来源差距、组件及外部动作的接入方案
 - [事务窗口研究依据](../../docs/matter-centered-ux-research.md)：相关研究、已有系统与产品设计判断
-- [image-to-appcard-flow 完整流水线](../../lab/image-to-appcard-flow/README.md)：单次总图 → 8–12 个场景 → 原生服务卡片 → 交互状态 → WASM → Astro 网站
+- [image-to-appcard-flow 完整流水线](../../flows/image-to-card/README.md)：单次总图 → 8–12 个场景 → 原生服务卡片 → 交互状态 → WASM → Astro 网站
 - [本项目流水线配置](image-to-appcard-flow.json)，命令：`bash ../../tools/image-to-appcard-flow.sh plan --project "$PWD" --manifest image-to-appcard-flow.json`
 - [交互式 WASM 向导源码与验证](wizard/README.md)：真实 Makepad 控件，中文 / 英文，用户点击推进
 
-- 启动原生交互演示：`../../lab/image-to-appcard/.venv/bin/python runtime/run-demo.py --frame 6`
+- 启动原生交互演示：`../../flows/image-lib/.venv/bin/python runtime/run-demo.py --frame 6`
 - [14 张独立原生卡片](review/service-cards.html)
 - [12 个场景参考 / 原生对照](review/index.html)
 - [独立卡片目录](service-cards/catalogue.json)：每个卡片都有 `page.card`、`page.data.json`、`kit/native/light/kit.json`、`components.l0`、`mapping.json` 和 `service-actions.json`
@@ -45,7 +45,7 @@ with hidden windows. Historical evidence retains its original paths and hashes.
 | `measurements/` | 源图坐标与人工修正记录 |
 | `evidence/` | 原生流程检查及最终转换报告 |
 | `review/` | 本地参考 / 实际原生截图对照 |
-| `../../lab/`, `../../tools/` | 共享的 image-to-AppCard 流水线；应用源码保存在当前目录 |
+| `../../flows/`, `../../tools/` | 共享的 image-to-AppCard 流水线；应用源码保存在当前目录 |
 
 ## 转换方法
 
@@ -71,15 +71,15 @@ python3 runtime/service_session.py --session-dir runtime/demo-session dispatch -
 在本目录执行：
 
 ```sh
-../../lab/image-to-appcard/.venv/bin/python scripts/author_cards.py
-../../lab/image-to-appcard/.venv/bin/python scripts/export_service_cards.py
+../../flows/image-lib/.venv/bin/python scripts/author_cards.py
+../../flows/image-lib/.venv/bin/python scripts/export_service_cards.py
 python3 service/controller.py demo
 python3 scripts/build_review.py
 ```
 
 `author_cards.py` 会重建测量映射。手工修复过 `mapped.json` 后，仅运行 pipeline 的 `compile,capture,gate` 阶段，避免重新覆盖映射。Studio 抓取与服务交互监听共用宿主，需要分开运行；独立的设计与编译可以并行。
 
-独立卡片验证在其他抓取和服务 watcher 停止后执行：`../../lab/image-to-appcard/.venv/bin/python scripts/verify_standalone_cards.py --build-id '[当前编号]'`。它复用已启动的 Studio RunItem，按目录中每张卡自身的浮点宽高挂载，检查原生树、查询、布局和真实按钮 KitAction；禁用按钮必须不触发激活。`--check-inputs` 只检查导出文件，不连接 Studio。证据保存在 `evidence/standalone/<时间戳>/`，包含原始截图、未经缩放的视口裁切、build/nonce、源码和运行时哈希；`evidence/standalone-latest.json` 提供画廊入口。宿主仅写入该轮 `_runtime/`，其余归档由 `seal.json` 绑定。此检查使用固定 fixture，不代替完整图像验收或服务状态流程测试。
+独立卡片验证在其他抓取和服务 watcher 停止后执行：`../../flows/image-lib/.venv/bin/python scripts/verify_standalone_cards.py --build-id '[当前编号]'`。它复用已启动的 Studio RunItem，按目录中每张卡自身的浮点宽高挂载，检查原生树、查询、布局和真实按钮 KitAction；禁用按钮必须不触发激活。`--check-inputs` 只检查导出文件，不连接 Studio。证据保存在 `evidence/standalone/<时间戳>/`，包含原始截图、未经缩放的视口裁切、build/nonce、源码和运行时哈希；`evidence/standalone-latest.json` 提供画廊入口。宿主仅写入该轮 `_runtime/`，其余归档由 `seal.json` 绑定。此检查使用固定 fixture，不代替完整图像验收或服务状态流程测试。
 
 ## 交互范围
 

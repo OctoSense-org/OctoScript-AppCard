@@ -9,7 +9,7 @@ import copy, hashlib, json, re, sys
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
-PIPE = ROOT.parents[1] / 'lab/image-to-appcard'
+PIPE = ROOT.parents[1] / 'flows/image-lib'
 sys.path.insert(0, str(PIPE))
 from catalogue import walk
 from semantics import propose, write_brief

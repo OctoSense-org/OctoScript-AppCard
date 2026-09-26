@@ -7,7 +7,7 @@ error, and no failed screenshot receives an acceptance receipt.
 import argparse,json,signal,subprocess,sys,time,uuid
 from pathlib import Path
 import sys as _sys, pathlib as _pathlib
-_sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[1]))
+_sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[2]))  # flows/, for `core`
 from core.native_paths import repository
 from core import kitconf
 
@@ -28,7 +28,7 @@ def validate_sources(kit):
 
 
 def attempt(kit,log):
-    command=[sys.executable,str(Path(__file__).resolve().parents[1]/'core'/'render_splash_makepad.py'),'--kit',kit['name']]
+    command=[sys.executable,str(Path(__file__).resolve().parents[2]/'core'/'render_splash_makepad.py'),'--kit',kit['name']]
     with log.open('w') as output,subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True) as process:
         try:
             for line in process.stdout:output.write(line);output.flush();print(line,end='',flush=True)

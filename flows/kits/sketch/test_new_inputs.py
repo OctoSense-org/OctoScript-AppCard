@@ -1,6 +1,6 @@
 """Bugs exposed by the held-out component artboards, independent of their files."""
 import sys as _sys, pathlib as _pathlib
-_sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[1]))  # lab/, for `core`
+_sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[2]))  # flows/, for `core`
 import unittest
 from sketch_native import taskplan_tab_variant,validate_text_fonts
 from core.gate_structure import compare

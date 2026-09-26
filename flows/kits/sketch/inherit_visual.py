@@ -5,7 +5,7 @@ This does not reuse structural evidence, assign scores, or accept changed pixels
 The current capture and inspection must still pass the regular freshness gate.
 """
 import sys as _sys, pathlib as _pathlib
-_sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[1]))  # lab/, for `core`
+_sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[2]))  # flows/, for `core`
 import argparse
 import hashlib
 import json

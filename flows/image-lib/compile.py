@@ -15,7 +15,9 @@ from semantics import preflight
 from core.native_paths import repository
 
 ROOT=HERE.parents[1]
-GALLERY=ROOT/'docs/reviews/theme-phone-evidence/ux-images'
+# Local review gallery served at http://127.0.0.1:8170/ux-images/ (ignored).
+# It was tracked under docs/reviews/theme-phone-evidence/ before the restructure.
+GALLERY=HERE/'published'/'ux-images'
 LAYOUT={'x','y','w','h','src','image_width','image_height'}
 PROPS={'text':'text','enabled':'enabled','placeholder':'placeholder','selected':'selected'}
 

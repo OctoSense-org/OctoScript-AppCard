@@ -15,7 +15,7 @@ image is what you decide on.
 
 1. **Render it fresh.** One host process per scene, a new request nonce, then
    `/g`. Never trust a live reload; a stale grab reported a defect that did not
-   exist, twice. `lab/image-to-appcard-flow/compare_screens.py` does this for
+   exist, twice. `flows/image-to-card/compare_screens.py` does this for
    every scene and writes `<design_id>-compare.png` (page on the left, your
    render on the right), per-band numbers, and an ink probe.
 2. **Look at the side-by-side with `view_image`.** Compare region by region:

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Fail closed on host-only, stale or incomplete image-to-widget evidence."""
 import sys as _sys, pathlib as _pathlib
-_sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[1]))  # lab/, for `core`
+_sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[1]))  # flows/, for `core`
 import argparse,json,sys
 from pathlib import Path
 import numpy as np

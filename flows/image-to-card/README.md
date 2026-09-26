@@ -1,10 +1,10 @@
-# image-to-appcard-flow
+# image-to-card flow
 
 Turn **one generated atlas containing 8–12 related UX screens** into measured
 native Makepad scenes, reusable service App Cards, a click-driven service flow,
 and a WebAssembly package for the OctoSense Astro website.
 
-This extends the existing [image adapter](../image-to-appcard/README.md).
+This extends the existing [image adapter](../image-lib/README.md).
 It reuses that adapter's semantic compiler and Studio instruments. It does not
 generate a separate image per state or turn screenshots into clickable hotspots.
 
@@ -22,14 +22,14 @@ service scenario + shared state/actions + bilingual copy
 
 ## Entry point
 
-Commands run from the Octoscript-AppCard repository. Install the image adapter's
+Commands run from this repository's root. See [FLOW.md](FLOW.md) for the step contract. Install the image library's
 [Python environment and Studio tools](../core/REPRODUCE.md) first. Node is needed
 for service/browser checks; a Rust WASM target and matching `cargo-makepad` are
 needed only when rebuilding native code.
 
 ```sh
-export BEAUTY_PYTHON="$PWD/lab/image-to-appcard/.venv/bin/python"
-export FLOW_PROJECT="/path/to/Octosense-Service-AppCards/apps/aircon"
+export BEAUTY_PYTHON="$PWD/flows/image-lib/.venv/bin/python"
+export FLOW_PROJECT="$PWD/examples/aircon"
 export FLOW_SITE="/path/to/Octosense-website"
 
 bash tools/image-to-appcard-flow.sh plan \
@@ -51,11 +51,15 @@ Check commands may use `{python}`, `{node}`, `{project}`, `{workspace}` and
 `{website}` as complete arguments. They run without shell evaluation. Their
 `cwd` is relative to the service project, or exactly `{website}`.
 
-The [aircon manifest](examples/aircon.flow.json) uses the external 12-scene service
-project already created for OctoSense. It contains relative paths, source crop
-measurements, 14 service surface declarations, and test commands. The original
-generated imagery, service implementations, fonts and archived evidence stay in
-that separate project; the manifest does not download or fabricate them.
+Start a new project from [flow.template.json](examples/flow.template.json):
+copy it to `<project>/image-to-appcard-flow.json` and replace every placeholder.
+The [aircon manifest](examples/aircon.flow.json) is a copy of
+[`examples/aircon/image-to-appcard-flow.json`](../../examples/aircon/image-to-appcard-flow.json),
+the 12-scene reference journey, and is what the unit tests read. It contains
+relative paths, source crop measurements, 14 service surface declarations, and
+test commands. The original generated imagery, service implementations, fonts
+and archived evidence stay in `examples/aircon/`; the manifest does not
+download or fabricate them. Keep the two copies identical.
 
 ## 1. Author the whole experience before generating
 
@@ -90,7 +94,7 @@ The original atlas and prompt remain unchanged. Same-input replay is idempotent;
 changed or edited intake requires a new output directory.
 
 Review each reference, OCR, artwork boundary, native font metrics and semantic
-intent using [the mapping rules](../image-to-appcard/MAPPING-RULES.md). Author
+intent using [the mapping rules](../image-lib/MAPPING-RULES.md). Author
 `contract.json`, `mapped.json`, `semantic-map.json` and `service-actions.json` in
 the scene directory, with the reference and prompt. Intake does not author an
 invented mapping. `native.py` fails clearly if the reviewed files are missing.
@@ -250,8 +254,8 @@ flows, and every browser/device require additional implementation and evidence.
 ## Pipeline maintenance tests
 
 ```sh
-"$BEAUTY_PYTHON" -m unittest discover -s lab/image-to-appcard-flow -p 'test_*.py'
-"$BEAUTY_PYTHON" -m unittest discover -s lab/image-to-appcard-flow/wasm -p 'test_*.py'
+"$BEAUTY_PYTHON" -m unittest discover -s flows/image-to-card -p 'test_*.py'
+"$BEAUTY_PYTHON" -m unittest discover -s flows/image-to-card/wasm -p 'test_*.py'
 ```
 
 These verify atlas provenance, crop validation, native subtree extraction,

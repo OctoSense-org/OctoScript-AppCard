@@ -5,7 +5,7 @@ import argparse, fcntl, json, os, socket, subprocess, sys, time
 
 ROOT = Path(__file__).resolve().parents[1]
 os.environ['BEAUTY_BRIDGE'] = 'http://127.0.0.1:8182'
-sys.path.insert(0, str(ROOT.parents[1] / 'lab/image-to-appcard'))
+sys.path.insert(0, str(ROOT.parents[1] / 'flows/image-lib'))
 sys.path.insert(0, str(ROOT / 'runtime'))
 sys.path.insert(0, str(ROOT / 'service'))
 from studio import launch, request

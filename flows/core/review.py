@@ -5,7 +5,7 @@ This command never judges an image or calls a model. A human or a vision-capable
 reviewer supplies the decision; the existing pipeline gates retain authority.
 """
 import sys as _sys, pathlib as _pathlib
-_sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[1]))  # lab/, for `core`
+_sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[1]))  # flows/, for `core`
 import argparse
 import fcntl
 import hashlib
@@ -16,8 +16,8 @@ import shutil
 import sys
 
 HERE = Path(__file__).resolve().parent
-SKETCH = HERE.parent / 'sketch-to-appcard'
-IMAGES = HERE.parent / 'image-to-appcard'
+SKETCH = HERE.parent / 'kits' / 'sketch'
+IMAGES = HERE.parent / 'image-lib'
 CRITERIA = ('typography', 'colors', 'imagery', 'effects')
 
 

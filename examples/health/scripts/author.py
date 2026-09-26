@@ -11,7 +11,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECT = ROOT.parents[1]
-PIPE = PROJECT / 'lab/image-to-appcard'
+PIPE = PROJECT / 'flows/image-lib'
 sys.path.insert(0, str(PIPE))
 from catalogue import walk
 from semantics import propose, write_brief

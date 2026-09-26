@@ -4,7 +4,7 @@ Each replacement lists exact source paint owners. Text, controls and layout
 groups remain separate widgets; original source paths stay in the specification.
 """
 import sys as _sys, pathlib as _pathlib
-_sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[1]))  # lab/, for `core`
+_sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[2]))  # flows/, for `core`
 import copy
 import json
 from core.semantic_policy import POLICY,walk

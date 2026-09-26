@@ -5,7 +5,7 @@ import copy, hashlib, json, shutil, sys
 from PIL import Image
 
 ROOT=Path(__file__).resolve().parents[1]
-sys.path.insert(0,str(ROOT.parents[1] / 'lab/image-to-appcard'))
+sys.path.insert(0,str(ROOT.parents[1] / 'flows/image-lib'))
 from catalogue import walk
 import compile as compiler
 compiler.GALLERY = ROOT / "artwork"

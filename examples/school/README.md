@@ -60,7 +60,7 @@
 在 flow 根目录使用仓库现有 Python venv 与 Node：
 
 ```sh
-../../lab/image-to-appcard/.venv/bin/python scripts/build_school.py
+../../flows/image-lib/.venv/bin/python scripts/build_school.py
 node --test wizard/service.test.mjs
 ```
 

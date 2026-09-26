@@ -9,19 +9,34 @@ from pathlib import Path
 import argparse,copy,hashlib,json,math,sys,tempfile,time,uuid
 
 ROOT=Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT.parents[1] / "lab"))
+sys.path.insert(0, str(ROOT.parents[1] / "flows"))
 from core.native_paths import repository
 
 
 def source_path(relative):
-    """Resolve paths recorded before apps were grouped in apps/."""
+    """Resolve paths recorded before apps/ became examples/ and lab/ became flows/."""
     if relative.startswith("pipeline/"):
         name, _, tail = relative[9:].partition("/")
-        return repository(name) / tail if name in ("makepad", "splash", "splash-makepad") else ROOT.parents[1] / relative[9:]
+        if name in ("makepad", "splash", "splash-makepad"):
+            return repository(name) / tail
+        relative = relative[9:]
+        for old, new in LEGACY_PREFIXES:
+            if relative.startswith(old):
+                relative = new + relative[len(old):]
+                break
+        return ROOT.parents[1] / relative
     return ROOT / relative
 
+
+# Recorded infrastructure receipts name the pre-restructure directories.
+LEGACY_PREFIXES = (("lab/image-to-appcard-flow/", "flows/image-to-card/"),
+                   ("lab/image-to-appcard/", "flows/image-lib/"),
+                   ("lab/sketch-to-appcard/", "flows/kits/sketch/"),
+                   ("lab/", "flows/"),
+                   ("apps/", "examples/"))
+
 sys.path.insert(0,str(ROOT/'runtime'));sys.path.insert(0,str(ROOT/'service'))
-sys.path.insert(0,str(ROOT.parents[1] / 'lab/image-to-appcard'))
+sys.path.insert(0,str(ROOT.parents[1] / 'flows/image-lib'))
 from service_session import Session,read,native_event
 from controller import demo_states,reduce,view_model
 from render_runtime import render_runtime
@@ -52,7 +67,7 @@ def provenance(build):
  path=ROOT/'runtime/infrastructure.json';infrastructure=read(path)
  require(infrastructure['binaries']['beauty-host']['build_id']==build,'Build id differs from runtime/infrastructure.json')
  files=['scripts/verify_native_flow.py','service/controller.py','service/fixture.json','service/contract.json',
-        'runtime/service_session.py','runtime/render_runtime.py','pipeline/lab/image-to-appcard/studio.py',
+        'runtime/service_session.py','runtime/render_runtime.py','pipeline/flows/image-lib/studio.py',
         'pipeline/splash-makepad/apps/kit-host/src/beauty.rs','pipeline/splash-makepad/apps/kit-host/src/beauty_semantics.rs',
         'pipeline/splash-makepad/apps/kit-host/src/l0.rs']
  for frame in range(1,13):

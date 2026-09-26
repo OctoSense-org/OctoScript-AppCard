@@ -1,7 +1,7 @@
 # Historical Aircon native runtime
 
 These scripts and receipts preserve the original Studio-based run. Use
-[Makepad’s built-in instrument](../../../lab/core/NATIVE-INSTRUMENT.md) for new
+[Makepad’s built-in instrument](../../../flows/core/NATIVE-INSTRUMENT.md) for new
 native tests. This repository move does not renew the historical acceptance.
 
 # Native runtime
@@ -24,7 +24,7 @@ native UI only through the configured Studio `RunItem` named
 `octos-ux-image-studio`, mount `splashref`. `studio.py --launch` implements this.
 The RunItem builds `splash-makepad/apps/kit-host` binary `beauty-host` in release
 mode with opt-level 3 and LTO disabled for fast review iterations, and consumes
-`lab/image-to-appcard/current-request.json`. Rebuild infrastructure binaries
+`flows/image-lib/current-request.json`. Rebuild infrastructure binaries
 with `bash runtime/build-native-tools.sh`; the native application itself is
 always built by its Studio RunItem.
 

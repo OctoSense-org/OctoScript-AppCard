@@ -6,7 +6,7 @@ from PIL import Image
 
 ROOT=Path(__file__).resolve().parents[1]
 MAIN=ROOT.parents[1]
-PIPE=MAIN/'lab/image-to-appcard'
+PIPE=MAIN/'flows/image-lib'
 sys.path.insert(0,str(PIPE))
 from catalogue import walk
 from observe import metrics

@@ -13,7 +13,7 @@ def main():
     parser.add_argument("--output", type=Path, default=ROOT / "wizard/card-bundle")
     args = parser.parse_args()
     return subprocess.run([
-        sys.executable, str(ROOT.parents[1] / "lab/image-to-appcard-flow/bundle.py"),
+        sys.executable, str(ROOT.parents[1] / "flows/image-to-card/bundle.py"),
         "--project", str(ROOT), "--manifest", str(ROOT / "image-to-appcard-flow.json"),
         "--output", str(args.output),
     ], check=False).returncode

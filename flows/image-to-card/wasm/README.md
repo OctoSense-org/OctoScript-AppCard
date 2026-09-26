@@ -7,7 +7,7 @@ This module packages the working browser host as a portable pipeline step. It mo
 Requirements: Python 3.9+, Git, Cargo/Rustup with the nightly toolchain and its `rust-src` component, and the project inputs below. Node 18+ and Playwright are required only for the browser smoke. The compiler uses the pinned Makepad custom WASM target, release optimization, no LTO and no atomics; SharedArrayBuffer and COOP/COEP headers are unnecessary. The exact installed Rust toolchain is recorded, not claimed to be interchangeable across versions.
 
 ```sh
-python3 lab/image-to-appcard-flow/wasm/build.py \
+python3 flows/image-to-card/wasm/build.py \
   --workspace "$PIPELINE_ROOT" \
   --project "$SERVICE_PROJECT" \
   --output "$BUILD_ARTIFACTS/wasm-dist" \
@@ -72,7 +72,7 @@ Other domains or deployment prefixes require a framework policy change and rebui
 Every run gets a new `runs/<build-id>/receipt.json` and compiler log in scratch. Failed builds retain their actual failure and any incomplete package. Successful `build.json` records the WASM SHA, compiler/toolchain, the shared runtime revision and its exact dependency revisions, pipeline/template sources, generated Cargo/native sources, project font/card/artwork hashes, generated JavaScript patches and every shipped file's hash except `build.json` itself. The run receipt also hashes the final package receipt. Pipeline hashes live in `pipeline_sources`; `sources` contains only paths relative to `--project`, preserving the site publisher's input-verification contract.
 
 ```sh
-node lab/image-to-appcard-flow/wasm/smoke.cjs \
+node flows/image-to-card/wasm/smoke.cjs \
   --dist "$BUILD_ARTIFACTS/wasm-dist" \
   --card "$SERVICE_PROJECT/cards/product" \
   --playwright "$PLAYWRIGHT_MODULE" \

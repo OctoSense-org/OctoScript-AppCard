@@ -72,13 +72,17 @@ Context changes must not interrupt an ongoing interaction or erase state.
 
 ## Verified current state — 2026-09-08
 
+The native client this table inspected (`app/`, `a2app-l0/`) has since moved to
+[OctoSense-org/OctoSense-AppCard](https://github.com/OctoSense-org/OctoSense-AppCard).
+Links to it point at the last revision of this repository that contained it.
+
 | Area | Present implementation | Exposure gap |
 |---|---|---|
-| Themes | Six base moods and five imported variants in [`l0_card.rs`](../app/app/src/app/l0_card.rs): Atro dark/light, Camo dark/light and Taskplan light | [`l0.md`](../a2app-l0/framework/l0.md) lists only Atro among imported packs and restricts style choice to explicit requests |
-| Component adaptation | [`app-recipes.json`](../Octoscript-Makepad/components/l0/native/app-recipes.json) and [`l0_kit_components.rs`](../app/app/src/app/l0_kit_components.rs) adapt supported weather/news/stock structures to source-backed kit components | Selection is coupled to the card's theme and recognized app/tree patterns; independent per-component kit selection is not established |
-| Page recipes | [`l0_page_recipes.rs`](../app/app/src/app/l0_page_recipes.rs) has weather dashboard/forecast, stock tiles/chart, news magazine/compact | The apply call is reached from `bundled_l0_source`'s review selector, not a general LLM composition interface |
-| Prompt | [`main.rs`](../app/app/src/main.rs) assembles framework, constructor catalog and app exemplars through `l0_prompt_all` / `l0_prompt_for` | These functions take intent text; no explicit structured appearance-context parameter or complete style/recipe registry is supplied there |
-| Import/export | [`export_app_recipes.py`](sketch-to-appcard/export_app_recipes.py) exports selected semantic component roles from five imported variants | It does not expose every imported compound or image-derived design as an independently selectable live app function |
+| Themes | Six base moods and five imported variants in [`l0_card.rs`](https://github.com/OctoSense-org/OctoScript-App-Design-Flow/blob/cbbda4da0a9d0fbf13497335dd3342b71f35e71f/app/app/src/app/l0_card.rs): Atro dark/light, Camo dark/light and Taskplan light | [`l0.md`](https://github.com/OctoSense-org/OctoScript-App-Design-Flow/blob/cbbda4da0a9d0fbf13497335dd3342b71f35e71f/a2app-l0/framework/l0.md) lists only Atro among imported packs and restricts style choice to explicit requests |
+| Component adaptation | [`app-recipes.json`](https://github.com/OctoSense-org/Octoscript-Makepad/blob/main/components/l0/native/app-recipes.json) and [`l0_kit_components.rs`](https://github.com/OctoSense-org/OctoScript-App-Design-Flow/blob/cbbda4da0a9d0fbf13497335dd3342b71f35e71f/app/app/src/app/l0_kit_components.rs) adapt supported weather/news/stock structures to source-backed kit components | Selection is coupled to the card's theme and recognized app/tree patterns; independent per-component kit selection is not established |
+| Page recipes | [`l0_page_recipes.rs`](https://github.com/OctoSense-org/OctoScript-App-Design-Flow/blob/cbbda4da0a9d0fbf13497335dd3342b71f35e71f/app/app/src/app/l0_page_recipes.rs) has weather dashboard/forecast, stock tiles/chart, news magazine/compact | The apply call is reached from `bundled_l0_source`'s review selector, not a general LLM composition interface |
+| Prompt | [`main.rs`](https://github.com/OctoSense-org/OctoScript-App-Design-Flow/blob/cbbda4da0a9d0fbf13497335dd3342b71f35e71f/app/app/src/main.rs) assembles framework, constructor catalog and app exemplars through `l0_prompt_all` / `l0_prompt_for` | These functions take intent text; no explicit structured appearance-context parameter or complete style/recipe registry is supplied there |
+| Import/export | [`export_app_recipes.py`](kits/sketch/export_app_recipes.py) exports selected semantic component roles from five imported variants | It does not expose every imported compound or image-derived design as an independently selectable live app function |
 | Validation | Studio captures, semantic/state gates and visual receipts cover the tested designs | Arbitrary mixed styles, context selection and state-preserving runtime recomposition need separate evidence |
 
 This audit covers the local L0 prompt and composition path. Server-side session
@@ -117,7 +121,7 @@ until their consumers and capture provenance have a tested migration.
 
 ## Interactive image-flow delivery
 
-[image-to-appcard-flow](image-to-appcard-flow/README.md) implements the delivery
+[image-to-appcard-flow](image-to-card/README.md) implements the delivery
 extension for an authored 8–12-screen service journey: one atlas, source-bound
 native mapping, explicit service ownership, subtree extraction, reducer tests,
 WASM packaging and native-input browser checks. Applications still supply their

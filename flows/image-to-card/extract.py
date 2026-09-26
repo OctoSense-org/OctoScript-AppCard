@@ -10,7 +10,7 @@ import tempfile
 from PIL import Image
 from flow import local, read_manifest, sha
 
-IMAGE = Path(__file__).resolve().parents[1] / 'image-to-appcard'
+IMAGE = Path(__file__).resolve().parents[1] / 'image-lib'
 sys.path.insert(0, str(IMAGE))
 from catalogue import walk
 from compile import compile_page

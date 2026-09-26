@@ -1,16 +1,16 @@
-# Lab structure and cleanup policy
+# Flows structure and cleanup policy
 
-Organize the lab around [LLM-driven style and app-card composition](LLM-COMPOSITION.md):
+Organize `flows/` (formerly `lab/`) around [LLM-driven style and app-card composition](LLM-COMPOSITION.md):
 ingest designs, extract reusable capabilities, publish a complete registry,
 select from context and validate the resulting native composition. Directory
 cleanup supports that product goal. The linked contract distinguishes current
 runtime capabilities from the exposure and context work still required.
 
-The lab keeps two source adapters, Sketch → AppCard and image → AppCard, and one shared
+`flows/` keeps two source adapters, Sketch → theme kit and image → AppCard, and one shared
 `core`: `core` owns policy, review, repair, the Studio transport, composition and gates and the
-native renderer; `sketch-to-appcard` owns document import and kit promotion; `image-to-appcard`
-owns image observation and mapping. `image-to-appcard-flow` extends the image
-adapter into multi-screen service state, independent cards and WASM/web delivery;
+native renderer; `kits/sketch` owns document import and kit promotion; `image-lib`
+owns image observation and mapping. `image-to-card` extends the image
+library into multi-screen service state, independent cards and WASM/web delivery;
 it reuses core gates and does not define a third source adapter. Keep shared
 rules in the core and source-specific conversion in its adapter. New
 experiments belong in a named study directory with a README stating purpose,
@@ -20,29 +20,31 @@ callers and recording the cleanup decision.
 ## Current directory boundaries
 
 ```text
-lab/
-  README.md                 supported entry points and status
+flows/
+  README.md                 flow index and the shared flow contract
   STRUCTURE.md              ownership and retention rules
+  LLM-COMPOSITION.md        composition contract and gaps
   maintain.py               inventory and narrowly scoped cache cleanup
   tests/                    maintenance safety tests
-  core/                     shared by both adapters: mapping policy, review packets,
+  core/                     shared by all flows: mapping policy, review packets,
                             repair engine, Studio bridge, composition and gates,
-                            the native renderer, kit configuration
+                            the native renderer, kit configuration, native paths
     kits/                   kit configuration
     work/<kit>/             source copies, final assets and capture evidence (ignored)
     examples/               generic, redistributable input templates
     qa-work/                local verification evidence (ignored)
-  sketch-to-appcard/        Sketch adapter: import, native composition, kit promotion;
-                            `run_kit.py`, its regression tests, bundled fonts
-    .venv/                  local environment (ignored)
-  image-to-appcard/         generated-image adapter: intake, measurement, mapping;
-                            `run.py`, its regression tests
+  image-to-card/            the image design flow (FLOW.md): atlas intake, native
+                            subtree export, provenance-aware bundle, WASM templates;
+                            application sources/evidence live in examples/<name>/
+  image-lib/                generated-image library the flow calls: intake,
+                            measurement, mapping; `run.py`, its regression tests
     <design-id>/            prompt, reference, contract and reviewed mapping
       rounds/<round>/       immutable capture evidence (ignored)
+    published/              local review gallery served on :8170 (ignored)
     .venv/                  local environment (ignored)
-  image-to-appcard-flow/    whole-flow orchestration, atlas intake, native subtree
-                            export, provenance-aware bundle and WASM templates;
-                            application sources/evidence stay in external projects
+  kits/sketch/              Sketch theme-kit ingest (FLOW.md): import, native
+                            composition, kit promotion; `run_kit.py`, tests, fonts
+    .venv/                  local environment (ignored)
 ```
 
 Code, durable input descriptions and generic examples are versionable. New
@@ -53,7 +55,7 @@ Preserve explicit source IDs, run IDs and hash-bound review records.
 ## Findings and safe cleanup
 
 The initial inventory on 2026-09-08 measured about 51 GiB allocated under lab,
-including 48 GiB in Sketch `work/`, 2.1 GiB in `image-to-appcard`, and 875 MiB in
+including 48 GiB in Sketch `work/`, 2.1 GiB in `image-to-appcard` (now `image-lib`), and 875 MiB in
 `gates`. The initial Git inventory contained 6,268 lab files, approximately
 1.03 GiB of file content;
 thousands are historical images and generated artifacts. These are different
@@ -83,8 +85,8 @@ There is no broad `purge` or automatic removal of failed review rounds.
 | Path | Verified consumer / reason to retain |
 |---|---|
 | Sketch `cards2/`, `frozen2/` and related fixtures | Used by legacy capture/regression scripts; not interchangeable with current native cards |
-| `image-to-appcard/weather-v1/` | Original image pilot and its provenance, referenced by the adapter README |
-| `image-to-appcard/.deps/` | Still used by some measurement/repair scripts; the portable guide uses dedicated environments |
+| `image-lib/weather-v1/` | Original image pilot and its provenance, referenced by the adapter README |
+| `image-lib/.deps/` | Still used by some measurement/repair scripts; the portable guide uses dedicated environments |
 | Captures, repair rounds, import receipts, source trees and manifests | Acceptance, replay, migration provenance and regression evidence |
 
 ## Further structural migration
@@ -125,8 +127,8 @@ maintenance safety tests. Shared native capture fingerprints are unchanged
 for Taskplan, Atro and Camo (475 configured screens); no recapture was needed.
 Modified documentation links and whitespace checks pass.
 
-The local [validation record](core/qa-work/structure/validation.json)
+The local validation record (`core/qa-work/structure/validation.json`)
 records that initial cleanup. The subsequent
-[archive deletion record](core/qa-work/structure/archive-removal.json)
+archive deletion record (`core/qa-work/structure/archive-removal.json`)
 records removal of both archived directories, including approximately 645 MiB
 of file content. Active pipeline sources and validation evidence remain in place.

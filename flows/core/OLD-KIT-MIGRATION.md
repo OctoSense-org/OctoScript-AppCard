@@ -18,6 +18,11 @@ controls, labels, axes and layout containers remain independent widgets.
 
 ## Repeat a migration
 
+The kit-specific migration adapter (`migrate_legacy.py`) is not part of this
+repository, so the first command below cannot be rerun from here; it is kept
+as the record of how the migration ran. The later commands exist in
+`flows/kits/sketch/` and `flows/core/`.
+
 Run from the repository root, using the Sketch Python environment. Preserve
 the original `native/semantic-source` snapshots and the reviewed
 `native/source-semantic-review.json`. Detached Sketch UUIDs can change on
@@ -25,11 +30,11 @@ re-export; stable original instance paths preserve element identity. Review
 reuse requires matching original content and reference-image hashes.
 
 ```sh
-lab/sketch-to-appcard/.venv/bin/python lab/sketch-to-appcard/migrate_legacy.py --kit taskplan \
-  --review lab/core/work/taskplan/native/source-semantic-review.json
-lab/sketch-to-appcard/.venv/bin/python lab/sketch-to-appcard/sketch_native.py --kit taskplan-native-all
-lab/sketch-to-appcard/.venv/bin/python lab/core/promote_l0.py --kit taskplan-native-all
-lab/sketch-to-appcard/.venv/bin/python lab/core/render_splash_makepad.py \
+flows/kits/sketch/.venv/bin/python flows/kits/sketch/migrate_legacy.py --kit taskplan \
+  --review flows/core/work/taskplan/native/source-semantic-review.json
+flows/kits/sketch/.venv/bin/python flows/kits/sketch/sketch_native.py --kit taskplan-native-all
+flows/kits/sketch/.venv/bin/python flows/core/promote_l0.py --kit taskplan-native-all
+flows/kits/sketch/.venv/bin/python flows/core/render_splash_makepad.py \
   --kit taskplan-l0-all --studio 127.0.0.1:8002
 ```
 
@@ -43,7 +48,7 @@ visual receipts. Then run the existing audit, which does not invoke an image
 judge or create a new review:
 
 ```sh
-lab/sketch-to-appcard/.venv/bin/python lab/sketch-to-appcard/run_kit.py --kit taskplan-l0-all --stages audit
+flows/kits/sketch/.venv/bin/python flows/kits/sketch/run_kit.py --kit taskplan-l0-all --stages audit
 ```
 
 The audit checks Studio hierarchy, bounds, visibility, text, state and

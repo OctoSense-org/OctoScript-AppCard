@@ -51,12 +51,12 @@ bash tools/beauty-studio.sh /path/to/target/release/makepad-studio \
   --remote --mounts=splashref:/absolute/path/to/Octoscript-Makepad \
   --bind=127.0.0.1:8002
 
-lab/sketch-to-appcard/.venv/bin/python lab/core/studio_bridge.py \
+flows/kits/sketch/.venv/bin/python flows/core/studio_bridge.py \
   --binary /path/to/target/release/cargo-makepad \
   --studio 127.0.0.1:8002 --port 8169 --log /tmp/beauty-studio.jsonl
 
-BEAUTY_BRIDGE=http://127.0.0.1:8169 lab/sketch-to-appcard/.venv/bin/python \
-  lab/sketch-to-appcard/capture_loop.py --kit taskplan-l0-all
+BEAUTY_BRIDGE=http://127.0.0.1:8169 flows/kits/sketch/.venv/bin/python \
+  flows/kits/sketch/capture_loop.py --kit taskplan-l0-all
 ```
 
 The launcher defaults to 2048 × 4096 backing pixels. Override
@@ -89,11 +89,11 @@ operation's category, element and reason. Supported operations are `set`
 typography, color, asset, semantic, data, hierarchy and state.
 
 ```sh
-bash tools/beauty-pipeline.sh --repair --root lab/image-to-appcard/weather-11 \
-  --plan lab/image-to-appcard/weather-11/repair-001-chart.json --preview
+bash tools/beauty-pipeline.sh --repair --root flows/image-lib/weather-11 \
+  --plan flows/image-lib/weather-11/repair-001-chart.json --preview
 
 bash tools/beauty-pipeline.sh --ux-image --design weather-11 \
-  --repair-plan lab/image-to-appcard/weather-11/repair-001-chart.json \
+  --repair-plan flows/image-lib/weather-11/repair-001-chart.json \
   --stages repair,font,compile,capture,gate,gallery
 ```
 
@@ -139,6 +139,6 @@ logical pixels (`--density`, 3.25 on the Mate 70 Air). Ids come from the ArkUI
 component id, which Octoscript-OH sets from the card node's `id`.
 
 ```sh
-python3 lab/core/ohos_instrument.py --device 5ZGYD25B13020968 \
-  --bundle com.example.myapplication --out lab/core/work/<kit>/ohos/001
+python3 flows/core/ohos_instrument.py --device 5ZGYD25B13020968 \
+  --bundle com.example.myapplication --out flows/core/work/<kit>/ohos/001
 ```

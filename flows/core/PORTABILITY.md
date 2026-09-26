@@ -39,7 +39,7 @@ Validation completed:
   the pre-existing Studio, bridge and comparison server remain available.
 
 The local machine-readable record is
-[`qa-work/portability/validation.json`](qa-work/portability/validation.json).
+`qa-work/portability/validation.json`.
 Historical migration evidence remains unchanged. The previous 475-screen
 Sketch migration was not recaptured for this documentation/intake update.
 

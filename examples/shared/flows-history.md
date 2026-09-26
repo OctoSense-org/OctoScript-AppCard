@@ -1,6 +1,7 @@
 > Historical cross-app review. Projects moved from `flows/<name>/` to
-> `apps/<name>/`; shared helpers moved to `apps/shared/`. Commands below record
-> the old layout and Studio workflow. See [current app layout](../README.md).
+> `apps/<name>/` and later to `examples/<name>/`; shared helpers now live in
+> `examples/shared/`. Commands below record the old layout and Studio
+> workflow. See [current example layout](../README.md).
 
 # Additional image-to-AppCard flows
 

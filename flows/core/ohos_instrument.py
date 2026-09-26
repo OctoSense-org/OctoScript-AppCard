@@ -17,7 +17,7 @@ to the logical pixels every other artifact uses, dividing by the display
 density (3.25 on the Mate 70 Air, 406 logical px across).
 
 Usage:
-    python3 lab/core/ohos_instrument.py --device 5ZGYD25B13020968 \\
+    python3 flows/core/ohos_instrument.py --device 5ZGYD25B13020968 \\
         --bundle com.example.myapplication --out /tmp/round [--ids a,b] [--density 3.25]
 """
 import argparse

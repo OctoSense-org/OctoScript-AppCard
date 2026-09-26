@@ -43,10 +43,10 @@ The bundle contains 83 declared artwork files, primarily SVG icons. Its exporter
 Run from this directory, with the existing pinned pipeline and its Python virtual environment installed two levels above:
 
 ```sh
-../../lab/image-to-appcard/.venv/bin/python scripts/author.py
+../../flows/image-lib/.venv/bin/python scripts/author.py
 python3 scripts/build_service.py
 node --test wizard/service.test.mjs
-../../lab/image-to-appcard/.venv/bin/python scripts/export.py
+../../flows/image-lib/.venv/bin/python scripts/export.py
 ```
 
 The author and exporter redirect the compiler’s artwork publication into this project’s `artwork/` directory. They never write the shared Studio request. Existing standalone extraction is retained only if its source scene hashes still match; after changing native source, preserve the earlier extraction and select a new output directory with the reusable `extract.py` tool. Use the parent project’s shared renderer and host for browser integration; this folder does not build or modify the shared WASM runtime.

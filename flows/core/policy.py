@@ -3,7 +3,7 @@ import hashlib,json,math
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
-POLICY_PATH=Path(__file__).resolve().parents[1]/'image-to-appcard/mapping-rules.json'
+POLICY_PATH=Path(__file__).resolve().parents[1]/'image-lib/mapping-rules.json'
 POLICY=json.loads(POLICY_PATH.read_text())
 
 def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()

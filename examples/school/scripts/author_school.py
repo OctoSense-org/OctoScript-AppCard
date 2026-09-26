@@ -3,8 +3,8 @@
 from pathlib import Path
 import copy, hashlib, json, sys, shutil
 ROOT=Path(__file__).resolve().parents[1]
-PIPE=ROOT.parents[1]/'lab'
-sys.path[:0]=[str(PIPE/'image-to-appcard-flow'),str(PIPE/'image-to-appcard')]
+PIPE=ROOT.parents[1]/'flows'
+sys.path[:0]=[str(PIPE/'image-to-card'),str(PIPE/'image-lib')]
 from atlas import intake
 from prepare import prepare
 from catalogue import walk

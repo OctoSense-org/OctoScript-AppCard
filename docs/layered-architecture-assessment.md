@@ -2,6 +2,11 @@
 
 Assessed: 2026-09-13
 
+> Dated record. The source paths below (`pipeline/...`, `app/`, `a2app-l0/`,
+> `~/home/octos`) name the working copies inspected on that date; they are not
+> files in this repository. The native client now lives in
+> [OctoSense-AppCard](https://github.com/OctoSense-org/OctoSense-AppCard).
+
 This maps the [design requirements](app-card-design-requirements.md) to the local source. It is an architecture assessment and proposed implementation plan. No runtime changes, live provider calls, or new native/WASM tests were performed for this assessment.
 
 Inspected working copies: the project's `pipeline/` checkout at HEAD `225930294e27659e4a8699d140d0835bae8ae726`, its local Splash/Makepad sources, and `~/home/octos` at HEAD `d03ab424fc126c6eb8b9a90db35442c470b5ebed`. These are local-source findings, not a claim about the latest upstream revisions or every client.
@@ -19,7 +24,7 @@ The repository uses **two different meanings of level**:
 | L2 | Evaluate/translate to the shared node representation and backend structures |
 | L3 | Mount native widgets, lay out, draw, scroll, edit and dispatch physical interaction |
 
-Language capability levels are a separate axis: `Level::L0` admits declarative UI, `Level::L1` adds explicitly declared pure arithmetic, and `Level::L2` is not admitted by this checker. There is no `# level: L3` capability profile. A rich travel window does not require raising its language level merely because it has nested cards or many stages. See the [explicit terminology correction](../pipeline/splash/docs/ui-profile-l0.md#L1377) and [actual Level enum](../pipeline/splash/crates/splash-ui-l0/src/lib.rs#L69).
+Language capability levels are a separate axis: `Level::L0` admits declarative UI, `Level::L1` adds explicitly declared pure arithmetic, and `Level::L2` is not admitted by this checker. There is no `# level: L3` capability profile. A rich travel window does not require raising its language level merely because it has nested cards or many stages. See the explicit terminology correction (`../pipeline/splash/docs/ui-profile-l0.md#L1377`) and actual Level enum (`../pipeline/splash/crates/splash-ui-l0/src/lib.rs#L69`).
 
 ## 2. What exists, and what needs extending
 
@@ -33,9 +38,9 @@ Language capability levels are a separate axis: `Level::L0` admits declarative U
 | Card transport | Octos's `send_app_card` sends structured channel metadata; current documented consumer types are weather and mission-room cards in Robrix/Matrix | Define a transaction/card snapshot and action protocol for the Makepad host and Astro/WASM client |
 | Current service demos | Native input is connected to deterministic scenario reducers, stable service IDs and stale-render checks | Replace fixture-driven progression with persistent transaction data and real provider adapters; preserve the native interaction boundary |
 
-Source: [L0 authoring contract](../pipeline/a2app-l0/framework/l0.md), [native kit contract](../pipeline/splash-makepad/docs/native-l0-kits.md), [app render path](../pipeline/app/app/src/app/l0_card.rs#L355), [WASM mount](../wizard/wasm-host/src/main.rs#L108), [wizard implementation](../wizard/README.md), [Octos card producer](~/home/octos/crates/octos-agent/src/tools/send_app_card.rs#L1).
+Source: L0 authoring contract (`../pipeline/a2app-l0/framework/l0.md`), native kit contract (`../pipeline/splash-makepad/docs/native-l0-kits.md`), app render path (`../pipeline/app/app/src/app/l0_card.rs#L355`), WASM mount (`../wizard/wasm-host/src/main.rs#L108`), wizard implementation (`../wizard/README.md`), Octos card producer (`~/home/octos/crates/octos-agent/src/tools/send_app_card.rs#L1`).
 
-Two existing kit paths should be accounted for. The app's semantic L0 path uses `kit::lower`, trusted Splash kit functions, the app evaluator and native translation. The source-derived native pack path uses `kit_pack::lower`, checked pack data and the design translator. The current WASM wizard uses the latter. The new host should share card/data/action contracts across them, rather than assuming the two hosts already have identical state and mounting behavior. See [file-backed preparation](../pipeline/splash-makepad/crates/splash-makepad/src/l0.rs#L42).
+Two existing kit paths should be accounted for. The app's semantic L0 path uses `kit::lower`, trusted Splash kit functions, the app evaluator and native translation. The source-derived native pack path uses `kit_pack::lower`, checked pack data and the design translator. The current WASM wizard uses the latter. The new host should share card/data/action contracts across them, rather than assuming the two hosts already have identical state and mounting behavior. See file-backed preparation (`../pipeline/splash-makepad/crates/splash-makepad/src/l0.rs#L42`).
 
 ## 3. Proposed responsibility boundary
 
@@ -69,7 +74,7 @@ Opening a source, scrolling a thread, selecting a date or expanding a Sub Tile s
 
 ## 4. Persistent matter and provenance model
 
-The current local stores have narrower responsibilities. `L0Session` is keyed by the containing chat-message index and holds an in-memory `InstanceStore`. `user_store` persists ordered reference collections and string preferences. Neither is the complete travel/order/source/action model required here. See [session identity](../pipeline/app/app/src/app/l0_card.rs#L443) and [UserStore](../pipeline/app/app/src/app/user_store.rs#L1).
+The current local stores have narrower responsibilities. `L0Session` is keyed by the containing chat-message index and holds an in-memory `InstanceStore`. `user_store` persists ordered reference collections and string preferences. Neither is the complete travel/order/source/action model required here. See session identity (`../pipeline/app/app/src/app/l0_card.rs#L443`) and UserStore (`../pipeline/app/app/src/app/user_store.rs#L1`).
 
 Proposed records:
 
@@ -87,7 +92,7 @@ Proposed records:
 
 The UI declaration ledger and the business event history have different jobs. Saving or versioning generated card code does not preserve an original email, an accepted booking or a provider receipt. Reproducing a past view also needs its source/data versions and relevant runtime state.
 
-`ValueOrigin` currently distinguishes categories such as source, user input, host and derived values. It does not contain a mailbox identity, message ID, thread reference or evidence span. Preserve that existing origin machinery and add explicit source records/links for user-visible provenance. See [ValueOrigin](../pipeline/splash/crates/splash-ui-l0/src/value_origin.rs#L7).
+`ValueOrigin` currently distinguishes categories such as source, user input, host and derived values. It does not contain a mailbox identity, message ID, thread reference or evidence span. Preserve that existing origin machinery and add explicit source records/links for user-visible provenance. See ValueOrigin (`../pipeline/splash/crates/splash-ui-l0/src/value_origin.rs#L7`).
 
 ## 5. Source-card composition and state retention
 
@@ -103,19 +108,19 @@ Preserve three kinds of identity separately:
 
 This is needed when the same source email is opened from a calendar card and a payment card. Both views refer to the same source and actions, while their reading positions may differ. Reply drafts have explicit draft identity rather than inheriting a widget's lifetime.
 
-**A current default conflicts directly with the requirement:** `InstanceStore::prune` discards state for instances no longer mounted, and the app tap path calls it. Collapsing a branch therefore cannot be relied on to preserve draft fields inside it. Keep pruning for ephemeral UI state, but put retained drafts and view state in host-owned stores and restore them when a card remounts. A source/definition change or moving a node to another parent must not silently erase these records. See [pruning](../pipeline/splash/crates/splash-ui-l0/src/lib.rs#L9435) and [host call site](../pipeline/app/app/src/app/l0_card.rs#L1160).
+**A current default conflicts directly with the requirement:** `InstanceStore::prune` discards state for instances no longer mounted, and the app tap path calls it. Collapsing a branch therefore cannot be relied on to preserve draft fields inside it. Keep pruning for ephemeral UI state, but put retained drafts and view state in host-owned stores and restore them when a card remounts. A source/definition change or moving a node to another parent must not silently erase these records. See pruning (`../pipeline/splash/crates/splash-ui-l0/src/lib.rs#L9435`) and host call site (`../pipeline/app/app/src/app/l0_card.rs#L1160`).
 
-The profile has `realize_patch`, but the inspected app rendering and tap paths use full realization and lowering. The current WASM host mounts a rebuilt scene. Having a patch API does not establish preservation of native scroll position, focus or editor state through an actual update. Add keyed reconciliation or a capture/restore strategy and verify it in both native and WASM hosts. See [patch implementation](../pipeline/splash/crates/splash-ui-l0/src/lib.rs#L10685).
+The profile has `realize_patch`, but the inspected app rendering and tap paths use full realization and lowering. The current WASM host mounts a rebuilt scene. Having a patch API does not establish preservation of native scroll position, focus or editor state through an actual update. Add keyed reconciliation or a capture/restore strategy and verify it in both native and WASM hosts. See patch implementation (`../pipeline/splash/crates/splash-ui-l0/src/lib.rs#L10685`).
 
 ## 6. Agent summaries and original content
 
-The current checker rejects displayed `copy` declared as `model-copy`. This is deliberate in the current profile and conflicts with displaying Agent-authored summaries through that mechanism. See [checker rule](../pipeline/splash/crates/splash-ui-l0/src/lib.rs#L5567).
+The current checker rejects displayed `copy` declared as `model-copy`. This is deliberate in the current profile and conflicts with displaying Agent-authored summaries through that mechanism. See checker rule (`../pipeline/splash/crates/splash-ui-l0/src/lib.rs#L5567`).
 
 Add an explicit contract for generated content: summary/draft type, generation provenance, supporting source references, revision and a visible Agent label. Decide and test how that content is admitted into designated summary or draft slots. Do not relabel a model summary as original email, ordinary vocabulary or trusted provider data just to bypass the existing check. Existing `Derived` origin is not an LLM-summary provenance model.
 
 Original emails and messages should enter through source adapters and a document/content model. Full bodies and attachments remain data, not enormous generated `copy` blocks. The native reader needs long-body scrolling, structured text, links, attachments and thread pagination. If a format needs a dedicated document viewer, the host should mount it in context. Summary generation is separate from decoding and displaying the original content.
 
-The inspected Octos email channel already receives mail and carries threading headers, but currently polls `UNSEEN`, extracts the first `text/plain` body and marks fetched mail seen. It needs a durable synchronization/source archive and richer content ingestion before it can guarantee complete original email cards. See [email ingestion](~/home/octos/crates/octos-bus/src/email_channel.rs#L105) and the earlier [email feasibility assessment](agentic-email-feasibility.md).
+The inspected Octos email channel already receives mail and carries threading headers, but currently polls `UNSEEN`, extracts the first `text/plain` body and marks fetched mail seen. It needs a durable synchronization/source archive and richer content ingestion before it can guarantee complete original email cards. See email ingestion (`~/home/octos/crates/octos-bus/src/email_channel.rs#L105`) and the earlier email feasibility assessment (`agentic-email-feasibility.md`).
 
 ## 7. Travel timeline ownership
 
@@ -138,24 +143,24 @@ Business progress, itinerary time and event-arrival time are different values. A
 
 The kit already contains more than palette tokens: typed properties, child-slot contracts, shared compounds and native button/field/tab behavior. Preserve this design. The new cards should compose these components, with reusable source-header, timeline-marker, status, action-area and disclosure patterns.
 
-The imported source layouts preserve artboard geometry, while the app also has adaptive recipe compositions for some existing cards. Neither establishes responsive travel timelines or arbitrary-length email bodies. New components need flowing layout, wrapping/overflow, minimum touch targets, compact/expanded modes and narrow/wide layouts. See the [kit limitations](../pipeline/splash-makepad/docs/native-l0-kits.md) and [adaptive composer](../pipeline/app/app/src/app/l0_kit_components.rs#L1).
+The imported source layouts preserve artboard geometry, while the app also has adaptive recipe compositions for some existing cards. Neither establishes responsive travel timelines or arbitrary-length email bodies. New components need flowing layout, wrapping/overflow, minimum touch targets, compact/expanded modes and narrow/wide layouts. See the kit limitations (`../pipeline/splash-makepad/docs/native-l0-kits.md`) and adaptive composer (`../pipeline/app/app/src/app/l0_kit_components.rs#L1`).
 
-Theme changes must not change source identities, authorization, action semantics or transaction state. The kit controls appearance; resource/account identity remains in the host. Localization supplies labels and formatters, while original content and optional translations remain distinct. Add any missing registered fonts and locale-aware role mappings; the existing app pack adapter exposes body/title roles, so the requested title/body/mono/brand typography should not be assumed complete. See [font mapping](../pipeline/app/app/src/app/l0_pack_theme.rs#L1).
+Theme changes must not change source identities, authorization, action semantics or transaction state. The kit controls appearance; resource/account identity remains in the host. Localization supplies labels and formatters, while original content and optional translations remain distinct. Add any missing registered fonts and locale-aware role mappings; the existing app pack adapter exposes body/title roles, so the requested title/body/mono/brand typography should not be assumed complete. See font mapping (`../pipeline/app/app/src/app/l0_pack_theme.rs#L1`).
 
 ## 9. Octos action and data bridge
 
 Octos provides the starting transport and approval machinery. It needs the transaction-specific bridge described below; naming a new `sys.*` source in an L0 card is not sufficient to connect it.
 
-1. **Typed data ingestion.** Keep provider IDs, versions, documents and structured results. `McpTool::execute` currently joins text content and drops non-text content; it does not propagate `structuredContent` into the returned result. Preserve those fields through tool execution and normalize them into source/domain records. [MCP execution](~/home/octos/crates/octos-agent/src/mcp.rs#L586)
+1. **Typed data ingestion.** Keep provider IDs, versions, documents and structured results. `McpTool::execute` currently joins text content and drops non-text content; it does not propagate `structuredContent` into the returned result. Preserve those fields through tool execution and normalize them into source/domain records. MCP execution (`~/home/octos/crates/octos-agent/src/mcp.rs#L586`)
 2. **Catalogued read capabilities.** Add narrow matter, timeline, source and action queries with bounded results, lifecycle/error states and account checks. Update the L0 checker/catalog, host resolver and component contracts together. Proposed capabilities are not existing `sys.*` functions.
-3. **Typed effects.** Current L0 dispatch reports declared local state changes and a narrow `CollectionWrite` for reference collections/preferences; the app routes those into `user_store`, with a special reader path for `sys.link`. That is not a general send/book/pay API. Add a declared, checked action-reference event/effect or a registered host component event that goes through the action dispatcher. [Dispatch outcome](../pipeline/splash/crates/splash-ui-l0/src/lib.rs#L9588), [host writes](../pipeline/app/app/src/app/l0_card.rs#L1080)
+3. **Typed effects.** Current L0 dispatch reports declared local state changes and a narrow `CollectionWrite` for reference collections/preferences; the app routes those into `user_store`, with a special reader path for `sys.link`. That is not a general send/book/pay API. Add a declared, checked action-reference event/effect or a registered host component event that goes through the action dispatcher. Dispatch outcome (`../pipeline/splash/crates/splash-ui-l0/src/lib.rs#L9588`), host writes (`../pipeline/app/app/src/app/l0_card.rs#L1080`)
 4. **Bound execution.** A client supplies a stored action ID, expected revision and explicit user input. Octos resolves the canonical account, target and arguments; applies the existing grant or approval; then executes and records the result. The client cannot choose an arbitrary MCP method and claim authorization.
-5. **Durability and reconciliation.** Persist intent, operation identity and receipts. Handle uncertain provider outcomes before retrying. Existing approval digest/replay checks are useful, but do not themselves guarantee provider-side exactly-once execution. [Approval model](~/home/octos/crates/octos-agent/src/approval.rs#L71)
+5. **Durability and reconciliation.** Persist intent, operation identity and receipts. Handle uncertain provider outcomes before retrying. Existing approval digest/replay checks are useful, but do not themselves guarantee provider-side exactly-once execution. Approval model (`~/home/octos/crates/octos-agent/src/approval.rs#L71`)
 6. **Shared delivery.** Publish versioned snapshots/updates to all mounts of an affected card. Evolve the existing WASM render/action protocol and Octos channel-card producer around common IDs and revisions, while retaining host-specific transports.
 
 Artifact admission (the host accepting card/kit code) and business authorization (permission to send, book or pay) are separate checks. A theme or card artifact passing the existing admission policy does not grant service access.
 
-A public Astro/WASM client needs an authenticated Octos backend connection for persistent services. Provider credentials stay with that trusted runtime. The same bridge can use local transport in a desktop deployment. See [external-service assessment](octos-mcp-external-services.md).
+A public Astro/WASM client needs an authenticated Octos backend connection for persistent services. Provider credentials stay with that trusted runtime. The same bridge can use local transport in a desktop deployment. See external-service assessment (`octos-mcp-external-services.md`).
 
 ## 10. Concrete first implementation slice
 

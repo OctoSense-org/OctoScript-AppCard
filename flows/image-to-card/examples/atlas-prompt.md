@@ -75,7 +75,7 @@ Additional scene metadata is retained as declared context, not converted into
 review or native-mapping approval. Crops may touch but must not overlap.
 
 ```sh
-python3 lab/image-to-appcard-flow/atlas.py \
+python3 flows/image-to-card/atlas.py \
   --manifest /absolute/project/storyboard.json \
   --project /absolute/project \
   --output /absolute/project/intakes/first-atlas

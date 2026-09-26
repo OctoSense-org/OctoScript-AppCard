@@ -33,8 +33,8 @@ import sys
 import time
 
 HERE = pathlib.Path(__file__).resolve().parent
-CORE = HERE.parent / "core"
-sys.path.insert(0, str(HERE.parent))
+CORE = HERE.parents[1] / "core"
+sys.path.insert(0, str(HERE.parents[1]))  # flows/, for `core`
 from core import kitconf  # noqa: E402
 
 HOME = pathlib.Path.home()
@@ -133,7 +133,7 @@ def stage_doctor(kit):
             or any(rail != 'splash-makepad' for rail in rails)
             or kit.get('visual_review', 'external') == 'claude_cli'):
         check("claude CLI (legacy author/reviewer)", shutil.which("claude"))
-    root = HERE.parents[1]
+    root = HERE.parents[2]
     from core.native_paths import repository
     for rel in ("splash", "splash-makepad", "makepad"):
         check(str(repository(rel)), repository(rel).is_dir())
@@ -152,7 +152,7 @@ def stage_doctor(kit):
                     health=json.load(response)
                 ready=health.get('running') is True
             except (OSError,ValueError):ready=False
-            check('persistent Studio bridge is running',ready,'start lab/core/studio_bridge.py')
+            check('persistent Studio bridge is running',ready,'start flows/core/studio_bridge.py')
         else:
             binary = os.environ.get("CARGO_MAKEPAD")
             check("CARGO_MAKEPAD set to the studio's own bridge client",
@@ -301,7 +301,7 @@ def stage_splash_makepad(kit, audit_only=False):
             if reviewer == 'claude_cli':
                 step('judge_shots.py','--rail','splash_makepad')
             elif reviewer == 'external':
-                print('Visual review: supply a current source/native receipt with lab/core/review.py, then audit.')
+                print('Visual review: supply a current source/native receipt with flows/core/review.py, then audit.')
         step('gate_visual.py','--rail','splash_makepad')
     except (OSError, ValueError, KeyboardInterrupt) as error:
         run['errors'].append(f'{type(error).__name__}: {error}')

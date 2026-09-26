@@ -8,7 +8,7 @@ import sys
 from contextlib import contextmanager
 from flow import read_manifest, local
 
-IMAGE = Path(__file__).resolve().parents[1] / 'image-to-appcard'
+IMAGE = Path(__file__).resolve().parents[1] / 'image-lib'
 sys.path.insert(0, str(IMAGE))
 
 

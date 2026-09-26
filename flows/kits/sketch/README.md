@@ -1,23 +1,28 @@
-# Beauty-card loop: Sketch → native widgets → inspection → repair
+# Sketch kit ingest: Sketch → native widgets → inspection → repair
+
+This produces **theme kits** from licensed Sketch design kits. It is not an
+app flow. For the step-by-step contract see `FLOW.md`.
 
 Entry point: `tools/beauty-pipeline.sh` from the repository root. The recommended
 first renderer for a purchased design kit is **splash-makepad through release
-Makepad Studio**. The older theme/LLM L0 and device workflow is preserved in
-[LEGACY-L0.md](LEGACY-L0.md).
+Makepad Studio**. The older theme/LLM L0 and desktop/device rails remain in
+`run_kit.py` for existing kit configurations; they are not documented or
+maintained here, and the desktop rail's client now lives in
+[OctoSense-AppCard](https://github.com/OctoSense-org/OctoSense-AppCard).
 
-For a new installation, use [the generic reproduction guide](../core/REPRODUCE.md)
-and [example kit configuration](../core/examples/sketch-kit.json).
+For a new installation, use [the generic reproduction guide](../../core/REPRODUCE.md)
+and [example kit configuration](../../core/examples/sketch-kit.json).
 These replace personal archive paths and device settings with local inputs.
 The default native loop records explicit external visual reviews; it does not
 require a provider account or invoke a model CLI. See
-[the reviewer contract](../core/MODEL-REVIEW.md).
+[the reviewer contract](../../core/MODEL-REVIEW.md).
 
-For an AI-generated UX image, use the [image-to-widget branch](../image-to-appcard/README.md):
+For an AI-generated UX image, use the [image-to-widget branch](../../image-lib/README.md):
 `tools/beauty-pipeline.sh --ux-image --design weather-01`. It saves explicit font
 and layout prompts, measures the actual generated image, mounts native L0 kits,
 and joins Studio inspection and screenshot differences into each repair round.
 The initial review collection has 10 Weather, 10 News and 10 Stocks layouts.
-The image branch's [explicit mapping rules](../image-to-appcard/MAPPING-RULES.md) require
+The image branch's [explicit mapping rules](../../image-lib/MAPPING-RULES.md) require
 native data-bound charts and documented artwork assets before compilation.
 Its semantic audit is separate from the legacy Sketch vector-geometry route.
 
@@ -60,7 +65,7 @@ kit's source symbols; unknown variants need an explicit mapping and verification
 Full-screen reference screenshots and text must not become implementation assets.
 Compound paths may remain a single graphic, retaining their source ancestry.
 Quantitative regions are the exception: both intake branches now share
-`lab/core/policy.py` and the same mapping rules. Sketch composition
+`flows/core/policy.py` and the same mapping rules. Sketch composition
 acceptance requires `native/semantics/<screen>.json` for every artboard, with a
 complete `source_review` bound to the source hierarchy and reference hash.
 Nominated chart/progress regions require individual decisions. These retain source
@@ -76,11 +81,11 @@ single reviewed SVG curve into approximate normalized samples; those samples
 are not recovered business values. Studio must report the actual arrays.
 Unmigrated legacy kits need semantic migration before their earlier visual
 acceptances can satisfy this stronger gate. Taskplan, Atro and Camo completed
-that migration; see [old-kit migration](../core/OLD-KIT-MIGRATION.md)
+that migration; see [old-kit migration](../../core/OLD-KIT-MIGRATION.md)
 for the source-review, import, L0 promotion and fresh Studio validation steps.
 
 For the persistent Studio bridge, tall-artboard allocation, declarative repairs
-and restart protocol, see [the shared loop guide](../core/README.md).
+and restart protocol, see [the shared loop guide](../../core/README.md).
 Glass overlays belong to the component that owns them; a tooltip must not move
 the artboard background out of the scene capture. Covering glass materials retain
 their source tint provenance when nested surfaces share Makepad's backdrop texture.
@@ -217,7 +222,7 @@ workflows require their own evidence.
 forward only when the full target/capture/prompt hash is identical. It never
 reuses structural inspection, assigns a new score, or accepts changed pixels.
 Changed pairs require fresh screenshot review. See
-[the native L0 kit contract](../../Octoscript-Makepad/docs/native-l0-kits.md).
+[the native L0 kit contract](https://github.com/OctoSense-org/Octoscript-Makepad/blob/main/docs/native-l0-kits.md).
 
 1. **Import the source.** Verify the archive and source document; resolve symbols
    and overrides in a copy. Export the original Sketch artboards as references.
@@ -313,18 +318,20 @@ output directory for each kit, `source_archive`, `pages`, exact `screens`,
 `design_scale`. Keep archives and generated templates/assets under ignored
 `work/`; do not publish purchased kit content.
 
-Install the Python dependencies in `lab/sketch-to-appcard/.venv` from `requirements.txt`.
+Install the Python dependencies in `flows/kits/sketch/.venv` from `requirements.txt`.
 Set `SKETCHTOOL` to Sketch.app's native CLI and `CARGO_MAKEPAD` to the patched
 release Studio bridge. The bridge must forward WidgetSnapshot. Use the dev
 Studio viewport-persistence and backing-allocation fixes recorded in the
-[Taskplan report](../../docs/reviews/taskplan-native-parity-2026-09-05.md).
+[Taskplan report](https://github.com/OctoSense-org/OctoScript-App-Design-Flow/blob/cbbda4da0a9d0fbf13497335dd3342b71f35e71f/docs/reviews/taskplan-native-parity-2026-09-05.md).
 
-Start Studio with a `splashref` mount pointing to this checkout's splash-makepad:
+Prepare the shared runtime with `python3 tools/setup-native.py` (see
+[NATIVE-WORKSPACE.md](../../../docs/NATIVE-WORKSPACE.md)). Start Studio with a
+`splashref` mount pointing to the prepared `octoscript-makepad` checkout, which
+sits beside this repository by default:
 
 ```sh
-MAKEPAD_RUNVIEW_MIN_ALLOC_WIDTH=2048 MAKEPAD_RUNVIEW_MIN_ALLOC_HEIGHT=4096 \
-/path/to/makepad/target/release/makepad-studio --remote \
-  --mounts=splashref:/absolute/path/to/octos-one/splash-makepad \
+bash tools/beauty-studio.sh /path/to/makepad/target/release/makepad-studio --remote \
+  --mounts="splashref:$(cd .. && pwd)/octoscript-makepad" \
   --bind=127.0.0.1:8001
 export CARGO_MAKEPAD=/path/to/makepad/target/release/cargo-makepad
 export SKETCHTOOL=/path/to/Sketch.app/Contents/MacOS/sketchtool
@@ -397,26 +404,26 @@ shared changes; focused evidence does not establish whole-kit acceptance.
 
 Camo's 246 mobile templates passed the native structure, composition and visual
 gates on 2026-09-06. Studio build 63 inspected 29,929 nodes; all screenshot pairs
-score 9–10/10. The [Camo report](../../docs/reviews/camo-native-parity-2026-09-05.md)
+score 9–10/10. The [Camo report](https://github.com/OctoSense-org/OctoScript-App-Design-Flow/blob/cbbda4da0a9d0fbf13497335dd3342b71f35e71f/docs/reviews/camo-native-parity-2026-09-05.md)
 links the full comparison gallery, repair evidence and fixed-artboard scope.
 
 Atro's 150-artboard native run passed its configured fixed-layout structural
 and visual gates: 3,009 text nodes, 279 Buttons, 48 Inputs, 3,935 SVG widgets and
 919 Image instances, alongside native surfaces and selection controls. Its
 saved templates also pass the native composition audit. See the
-[Atro report](../../docs/reviews/atro-native-parity-2026-09-05.md) and the current
+[Atro report](https://github.com/OctoSense-org/OctoScript-App-Design-Flow/blob/cbbda4da0a9d0fbf13497335dd3342b71f35e71f/docs/reviews/atro-native-parity-2026-09-05.md) and the current
 generated `acceptance.json` for scope and freshness.
 
 Taskplan's 79-artboard run passed its configured native structural and visual
 gates: 1,952 text nodes, 97 inputs, seven toggles, 4,012 image nodes and 8,672
 container nodes. Containers include composed controls. See the
-[full report](../../docs/reviews/taskplan-native-parity-2026-09-05.md).
+[full report](https://github.com/OctoSense-org/OctoScript-App-Design-Flow/blob/cbbda4da0a9d0fbf13497335dd3342b71f35e71f/docs/reviews/taskplan-native-parity-2026-09-05.md).
 That historical result predates the enforced native-first composition gate and
 subsequent shared runtime changes; it is not a current acceptance result.
 
 Those historical results validate fixed artboard reproduction. The generated
 L0 kits now add shared native components, component actions and selection state;
-their current evidence is in the [L0 comparison index](work/l0-themes/index.html)
+their current evidence is in the L0 comparison index (`work/l0-themes/index.html`)
 and each `l0-captures/acceptance.json`. Responsive rearrangement and complete
 application workflows require separate implementation and tests. The earlier
 five-screen L0 Taskplan run remains a
@@ -437,7 +444,7 @@ bindings must be present in Studio, control state and interactions must work,
 and the measured scroll canvas must contain the resulting composition. Flowing
 app layouts are intentional adaptations and do not inherit an artboard parity
 pass. Before/after captures, per-element differences, source mappings and the
-validation script are in `docs/reviews/theme-phone-evidence/components/`.
+validation script are in [`docs/reviews/theme-phone-evidence/components/`](https://github.com/OctoSense-org/OctoScript-App-Design-Flow/tree/cbbda4da0a9d0fbf13497335dd3342b71f35e71f/docs/reviews/theme-phone-evidence/components) (removed here; kept in history).
 
 Page structure is a separate adaptation step. Six authored L0 recipes now live
 in `Octoscript-Makepad/components/l0/pages/`: Weather dashboard/forecast, Stocks
@@ -447,5 +454,5 @@ the app's source/state/event declarations. The bundled selector can choose
 component inspection plus topology checks (section order, column bounds, item
 counts, scrolling, and actions); a color-only change cannot satisfy this gate.
 The phone comparison and per-element repair evidence are in
-`docs/reviews/theme-phone-evidence/structures/`. This is an explicit authored
+[`docs/reviews/theme-phone-evidence/structures/`](https://github.com/OctoSense-org/OctoScript-App-Design-Flow/tree/cbbda4da0a9d0fbf13497335dd3342b71f35e71f/docs/reviews/theme-phone-evidence/structures) (removed here; kept in history). This is an explicit authored
 recipe layer, not automatic page generation for every ported theme.

@@ -1,7 +1,12 @@
-# UX image → native Makepad beauty loop
+# Image library: UX image → native Makepad beauty loop
+
+This directory is the library the [image-to-card flow](../image-to-card/FLOW.md)
+calls (observe, measure, map, compile, capture, gate), together with its
+per-design evidence corpus (`weather-*`, `news-*`, `stock-*`). It was
+`lab/image-to-appcard/` before the restructure.
 
 For **8–12 related screens in one agentic application flow**, use
-[image-to-appcard-flow](../image-to-appcard-flow/README.md). It generates no
+[the image-to-card flow](../image-to-card/FLOW.md). It generates no
 independent per-state images: preserve one complete atlas, measure/crop its
 screens, reuse this native mapping loop, then bind service state and package
 interactive Makepad WASM. This page remains the individual-design adapter guide.
@@ -71,15 +76,15 @@ prototypes; a fresh semantic audit can block them even when geometry passed.
 
 ## Commands
 
-Use a dedicated Python 3.11/3.12 environment at `lab/image-to-appcard/.venv`, installed
+Use a dedicated Python 3.11/3.12 environment at `flows/image-lib/.venv`, installed
 from `requirements.txt`. Keep it separate from Sketch's NumPy 2.x environment;
 no private `.deps` setup is needed. The OCR stage requires macOS Vision and Swift.
 Set `BEAUTY_PYTHON` when using the shared shell entry point:
 
 ```sh
-export BEAUTY_PYTHON="$PWD/lab/image-to-appcard/.venv/bin/python"
+export BEAUTY_PYTHON="$PWD/flows/image-lib/.venv/bin/python"
 # Preserve a generated image, without overwriting another reference.
-lab/image-to-appcard/.venv/bin/python lab/image-to-appcard/save_reference.py example-01 /path/to/generated.png --provider actual-generator
+flows/image-lib/.venv/bin/python flows/image-lib/save_reference.py example-01 /path/to/generated.png --provider actual-generator
 
 # Review/re-run one design after its reference is present.
 tools/beauty-pipeline.sh --ux-image --design weather-01 --launch
@@ -97,8 +102,8 @@ tools/beauty-pipeline.sh --ux-image --all --stages compile
 tools/beauty-pipeline.sh --ux-image --all --stages gallery
 
 # Explicit gate failure exits nonzero; the gallery is still produced.
-lab/image-to-appcard/.venv/bin/python lab/image-to-appcard/gate.py weather-01
-lab/image-to-appcard/.venv/bin/python -m unittest discover -s lab/image-to-appcard -p 'test_*.py'
+flows/image-lib/.venv/bin/python flows/image-lib/gate.py weather-01
+flows/image-lib/.venv/bin/python -m unittest discover -s flows/image-lib -p 'test_*.py'
 ```
 
 Stages: `classify,semantic,observe,measure,map,repair,font,compile,capture,gate,gallery`. A repair round
@@ -136,7 +141,7 @@ failed transparent News attempt remains under `news-02/failed-reference-001`.
 `rounds/NNN` retains the exact card, pack, assets, reference measurements, source
 hashes, Studio build ID, request nonce and captured evidence for that round.
 `latest.json` selects the current comparison. Gallery copies are review outputs;
-the files under `lab/image-to-appcard` are the authoring source.
+the files under `flows/image-lib` are the authoring source.
 
 These are **native design prototypes at 406 × 776**. They load through the same
 L0/kit runtime without an app-specific Rust layout branch. They are not new

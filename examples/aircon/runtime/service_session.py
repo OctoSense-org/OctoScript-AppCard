@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "service"))
 from controller import ServiceError, demo_states, initial_state, reduce, view_model, write_json
 
-DEFAULT_REQUEST = ROOT.parents[1] / "lab/image-to-appcard/current-request.json"
+DEFAULT_REQUEST = ROOT.parents[1] / "flows/image-lib/current-request.json"
 ROUTE_ALIASES = {
     "navigation.order": ("shopping", "order"),
     "navigation.logistics": ("logistics", "detail"),

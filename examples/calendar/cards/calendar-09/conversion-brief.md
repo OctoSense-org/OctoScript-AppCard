@@ -17,7 +17,7 @@ with no overlaid UI text. Do not invent missing numerical values from a mockup.
 After generation, measure the actual reference. Requested layout is not measured
 evidence. Inspect through Makepad's built-in HTTP instrument with a standalone
 release binary; hidden windows support automated tests. See
-`lab/core/NATIVE-INSTRUMENT.md`. Run semantic, geometry and visual checks;
+`flows/core/NATIVE-INSTRUMENT.md`. Run semantic, geometry and visual checks;
 legacy Studio capture/gate adapters require their own evidence schema.
 
 ```json

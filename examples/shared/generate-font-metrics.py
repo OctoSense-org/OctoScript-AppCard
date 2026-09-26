@@ -8,7 +8,7 @@ from fontTools.ttLib import TTFont
 root = Path(__file__).resolve().parents[2]
 metrics, sources = {}, {}
 for weight in ('Regular', 'Medium', 'Bold'):
-    path = root / f'apps/aircon/wizard/wasm-host/resources/service/NotoSansSC-{weight}.ttf'
+    path = root / f'examples/aircon/wizard/wasm-host/resources/service/NotoSansSC-{weight}.ttf'
     font = TTFont(path)
     em, cmap, widths = font['head'].unitsPerEm, font.getBestCmap(), font['hmtx'].metrics
     metrics[weight] = {

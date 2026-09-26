@@ -6,7 +6,7 @@ import argparse
 from pathlib import Path
 
 from core.native_paths import repository
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 NATIVE = repository('splash-makepad') / 'components/l0/native'
 THEMES = ('atro','atro_light','camo','camo_light','taskplan_light')
 
@@ -83,7 +83,7 @@ if __name__=='__main__':
     encoded=json.dumps(data,indent=2,ensure_ascii=False)+'\n'
     if args.check:
         if not out.exists() or out.read_text()!=encoded:
-            raise SystemExit('App recipes are stale; run lab/sketch-to-appcard/export_app_recipes.py')
+            raise SystemExit('App recipes are stale; run flows/kits/sketch/export_app_recipes.py')
     else:
         out.write_text(encoded)
     print(out, out.stat().st_size)

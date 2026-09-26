@@ -33,12 +33,12 @@ their own runs; they do not establish the current implementation's quality.
 
 ```sh
 # Read-only storage inventory; commands run from the workspace root.
-python3 lab/maintain.py inventory
+python3 flows/maintain.py inventory
 
 # Preview recognized bytecode/Finder caches. Export caches require opt-in.
-python3 lab/maintain.py clean --exports
+python3 flows/maintain.py clean --exports
 # Stop Sketch import jobs before applying; future imports may need re-export.
-python3 lab/maintain.py clean --exports --apply
+python3 flows/maintain.py clean --exports --apply
 ```
 
 Sources, final assets, screenshots, review rounds and environments are outside

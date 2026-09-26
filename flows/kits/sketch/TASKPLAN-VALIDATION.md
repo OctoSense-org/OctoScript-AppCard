@@ -1,4 +1,4 @@
-> Historical five-screen L0 baseline (failed). For the completed 79-screen native design route, see [README.md](README.md) and the [native parity report](../../docs/reviews/taskplan-native-parity-2026-09-05.md). The standalone-window and reconstructed-reference limitations below describe this earlier run.
+> Historical five-screen L0 baseline (failed). For the completed 79-screen native design route, see [README.md](README.md) and the [native parity report](https://github.com/OctoSense-org/OctoScript-App-Design-Flow/blob/cbbda4da0a9d0fbf13497335dd3342b71f35e71f/docs/reviews/taskplan-native-parity-2026-09-05.md). The standalone-window and reconstructed-reference limitations below describe this earlier run.
 
 # Taskplan pipeline validation
 
@@ -16,8 +16,8 @@ measured palette. No fabricated dark palette is required.
 From the repository root:
 
 ```sh
-python3 -m venv lab/sketch-to-appcard/.venv
-lab/sketch-to-appcard/.venv/bin/pip install -r lab/sketch-to-appcard/requirements.txt
+python3 -m venv flows/kits/sketch/.venv
+flows/kits/sketch/.venv/bin/pip install -r flows/kits/sketch/requirements.txt
 ```
 
 Use the built release Studio and bridge from the upstream Makepad dev checkout.
@@ -59,7 +59,7 @@ runs do not emit the embedded `AppStarted` event.
 To exercise feedback:
 
 ```sh
-lab/sketch-to-appcard/.venv/bin/python lab/sketch-to-appcard/author_cards.py --kit taskplan --round2
+flows/kits/sketch/.venv/bin/python flows/kits/sketch/author_cards.py --kit taskplan --round2
 tools/beauty-pipeline.sh --kit taskplan --stages validate,splash-makepad,status
 ```
 
@@ -119,7 +119,7 @@ not separately exposed by Studio, so those shape differences need review.
 Run the structural gate independently with:
 
 ```sh
-lab/sketch-to-appcard/.venv/bin/python lab/sketch-to-appcard/gate_structure.py --kit taskplan
+flows/kits/sketch/.venv/bin/python flows/kits/sketch/gate_structure.py --kit taskplan
 ```
 
 Exit 1 means the design is not accepted or evidence is incomplete/stale. The

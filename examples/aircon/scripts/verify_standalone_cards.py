@@ -21,18 +21,33 @@ import time
 import uuid
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT.parents[1] / "lab"))
+sys.path.insert(0, str(ROOT.parents[1] / "flows"))
 from core.native_paths import repository
 
 
 def source_path(relative):
-    """Resolve paths recorded before apps were grouped in apps/."""
+    """Resolve paths recorded before apps/ became examples/ and lab/ became flows/."""
     if relative.startswith("pipeline/"):
         name, _, tail = relative[9:].partition("/")
-        return repository(name) / tail if name in ("makepad", "splash", "splash-makepad") else ROOT.parents[1] / relative[9:]
+        if name in ("makepad", "splash", "splash-makepad"):
+            return repository(name) / tail
+        relative = relative[9:]
+        for old, new in LEGACY_PREFIXES:
+            if relative.startswith(old):
+                relative = new + relative[len(old):]
+                break
+        return ROOT.parents[1] / relative
     return ROOT / relative
 
-PIPELINE = ROOT.parents[1] / "lab/image-to-appcard"
+
+# Recorded infrastructure receipts name the pre-restructure directories.
+LEGACY_PREFIXES = (("lab/image-to-appcard-flow/", "flows/image-to-card/"),
+                   ("lab/image-to-appcard/", "flows/image-lib/"),
+                   ("lab/sketch-to-appcard/", "flows/kits/sketch/"),
+                   ("lab/", "flows/"),
+                   ("apps/", "examples/"))
+
+PIPELINE = ROOT.parents[1] / "flows/image-lib"
 CATALOGUE = ROOT / "service-cards/catalogue.json"
 CURRENT = PIPELINE / "current-request.json"
 TOLERANCE = 1.0  # Native Studio integer inspection rounds logical points.
@@ -134,7 +149,7 @@ def runtime_manifest():
     """Hash actual runtime inputs/binaries, independently of historical receipts."""
     paths = {ROOT / "runtime/infrastructure.json", Path(__file__).resolve(),
              PIPELINE / "studio.py", PIPELINE / "compile.py",
-             ROOT.parents[1] / "lab/core/gate_structure.py"}
+             ROOT.parents[1] / "flows/core/gate_structure.py"}
     infra = read(ROOT / "runtime/infrastructure.json")
     paths.update(source_path(value["path"]) for value in infra["binaries"].values())
     for base in ("runtime", "pipeline/splash-makepad/apps/kit-host/src",

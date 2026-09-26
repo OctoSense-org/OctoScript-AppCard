@@ -11,12 +11,12 @@ for weight in Regular Medium Bold; do
 done
 cd "$WIZARD_HOST"
 "$OCTOSENSE_WORKSPACE/makepad/target/release/cargo-makepad" wasm --no-threads build -p octosense-wizard --release
-"$APPCARD_ROOT/lab/image-to-appcard/.venv/bin/python" - "$WIZARD_ROOT" <<'PY'
+"$APPCARD_ROOT/flows/image-lib/.venv/bin/python" - "$WIZARD_ROOT" <<'PY'
 from pathlib import Path
 import hashlib,json,re,shutil,sys,tempfile,subprocess
 from fontTools.ttLib import TTFont
 root=Path(sys.argv[1]);host=root/'wizard/wasm-host'
-sys.path.insert(0,str(root.parents[1]/'lab'))
+sys.path.insert(0,str(root.parents[1]/'flows'))
 from core.native_paths import repository,WORKSPACE
 build=host/'target/makepad-wasm-app/release/octosense-wizard'
 published=root/'wizard/wasm-dist'

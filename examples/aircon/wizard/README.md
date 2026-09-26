@@ -30,7 +30,7 @@ Only photographs and artwork are image assets. Labels, button hit areas, surface
 ## Build and integrate
 
 The reusable pipeline now lives at
-[`image-to-appcard-flow`](../../../lab/image-to-appcard-flow/README.md).
+[`image-to-appcard-flow`](../../../flows/image-to-card/README.md).
 `../image-to-appcard-flow.json` describes this project's atlas, twelve scenes,
 fourteen standalone service cards, browser modules and checks. Its `plan`, `run`
 and `status` commands retain failed stages and separate unrun visual/native gates.

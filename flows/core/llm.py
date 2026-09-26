@@ -1,9 +1,9 @@
-"""The pipeline's only LLM surface, vendored so lab/core stands alone.
+"""The pipeline's only LLM surface, vendored so flows/core stands alone.
 
 Two callers, one contract: `claude_text` runs a single prompt through the
 claude CLI with Read as its only tool (the vision judge and the card author
 both hand it file paths to look at); `strip_fence` peels a fenced block off
-a reply. Extracted from lab/style-factory/batch_styles.py, which carries a
+a reply. Extracted from flows/style-factory/batch_styles.py, which carries a
 whole research bench this pipeline does not need.
 """
 import json

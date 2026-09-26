@@ -3,8 +3,8 @@
 its page image: per-band pixel differences, a side-by-side, an ink-presence
 probe for every text widget, and a JSON summary.
 
-    compare_screens.py --project apps/calendar --pages eval-inputs/pages \
-        --out apps/calendar/evidence/screenshots [--host <beauty-host>] [scene ids...]
+    compare_screens.py --project examples/calendar --pages eval-inputs/pages \
+        --out examples/calendar/evidence/screenshots [--host <beauty-host>] [scene ids...]
 
 Evidence about pixels, not an approval. Read the side-by-sides with
 `view_image`; the numbers only tell you where to look.

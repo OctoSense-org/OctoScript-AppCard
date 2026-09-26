@@ -1,0 +1,178 @@
+{
+  "schema_version": 1,
+  "id": "my-app",
+  "artboard": [
+    406,
+    776
+  ],
+  "locales": [
+    "en",
+    "cn"
+  ],
+  "generation": {
+    "atlas": "source/atlas.png",
+    "prompt": "source/prompt.txt",
+    "provider": "REPLACE with the actual image generator",
+    "model": "REPLACE with the actual model, or delete this key if unknown",
+    "requested_size": [
+      2400,
+      3456
+    ],
+    "quality": "high"
+  },
+  "scenes": [
+    {
+      "id": "1",
+      "design_id": "my-app-01",
+      "directory": "cards/my-app-01",
+      "crop": [
+        0,
+        0,
+        406,
+        776
+      ],
+      "surface": "app",
+      "title": "Screen 1 title"
+    },
+    {
+      "id": "2",
+      "design_id": "my-app-02",
+      "directory": "cards/my-app-02",
+      "crop": [
+        0,
+        0,
+        406,
+        776
+      ],
+      "surface": "app",
+      "title": "Screen 2 title"
+    },
+    {
+      "id": "3",
+      "design_id": "my-app-03",
+      "directory": "cards/my-app-03",
+      "crop": [
+        0,
+        0,
+        406,
+        776
+      ],
+      "surface": "app",
+      "title": "Screen 3 title"
+    },
+    {
+      "id": "4",
+      "design_id": "my-app-04",
+      "directory": "cards/my-app-04",
+      "crop": [
+        0,
+        0,
+        406,
+        776
+      ],
+      "surface": "app",
+      "title": "Screen 4 title"
+    },
+    {
+      "id": "5",
+      "design_id": "my-app-05",
+      "directory": "cards/my-app-05",
+      "crop": [
+        0,
+        0,
+        406,
+        776
+      ],
+      "surface": "desktop",
+      "title": "Screen 5 title"
+    },
+    {
+      "id": "6",
+      "design_id": "my-app-06",
+      "directory": "cards/my-app-06",
+      "crop": [
+        0,
+        0,
+        406,
+        776
+      ],
+      "surface": "desktop",
+      "title": "Screen 6 title"
+    },
+    {
+      "id": "7",
+      "design_id": "my-app-07",
+      "directory": "cards/my-app-07",
+      "crop": [
+        0,
+        0,
+        406,
+        776
+      ],
+      "surface": "desktop",
+      "title": "Screen 7 title"
+    },
+    {
+      "id": "8",
+      "design_id": "my-app-08",
+      "directory": "cards/my-app-08",
+      "crop": [
+        0,
+        0,
+        406,
+        776
+      ],
+      "surface": "desktop",
+      "title": "Screen 8 title"
+    }
+  ],
+  "artwork": {
+    "source_prefix": "http://127.0.0.1:8170/ux-images/",
+    "root": "artwork"
+  },
+  "outputs": {
+    "intake": "pipeline-output/intake",
+    "cards": "pipeline-output/service-cards",
+    "bundle": "wizard/card-bundle",
+    "wasm": "wizard/wasm-dist",
+    "runs": "pipeline-output/runs"
+  },
+  "browser_modules": [
+    "wizard/service.mjs",
+    "wizard/render.mjs",
+    "wizard/wizard.mjs"
+  ],
+  "cards": [
+    {
+      "id": "example-card-05",
+      "scene": "5",
+      "root": "example_card",
+      "owner": "example-service"
+    }
+  ],
+  "checks": {
+    "service-test": [
+      {
+        "argv": [
+          "{python}",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "service",
+          "-p",
+          "test_*.py"
+        ],
+        "cwd": "."
+      },
+      {
+        "argv": [
+          "{node}",
+          "--test",
+          "wizard/service.test.mjs"
+        ],
+        "cwd": "."
+      }
+    ]
+  }
+}

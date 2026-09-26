@@ -13,9 +13,9 @@ test logs, code hashes and browser evidence.
 
 | Kit | Accepted artboards | Native chart/progress regions | Studio builds | Generated cards |
 |---|---:|---:|---|---|
-| Taskplan | 79/79 | 32 | 17, 21 | [L0 cards](work/taskplan/native/l0/) |
-| Atro V2 | 150/150 | 38 | 20 | [L0 cards](work/atro/native/l0/) |
-| Camo 2 | 246/246 | 30 | 18, 19 | [L0 cards](work/camo/native/l0/) |
+| Taskplan | 79/79 | 32 | 17, 21 | L0 cards (`work/taskplan/native/l0/`) |
+| Atro V2 | 150/150 | 38 | 20 | L0 cards (`work/atro/native/l0/`) |
+| Camo 2 | 246/246 | 30 | 18, 19 | L0 cards (`work/camo/native/l0/`) |
 
 All 475 captures passed a final input/runtime fingerprint check. Valid saved
 checkpoints retain their original build IDs. Visual receipts bind exact source
@@ -43,7 +43,7 @@ The capture loop now waits for the requested value and its painted value
 before restoration and finalization, and fails on timeout. The failed round
 remains intact. A fresh News 09 round verifies the repair, followed by all 31
 image-design captures and gates. See the
-[probe repair receipt](qa-work/old-kit-migration/image-progress-probe-repair.json).
+probe repair receipt (`qa-work/old-kit-migration/image-progress-probe-repair.json`).
 
 | Verification | Result |
 |---|---|
@@ -63,7 +63,7 @@ workflows and Mate 70 native rendering remain unvalidated. Design preferences
 are still for the user to review.
 
 The temporary Studio and bridge were closed; the user's existing Studio and
-the local galleries remain available. [Cleanup evidence](qa-work/old-kit-migration/cleanup.json).
+the local galleries remain available. Cleanup evidence (`qa-work/old-kit-migration/cleanup.json`).
 See [OLD-KIT-MIGRATION.md](OLD-KIT-MIGRATION.md) to repeat the migration and
-audit. The [previous validation report](qa-work/old-kit-migration/previous-VALIDATION.md)
+audit. The previous validation report (`qa-work/old-kit-migration/previous-VALIDATION.md`)
 is retained as historical evidence, including its earlier open migration work.

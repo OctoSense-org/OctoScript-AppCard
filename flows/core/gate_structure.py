@@ -6,7 +6,7 @@ desktop-global; subtract the Window snapshot origin, not a guessed DPI factor.
 Sketch frames are divided by the kit's explicit design_scale.
 """
 import sys as _sys, pathlib as _pathlib
-_sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[1]))  # lab/, for `core`
+_sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[1]))  # flows/, for `core`
 import argparse
 import collections
 import hashlib

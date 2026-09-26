@@ -4,7 +4,7 @@ The first verdict remains unchanged. A follow-up still reviews the full pair,
 uses the same acceptance threshold, and cannot bypass native structural checks.
 """
 import sys as _sys, pathlib as _pathlib
-_sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[1]))  # lab/, for `core`
+_sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[1]))  # flows/, for `core`
 import argparse
 import hashlib
 import io

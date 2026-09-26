@@ -6,11 +6,11 @@ from pathlib import Path
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-PIPELINE = ROOT.parents[1] / 'lab'
-sys.path.insert(0, str(PIPELINE / 'image-to-appcard'))
+PIPELINE = ROOT.parents[1] / 'flows'
+sys.path.insert(0, str(PIPELINE / 'image-lib'))
 import compile as compiler
 compiler.GALLERY = ROOT / 'artwork'
-sys.path.insert(0, str(PIPELINE / 'image-to-appcard-flow'))
+sys.path.insert(0, str(PIPELINE / 'image-to-card'))
 import atlas
 import extract
 import bundle

@@ -1,6 +1,6 @@
 # Calendar — one calendar, two devices
 
-An iOS-style Calendar built with the [image-to-appcard flow](../../lab/image-to-appcard-flow/README.md),
+An iOS-style Calendar built with the [image-to-appcard flow](../../flows/image-to-card/README.md),
 backed by a real sync service: one SQLite database, one ordered operation log,
 one reducer that every client replays. "Alex · Phone" (the app screens) and
 "Sam · Desktop" (the desktop service cards) submit operations to the same
@@ -47,9 +47,9 @@ and `calendar-sync-status-09` (owner `sync`). 64 native controls, bilingual EN/C
 ## Run it
 
 ```sh
-export BEAUTY_PYTHON="$PWD/lab/image-to-appcard/.venv/bin/python"   # from the repository root
+export BEAUTY_PYTHON="$PWD/flows/image-lib/.venv/bin/python"   # from the repository root
 bash tools/image-to-appcard-flow.sh run \
-  --project "$PWD/apps/calendar" --manifest "$PWD/apps/calendar/image-to-appcard-flow.json" \
+  --project "$PWD/examples/calendar" --manifest "$PWD/examples/calendar/image-to-appcard-flow.json" \
   --stages intake,semantic,compile,bundle,service-test --node /path/to/node
 ```
 
@@ -57,7 +57,7 @@ Rebuild from the spec (new atlas → new intake; delete `cards/`, `artwork/`, `p
 first, the intake refuses a changed atlas in an existing output directory):
 
 ```sh
-cd apps/calendar
+cd examples/calendar
 "$BEAUTY_PYTHON" scripts/design.py                         # → source/storyboard.html
 node source/render_atlas.mjs source/storyboard.html source/atlas.png 3488 4950
 "$BEAUTY_PYTHON" scripts/author_calendar.py                # intake, prepare, contracts, compile
@@ -67,7 +67,7 @@ node source/render_atlas.mjs source/storyboard.html source/atlas.png 3488 4950
 Two devices syncing, in the browser:
 
 ```sh
-cd apps/calendar && PYTHON="$BEAUTY_PYTHON" bash scripts/demo.sh
+cd examples/calendar && PYTHON="$BEAUTY_PYTHON" bash scripts/demo.sh
 # prints the phone tab (?device=alex-phone) and desktop tab (?device=sam-desktop) URLs
 ```
 
@@ -83,8 +83,10 @@ node wizard/preview/smoke.mjs                                     # two Chromium
 
 ## The native app
 
-`native/` is a Rust `AppModule` the OctoSense shell links in (`OctoSense-mobile`
-feature `app-calendar`; always on Android/iOS). Screens: month (any month, dots
+`native/` is a Rust `AppModule` written for the earlier native OctoSense shell
+(feature `app-calendar`). That shell is archived and the native client now lives in
+[OctoSense-AppCard](https://github.com/OctoSense-org/OctoSense-AppCard); this module
+is kept as a reference implementation and is not built by this repository's CI. Screens: month (any month, dots
 per calendar, today/selection rings, the selected day's list), day timeline
 (hour rows, overlapping events share the width, now line), event detail, editor
 (title/location/notes fields, all-day, start/end pickers with conflicting slots
@@ -96,17 +98,12 @@ listed on the Sync screen.
 
 Configuration (environment on desktop; `--es makepad.APP_CONFIG` keys
 `calendar_server`, `calendar_token`, `calendar_device`, `calendar_locale` on Android):
-
-```sh
-cd ../OctoSense-mobile
-cargo build --release --features app-calendar
-CALENDAR_SERVER=http://127.0.0.1:8190 CALENDAR_TOKEN=$(cat ../Octoscript-AppCard/apps/calendar/runtime/calendar.token) \
-CALENDAR_DEVICE=sam-desktop CALENDAR_LOCALE=en \
-target/release/octosense --apps ../Octoscript-AppCard/apps/calendar/native/desktop-apps.json --module calendar --test-action launch-calendar
-```
+`CALENDAR_SERVER`, `CALENDAR_TOKEN` (for example `$(cat examples/calendar/runtime/calendar.token)`),
+`CALENDAR_DEVICE`, `CALENDAR_LOCALE`. `native/desktop-apps.json` is the module
+list the shell's `--apps` option read.
 
 Without `CALENDAR_SERVER` the app runs on-device with the demo fixture laid
-around the real today. Unit tests: `cargo test --manifest-path apps/calendar/native/Cargo.toml`
+around the real today. Unit tests: `cargo test --manifest-path examples/calendar/native/Cargo.toml`
 (reducer fixture parity with the Python/JS twins, scene lowering through the
 shared L0 pipeline, every screen renders, server records confirm/roll back).
 

@@ -85,7 +85,7 @@ once the two flagged decisions are settled.
 ## Reference implementation
 
 Eval workspace `Octoscript-AppCard-eval-glm`, branch `eval/calendar-glm`:
-native crate under `apps/calendar/native` (11/11 tests including a
+native crate under `examples/calendar/native` (11/11 tests including a
 lowering-gate test over all eight screen states, six-screen comparisons, a
 13-step walkthrough transcript and per-defect evidence crops). This is a
 docs-only PR; the emitter/icon changes can follow as code PRs once the

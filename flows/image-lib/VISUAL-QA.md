@@ -83,11 +83,11 @@ capabilities.
 ## Saved artifacts
 
 - [validation.json](validation.json): design rounds, build, hashes and widget counts.
-- [summary.json](summary.json): current gate totals and gallery URL.
+- `summary.json`: current gate totals and gallery URL.
 - `<design>/page.card`, `page.data.json`, `kit/`: the generated L0 composition.
 - `<design>/visual-review.json`: screenshot-specific reviewer, criteria and findings.
 - `<design>/rounds/<round>/`: native screenshots, all three Studio inspection
   outputs, per-element differences, data/state exports and interaction captures.
-- [qa-work/final-build-comparison.json](qa-work/final-build-comparison.json): exact
+- `qa-work/final-build-comparison.json`: exact
   pixel comparison between reviewed captures and the final native build.
-- [qa-work/gallery-qa.json](qa-work/gallery-qa.json): browser and published-artifact checks.
+- `qa-work/gallery-qa.json`: browser and published-artifact checks.

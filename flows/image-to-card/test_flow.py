@@ -21,6 +21,15 @@ class FlowTests(unittest.TestCase):
     def save(self):
         self.manifest.write_text(json.dumps(self.doc))
 
+    def test_template_manifest_is_valid(self):
+        template = Path(__file__).parent / 'examples/flow.template.json'
+        doc = flow.read_manifest(template, self.root)
+        self.assertEqual(doc['artwork']['root'], 'artwork')
+
+    def test_aircon_example_matches_the_reference_project(self):
+        project = Path(__file__).resolve().parents[2] / 'examples/aircon/image-to-appcard-flow.json'
+        self.assertEqual(self.doc, json.loads(project.read_text()))
+
     def test_paths_cannot_escape_project_or_follow_escape_symlink(self):
         for value in ('../outside', '/absolute', ''):
             with self.assertRaises(ValueError):
