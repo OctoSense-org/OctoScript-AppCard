@@ -41,8 +41,7 @@ provenance through the native and browser stages.
 
 For native UI testing, use [Makepad's built-in instrument](lab/core/NATIVE-INSTRUMENT.md):
 standalone release builds, hidden native windows for automation, direct HTTP input
-and app-owned captures. The guide includes the mail-server settings example and
-the compatibility boundary for older Studio capture/gate stages.
+and app-owned captures. The guide includes the compatibility boundary for older Studio capture/gate stages.
 
 ```
 Octosense-Service-AppCards/

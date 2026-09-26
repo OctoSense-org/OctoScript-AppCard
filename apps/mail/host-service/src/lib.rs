@@ -42,7 +42,6 @@ mod imap;
 
 use vault::Vault;
 
-#[path = "../../native/src/network.rs"]
 #[allow(dead_code)]
 mod network;
 

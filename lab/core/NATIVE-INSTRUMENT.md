@@ -170,15 +170,10 @@ Do not select legacy `capture --launch` for a request to test without Studio. Ke
 All applications select the root `native-runtime.lock.json`; its
 Octoscript-Makepad release owns the underlying `runtime.json`. Prepare the
 sibling sources with `python3 tools/setup-native.py` and verify the dependency
-graph with `--check --cargo-manifest app/Cargo.toml`. Mail and WASM do not apply
+graph with `--check --cargo-manifest app/Cargo.toml`. WASM does not apply
 private framework patches. Preserve existing edits before updating a checkout.
 
-`apps/mail/scripts/verify_runtime.py` launches an owned hidden native Metal
-window and uses the built-in HTTP instrument. `/event?data=<JSON>` dispatches
-app-defined probes. The `beauty-host` supports `webview_inspect` (native widget
-ID, result path, optional snapshot path and scroll position) and
-`webview_lifecycle` (owned browser count). The fixture checks formatted HTML,
-script blocking, full reader scrolling, WebView disposal, subject search and a
-150-row inbox with bounded native widgets. It captures only the app drawable or
-its own WKWebView, finishes through `/gq`, and waits for process exit. It does not
-use Studio or a software GPU.
+The native Mail app and its `verify_runtime.py` fixture were removed when Mail
+became a contained script app (`apps/mail/script/`, OctoSense ADR 0004); its
+service is tested with `cargo test -p octosense-mail-service`. The earlier
+fixture is in Git history.

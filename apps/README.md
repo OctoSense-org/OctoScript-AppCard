@@ -7,11 +7,11 @@ tests and fixture evidence. App runtime state and personal data stay ignored.
 | App | Platform | Description |
 | --- | --- | --- |
 | [Aircon](aircon/README.md) | Native cards / WASM | One purchase-to-installation journey with 12 screen states and 14 extracted service-card variants. |
-| [Mail](mail/README.md) | macOS, iOS-style UI | Gmail POP3 inbox, SMTP sending, IMAP folders/flags, native HTML reader and attachments. |
+| [Mail](mail/README.md) | OctoSense system script app | Accounts, folders, reading and sending through the `mail` host service; the app never holds a socket or a password. |
 | [School](school/README.md) | Native cards / WASM | School notice, calendar and payment journey. |
 | [Health](health/README.md) | Native cards / WASM | Fictional health-check booking journey. |
 | [Reunion](reunion/README.md) | Native cards / WASM | Reunion planning, RSVP and payment journey. |
-| [personal-data](personal-data/README.md) | octos skill (macOS, Android later) | Read-only search over the Mail and Calendar apps' data for the octos agent: `mail_search`, `mail_read`, `calendar_query`, `contacts_lookup`. Phase 1 of the octos personal-memory ADR. |
+| [personal-data](personal-data/README.md) | octos skill (macOS, Android later) | Read-only search over the Mail and Calendar apps' data for the octos agent: `mail_search`, `mail_read`, `calendar_query`, `contacts_lookup`. Phase 1 of the octos personal-memory ADR. Its Mail source reads the removed native Mail module's `mailbox-*.json`; it needs the mail host service's store instead. |
 | [Calendar](calendar/README.md) | Native cards / browser preview + sync server | iOS-style calendar for two devices: 10 screens, 4 service cards, and a SQLite-backed operation-log server every client replays. |
 
 ## System script apps
