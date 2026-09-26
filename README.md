@@ -18,9 +18,8 @@ admission itself: `tools/octo check` prints exactly what `hub check` prints.
 Who it is for: hackathon contestants and other developers building an
 OctoSense app, and the coding agents they work with.
 
-Formerly *Octoscript-AppCard*. The runtime moved to
-[OctoSense-AppCard](https://github.com/OctoSense-org/OctoSense-AppCard) and
-the first-party apps to
+Formerly *Octoscript-AppCard*. The AppCard assistant runtime and
+the first-party apps moved to
 [OctoSense-System-Apps](https://github.com/OctoSense-org/OctoSense-System-Apps).
 
 ## Contents
@@ -40,6 +39,10 @@ the first-party apps to
 - [Related repositories](#related-repositories)
 
 ## Agents start here
+
+> **Any coding agent, or none.** These instructions work the same for Codex, Claude Code, Cursor, Gemini CLI, GitHub Copilot or a person at a terminal: every step is a shell command or a file edit, and nothing here needs a particular agent, model or vendor. `AGENTS.md` is the one source of truth; `CLAUDE.md` and `GEMINI.md` only import it for agents that look for those names.
+
+`tools/octo` is this repository's own Python CLI around App Hub's `hub` and `card-host`. It is unrelated to octos (the agent kernel inside OctoSense) and needs no AI service or API key.
 
 Read these in order (the same order the
 [OctoSense org profile](https://github.com/OctoSense-org) gives):
@@ -407,7 +410,7 @@ For a script app, the complete examples are the first-party bundles in
 | [OctoSense-System-Apps](https://github.com/OctoSense-org/OctoSense-System-Apps) | First-party apps (News, Photos, Maps, Camera, Mail) and the Mail host service |
 | [OctoSense-Desktop](https://github.com/OctoSense-org/OctoSense-Desktop) | The desktop shell |
 | [OctoSense-ROM](https://github.com/OctoSense-org/OctoSense-ROM) | The phone shell (`home/`), as a Home app or in the ROM image |
-| [OctoSense-AppCard](https://github.com/OctoSense-org/OctoSense-AppCard) | The AppCard runtime (Splash isolate, widgets, Card lowering) |
+| [OctoSense-System-Apps `apps/appcard`](https://github.com/OctoSense-org/OctoSense-System-Apps/tree/main/apps/appcard) | The AppCard runtime (Splash isolate, widgets, Card lowering) |
 | [OctoSense-org/makepad](https://github.com/OctoSense-org/makepad), [Octoscript](https://github.com/OctoSense-org/OctoScript), [Octoscript-Makepad](https://github.com/OctoSense-org/OctoScript-Makepad) | The framework and language the apps run on |
 
 ## License

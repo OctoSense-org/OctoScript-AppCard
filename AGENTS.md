@@ -1,5 +1,7 @@
 # Instructions for coding agents
 
+> **Any coding agent, or none.** These instructions work the same for Codex, Claude Code, Cursor, Gemini CLI, GitHub Copilot or a person at a terminal: every step is a shell command or a file edit, and nothing here needs a particular agent, model or vendor. `AGENTS.md` is the one source of truth; `CLAUDE.md` and `GEMINI.md` only import it for agents that look for those names.
+
 You are in **OctoScript App Design Flow**: the harness for building an
 OctoSense app and taking it to the OctoSense App Hub. Read this file first,
 then the one flow you are following.
@@ -8,7 +10,7 @@ then the one flow you are following.
 
 | It is | It is not (go there instead) |
 | --- | --- |
-| Flows (`flows/*/FLOW.md`): step-by-step procedures from an input to a checked bundle | The runtime (Splash isolate, widgets, Card lowering): [OctoSense-AppCard](https://github.com/OctoSense-org/OctoSense-AppCard) and [OctoSense-org/makepad](https://github.com/OctoSense-org/makepad) |
+| Flows (`flows/*/FLOW.md`): step-by-step procedures from an input to a checked bundle | The runtime: [OctoSense-org/makepad](https://github.com/OctoSense-org/makepad) (Splash isolate, widgets) and [OctoSense-App-Hub](https://github.com/OctoSense-org/OctoSense-App-Hub) (the Card runner); the AppCard assistant and the L0 card language: [OctoSense-System-Apps `apps/appcard`](https://github.com/OctoSense-org/OctoSense-System-Apps/tree/main/apps/appcard) |
 | Developer docs (`docs/`): quickstart, script API, capabilities, host services, publishing, glossary | System apps (News, Photos, Maps, Camera, Mail): [OctoSense-System-Apps](https://github.com/OctoSense-org/OctoSense-System-Apps) |
 | `tools/octo`: doctor, new, run, shot, check around the real `card-host` and `hub` | The store, gate, catalog, `hub` and `card-host` source: [OctoSense-App-Hub](https://github.com/OctoSense-org/OctoSense-App-Hub) |
 | Templates (`templates/script-app/`) and worked examples (`examples/`) | The shells that run apps: OctoSense ROM `home/` (phone launcher) and the OctoSense desktop shell |
@@ -19,6 +21,7 @@ patch around it here.
 ## How to work
 
 1. Run `tools/octo doctor`. Fix what it reports before anything else.
+   `tools/octo` is this repository's own Python CLI around App Hub's `hub` and `card-host`. It is unrelated to octos (the agent kernel inside OctoSense) and needs no AI service or API key. `doctor` checks Python, cargo, the App Hub checkout and the `hub` / `card-host` binaries.
 2. Pick the flow from [flows/README.md](flows/README.md). For a text brief it
    is [flows/script-app/FLOW.md](flows/script-app/FLOW.md). Publishing is
    [docs/PUBLISHING.md](docs/PUBLISHING.md) for every flow.

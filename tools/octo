@@ -183,7 +183,7 @@ def cmd_new(args):
 
     dest.mkdir(parents=True, exist_ok=True)
     shutil.copytree(TEMPLATE / "bundle", dest / "bundle")
-    for extra in ("AGENTS.md", ".gitignore"):
+    for extra in ("AGENTS.md", "CLAUDE.md", "GEMINI.md", ".gitignore"):
         src = TEMPLATE / extra
         if src.is_file():
             shutil.copy2(src, dest / extra)
