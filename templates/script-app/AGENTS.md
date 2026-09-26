@@ -1,5 +1,7 @@
 # Developing this OctoSense app
 
+> **Any coding agent, or none.** These instructions work the same for Codex, Claude Code, Cursor, Gemini CLI, GitHub Copilot or a person at a terminal: every step is a shell command or a file edit, and nothing here needs a particular agent, model or vendor. `AGENTS.md` is the one source of truth; `CLAUDE.md` and `GEMINI.md` only import it for agents that look for those names.
+
 This repository is one OctoSense script app. `bundle/` is the app and the only
 thing submitted to the App Hub; everything else stays outside it.
 

@@ -19,7 +19,7 @@
 系统脚本应用（News、Photos、Maps、Camera、Mail）以及个人数据技能已迁移到
 [OctoSense-org/OctoSense-System-Apps](https://github.com/OctoSense-org/OctoSense-System-Apps)。
 原生客户端和运行时已迁移到
-[OctoSense-org/OctoSense-AppCard](https://github.com/OctoSense-org/OctoSense-AppCard)。
+[OctoSense-System-Apps `apps/appcard`](https://github.com/OctoSense-org/OctoSense-System-Apps/tree/main/apps/appcard)。
 Makepad 和 OctoScript 位于独立的
 [原生工作区](../docs/NATIVE-WORKSPACE.md)。
 

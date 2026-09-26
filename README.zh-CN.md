@@ -16,8 +16,7 @@ Agent）从一个想法（一段文字需求、一张生成的 UX 图）走到�
 
 面向：参加黑客松的选手、其他开发 OctoSense 应用的开发者，以及与他们协作的编码 Agent。
 
-原名 *Octoscript-AppCard*。运行时已迁至
-[OctoSense-AppCard](https://github.com/OctoSense-org/OctoSense-AppCard)，第一方应用已迁至
+原名 *Octoscript-AppCard*。AppCard 助手运行时和第一方应用已迁至
 [OctoSense-System-Apps](https://github.com/OctoSense-org/OctoSense-System-Apps)。
 
 ## 目录
@@ -37,6 +36,10 @@ Agent）从一个想法（一段文字需求、一张生成的 UX 图）走到�
 - [相关仓库](#相关仓库)
 
 ## Agent 从这里开始
+
+> **任何编程 Agent 都可以，不用 Agent 也可以。** 这些说明对 Codex、Claude Code、Cursor、Gemini CLI、GitHub Copilot 或直接在终端操作的人完全一样：每一步都是一条 shell 命令或一次文件修改，不依赖特定的 Agent、模型或厂商。规则以 `AGENTS.md` 为准；`CLAUDE.md` 和 `GEMINI.md` 只是为按这些文件名查找的 Agent 导入它。
+
+`tools/octo` 是本仓库自带的 Python 命令行工具，封装 App Hub 的 `hub` 和 `card-host`；它与 OctoSense 内部的 Agent 内核 octos 无关，也不需要任何 AI 服务或 API key。
 
 按顺序阅读（与 [OctoSense 组织主页](https://github.com/OctoSense-org) 给出的顺序一致）：
 
@@ -357,7 +360,7 @@ manifest 策略。系统应用从 OctoSense-System-Apps 打包进 Shell 构建�
 | [OctoSense-System-Apps](https://github.com/OctoSense-org/OctoSense-System-Apps) | 第一方应用（News、Photos、Maps、Camera、Mail）与 Mail 宿主服务 |
 | [OctoSense-Desktop](https://github.com/OctoSense-org/OctoSense-Desktop) | 桌面 Shell |
 | [OctoSense-ROM](https://github.com/OctoSense-org/OctoSense-ROM/blob/main/README.zh-CN.md) | 手机 Shell（`home/`），可作为 Home 应用安装，也可刷入 ROM 镜像 |
-| [OctoSense-AppCard](https://github.com/OctoSense-org/OctoSense-AppCard) | AppCard 运行时（Splash 隔离环境、组件、Card 降级） |
+| [OctoSense-System-Apps `apps/appcard`](https://github.com/OctoSense-org/OctoSense-System-Apps/tree/main/apps/appcard) | AppCard 运行时（Splash 隔离环境、组件、Card 降级） |
 | [OctoSense-org/makepad](https://github.com/OctoSense-org/makepad)、[Octoscript](https://github.com/OctoSense-org/OctoScript)、[Octoscript-Makepad](https://github.com/OctoSense-org/OctoScript-Makepad) | 应用运行所依赖的框架与语言 |
 
 ## 许可证

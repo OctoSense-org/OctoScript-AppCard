@@ -22,7 +22,7 @@ System script apps (News, Photos, Maps, Camera, Mail) and the personal-data
 skill moved to
 [OctoSense-org/OctoSense-System-Apps](https://github.com/OctoSense-org/OctoSense-System-Apps).
 The native client and runtime moved to
-[OctoSense-org/OctoSense-AppCard](https://github.com/OctoSense-org/OctoSense-AppCard).
+[OctoSense-System-Apps `apps/appcard`](https://github.com/OctoSense-org/OctoSense-System-Apps/tree/main/apps/appcard).
 Makepad and Octoscript live in the separate
 [native workspace](../docs/NATIVE-WORKSPACE.md).
 
