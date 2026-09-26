@@ -1,5 +1,7 @@
 # image-to-card flow
 
+English | [简体中文](README.zh-CN.md)
+
 Turn **one generated atlas containing 8–12 related UX screens** into measured
 native Makepad scenes, reusable service App Cards, a click-driven service flow,
 and a WebAssembly package for the OctoSense Astro website.

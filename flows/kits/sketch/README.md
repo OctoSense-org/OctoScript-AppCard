@@ -1,5 +1,7 @@
 # Sketch kit ingest: Sketch → native widgets → inspection → repair
 
+English | [简体中文](README.zh-CN.md)
+
 This produces **theme kits** from licensed Sketch design kits. It is not an
 app flow. For the step-by-step contract see `FLOW.md`.
 

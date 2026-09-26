@@ -1,5 +1,7 @@
 # Examples
 
+English | [简体中文](README.zh-CN.md)
+
 Reference journeys built with the [image-to-card flow](../flows/image-to-card/FLOW.md).
 Each example owns its service code, reviewed card scenes, design source,
 launcher, tests and fixture evidence. Runtime state and personal data stay

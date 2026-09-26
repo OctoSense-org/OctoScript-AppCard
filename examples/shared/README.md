@@ -1,5 +1,7 @@
 # Shared app support
 
+English | [简体中文](README.zh-CN.md)
+
 Browser rendering, font metrics and wizard adapters used by the School, Health
 and Reunion apps. This directory is not an app.
 

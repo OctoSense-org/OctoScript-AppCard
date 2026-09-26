@@ -1,5 +1,7 @@
 # Card app template (pointer)
 
+English | [简体中文](README.zh-CN.md)
+
 A **card app** is an L0 `page.card` with its `page.data.json` and `kit/`,
 lowered to widgets by the host. It is produced, not hand-written: use the
 [image-to-card flow](../../flows/image-to-card/FLOW.md) (or the
