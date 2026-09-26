@@ -1,9 +1,10 @@
 # octosense-mail-service — the `mail` host service (ADR 0004).
 #
-# Mail as a service the shell offers to contained apps: the POP3/SMTP code of
+# Mail as a service the shell offers to contained apps: IMAP, and the POP3/SMTP code of
 # the native Mail app, run on the host with the credentials the host holds.
 # An app granted `mail` gets accounts, message lists, messages and a send;
-# it never gets a socket or a password. Sign-in happens on a host-owned sheet.
+# it never gets a socket or a password. Sign-in happens on a host-owned sheet,
+# and passwords go to the keychain (Apple) or behind an Android Keystore key.
 [package]
 name = "octosense-mail-service"
 version = "0.1.0"
@@ -12,7 +13,7 @@ license = "Apache-2.0"
 publish = false
 
 [dependencies]
-octosense-appstore = { git = "https://github.com/OctoSense-org/OctoSense-App-Hub", rev = "97c2a1fd9aa49a6b87586f228e070e0c16b1067b" }
+octosense-appstore = { git = "https://github.com/OctoSense-org/OctoSense-App-Hub", rev = "0dd673ce331f1dbf8fab21d57a13ce0d9506060d" }
 serde_json = "1"
 base64 = "0.22"
 chrono = "0.4"
@@ -21,24 +22,12 @@ rustls = { version = "0.23", default-features = false, features = ["std", "ring"
 webpki-roots = "1"
 sha2 = "0.10"
 scraper = { version = "0.24", default-features = false }
+ego-tree = "0.10"
 
-[patch."https://github.com/OctoSense-org/OctoSense-App-Hub"]
-octosense-appstore = { path = "../../../../OctoSense-App-Hub/crates/appstore" }
-octosense-app-hub = { path = "../../../../OctoSense-App-Hub/crates/app-hub" }
-octosense-app-policy = { path = "../../../../OctoSense-App-Hub/crates/app-policy" }
-[patch."https://github.com/OctoSense-org/makepad.git"]
-makepad-widgets = { path = "../../../../makepad/widgets" }
-makepad-app-module = { path = "../../../../makepad/libs/app_module" }
-makepad-script = { path = "../../../../makepad/platform/script" }
-makepad-ai-services = { path = "../../../../makepad/libs/ai/services" }
-makepad-strict-json = { path = "../../../../makepad/libs/strict_json" }
-makepad-studio-protocol = { path = "../../../../makepad/platform/studio" }
-makepad-network = { path = "../../../../makepad/platform/network" }
-[patch."https://github.com/OctoSense-org/Octoscript-Makepad.git"]
-octoscript-makepad = { path = "../../../../octoscript-makepad/crates/octoscript-makepad" }
-octoscript-widgets = { path = "../../../../octoscript-makepad/crates/octoscript-widgets" }
-octoscript-node = { path = "../../../../octoscript-makepad/crates/octoscript-node" }
-[patch."https://github.com/OctoSense-org/Octoscript.git"]
-octoscript-ui-l0 = { path = "../../../../octoscript/crates/octoscript-ui-l0" }
+[target.'cfg(any(target_os = "macos", target_os = "ios"))'.dependencies]
+keyring = { version = "3", features = ["apple-native"] }
 
-[workspace]
+[target.'cfg(target_os = "android")'.dependencies]
+# The same crates makepad links, so there is one Java VM handle.
+makepad-jni-sys = "0.4.0"
+makepad-android-state = "0.1.0"

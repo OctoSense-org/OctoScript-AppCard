@@ -85,12 +85,12 @@ pub fn validate(account: &Value) -> Result<(), String> {
     Ok(())
 }
 
-enum Wire {
+pub(crate) enum Wire {
     Plain(BufReader<TcpStream>),
     Tls(BufReader<rustls::StreamOwned<rustls::ClientConnection, TcpStream>>),
 }
 impl Wire {
-    fn connect(host: &str, port: u16) -> Result<Self, String> {
+    pub(crate) fn connect(host: &str, port: u16) -> Result<Self, String> {
         let addresses = (host, port)
             .to_socket_addrs()
             .map_err(|_| "Cannot resolve the mail server. Check Wi-Fi.")?;
@@ -110,7 +110,7 @@ impl Wire {
             .map_err(|_| "Cannot configure mail connection.")?;
         Ok(Self::Plain(BufReader::new(socket)))
     }
-    fn tls(self, host: &str) -> Result<Self, String> {
+    pub(crate) fn tls(self, host: &str) -> Result<Self, String> {
         let Self::Plain(reader) = self else {
             return Err("Connection is already encrypted.".into());
         };
@@ -141,7 +141,7 @@ impl Wire {
             client, socket,
         ))))
     }
-    fn write(&mut self, bytes: &[u8]) -> Result<(), String> {
+    pub(crate) fn write(&mut self, bytes: &[u8]) -> Result<(), String> {
         let writer: &mut dyn Write = match self {
             Self::Plain(r) => r.get_mut(),
             Self::Tls(r) => r.get_mut(),
@@ -151,7 +151,20 @@ impl Wire {
             .and_then(|_| writer.flush())
             .map_err(|_| "Connection interrupted while writing mail data.".into())
     }
-    fn line(&mut self) -> Result<Vec<u8>, String> {
+    /// Exactly `n` bytes: an IMAP literal.
+    #[allow(dead_code)]
+    pub(crate) fn read_exact(&mut self, n: usize) -> Result<Vec<u8>, String> {
+        let reader: &mut dyn BufRead = match self {
+            Self::Plain(r) => r,
+            Self::Tls(r) => r,
+        };
+        let mut out = vec![0; n];
+        reader
+            .read_exact(&mut out)
+            .map_err(|_| "Mail connection timed out or closed.")?;
+        Ok(out)
+    }
+    pub(crate) fn line(&mut self) -> Result<Vec<u8>, String> {
         let reader: &mut dyn BufRead = match self {
             Self::Plain(r) => r,
             Self::Tls(r) => r,

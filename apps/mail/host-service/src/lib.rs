@@ -8,10 +8,11 @@
 //! | `mail.accounts` | – | `[{id, address}]` this app may use |
 //! | `mail.add_account` | – | `{id, address}` once the person signs in on the host's sheet |
 //! | `mail.remove_account` | `{account}` | `{}`; the account is deleted when no app uses it |
-//! | `mail.sync` | `{account}` | `{new, total}` after fetching new mail |
-//! | `mail.list` | `{account, offset?, limit?}` | `{total, messages: [{id, sender, address, subject, preview, time, unread}]}` |
-//! | `mail.message` | `{account, message}` | `{id, sender, address, subject, body, date, time}` |
-//! | `mail.mark_read` | `{account, message}` | `{}` |
+//! | `mail.folders` | `{account}` | `[{id, name, role}]`, the inbox first (`role`: inbox, sent, drafts, junk, trash, archive, all, flagged or "") |
+//! | `mail.sync` | `{account, folder?}` | `{new, total}` after fetching new mail |
+//! | `mail.list` | `{account, folder?, offset?, limit?}` | `{folder, total, messages: [{id, sender, address, subject, preview, time, unread}]}` |
+//! | `mail.message` | `{account, folder?, message}` | `{id, sender, address, subject, body, html, attachments, date, time}` |
+//! | `mail.mark_read` | `{account, folder?, message}` | `{}` |
 //! | `mail.send` | `{account, to, subject, body}` | `{accepted}` |
 //!
 //! The app never sees a password or a socket. `mail.add_account` raises the
@@ -21,51 +22,118 @@
 //! account is granted to the apps that added it, and an app can reach only
 //! those.
 //!
+//! `folder` defaults to the inbox. Accounts read over IMAP (folders, and the
+//! read flag goes back to the server) or POP3 (the inbox only); both send
+//! over SMTP. `html` is the message rebuilt from the few tags the app's
+//! `Html` view draws, with nothing remote in it; `body` is its text.
+//!
 //! State lives under the host's own directory (`<host_dir>/mail`), outside
-//! every app's jail: `accounts.json` (no passwords), `secrets/<id>` (the
-//! password, owner-only), and `box-<id>.json` (the fetched mail).
+//! every app's jail: `accounts.json` (no passwords) and `box-<id>…json` (the
+//! fetched mail). Passwords go to the platform's secret store ([`vault`]).
 use octosense_appstore::services::{close_sheet_later, HostService, Replier, ServiceCall, ServiceHost};
 use serde_json::{json, Value};
 use std::collections::HashSet;
 use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex};
 
+pub mod vault;
+mod html;
+mod imap;
+
+use vault::Vault;
+
 #[path = "../../native/src/network.rs"]
 #[allow(dead_code)]
 mod network;
 
-/// How mail moves: POP3 and SMTP in the shell, or a fake in tests.
+pub const INBOX: &str = "INBOX";
+
+/// How mail moves: IMAP or POP3 and SMTP in the shell, or a fake in tests.
 pub trait Transport: Send + Sync {
-    fn test(&self, account: &Value) -> Result<Value, String>;
-    fn fetch(&self, account: &Value, seen: &HashSet<String>) -> Result<Value, String>;
+    /// Sign in and out again: the account works.
+    fn test(&self, account: &Value) -> Result<(), String>;
+    fn folders(&self, account: &Value) -> Result<Vec<Value>, String>;
+    /// Mail in `folder` that `state` has not seen, newest first: `{messages,
+    /// state, reset}`. `state` is what the last fetch returned (or `{}`);
+    /// `reset` says the folder must be fetched afresh.
+    fn fetch(&self, account: &Value, folder: &str, state: &Value) -> Result<Value, String>;
+    /// Tell the server a message was read, where it keeps that.
+    fn mark_seen(&self, account: &Value, folder: &str, message: &Value) -> Result<(), String>;
     fn send(&self, account: &Value, draft: &Value) -> Result<Value, String>;
 }
 
-/// POP3 over TLS for reading, SMTP for sending: the native Mail app's code.
-pub struct Pop3Smtp;
+fn is_imap(account: &Value) -> bool {
+    text(account, "protocol") == "imap"
+}
 
-impl Transport for Pop3Smtp {
-    fn test(&self, account: &Value) -> Result<Value, String> {
-        network::test(account)
+fn inbox_only() -> Vec<Value> {
+    vec![json!({"id": INBOX, "name": "Inbox", "role": "inbox"})]
+}
+
+/// IMAP or POP3 for reading, SMTP for sending: the native Mail app's code
+/// and the service's IMAP client.
+pub struct Network;
+
+impl Transport for Network {
+    fn test(&self, account: &Value) -> Result<(), String> {
+        if is_imap(account) {
+            imap::Imap::connect(account)?.logout();
+            Ok(())
+        } else {
+            network::test(account).map(|_| ())
+        }
     }
-    fn fetch(&self, account: &Value, seen: &HashSet<String>) -> Result<Value, String> {
-        network::fetch(account, seen)
+    fn folders(&self, account: &Value) -> Result<Vec<Value>, String> {
+        if !is_imap(account) {
+            return Ok(inbox_only());
+        }
+        let mut imap = imap::Imap::connect(account)?;
+        let folders = imap.folders();
+        imap.logout();
+        folders
+    }
+    fn fetch(&self, account: &Value, folder: &str, state: &Value) -> Result<Value, String> {
+        if is_imap(account) {
+            let mut imap = imap::Imap::connect(account)?;
+            let fetched = imap.fetch(folder, state, 25);
+            imap.logout();
+            return fetched;
+        }
+        if folder != INBOX {
+            return Err("This account reads the inbox only.".into());
+        }
+        let mut seen: Vec<Value> = state["seen"].as_array().cloned().unwrap_or_default();
+        let known: HashSet<String> = seen.iter().filter_map(|v| v.as_str().map(str::to_string)).collect();
+        let fetched = network::fetch(account, &known)?;
+        let messages = fetched["messages"].as_array().cloned().unwrap_or_default();
+        seen.extend(messages.iter().map(|m| m["uid"].clone()));
+        seen.extend(fetched["skipped_uids"].as_array().cloned().unwrap_or_default());
+        Ok(json!({"messages": messages, "state": {"seen": seen}, "reset": false}))
+    }
+    fn mark_seen(&self, account: &Value, folder: &str, message: &Value) -> Result<(), String> {
+        let Some(uid) = message["imap_uid"].as_u64().filter(|_| is_imap(account)) else { return Ok(()) };
+        let mut imap = imap::Imap::connect(account)?;
+        let marked = imap.mark_seen(folder, uid);
+        imap.logout();
+        marked
     }
     fn send(&self, account: &Value, draft: &Value) -> Result<Value, String> {
         network::send(account, draft)
     }
 }
 
-/// Offer the service to the Card runner, over POP3 and SMTP.
+/// Offer the service to the Card runner, over the network, with passwords in
+/// the platform's secret store.
 pub fn register() {
-    register_with(Arc::new(Pop3Smtp));
+    register_with(Arc::new(Network));
 }
 
 /// Offer the service over a demo mailbox: any address, the password `demo`,
-/// a few sample messages, and sends that go nowhere. For developing and
-/// showing the Mail app without a real account.
+/// a few sample messages in two folders, and sends that go nowhere. For
+/// developing and showing the Mail app without a real account. The demo
+/// password is no secret, so it stays in a file rather than the keychain.
 pub fn register_demo() {
-    register_with(Arc::new(DemoTransport::default()));
+    register_with_vault(Arc::new(DemoTransport::default()), Arc::new(vault::FileVault));
 }
 
 #[derive(Default)]
@@ -73,26 +141,49 @@ pub struct DemoTransport {
     sent: Mutex<usize>,
 }
 
+const DEMO_WELCOME: &str = r#"<html><head><style>.x{color:red}</style></head><body><table><tr><td>
+<h1>Welcome to <b>Mail</b></h1>
+<p>Mail runs as a contained app. It reads and sends through OctoSense, and never sees your password.</p>
+<ul><li>Accounts over <b>IMAP</b> show every folder.</li><li>Passwords live in the device's secret store.</li></ul>
+<p>Read more at <a href="https://octosense.dev/mail">octosense.dev/mail</a>.<img src="https://tracker.example/p.gif"></p>
+</td></tr></table></body></html>"#;
+
 impl Transport for DemoTransport {
-    fn test(&self, account: &Value) -> Result<Value, String> {
-        if text(account, "password") == "demo" { Ok(json!({})) } else { Err("The demo mailbox's password is \"demo\".".into()) }
+    fn test(&self, account: &Value) -> Result<(), String> {
+        if text(account, "password") == "demo" { Ok(()) } else { Err("The demo mailbox's password is \"demo\".".into()) }
     }
-    fn fetch(&self, account: &Value, seen: &HashSet<String>) -> Result<Value, String> {
+    fn folders(&self, account: &Value) -> Result<Vec<Value>, String> {
         self.test(account)?;
-        let samples = [
-            ("demo-1", "Rose Chen", "rose@example.com", "Dinner on Saturday?", "We are thinking of trying the new place on Market Street around seven. Are you in?"),
-            ("demo-2", "OctoSense", "hello@octosense.dev", "Welcome to Mail", "Mail runs as a contained app: it reads and sends through the host, and never sees your password."),
-            ("demo-3", "Noah Park", "noah@example.com", "Photos from the hike", "I put the good ones in the shared album. The view from the ridge came out great."),
-        ];
+        let mut folders = inbox_only();
+        folders.push(json!({"id": "Sent", "name": "Sent", "role": "sent"}));
+        Ok(folders)
+    }
+    fn fetch(&self, account: &Value, folder: &str, state: &Value) -> Result<Value, String> {
+        self.test(account)?;
+        let samples: &[(&str, &str, &str, &str, &str, &str)] = if folder == INBOX {
+            &[
+                ("demo-1", "Rose Chen", "rose@example.com", "Dinner on Saturday?", "We are thinking of trying the new place on Market Street around seven. Are you in?", ""),
+                ("demo-2", "OctoSense", "hello@octosense.dev", "Welcome to Mail", "", DEMO_WELCOME),
+                ("demo-3", "Noah Park", "noah@example.com", "Photos from the hike", "I put the good ones in the shared album. The view from the ridge came out great.", ""),
+            ]
+        } else {
+            &[("demo-sent-1", "Me", "me@example.com", "Re: Photos from the hike", "They look great, thanks!", "")]
+        };
+        let mut seen: Vec<Value> = state["seen"].as_array().cloned().unwrap_or_default();
         let messages: Vec<Value> = samples
             .iter()
-            .filter(|(uid, ..)| !seen.contains(*uid))
-            .map(|(uid, sender, address, subject, body)| {
+            .filter(|(uid, ..)| !seen.iter().any(|s| s == uid))
+            .map(|(uid, sender, address, subject, body, html)| {
                 json!({"id": &network::hash(uid)[..24], "uid": uid, "sender": sender, "address": address, "subject": subject,
-                    "body": body, "preview": body, "time": "Sep 25", "date": "2026-09-25T09:00:00Z", "unread": true})
+                    "body": if body.is_empty() { "(No readable message body)" } else { body }, "preview": body, "html": html,
+                    "time": "Sep 25", "date": "2026-09-25T09:00:00Z", "unread": folder == INBOX})
             })
             .collect();
-        Ok(json!({"messages": messages, "skipped_uids": []}))
+        seen.extend(messages.iter().map(|m| m["uid"].clone()));
+        Ok(json!({"messages": messages, "state": {"seen": seen}, "reset": false}))
+    }
+    fn mark_seen(&self, _account: &Value, _folder: &str, _message: &Value) -> Result<(), String> {
+        Ok(())
     }
     fn send(&self, account: &Value, _draft: &Value) -> Result<Value, String> {
         self.test(account)?;
@@ -102,18 +193,23 @@ impl Transport for DemoTransport {
 }
 
 pub fn register_with(transport: Arc<dyn Transport>) {
-    octosense_appstore::services::register_host_service(Box::new(MailService { transport, pending: Arc::default() }));
+    register_with_vault(transport, vault::platform());
+}
+
+pub fn register_with_vault(transport: Arc<dyn Transport>, vault: Arc<dyn Vault>) {
+    octosense_appstore::services::register_host_service(Box::new(MailService { transport, vault, pending: Arc::default() }));
 }
 
 pub struct MailService {
     transport: Arc<dyn Transport>,
+    vault: Arc<dyn Vault>,
     /// The app waiting on a sign-in, and where its answer goes. Shared with
     /// the worker that tests an account: it answers on success, and leaves
     /// the app waiting on a failure, so the person can fix the form.
     pending: Arc<Mutex<Option<(String, Replier)>>>,
 }
 
-const ACCOUNT_FIELDS: [&str; 9] = ["address", "username", "host", "port", "security", "smtp_host", "smtp_port", "smtp_security", "id"];
+const ACCOUNT_FIELDS: [&str; 10] = ["address", "username", "protocol", "host", "port", "security", "smtp_host", "smtp_port", "smtp_security", "id"];
 
 fn text<'a>(v: &'a Value, key: &str) -> &'a str {
     v[key].as_str().unwrap_or("")
@@ -121,11 +217,12 @@ fn text<'a>(v: &'a Value, key: &str) -> &'a str {
 
 struct Store {
     dir: PathBuf,
+    vault: Arc<dyn Vault>,
 }
 
 impl Store {
-    fn at(host_dir: &Path) -> Self {
-        Store { dir: host_dir.join("mail") }
+    fn at(host_dir: &Path, vault: Arc<dyn Vault>) -> Self {
+        Store { dir: host_dir.join("mail"), vault }
     }
 
     fn accounts(&self) -> Vec<Value> {
@@ -142,6 +239,14 @@ impl Store {
     /// An account this app was granted, with its password, ready for the
     /// transport; or why not.
     fn account_for(&self, app_id: &str, id: &str) -> Result<Value, String> {
+        let account = self.granted(app_id, id)?;
+        let mut full = account.clone();
+        full["password"] = json!(self.vault.get(&self.dir, id)?);
+        Ok(full)
+    }
+
+    /// The account, without its password, if this app was granted it.
+    fn granted(&self, app_id: &str, id: &str) -> Result<Value, String> {
         let account = self
             .accounts()
             .into_iter()
@@ -151,40 +256,48 @@ impl Store {
         if !granted {
             return Err("This app may not use that account.".into());
         }
-        let mut full = account.clone();
-        full["password"] = json!(self.secret(id)?);
-        Ok(full)
+        Ok(account)
     }
 
-    fn secret(&self, id: &str) -> Result<String, String> {
-        std::fs::read_to_string(self.dir.join("secrets").join(id)).map_err(|_| "The account's password is missing; sign in again.".to_string())
-    }
-
-    fn save_secret(&self, id: &str, password: &str) -> Result<(), String> {
-        let path = self.dir.join("secrets").join(id);
-        write_atomic(&path, password.as_bytes())?;
-        #[cfg(unix)]
-        {
-            use std::os::unix::fs::PermissionsExt;
-            let _ = std::fs::set_permissions(&path, std::fs::Permissions::from_mode(0o600));
+    /// The inbox keeps the name older builds gave it.
+    fn mailbox_path(&self, id: &str, folder: &str) -> PathBuf {
+        if folder == INBOX {
+            self.dir.join(format!("box-{id}.json"))
+        } else {
+            self.dir.join(format!("box-{id}-{}.json", &network::hash(folder)[..12]))
         }
-        Ok(())
     }
 
-    fn mailbox(&self, id: &str) -> Value {
-        std::fs::read(self.dir.join(format!("box-{id}.json")))
+    fn mailbox(&self, id: &str, folder: &str) -> Value {
+        let mut mailbox = std::fs::read(self.mailbox_path(id, folder))
             .ok()
-            .and_then(|b| serde_json::from_slice(&b).ok())
-            .unwrap_or_else(|| json!({"messages": [], "seen": []}))
+            .and_then(|b| serde_json::from_slice::<Value>(&b).ok())
+            .unwrap_or_else(|| json!({"messages": []}));
+        if mailbox.get("state").is_none() {
+            // Older builds kept POP3's seen list at the top.
+            mailbox["state"] = json!({"seen": mailbox.get("seen").cloned().unwrap_or(json!([]))});
+        }
+        mailbox
     }
 
-    fn save_mailbox(&self, id: &str, mailbox: &Value) -> Result<(), String> {
-        write_atomic(&self.dir.join(format!("box-{id}.json")), &serde_json::to_vec(mailbox).unwrap())
+    fn save_mailbox(&self, id: &str, folder: &str, mailbox: &Value) -> Result<(), String> {
+        write_atomic(&self.mailbox_path(id, folder), &serde_json::to_vec(mailbox).unwrap())
+    }
+
+    fn folders(&self, id: &str) -> Option<Value> {
+        std::fs::read(self.dir.join(format!("folders-{id}.json"))).ok().and_then(|b| serde_json::from_slice(&b).ok())
     }
 
     fn forget(&self, id: &str) {
-        let _ = std::fs::remove_file(self.dir.join("secrets").join(id));
-        let _ = std::fs::remove_file(self.dir.join(format!("box-{id}.json")));
+        self.vault.remove(&self.dir, id);
+        if let Ok(entries) = std::fs::read_dir(&self.dir) {
+            for entry in entries.flatten() {
+                let name = entry.file_name().to_string_lossy().to_string();
+                if name == format!("box-{id}.json") || name.starts_with(&format!("box-{id}-")) || name == format!("folders-{id}.json") {
+                    let _ = std::fs::remove_file(entry.path());
+                }
+            }
+        }
     }
 }
 
@@ -195,6 +308,33 @@ fn write_atomic(path: &Path, bytes: &[u8]) -> Result<(), String> {
     let temp = path.with_extension("tmp");
     std::fs::write(&temp, bytes).map_err(|e| format!("Cannot store mail: {e}"))?;
     std::fs::rename(&temp, path).map_err(|e| format!("Cannot store mail: {e}"))
+}
+
+/// A fetched message as it is kept: its HTML rebuilt from safe tags, its
+/// text from that when the mail had no text part, and no attachment bytes
+/// or inline images (nothing the app is shown needs them).
+fn normalize(mut message: Value) -> Value {
+    let source = text(&message, "html").to_string();
+    if !source.trim().is_empty() {
+        let rebuilt = html::rebuild(&source);
+        let body = text(&message, "body").to_string();
+        // The decoder falls back to every text node, style sheets included,
+        // when a mail has no text part; the rebuilt text reads better.
+        let fallback = scraper::Html::parse_fragment(&source).root_element().text().collect::<Vec<_>>().join(" ");
+        if (body == fallback || body == "(No readable message body)" || body.trim().is_empty()) && !rebuilt.text.is_empty() {
+            message["preview"] = json!(rebuilt.text.split_whitespace().collect::<Vec<_>>().join(" ").chars().take(180).collect::<String>());
+            message["body"] = json!(rebuilt.text);
+        }
+        message["html"] = json!(rebuilt.html);
+    }
+    if let Some(items) = message.get("attachment_items").and_then(Value::as_array).cloned() {
+        let listed: Vec<Value> = items.iter().map(|a| json!({"filename": a["filename"], "mime": a["mime"], "size": a["size"]})).collect();
+        message["attachment_items"] = json!(listed);
+    }
+    if let Some(object) = message.as_object_mut() {
+        object.remove("inline_images");
+    }
+    message
 }
 
 /// What an app sees of a message in a list.
@@ -209,6 +349,12 @@ fn header(message: &Value) -> Value {
 /// The account a sign-in form describes, or why it cannot be one.
 fn account_from_form(form: &Value) -> Result<Value, String> {
     let mut account = network::defaults();
+    let imap = text(form, "protocol") != "pop3";
+    account["protocol"] = json!(if imap { "imap" } else { "pop3" });
+    if imap {
+        account["host"] = json!("imap.gmail.com");
+        account["port"] = json!("993");
+    }
     for key in ["address", "username", "password", "host", "port", "security", "smtp_host", "smtp_port", "smtp_security"] {
         if let Some(value) = form[key].as_str().filter(|v| !v.trim().is_empty()) {
             // A password is taken as typed: spaces can be part of it.
@@ -224,14 +370,20 @@ fn account_from_form(form: &Value) -> Result<Value, String> {
     Ok(account)
 }
 
+/// A worker thread for slow work, so the UI thread never waits on a server.
+fn work(f: impl FnOnce() + Send + 'static) {
+    std::thread::spawn(f);
+}
+
 impl HostService for MailService {
     fn family(&self) -> &'static str {
         "mail"
     }
 
     fn call(&mut self, call: ServiceCall, reply: Replier, host: &mut dyn ServiceHost) {
-        let store = Store::at(&call.host_dir);
+        let store = Store::at(&call.host_dir, self.vault.clone());
         let account_arg = text(&call.args, "account").to_string();
+        let folder = Some(text(&call.args, "folder")).filter(|f| !f.is_empty()).unwrap_or(INBOX).to_string();
         match call.method() {
             "accounts" => {
                 let mine: Vec<Value> = store
@@ -267,32 +419,34 @@ impl HostService for MailService {
                     Err(e) => return reply.send(Err(e)),
                 };
                 let (transport, pending) = (self.transport.clone(), self.pending.clone());
-                std::thread::spawn(move || {
+                work(move || {
                     if let Err(e) = transport.test(&account) {
                         return reply.send(Err(e));
                     }
                     let id = network::identity(&account);
                     let mut accounts = store.accounts();
+                    let mut kept = json!({"apps": [app_id], "id": id});
+                    for key in ACCOUNT_FIELDS.iter().filter(|k| **k != "id") {
+                        kept[*key] = account[*key].clone();
+                    }
                     match accounts.iter_mut().find(|a| text(a, "id") == id) {
                         Some(existing) => {
-                            let apps = existing["apps"].as_array_mut().unwrap();
+                            // Signing in again updates the settings and
+                            // grants the account to this app too.
+                            let mut apps = existing["apps"].as_array().cloned().unwrap_or_default();
                             if !apps.iter().any(|a| a == app_id.as_str()) {
                                 apps.push(json!(app_id));
                             }
+                            kept["apps"] = json!(apps);
+                            *existing = kept;
                         }
-                        None => {
-                            let mut kept = json!({"apps": [app_id], "id": id});
-                            for key in ACCOUNT_FIELDS.iter().filter(|k| **k != "id") {
-                                kept[*key] = account[*key].clone();
-                            }
-                            accounts.push(kept);
-                        }
+                        None => accounts.push(kept),
                     }
-                    let saved = store.save_secret(&id, text(&account, "password")).and_then(|_| store.save_accounts(&accounts));
+                    let saved = store.vault.put(&store.dir, &id, text(&account, "password")).and_then(|_| store.save_accounts(&accounts));
                     if let Err(e) = saved {
                         return reply.send(Err(e));
                     }
-                    close_sheet_later();
+                    close_sheet_later(&app_id);
                     if let Some((_, waiting)) = pending.lock().unwrap().take() {
                         waiting.send(Ok(json!({"id": id, "address": account["address"]})));
                     }
@@ -318,72 +472,103 @@ impl HostService for MailService {
                 }
                 reply.send(store.save_accounts(&accounts).map(|_| json!({})));
             }
+            "folders" => {
+                let account = match store.account_for(&call.app_id, &account_arg) {
+                    Ok(account) => account,
+                    Err(e) => return reply.send(Err(e)),
+                };
+                let transport = self.transport.clone();
+                work(move || {
+                    let answer = match transport.folders(&account) {
+                        Ok(folders) => {
+                            let folders = json!(folders);
+                            let _ = write_atomic(&store.dir.join(format!("folders-{account_arg}.json")), folders.to_string().as_bytes());
+                            Ok(folders)
+                        }
+                        // Offline: the folders the last listing found.
+                        Err(e) => store.folders(&account_arg).ok_or(e),
+                    };
+                    reply.send(answer);
+                });
+            }
             "sync" => {
                 let account = match store.account_for(&call.app_id, &account_arg) {
                     Ok(account) => account,
                     Err(e) => return reply.send(Err(e)),
                 };
                 let transport = self.transport.clone();
-                std::thread::spawn(move || {
-                    let mut mailbox = store.mailbox(&account_arg);
-                    let seen: HashSet<String> = mailbox["seen"]
-                        .as_array()
-                        .map(|a| a.iter().filter_map(|v| v.as_str().map(str::to_string)).collect())
-                        .unwrap_or_default();
-                    let result = transport.fetch(&account, &seen).and_then(|fetched| {
+                work(move || {
+                    let mut mailbox = store.mailbox(&account_arg, &folder);
+                    let result = transport.fetch(&account, &folder, &mailbox["state"]).and_then(|fetched| {
                         let new: Vec<Value> = fetched["messages"].as_array().cloned().unwrap_or_default();
-                        let mut messages: Vec<Value> = mailbox["messages"].as_array().cloned().unwrap_or_default();
-                        let mut seen: Vec<Value> = mailbox["seen"].as_array().cloned().unwrap_or_default();
+                        let mut messages: Vec<Value> =
+                            if fetched["reset"] == true { Vec::new() } else { mailbox["messages"].as_array().cloned().unwrap_or_default() };
                         for message in new.iter().rev() {
-                            seen.push(message["uid"].clone());
-                            messages.insert(0, message.clone());
-                        }
-                        for uid in fetched["skipped_uids"].as_array().cloned().unwrap_or_default() {
-                            seen.push(uid);
+                            messages.insert(0, normalize(message.clone()));
                         }
                         let total = messages.len();
                         mailbox["messages"] = json!(messages);
-                        mailbox["seen"] = json!(seen);
-                        store.save_mailbox(&account_arg, &mailbox)?;
+                        mailbox["state"] = fetched["state"].clone();
+                        if let Some(object) = mailbox.as_object_mut() {
+                            object.remove("seen");
+                        }
+                        store.save_mailbox(&account_arg, &folder, &mailbox)?;
                         Ok(json!({"new": new.len(), "total": total}))
                     });
                     reply.send(result);
                 });
             }
             "list" => {
-                if let Err(e) = store.account_for(&call.app_id, &account_arg) {
+                if let Err(e) = store.granted(&call.app_id, &account_arg) {
                     return reply.send(Err(e));
                 }
-                let mailbox = store.mailbox(&account_arg);
+                let mailbox = store.mailbox(&account_arg, &folder);
                 let messages = mailbox["messages"].as_array().cloned().unwrap_or_default();
                 let offset = call.args["offset"].as_f64().unwrap_or(0.0).max(0.0) as usize;
                 let limit = call.args["limit"].as_f64().unwrap_or(50.0).clamp(1.0, 200.0) as usize;
                 let page: Vec<Value> = messages.iter().skip(offset).take(limit).map(header).collect();
-                reply.send(Ok(json!({"total": messages.len(), "messages": page})));
+                reply.send(Ok(json!({"folder": folder, "total": messages.len(), "messages": page})));
             }
             "message" | "mark_read" => {
-                if let Err(e) = store.account_for(&call.app_id, &account_arg) {
+                if let Err(e) = store.granted(&call.app_id, &account_arg) {
                     return reply.send(Err(e));
                 }
                 let wanted = text(&call.args, "message").to_string();
-                let mut mailbox = store.mailbox(&account_arg);
+                let mut mailbox = store.mailbox(&account_arg, &folder);
                 let Some(message) = mailbox["messages"]
                     .as_array_mut()
                     .and_then(|m| m.iter_mut().find(|m| text(m, "id") == wanted))
                 else {
                     return reply.send(Err("There is no such message.".into()));
                 };
+                let was_unread = message["unread"].as_bool().unwrap_or(true);
                 message["unread"] = json!(false);
                 let answer = if call.method() == "message" {
+                    let attachments: Vec<Value> = message["attachment_items"]
+                        .as_array()
+                        .map(|items| items.iter().map(|a| json!({"filename": a["filename"], "size": a["size"]})).collect())
+                        .unwrap_or_default();
                     json!({
                         "id": message["id"], "sender": message["sender"], "address": message["address"],
-                        "subject": message["subject"], "body": message["body"], "date": message["date"], "time": message["time"],
+                        "subject": message["subject"], "body": message["body"], "html": text(message, "html"),
+                        "attachments": attachments, "date": message["date"], "time": message["time"],
                     })
                 } else {
                     json!({})
                 };
-                let _ = store.save_mailbox(&account_arg, &mailbox);
+                let seen = message.clone();
+                let _ = store.save_mailbox(&account_arg, &folder, &mailbox);
                 reply.send(Ok(answer));
+                // The server hears too, where it keeps a read flag; failing
+                // that is not worth an error: the next sync is unaffected.
+                if was_unread {
+                    if let Ok(account) = store.account_for(&call.app_id, &account_arg) {
+                        let transport = self.transport.clone();
+                        work(move || {
+                            let _ = transport.mark_seen(&account, &folder, &seen);
+                        });
+                    }
+                }
             }
             "send" => {
                 let account = match store.account_for(&call.app_id, &account_arg) {
@@ -397,7 +582,7 @@ impl HostService for MailService {
                     "message_id": format!("<{now:x}@{domain}>"),
                 });
                 let transport = self.transport.clone();
-                std::thread::spawn(move || reply.send(transport.send(&account, &draft)));
+                work(move || reply.send(transport.send(&account, &draft)));
             }
             other => reply.send(Err(format!("mail has no method {other:?}"))),
         }
@@ -407,10 +592,27 @@ impl HostService for MailService {
 /// The host's sign-in sheet: a Splash program run in its own isolate, over
 /// the app. What is typed here reaches the service, never the app.
 fn signin_sheet() -> String {
-    r##"fn submit(){
+    r##"let protocol = "imap"
+fn choose(p){
+    protocol = p
+    ui.imap_on.set_visible(p == "imap")
+    ui.imap_off.set_visible(p != "imap")
+    ui.pop_on.set_visible(p == "pop3")
+    ui.pop_off.set_visible(p != "pop3")
+    // Swap Gmail's servers for each other; anything typed stays.
+    let h = ui.pop_host.text()
+    if p == "imap" {
+        ui.incoming.set_text("Incoming (IMAP, TLS)")
+        if h == "pop.gmail.com" || h == "" { ui.pop_host.set_text("imap.gmail.com") ui.pop_port.set_text("993") }
+    } else {
+        ui.incoming.set_text("Incoming (POP3, TLS)")
+        if h == "imap.gmail.com" || h == "" { ui.pop_host.set_text("pop.gmail.com") ui.pop_port.set_text("995") }
+    }
+}
+fn submit(){
     ui.status.set_text("Checking the account…")
     host.request("mail.signin.submit", {
-        address: ui.address.text() username: ui.username.text() password: ui.password.text()
+        address: ui.address.text() username: ui.username.text() password: ui.password.text() protocol: protocol
         host: ui.pop_host.text() port: ui.pop_port.text() security: "tls"
         smtp_host: ui.smtp_host.text() smtp_port: ui.smtp_port.text() smtp_security: "tls"
     }, fn(r){ if r.is_ok { ui.status.set_text("Signed in") } else { ui.status.set_text(r.error) } })
@@ -422,6 +624,12 @@ let Field = TextInput{width: Fill height: 40
     draw_text +: {color: #x1c1c1e color_hover: #x1c1c1e color_focus: #x1c1c1e color_empty: #x8e8e93 color_empty_hover: #x8e8e93}
 }
 let Caption = Label{text: "" draw_text.color: #x8e8e93 draw_text.text_style.font_size: 11}
+let Choice = ButtonFlat{height: 32 width: Fill
+    draw_bg +: {border_radius: 8.0 color: #x00000000 color_hover: #x0000000a color_down: #x00000014 border_size: 0.0}
+    draw_text +: {color: #x3a3a3c color_hover: #x3a3a3c color_down: #x3a3a3c text_style +: {font_size: 13}}}
+let Chosen = ButtonFlat{height: 32 width: Fill
+    draw_bg +: {border_radius: 8.0 color: #xffffff color_hover: #xffffff color_down: #xffffff border_size: 0.0}
+    draw_text +: {color: #x1c1c1e color_hover: #x1c1c1e color_down: #x1c1c1e text_style +: {font_size: 13}}}
 SolidView{width: Fill height: Fill flow: Down align: Align{x: 0.5 y: 0.5} draw_bg.color: #x000000aa new_batch: true padding: 16
     RoundedView{width: Fill height: Fit flow: Down spacing: 8 padding: 18 new_batch: true show_bg: true draw_bg.color: #xffffff draw_bg.border_radius: 18.0
         Label{text: "OctoSense · Add a mail account" draw_text.color: #x1c1c1e draw_text.text_style: theme.font_bold{font_size: 17}}
@@ -432,9 +640,15 @@ SolidView{width: Fill height: Fill flow: Down align: Align{x: 0.5 y: 0.5} draw_b
         username := Field{empty_text: "optional"}
         Caption{text: "Password or app password"}
         password := Field{empty_text: "password" is_password: true}
+        RoundedView{width: Fill height: Fit flow: Right padding: 2 show_bg: true draw_bg.color: #xe5e5ea draw_bg.border_radius: 10.0
+            imap_on := Chosen{text: "IMAP: all folders"}
+            imap_off := Choice{visible: false text: "IMAP: all folders" on_click: || choose("imap")}
+            pop_on := Chosen{visible: false text: "POP3: inbox only"}
+            pop_off := Choice{text: "POP3: inbox only" on_click: || choose("pop3")}
+        }
         View{width: Fill height: Fit flow: Right spacing: 8
-            View{width: Fill height: Fit flow: Down spacing: 4 Caption{text: "Incoming (POP3, TLS)"} pop_host := Field{text: "pop.gmail.com"}}
-            View{width: 80 height: Fit flow: Down spacing: 4 Caption{text: "Port"} pop_port := Field{text: "995"}}
+            View{width: Fill height: Fit flow: Down spacing: 4 incoming := Caption{text: "Incoming (IMAP, TLS)"} pop_host := Field{text: "imap.gmail.com"}}
+            View{width: 80 height: Fit flow: Down spacing: 4 Caption{text: "Port"} pop_port := Field{text: "993"}}
         }
         View{width: Fill height: Fit flow: Right spacing: 8
             View{width: Fill height: Fit flow: Down spacing: 4 Caption{text: "Outgoing (SMTP, TLS)"} smtp_host := Field{text: "smtp.gmail.com"}}
@@ -467,14 +681,26 @@ mod tests {
         password: String,
         inbox: Vec<Value>,
         sent: Mutex<Vec<Value>>,
+        marked: Mutex<Vec<String>>,
     }
     impl Transport for Fake {
-        fn test(&self, account: &Value) -> Result<Value, String> {
-            if text(account, "password") == self.password { Ok(json!({})) } else { Err("Wrong password.".into()) }
+        fn test(&self, account: &Value) -> Result<(), String> {
+            if text(account, "password") == self.password { Ok(()) } else { Err("Wrong password.".into()) }
         }
-        fn fetch(&self, account: &Value, seen: &HashSet<String>) -> Result<Value, String> {
+        fn folders(&self, account: &Value) -> Result<Vec<Value>, String> {
             self.test(account)?;
-            Ok(json!({"messages": self.inbox.iter().filter(|m| !seen.contains(text(m, "uid"))).cloned().collect::<Vec<_>>(), "skipped_uids": []}))
+            Ok(vec![json!({"id": INBOX, "name": "Inbox", "role": "inbox"}), json!({"id": "Archive", "name": "Archive", "role": "archive"})])
+        }
+        fn fetch(&self, account: &Value, folder: &str, state: &Value) -> Result<Value, String> {
+            self.test(account)?;
+            let last = state["last"].as_u64().unwrap_or(0) as usize;
+            let inbox: Vec<Value> = if folder == INBOX { self.inbox.clone() } else { vec![message("a1", "Archived")] };
+            let new: Vec<Value> = inbox.iter().skip(last).cloned().collect();
+            Ok(json!({"messages": new, "state": {"last": inbox.len()}, "reset": false}))
+        }
+        fn mark_seen(&self, _account: &Value, folder: &str, message: &Value) -> Result<(), String> {
+            self.marked.lock().unwrap().push(format!("{folder}/{}", text(message, "uid")));
+            Ok(())
         }
         fn send(&self, account: &Value, draft: &Value) -> Result<Value, String> {
             self.test(account)?;
@@ -531,8 +757,11 @@ mod tests {
     fn an_app_signs_in_on_the_hosts_sheet_and_reads_and_sends_without_the_password() {
         let dir = std::env::temp_dir().join(format!("mail-service-{}", std::process::id()));
         let _ = std::fs::remove_dir_all(&dir);
-        let fake = Arc::new(Fake { password: "s3cret".into(), inbox: vec![message("u1", "First"), message("u2", "Second")], sent: Mutex::default() });
-        register_with(fake.clone());
+        let mut html_mail = message("u2", "Second");
+        html_mail["body"] = json!("(No readable message body)");
+        html_mail["html"] = json!("<style>p{}</style><div><h1>Big news</h1><p>Read <a href='https://x.example'>this</a>.</p><img src='https://t.example/p'></div>");
+        let fake = Arc::new(Fake { password: "s3cret".into(), inbox: vec![message("u1", "First"), html_mail], sent: Mutex::default(), marked: Mutex::default() });
+        register_with_vault(fake.clone(), Arc::new(vault::FileVault));
         let mut host = Host::default();
 
         // The app cannot hand the service a password itself.
@@ -573,10 +802,36 @@ mod tests {
         let list = ask(&dir, "os.mail", "mail.list", json!({"account": id}), false, &mut host).unwrap();
         assert_eq!(list["messages"][0]["unread"], false);
 
+        let html_id = text(&list["messages"][1], "id").to_string();
+        assert_eq!(list["messages"][1]["preview"], "Big news Read this.", "a preview is the mail's text, not its style sheet");
+        let read = ask(&dir, "os.mail", "mail.message", json!({"account": id, "message": html_id}), false, &mut host).unwrap();
+        assert_eq!(read["html"], "<h2>Big news</h2><p>Read <a href=\"https://x.example\">this</a>.</p>");
+        assert_eq!(read["body"], "Big news\n\nRead this.");
+        for _ in 0..200 {
+            if fake.marked.lock().unwrap().len() == 2 {
+                break;
+            }
+            std::thread::sleep(std::time::Duration::from_millis(5));
+        }
+        let mut marked = fake.marked.lock().unwrap().clone();
+        marked.sort();
+        assert_eq!(marked, ["INBOX/u1", "INBOX/u2"], "the server hears a message was read, once");
+        ask(&dir, "os.mail", "mail.message", json!({"account": id, "message": html_id}), false, &mut host).unwrap();
+        assert_eq!(fake.marked.lock().unwrap().len(), 2);
+
+        // Folders: listed, then each synced and listed on its own.
+        let folders = ask(&dir, "os.mail", "mail.folders", json!({"account": id}), false, &mut host).unwrap();
+        assert_eq!(folders[1]["id"], "Archive");
+        assert_eq!(ask(&dir, "os.mail", "mail.sync", json!({"account": id, "folder": "Archive"}), false, &mut host).unwrap()["new"], 1);
+        let archive = ask(&dir, "os.mail", "mail.list", json!({"account": id, "folder": "Archive"}), false, &mut host).unwrap();
+        assert_eq!(archive["messages"][0]["subject"], "Archived");
+        assert_eq!(ask(&dir, "os.mail", "mail.list", json!({"account": id}), false, &mut host).unwrap()["total"], 2, "folders keep their own mail");
+
         ask(&dir, "os.mail", "mail.send", json!({"account": id, "to": "alex@example.com", "subject": "Hi", "body": "Hello"}), false, &mut host).unwrap();
         assert_eq!(fake.sent.lock().unwrap()[0]["to"], "alex@example.com");
 
         ask(&dir, "os.mail", "mail.remove_account", json!({"account": id}), false, &mut host).unwrap();
         assert!(!dir.join("mail/secrets").join(&id).exists(), "the last app out takes the password with it");
+        assert!(std::fs::read_dir(dir.join("mail")).unwrap().flatten().all(|e| !e.file_name().to_string_lossy().starts_with("box-")), "and its mail");
     }
 }
