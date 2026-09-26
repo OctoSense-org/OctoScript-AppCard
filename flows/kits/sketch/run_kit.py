@@ -3,27 +3,21 @@
 
     run_kit.py --kit <name> [--stages a,b,c] [--rounds 2]
 
-Stages, in order (each resumable — existing outputs are kept):
-  beauty    one author/import + native validation cycle; rerun after repairs
+Stages (each resumable: existing outputs are kept):
+  unpack          legacy: unzip into work/<kit>_sketch (extract reads source_archive)
+  doctor          preflight; exits nonzero when anything the loop needs is missing
+  extract         import the Sketch document natively (sketch_native.py)
+  promote         create reusable L0 kit cards (promote_l0.py) and app recipes
+  beauty          one import + native validation cycle; rerun after repairs
   splash-makepad  release Studio capture, structure + visual gates, repair/gallery
-  audit     rerun gates on saved captures; no Studio build or new visual review
-  report    refresh composition, visual freshness, repair feedback and gallery
-  extract   .sketch -> specs (sketch2spec) and design targets (spec2png)
-  theme     specs -> theme pack (spec2theme) + registration (register_pack)
-            [new kits only; then REBUILD desktop app + APK before rendering]
-  author    LLM writes one L0 card per screen (author_cards, validate loop)
-  desktop   render on desktop makepad (render_v2) + strict judge
-  android   render on the OnePlus 6T (render_device l0) + strict judge
-            [assumes the installed APK carries the current kit code]
-  ohos      assemble ArkUI sources (gen_ohos_atro), deploy fresh HAP
-            (build-atro.sh), capture one cold launch per screen, judge
-  status    print per-stage artifact freshness and rail medians
+  audit           rerun gates on saved captures; no Studio build or new review
+  report          refresh composition, visual freshness, repair feedback, gallery
+  validate        check-only pass of the native renderer
+  status          print per-stage artifact freshness (the default)
 
-A NEW kit needs kits/<name>.json first — copy kits/atro.json and set: sketch
-path, theme/theme_light/model names, screens (artboard names), img_dir
-(extracted kit images). Prereqs the loop cannot do for you: phones plugged in
-(adb: OnePlus, hdc: Mate 70 Air), a valid 14-day HarmonyOS debug signature,
-and a rebuild of the desktop binary/APK after `theme` registers a new pack.
+A NEW kit needs flows/core/kits/<name>.json first: copy
+flows/core/examples/sketch-kit.json and set the archive, pages, screens and
+fonts. See flows/kits/sketch/FLOW.md.
 """
 import json
 import pathlib

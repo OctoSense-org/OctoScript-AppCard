@@ -4,9 +4,10 @@ import hashlib
 import json
 import argparse
 from pathlib import Path
+import sys
 
-from core.native_paths import repository
-ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))  # flows/, for `core`
+from core.native_paths import repository  # noqa: E402
 NATIVE = repository('splash-makepad') / 'components/l0/native'
 THEMES = ('atro','atro_light','camo','camo_light','taskplan_light')
 
