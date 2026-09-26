@@ -1,0 +1,53 @@
+let notes = []
+
+fn load(){
+    if fs.exists("notes.json") {
+        let v = fs.read("notes.json").parse_json()
+        if v != nil { notes = v }
+    }
+    ui.list.render()
+}
+fn save(){ fs.write("notes.json", notes.to_json()) }
+fn add(){
+    let text = ui.entry.text()
+    if text == "" { return }
+    notes.push(text)
+    ui.entry.set_text("")
+    save()
+    ui.list.render()
+}
+fn remove(i){
+    let kept = []
+    for j in notes.len() { if j != i { kept.push(notes[j]) } }
+    notes = kept
+    save()
+    ui.list.render()
+}
+
+start_timeout(0.05, || load())
+
+let ink = #x1c1c1e
+let secondary = #x8e8e93
+SolidView{width: Fill height: Fill flow: Down padding: 16 spacing: 12 draw_bg.color: #xffffff
+    Label{text: "My Notes" draw_text.color: ink draw_text.text_style: theme.font_bold{font_size: 28}}
+    View{width: Fill height: Fit flow: Right spacing: 8 align: Align{y: 0.5}
+        entry := TextInput{width: Fill height: 40 empty_text: "Write a note"
+            draw_bg +: {color: #xf2f2f7 color_hover: #xf2f2f7 color_focus: #xf2f2f7 color_empty: #xf2f2f7 border_radius: 10.0}
+            draw_text +: {color: ink color_hover: ink color_focus: ink color_empty: secondary color_empty_hover: secondary}}
+        ButtonFlat{text: "Add" height: 40 padding: Inset{left: 18 right: 18} on_click: || add()
+            draw_bg +: {border_radius: 20.0 color: #x007aff color_hover: #x0a84ff color_down: #x0062cc border_size: 0.0}
+            draw_text +: {color: #xffffff color_hover: #xffffff color_down: #xffffff}}
+    }
+    list := ScrollYView{width: Fill height: Fill flow: Down spacing: 8 on_render: || {
+        if notes.len() == 0 {
+            Label{text: "No notes yet." draw_text.color: secondary}
+        }
+        for i in notes.len() {
+            GestureView{width: Fill height: Fit padding: 12 on_tap: |x, y| remove(i)
+                Label{width: Fill text: notes[i] draw_text.color: ink draw_text.text_style.font_size: 15}
+            }
+            Hr{}
+        }
+    }}
+    Label{text: "Tap a note to remove it." draw_text.color: secondary draw_text.text_style.font_size: 12}
+}
