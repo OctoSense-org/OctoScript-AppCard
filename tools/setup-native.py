@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 import sys
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "lab"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "flows"))
 from core.native_paths import WORKSPACE
 from core.native_runtime import prepare, verify, runtime_tool
 

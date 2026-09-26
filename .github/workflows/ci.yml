@@ -14,50 +14,76 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  check:
-    # macOS, not ubuntu: clippy runs makepad's build scripts, and the host
-    # system-dependency set is only verified on macOS (what the dev machines
-    # run). Ubuntu would need an untested apt package list for makepad's
-    # Linux backend.
+  flows:
+    # macOS: the image library's OCR and the flows' native tooling are
+    # macOS-only, and the tests are only verified there.
     runs-on: macos-14
     steps:
       - uses: actions/checkout@v6
         with:
-          path: octosense-org/Octosense-Service-AppCards
-          submodules: recursive
+          # A clean parent directory: setup-native.py prepares the shared
+          # runtime (makepad, octoscript, octoscript-makepad) beside the repo.
+          path: octosense-org/OctoScript-App-Design-Flow
 
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
 
       - name: Prepare the shared Octoscript-Makepad runtime
-        working-directory: octosense-org/Octosense-Service-AppCards
-        run: python tools/setup-native.py --root ../
+        working-directory: octosense-org/OctoScript-App-Design-Flow
+        run: |
+          python tools/setup-native.py --root ../
+          python tools/setup-native.py --check --root ../
 
       - name: Runtime setup safeguards
-        working-directory: octosense-org/Octosense-Service-AppCards
-        run: PYTHONPATH=lab python -m unittest core.test_native_runtime
+        working-directory: octosense-org/OctoScript-App-Design-Flow
+        run: PYTHONPATH=flows python -m unittest core.test_native_runtime
 
-      - uses: dtolnay/rust-toolchain@stable
+      - name: Environments (image library and Sketch kit pin different NumPy majors)
+        working-directory: octosense-org/OctoScript-App-Design-Flow
+        run: |
+          python -m venv "$RUNNER_TEMP/image" && "$RUNNER_TEMP/image/bin/pip" install -q -r flows/image-lib/requirements.txt
+          python -m venv "$RUNNER_TEMP/sketch" && "$RUNNER_TEMP/sketch/bin/pip" install -q -r flows/kits/sketch/requirements.txt
+
+      - name: image-to-card flow tests
+        working-directory: octosense-org/OctoScript-App-Design-Flow
+        run: |
+          "$RUNNER_TEMP/image/bin/python" -m unittest discover -s flows/image-to-card -p 'test_*.py'
+          "$RUNNER_TEMP/image/bin/python" -m unittest discover -s flows/image-to-card/wasm -p 'test_*.py'
+
+      - name: Core tests
+        working-directory: octosense-org/OctoScript-App-Design-Flow
+        run: |
+          "$RUNNER_TEMP/sketch/bin/python" -m unittest discover -s flows/core -p 'test_*.py'
+
+      - name: Sketch kit flow tests
+        working-directory: octosense-org/OctoScript-App-Design-Flow
+        run: |
+          "$RUNNER_TEMP/sketch/bin/python" -m unittest discover -s flows/kits/sketch -p 'test_*.py'
+
+      - name: Maintenance tests
+        working-directory: octosense-org/OctoScript-App-Design-Flow
+        run: python -m unittest discover -s flows/tests -p 'test_*.py'
+
+      # flows/image-lib's own tests read ignored per-design capture rounds
+      # (flows/image-lib/*/rounds/), which a fresh checkout does not have;
+      # they run locally, not here.
+
+      - name: Every example manifest plans
+        working-directory: octosense-org/OctoScript-App-Design-Flow
+        run: |
+          for example in aircon school health reunion calendar; do
+            bash tools/image-to-appcard-flow.sh plan \
+              --project "$PWD/examples/$example" \
+              --manifest "$PWD/examples/$example/image-to-appcard-flow.json" > /dev/null
+          done
+
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
         with:
-          components: clippy
-
-      # workspaces: octosense-org/Octosense-Service-AppCards/app — the workspace root (Cargo.toml) lives in app/;
-      # without this the cache save fails with "could not find Cargo.toml"
-      # and every run would compile cold.
-      - uses: Swatinem/rust-cache@v2
-        with:
-          shared-key: octos-one-app
-          workspaces: octosense-org/Octosense-Service-AppCards/app
-
-      # -p + --no-deps scopes the lint gate to this repo's own crates:
-      # Makepad is the source locked by Octoscript-Makepad; its warnings are not
-      # ours to gate (71 at last count), but they are still fully compiled
-      # here — so this step is also the compile check for the whole app.
-      - name: Clippy (own crates; shared runtime compiles)
-        working-directory: octosense-org/Octosense-Service-AppCards/app
-        run: cargo clippy -p octos-app -p octos-app-store -p octos-app-transport -p octos-app-render --all-targets --no-deps -- -D warnings
-
-      - name: Verify one Makepad source in the app dependency graph
-        working-directory: octosense-org/Octosense-Service-AppCards
-        run: python tools/setup-native.py --check --root ../ --cargo-manifest app/Cargo.toml
+          python-version: '3.12'
+      - name: Relative Markdown links resolve
+        run: python tools/check-links.py

@@ -1,9 +1,0 @@
-# octos-app rustfmt config.
-#
-# We mirror aichat's policy (which is `disable_all_formatting = true` —
-# verbatim from `aichat/rustfmt.toml`). The Makepad-aware shell uses hand
-# tuned column alignment in the DSL blocks that `rustfmt` would mangle.
-# CI runs `cargo fmt -- --check` only as an advisory step (warn-only) so
-# the bar stays low for new contributors but the file is here to make
-# the policy explicit and to keep editor format-on-save no-ops.
-disable_all_formatting = true
