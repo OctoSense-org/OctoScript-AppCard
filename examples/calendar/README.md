@@ -1,5 +1,7 @@
 # Calendar — one calendar, two devices
 
+English | [简体中文](README.zh-CN.md)
+
 An iOS-style Calendar built with the [image-to-appcard flow](../../flows/image-to-card/README.md),
 backed by a real sync service: one SQLite database, one ordered operation log,
 one reducer that every client replays. "Alex · Phone" (the app screens) and

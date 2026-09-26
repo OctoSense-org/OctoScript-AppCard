@@ -1,5 +1,7 @@
 # Flows
 
+English | [简体中文](README.zh-CN.md)
+
 A flow turns one kind of input into something OctoSense can run. Pick the flow
 by what you have. Run every command from the repository root.
 

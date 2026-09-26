@@ -1,14 +1,14 @@
-# 空调到家 · Native Service App Cards
+# 空调到家 · 原生服务 App Card
 
-English | [简体中文](README.zh-CN.md)
+[English](README.md) | 简体中文
 
-This is **one Aircon app**, with [12 screen states](cards/README.md) and
-[14 reusable service-card variants](service-cards/README.md). Its siblings are
-in [../](../README.md). Run commands below from this app directory.
+这是**同一个 Aircon 应用**，包含 [12 个画面状态](cards/README.md) 和
+[14 个可复用的服务卡片变体](service-cards/README.md)。同级示例见 [../](../README.zh-CN.md)。
+下面的命令都在本应用目录下运行。
 
-Native Studio launch/capture commands below describe the original verification.
-For new native tests, use the [built-in instrument](../../flows/core/NATIVE-INSTRUMENT.md)
-with hidden windows. Historical evidence retains its original paths and hashes.
+下文中的原生 Studio 启动 / 抓取命令描述的是最初的验证方式。
+新的原生测试请使用[内置 instrument](../../flows/core/NATIVE-INSTRUMENT.md)，并隐藏窗口。
+历史证据保留其原始路径和哈希。
 
 把同一次 Image 2.0 生成的 12 个 UX 画面转换为 Makepad 原生组件，并从场景中导出 14 个独立 service card 变体。目录独立于 Astro 网站。
 
@@ -19,7 +19,7 @@ with hidden windows. Historical evidence retains its original paths and hashes.
 - [App Card 与事务 Tile 设计需求](../../docs/app-card-design-requirements.md)：原始邮件 / 消息溯源、原位组合交互、旅行时间线与出行 Sub Tiles，含后续设计验收标准
 - [L0–L3、Theme Kit 与 Octos 架构评估](../../docs/layered-architecture-assessment.md)：现有实现、状态与来源差距、组件及外部动作的接入方案
 - [事务窗口研究依据](../../docs/matter-centered-ux-research.md)：相关研究、已有系统与产品设计判断
-- [image-to-appcard-flow 完整流水线](../../flows/image-to-card/README.md)：单次总图 → 8–12 个场景 → 原生服务卡片 → 交互状态 → WASM → Astro 网站
+- [image-to-appcard-flow 完整流水线](../../flows/image-to-card/README.zh-CN.md)：单次总图 → 8–12 个场景 → 原生服务卡片 → 交互状态 → WASM → Astro 网站
 - [本项目流水线配置](image-to-appcard-flow.json)，命令：`bash ../../tools/image-to-appcard-flow.sh plan --project "$PWD" --manifest image-to-appcard-flow.json`
 - [交互式 WASM 向导源码与验证](wizard/README.md)：真实 Makepad 控件，中文 / 英文，用户点击推进
 

@@ -1,5 +1,7 @@
 # 老同学，慢慢聚 / A reunion, all arranged
 
+English | [简体中文](README.zh-CN.md)
+
 This is a deterministic, bilingual service AppCard demonstration. Familiar Messages screens hold the original invitation and event details. The desktop holds separately owned reunion, calendar and contribution cards. Every text label and control is a native Makepad widget. No email, calendar or payment operation reaches a real service.
 
 | Scene | Surface | Interaction |

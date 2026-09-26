@@ -1,5 +1,7 @@
 # Health appointment flow
 
+English | [简体中文](README.zh-CN.md)
+
 One generated atlas supplies twelve measured native scenes and twelve independently mountable health/calendar service cards. The application invitation leads to a desktop appointment card, optional item choices, calendar-aware time selection, booking, calendar acknowledgement/undo/restore, draft edits, explicit cancellation, and a final summary.
 
 The provider, appointment and existing calendar conflict are fictional local fixtures. Dental and vision checks are provider-offered options chosen by the user; the flow makes no medical recommendation, gives no clinical instructions, reports no examination results and creates no real appointment.

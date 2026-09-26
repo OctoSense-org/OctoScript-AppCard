@@ -1,5 +1,7 @@
 # Script app template
 
+English | [简体中文](README.zh-CN.md)
+
 A runnable OctoSense script app: **My Notes** (type a note, keep it in the
 app's storage, tap it to remove it). `tools/octo new <dir>` copies it and
 sets the id and name; run it with `tools/octo run <dir>/bundle`.
