@@ -17,7 +17,7 @@
 //!
 //! The app never sees a password or a socket. `mail.add_account` raises the
 //! host's sign-in sheet, a separate isolate over the app; only calls from
-//! that sheet (`mail.signin.submit`, `mail.signin.cancel`) can carry a
+//! that sheet (`mail.sheet.submit`, `mail.sheet.cancel`) can carry a
 //! password, and the service tests the account before it keeps it. Each
 //! account is granted to the apps that added it, and an app can reach only
 //! those.
@@ -401,14 +401,14 @@ impl HostService for MailService {
                 *self.pending.lock().unwrap() = Some((call.app_id.clone(), reply));
                 host.open_sheet(signin_sheet());
             }
-            "signin.cancel" if call.from_sheet => {
+            "sheet.cancel" => {
                 host.close_sheet();
                 if let Some((_, pending)) = self.pending.lock().unwrap().take() {
                     pending.send(Err("Sign-in cancelled.".into()));
                 }
                 reply.send(Ok(json!({})));
             }
-            "signin.submit" if call.from_sheet => {
+            "sheet.submit" => {
                 let Some(app_id) = self.pending.lock().unwrap().as_ref().map(|(app, _)| app.clone()) else {
                     host.close_sheet();
                     reply.send(Err("No app is waiting for this sign-in.".into()));
@@ -453,7 +453,6 @@ impl HostService for MailService {
                     reply.send(Ok(json!({})));
                 });
             }
-            "signin.submit" | "signin.cancel" => reply.send(Err("Only the sign-in sheet may do that.".into())),
             "remove_account" => {
                 let mut accounts = store.accounts();
                 if let Some(account) = accounts.iter_mut().find(|a| text(a, "id") == account_arg) {
@@ -611,13 +610,13 @@ fn choose(p){
 }
 fn submit(){
     ui.status.set_text("Checking the account…")
-    host.request("mail.signin.submit", {
+    host.request("mail.sheet.submit", {
         address: ui.address.text() username: ui.username.text() password: ui.password.text() protocol: protocol
         host: ui.pop_host.text() port: ui.pop_port.text() security: "tls"
         smtp_host: ui.smtp_host.text() smtp_port: ui.smtp_port.text() smtp_security: "tls"
     }, fn(r){ if r.is_ok { ui.status.set_text("Signed in") } else { ui.status.set_text(r.error) } })
 }
-fn cancel(){ host.request("mail.signin.cancel", {}, fn(r){}) }
+fn cancel(){ host.request("mail.sheet.cancel", {}, fn(r){}) }
 let Field = TextInput{width: Fill height: 40
     draw_bg +: {color: #xf2f2f7 color_hover: #xf2f2f7 color_focus: #xf2f2f7 color_empty: #xf2f2f7
         border_color: #x00000000 border_color_hover: #x00000000 border_color_focus: #x007aff border_color_empty: #x00000000 border_radius: 10.0}
@@ -770,20 +769,20 @@ mod tests {
         let mut host = Host::default();
 
         // The app cannot hand the service a password itself.
-        assert!(ask(&dir, "os.mail", "mail.signin.submit", json!({"address": "me@example.com", "password": "s3cret"}), false, &mut host)
+        assert!(ask(&dir, "os.mail", "mail.sheet.submit", json!({"address": "me@example.com", "password": "s3cret"}), false, &mut host)
             .unwrap_err()
-            .contains("Only the sign-in sheet"));
+            .contains("for the host's sheet"));
 
         // add_account raises the sheet and waits; a wrong password keeps it waiting.
         let add = send(&dir, "os.mail", "mail.add_account", Value::Null, false, &mut host);
         assert!(matches!(host.sheet, Some(Some(_))), "the host's sheet is up");
         let form = json!({"address": "me@example.com", "password": "wrong", "host": "pop.example.com", "port": "995", "security": "tls",
             "smtp_host": "smtp.example.com", "smtp_port": "465", "smtp_security": "tls"});
-        assert!(ask(&dir, "os.mail", "mail.signin.submit", form.clone(), true, &mut host).unwrap_err().contains("Wrong password"));
+        assert!(ask(&dir, "os.mail", "mail.sheet.submit", form.clone(), true, &mut host).unwrap_err().contains("Wrong password"));
         assert!(octosense_appstore::services::take_replies_for(&[add]).is_empty(), "the app is still waiting");
         let mut good = form;
         good["password"] = json!("s3cret");
-        ask(&dir, "os.mail", "mail.signin.submit", good, true, &mut host).unwrap();
+        ask(&dir, "os.mail", "mail.sheet.submit", good, true, &mut host).unwrap();
         let added = wait(add).unwrap();
         let id = text(&added, "id").to_string();
         assert_eq!(added["address"], "me@example.com");
