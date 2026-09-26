@@ -630,10 +630,24 @@ let Choice = ButtonFlat{height: 32 width: Fill
 let Chosen = ButtonFlat{height: 32 width: Fill
     draw_bg +: {border_radius: 8.0 color: #xffffff color_hover: #xffffff color_down: #xffffff border_size: 0.0}
     draw_text +: {color: #x1c1c1e color_hover: #x1c1c1e color_down: #x1c1c1e text_style +: {font_size: 13}}}
-SolidView{width: Fill height: Fill flow: Down align: Align{x: 0.5 y: 0.5} draw_bg.color: #x000000aa new_batch: true padding: 16
-    RoundedView{width: Fill height: Fit flow: Down spacing: 8 padding: 18 new_batch: true show_bg: true draw_bg.color: #xffffff draw_bg.border_radius: 18.0
-        Label{text: "OctoSense · Add a mail account" draw_text.color: #x1c1c1e draw_text.text_style: theme.font_bold{font_size: 17}}
+SolidView{width: Fill height: Fill flow: Down draw_bg.color: #x000000aa new_batch: true
+    // Scrolls: on a small or dense screen, or with the keyboard up, the
+    // form is taller than the window. The actions sit at the top so they
+    // are never scrolled out of reach.
+    ScrollYView{width: Fill height: Fill flow: Down padding: Inset{left: 12 right: 12 top: 24 bottom: 24}
+    RoundedView{width: Fill height: Fit flow: Down spacing: 8 padding: 16 new_batch: true show_bg: true draw_bg.color: #xffffff draw_bg.border_radius: 18.0
+        View{width: Fill height: Fit flow: Right spacing: 8 align: Align{y: 0.5}
+            ButtonFlat{text: "Cancel" height: 40 on_click: || cancel()
+                draw_bg +: {color: #x00000000 color_hover: #x0000000a color_down: #x00000014 border_size: 0.0}
+                draw_text +: {color: #x007aff color_hover: #x007aff color_down: #x007aff text_style +: {font_size: 15}}}
+            View{width: Fill height: 1}
+            ButtonFlat{text: "Sign in" height: 40 padding: Inset{left: 20 right: 20} on_click: || submit()
+                draw_bg +: {border_radius: 20.0 color: #x007aff color_hover: #x0a84ff color_down: #x0062cc border_size: 0.0}
+                draw_text +: {color: #xffffff color_hover: #xffffff color_down: #xffffff text_style +: {font_size: 15}}}
+        }
+        Label{width: Fill text: "OctoSense · Add a mail account" draw_text.color: #x1c1c1e draw_text.text_style: theme.font_bold{font_size: 17}}
         Label{width: Fill text: "Your password stays with OctoSense. The app that asked only gets your mail." draw_text.color: #x3a3a3c draw_text.text_style.font_size: 12}
+        status := Label{width: Fill text: "" draw_text.color: #xff3b30 draw_text.text_style.font_size: 12}
         Caption{text: "Email address"}
         address := Field{empty_text: "you@example.com"}
         Caption{text: "Login (if not the address)"}
@@ -654,16 +668,7 @@ SolidView{width: Fill height: Fill flow: Down align: Align{x: 0.5 y: 0.5} draw_b
             View{width: Fill height: Fit flow: Down spacing: 4 Caption{text: "Outgoing (SMTP, TLS)"} smtp_host := Field{text: "smtp.gmail.com"}}
             View{width: 80 height: Fit flow: Down spacing: 4 Caption{text: "Port"} smtp_port := Field{text: "465"}}
         }
-        status := Label{width: Fill text: "" draw_text.color: #xff3b30 draw_text.text_style.font_size: 12}
-        View{width: Fill height: Fit flow: Right spacing: 8 align: Align{y: 0.5}
-            ButtonFlat{text: "Cancel" height: 40 on_click: || cancel()
-                draw_bg +: {color: #x00000000 color_hover: #x0000000a color_down: #x00000014 border_size: 0.0}
-                draw_text +: {color: #x007aff color_hover: #x007aff color_down: #x007aff text_style +: {font_size: 15}}}
-            View{width: Fill height: 1}
-            ButtonFlat{text: "Sign in" height: 40 padding: Inset{left: 20 right: 20} on_click: || submit()
-                draw_bg +: {border_radius: 20.0 color: #x007aff color_hover: #x0a84ff color_down: #x0062cc border_size: 0.0}
-                draw_text +: {color: #xffffff color_hover: #xffffff color_down: #xffffff text_style +: {font_size: 15}}}
-        }
+    }
     }
 }
 "##
